@@ -1,0 +1,112 @@
+{
+  "cases": {
+    "v2_1fg": {
+      "delta_vfb_V": -1.8e-13,
+      "device": "V2_Ge_1FG",
+      "local_fields_V_m": [
+        52690803.66654657
+      ],
+      "mean_occupation_by_fg": [
+        4e-14
+      ],
+      "n_fgs": 1,
+      "qfg_C_m2": 0.0,
+      "qfg_by_fg_C_m2": [
+        0.0
+      ],
+      "transport_transmission": [
+        0.0
+      ]
+    },
+    "v2_2fg": {
+      "delta_vfb_V": -0.0,
+      "device": "V2_Ge_2FG",
+      "local_fields_V_m": [
+        37636288.33324391,
+        37636288.33324391
+      ],
+      "mean_occupation_by_fg": [
+        0.0,
+        0.0
+      ],
+      "n_fgs": 2,
+      "qfg_C_m2": 0.0,
+      "qfg_by_fg_C_m2": [
+        0.0,
+        0.0
+      ],
+      "transport_transmission": [
+        8.33781e-09,
+        0.0
+      ]
+    },
+    "v2_3fg": {
+      "delta_vfb_V": -0.0,
+      "device": "V2_Ge_3FG",
+      "local_fields_V_m": [
+        29272668.703634147,
+        29272668.703634147,
+        29272668.703634147
+      ],
+      "mean_occupation_by_fg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "n_fgs": 3,
+      "qfg_C_m2": 0.0,
+      "qfg_by_fg_C_m2": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "transport_transmission": [
+        5.24631e-09,
+        5.24631e-09,
+        0.0
+      ]
+    }
+  },
+  "retention": {
+    "delta_vfb_V": [
+      -0.0,
+      -0.0,
+      -0.0,
+      -0.0,
+      -0.0,
+      -0.0,
+      -0.0,
+      -0.0,
+      -0.0
+    ],
+    "device": "V2_Ge_3FG",
+    "final_occupation_by_fg": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "qfg_C_m2": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "time_s": [
+      0.0,
+      1e-07,
+      3.7275937e-07,
+      1.38949549e-06,
+      5.17947468e-06,
+      1.930697729e-05,
+      7.19685673e-05,
+      0.00026826957953,
+      0.001
+    ]
+  },
+  "schema_version": 1
+}

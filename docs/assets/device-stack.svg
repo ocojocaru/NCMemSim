@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" role="img" aria-labelledby="title desc">
+<title id="title">Supported NCMemSim device stacks</title><desc id="desc">Schematic comparison of V1 and V2 nanocrystal floating-gate memory architectures.</desc>
+<rect width="1200" height="820" rx="24" fill="#F5F9FC"/><text x="600" y="58" text-anchor="middle" font-family="Inter,Arial" font-size="34" font-weight="750" fill="#0B1F33">Supported device architectures</text>
+<g font-family="Inter,Arial" text-anchor="middle">
+<text x="310" y="112" font-size="26" font-weight="700" fill="#0B1F33">V1 · hybrid HfO₂/SiO₂</text><text x="890" y="112" font-size="26" font-weight="700" fill="#0B1F33">V2 · SiO₂ stack</text>
+</g>
+<g transform="translate(115 145)" font-family="Inter,Arial" text-anchor="middle">
+<rect width="390" height="55" rx="10" fill="#0B1F33"/><text x="195" y="35" font-size="20" fill="white">Gate</text>
+<rect y="70" width="390" height="58" rx="10" fill="#A8CCE4"/><text x="195" y="106" font-size="19" fill="#16324F">HfO₂ control</text>
+<rect y="138" width="390" height="45" rx="10" fill="#D5E7F3"/><text x="195" y="167" font-size="17" fill="#16324F">SiO₂</text>
+<g transform="translate(0 198)">
+<rect width="390" height="92" rx="10" fill="white" stroke="#1976D2" stroke-width="3"/><text x="195" y="28" font-size="17" font-weight="700" fill="#0B1F33">FG1 · Ge/GeSn nanocrystals</text><g fill="#F59E0B"><circle cx="110" cy="61" r="17"/><circle cx="195" cy="61" r="17"/><circle cx="280" cy="61" r="17"/></g>
+<rect y="102" width="390" height="40" rx="8" fill="#D5E7F3"/><text x="195" y="128" font-size="16" fill="#16324F">tunnel SiO₂</text>
+<rect y="152" width="390" height="92" rx="10" fill="white" stroke="#00897B" stroke-width="3"/><text x="195" y="180" font-size="17" font-weight="700" fill="#0B1F33">FG2 · Ge/GeSn nanocrystals</text><g fill="#F59E0B"><circle cx="110" cy="213" r="17"/><circle cx="195" cy="213" r="17"/><circle cx="280" cy="213" r="17"/></g>
+<rect y="254" width="390" height="40" rx="8" fill="#D5E7F3"/><text x="195" y="280" font-size="16" fill="#16324F">tunnel SiO₂</text>
+<rect y="304" width="390" height="92" rx="10" fill="white" stroke="#7C3AED" stroke-width="3"/><text x="195" y="332" font-size="17" font-weight="700" fill="#0B1F33">FG3 · Ge/GeSn nanocrystals</text><g fill="#F59E0B"><circle cx="110" cy="365" r="17"/><circle cx="195" cy="365" r="17"/><circle cx="280" cy="365" r="17"/></g>
+<rect y="406" width="390" height="40" rx="8" fill="#D5E7F3"/><text x="195" y="432" font-size="16" fill="#16324F">tunnel SiO₂</text>
+</g>
+<rect y="654" width="390" height="60" rx="10" fill="#1976D2"/><text x="195" y="692" font-size="20" fill="white">Si substrate</text>
+</g>
+<g transform="translate(695 145)" font-family="Inter,Arial" text-anchor="middle">
+<rect width="390" height="55" rx="10" fill="#0B1F33"/><text x="195" y="35" font-size="20" fill="white">Gate</text>
+<rect y="70" width="390" height="90" rx="10" fill="#D5E7F3"/><text x="195" y="123" font-size="19" fill="#16324F">SiO₂ control</text>
+<g transform="translate(0 175)">
+<rect width="390" height="92" rx="10" fill="white" stroke="#1976D2" stroke-width="3"/><text x="195" y="28" font-size="17" font-weight="700" fill="#0B1F33">FG1 · Ge/GeSn nanocrystals</text><g fill="#F59E0B"><circle cx="110" cy="61" r="17"/><circle cx="195" cy="61" r="17"/><circle cx="280" cy="61" r="17"/></g>
+<rect y="102" width="390" height="48" rx="8" fill="#D5E7F3"/><text x="195" y="132" font-size="16" fill="#16324F">inter-FG SiO₂</text>
+<rect y="160" width="390" height="92" rx="10" fill="white" stroke="#00897B" stroke-width="3"/><text x="195" y="188" font-size="17" font-weight="700" fill="#0B1F33">FG2 · Ge/GeSn nanocrystals</text><g fill="#F59E0B"><circle cx="110" cy="221" r="17"/><circle cx="195" cy="221" r="17"/><circle cx="280" cy="221" r="17"/></g>
+<rect y="262" width="390" height="48" rx="8" fill="#D5E7F3"/><text x="195" y="292" font-size="16" fill="#16324F">inter-FG SiO₂</text>
+<rect y="320" width="390" height="92" rx="10" fill="white" stroke="#7C3AED" stroke-width="3"/><text x="195" y="348" font-size="17" font-weight="700" fill="#0B1F33">FG3 · Ge/GeSn nanocrystals</text><g fill="#F59E0B"><circle cx="110" cy="381" r="17"/><circle cx="195" cy="381" r="17"/><circle cx="280" cy="381" r="17"/></g>
+<rect y="422" width="390" height="48" rx="8" fill="#D5E7F3"/><text x="195" y="452" font-size="16" fill="#16324F">tunnel SiO₂</text>
+</g>
+<rect y="654" width="390" height="60" rx="10" fill="#1976D2"/><text x="195" y="692" font-size="20" fill="white">Si substrate</text>
+</g>
+<text x="600" y="792" text-anchor="middle" font-family="Inter,Arial" font-size="18" fill="#61758A">Each floating gate has independent material, composition, geometry, occupancy and spatial discretization.</text>
+</svg>

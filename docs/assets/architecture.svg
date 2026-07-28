@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 650" role="img" aria-labelledby="title desc">
+<title id="title">NCMemSim software architecture</title><desc id="desc">Layered data flow from device definition to validation and reproducibility outputs.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#1976D2"/></marker><filter id="s"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-opacity=".15"/></filter></defs>
+<rect width="1400" height="650" rx="24" fill="#F5F9FC"/>
+<text x="700" y="58" text-anchor="middle" font-family="Inter,Arial" font-size="34" font-weight="750" fill="#0B1F33">NCMemSim software architecture</text>
+<g font-family="Inter,Arial" text-anchor="middle" filter="url(#s)">
+<g><rect x="70" y="130" width="250" height="110" rx="18" fill="white" stroke="#1976D2" stroke-width="3"/><text x="195" y="174" font-size="23" font-weight="700" fill="#0B1F33">Device definition</text><text x="195" y="207" font-size="17" fill="#61758A">layers · materials · geometry</text></g>
+<g><rect x="410" y="130" width="250" height="110" rx="18" fill="white" stroke="#00897B" stroke-width="3"/><text x="535" y="174" font-size="23" font-weight="700" fill="#0B1F33">State model</text><text x="535" y="207" font-size="17" fill="#61758A">P₀ · P₁ · P₂ per FG</text></g>
+<g><rect x="750" y="105" width="260" height="150" rx="18" fill="white" stroke="#F59E0B" stroke-width="3"/><text x="880" y="148" font-size="23" font-weight="700" fill="#0B1F33">Physics engines</text><text x="880" y="183" font-size="17" fill="#61758A">electrostatics · fields</text><text x="880" y="211" font-size="17" fill="#61758A">WKB · kinetics · transport</text></g>
+<g><rect x="1090" y="130" width="240" height="110" rx="18" fill="white" stroke="#7C3AED" stroke-width="3"/><text x="1210" y="174" font-size="23" font-weight="700" fill="#0B1F33">Simulation</text><text x="1210" y="207" font-size="17" fill="#61758A">sweeps · retention</text></g>
+<g><rect x="350" y="380" width="300" height="120" rx="18" fill="white" stroke="#1976D2" stroke-width="3"/><text x="500" y="426" font-size="23" font-weight="700" fill="#0B1F33">Scientific outputs</text><text x="500" y="460" font-size="17" fill="#61758A">QFG · ΔVFB · E(z) · fluxes</text></g>
+<g><rect x="750" y="380" width="300" height="120" rx="18" fill="white" stroke="#00897B" stroke-width="3"/><text x="900" y="426" font-size="23" font-weight="700" fill="#0B1F33">Quality layer</text><text x="900" y="460" font-size="17" fill="#61758A">validation · golden · benchmark</text></g>
+<g><rect x="550" y="548" width="300" height="70" rx="18" fill="#0B1F33"/><text x="700" y="592" font-size="22" font-weight="700" fill="white">Reproducible simulation record</text></g>
+</g>
+<g fill="none" stroke="#1976D2" stroke-width="4" marker-end="url(#arrow)"><path d="M320 185 H400"/><path d="M660 185 H740"/><path d="M1010 185 H1080"/><path d="M1210 240 C1210 320 1000 325 930 370"/><path d="M880 255 C840 315 670 330 560 370"/><path d="M650 440 H740"/><path d="M500 500 C530 540 600 555 650 565"/><path d="M900 500 C870 540 800 555 750 565"/></g>
+</svg>

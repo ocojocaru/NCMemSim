@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use NCMemSim in research, cite the exact software version and this repository."
+title: "NCMemSim: Nanocrystal Memory Simulation Platform"
+type: software
+version: 0.9.1
+date-released: 2026-07-28
+license: Apache-2.0
+authors:
+  - family-names: Cojocaru
+    given-names: Ovidiu
+repository-code: "https://github.com/ocojocaru/NCMemSim"
+abstract: >-
+  A modular Python framework for simulation and design-technology
+  co-optimization of Ge/GeSn nanocrystal non-volatile memories,
+  including multi-floating-gate state dynamics, compact electrostatics,
+  local fields, WKB tunnelling, charge redistribution, retention,
+  validation, and reproducibility tools.
+keywords:
+  - nanocrystal memory
+  - non-volatile memory
+  - GeSn
+  - floating gate
+  - tunnelling
+  - retention
+  - DTCO

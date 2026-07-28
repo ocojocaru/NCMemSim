@@ -1,0 +1,26 @@
+{
+  "records": [
+    {
+      "case": "v2_1fg",
+      "elapsed_s": 0.012358726999991632,
+      "n_fgs": 1,
+      "peak_memory_bytes": 23801,
+      "qfg_C_m2": 1.532557885183897e-16
+    },
+    {
+      "case": "v2_2fg",
+      "elapsed_s": 0.02630865499986612,
+      "n_fgs": 2,
+      "peak_memory_bytes": 32249,
+      "qfg_C_m2": 3.453294243614277e-20
+    },
+    {
+      "case": "v2_3fg",
+      "elapsed_s": 0.03714599399995677,
+      "n_fgs": 3,
+      "peak_memory_bytes": 37418,
+      "qfg_C_m2": 2.4220657248089423e-20
+    }
+  ],
+  "schema_version": 1
+}

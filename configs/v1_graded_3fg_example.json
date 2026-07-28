@@ -1,0 +1,14 @@
+{
+  "name": "V1_graded_3FG",
+  "architecture": "V1",
+  "fg_materials": [
+    "Ge",
+    "GeSn_2atpct",
+    "GeSn_10atpct"
+  ],
+  "illumination": {
+    "source_type": "incandescent",
+    "temperature_K": 2800,
+    "power_density_W_m2": 100
+  }
+}

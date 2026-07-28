@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ncmemsim"
+dynamic = ["version"]
+description = "Unified Nanocrystal Memory Simulation Platform"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.26"]
+license = { file = "LICENSE" }
+authors = [
+    { name = "Ovidiu Cojocaru" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5",
+    "mypy>=1.10",
+    "build>=1.2",
+]
+docs = [
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+]
+
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ncmemsim*"]
+exclude = ["tests*", "docs*", "examples*", "scripts*", "validation*", "experimental*", "assets*", "configs*", "results*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "ncmemsim._version.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[project.urls]
+Documentation = "https://ocojocaru.github.io/NCMemSim/"
+Repository = "https://github.com/ocojocaru/NCMemSim"
+Issues = "https://github.com/ocojocaru/NCMemSim/issues"

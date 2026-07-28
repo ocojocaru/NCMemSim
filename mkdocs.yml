@@ -1,0 +1,65 @@
+site_name: NCMemSim
+site_description: Nanocrystal Memory Simulation and DTCO Platform
+site_author: Ovidiu Cojocaru
+repo_name: NCMemSim
+repo_url: https://github.com/ocojocaru/NCMemSim
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  logo: assets/logo-mark.svg
+  favicon: assets/logo-mark.svg
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Installation: installation.md
+      - Quick start: quickstart.md
+      - Scientific workflows: workflows.md
+  - Scientific model:
+      - Scope and assumptions: scientific_scope.md
+      - Device and state model: device_model.md
+      - Physics overview: physics.md
+      - Electrostatics and fields: electrostatics.md
+      - Transport and retention: transport_retention.md
+      - Materials and provenance: materials.md
+      - Glossary and notation: glossary.md
+  - Quality and reproducibility:
+      - Validation overview: validation.md
+      - Reproducibility and benchmarks: reproducibility.md
+      - Phase D6 validation report: Validation_Report.md
+  - Project:
+      - Visual identity: branding.md
+  - Software reference:
+      - Architecture: architecture.md
+      - Public API: api.md
+      - Developer guide: developer.md
+      - Roadmap: roadmap.md
+      - Software design specification: NCMemSim_v6_Software_Design_Specification_Rev1.md
