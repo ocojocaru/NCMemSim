@@ -3,7 +3,7 @@ message: "If you use NCMemSim in research, cite the exact software version and t
 title: "NCMemSim: Nanocrystal Memory Simulation Platform"
 type: software
 version: 0.9.1
-date-released: 2026-07-28
+date-released: 2026-09-09
 license: Apache-2.0
 authors:
   - family-names: Cojocaru

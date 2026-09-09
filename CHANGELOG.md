@@ -2,7 +2,7 @@
 
 All notable changes to NCMemSim are documented in this file.
 
-## [0.9.1] - 2026-07-28
+## [0.9.1] - 2026-09-09
 
 ### Repository Polish — R1: cleanup
 
@@ -36,7 +36,7 @@ All notable changes to NCMemSim are documented in this file.
 - Finalized executable CI, GitHub Pages and tagged-release workflows.
 - Added tag/version verification and automated wheel/source-distribution release assets.
 - Expanded GitHub issue and pull-request templates for scientific-software traceability.
-- Consolidated the cumulative R1–R6 project into the final `v0.9.1` release candidate.
+- Consolidated the cumulative R1–R6 project into the final `v0.9.1` release.
 
 ## 0.4.0 — Phase D1
 
@@ -113,13 +113,3 @@ All notable changes to NCMemSim are documented in this file.
 - Added reproducibility schema v2 with runtime metadata and canonical SHA-256 hashes.
 - Added benchmark instrumentation for execution time and peak traced memory.
 - Added a Scientific Validation Pack, validation report, scripts, and GitHub Actions workflow.
-
-## 0.9.1 - R2
-- Added professional documentation skeleton.
-
-
-## R3 - GitHub Infrastructure
-- Added GitHub Actions
-- Added issue and PR templates
-- Added Dependabot
-- Added CODEOWNERS

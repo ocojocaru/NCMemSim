@@ -29,8 +29,8 @@ This checklist is the release gate for the first public NCMemSim repository and 
 
 Complete these items after creating the GitHub repository:
 
-- [ ] Replace `REPLACE-WITH-OWNER` in `CITATION.cff` and `mkdocs.yml` with the final GitHub owner.
-- [ ] Confirm the default branch is `main`.
+- [x] Final GitHub owner `ocojocaru` is configured in repository metadata and MkDocs.
+- [x] Confirm the default branch is `main`.
 - [ ] Push the repository and verify the CI and documentation workflows.
 - [ ] Configure GitHub Pages to use **GitHub Actions**.
 - [ ] Create and push the annotated tag `v0.9.1`.

@@ -14,7 +14,7 @@ mkdocs.yml
 Change:
 
 ```text
-REPLACE-WITH-OWNER
+ocojocaru
 ```
 
 to the exact GitHub account or organization name that owns the repository.
@@ -56,7 +56,7 @@ git commit -m "Release NCMemSim v0.9.1"
 Use the repository URL displayed by GitHub:
 
 ```bash
-git remote add origin https://github.com/<OWNER>/NCMemSim.git
+git remote add origin https://github.com/ocojocaru/NCMemSim.git
 git push -u origin main
 ```
 

@@ -21,4 +21,4 @@ Verification was run on the cumulative R1–R6 release candidate packaged from t
 
 ## Intentional placeholder
 
-`REPLACE-WITH-OWNER` remains in `CITATION.cff`, `mkdocs.yml`, and `pyproject.toml`. Replace it with the final GitHub owner before the first commit and before tagging `v0.9.1`.
+The final GitHub owner `ocojocaru` is configured in `CITATION.cff`, `mkdocs.yml`, and `pyproject.toml`.
