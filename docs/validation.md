@@ -10,6 +10,36 @@ NCMemSim separates three ideas that are often conflated:
 
 The v0.9.1 repository has strong verification and regression infrastructure. Experimental validation remains device- and dataset-dependent and must be demonstrated in the associated scientific study.
 
+## v0.9.1 release validation
+
+The v0.9.1 release candidate was subjected to a complete regression and
+release-validation pass.
+
+The automated suite contains **63 tests**, covering Phases A through D6 and
+the V5.3 legacy regression path. The complete suite passes locally on
+Python 3.13 and in GitHub Actions on Python 3.11, 3.12, and 3.13.
+
+The Phase B regression suite explicitly compares the modular implementation
+against the retained V5.3 reference for electrostatics, WKB tunnelling,
+occupancy kinetics, single-voltage relaxation, and compact C–V sweeps.
+
+During this validation, a timestep inconsistency was identified in the retained
+V5.3 reference implementation. When the requested dwell time was shorter than
+the legacy internal timestep, the legacy code forced one integration step but
+advanced the state using the larger internal timestep. This could produce an
+effective relaxation interval larger than the requested dwell time.
+
+The retained legacy implementation was corrected to use
+
+`actual_dt = dwell_time / nsteps`
+
+so that the integrated interval is exactly the requested dwell time. After
+alignment of the V5.3 reference parameters and correction of this timestep
+behavior, all Phase B regression tests pass.
+
+This correction is documented as a legacy-reference bug fix rather than a
+change to the validated modular NCMemSim timestep implementation.
+
 ## Test suite
 
 Run all tests with:

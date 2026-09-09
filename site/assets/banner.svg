@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 520" role="img" aria-labelledby="title desc">
+<title id="title">NCMemSim banner</title><desc id="desc">NCMemSim project banner showing a multilayer floating-gate memory and simulation flow.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#071522"/><stop offset=".58" stop-color="#0B1F33"/><stop offset="1" stop-color="#103B61"/></linearGradient>
+<linearGradient id="line" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#26C6DA"/><stop offset="1" stop-color="#1976D2"/></linearGradient>
+<filter id="shadow"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-opacity=".25"/></filter>
+</defs>
+<rect width="1600" height="520" rx="28" fill="url(#bg)"/>
+<g opacity=".18" stroke="#26C6DA" fill="none"><path d="M0 420 C260 310 360 500 620 380 S1020 300 1600 410" stroke-width="3"/><path d="M0 455 C250 345 420 520 690 405 S1120 330 1600 450" stroke-width="2"/></g>
+<g transform="translate(90 72)">
+<text x="0" y="84" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="92" font-weight="780" fill="#FFFFFF">NCMemSim</text>
+<text x="2" y="139" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="29" font-weight="650" fill="#26C6DA">Nanocrystal Memory Simulation Platform</text>
+<text x="2" y="200" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="26" fill="#D7E8F5">Design–Technology Co-Optimization for emerging</text>
+<text x="2" y="235" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="26" fill="#D7E8F5">Ge/GeSn distributed floating-gate memories</text>
+<g transform="translate(2 285)">
+<rect width="182" height="46" rx="23" fill="#1976D2"/><text x="91" y="30" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" font-weight="650" fill="white">Electrostatics</text>
+<rect x="196" width="144" height="46" rx="23" fill="#00897B"/><text x="268" y="30" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" font-weight="650" fill="white">Transport</text>
+<rect x="354" width="140" height="46" rx="23" fill="#7C3AED"/><text x="424" y="30" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" font-weight="650" fill="white">Retention</text>
+<rect x="508" width="150" height="46" rx="23" fill="#F59E0B"/><text x="583" y="30" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" font-weight="650" fill="#071522">Validation</text>
+</g></g>
+<g transform="translate(1060 53)" filter="url(#shadow)">
+<rect x="0" y="0" width="400" height="410" rx="28" fill="#F8FBFE"/>
+<text x="200" y="42" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#0B1F33">MULTI-FLOATING-GATE DEVICE</text>
+<g transform="translate(66 66)">
+<rect width="268" height="38" rx="8" fill="#0B1F33"/><text x="134" y="25" text-anchor="middle" font-family="Arial" font-size="16" fill="white">Gate</text>
+<rect y="48" width="268" height="38" rx="8" fill="#B8D5EA"/><text x="134" y="73" text-anchor="middle" font-family="Arial" font-size="15" fill="#16324F">Control dielectric</text>
+<rect y="96" width="268" height="42" rx="8" fill="#E8F3FA" stroke="#1976D2" stroke-width="2"/>
+<rect y="148" width="268" height="42" rx="8" fill="#E8F3FA" stroke="#1976D2" stroke-width="2"/>
+<rect y="200" width="268" height="42" rx="8" fill="#E8F3FA" stroke="#1976D2" stroke-width="2"/>
+<g fill="#F59E0B" stroke="white" stroke-width="3"><circle cx="62" cy="117" r="13"/><circle cx="134" cy="117" r="13"/><circle cx="206" cy="117" r="13"/><circle cx="62" cy="169" r="13"/><circle cx="134" cy="169" r="13"/><circle cx="206" cy="169" r="13"/><circle cx="62" cy="221" r="13"/><circle cx="134" cy="221" r="13"/><circle cx="206" cy="221" r="13"/></g>
+<text x="12" y="122" font-family="Arial" font-size="14" fill="#0B1F33">FG1</text><text x="12" y="174" font-family="Arial" font-size="14" fill="#0B1F33">FG2</text><text x="12" y="226" font-family="Arial" font-size="14" fill="#0B1F33">FG3</text>
+<rect y="252" width="268" height="38" rx="8" fill="#B8D5EA"/><text x="134" y="277" text-anchor="middle" font-family="Arial" font-size="15" fill="#16324F">Tunnel dielectric</text>
+<rect y="300" width="268" height="40" rx="8" fill="#1976D2"/><text x="134" y="326" text-anchor="middle" font-family="Arial" font-size="16" fill="white">Si substrate</text>
+<path d="M134 138 L134 148 M134 190 L134 200 M134 242 L134 252" stroke="#26C6DA" stroke-width="5"/>
+</g></g>
+</svg>

@@ -17,12 +17,17 @@
 - adaptive retention and charge redistribution;
 - scientific validation pack, golden references, benchmarks, and reproducibility manifests.
 
-### v0.9.1: Repository polish
+### v0.9.1: Release validation and repository polish
 
 - R1: repository cleanup, Apache-2.0, centralized version, public API cleanup;
 - R2: professional project and scientific documentation;
 - R3: GitHub collaboration and CI infrastructure;
-- R4: expanded scientific manual and publication-ready assets.
+- R4: expanded scientific manual and publication-ready assets;
+- R5–R6: branding, reproducibility, and release engineering;
+- complete 63-test release-validation suite;
+- V5.3 regression alignment and correction of the legacy timestep inconsistency;
+- continuous-integration validation on Python 3.11, 3.12, and 3.13;
+- verified wheel and source-distribution build and clean wheel installation.
 
 ## Planned scientific releases
 

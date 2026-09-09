@@ -35,6 +35,23 @@ Validation, golden references, benchmarks, manifest
 
 NCMemSim is intended for mechanism studies and DTCO, not as a full multidimensional TCAD replacement. Its value lies in explicit assumptions, modular physics, transparent per-FG state variables, deterministic regression testing, and a workflow that can be calibrated against experiment.
 
-## Current status
+### Current status
 
-Phase D is closed at v0.9.0, and repository-polish work is collected in v0.9.1. Optical programming, experimental fitting, automated design-space exploration, and advanced quantum corrections remain future development phases.
+NCMemSim v0.9.1 is the current validated release.
+
+The Phase D physics framework is complete and includes multi-floating-gate
+state dynamics, electrostatic coupling, local field profiles, inter-FG
+transport, retention, validation, golden-reference regression, benchmarking,
+and reproducibility support.
+
+The v0.9.1 release also completes repository, documentation, CI, and release
+engineering. The full automated test suite contains 63 tests and is validated
+on Python 3.11, 3.12, and 3.13.
+
+Regression against the legacy V5.3 reference implementation is included in the
+validation suite. During release validation, a legacy timestep inconsistency
+for dwell times shorter than the internal timestep was identified and corrected
+in the retained V5.3 reference implementation.
+
+Optical programming, experimental parameter fitting, automated design-space
+exploration, and advanced quantum corrections remain planned development areas.

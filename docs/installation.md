@@ -1,10 +1,22 @@
 # Installation
 
-## Requirements
+### Requirements
 
 - Python 3.11 or newer
 - NumPy 1.26 or newer
-- `pytest`, `ruff`, and `mypy` for development
+- Python 3.11, 3.12, and 3.13 are tested by the continuous-integration suite
+
+Development dependencies include:
+
+- `pytest`
+- `ruff`
+- `mypy`
+- `build`
+- `matplotlib`
+
+`matplotlib` is required by the retained V5.3 legacy regression reference and
+is therefore included in the development dependency set rather than the
+minimal NCMemSim runtime dependencies.
 
 ## Editable installation
 
