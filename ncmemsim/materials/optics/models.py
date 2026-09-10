@@ -10,7 +10,9 @@ from ..provenance import (
     ParameterProvenance,
     ParameterStatus,
 )
+
 from ...constants import (
+    BOLTZMANN_J_K,
     ELEMENTARY_CHARGE_C,
     LIGHT_SPEED_M_S,
     PLANCK_J_S,
@@ -150,6 +152,17 @@ ABSORPTION_COEFFICIENT_PROVENANCE = ParameterProvenance(
         "Numerical direct, indirect and Urbach amplitudes are "
         "provisional. Do not use for quantitative publication "
         "before calibration against experimental absorption data."
+    ),
+    parameter_set="gesn-absorption-compact-v1",
+)
+
+PHONON_OCCUPATION_PROVENANCE = ParameterProvenance(
+    source="Bose-Einstein phonon occupation",
+    status=ParameterStatus.LITERATURE,
+    notes=(
+        "Thermal phonon occupation uses the Bose-Einstein "
+        "distribution. The phonon energy and indirect absorption "
+        "amplitude remain model parameters."
     ),
     parameter_set="gesn-absorption-compact-v1",
 )
@@ -295,21 +308,22 @@ class GeSnAbsorptionParameterSet:
 
     direct_prefactor_A: float = 1.0e7
 
-    indirect_absorption_prefactor_m_inv_eV2: float = 1.0e6
-    indirect_emission_prefactor_m_inv_eV2: float = 1.0e6
+    indirect_prefactor_A: float = 1.0e6
     phonon_energy_eV: float = 0.027
 
     urbach_energy_eV: float = 0.012
     urbach_edge_alpha_m_inv: float = 1.0e5
+    
+    temperature_K: float = 300.0
 
     def __post_init__(self) -> None:
         values = (
             self.direct_prefactor_A,
-            self.indirect_absorption_prefactor_m_inv_eV2,
-            self.indirect_emission_prefactor_m_inv_eV2,
+            self.indirect_prefactor_A,
             self.phonon_energy_eV,
             self.urbach_energy_eV,
             self.urbach_edge_alpha_m_inv,
+            self.temperature_K,
         )
 
         if min(values) < 0:
@@ -319,6 +333,12 @@ class GeSnAbsorptionParameterSet:
 
         if self.urbach_energy_eV <= 0:
             raise ValueError("urbach_energy_eV must be positive.")
+            
+        if self.temperature_K <= 0:
+            raise ValueError("temperature_K must be positive.")
+
+        if self.phonon_energy_eV <= 0:
+            raise ValueError("phonon_energy_eV must be positive.")
             
 def urbach_absorption_m_inv(
     photon_energy_eV: float,
@@ -349,6 +369,11 @@ def indirect_absorption_m_inv(
 
     eph = parameters.phonon_energy_eV
 
+    n_ph = phonon_occupation(
+        eph,
+        parameters.temperature_K,
+    )
+
     phonon_absorption = max(
         photon_energy_eV - indirect_gap_eV + eph,
         0.0,
@@ -359,11 +384,9 @@ def indirect_absorption_m_inv(
         0.0,
     )
 
-    return (
-        parameters.indirect_absorption_prefactor_m_inv_eV2
-        * phonon_absorption**2
-        + parameters.indirect_emission_prefactor_m_inv_eV2
-        * phonon_emission**2
+    return parameters.indirect_prefactor_A * (
+        n_ph * phonon_absorption**2
+        + (n_ph + 1.0) * phonon_emission**2
     )
     
 def direct_absorption_m_inv(
@@ -446,10 +469,6 @@ class CompositeGeSnAbsorptionModel:
             + alpha_urbach
         )
         
-        provenance = {
-            "model_form": ABSORPTION_MODEL_PROVENANCE,
-            "coefficients": ABSORPTION_COEFFICIENT_PROVENANCE,
-        },
 
         return OpticalPoint(
             wavelength_nm=wavelength_nm,
@@ -463,6 +482,27 @@ class CompositeGeSnAbsorptionModel:
             provenance={
                 "model_form": ABSORPTION_MODEL_PROVENANCE,
                 "coefficients": ABSORPTION_COEFFICIENT_PROVENANCE,
+                "phonon_occupation": PHONON_OCCUPATION_PROVENANCE,
             },
         )
         
+def phonon_occupation(
+    phonon_energy_eV: float,
+    temperature_K: float,
+) -> float:
+    """
+    Bose-Einstein occupation number for a phonon mode.
+    """
+    if phonon_energy_eV <= 0:
+        raise ValueError("phonon_energy_eV must be positive.")
+
+    if temperature_K <= 0:
+        raise ValueError("temperature_K must be positive.")
+
+    exponent = (
+        phonon_energy_eV
+        * ELEMENTARY_CHARGE_C
+        / (BOLTZMANN_J_K * temperature_K)
+    )
+
+    return 1.0 / math.expm1(exponent)

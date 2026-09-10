@@ -7,6 +7,7 @@ from .models import (
     direct_gap_gesn_eV,
     indirect_gap_gesn_eV,
     photon_energy_eV,
+    phonon_occupation,
 )
 
 __all__ = [
@@ -18,4 +19,5 @@ __all__ = [
     "direct_gap_gesn_eV",
     "indirect_gap_gesn_eV",
     "photon_energy_eV",
+    "phonon_occupation",
 ]

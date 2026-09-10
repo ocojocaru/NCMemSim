@@ -7,17 +7,17 @@ from ncmemsim.materials.provenance import ParameterStatus
 from ncmemsim.materials.optics.models import (
     CompactOpticalMaterialModel,
     GeSnOpticalParameterSet,
+    CompositeGeSnAbsorptionModel,
+    GeSnAbsorptionParameterSet,
     direct_gap_gesn_eV,
     indirect_gap_gesn_eV,
     photon_energy_eV,
-)
-from ncmemsim.materials.optics.models import (
-    CompositeGeSnAbsorptionModel,
-    GeSnAbsorptionParameterSet,
     direct_absorption_m_inv,
     indirect_absorption_m_inv,
+    phonon_occupation,
     urbach_absorption_m_inv,
 )
+
 
 def test_photon_energy_at_1550_nm():
     energy = photon_energy_eV(1550.0)
@@ -303,3 +303,49 @@ def test_composite_absorption_reports_provenance():
     assert point.provenance["model_form"].status == ParameterStatus.LITERATURE
     assert point.provenance["coefficients"].status == ParameterStatus.ASSUMED
     
+def test_phonon_occupation_at_300k():
+    n = phonon_occupation(0.027, 300.0)
+
+    assert n == pytest.approx(0.543, rel=0.02)
+
+
+def test_phonon_occupation_increases_with_temperature():
+    low = phonon_occupation(0.027, 100.0)
+    high = phonon_occupation(0.027, 300.0)
+
+    assert high > low
+
+
+def test_phonon_occupation_approaches_zero_at_low_temperature():
+    n = phonon_occupation(0.027, 10.0)
+
+    assert n < 1.0e-10
+
+
+def test_invalid_phonon_temperature_rejected():
+    with pytest.raises(ValueError):
+        phonon_occupation(0.027, 0.0)
+
+
+def test_invalid_phonon_energy_rejected():
+    with pytest.raises(ValueError):
+        phonon_occupation(0.0, 300.0)
+
+
+def test_indirect_absorption_is_temperature_dependent():
+    cold = GeSnAbsorptionParameterSet(temperature_K=100.0)
+    warm = GeSnAbsorptionParameterSet(temperature_K=300.0)
+
+    alpha_cold = indirect_absorption_m_inv(
+        photon_energy_eV=0.60,
+        indirect_gap_eV=0.55,
+        parameters=cold,
+    )
+
+    alpha_warm = indirect_absorption_m_inv(
+        photon_energy_eV=0.60,
+        indirect_gap_eV=0.55,
+        parameters=warm,
+    )
+
+    assert alpha_warm > alpha_cold
