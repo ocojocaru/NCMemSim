@@ -7,7 +7,15 @@ import numpy as np
 
 from .physics import PhysicsModel
 from .state import DeviceState
-
+from .optics import (
+    LightSource,
+    evaluate_floating_gate_optical_absorption,
+)
+from .photo import (
+    PhotoTransitionConfig,
+    PhotoTransitionWeights,
+    photo_transition_rates_from_optical_result,
+)
 
 @dataclass(frozen=True)
 class SimulationConfig:
@@ -111,6 +119,9 @@ class Simulator:
         gate_voltage_V: float,
         dwell_time_s: float | None = None,
         internal_dt_s: float | None = None,
+        light_source: LightSource | None = None,
+        photo_config: PhotoTransitionConfig | None = None,
+        photo_weights: PhotoTransitionWeights | None = None,
     ):
         state.validate(self.device)
         dwell = self.config.dwell_time_s if dwell_time_s is None else dwell_time_s
@@ -122,6 +133,24 @@ class Simulator:
         fgs = self.device.floating_gates()
         grids = [self.physics.occupancy.grid(fg) for fg in fgs]
         bases = [self._tunnel_base_distance_m(i) for i in range(len(fgs))]
+        photo_rates_by_fg = [None] * len(fgs)
+
+        if light_source is not None:
+            for fg_index, fg in enumerate(fgs):
+                optical_result = evaluate_floating_gate_optical_absorption(
+                    light_source,
+                    fg,
+                )
+
+                photo_rates_by_fg[fg_index] = (
+                    photo_transition_rates_from_optical_result(
+                        optical_result,
+                        fg,
+                        config=photo_config,
+                        weights=photo_weights,
+                    )
+                )
+        
         nsteps = max(1, int(math.ceil(dwell / dt)))
         actual_dt = dwell / nsteps
         rates_by_fg = [None] * len(fgs)
@@ -143,6 +172,7 @@ class Simulator:
                 local_field = None
                 if len(fgs) > 1 and electro.local_fields_by_fg_V_m is not None:
                     local_field = electro.local_fields_by_fg_V_m[fg_index]
+                
                 rates = self.physics.occupancy.rates(
                     fg,
                     x_m,
@@ -151,7 +181,17 @@ class Simulator:
                     self.device.temperature_K,
                     field_V_m=local_field,
                 )
+
+                photo_rates = photo_rates_by_fg[fg_index]
+
+                if photo_rates is not None:
+                    rates = self.physics.occupancy.combine_rates(
+                        rates,
+                        photo_rates,
+                    )
+
                 rates_by_fg[fg_index] = rates
+                
                 next_states.append(
                     self.physics.occupancy.step(
                         current.floating_gates[fg_index], rates, actual_dt
