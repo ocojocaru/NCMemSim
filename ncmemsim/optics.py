@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any
+import math
 
 from .constants import (
     ELEMENTARY_CHARGE_C,
@@ -145,3 +146,132 @@ class LightSource:
 
     def to_dict(self) -> dict[str, Any]:
         return self.__dict__.copy()
+
+@dataclass(frozen=True)
+class AbsorbedPhotonFlux:
+    incident_flux_m2_s: float
+    absorbed_flux_m2_s: float
+    transmitted_flux_m2_s: float
+    absorption_fraction: float
+    transmission_fraction: float
+    absorption_coefficient_m_inv: float
+    thickness_m: float
+
+    def __post_init__(self) -> None:
+        if self.incident_flux_m2_s < 0:
+            raise ValueError("incident_flux_m2_s cannot be negative.")
+
+        if self.absorbed_flux_m2_s < 0:
+            raise ValueError("absorbed_flux_m2_s cannot be negative.")
+
+        if self.transmitted_flux_m2_s < 0:
+            raise ValueError("transmitted_flux_m2_s cannot be negative.")
+
+        if not 0.0 <= self.absorption_fraction <= 1.0:
+            raise ValueError("absorption_fraction must be in [0, 1].")
+
+        if not 0.0 <= self.transmission_fraction <= 1.0:
+            raise ValueError("transmission_fraction must be in [0, 1].")
+
+def beer_lambert_absorption_fraction(
+    absorption_coefficient_m_inv: float,
+    thickness_m: float,
+) -> float:
+    if absorption_coefficient_m_inv < 0:
+        raise ValueError(
+            "absorption_coefficient_m_inv cannot be negative."
+        )
+
+    if thickness_m < 0:
+        raise ValueError("thickness_m cannot be negative.")
+
+    optical_depth = (
+        absorption_coefficient_m_inv * thickness_m
+    )
+
+    return -math.expm1(-optical_depth)
+
+
+def absorbed_photon_flux(
+    incident_flux_m2_s: float,
+    absorption_coefficient_m_inv: float,
+    thickness_m: float,
+) -> AbsorbedPhotonFlux:
+    if incident_flux_m2_s < 0:
+        raise ValueError("incident_flux_m2_s cannot be negative.")
+
+    absorption_fraction = beer_lambert_absorption_fraction(
+        absorption_coefficient_m_inv,
+        thickness_m,
+    )
+
+    transmission_fraction = 1.0 - absorption_fraction
+
+    absorbed = (
+        incident_flux_m2_s * absorption_fraction
+    )
+
+    transmitted = (
+        incident_flux_m2_s * transmission_fraction
+    )
+
+    return AbsorbedPhotonFlux(
+        incident_flux_m2_s=incident_flux_m2_s,
+        absorbed_flux_m2_s=absorbed,
+        transmitted_flux_m2_s=transmitted,
+        absorption_fraction=absorption_fraction,
+        transmission_fraction=transmission_fraction,
+        absorption_coefficient_m_inv=absorption_coefficient_m_inv,
+        thickness_m=thickness_m,
+    )
+    
+def effective_nc_absorption_coefficient(
+    nc_absorption_coefficient_m_inv: float,
+    nc_volume_fraction: float,
+) -> float:
+    """
+    First-order effective absorption coefficient for a nanocrystal
+    composite layer.
+
+    The matrix is assumed optically transparent and scattering is
+    neglected.
+    """
+    if nc_absorption_coefficient_m_inv < 0:
+        raise ValueError(
+            "nc_absorption_coefficient_m_inv cannot be negative."
+        )
+
+    if not 0.0 <= nc_volume_fraction <= 1.0:
+        raise ValueError(
+            "nc_volume_fraction must be in [0, 1]."
+        )
+
+    return (
+        nc_volume_fraction
+        * nc_absorption_coefficient_m_inv
+    )
+
+def floating_gate_absorbed_photon_flux(
+    incident_flux_m2_s: float,
+    nc_absorption_coefficient_m_inv: float,
+    layer,
+) -> AbsorbedPhotonFlux:
+    """
+    Compute absorbed photon flux in a FloatingGateLayer using a
+    first-order volume-fraction effective absorption coefficient.
+    """
+    layer.validate()
+
+    alpha_eff = effective_nc_absorption_coefficient(
+        nc_absorption_coefficient_m_inv,
+        layer.nc_volume_fraction,
+    )
+
+    thickness_m = layer.thickness_nm * 1.0e-9
+
+    return absorbed_photon_flux(
+        incident_flux_m2_s=incident_flux_m2_s,
+        absorption_coefficient_m_inv=alpha_eff,
+        thickness_m=thickness_m,
+    )
+    
