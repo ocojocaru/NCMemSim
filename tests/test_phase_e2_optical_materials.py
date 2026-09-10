@@ -11,7 +11,13 @@ from ncmemsim.materials.optics.models import (
     indirect_gap_gesn_eV,
     photon_energy_eV,
 )
-
+from ncmemsim.materials.optics.models import (
+    CompositeGeSnAbsorptionModel,
+    GeSnAbsorptionParameterSet,
+    direct_absorption_m_inv,
+    indirect_absorption_m_inv,
+    urbach_absorption_m_inv,
+)
 
 def test_photon_energy_at_1550_nm():
     energy = photon_energy_eV(1550.0)
@@ -175,3 +181,125 @@ def test_direct_gap_crosses_indirect_gap_with_sn():
 
     assert gap_gamma_ge > gap_l_ge
     assert gap_gamma_10 < gap_l_10
+    
+def test_direct_absorption_zero_below_gamma():
+    ps = GeSnAbsorptionParameterSet()
+
+    alpha = direct_absorption_m_inv(
+        photon_energy_eV=0.7,
+        direct_gap_eV=0.8,
+        parameters=ps,
+    )
+
+    assert alpha == 0.0
+
+
+def test_direct_absorption_positive_above_gamma():
+    ps = GeSnAbsorptionParameterSet()
+
+    alpha = direct_absorption_m_inv(
+        photon_energy_eV=1.0,
+        direct_gap_eV=0.8,
+        parameters=ps,
+    )
+
+    assert alpha > 0.0
+
+
+def test_indirect_absorption_zero_far_below_l_edge():
+    ps = GeSnAbsorptionParameterSet()
+
+    alpha = indirect_absorption_m_inv(
+        photon_energy_eV=0.5,
+        indirect_gap_eV=0.7,
+        parameters=ps,
+    )
+
+    assert alpha == 0.0
+
+
+def test_indirect_absorption_positive_above_l_edge():
+    ps = GeSnAbsorptionParameterSet()
+
+    alpha = indirect_absorption_m_inv(
+        photon_energy_eV=0.8,
+        indirect_gap_eV=0.7,
+        parameters=ps,
+    )
+
+    assert alpha > 0.0
+
+
+def test_urbach_positive_below_gamma_edge():
+    ps = GeSnAbsorptionParameterSet()
+
+    alpha = urbach_absorption_m_inv(
+        photon_energy_eV=0.79,
+        direct_gap_eV=0.8,
+        parameters=ps,
+    )
+
+    assert alpha > 0.0
+
+
+def test_urbach_zero_above_gamma_edge():
+    ps = GeSnAbsorptionParameterSet()
+
+    alpha = urbach_absorption_m_inv(
+        photon_energy_eV=0.81,
+        direct_gap_eV=0.8,
+        parameters=ps,
+    )
+
+    assert alpha == 0.0
+
+
+def test_composite_absorption_is_sum_of_components():
+    material = make_gesn(0.08)
+    model = CompositeGeSnAbsorptionModel()
+
+    point = model.evaluate(material, 2000.0)
+
+    expected = (
+        point.alpha_direct_m_inv
+        + point.alpha_indirect_m_inv
+        + point.alpha_urbach_m_inv
+    )
+
+    assert math.isclose(
+        point.absorption_coefficient_m_inv,
+        expected,
+        rel_tol=1e-14,
+    )
+
+
+def test_composite_model_reports_both_band_edges():
+    material = make_gesn(0.08)
+    model = CompositeGeSnAbsorptionModel()
+
+    point = model.evaluate(material, 2000.0)
+
+    assert point.direct_gap_eV is not None
+    assert point.indirect_gap_eV is not None
+    
+def test_optics_public_api_exports_composite_model():
+    from ncmemsim.materials.optics import (
+        CompositeGeSnAbsorptionModel,
+        GeSnAbsorptionParameterSet,
+        GeSnOpticalParameterSet,
+    )
+
+    assert CompositeGeSnAbsorptionModel is not None
+    assert GeSnAbsorptionParameterSet is not None
+    assert GeSnOpticalParameterSet is not None
+    
+def test_composite_absorption_reports_provenance():
+    material = make_gesn(0.08)
+    model = CompositeGeSnAbsorptionModel()
+
+    point = model.evaluate(material, 2000.0)
+
+    assert point.provenance is not None
+    assert point.provenance["model_form"].status == ParameterStatus.LITERATURE
+    assert point.provenance["coefficients"].status == ParameterStatus.ASSUMED
+    

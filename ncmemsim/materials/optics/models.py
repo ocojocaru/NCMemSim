@@ -16,15 +16,25 @@ from ...constants import (
     PLANCK_J_S,
 )
 
+from typing import Mapping
 
 @dataclass(frozen=True)
 class OpticalPoint:
     wavelength_nm: float
     photon_energy_eV: float
     absorption_coefficient_m_inv: float
+
     direct_gap_eV: float | None = None
+    indirect_gap_eV: float | None = None
+
+    alpha_direct_m_inv: float | None = None
+    alpha_indirect_m_inv: float | None = None
+    alpha_urbach_m_inv: float | None = None
+
     refractive_index: float | None = None
     extinction_coefficient: float | None = None
+    
+    provenance: Mapping[str, ParameterProvenance] | None = None
 
 
 @dataclass(frozen=True)
@@ -91,17 +101,17 @@ DIRECT_GAP_PROVENANCE = ParameterProvenance(
 
 INDIRECT_GAP_PROVENANCE = ParameterProvenance(
     source=(
-        "GeSn L-valley indirect-gap parameterization "
-        "for unstrained bulk material at 300 K"
+        "Compiled GeSn L-valley literature parameterization: "
+        "Eg_L(Ge)=0.664 eV, Eg_L(alpha-Sn)=0.092 eV, "
+        "b_L=0.89 eV"
     ),
     status=ParameterStatus.LITERATURE,
+    doi=None,
     notes=(
-        "Eg_L(Ge)=0.664 eV, "
-        "Eg_L(alpha-Sn)=0.092 eV, "
-        "b_L=0.89 eV. "
-        "The literature reports significant variation in L-valley "
-        "bowing; this parameter set is therefore explicitly versioned. "
-        "Strain and temperature corrections are not included."
+        "Room-temperature unstrained compact parameterization. "
+        "The L-valley bowing is not universal; reported literature "
+        "values vary substantially with model, strain and experiment. "
+        "This parameter set is explicitly versioned."
     ),
     parameter_set="gesn-optical-300K-v1",
 )
@@ -115,6 +125,33 @@ ABSORPTION_PREFACTOR_PROVENANCE = ParameterProvenance(
         "before quantitative optical predictions."
     ),
     parameter_set="gesn-optical-300K-v1",
+)
+
+ABSORPTION_MODEL_PROVENANCE = ParameterProvenance(
+    source=(
+        "Tran et al., Journal of Applied Physics 119, "
+        "103106 (2016)"
+    ),
+    status=ParameterStatus.LITERATURE,
+    doi="10.1063/1.4943652",
+    notes=(
+        "Supports decomposition of GeSn absorption into "
+        "direct-gap, indirect-gap and Urbach-tail contributions. "
+        "Experimental domain: Ge1-xSnx with x=0-0.10, "
+        "1500-2500 nm, room temperature."
+    ),
+    parameter_set="gesn-absorption-compact-v1",
+)
+
+ABSORPTION_COEFFICIENT_PROVENANCE = ParameterProvenance(
+    source="NCMemSim provisional GeSn absorption amplitudes",
+    status=ParameterStatus.ASSUMED,
+    notes=(
+        "Numerical direct, indirect and Urbach amplitudes are "
+        "provisional. Do not use for quantitative publication "
+        "before calibration against experimental absorption data."
+    ),
+    parameter_set="gesn-absorption-compact-v1",
 )
 
 def photon_energy_eV(wavelength_nm: float) -> float:
@@ -244,44 +281,60 @@ class CompactOpticalMaterialModel:
         
 @dataclass(frozen=True)
 class GeSnAbsorptionParameterSet:
+    """
+    Compact Ge/GeSn absorption parameter set.
+
+    Functional forms follow the direct, indirect and Urbach
+    decomposition used for Ge/GeSn optical absorption.
+
+    Numerical amplitudes and broadening parameters remain
+    provisional until experimentally calibrated.
+    """
+
     name: str = "gesn-absorption-compact-v1"
 
+    direct_prefactor_A: float = 1.0e7
+
+    indirect_absorption_prefactor_m_inv_eV2: float = 1.0e6
+    indirect_emission_prefactor_m_inv_eV2: float = 1.0e6
+    phonon_energy_eV: float = 0.027
+
     urbach_energy_eV: float = 0.012
-    urbach_alpha_edge_m_inv: float = 1.0e5
-
-    indirect_prefactor_m_inv_eV2: float = 1.0e6
-    acoustic_phonon_energy_eV: float = 0.027
-
-    direct_prefactor_m_inv_eV_sqrt: float = 1.0e7
+    urbach_edge_alpha_m_inv: float = 1.0e5
 
     def __post_init__(self) -> None:
+        values = (
+            self.direct_prefactor_A,
+            self.indirect_absorption_prefactor_m_inv_eV2,
+            self.indirect_emission_prefactor_m_inv_eV2,
+            self.phonon_energy_eV,
+            self.urbach_energy_eV,
+            self.urbach_edge_alpha_m_inv,
+        )
+
+        if min(values) < 0:
+            raise ValueError(
+                "Absorption-model parameters cannot be negative."
+            )
+
         if self.urbach_energy_eV <= 0:
             raise ValueError("urbach_energy_eV must be positive.")
-
-        if self.urbach_alpha_edge_m_inv < 0:
-            raise ValueError("urbach_alpha_edge_m_inv cannot be negative.")
-
-        if self.indirect_prefactor_m_inv_eV2 < 0:
-            raise ValueError("indirect_prefactor_m_inv_eV2 cannot be negative.")
-
-        if self.acoustic_phonon_energy_eV < 0:
-            raise ValueError("acoustic_phonon_energy_eV cannot be negative.")
-
-        if self.direct_prefactor_m_inv_eV_sqrt < 0:
-            raise ValueError("direct_prefactor_m_inv_eV_sqrt cannot be negative.")
             
 def urbach_absorption_m_inv(
     photon_energy_eV: float,
-    edge_eV: float,
+    direct_gap_eV: float,
     parameters: GeSnAbsorptionParameterSet,
 ) -> float:
-    if photon_energy_eV >= edge_eV:
+    if photon_energy_eV <= 0:
+        raise ValueError("photon_energy_eV must be positive.")
+
+    if photon_energy_eV >= direct_gap_eV:
         return 0.0
 
     return (
-        parameters.urbach_alpha_edge_m_inv
+        parameters.urbach_edge_alpha_m_inv
         * math.exp(
-            (photon_energy_eV - edge_eV)
+            (photon_energy_eV - direct_gap_eV)
             / parameters.urbach_energy_eV
         )
     )
@@ -291,44 +344,53 @@ def indirect_absorption_m_inv(
     indirect_gap_eV: float,
     parameters: GeSnAbsorptionParameterSet,
 ) -> float:
-    eph = parameters.acoustic_phonon_energy_eV
-    ap = parameters.indirect_prefactor_m_inv_eV2
+    if photon_energy_eV <= 0:
+        raise ValueError("photon_energy_eV must be positive.")
 
-    absorption = 0.0
+    eph = parameters.phonon_energy_eV
 
-    term_abs = photon_energy_eV - indirect_gap_eV + eph
-    if term_abs > 0:
-        absorption += ap * term_abs**2
+    phonon_absorption = max(
+        photon_energy_eV - indirect_gap_eV + eph,
+        0.0,
+    )
 
-    term_emit = photon_energy_eV - indirect_gap_eV - eph
-    if term_emit > 0:
-        absorption += ap * term_emit**2
+    phonon_emission = max(
+        photon_energy_eV - indirect_gap_eV - eph,
+        0.0,
+    )
 
-    return absorption
+    return (
+        parameters.indirect_absorption_prefactor_m_inv_eV2
+        * phonon_absorption**2
+        + parameters.indirect_emission_prefactor_m_inv_eV2
+        * phonon_emission**2
+    )
     
 def direct_absorption_m_inv(
     photon_energy_eV: float,
     direct_gap_eV: float,
     parameters: GeSnAbsorptionParameterSet,
 ) -> float:
+    if photon_energy_eV <= 0:
+        raise ValueError("photon_energy_eV must be positive.")
+
     excess = photon_energy_eV - direct_gap_eV
 
     if excess <= 0:
         return 0.0
 
     return (
-        parameters.direct_prefactor_m_inv_eV_sqrt
+        parameters.direct_prefactor_A
         * math.sqrt(excess)
+        / photon_energy_eV
     )
     
 class CompositeGeSnAbsorptionModel:
     """
-    Compact Ge/GeSn absorption model with explicit direct,
-    indirect, and Urbach-tail contributions.
+    Compact Ge/GeSn absorption model.
 
-    The decomposition follows the physical structure used in
-    GeSn optical-property literature, while numerical prefactors
-    remain provisional/calibratable.
+    Band-edge energies are literature-derived.
+    Absorption amplitudes are provisional/calibratable.
     """
 
     def __init__(
@@ -339,7 +401,6 @@ class CompositeGeSnAbsorptionModel:
         self.optical_parameters = (
             optical_parameters or GeSnOpticalParameterSet()
         )
-
         self.absorption_parameters = (
             absorption_parameters or GeSnAbsorptionParameterSet()
         )
@@ -351,43 +412,57 @@ class CompositeGeSnAbsorptionModel:
     ) -> OpticalPoint:
         energy = photon_energy_eV(wavelength_nm)
 
-        direct_gap = direct_gap_gesn_eV(
+        eg_gamma = direct_gap_gesn_eV(
             material.sn_fraction,
             self.optical_parameters,
         )
 
-        # Temporary approximation until an independent L-gap
-        # parameterization is introduced.
-        indirect_gap = material.bandgap_eV
+        eg_l = indirect_gap_gesn_eV(
+            material.sn_fraction,
+            self.optical_parameters,
+        )
 
         alpha_direct = direct_absorption_m_inv(
             energy,
-            direct_gap,
+            eg_gamma,
             self.absorption_parameters,
         )
 
-        alpha_indirect = 0.0
-        if indirect_gap is not None:
-            alpha_indirect = indirect_absorption_m_inv(
-                energy,
-                indirect_gap,
-                self.absorption_parameters,
-            )
+        alpha_indirect = indirect_absorption_m_inv(
+            energy,
+            eg_l,
+            self.absorption_parameters,
+        )
 
         alpha_urbach = urbach_absorption_m_inv(
             energy,
-            direct_gap,
+            eg_gamma,
             self.absorption_parameters,
         )
+
+        alpha_total = (
+            alpha_direct
+            + alpha_indirect
+            + alpha_urbach
+        )
+        
+        provenance = {
+            "model_form": ABSORPTION_MODEL_PROVENANCE,
+            "coefficients": ABSORPTION_COEFFICIENT_PROVENANCE,
+        },
 
         return OpticalPoint(
             wavelength_nm=wavelength_nm,
             photon_energy_eV=energy,
-            absorption_coefficient_m_inv=(
-                alpha_direct
-                + alpha_indirect
-                + alpha_urbach
-            ),
-            direct_gap_eV=direct_gap,
+            absorption_coefficient_m_inv=alpha_total,
+            direct_gap_eV=eg_gamma,
+            indirect_gap_eV=eg_l,
+            alpha_direct_m_inv=alpha_direct,
+            alpha_indirect_m_inv=alpha_indirect,
+            alpha_urbach_m_inv=alpha_urbach,
+            provenance={
+                "model_form": ABSORPTION_MODEL_PROVENANCE,
+                "coefficients": ABSORPTION_COEFFICIENT_PROVENANCE,
+            },
         )
         
