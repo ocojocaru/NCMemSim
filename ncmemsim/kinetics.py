@@ -86,3 +86,25 @@ class OccupancyEngine:
     def charge_density_C_m3(state, density_m3): return ELEMENTARY_CHARGE_C*density_m3*state.occupation
     @staticmethod
     def total_charge_C_m2(rho_C_m3, dx_m): return float(np.sum(rho_C_m3)*dx_m)
+
+    @staticmethod
+    def combine_rates(
+        electrical: RateArrays,
+        photo,
+    ) -> RateArrays:
+        """
+        Combine electrical and photo-assisted occupancy rates.
+    
+        Tunneling probabilities and electric field remain those of the
+        electrical transport model.
+        """
+        return RateArrays(
+            r01=electrical.r01 + photo.r01,
+            r12=electrical.r12 + photo.r12,
+            r21=electrical.r21 + photo.r21,
+            r10=electrical.r10 + photo.r10,
+            tprog=electrical.tprog.copy(),
+            terase=electrical.terase.copy(),
+            field_V_m=electrical.field_V_m.copy(),
+        )
+        
