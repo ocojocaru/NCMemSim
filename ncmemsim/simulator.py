@@ -14,7 +14,7 @@ from .optics import (
 from .photo import (
     PhotoTransitionConfig,
     PhotoTransitionWeights,
-    photo_transition_rates_from_optical_result,
+    evaluate_photo_transition_rates,
 )
 
 @dataclass(frozen=True)
@@ -134,6 +134,8 @@ class Simulator:
         grids = [self.physics.occupancy.grid(fg) for fg in fgs]
         bases = [self._tunnel_base_distance_m(i) for i in range(len(fgs))]
         photo_rates_by_fg = [None] * len(fgs)
+        optical_results_by_fg = [None] * len(fgs)
+        photo_evaluations_by_fg = [None] * len(fgs)
 
         if light_source is not None:
             for fg_index, fg in enumerate(fgs):
@@ -141,16 +143,18 @@ class Simulator:
                     light_source,
                     fg,
                 )
-
-                photo_rates_by_fg[fg_index] = (
-                    photo_transition_rates_from_optical_result(
-                        optical_result,
-                        fg,
-                        config=photo_config,
-                        weights=photo_weights,
-                    )
+                
+                photo_evaluation = evaluate_photo_transition_rates(
+                    optical_result,
+                    fg,
+                    config=photo_config,
+                    weights=photo_weights,
                 )
-        
+                              
+                optical_results_by_fg[fg_index] = optical_result
+                photo_evaluations_by_fg[fg_index] = photo_evaluation
+                photo_rates_by_fg[fg_index] = photo_evaluation.rates
+                     
         nsteps = max(1, int(math.ceil(dwell / dt)))
         actual_dt = dwell / nsteps
         rates_by_fg = [None] * len(fgs)
@@ -250,6 +254,90 @@ class Simulator:
 
         # Aggregate means retain the Phase-B scalar API. For one FG they are
         # bit-for-bit equivalent to the former implementation.
+        
+        if light_source is None:
+            optical_absorption_fraction_by_fg = np.full(
+                len(fgs),
+                np.nan,
+                dtype=float,
+            )
+
+            absorbed_photon_flux_by_fg_m2_s = np.zeros(
+                len(fgs),
+                dtype=float,
+            )
+
+            absorbed_photon_rate_per_nc_by_fg_s = np.zeros(
+                len(fgs),
+                dtype=float,
+            )
+
+            photo_transition_rate_by_fg_s = np.zeros(
+                len(fgs),
+                dtype=float,
+            )
+
+            optical_alpha_nc_by_fg_m_inv = np.full(
+                len(fgs),
+                np.nan,
+                dtype=float,
+            )
+
+            optical_alpha_eff_by_fg_m_inv = np.full(
+                len(fgs),
+                np.nan,
+                dtype=float,
+            )
+
+        else:
+            optical_absorption_fraction_by_fg = np.asarray(
+                [
+                    result.absorption_fraction
+                    for result in optical_results_by_fg
+                ],
+                dtype=float,
+            )
+
+            absorbed_photon_flux_by_fg_m2_s = np.asarray(
+                [
+                    result.absorbed_photon_flux_m2_s
+                    for result in optical_results_by_fg
+                ],
+                dtype=float,
+            )
+
+            absorbed_photon_rate_per_nc_by_fg_s = np.asarray(
+                [
+                    result.absorbed_photon_rate_per_nc_s
+                    for result in photo_evaluations_by_fg
+                ],
+                dtype=float,
+            )
+
+            photo_transition_rate_by_fg_s = np.asarray(
+                [
+                    result.base_photo_transition_rate_s
+                    for result in photo_evaluations_by_fg
+                ],
+                dtype=float,
+            )
+
+            optical_alpha_nc_by_fg_m_inv = np.asarray(
+                [
+                    result.nc_absorption_coefficient_m_inv
+                    for result in optical_results_by_fg
+                ],
+                dtype=float,
+            )
+
+            optical_alpha_eff_by_fg_m_inv = np.asarray(
+                [
+                    result.effective_absorption_coefficient_m_inv
+                    for result in optical_results_by_fg
+                ],
+                dtype=float,
+            )
+        
         return {
             "state": current,
             "rho_C_m3": per_fg[0][1] if len(per_fg) == 1 else [x[1] for x in per_fg],
@@ -284,6 +372,43 @@ class Simulator:
                 [link.transmission for link in transport_links], dtype=float
             ),
             "transport_net_flux_by_fg_m2_s": transport_result.net_electron_flux_by_fg_m2_s.copy(),
+            "optical_absorption_fraction_by_fg":
+                optical_absorption_fraction_by_fg,
+
+            "absorbed_photon_flux_by_fg_m2_s":
+                absorbed_photon_flux_by_fg_m2_s,
+
+            "absorbed_photon_rate_per_nc_by_fg_s":
+                absorbed_photon_rate_per_nc_by_fg_s,
+
+            "photo_transition_rate_by_fg_s":
+                photo_transition_rate_by_fg_s,
+
+            "optical_alpha_nc_by_fg_m_inv":
+                optical_alpha_nc_by_fg_m_inv,
+
+            "optical_alpha_eff_by_fg_m_inv":
+                optical_alpha_eff_by_fg_m_inv,
+                
+            "optical_absorption_fraction": (
+                float(optical_absorption_fraction_by_fg[0])
+                if len(fgs) == 1
+                else (
+                    float(np.nanmean(optical_absorption_fraction_by_fg))
+                    if np.any(np.isfinite(optical_absorption_fraction_by_fg))
+                    else float("nan")
+                )
+            ),
+
+            "absorbed_photon_flux_m2_s": float(
+                np.sum(absorbed_photon_flux_by_fg_m2_s)
+            ),
+
+            "photo_transition_rate_s": (
+                float(photo_transition_rate_by_fg_s[0])
+                if len(fgs) == 1
+                else float(np.mean(photo_transition_rate_by_fg_s))
+            ),
         }
 
     def run_sweep(self, voltages_V, state: DeviceState | None = None):
