@@ -3,13 +3,14 @@ import math
 import pytest
 
 from ncmemsim import make_ge, make_gesn
+from ncmemsim.materials.provenance import ParameterStatus
 from ncmemsim.materials.optics.models import (
     CompactOpticalMaterialModel,
     GeSnOpticalParameterSet,
     direct_gap_gesn_eV,
+    indirect_gap_gesn_eV,
     photon_energy_eV,
 )
-from ncmemsim.materials.provenance import ParameterStatus
 
 
 def test_photon_energy_at_1550_nm():
@@ -113,3 +114,64 @@ def test_direct_gap_10pct_sn_literature_parameterization():
         rel_tol=0.0,
         abs_tol=1e-12,
     )
+
+def test_ge_indirect_gap_endpoint():
+    gap = indirect_gap_gesn_eV(0.0)
+
+    assert math.isclose(
+        gap,
+        GeSnOpticalParameterSet().ge_indirect_gap_eV,
+        rel_tol=0.0,
+        abs_tol=1e-15,
+    )
+
+
+def test_alpha_sn_indirect_gap_endpoint():
+    gap = indirect_gap_gesn_eV(1.0)
+
+    assert math.isclose(
+        gap,
+        GeSnOpticalParameterSet().alpha_sn_indirect_gap_eV,
+        rel_tol=0.0,
+        abs_tol=1e-15,
+    )
+
+
+def test_indirect_gap_10pct_sn():
+    gap = indirect_gap_gesn_eV(0.10)
+
+    expected = (
+        0.90 * 0.664
+        + 0.10 * 0.092
+        - 0.89 * 0.10 * 0.90
+    )
+
+    assert math.isclose(
+        gap,
+        expected,
+        rel_tol=0.0,
+        abs_tol=1e-12,
+    )
+
+
+def test_indirect_gap_property_has_literature_provenance():
+    material = make_gesn(0.10)
+    model = CompactOpticalMaterialModel()
+
+    prop = model.indirect_gap_property(material)
+
+    assert prop.unit == "eV"
+    assert prop.symbol == "E_g^L"
+    assert prop.provenance.status == ParameterStatus.LITERATURE
+    assert prop.provenance.parameter_set == "gesn-optical-300K-v1"
+
+
+def test_direct_gap_crosses_indirect_gap_with_sn():
+    gap_gamma_ge = direct_gap_gesn_eV(0.0)
+    gap_l_ge = indirect_gap_gesn_eV(0.0)
+
+    gap_gamma_10 = direct_gap_gesn_eV(0.10)
+    gap_l_10 = indirect_gap_gesn_eV(0.10)
+
+    assert gap_gamma_ge > gap_l_ge
+    assert gap_gamma_10 < gap_l_10
