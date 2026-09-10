@@ -184,4 +184,32 @@ def photo_transition_rate_arrays(
         r10=np.full(grid_size, w.r10 * base_photo_rate_s),
     )
     
-    
+
+def photo_transition_rates_from_optical_result(
+    optical_result,
+    layer,
+    config: PhotoTransitionConfig | None = None,
+    weights: PhotoTransitionWeights | None = None,
+) -> PhotoTransitionRates:
+    """
+    Convert a floating-gate optical absorption result into
+    photo-assisted occupancy transition-rate arrays.
+    """
+    rate_per_nc = absorbed_photon_rate_per_nc_s(
+        average_generation_rate_m3_s=(
+            optical_result.average_generation_rate_m3_s
+        ),
+        nc_diameter_nm=layer.nc_diameter_nm,
+        nc_volume_fraction=layer.nc_volume_fraction,
+    )
+
+    base_photo_rate = photo_transition_rate_s(
+        absorbed_photon_rate_per_nc_s=rate_per_nc,
+        config=config,
+    )
+
+    return photo_transition_rate_arrays(
+        base_photo_rate_s=base_photo_rate,
+        grid_size=layer.grid_points,
+        weights=weights,
+    )
