@@ -30,22 +30,28 @@ class OpticalPoint:
 @dataclass(frozen=True)
 class GeSnOpticalParameterSet:
     """
-    Parameter set for the compact Ge/GeSn direct-edge optical model.
+    Literature-derived compact Ge/GeSn optical parameter set.
 
-    Values are provisional until replaced by a documented literature
-    parameterization or experimental calibration.
+    The direct-gap parameterization represents unstrained bulk
+    Ge1-xSnx at 300 K. The compact absorption prefactor remains
+    calibratable and is not itself a literature-exact absorption model.
     """
 
-    name: str = "gesn-optical-provisional-v1"
+    name: str = "gesn-optical-300K-v1"
 
-    ge_direct_gap_eV: float = 0.80
-    alpha_sn_direct_gap_eV: float = -0.41
-    direct_gap_bowing_eV: float = 2.9
+    temperature_K: float = 300.0
+
+    ge_direct_gap_eV: float = 0.7985
+    alpha_sn_direct_gap_eV: float = -0.413
+    direct_gap_bowing_eV: float = 2.89
 
     absorption_prefactor_m_inv_eV_sqrt: float = 1.0e7
     broadening_eV: float = 0.0
 
     def __post_init__(self) -> None:
+        if self.temperature_K <= 0:
+            raise ValueError("temperature_K must be positive.")
+
         if self.absorption_prefactor_m_inv_eV_sqrt < 0:
             raise ValueError("Absorption prefactor cannot be negative.")
 
@@ -56,17 +62,34 @@ class GeSnOpticalParameterSet:
             raise ValueError("broadening_eV cannot be negative.")
 
 
-OPTICAL_PROVISIONAL = ParameterProvenance(
-    source="NCMemSim provisional compact Ge/GeSn optical model",
-    status=ParameterStatus.ASSUMED,
-    notes=(
-        "Architecture parameter set for Phase E. "
-        "Replace with literature-derived or calibrated parameters "
-        "before quantitative publication."
+DIRECT_GAP_PROVENANCE = ParameterProvenance(
+    source=(
+        "GeSn direct-gap parameterization at 300 K; "
+        "Ge and alpha-Sn endpoints with composition bowing"
     ),
-    parameter_set="gesn-optical-provisional-v1",
+    status=ParameterStatus.LITERATURE,
+    doi="10.1039/D2NR07107J",
+    notes=(
+        "Unstrained bulk Ge1-xSnx direct Gamma gap at 300 K. "
+        "Eg_Gamma(Ge)=0.7985 eV, "
+        "Eg_Gamma(alpha-Sn)=-0.413 eV, "
+        "b_Gamma=2.89 eV. "
+        "Strain and temperature corrections are not included."
+    ),
+    parameter_set="gesn-optical-300K-v1",
 )
 
+
+ABSORPTION_PREFACTOR_PROVENANCE = ParameterProvenance(
+    source="NCMemSim compact direct-edge absorption approximation",
+    status=ParameterStatus.ASSUMED,
+    notes=(
+        "The compact sqrt(E-Eg) prefactor is not a literature-exact "
+        "GeSn absorption model. It must be calibrated or replaced "
+        "before quantitative optical predictions."
+    ),
+    parameter_set="gesn-optical-300K-v1",
+)
 
 def photon_energy_eV(wavelength_nm: float) -> float:
     if wavelength_nm <= 0:
@@ -117,17 +140,16 @@ class CompactOpticalMaterialModel:
             self.parameters,
         )
 
-        provenance = ParameterProvenance(
-            source=OPTICAL_PROVISIONAL.source,
-            status=OPTICAL_PROVISIONAL.status,
-            notes=OPTICAL_PROVISIONAL.notes,
-            parameter_set=self.parameters.name,
-        )
-
         return MaterialProperty(
             value=gap,
             unit="eV",
-            provenance=provenance,
+            provenance=ParameterProvenance(
+                source=DIRECT_GAP_PROVENANCE.source,
+                status=DIRECT_GAP_PROVENANCE.status,
+                doi=DIRECT_GAP_PROVENANCE.doi,
+                notes=DIRECT_GAP_PROVENANCE.notes,
+                parameter_set=self.parameters.name,
+            ),
             symbol="E_g^Gamma",
         )
 

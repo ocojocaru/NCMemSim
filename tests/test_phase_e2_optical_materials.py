@@ -9,6 +9,7 @@ from ncmemsim.materials.optics.models import (
     direct_gap_gesn_eV,
     photon_energy_eV,
 )
+from ncmemsim.materials.provenance import ParameterStatus
 
 
 def test_photon_energy_at_1550_nm():
@@ -86,11 +87,29 @@ def test_gesn_extends_compact_absorption_to_longer_wavelength():
     )
 
 
-def test_direct_gap_property_has_provenance():
+def test_direct_gap_property_has_literature_provenance():
     material = make_gesn(0.10)
     model = CompactOpticalMaterialModel()
 
     prop = model.direct_gap_property(material)
 
     assert prop.unit == "eV"
-    assert prop.provenance.parameter_set == "gesn-optical-provisional-v1"
+    assert prop.provenance.status == ParameterStatus.LITERATURE
+    assert prop.provenance.doi == "10.1039/D2NR07107J"
+    assert prop.provenance.parameter_set == "gesn-optical-300K-v1"
+    
+def test_direct_gap_10pct_sn_literature_parameterization():
+    gap = direct_gap_gesn_eV(0.10)
+
+    expected = (
+        0.90 * 0.7985
+        + 0.10 * (-0.413)
+        - 2.89 * 0.10 * 0.90
+    )
+
+    assert math.isclose(
+        gap,
+        expected,
+        rel_tol=0.0,
+        abs_tol=1e-12,
+    )
