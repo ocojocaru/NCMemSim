@@ -10,6 +10,8 @@ from .constants import (
     PLANCK_J_S,
 )
 
+from .materials.optics import CompositeGeSnAbsorptionModel
+
 
 @dataclass(frozen=True)
 class LightSource:
@@ -156,6 +158,20 @@ class AbsorbedPhotonFlux:
     transmission_fraction: float
     absorption_coefficient_m_inv: float
     thickness_m: float
+    
+    @property
+    def average_generation_rate_m3_s(self) -> float:
+        """
+        Average volumetric absorbed-photon generation rate.
+
+        This is the number of absorbed photons per unit volume and
+        time. It does not imply unit quantum efficiency for carrier
+        generation or charge storage.
+        """
+        if self.thickness_m <= 0:
+            return 0.0
+
+        return self.absorbed_flux_m2_s / self.thickness_m
 
     def __post_init__(self) -> None:
         if self.incident_flux_m2_s < 0:
@@ -275,3 +291,85 @@ def floating_gate_absorbed_photon_flux(
         thickness_m=thickness_m,
     )
     
+@dataclass(frozen=True)
+class FloatingGateOpticalResult:
+    source_name: str
+    wavelength_nm: float
+    photon_energy_eV: float
+
+    incident_power_density_W_m2: float
+    incident_photon_flux_m2_s: float
+    average_generation_rate_m3_s: float
+
+    nc_absorption_coefficient_m_inv: float
+    effective_absorption_coefficient_m_inv: float
+
+    absorption_fraction: float
+    absorbed_photon_flux_m2_s: float
+    transmitted_photon_flux_m2_s: float
+
+    alpha_direct_m_inv: float | None = None
+    alpha_indirect_m_inv: float | None = None
+    alpha_urbach_m_inv: float | None = None
+
+    direct_gap_eV: float | None = None
+    indirect_gap_eV: float | None = None
+
+    provenance: Any = None
+    
+def evaluate_floating_gate_optical_absorption(
+    source: LightSource,
+    layer,
+    optical_model: CompositeGeSnAbsorptionModel | None = None,
+) -> FloatingGateOpticalResult:
+    """
+    End-to-end monochromatic optical absorption evaluation for a
+    nanocrystal floating-gate layer.
+    """
+    if not source.is_monochromatic:
+        raise ValueError(
+            "End-to-end floating-gate optical evaluation currently "
+            "requires a monochromatic LED or laser source."
+        )
+
+    layer.validate()
+
+    model = optical_model or CompositeGeSnAbsorptionModel()
+
+    optical_point = model.evaluate(
+        layer.nc_material,
+        source.wavelength_nm,
+    )
+
+    alpha_nc = optical_point.absorption_coefficient_m_inv
+
+    alpha_eff = effective_nc_absorption_coefficient(
+        alpha_nc,
+        layer.nc_volume_fraction,
+    )
+
+    flux_result = floating_gate_absorbed_photon_flux(
+        incident_flux_m2_s=source.photon_flux_m2_s,
+        nc_absorption_coefficient_m_inv=alpha_nc,
+        layer=layer,
+    )
+
+    return FloatingGateOpticalResult(
+        source_name=source.name,
+        wavelength_nm=source.wavelength_nm,
+        photon_energy_eV=source.photon_energy_eV,
+        incident_power_density_W_m2=source.power_density_W_m2,
+        incident_photon_flux_m2_s=source.photon_flux_m2_s,
+        nc_absorption_coefficient_m_inv=alpha_nc,
+        effective_absorption_coefficient_m_inv=alpha_eff,
+        average_generation_rate_m3_s=flux_result.average_generation_rate_m3_s,
+        absorption_fraction=flux_result.absorption_fraction,
+        absorbed_photon_flux_m2_s=flux_result.absorbed_flux_m2_s,
+        transmitted_photon_flux_m2_s=flux_result.transmitted_flux_m2_s,
+        alpha_direct_m_inv=optical_point.alpha_direct_m_inv,
+        alpha_indirect_m_inv=optical_point.alpha_indirect_m_inv,
+        alpha_urbach_m_inv=optical_point.alpha_urbach_m_inv,
+        direct_gap_eV=optical_point.direct_gap_eV,
+        indirect_gap_eV=optical_point.indirect_gap_eV,
+        provenance=optical_point.provenance,
+    )

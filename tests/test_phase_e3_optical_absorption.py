@@ -1,9 +1,11 @@
 import math
 import pytest
 
-from ncmemsim.materials import HFO2, make_ge
+from ncmemsim.materials import HFO2, make_ge, make_gesn
 from ncmemsim.layers import FloatingGateLayer
 from ncmemsim.optics import (
+    LightSource,
+    evaluate_floating_gate_optical_absorption,
     absorbed_photon_flux,
     beer_lambert_absorption_fraction,
     effective_nc_absorption_coefficient,
@@ -196,4 +198,163 @@ def test_electrically_active_fraction_does_not_change_optical_absorption():
 
     assert result_partial.absorbed_flux_m2_s == pytest.approx(
         result_all.absorbed_flux_m2_s
+    )
+    
+def make_gesn_test_fg(
+    sn_fraction: float = 0.08,
+    volume_fraction: float = 0.60,
+    thickness_nm: float = 15.0,
+):
+    return FloatingGateLayer(
+        name="FG",
+        matrix_material=HFO2,
+        thickness_nm=thickness_nm,
+        nc_material=make_gesn(sn_fraction),
+        nc_diameter_nm=5.0,
+        nc_volume_fraction=volume_fraction,
+        electrically_active_fraction=1.0,
+        grid_points=7,
+    )
+    
+def test_end_to_end_monochromatic_optical_chain():
+    source = LightSource.laser(
+        wavelength_nm=1550.0,
+        power_density_W_m2=1000.0,
+    )
+
+    layer = make_gesn_test_fg()
+
+    result = evaluate_floating_gate_optical_absorption(
+        source,
+        layer,
+    )
+
+    assert result.photon_energy_eV > 0.0
+    assert result.incident_photon_flux_m2_s > 0.0
+    assert result.nc_absorption_coefficient_m_inv >= 0.0
+    assert result.effective_absorption_coefficient_m_inv >= 0.0
+    assert result.absorption_fraction >= 0.0
+    assert result.absorbed_photon_flux_m2_s >= 0.0
+
+
+def test_end_to_end_flux_conservation():
+    source = LightSource.laser(
+        wavelength_nm=1550.0,
+        power_density_W_m2=1000.0,
+    )
+
+    layer = make_gesn_test_fg()
+
+    result = evaluate_floating_gate_optical_absorption(
+        source,
+        layer,
+    )
+
+    assert (
+        result.absorbed_photon_flux_m2_s
+        + result.transmitted_photon_flux_m2_s
+    ) == pytest.approx(
+        result.incident_photon_flux_m2_s,
+        rel=1e-14,
+    )
+
+
+def test_end_to_end_effective_alpha_scales_with_volume_fraction():
+    source = LightSource.laser(
+        wavelength_nm=1550.0,
+        power_density_W_m2=1000.0,
+    )
+
+    layer = make_gesn_test_fg(
+        volume_fraction=0.25,
+    )
+
+    result = evaluate_floating_gate_optical_absorption(
+        source,
+        layer,
+    )
+
+    assert result.effective_absorption_coefficient_m_inv == pytest.approx(
+        0.25 * result.nc_absorption_coefficient_m_inv
+    )
+
+
+def test_end_to_end_zero_power_gives_zero_absorbed_flux():
+    source = LightSource.laser(
+        wavelength_nm=1550.0,
+        power_density_W_m2=0.0,
+    )
+
+    layer = make_gesn_test_fg()
+
+    result = evaluate_floating_gate_optical_absorption(
+        source,
+        layer,
+    )
+
+    assert result.incident_photon_flux_m2_s == 0.0
+    assert result.absorbed_photon_flux_m2_s == 0.0
+
+
+def test_end_to_end_rejects_broadband_source():
+    source = LightSource.incandescent(
+        power_density_W_m2=1000.0,
+        temperature_K=2800.0,
+    )
+
+    layer = make_gesn_test_fg()
+
+    with pytest.raises(ValueError):
+        evaluate_floating_gate_optical_absorption(
+            source,
+            layer,
+        )
+
+def test_average_generation_rate_matches_absorbed_flux_over_thickness():
+    result = absorbed_photon_flux(
+        incident_flux_m2_s=1.0e20,
+        absorption_coefficient_m_inv=1.0e6,
+        thickness_m=15.0e-9,
+    )
+
+    expected = (
+        result.absorbed_flux_m2_s
+        / 15.0e-9
+    )
+
+    assert result.average_generation_rate_m3_s == pytest.approx(
+        expected
+    )
+
+
+def test_zero_thickness_has_zero_average_generation_rate():
+    result = absorbed_photon_flux(
+        incident_flux_m2_s=1.0e20,
+        absorption_coefficient_m_inv=1.0e6,
+        thickness_m=0.0,
+    )
+
+    assert result.average_generation_rate_m3_s == 0.0
+
+
+def test_end_to_end_exposes_average_generation_rate():
+    source = LightSource.laser(
+        wavelength_nm=1550.0,
+        power_density_W_m2=1000.0,
+    )
+
+    layer = make_gesn_test_fg()
+
+    result = evaluate_floating_gate_optical_absorption(
+        source,
+        layer,
+    )
+
+    expected = (
+        result.absorbed_photon_flux_m2_s
+        / (layer.thickness_nm * 1.0e-9)
+    )
+
+    assert result.average_generation_rate_m3_s == pytest.approx(
+        expected
     )
