@@ -1,7 +1,6 @@
 from __future__ import annotations
-
 import math
-
+from dataclasses import dataclass
 
 def nanocrystal_volume_m3(
     nc_diameter_nm: float,
@@ -72,3 +71,41 @@ def absorbed_photon_rate_per_nc_s(
         return 0.0
 
     return average_generation_rate_m3_s / density
+
+
+@dataclass(frozen=True)
+class PhotoTransitionConfig:
+    """
+    Parameters controlling conversion of absorbed photons into
+    photo-assisted nanocrystal state transitions.
+
+    photo_capture_efficiency is an effective probability that an
+    absorbed photon produces a useful transition event.
+    """
+    photo_capture_efficiency: float = 1.0e-3
+
+    def __post_init__(self) -> None:
+        if not 0.0 <= self.photo_capture_efficiency <= 1.0:
+            raise ValueError(
+                "photo_capture_efficiency must be in [0, 1]."
+            )
+
+
+def photo_transition_rate_s(
+    absorbed_photon_rate_per_nc_s: float,
+    config: PhotoTransitionConfig | None = None,
+) -> float:
+    """
+    Effective photo-assisted transition rate per nanocrystal.
+    """
+    if absorbed_photon_rate_per_nc_s < 0:
+        raise ValueError(
+            "absorbed_photon_rate_per_nc_s cannot be negative."
+        )
+
+    cfg = config or PhotoTransitionConfig()
+
+    return (
+        cfg.photo_capture_efficiency
+        * absorbed_photon_rate_per_nc_s
+    )
