@@ -2,14 +2,24 @@
 
 # NCMemSim
 
-**NCMemSim** is a modular compact multiphysics platform for distributed floating-gate nanocrystal memories based on Ge, GeSn, and high-κ dielectric stacks.
+**NCMemSim** is a modular compact multiphysics platform for distributed
+floating-gate nanocrystal memories based on Ge, GeSn, and high-k dielectric
+stacks.
 
-The current v0.9.1 scientific kernel supports one to three floating gates, local one-dimensional electrostatics, compact WKB transport, charge redistribution, retention simulation, deterministic regression references, and reproducibility metadata.
+The v0.10.0 release candidate extends the validated electrical kernel with
+wavelength-dependent optical absorption, photo-assisted charge-state
+transitions, and electro-optical programming.
+
+The platform supports one to three floating gates, local one-dimensional
+electrostatics, compact WKB transport, charge redistribution, retention
+simulation, deterministic regression references, reproducibility metadata,
+and compact Ge/GeSn optical programming models.
 
 ## Start here
 
 - New users: [Installation](installation.md) and [Quick start](quickstart.md)
 - Researchers: [Scientific scope and assumptions](scientific_scope.md)
+- Optical modelling: [Optical programming](optics.md)
 - Model developers: [Software architecture](architecture.md) and [Developer guide](developer.md)
 - Reproducibility: [Validation](validation.md) and [Reproducibility and benchmarking](reproducibility.md)
 
@@ -24,34 +34,66 @@ Electrostatics and local field profile
         ↓
 Occupancy kinetics + WKB transport
         ↓
+Optional optical absorption + photo-assisted transitions
+        ↓
 Conservative inter-FG redistribution
         ↓
-C–V, transient, and retention outputs
+C-V, transient, retention, and electro-optical outputs
         ↓
 Validation, golden references, benchmarks, manifest
 ```
 
 ## Scientific positioning
 
-NCMemSim is intended for mechanism studies and DTCO, not as a full multidimensional TCAD replacement. Its value lies in explicit assumptions, modular physics, transparent per-FG state variables, deterministic regression testing, and a workflow that can be calibrated against experiment.
+NCMemSim is intended for mechanism studies and DTCO, not as a full
+multidimensional TCAD replacement.
+
+Its value lies in explicit assumptions, modular physics, transparent per-FG
+state variables, deterministic regression testing, and a workflow that can be
+calibrated against experiment.
 
 ### Current status
 
-NCMemSim v0.9.1 is the current validated release.
+The v0.10.0 release candidate completes the Phase E optical-programming
+extension.
 
-The Phase D physics framework is complete and includes multi-floating-gate
-state dynamics, electrostatic coupling, local field profiles, inter-FG
-transport, retention, validation, golden-reference regression, benchmarking,
-and reproducibility support.
+The Phase D electrical framework includes:
 
-The v0.9.1 release also completes repository, documentation, CI, and release
-engineering. The full automated test suite contains 63 tests and is validated
-on Python 3.11, 3.12, and 3.13.
+- multi-floating-gate state dynamics;
+- electrostatic coupling;
+- local field profiles;
+- inter-FG transport;
+- retention;
+- validation;
+- golden-reference regression;
+- benchmarking;
+- reproducibility support.
 
-Regression against the legacy V5.3 reference implementation is included in the
-validation suite. During release validation, a legacy timestep inconsistency
-for dwell times shorter than the internal timestep was identified and corrected
-in the retained V5.3 reference implementation.
+Phase E adds:
 
-Optical programming, experimental parameter fitting, automated design-space
-exploration, and advanced quantum corrections remain planned development areas.
+- monochromatic optical sources;
+- wavelength-dependent Ge/GeSn optical response;
+- direct-Gamma absorption;
+- indirect phonon-assisted absorption;
+- Urbach-tail absorption;
+- Beer-Lambert floating-gate absorption;
+- absorbed photon flux and generation;
+- photo-assisted 0 -> 1 and 1 -> 2 transitions;
+- combined electrical and optical programming;
+- optical support in relaxation, voltage sweeps, and C-V simulation;
+- SWIR wavelength and programming benchmarks;
+- SWIR programming-voltage-reduction validation.
+
+The current automated suite contains **194 tests** and passes locally on
+Python 3.13.12.
+
+Regression against the retained V5.3 electrical reference remains part of the
+validation suite. The legacy timestep inconsistency identified during v0.9.1
+release validation remains corrected and covered by regression testing.
+
+The v0.10.0 optical model is a compact physics model. Absolute optical
+absorption amplitudes and photo-capture efficiencies are not yet experimentally
+calibrated, and the current implementation does not include effects such as
+Franz-Keldysh absorption, Stark shifts, state filling, explicit
+strain-dependent absorption, nanocrystal quantum-confinement corrections, or
+sequential optical attenuation through multiple floating gates.

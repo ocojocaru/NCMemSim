@@ -50,6 +50,7 @@ nav:
       - Electrostatics and fields: electrostatics.md
       - Transport and retention: transport_retention.md
       - Materials and provenance: materials.md
+      - Optical programming: optics.md
       - Glossary and notation: glossary.md
   - Quality and reproducibility:
       - Validation overview: validation.md
