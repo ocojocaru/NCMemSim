@@ -52,6 +52,16 @@ class SweepResult:
     inter_fg_flux_by_link_m2_s: np.ndarray | None = None
     transport_transmission_by_link: np.ndarray | None = None
     transport_link_ids: tuple[str, ...] | None = None
+    optical_absorption_fraction: np.ndarray | None = None
+    absorbed_photon_flux_m2_s: np.ndarray | None = None
+    photo_transition_rate_s: np.ndarray | None = None
+
+    optical_absorption_fraction_by_fg: np.ndarray | None = None
+    absorbed_photon_flux_by_fg_m2_s: np.ndarray | None = None
+    absorbed_photon_rate_per_nc_by_fg_s: np.ndarray | None = None
+    photo_transition_rate_by_fg_s: np.ndarray | None = None
+    optical_alpha_nc_by_fg_m_inv: np.ndarray | None = None
+    optical_alpha_eff_by_fg_m_inv: np.ndarray | None = None
 
 
 @dataclass
@@ -411,7 +421,14 @@ class Simulator:
             ),
         }
 
-    def run_sweep(self, voltages_V, state: DeviceState | None = None):
+    def run_sweep(
+        self,
+        voltages_V,
+        state: DeviceState | None = None,
+        light_source: LightSource | None = None,
+        photo_config: PhotoTransitionConfig | None = None,
+        photo_weights: PhotoTransitionWeights | None = None,
+    ):
         current = state.copy() if state else DeviceState.empty_for_device(self.device)
         current.validate(self.device)
         scalar_keys = [
@@ -423,6 +440,9 @@ class Simulator:
             "field_mean_V_m",
             "tprog_mean",
             "terase_mean",
+            "optical_absorption_fraction",
+            "absorbed_photon_flux_m2_s",
+            "photo_transition_rate_s",
         ]
         vector_keys = [
             "qfg_by_fg_C_m2",
@@ -433,13 +453,25 @@ class Simulator:
             "delta_vfb_by_fg_V",
             "electrostatic_local_field_by_fg_V_m",
             "electrostatic_local_potential_by_fg_V",
+            "optical_absorption_fraction_by_fg",
+            "absorbed_photon_flux_by_fg_m2_s",
+            "absorbed_photon_rate_per_nc_by_fg_s",
+            "photo_transition_rate_by_fg_s",
+            "optical_alpha_nc_by_fg_m_inv",
+            "optical_alpha_eff_by_fg_m_inv",
         ]
         histories = {key: [] for key in scalar_keys + vector_keys}
         transport_flux_history = []
         transport_transmission_history = []
         transport_link_ids = None
         for voltage in voltages_V:
-            out = self.relax_voltage(current, float(voltage))
+            out = self.relax_voltage(
+                current,
+                float(voltage),
+                light_source=light_source,
+                photo_config=photo_config,
+                photo_weights=photo_weights,
+            )
             current = out["state"]
             for key in histories:
                 histories[key].append(out[key])
@@ -471,6 +503,34 @@ class Simulator:
             inter_fg_flux_by_link_m2_s=np.asarray(transport_flux_history),
             transport_transmission_by_link=np.asarray(transport_transmission_history),
             transport_link_ids=transport_link_ids,
+            optical_absorption_fraction=np.asarray(
+                histories["optical_absorption_fraction"]
+            ),
+            absorbed_photon_flux_m2_s=np.asarray(
+                histories["absorbed_photon_flux_m2_s"]
+            ),
+            photo_transition_rate_s=np.asarray(
+                histories["photo_transition_rate_s"]
+            ),
+
+            optical_absorption_fraction_by_fg=np.asarray(
+                histories["optical_absorption_fraction_by_fg"]
+            ),
+            absorbed_photon_flux_by_fg_m2_s=np.asarray(
+                histories["absorbed_photon_flux_by_fg_m2_s"]
+            ),
+            absorbed_photon_rate_per_nc_by_fg_s=np.asarray(
+                histories["absorbed_photon_rate_per_nc_by_fg_s"]
+            ),
+            photo_transition_rate_by_fg_s=np.asarray(
+                histories["photo_transition_rate_by_fg_s"]
+            ),
+            optical_alpha_nc_by_fg_m_inv=np.asarray(
+                histories["optical_alpha_nc_by_fg_m_inv"]
+            ),
+            optical_alpha_eff_by_fg_m_inv=np.asarray(
+                histories["optical_alpha_eff_by_fg_m_inv"]
+            ),
         )
 
 
