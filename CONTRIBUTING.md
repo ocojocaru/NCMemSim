@@ -13,7 +13,7 @@ python -m pip install -e ".[dev]"
 python -m pytest -q
 ```
 
-Python 3.11 and 3.12 are the supported development targets for the v0.9 series.
+Python 3.11, 3.12, and 3.13 are the supported development and CI targets for the current release series.
 
 ## Branches and pull requests
 
@@ -53,7 +53,9 @@ A new or modified physical model must include:
 3. assumptions and applicability range;
 4. provenance for material or empirical parameters;
 5. limiting-case or regression tests;
-6. comparison with an existing baseline when behaviour changes.
+6. comparison with an existing baseline when behaviour changes;
+7. explicit calibration status for empirical or phenomenological parameters;
+8. spectral or operating-range limitations when the model is wavelength-, field-, or temperature-dependent.
 
 For a model that is not yet experimentally validated, documentation must say so directly.
 

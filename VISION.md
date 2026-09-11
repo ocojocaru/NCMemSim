@@ -22,7 +22,9 @@ The primary device class is a Ge/GeSn nanocrystal floating-gate stack embedded i
 
 ### Optical programming
 
-Future releases will represent light sources, wavelength-dependent absorption, photocarrier generation, and coupled electro-optical programming. Target sources include monochromatic lasers and LEDs, broadband incandescent or xenon-like sources, and solar-spectrum presets.
+NCMemSim v0.10.0 establishes the optical-programming foundation with monochromatic light sources, wavelength-dependent Ge/GeSn absorption, absorbed-photon calculations, photo-assisted charge-state transitions, and coupled electro-optical programming.
+
+The current implementation is intentionally compact. Future development will focus on experimental calibration, broadband and measured spectra, strain and nanocrystal-confinement corrections, field-dependent optical response, and more complete optical propagation through multi-floating-gate structures.
 
 ### Experimental fitting
 

@@ -1,5 +1,7 @@
 # NCMemSim v0.9.1 release checklist
 
+> **Historical document:** This file records the v0.9.1 release process and is retained for project provenance. It does not describe the current NCMemSim release. See `README.md` and `CHANGELOG.md` for the current release status.
+
 This checklist is the release gate for the first public NCMemSim repository and the `v0.9.1` tag.
 
 ## Source and version

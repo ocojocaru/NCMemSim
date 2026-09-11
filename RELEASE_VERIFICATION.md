@@ -1,5 +1,7 @@
 # NCMemSim v0.9.1 release verification
 
+> **Historical document:** This file records the v0.9.1 release process and is retained for project provenance. It does not describe the current NCMemSim release. See `README.md` and `CHANGELOG.md` for the current release status.
+
 Verification was run on the cumulative R1–R6 release candidate packaged from the uploaded R5 archive.
 
 ## Passed checks

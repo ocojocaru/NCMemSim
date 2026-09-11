@@ -1,5 +1,7 @@
 # First GitHub release: NCMemSim v0.9.1
 
+> **Historical document:** This file records the v0.9.1 release process and is retained for project provenance. It does not describe the current NCMemSim release. See `README.md` and `CHANGELOG.md` for the current release status.
+
 These commands assume the extracted project directory is the current working directory and that an empty GitHub repository named `NCMemSim` has already been created.
 
 ## 1. Set the final repository owner
