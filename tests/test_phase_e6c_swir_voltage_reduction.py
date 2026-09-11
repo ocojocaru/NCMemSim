@@ -112,21 +112,27 @@ def occupation_curve(
 
 def common_target_occupation(
     dark_occupation,
-    light_occupation,
+    *light_occupations,
 ):
+    curves = (
+        dark_occupation,
+        *light_occupations,
+    )
+
     lower = max(
-        np.min(dark_occupation),
-        np.min(light_occupation),
+        np.min(curve)
+        for curve in curves
     )
 
     upper = min(
-        np.max(dark_occupation),
-        np.max(light_occupation),
+        np.max(curve)
+        for curve in curves
     )
 
     if upper <= lower:
         raise ValueError(
-            "Dark and illuminated occupation curves do not overlap."
+            "Dark and illuminated occupation curves "
+            "do not share a common overlap range."
         )
 
     return 0.5 * (lower + upper)
@@ -174,10 +180,21 @@ def benchmark():
             "photo_rate": photo_rate,
         }
 
+    light_curves = [
+        illuminated[wavelength_nm]["occupation"]
+        for wavelength_nm in WAVELENGTHS_NM
+    ]
+
+    target_occupation = common_target_occupation(
+        dark_occupation,
+        *light_curves,
+    )
+    
     return {
         "dark_occupation": dark_occupation,
         "dark_photo_rate": dark_photo_rate,
         "illuminated": illuminated,
+        "target_occupation": target_occupation,
     }
 
 
@@ -216,18 +233,14 @@ def test_dark_and_swir_curves_have_common_occupation_range(
     benchmark,
 ):
     dark = benchmark["dark_occupation"]
+    target = benchmark["target_occupation"]
+    
+    assert np.min(dark) < target < np.max(dark)
 
     for wavelength_nm in WAVELENGTHS_NM:
         light = benchmark["illuminated"][
             wavelength_nm
         ]["occupation"]
-
-        target = common_target_occupation(
-            dark,
-            light,
-        )
-
-        assert np.min(dark) < target < np.max(dark)
 
         assert np.min(light) < target < np.max(light)
 
@@ -236,16 +249,12 @@ def test_swir_reduces_required_programming_voltage(
     benchmark,
 ):
     dark = benchmark["dark_occupation"]
+    target = benchmark["target_occupation"]
 
     for wavelength_nm in WAVELENGTHS_NM:
         light = benchmark["illuminated"][
             wavelength_nm
         ]["occupation"]
-
-        target = common_target_occupation(
-            dark,
-            light,
-        )
 
         v_dark = required_voltage_for_occupation(
             dark,
@@ -269,6 +278,7 @@ def test_voltage_reduction_tracks_spectral_photo_rate(
     benchmark,
 ):
     dark = benchmark["dark_occupation"]
+    target = benchmark["target_occupation"]
 
     photo_rates = []
     voltage_reductions = []
@@ -279,11 +289,6 @@ def test_voltage_reduction_tracks_spectral_photo_rate(
         ]
 
         light = data["occupation"]
-
-        target = common_target_occupation(
-            dark,
-            light,
-        )
 
         v_dark = required_voltage_for_occupation(
             dark,
