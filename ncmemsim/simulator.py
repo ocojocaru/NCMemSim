@@ -555,11 +555,31 @@ class Simulator:
             return float("nan")
         return float(np.interp(reference, cu, vu))
 
-    def simulate_cv(self, vmin_V=-3.0, vmax_V=3.0, points=241):
+    def simulate_cv(
+        self,
+        vmin_V=-3.0,
+        vmax_V=3.0,
+        points=241,
+        light_source: LightSource | None = None,
+        photo_config: PhotoTransitionConfig | None = None,
+        photo_weights: PhotoTransitionWeights | None = None,
+    ):
         vf = np.linspace(vmin_V, vmax_V, points)
         vb = np.linspace(vmax_V, vmin_V, points)
-        forward = self.run_sweep(vf)
-        backward = self.run_sweep(vb, forward.final_state)
+        forward = self.run_sweep(
+            vf,
+            light_source=light_source,
+            photo_config=photo_config,
+            photo_weights=photo_weights,
+        )
+
+        backward = self.run_sweep(
+            vb,
+            forward.final_state,
+            light_source=light_source,
+            photo_config=photo_config,
+            photo_weights=photo_weights,
+        )
         cmax = max(
             np.max(forward.capacitance_F_m2), np.max(backward.capacitance_F_m2)
         )
