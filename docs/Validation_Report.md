@@ -5,7 +5,7 @@
 Version 0.10.0 extends the verified Phase A-D6 electrical framework with the
 Phase E optical-programming model.
 
-The verification scope now includes:
+The verification scope includes:
 
 - numerical regression against the retained V5.3 electrical reference;
 - physics-consistency checks;
@@ -27,7 +27,7 @@ device.
 The complete v0.10.0 local test suite contains **194 tests** covering Phases A
 through E6.
 
-The suite passes locally with:
+The release validation suite passes locally with:
 
 ```text
 Python 3.13.12
@@ -35,8 +35,8 @@ pytest 9.1.1
 194 passed
 ```
 
-The supported Python CI matrix should be verified again before the final
-v0.10.0 release tag is created.
+The v0.10.0 release was also verified by continuous integration on the
+supported Python 3.11, 3.12, and 3.13 matrix.
 
 ## Verified invariants
 
@@ -45,14 +45,18 @@ The regression and validation suite checks that:
 - floating-gate probabilities are finite, bounded, and normalized;
 - dielectric thicknesses and relative permittivities are physically admissible;
 - nanocrystal barriers and effective masses are positive;
-- one-dimensional potential profiles are finite and use a strictly increasing grid;
-- internal floating-gate redistribution is charge conservative within numerical tolerance;
-- deterministic one-, two-, and three-FG reference cases match approved golden data;
+- one-dimensional potential profiles are finite and use a strictly increasing
+  grid;
+- internal floating-gate redistribution is charge conservative within
+  numerical tolerance;
+- deterministic one-, two-, and three-FG reference cases match approved golden
+  data;
 - optical absorption coefficients and photon rates are non-negative;
 - electrical and photo-assisted transition rates combine consistently;
 - dark simulations preserve zero photo-transition contribution;
 - electro-optical programming preserves probability normalization;
-- wavelength-dependent SWIR behaviour is spectrally consistent with the implemented compact model.
+- wavelength-dependent SWIR behaviour is spectrally consistent with the
+  implemented compact model.
 
 ## Electrical regression baseline
 
@@ -82,7 +86,9 @@ interval.
 
 The retained reference was corrected to use:
 
-`actual_dt = dwell_time / nsteps`
+```text
+actual_dt = dwell_time / nsteps
+```
 
 This guarantees that the total integrated interval equals the requested dwell
 time.
@@ -217,7 +223,8 @@ The programming benchmark verifies that:
 
 - dark simulations have zero photo-assisted contribution;
 - SWIR illumination produces measurable photo-assisted loading;
-- electro-optical programming exceeds electrical-only programming under the benchmark conditions;
+- electro-optical programming exceeds electrical-only programming under the
+  benchmark conditions;
 - spectral photo-rate ordering is reflected in occupation changes;
 - probability normalization is preserved.
 
@@ -312,14 +319,27 @@ and DTCO workflows.
 
 ## Release conclusion
 
-The v0.10.0 release candidate satisfies the current local verification target:
+NCMemSim v0.10.0 satisfies the release verification target:
 
 ```text
 194 passed
 ```
 
-The documentation also builds successfully with strict MkDocs checking.
+The documentation builds successfully with strict MkDocs checking, and the
+supported Python 3.11, 3.12, and 3.13 continuous-integration matrix passes.
 
-Final release completion still requires the normal release workflow, including
-supported-Python CI verification, packaging checks, version/tag confirmation,
-and publication of the release artifacts.
+The official `v0.10.0` tag corresponds to the released Phase E
+optical-programming implementation. The release workflow completed
+successfully and produced both wheel and source-distribution artifacts.
+
+The published documentation includes the v0.10.0 optical-programming model,
+API, assumptions, limitations, validation results, and SWIR benchmark
+documentation.
+
+Accordingly, v0.10.0 is the verified release baseline for subsequent NCMemSim
+development.
+
+The verification reported here establishes software correctness relative to
+the implemented equations, regression baselines, and internal physical
+consistency checks. It does not imply experimental calibration of the absolute
+optical response or programming-voltage reduction.

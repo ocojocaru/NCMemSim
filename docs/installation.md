@@ -41,7 +41,7 @@ python -c "import ncmemsim; print(ncmemsim.__version__)"
 python -m pytest -q
 ```
 
-The expected package version for this release is `0.9.1`.
+The expected package version for this release is `0.10.0`.
 
 ## Documentation tools
 

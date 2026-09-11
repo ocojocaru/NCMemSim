@@ -1,6 +1,7 @@
 # NCMemSim visual assets
 
-This directory contains the canonical visual identity and scientific diagrams used by the repository and documentation.
+This directory contains the canonical visual identity and scientific diagrams
+used by the repository and documentation.
 
 ## Files
 
@@ -8,13 +9,25 @@ This directory contains the canonical visual identity and scientific diagrams us
 - `logo.svg` — horizontal wordmark.
 - `banner.svg` / `banner.png` — repository banner.
 - `device-stack.svg` — supported V1/V2 stack overview.
-- `architecture.svg` — software architecture.
+- `architecture.svg` — software-architecture diagram.
 - `transport-network.svg` — inter-floating-gate transport schematic.
-- `scientific-workflow.svg` — reproducible workflow.
+- `scientific-workflow.svg` — reproducible scientific-workflow diagram.
 
 ## Usage
 
-The SVG files are the source assets. PNG files are fallbacks for services that do not render SVG. Keep text, colors and proportions unchanged when reusing the official mark. Scientific diagrams may be adapted for papers provided that their physical meaning and labels remain accurate.
+The SVG files are the source assets. PNG files are fallbacks for services that
+do not render SVG.
+
+Keep text, colors, and proportions unchanged when reusing the official visual
+identity.
+
+Scientific diagrams may be adapted for papers or presentations provided that
+their physical meaning and labels remain accurate.
+
+Scientific schematics should be treated as illustrative unless explicitly
+documented as quantitative. Architecture and workflow diagrams should be
+reviewed whenever the corresponding software architecture or scientific
+workflow changes.
 
 ## Palette
 

@@ -14,7 +14,8 @@ Experimental validation remains device- and dataset-dependent and must be demons
 
 ## v0.10.0 release validation
 
-The v0.10.0 release candidate extends the validated electrical model with wavelength-dependent optical absorption and photo-assisted programming.
+The v0.10.0 release extends the validated electrical model with
+wavelength-dependent optical absorption and photo-assisted programming.
 
 The automated suite contains **194 tests**, covering Phases A through E6, including:
 
@@ -41,7 +42,8 @@ The automated suite contains **194 tests**, covering Phases A through E6, includ
 
 The complete local suite passes on Python 3.13.12.
 
-The release CI matrix should additionally be verified on the supported Python versions before tagging the final release.
+The official v0.10.0 release has been verified on the supported Python
+3.11, 3.12, and 3.13 CI matrix.
 
 ## Electrical regression
 

@@ -6,7 +6,7 @@
 floating-gate nanocrystal memories based on Ge, GeSn, and high-k dielectric
 stacks.
 
-The v0.10.0 release candidate extends the validated electrical kernel with
+NCMemSim v0.10.0 extends the validated electrical kernel with
 wavelength-dependent optical absorption, photo-assisted charge-state
 transitions, and electro-optical programming.
 
@@ -54,7 +54,7 @@ calibrated against experiment.
 
 ### Current status
 
-The v0.10.0 release candidate completes the Phase E optical-programming
+The v0.10.0 release completes the Phase E optical-programming
 extension.
 
 The Phase D electrical framework includes:
