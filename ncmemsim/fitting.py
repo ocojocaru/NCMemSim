@@ -2,13 +2,15 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import math
-from typing import Any
+from typing import Any, Sequence
 
 import numpy as np
 
+from .reproducibility import canonical_hash
+
 
 def _as_1d_finite_float_array(
-    values: np.ndarray | list[float] | tuple[float, ...],
+    values: np.ndarray | Sequence[float],
     *,
     field_name: str,
 ) -> np.ndarray:
@@ -27,6 +29,237 @@ def _as_1d_finite_float_array(
 
     array.setflags(write=False)
     return array
+
+
+def _normalize_required_text(
+    value: str,
+    *,
+    field_name: str,
+) -> str:
+    normalized = value.strip()
+
+    if not normalized:
+        raise ValueError(f"{field_name} cannot be empty.")
+
+    return normalized
+
+
+def _normalize_optional_text(
+    value: str | None,
+    *,
+    field_name: str,
+) -> str | None:
+    if value is None:
+        return None
+
+    normalized = value.strip()
+
+    if not normalized:
+        raise ValueError(f"{field_name} cannot be empty.")
+
+    return normalized
+
+
+@dataclass(frozen=True)
+class FitParameter:
+    """
+    Ordered scalar fit-parameter specification.
+
+    Bounds are finite and strictly ordered. The initial value may lie on
+    either bound, but it must not lie outside the interval.
+    """
+
+    name: str
+    initial_value: float
+    lower_bound: float
+    upper_bound: float
+    unit: str | None = None
+    description: str | None = None
+
+    def __post_init__(self) -> None:
+        name = _normalize_required_text(
+            self.name,
+            field_name="name",
+        )
+        unit = _normalize_optional_text(
+            self.unit,
+            field_name="unit",
+        )
+        description = _normalize_optional_text(
+            self.description,
+            field_name="description",
+        )
+
+        initial_value = float(self.initial_value)
+        lower_bound = float(self.lower_bound)
+        upper_bound = float(self.upper_bound)
+
+        for field_name, value in {
+            "initial_value": initial_value,
+            "lower_bound": lower_bound,
+            "upper_bound": upper_bound,
+        }.items():
+            if not math.isfinite(value):
+                raise ValueError(
+                    f"{field_name} must be finite."
+                )
+
+        if lower_bound >= upper_bound:
+            raise ValueError(
+                "lower_bound must be strictly less than upper_bound."
+            )
+
+        if not lower_bound <= initial_value <= upper_bound:
+            raise ValueError(
+                "initial_value must lie within "
+                "[lower_bound, upper_bound]."
+            )
+
+        object.__setattr__(self, "name", name)
+        object.__setattr__(self, "unit", unit)
+        object.__setattr__(self, "description", description)
+        object.__setattr__(self, "initial_value", initial_value)
+        object.__setattr__(self, "lower_bound", lower_bound)
+        object.__setattr__(self, "upper_bound", upper_bound)
+
+    def contains(self, value: float) -> bool:
+        candidate = float(value)
+
+        return (
+            math.isfinite(candidate)
+            and self.lower_bound <= candidate <= self.upper_bound
+        )
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "name": self.name,
+            "initial_value": self.initial_value,
+            "lower_bound": self.lower_bound,
+            "upper_bound": self.upper_bound,
+            "unit": self.unit,
+            "description": self.description,
+        }
+
+
+@dataclass(frozen=True)
+class FitParameterSet:
+    """
+    Ordered collection of optimizer-facing fit parameters.
+
+    Parameter order is part of the specification because numerical
+    optimizers exchange ordered vectors rather than name-value mappings.
+    """
+
+    parameters: tuple[FitParameter, ...]
+
+    def __post_init__(self) -> None:
+        parameters = tuple(self.parameters)
+
+        if not parameters:
+            raise ValueError(
+                "FitParameterSet requires at least one parameter."
+            )
+
+        if not all(
+            isinstance(parameter, FitParameter)
+            for parameter in parameters
+        ):
+            raise TypeError(
+                "parameters must contain only FitParameter instances."
+            )
+
+        names = [parameter.name for parameter in parameters]
+
+        if len(names) != len(set(names)):
+            raise ValueError(
+                "FitParameter names must be unique within a parameter set."
+            )
+
+        object.__setattr__(self, "parameters", parameters)
+
+    @property
+    def n_parameters(self) -> int:
+        return len(self.parameters)
+
+    @property
+    def names(self) -> tuple[str, ...]:
+        return tuple(
+            parameter.name
+            for parameter in self.parameters
+        )
+
+    def _vector(self, attribute: str) -> np.ndarray:
+        vector = np.array(
+            [
+                getattr(parameter, attribute)
+                for parameter in self.parameters
+            ],
+            dtype=float,
+        )
+        vector.setflags(write=False)
+        return vector
+
+    @property
+    def initial_values(self) -> np.ndarray:
+        return self._vector("initial_value")
+
+    @property
+    def lower_bounds(self) -> np.ndarray:
+        return self._vector("lower_bound")
+
+    @property
+    def upper_bounds(self) -> np.ndarray:
+        return self._vector("upper_bound")
+
+    def validate_values(
+        self,
+        values: np.ndarray | Sequence[float],
+    ) -> np.ndarray:
+        vector = _as_1d_finite_float_array(
+            values,
+            field_name="values",
+        )
+
+        if vector.size != self.n_parameters:
+            raise ValueError(
+                "values must contain exactly "
+                f"{self.n_parameters} entries."
+            )
+
+        lower_bounds = self.lower_bounds
+        upper_bounds = self.upper_bounds
+
+        if np.any(vector < lower_bounds) or np.any(vector > upper_bounds):
+            raise ValueError(
+                "values must lie within the configured parameter bounds."
+            )
+
+        return vector
+
+    def values_to_dict(
+        self,
+        values: np.ndarray | Sequence[float],
+    ) -> dict[str, float]:
+        vector = self.validate_values(values)
+
+        return {
+            name: float(value)
+            for name, value in zip(self.names, vector)
+        }
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": 1,
+            "parameters": [
+                parameter.to_dict()
+                for parameter in self.parameters
+            ],
+        }
+
+    def specification_hash(self) -> str:
+        """Return a deterministic SHA-256 hash of the parameter specification."""
+
+        return canonical_hash(self.to_dict())
 
 
 @dataclass(frozen=True)
@@ -121,11 +354,11 @@ class ObjectiveEvaluation:
 
 
 def least_squares_residuals(
-    observed: np.ndarray | list[float] | tuple[float, ...],
-    predicted: np.ndarray | list[float] | tuple[float, ...],
+    observed: np.ndarray | Sequence[float],
+    predicted: np.ndarray | Sequence[float],
     *,
     uncertainty: (
-        np.ndarray | list[float] | tuple[float, ...] | None
+        np.ndarray | Sequence[float] | None
     ) = None,
 ) -> np.ndarray:
     """
@@ -177,11 +410,11 @@ def least_squares_residuals(
 
 
 def evaluate_least_squares_objective(
-    observed: np.ndarray | list[float] | tuple[float, ...],
-    predicted: np.ndarray | list[float] | tuple[float, ...],
+    observed: np.ndarray | Sequence[float],
+    predicted: np.ndarray | Sequence[float],
     *,
     uncertainty: (
-        np.ndarray | list[float] | tuple[float, ...] | None
+        np.ndarray | Sequence[float] | None
     ) = None,
 ) -> ObjectiveEvaluation:
     """
@@ -260,6 +493,8 @@ def evaluate_least_squares_objective(
 
 
 __all__ = [
+    "FitParameter",
+    "FitParameterSet",
     "ObjectiveEvaluation",
     "evaluate_least_squares_objective",
     "least_squares_residuals",
