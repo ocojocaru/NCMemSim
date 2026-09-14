@@ -31,6 +31,11 @@ from .near_edge_fit import (
     predict_gesn_near_edge_absorption_m_inv,
 )
 
+from .near_edge_calibration import (
+    GeSnNearEdgeCalibrationResult,
+    qualify_gesn_near_edge_fit,
+)
+
 
 __all__ = [
     "CompactOpticalMaterialModel",
@@ -38,6 +43,7 @@ __all__ = [
     "EvaluationDomainStatus",
     "GESN_NEAR_EDGE_FIT_PARAMETER_NAMES",
     "GeSnAbsorptionParameterSet",
+    "GeSnNearEdgeCalibrationResult",
     "GeSnNearEdgeFitResult",
     "GeSnNearEdgeParameterSet",
     "GeSnNearEdgeReferenceModel",
@@ -54,4 +60,5 @@ __all__ = [
     "photon_energy_eV",
     "phonon_occupation",
     "predict_gesn_near_edge_absorption_m_inv",
+    "qualify_gesn_near_edge_fit",
 ]
