@@ -1,11 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-import hashlib
 from importlib.metadata import PackageNotFoundError, version
-
-from ._version import __version__
-import json
 import os
 from pathlib import Path
 import platform
@@ -14,7 +10,9 @@ from typing import Any
 
 import numpy as np
 
+from ._version import __version__
 from .device import Device
+from .hashing import canonical_hash
 
 
 def software_version() -> str:
@@ -24,18 +22,17 @@ def software_version() -> str:
         return __version__
 
 
-def canonical_hash(value: Any) -> str:
-    encoded = json.dumps(value, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
-    return hashlib.sha256(encoded).hexdigest()
-
-
 def git_commit(cwd: str | Path | None = None) -> str | None:
     env_commit = os.environ.get("GITHUB_SHA")
     if env_commit:
         return env_commit
     try:
         return subprocess.check_output(
-            ["git", "rev-parse", "HEAD"], cwd=cwd, stderr=subprocess.DEVNULL, text=True, timeout=2
+            ["git", "rev-parse", "HEAD"],
+            cwd=cwd,
+            stderr=subprocess.DEVNULL,
+            text=True,
+            timeout=2,
         ).strip()
     except (OSError, subprocess.SubprocessError):
         return None
@@ -57,8 +54,10 @@ def build_reproducibility_manifest(
         if key not in seen:
             seen.add(key)
             materials.append(mat.to_dict())
+
     device_dict = device.to_dict()
     config = simulation_config or {}
+
     result = {
         "schema_version": 2,
         "software_version": software_version(),
@@ -74,10 +73,26 @@ def build_reproducibility_manifest(
         "device_hash": canonical_hash(device_dict),
         "physics_model": physics_model,
         "simulation_config": config,
-        "simulation_hash": canonical_hash({"device": device_dict, "physics_model": physics_model, "config": config}),
+        "simulation_hash": canonical_hash(
+            {
+                "device": device_dict,
+                "physics_model": physics_model,
+                "config": config,
+            }
+        ),
         "material_models": materials,
         "random_seed": random_seed,
     }
+
     if extra:
         result["extra"] = extra
+
     return result
+
+
+__all__ = [
+    "build_reproducibility_manifest",
+    "canonical_hash",
+    "git_commit",
+    "software_version",
+]

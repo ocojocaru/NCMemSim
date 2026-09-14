@@ -6,7 +6,7 @@ from typing import Any, Callable, Sequence
 
 import numpy as np
 
-from .reproducibility import canonical_hash
+from .hashing import canonical_hash
 
 
 def _as_1d_finite_float_array(

@@ -6,7 +6,7 @@ from typing import Any
 
 import numpy as np
 
-from .reproducibility import canonical_hash
+from .hashing import canonical_hash
 
 
 def _validate_optional_text(value: str | None, *, field_name: str) -> None:
