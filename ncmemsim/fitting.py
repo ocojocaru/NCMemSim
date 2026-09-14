@@ -331,6 +331,7 @@ class DeterministicFitResult:
     optimality: float
     active_mask: np.ndarray
     scipy_version: str
+    jacobian: np.ndarray | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.parameter_set, FitParameterSet):
@@ -433,6 +434,37 @@ class DeterministicFitResult:
             field_name="scipy_version",
         )
 
+        jacobian: np.ndarray | None = None
+        if self.jacobian is not None:
+            jacobian = np.array(
+                self.jacobian,
+                dtype=float,
+                copy=True,
+            )
+
+            if jacobian.ndim != 2:
+                raise ValueError(
+                    "jacobian must be two-dimensional."
+                )
+
+            expected_shape = (
+                objective_residuals.size,
+                self.parameter_set.n_parameters,
+            )
+
+            if jacobian.shape != expected_shape:
+                raise ValueError(
+                    "jacobian must have shape "
+                    f"{expected_shape}."
+                )
+
+            if not np.all(np.isfinite(jacobian)):
+                raise ValueError(
+                    "jacobian must contain only finite values."
+                )
+
+            jacobian.setflags(write=False)
+
         object.__setattr__(self, "initial_values", initial_values)
         object.__setattr__(self, "fitted_values", fitted_values)
         object.__setattr__(
@@ -448,6 +480,7 @@ class DeterministicFitResult:
         object.__setattr__(self, "njev", njev)
         object.__setattr__(self, "optimality", optimality)
         object.__setattr__(self, "scipy_version", scipy_version)
+        object.__setattr__(self, "jacobian", jacobian)
 
     @property
     def objective_sum_squares(self) -> float:
@@ -511,6 +544,16 @@ class DeterministicFitResult:
             "njev": self.njev,
             "optimality": self.optimality,
             "active_mask": self.active_mask.tolist(),
+            "jacobian_parameterization": (
+                "physical-parameter-values"
+                if self.jacobian is not None
+                else None
+            ),
+            "jacobian": (
+                None
+                if self.jacobian is None
+                else self.jacobian.tolist()
+            ),
         }
 
 
@@ -867,6 +910,16 @@ def run_least_squares_fit(
         + np.asarray(scipy_result.x, dtype=float) * spans
     )
 
+    normalized_jacobian = np.asarray(
+        scipy_result.jac,
+        dtype=float,
+    )
+
+    physical_jacobian = (
+        normalized_jacobian
+        / spans[np.newaxis, :]
+    )
+
     return DeterministicFitResult(
         parameter_set=parameter_set,
         config=config,
@@ -891,6 +944,7 @@ def run_least_squares_fit(
             dtype=int,
         ),
         scipy_version=str(scipy_version),
+        jacobian=physical_jacobian,
     )
 
 
