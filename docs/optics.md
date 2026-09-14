@@ -67,6 +67,61 @@ For GeSn, the direct-gap composition dependence uses literature-based parameters
 
 The current model supports temperature-dependent phonon occupation for the indirect absorption contribution.
 
+## v0.11.0 GeSn near-edge reference model
+
+NCMemSim v0.11.0 adds a separate GeSn near-edge reference model under
+`ncmemsim.materials.optics`.
+
+The model is a bulk-like, unstrained, room-temperature,
+literature-anchored reference baseline. It does not replace the
+v0.10.0 compact absorption model and is not automatically substituted
+into the existing optical-programming workflow.
+
+Its absorption coefficient is piecewise rather than additive:
+
+$$
+\alpha(E)
+=
+\begin{cases}
+\alpha_U(E), & E < E_c,\\
+\alpha_D(E), & E \ge E_c.
+\end{cases}
+$$
+
+The direct branch retains the Tran et al. near-edge form
+
+$$
+\alpha_D(E)
+=
+A\frac{\sqrt{E-E_g}}{E},
+$$
+
+where the direct prefactor \(A\) has provenance status
+`LITERATURE_FITTED`.
+
+The Urbach width is also `LITERATURE_FITTED`. The connection energy
+\(E_c\) and Urbach amplitude are derived by NCMemSim by enforcing
+continuity of both the absorption coefficient and its first derivative.
+This connection therefore has provenance status `DERIVED` and must not
+be described as a literal implementation of the published Tran
+piecewise connection formula.
+
+The reference model contains no independently calibrated indirect
+absorption contribution.
+
+Its literature-supported validation domain is:
+
+- Sn fraction from 0 to 0.10, inclusive;
+- wavelength from 1500 to 2500 nm, inclusive;
+- room-temperature conditions.
+
+Physically valid evaluations outside the composition or wavelength
+domain remain possible but are explicitly marked as `extrapolated`.
+
+See [GeSn near-edge reference](near_edge_reference.md) for the complete
+equations, parameter provenance, scientific assumptions, and example
+usage.
+
 ## Floating-gate absorption
 
 The nanocrystal absorption coefficient is converted to an effective floating-gate absorption coefficient using the nanocrystal volume fraction:
@@ -196,3 +251,8 @@ The v0.10.0 optical model does not yet include:
 - experimentally calibrated photo-capture efficiencies.
 
 These effects can be added in later model revisions without changing the high-level optical programming API.
+
+The v0.11.0 near-edge reference model improves the traceability of the
+bulk-like direct and Urbach absorption baseline, but it does not remove
+the nanocrystal-, strain-, field-, propagation-, or
+photo-capture-calibration limitations listed above.

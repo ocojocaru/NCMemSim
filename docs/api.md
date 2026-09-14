@@ -101,6 +101,14 @@ Principal objects include:
 - `GeSnAbsorptionParameterSet`
 - `CompactOpticalMaterialModel`
 - `CompositeGeSnAbsorptionModel`
+- `GeSnNearEdgeParameterSet`
+- `GeSnNearEdgeReferenceModel`
+- `NearEdgeBranch`
+- `NearEdgeOpticalPoint`
+- `OpticalValidationDomain`
+- `EvaluationDomainStatus`
+- `TRAN_2016_NEAR_EDGE_PARAMETERS`
+- `TRAN_2016_NEAR_EDGE_DOMAIN`
 - `photon_energy_eV`
 - `direct_gap_gesn_eV`
 - `indirect_gap_gesn_eV`
@@ -117,6 +125,35 @@ from ncmemsim.materials.optics import CompositeGeSnAbsorptionModel
 model = CompositeGeSnAbsorptionModel()
 point = model.evaluate(material, wavelength_nm=1550.0)
 ```
+
+### GeSn near-edge reference model
+
+NCMemSim v0.11.0 also provides an opt-in, literature-anchored
+near-edge reference model for bulk-like, unstrained Ge/GeSn:
+
+```python
+from ncmemsim.materials.optics import GeSnNearEdgeReferenceModel
+
+model = GeSnNearEdgeReferenceModel()
+point = model.evaluate(material, wavelength_nm=2000.0)
+
+print(point.absorption_coefficient_m_inv)
+print(point.branch.value)
+print(point.domain_status.value)
+
+```
+
+The model uses the Tran et al. literature-fitted direct prefactor and
+Urbach width together with an NCMemSim-derived C1 connection between
+the direct and Urbach branches.
+
+It does not replace the existing compact v0.10.0 optical model and is
+not selected automatically by the existing optical-programming
+workflow.
+
+See [GeSn near-edge reference](near_edge_reference.md) for the full
+scientific scope, provenance, equations, validation domain, and
+limitations.
 
 ## Optical absorption
 
