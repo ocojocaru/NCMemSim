@@ -1,3 +1,8 @@
+from .domain import (
+    EvaluationDomainStatus,
+    OpticalValidationDomain,
+    TRAN_2016_NEAR_EDGE_DOMAIN,
+)
 from .models import (
     CompactOpticalMaterialModel,
     CompositeGeSnAbsorptionModel,
@@ -13,9 +18,12 @@ from .models import (
 __all__ = [
     "CompactOpticalMaterialModel",
     "CompositeGeSnAbsorptionModel",
+    "EvaluationDomainStatus",
     "GeSnAbsorptionParameterSet",
     "GeSnOpticalParameterSet",
     "OpticalPoint",
+    "OpticalValidationDomain",
+    "TRAN_2016_NEAR_EDGE_DOMAIN",
     "direct_gap_gesn_eV",
     "indirect_gap_gesn_eV",
     "photon_energy_eV",
