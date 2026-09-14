@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "dataset_family": "tran2016_sampleA_fig6a",
+  "classification": "DIGITIZED_MODEL_DERIVED_EXPERIMENTAL_DATA",
+  "source": {
+    "citation": "H. Tran et al., Systematic study of Ge1-xSnx absorption coefficient and refractive index for the device applications of Si-based optoelectronics, J. Appl. Phys. 119, 103106 (2016).",
+    "doi": "10.1063/1.4943652",
+    "figure": "Figure 6(a)",
+    "pdf_page": 8,
+    "sample": "A",
+    "source_pdf_sha256": "ffef497eb64ac5df01abffae702d85522a582e3c2304c6afbaf052a5a05ec7cc"
+  },
+  "sample_metadata": {
+    "material": "Ge",
+    "sn_fraction": 0.0,
+    "film_thickness_nm": 300.0,
+    "in_plane_compressive_strain_percent": 0.0,
+    "temperature_description": "room temperature",
+    "reported_direct_gap_eV": 0.805,
+    "reported_direct_gap_uncertainty_eV": 0.037
+  },
+  "data_lineage": [
+    "spectroscopic ellipsometry measurement",
+    "Johs-Herzinger optical-model extraction of absorption coefficient",
+    "published Figure 6(a) marker symbols",
+    "NCMemSim 600-dpi figure digitization"
+  ],
+  "digitization": {
+    "render_dpi": 600,
+    "x_axis": {
+      "quantity": "photon_energy",
+      "unit": "eV",
+      "pixel_left": 73.0,
+      "pixel_right": 1285.0,
+      "value_left": 0.55,
+      "value_right": 0.85,
+      "mapping": "linear"
+    },
+    "y_axis": {
+      "quantity": "absorption_coefficient",
+      "unit": "cm^-1",
+      "major_tick_pixels": {
+        "1e2": 1011.0,
+        "1e3": 571.0,
+        "1e4": 131.0
+      },
+      "pixels_per_decade": 440.0,
+      "mapping": "log10"
+    },
+    "marker_center_method": "Semi-automatic center localization from the black Sample A symbols using local-thickness/distance maxima, followed by visual verification on the 600-dpi render.",
+    "wavelength_conversion": {
+      "formula": "wavelength_nm = hc_eV_nm / photon_energy_eV",
+      "hc_eV_nm": 1239.8419843320025
+    },
+    "alpha_unit_conversion": "1 cm^-1 = 100 m^-1",
+    "assigned_relative_alpha_uncertainty": 0.05,
+    "uncertainty_interpretation": "Conservative NCMemSim digitization uncertainty estimate only; not a per-point experimental standard deviation reported by Tran et al."
+  },
+  "selection": {
+    "selected_point_count": 8,
+    "excluded_low_energy_point_count": 3,
+    "selected_energy_range_eV": [
+      0.7897277227722772,
+      0.8267326732673267
+    ],
+    "selected_wavelength_range_nm": [
+      1499.6891067967936,
+      1569.9613279113903
+    ],
+    "rule": "Use the visibly steep Sample A near-edge branch beginning at approximately 0.7896 eV. Lower-energy detected markers are retained in the audit CSV but excluded because indirect absorption contaminates the low-energy region. The exact cutoff is an NCMemSim digitization decision, not a numerical threshold reported by the paper.",
+    "upper_boundary_note": "The highest selected marker digitizes to 1499.689 nm. This is 0.311 nm below the paper's nominal 1500 nm discussion boundary and is treated as a boundary-level digitization effect, not as evidence for a calibrated domain below 1500 nm."
+  },
+  "split_policy": {
+    "type": "holdout_from_same_published_curve",
+    "independent_experiment": false,
+    "ordering": "ascending photon energy",
+    "assignment": "P01 validation, P02 fit, P03 validation, P04 fit, P05 validation, P06 fit, P07 validation, P08 fit",
+    "fit_point_ids": [
+      "P02",
+      "P04",
+      "P06",
+      "P08"
+    ],
+    "validation_point_ids": [
+      "P01",
+      "P03",
+      "P05",
+      "P07"
+    ],
+    "warning": "Fit and validation subsets are disjoint holdouts from the same published curve; they are not independent experiments."
+  },
+  "limitations": [
+    "The PDF does not provide a machine-readable alpha(lambda) table.",
+    "The digitized alpha values are not raw Psi/Delta ellipsometry data.",
+    "The plotted alpha points were themselves obtained through a Johs-Herzinger optical model.",
+    "No per-point experimental alpha uncertainty is reported in the figure.",
+    "Current NCMemSim optical dataset schema does not represent wavelength uncertainty.",
+    "The reported Sample A direct gap is 0.805 +/- 0.037 eV, whereas the current NCMemSim pure-Ge direct-gap endpoint is fixed separately; this difference must be treated as a model-assumption issue in F4f1."
+  ],
+  "artifact_sha256": {
+    "tran2016_sampleA_fig6a_near_edge_all.csv": "e79252d266f3374374f9cbca7c0b10403ec1ffa79182127bdd2a2ac3470d2e74",
+    "tran2016_sampleA_fig6a_fit.csv": "09a2c4b8463cfaccbc958fdc64b4aae45c1199f847306118d2f52a5069d1f930",
+    "tran2016_sampleA_fig6a_validation.csv": "550abf8fe16136e6b5c19488e872bd62eb4a3de88e31eedcc31f61886676fe53",
+    "tran2016_sampleA_fig6a_digitization_audit.csv": "140e90104d744d90772496caf72fb7c35d1e4df09b45d67e9458413e2fafae8b",
+    "tran2016_sampleA_fig6a_overlay.png": "73bdfba11861e2fa8bbee16d34c1d8b20652cbee5ffde0db8fcae6133c599812"
+  }
+}
