@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import math
-from typing import Any, Sequence
+from typing import Any, Callable, Sequence
 
 import numpy as np
 
@@ -263,6 +263,258 @@ class FitParameterSet:
 
 
 @dataclass(frozen=True)
+class LeastSquaresConfig:
+    """
+    Explicit deterministic configuration for bounded least-squares fitting.
+
+    F4c uses SciPy's trust-region reflective method with two-point finite
+    differences, linear loss, and internally normalized [0, 1] parameters.
+    """
+
+    ftol: float = 1.0e-8
+    xtol: float = 1.0e-8
+    gtol: float = 1.0e-8
+    max_nfev: int = 1000
+
+    def __post_init__(self) -> None:
+        for field_name in ("ftol", "xtol", "gtol"):
+            value = float(getattr(self, field_name))
+
+            if not math.isfinite(value) or value <= 0.0:
+                raise ValueError(
+                    f"{field_name} must be finite and strictly positive."
+                )
+
+            object.__setattr__(self, field_name, value)
+
+        if (
+            isinstance(self.max_nfev, bool)
+            or not isinstance(self.max_nfev, int)
+            or self.max_nfev <= 0
+        ):
+            raise ValueError(
+                "max_nfev must be a strictly positive integer."
+            )
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "method": "trf",
+            "jacobian": "2-point",
+            "loss": "linear",
+            "parameter_scaling": "normalized-bounds-[0,1]",
+            "ftol": self.ftol,
+            "xtol": self.xtol,
+            "gtol": self.gtol,
+            "max_nfev": self.max_nfev,
+        }
+
+    def configuration_hash(self) -> str:
+        """Return a deterministic SHA-256 hash of the solver configuration."""
+
+        return canonical_hash(self.to_dict())
+
+
+@dataclass(frozen=True)
+class DeterministicFitResult:
+    """Result of a bounded deterministic least-squares optimization."""
+
+    parameter_set: FitParameterSet
+    config: LeastSquaresConfig
+    initial_values: np.ndarray
+    fitted_values: np.ndarray
+    objective_residuals: np.ndarray
+    success: bool
+    status: int
+    message: str
+    nfev: int
+    njev: int | None
+    optimality: float
+    active_mask: np.ndarray
+    scipy_version: str
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.parameter_set, FitParameterSet):
+            raise TypeError(
+                "parameter_set must be a FitParameterSet instance."
+            )
+
+        if not isinstance(self.config, LeastSquaresConfig):
+            raise TypeError(
+                "config must be a LeastSquaresConfig instance."
+            )
+
+        initial_values = self.parameter_set.validate_values(
+            self.initial_values
+        )
+        fitted_values = self.parameter_set.validate_values(
+            self.fitted_values
+        )
+        objective_residuals = _as_1d_finite_float_array(
+            self.objective_residuals,
+            field_name="objective_residuals",
+        )
+
+        active_mask = np.array(
+            self.active_mask,
+            dtype=int,
+            copy=True,
+        )
+
+        if active_mask.ndim != 1:
+            raise ValueError(
+                "active_mask must be one-dimensional."
+            )
+
+        if active_mask.size != self.parameter_set.n_parameters:
+            raise ValueError(
+                "active_mask must contain one entry per fit parameter."
+            )
+
+        if not np.all(np.isin(active_mask, (-1, 0, 1))):
+            raise ValueError(
+                "active_mask values must be -1, 0, or 1."
+            )
+
+        active_mask.setflags(write=False)
+
+        if isinstance(self.success, np.bool_):
+            success = bool(self.success)
+        elif isinstance(self.success, bool):
+            success = self.success
+        else:
+            raise TypeError("success must be a bool.")
+
+        if (
+            isinstance(self.status, bool)
+            or not isinstance(self.status, (int, np.integer))
+        ):
+            raise TypeError("status must be an integer.")
+
+        status = int(self.status)
+
+        message = _normalize_required_text(
+            self.message,
+            field_name="message",
+        )
+
+        if (
+            isinstance(self.nfev, bool)
+            or not isinstance(self.nfev, (int, np.integer))
+            or int(self.nfev) <= 0
+        ):
+            raise ValueError(
+                "nfev must be a strictly positive integer."
+            )
+
+        nfev = int(self.nfev)
+
+        njev: int | None
+        if self.njev is None:
+            njev = None
+        elif (
+            isinstance(self.njev, bool)
+            or not isinstance(self.njev, (int, np.integer))
+            or int(self.njev) < 0
+        ):
+            raise ValueError(
+                "njev must be None or a non-negative integer."
+            )
+        else:
+            njev = int(self.njev)
+
+        optimality = float(self.optimality)
+        if not math.isfinite(optimality) or optimality < 0.0:
+            raise ValueError(
+                "optimality must be finite and non-negative."
+            )
+
+        scipy_version = _normalize_required_text(
+            self.scipy_version,
+            field_name="scipy_version",
+        )
+
+        object.__setattr__(self, "initial_values", initial_values)
+        object.__setattr__(self, "fitted_values", fitted_values)
+        object.__setattr__(
+            self,
+            "objective_residuals",
+            objective_residuals,
+        )
+        object.__setattr__(self, "active_mask", active_mask)
+        object.__setattr__(self, "success", success)
+        object.__setattr__(self, "status", status)
+        object.__setattr__(self, "message", message)
+        object.__setattr__(self, "nfev", nfev)
+        object.__setattr__(self, "njev", njev)
+        object.__setattr__(self, "optimality", optimality)
+        object.__setattr__(self, "scipy_version", scipy_version)
+
+    @property
+    def objective_sum_squares(self) -> float:
+        return float(
+            np.dot(
+                self.objective_residuals,
+                self.objective_residuals,
+            )
+        )
+
+    @property
+    def cost(self) -> float:
+        return 0.5 * self.objective_sum_squares
+
+    @property
+    def parameter_specification_hash(self) -> str:
+        return self.parameter_set.specification_hash()
+
+    @property
+    def solver_configuration_hash(self) -> str:
+        return self.config.configuration_hash()
+
+    @property
+    def initial_parameters(self) -> dict[str, float]:
+        return self.parameter_set.values_to_dict(
+            self.initial_values
+        )
+
+    @property
+    def fitted_parameters(self) -> dict[str, float]:
+        return self.parameter_set.values_to_dict(
+            self.fitted_values
+        )
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": 1,
+            "solver": "scipy.optimize.least_squares",
+            "scipy_version": self.scipy_version,
+            "solver_configuration": self.config.to_dict(),
+            "solver_configuration_hash": (
+                self.solver_configuration_hash
+            ),
+            "parameter_specification": self.parameter_set.to_dict(),
+            "parameter_specification_hash": (
+                self.parameter_specification_hash
+            ),
+            "initial_values": self.initial_values.tolist(),
+            "fitted_values": self.fitted_values.tolist(),
+            "initial_parameters": self.initial_parameters,
+            "fitted_parameters": self.fitted_parameters,
+            "objective_residuals": (
+                self.objective_residuals.tolist()
+            ),
+            "objective_sum_squares": self.objective_sum_squares,
+            "cost": self.cost,
+            "success": self.success,
+            "status": self.status,
+            "message": self.message,
+            "nfev": self.nfev,
+            "njev": self.njev,
+            "optimality": self.optimality,
+            "active_mask": self.active_mask.tolist(),
+        }
+
+
+@dataclass(frozen=True)
 class ObjectiveEvaluation:
     """
     Deterministic least-squares objective diagnostics.
@@ -357,9 +609,7 @@ def least_squares_residuals(
     observed: np.ndarray | Sequence[float],
     predicted: np.ndarray | Sequence[float],
     *,
-    uncertainty: (
-        np.ndarray | Sequence[float] | None
-    ) = None,
+    uncertainty: np.ndarray | Sequence[float] | None = None,
 ) -> np.ndarray:
     """
     Return deterministic least-squares residuals.
@@ -413,9 +663,7 @@ def evaluate_least_squares_objective(
     observed: np.ndarray | Sequence[float],
     predicted: np.ndarray | Sequence[float],
     *,
-    uncertainty: (
-        np.ndarray | Sequence[float] | None
-    ) = None,
+    uncertainty: np.ndarray | Sequence[float] | None = None,
 ) -> ObjectiveEvaluation:
     """
     Evaluate raw and optimizer-facing least-squares diagnostics.
@@ -492,10 +740,167 @@ def evaluate_least_squares_objective(
     )
 
 
+ResidualFunction = Callable[[np.ndarray], np.ndarray | Sequence[float]]
+
+
+def _load_scipy_least_squares():
+    try:
+        import scipy
+        from scipy.optimize import least_squares
+    except ImportError as exc:
+        raise ImportError(
+            "Deterministic fitting requires SciPy. "
+            "Install NCMemSim with the optional fitting dependency: "
+            "pip install 'ncmemsim[fit]'."
+        ) from exc
+
+    return scipy.__version__, least_squares
+
+
+def run_least_squares_fit(
+    parameter_set: FitParameterSet,
+    residual_function: ResidualFunction,
+    *,
+    config: LeastSquaresConfig | None = None,
+) -> DeterministicFitResult:
+    """
+    Run bounded deterministic least-squares optimization.
+
+    The optimizer works internally on a normalized coordinate for each
+    parameter,
+
+        z = (x - lower) / (upper - lower),
+
+    so every fit variable is constrained to [0, 1] independent of its
+    physical scale. The user-supplied residual function always receives
+    physical parameter values in ``FitParameterSet`` order.
+
+    This generic layer reports numerical fitting only. It does not assign
+    material provenance or promote parameters to FITTED/CALIBRATED status.
+    """
+
+    if not isinstance(parameter_set, FitParameterSet):
+        raise TypeError(
+            "parameter_set must be a FitParameterSet instance."
+        )
+
+    if not callable(residual_function):
+        raise TypeError("residual_function must be callable.")
+
+    if config is None:
+        config = LeastSquaresConfig()
+    elif not isinstance(config, LeastSquaresConfig):
+        raise TypeError(
+            "config must be a LeastSquaresConfig instance."
+        )
+
+    scipy_version, scipy_least_squares = (
+        _load_scipy_least_squares()
+    )
+
+    lower_bounds = parameter_set.lower_bounds
+    upper_bounds = parameter_set.upper_bounds
+    spans = upper_bounds - lower_bounds
+    initial_values = parameter_set.initial_values
+
+    normalized_initial = (
+        initial_values - lower_bounds
+    ) / spans
+
+    expected_residual_size: int | None = None
+
+    def normalized_residual_function(
+        normalized_values: np.ndarray,
+    ) -> np.ndarray:
+        nonlocal expected_residual_size
+
+        normalized = _as_1d_finite_float_array(
+            normalized_values,
+            field_name="normalized_values",
+        )
+
+        if normalized.size != parameter_set.n_parameters:
+            raise ValueError(
+                "Optimizer supplied an unexpected parameter vector size."
+            )
+
+        physical_values = lower_bounds + normalized * spans
+        physical_values = parameter_set.validate_values(
+            physical_values
+        )
+
+        residuals = _as_1d_finite_float_array(
+            residual_function(physical_values),
+            field_name="residual_function output",
+        )
+
+        if expected_residual_size is None:
+            expected_residual_size = residuals.size
+        elif residuals.size != expected_residual_size:
+            raise ValueError(
+                "residual_function must return a residual vector "
+                "with constant length."
+            )
+
+        return residuals
+
+    scipy_result = scipy_least_squares(
+        normalized_residual_function,
+        x0=normalized_initial,
+        bounds=(
+            np.zeros(parameter_set.n_parameters),
+            np.ones(parameter_set.n_parameters),
+        ),
+        method="trf",
+        jac="2-point",
+        ftol=config.ftol,
+        xtol=config.xtol,
+        gtol=config.gtol,
+        x_scale=1.0,
+        loss="linear",
+        max_nfev=config.max_nfev,
+        verbose=0,
+    )
+
+    fitted_values = (
+        lower_bounds
+        + np.asarray(scipy_result.x, dtype=float) * spans
+    )
+
+    return DeterministicFitResult(
+        parameter_set=parameter_set,
+        config=config,
+        initial_values=initial_values,
+        fitted_values=fitted_values,
+        objective_residuals=np.asarray(
+            scipy_result.fun,
+            dtype=float,
+        ),
+        success=bool(scipy_result.success),
+        status=int(scipy_result.status),
+        message=str(scipy_result.message),
+        nfev=int(scipy_result.nfev),
+        njev=(
+            None
+            if scipy_result.njev is None
+            else int(scipy_result.njev)
+        ),
+        optimality=float(scipy_result.optimality),
+        active_mask=np.asarray(
+            scipy_result.active_mask,
+            dtype=int,
+        ),
+        scipy_version=str(scipy_version),
+    )
+
+
 __all__ = [
+    "DeterministicFitResult",
     "FitParameter",
     "FitParameterSet",
+    "LeastSquaresConfig",
     "ObjectiveEvaluation",
     "evaluate_least_squares_objective",
     "least_squares_residuals",
+    "run_least_squares_fit",
 ]
