@@ -1,16 +1,427 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 650" role="img" aria-labelledby="title desc">
-<title id="title">NCMemSim software architecture</title><desc id="desc">Layered data flow from device definition to validation and reproducibility outputs.</desc>
-<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#1976D2"/></marker><filter id="s"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-opacity=".15"/></filter></defs>
-<rect width="1400" height="650" rx="24" fill="#F5F9FC"/>
-<text x="700" y="58" text-anchor="middle" font-family="Inter,Arial" font-size="34" font-weight="750" fill="#0B1F33">NCMemSim software architecture</text>
-<g font-family="Inter,Arial" text-anchor="middle" filter="url(#s)">
-<g><rect x="70" y="130" width="250" height="110" rx="18" fill="white" stroke="#1976D2" stroke-width="3"/><text x="195" y="174" font-size="23" font-weight="700" fill="#0B1F33">Device definition</text><text x="195" y="207" font-size="17" fill="#61758A">layers · materials · geometry</text></g>
-<g><rect x="410" y="130" width="250" height="110" rx="18" fill="white" stroke="#00897B" stroke-width="3"/><text x="535" y="174" font-size="23" font-weight="700" fill="#0B1F33">State model</text><text x="535" y="207" font-size="17" fill="#61758A">P₀ · P₁ · P₂ per FG</text></g>
-<g><rect x="750" y="105" width="260" height="150" rx="18" fill="white" stroke="#F59E0B" stroke-width="3"/><text x="880" y="148" font-size="23" font-weight="700" fill="#0B1F33">Physics engines</text><text x="880" y="183" font-size="17" fill="#61758A">electrostatics · fields</text><text x="880" y="211" font-size="17" fill="#61758A">WKB · kinetics · transport</text></g>
-<g><rect x="1090" y="130" width="240" height="110" rx="18" fill="white" stroke="#7C3AED" stroke-width="3"/><text x="1210" y="174" font-size="23" font-weight="700" fill="#0B1F33">Simulation</text><text x="1210" y="207" font-size="17" fill="#61758A">sweeps · retention</text></g>
-<g><rect x="350" y="380" width="300" height="120" rx="18" fill="white" stroke="#1976D2" stroke-width="3"/><text x="500" y="426" font-size="23" font-weight="700" fill="#0B1F33">Scientific outputs</text><text x="500" y="460" font-size="17" fill="#61758A">QFG · ΔVFB · E(z) · fluxes</text></g>
-<g><rect x="750" y="380" width="300" height="120" rx="18" fill="white" stroke="#00897B" stroke-width="3"/><text x="900" y="426" font-size="23" font-weight="700" fill="#0B1F33">Quality layer</text><text x="900" y="460" font-size="17" fill="#61758A">validation · golden · benchmark</text></g>
-<g><rect x="550" y="548" width="300" height="70" rx="18" fill="#0B1F33"/><text x="700" y="592" font-size="22" font-weight="700" fill="white">Reproducible simulation record</text></g>
-</g>
-<g fill="none" stroke="#1976D2" stroke-width="4" marker-end="url(#arrow)"><path d="M320 185 H400"/><path d="M660 185 H740"/><path d="M1010 185 H1080"/><path d="M1210 240 C1210 320 1000 325 930 370"/><path d="M880 255 C840 315 670 330 560 370"/><path d="M650 440 H740"/><path d="M500 500 C530 540 600 555 650 565"/><path d="M900 500 C870 540 800 555 750 565"/></g>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1500 900"
+     role="img"
+     aria-labelledby="title desc">
+
+  <title id="title">NCMemSim v0.10.0 software architecture</title>
+  <desc id="desc">
+    NCMemSim software architecture showing device and state definition,
+    parallel electrical and optical physics paths, coupled occupancy kinetics,
+    simulation workflows, scientific diagnostics, validation and reproducibility.
+  </desc>
+
+  <defs>
+    <marker id="arrow"
+            markerWidth="10"
+            markerHeight="10"
+            refX="8"
+            refY="3"
+            orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#1976D2"/>
+    </marker>
+
+    <filter id="shadow">
+      <feDropShadow dx="0"
+                    dy="5"
+                    stdDeviation="6"
+                    flood-opacity=".15"/>
+    </filter>
+  </defs>
+
+  <rect width="1500"
+        height="900"
+        rx="28"
+        fill="#F5F9FC"/>
+
+  <text x="750"
+        y="58"
+        text-anchor="middle"
+        font-family="Inter,Segoe UI,Arial,sans-serif"
+        font-size="34"
+        font-weight="750"
+        fill="#0B1F33">
+    NCMemSim v0.10.0 software architecture
+  </text>
+
+  <text x="750"
+        y="90"
+        text-anchor="middle"
+        font-family="Inter,Segoe UI,Arial,sans-serif"
+        font-size="18"
+        fill="#61758A">
+    Electrical and optical physics converge in coupled nanocrystal occupancy kinetics
+  </text>
+
+  <!-- Input layer -->
+  <g font-family="Inter,Segoe UI,Arial,sans-serif"
+     text-anchor="middle"
+     filter="url(#shadow)">
+
+    <g>
+      <rect x="90"
+            y="145"
+            width="280"
+            height="120"
+            rx="18"
+            fill="white"
+            stroke="#1976D2"
+            stroke-width="3"/>
+
+      <text x="230"
+            y="188"
+            font-size="23"
+            font-weight="700"
+            fill="#0B1F33">
+        Device definition
+      </text>
+
+      <text x="230"
+            y="222"
+            font-size="17"
+            fill="#61758A">
+        layers · materials · geometry
+      </text>
+
+      <text x="230"
+            y="247"
+            font-size="16"
+            fill="#61758A">
+        floating gates · NC parameters
+      </text>
+    </g>
+
+    <g>
+      <rect x="435"
+            y="145"
+            width="280"
+            height="120"
+            rx="18"
+            fill="white"
+            stroke="#00897B"
+            stroke-width="3"/>
+
+      <text x="575"
+            y="188"
+            font-size="23"
+            font-weight="700"
+            fill="#0B1F33">
+        State model
+      </text>
+
+      <text x="575"
+            y="222"
+            font-size="17"
+            fill="#61758A">
+        P₀ · P₁ · P₂ per FG
+      </text>
+
+      <text x="575"
+            y="247"
+            font-size="16"
+            fill="#61758A">
+        charge · occupancy · history
+      </text>
+    </g>
+
+    <g>
+      <rect x="780"
+            y="145"
+            width="280"
+            height="120"
+            rx="18"
+            fill="white"
+            stroke="#26C6DA"
+            stroke-width="3"/>
+
+      <text x="920"
+            y="188"
+            font-size="23"
+            font-weight="700"
+            fill="#0B1F33">
+        Illumination source
+      </text>
+
+      <text x="920"
+            y="222"
+            font-size="17"
+            fill="#61758A">
+        wavelength · power density
+      </text>
+
+      <text x="920"
+            y="247"
+            font-size="16"
+            fill="#61758A">
+        photon energy · photon flux
+      </text>
+    </g>
+  </g>
+
+  <!-- Parallel physics layer -->
+  <g font-family="Inter,Segoe UI,Arial,sans-serif"
+     text-anchor="middle"
+     filter="url(#shadow)">
+
+    <g>
+      <rect x="180"
+            y="355"
+            width="420"
+            height="170"
+            rx="20"
+            fill="white"
+            stroke="#1976D2"
+            stroke-width="3"/>
+
+      <text x="390"
+            y="400"
+            font-size="25"
+            font-weight="700"
+            fill="#0B1F33">
+        Electrical physics
+      </text>
+
+      <text x="390"
+            y="438"
+            font-size="17"
+            fill="#61758A">
+        electrostatics · field solver
+      </text>
+
+      <text x="390"
+            y="468"
+            font-size="17"
+            fill="#61758A">
+        WKB tunnelling · inter-FG transport
+      </text>
+
+      <text x="390"
+            y="498"
+            font-size="17"
+            fill="#61758A">
+        retention · electrical transition rates
+      </text>
+    </g>
+
+    <g>
+      <rect x="900"
+            y="355"
+            width="420"
+            height="170"
+            rx="20"
+            fill="white"
+            stroke="#26C6DA"
+            stroke-width="3"/>
+
+      <text x="1110"
+            y="400"
+            font-size="25"
+            font-weight="700"
+            fill="#0B1F33">
+        Optical physics
+      </text>
+
+      <text x="1110"
+            y="438"
+            font-size="17"
+            fill="#61758A">
+        Ge/GeSn optical gaps · α(λ)
+      </text>
+
+      <text x="1110"
+            y="468"
+            font-size="17"
+            fill="#61758A">
+        Beer–Lambert absorption · αeff
+      </text>
+
+      <text x="1110"
+            y="498"
+            font-size="17"
+            fill="#61758A">
+        absorbed photon flux · photo rates
+      </text>
+    </g>
+
+    <g>
+      <rect x="540"
+            y="585"
+            width="420"
+            height="120"
+            rx="20"
+            fill="white"
+            stroke="#F59E0B"
+            stroke-width="3"/>
+
+      <text x="750"
+            y="630"
+            font-size="25"
+            font-weight="700"
+            fill="#0B1F33">
+        Coupled occupancy kinetics
+      </text>
+
+      <text x="750"
+            y="664"
+            font-size="17"
+            fill="#61758A">
+        electrical rates + photo-assisted rates
+      </text>
+
+      <text x="750"
+            y="689"
+            font-size="16"
+            fill="#61758A">
+        state transitions · probability evolution
+      </text>
+    </g>
+
+    <g>
+      <rect x="1080"
+            y="585"
+            width="300"
+            height="120"
+            rx="20"
+            fill="white"
+            stroke="#7C3AED"
+            stroke-width="3"/>
+
+      <text x="1230"
+            y="630"
+            font-size="25"
+            font-weight="700"
+            fill="#0B1F33">
+        Simulator
+      </text>
+
+      <text x="1230"
+            y="664"
+            font-size="17"
+            fill="#61758A">
+        relax · sweep · C–V
+      </text>
+
+      <text x="1230"
+            y="689"
+            font-size="16"
+            fill="#61758A">
+        retention · electro-optical runs
+      </text>
+    </g>
+  </g>
+
+  <!-- Output / quality layer -->
+  <g font-family="Inter,Segoe UI,Arial,sans-serif"
+     text-anchor="middle"
+     filter="url(#shadow)">
+
+    <g>
+      <rect x="90"
+            y="760"
+            width="390"
+            height="105"
+            rx="18"
+            fill="white"
+            stroke="#1976D2"
+            stroke-width="3"/>
+
+      <text x="285"
+            y="803"
+            font-size="22"
+            font-weight="700"
+            fill="#0B1F33">
+        Scientific diagnostics
+      </text>
+
+      <text x="285"
+            y="838"
+            font-size="16"
+            fill="#61758A">
+        QFG · ΔVFB · E(z) · Φabs · αeff · rphoto
+      </text>
+    </g>
+
+    <g>
+      <rect x="555"
+            y="760"
+            width="390"
+            height="105"
+            rx="18"
+            fill="white"
+            stroke="#00897B"
+            stroke-width="3"/>
+
+      <text x="750"
+            y="803"
+            font-size="22"
+            font-weight="700"
+            fill="#0B1F33">
+        Validation &amp; benchmarks
+      </text>
+
+      <text x="750"
+            y="838"
+            font-size="16"
+            fill="#61758A">
+        regression · golden references · SWIR tests
+      </text>
+    </g>
+
+    <g>
+      <rect x="1020"
+            y="760"
+            width="390"
+            height="105"
+            rx="18"
+            fill="#0B1F33"/>
+
+      <text x="1215"
+            y="803"
+            font-size="22"
+            font-weight="700"
+            fill="white">
+        Reproducibility record
+      </text>
+
+      <text x="1215"
+            y="838"
+            font-size="16"
+            fill="#D7E8F5">
+        configuration · version · provenance
+      </text>
+    </g>
+  </g>
+
+  <!-- Data-flow arrows -->
+  <g fill="none"
+     stroke="#1976D2"
+     stroke-width="4"
+     marker-end="url(#arrow)">
+
+    <!-- inputs to electrical path -->
+    <path d="M230 265 C230 310 300 320 340 345"/>
+    <path d="M575 265 C575 310 500 320 445 345"/>
+
+    <!-- inputs to optical path -->
+    <path d="M920 265 C920 310 1030 320 1070 345"/>
+    <path d="M370 205 C650 205 770 300 960 365"/>
+
+    <!-- electrical and optical convergence -->
+    <path d="M390 525 C390 565 590 580 655 585"/>
+    <path d="M1110 525 C1110 565 910 580 845 585"/>
+
+    <!-- state influence on kinetics -->
+    <path d="M575 265 C620 390 665 500 700 575"/>
+
+    <!-- kinetics to simulator -->
+    <path d="M960 645 H1070"/>
+
+    <!-- simulator to diagnostics -->
+    <path d="M1230 705 C1170 735 900 735 465 775"/>
+
+    <!-- diagnostics to validation -->
+    <path d="M480 812 H545"/>
+
+    <!-- validation to reproducibility -->
+    <path d="M945 812 H1010"/>
+  </g>
 </svg>
