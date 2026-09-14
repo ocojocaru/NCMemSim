@@ -7,6 +7,10 @@ from typing import Any, Sequence
 import numpy as np
 
 from ...experimental import OpticalAbsorptionDataset
+from ...fit_diagnostics import (
+    FitUncertaintyDiagnostics,
+    analyze_fit_uncertainty,
+)
 from ...fitting import (
     DeterministicFitResult,
     FitParameterSet,
@@ -244,6 +248,7 @@ class GeSnNearEdgeFitResult:
     fitted_parameter_set: GeSnNearEdgeParameterSet
     numerical_result: DeterministicFitResult
     objective: ObjectiveEvaluation
+    uncertainty_diagnostics: FitUncertaintyDiagnostics
     predicted_absorption_m_inv: np.ndarray
 
     def __post_init__(self) -> None:
@@ -289,6 +294,41 @@ class GeSnNearEdgeFitResult:
         ):
             raise TypeError(
                 "objective must be an ObjectiveEvaluation instance."
+            )
+
+        if not isinstance(
+            self.uncertainty_diagnostics,
+            FitUncertaintyDiagnostics,
+        ):
+            raise TypeError(
+                "uncertainty_diagnostics must be a "
+                "FitUncertaintyDiagnostics instance."
+            )
+
+        diagnostics = self.uncertainty_diagnostics
+
+        if (
+            diagnostics.parameter_names
+            != self.numerical_result.parameter_set.names
+        ):
+            raise ValueError(
+                "uncertainty_diagnostics parameter names must match "
+                "the numerical fit parameter order."
+            )
+
+        if diagnostics.n_observations != self.objective.n_points:
+            raise ValueError(
+                "uncertainty_diagnostics observation count must match "
+                "the objective data-point count."
+            )
+
+        if (
+            diagnostics.n_parameters
+            != self.numerical_result.parameter_set.n_parameters
+        ):
+            raise ValueError(
+                "uncertainty_diagnostics parameter count must match "
+                "the numerical fit."
             )
 
         predicted = np.array(
@@ -373,6 +413,35 @@ class GeSnNearEdgeFitResult:
             ),
         }
 
+    @property
+    def parameter_standard_errors(
+        self,
+    ) -> dict[str, float] | None:
+        return (
+            self.uncertainty_diagnostics.parameter_standard_errors
+        )
+
+    @property
+    def parameter_correlation(
+        self,
+    ) -> dict[str, dict[str, float]] | None:
+        matrix = (
+            self.uncertainty_diagnostics.correlation_matrix
+        )
+
+        if matrix is None:
+            return None
+
+        names = self.uncertainty_diagnostics.parameter_names
+
+        return {
+            row_name: {
+                column_name: float(matrix[row_index, column_index])
+                for column_index, column_name in enumerate(names)
+            }
+            for row_index, row_name in enumerate(names)
+        }
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "schema_version": 1,
@@ -389,6 +458,15 @@ class GeSnNearEdgeFitResult:
                 self.numerical_result.to_dict()
             ),
             "objective": self.objective.to_dict(),
+            "uncertainty_diagnostics": (
+                self.uncertainty_diagnostics.to_dict()
+            ),
+            "parameter_standard_errors": (
+                self.parameter_standard_errors
+            ),
+            "parameter_correlation": (
+                self.parameter_correlation
+            ),
             "predicted_absorption_m_inv": (
                 self.predicted_absorption_m_inv.tolist()
             ),
@@ -526,6 +604,10 @@ def fit_gesn_near_edge_absorption(
             f"message={numerical_result.message}"
         )
 
+    uncertainty_diagnostics = analyze_fit_uncertainty(
+        numerical_result
+    )
+
     fitted_values = (
         numerical_result.fitted_parameters
     )
@@ -627,6 +709,7 @@ def fit_gesn_near_edge_absorption(
         fitted_parameter_set=fitted_parameter_set,
         numerical_result=numerical_result,
         objective=objective,
+        uncertainty_diagnostics=uncertainty_diagnostics,
         predicted_absorption_m_inv=predicted,
     )
 
