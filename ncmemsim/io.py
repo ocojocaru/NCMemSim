@@ -34,6 +34,28 @@ _CV_HEADER_WITH_UNCERTAINTY = (
     "capacitance_uncertainty_F_m2",
 )
 
+_MEMORY_WINDOW_VS_PROGRAM_VOLTAGE_HEADER = (
+    "program_voltage_V",
+    "memory_window_V",
+)
+
+_MEMORY_WINDOW_VS_PROGRAM_VOLTAGE_HEADER_WITH_UNCERTAINTY = (
+    "program_voltage_V",
+    "memory_window_V",
+    "memory_window_uncertainty_V",
+)
+
+_MEMORY_WINDOW_VS_PROGRAMMING_TIME_HEADER = (
+    "programming_time_s",
+    "memory_window_V",
+)
+
+_MEMORY_WINDOW_VS_PROGRAMMING_TIME_HEADER_WITH_UNCERTAINTY = (
+    "programming_time_s",
+    "memory_window_V",
+    "memory_window_uncertainty_V",
+)
+
 
 def _parse_required_float(
     value: str,
@@ -88,6 +110,143 @@ def _normalize_measurement_frequency_Hz(
     return frequency
 
 
+def _normalize_positive_float(
+    value: float,
+    *,
+    field_name: str,
+) -> float:
+    normalized = float(value)
+
+    if not math.isfinite(normalized) or normalized <= 0.0:
+        raise ValueError(
+            f"{field_name} must be finite and strictly positive."
+        )
+
+    return normalized
+
+
+def _normalize_finite_float(
+    value: float,
+    *,
+    field_name: str,
+) -> float:
+    normalized = float(value)
+
+    if not math.isfinite(normalized):
+        raise ValueError(
+            f"{field_name} must be finite."
+        )
+
+    return normalized
+
+
+def _read_strict_two_or_three_column_csv(
+    path: str | Path,
+    *,
+    header_without_uncertainty: tuple[str, str],
+    header_with_uncertainty: tuple[str, str, str],
+    dataset_label: str,
+) -> tuple[
+    list[float],
+    list[float],
+    list[float] | None,
+]:
+    csv_path = Path(path)
+
+    with csv_path.open(
+        "r",
+        encoding="utf-8-sig",
+        newline="",
+    ) as handle:
+        reader = csv.reader(handle)
+
+        try:
+            header = tuple(next(reader))
+        except StopIteration as exc:
+            raise ValueError(
+                f"{dataset_label} CSV file is empty."
+            ) from exc
+
+        if header not in {
+            header_without_uncertainty,
+            header_with_uncertainty,
+        }:
+            expected_without_uncertainty = ",".join(
+                header_without_uncertainty
+            )
+            expected_with_uncertainty = ",".join(
+                header_with_uncertainty
+            )
+
+            raise ValueError(
+                f"Unsupported {dataset_label} CSV header. "
+                "Expected exactly one of: "
+                f"{expected_without_uncertainty!r} or "
+                f"{expected_with_uncertainty!r}."
+            )
+
+        has_uncertainty = (
+            header == header_with_uncertainty
+        )
+
+        independent_values: list[float] = []
+        observed_values: list[float] = []
+        uncertainties: list[float] = []
+
+        for line_number, row in enumerate(
+            reader,
+            start=2,
+        ):
+            if not row or all(
+                not cell.strip()
+                for cell in row
+            ):
+                continue
+
+            if len(row) != len(header):
+                raise ValueError(
+                    f"CSV line {line_number} has "
+                    f"{len(row)} fields; expected "
+                    f"{len(header)}."
+                )
+
+            independent_values.append(
+                _parse_required_float(
+                    row[0],
+                    field_name=header[0],
+                    line_number=line_number,
+                )
+            )
+            observed_values.append(
+                _parse_required_float(
+                    row[1],
+                    field_name=header[1],
+                    line_number=line_number,
+                )
+            )
+
+            if has_uncertainty:
+                uncertainties.append(
+                    _parse_required_float(
+                        row[2],
+                        field_name=header[2],
+                        line_number=line_number,
+                    )
+                )
+
+    if len(independent_values) < 2:
+        raise ValueError(
+            f"{dataset_label} CSV must contain "
+            "at least two data rows."
+        )
+
+    return (
+        independent_values,
+        observed_values,
+        uncertainties if has_uncertainty else None,
+    )
+
+
 def load_optical_absorption_csv(
     path: str | Path,
     *,
@@ -110,104 +269,19 @@ def load_optical_absorption_csv(
     blank data rows are ignored.
     """
 
-    csv_path = Path(path)
-
-    with csv_path.open(
-        "r",
-        encoding="utf-8-sig",
-        newline="",
-    ) as handle:
-        reader = csv.reader(handle)
-
-        try:
-            header = tuple(next(reader))
-        except StopIteration as exc:
-            raise ValueError(
-                "Optical absorption CSV file is empty."
-            ) from exc
-
-        if header not in {
-            _OPTICAL_ABSORPTION_HEADER,
-            _OPTICAL_ABSORPTION_HEADER_WITH_UNCERTAINTY,
-        }:
-            expected_without_uncertainty = ",".join(
-                _OPTICAL_ABSORPTION_HEADER
-            )
-            expected_with_uncertainty = ",".join(
-                _OPTICAL_ABSORPTION_HEADER_WITH_UNCERTAINTY
-            )
-
-            raise ValueError(
-                "Unsupported optical absorption CSV header. "
-                "Expected exactly one of: "
-                f"{expected_without_uncertainty!r} or "
-                f"{expected_with_uncertainty!r}."
-            )
-
-        has_uncertainty = (
-            header
-            == _OPTICAL_ABSORPTION_HEADER_WITH_UNCERTAINTY
-        )
-
-        wavelengths_nm: list[float] = []
-        absorption_coefficients_m_inv: list[float] = []
-        absorption_uncertainties_m_inv: list[float] = []
-
-        for line_number, row in enumerate(
-            reader,
-            start=2,
-        ):
-            if not row or all(
-                not cell.strip()
-                for cell in row
-            ):
-                continue
-
-            if len(row) != len(header):
-                raise ValueError(
-                    f"CSV line {line_number} has "
-                    f"{len(row)} fields; expected "
-                    f"{len(header)}."
-                )
-
-            wavelengths_nm.append(
-                _parse_required_float(
-                    row[0],
-                    field_name="wavelength_nm",
-                    line_number=line_number,
-                )
-            )
-            absorption_coefficients_m_inv.append(
-                _parse_required_float(
-                    row[1],
-                    field_name=(
-                        "absorption_coefficient_m_inv"
-                    ),
-                    line_number=line_number,
-                )
-            )
-
-            if has_uncertainty:
-                absorption_uncertainties_m_inv.append(
-                    _parse_required_float(
-                        row[2],
-                        field_name=(
-                            "absorption_uncertainty_m_inv"
-                        ),
-                        line_number=line_number,
-                    )
-                )
-
-    if len(wavelengths_nm) < 2:
-        raise ValueError(
-            "Optical absorption CSV must contain "
-            "at least two data rows."
-        )
-
-    uncertainty = (
-        absorption_uncertainties_m_inv
-        if has_uncertainty
-        else None
+    (
+        wavelengths_nm,
+        absorption_coefficients_m_inv,
+        uncertainty,
+    ) = _read_strict_two_or_three_column_csv(
+        path,
+        header_without_uncertainty=(
+            _OPTICAL_ABSORPTION_HEADER
+        ),
+        header_with_uncertainty=(
+            _OPTICAL_ABSORPTION_HEADER_WITH_UNCERTAINTY
+        ),
+        dataset_label="optical absorption",
     )
 
     return OpticalAbsorptionDataset(
@@ -270,97 +344,18 @@ def load_cv_csv(
         measurement_frequency_Hz
     )
 
-    csv_path = Path(path)
-
-    with csv_path.open(
-        "r",
-        encoding="utf-8-sig",
-        newline="",
-    ) as handle:
-        reader = csv.reader(handle)
-
-        try:
-            header = tuple(next(reader))
-        except StopIteration as exc:
-            raise ValueError(
-                "C-V CSV file is empty."
-            ) from exc
-
-        if header not in {
-            _CV_HEADER,
-            _CV_HEADER_WITH_UNCERTAINTY,
-        }:
-            expected_without_uncertainty = ",".join(
-                _CV_HEADER
-            )
-            expected_with_uncertainty = ",".join(
-                _CV_HEADER_WITH_UNCERTAINTY
-            )
-
-            raise ValueError(
-                "Unsupported C-V CSV header. "
-                "Expected exactly one of: "
-                f"{expected_without_uncertainty!r} or "
-                f"{expected_with_uncertainty!r}."
-            )
-
-        has_uncertainty = (
-            header
-            == _CV_HEADER_WITH_UNCERTAINTY
-        )
-
-        gate_voltages_V: list[float] = []
-        capacitances_F_m2: list[float] = []
-        capacitance_uncertainties_F_m2: list[float] = []
-
-        for line_number, row in enumerate(
-            reader,
-            start=2,
-        ):
-            if not row or all(
-                not cell.strip()
-                for cell in row
-            ):
-                continue
-
-            if len(row) != len(header):
-                raise ValueError(
-                    f"CSV line {line_number} has "
-                    f"{len(row)} fields; expected "
-                    f"{len(header)}."
-                )
-
-            gate_voltages_V.append(
-                _parse_required_float(
-                    row[0],
-                    field_name="gate_voltage_V",
-                    line_number=line_number,
-                )
-            )
-            capacitances_F_m2.append(
-                _parse_required_float(
-                    row[1],
-                    field_name="capacitance_F_m2",
-                    line_number=line_number,
-                )
-            )
-
-            if has_uncertainty:
-                capacitance_uncertainties_F_m2.append(
-                    _parse_required_float(
-                        row[2],
-                        field_name=(
-                            "capacitance_uncertainty_F_m2"
-                        ),
-                        line_number=line_number,
-                    )
-                )
-
-    if len(gate_voltages_V) < 2:
-        raise ValueError(
-            "C-V CSV must contain at least two "
-            "data rows."
-        )
+    (
+        gate_voltages_V,
+        capacitances_F_m2,
+        uncertainty,
+    ) = _read_strict_two_or_three_column_csv(
+        path,
+        header_without_uncertainty=_CV_HEADER,
+        header_with_uncertainty=(
+            _CV_HEADER_WITH_UNCERTAINTY
+        ),
+        dataset_label="C-V",
+    )
 
     conditions = [
         ExperimentalCondition(
@@ -378,12 +373,6 @@ def load_cv_csv(
             )
         )
 
-    uncertainty = (
-        capacitance_uncertainties_F_m2
-        if has_uncertainty
-        else None
-    )
-
     return DeviceObservableDataset(
         independent_variable_name="gate_voltage",
         independent_variable_unit="V",
@@ -397,7 +386,205 @@ def load_cv_csv(
     )
 
 
+def load_memory_window_vs_program_voltage_csv(
+    path: str | Path,
+    *,
+    metadata: ExperimentalDatasetMetadata,
+    program_pulse_width_s: float,
+    measurement_frequency_Hz: float | None = None,
+) -> DeviceObservableDataset:
+    """
+    Load memory window versus program-voltage data from a strict CSV schema.
+
+    Accepted schemas are exactly:
+
+    program_voltage_V,memory_window_V
+
+    or:
+
+    program_voltage_V,memory_window_V,memory_window_uncertainty_V
+
+    ``program_pulse_width_s`` is required because pulse duration is a
+    physically relevant fixed condition when program voltage is scanned.
+
+    The returned canonical device-observable dataset uses:
+
+    - independent variable: ``program_voltage`` in V;
+    - observable: ``memory_window`` in V;
+    - condition: ``program_pulse_width`` in s;
+    - optional condition: ``measurement_frequency`` in Hz.
+
+    Input row order is preserved exactly.
+    """
+
+    if not isinstance(
+        metadata,
+        ExperimentalDatasetMetadata,
+    ):
+        raise TypeError(
+            "metadata must be an "
+            "ExperimentalDatasetMetadata instance."
+        )
+
+    pulse_width_s = _normalize_positive_float(
+        program_pulse_width_s,
+        field_name="program_pulse_width_s",
+    )
+    frequency = _normalize_measurement_frequency_Hz(
+        measurement_frequency_Hz
+    )
+
+    (
+        program_voltages_V,
+        memory_windows_V,
+        uncertainty,
+    ) = _read_strict_two_or_three_column_csv(
+        path,
+        header_without_uncertainty=(
+            _MEMORY_WINDOW_VS_PROGRAM_VOLTAGE_HEADER
+        ),
+        header_with_uncertainty=(
+            _MEMORY_WINDOW_VS_PROGRAM_VOLTAGE_HEADER_WITH_UNCERTAINTY
+        ),
+        dataset_label="memory-window/program-voltage",
+    )
+
+    conditions = [
+        ExperimentalCondition(
+            name="program_pulse_width",
+            value=pulse_width_s,
+            unit="s",
+        )
+    ]
+
+    if frequency is not None:
+        conditions.append(
+            ExperimentalCondition(
+                name="measurement_frequency",
+                value=frequency,
+                unit="Hz",
+            )
+        )
+
+    return DeviceObservableDataset(
+        independent_variable_name="program_voltage",
+        independent_variable_unit="V",
+        independent_values=program_voltages_V,
+        observable_name="memory_window",
+        observable_unit="V",
+        observed_values=memory_windows_V,
+        observed_uncertainty=uncertainty,
+        metadata=metadata,
+        conditions=tuple(conditions),
+    )
+
+
+def load_memory_window_vs_programming_time_csv(
+    path: str | Path,
+    *,
+    metadata: ExperimentalDatasetMetadata,
+    program_voltage_V: float,
+    measurement_frequency_Hz: float | None = None,
+) -> DeviceObservableDataset:
+    """
+    Load memory window versus programming-time data from a strict CSV schema.
+
+    Accepted schemas are exactly:
+
+    programming_time_s,memory_window_V
+
+    or:
+
+    programming_time_s,memory_window_V,memory_window_uncertainty_V
+
+    ``program_voltage_V`` is required because program bias is a physically
+    relevant fixed condition when programming time is scanned.
+
+    The returned canonical device-observable dataset uses:
+
+    - independent variable: ``programming_time`` in s;
+    - observable: ``memory_window`` in V;
+    - condition: ``program_voltage`` in V;
+    - optional condition: ``measurement_frequency`` in Hz.
+
+    Programming-time values must be strictly positive. Input row order is
+    preserved exactly.
+    """
+
+    if not isinstance(
+        metadata,
+        ExperimentalDatasetMetadata,
+    ):
+        raise TypeError(
+            "metadata must be an "
+            "ExperimentalDatasetMetadata instance."
+        )
+
+    voltage_V = _normalize_finite_float(
+        program_voltage_V,
+        field_name="program_voltage_V",
+    )
+    frequency = _normalize_measurement_frequency_Hz(
+        measurement_frequency_Hz
+    )
+
+    (
+        programming_times_s,
+        memory_windows_V,
+        uncertainty,
+    ) = _read_strict_two_or_three_column_csv(
+        path,
+        header_without_uncertainty=(
+            _MEMORY_WINDOW_VS_PROGRAMMING_TIME_HEADER
+        ),
+        header_with_uncertainty=(
+            _MEMORY_WINDOW_VS_PROGRAMMING_TIME_HEADER_WITH_UNCERTAINTY
+        ),
+        dataset_label="memory-window/programming-time",
+    )
+
+    if any(
+        time_s <= 0.0
+        for time_s in programming_times_s
+    ):
+        raise ValueError(
+            "programming_time_s values must be "
+            "strictly positive."
+        )
+
+    conditions = [
+        ExperimentalCondition(
+            name="program_voltage",
+            value=voltage_V,
+            unit="V",
+        )
+    ]
+
+    if frequency is not None:
+        conditions.append(
+            ExperimentalCondition(
+                name="measurement_frequency",
+                value=frequency,
+                unit="Hz",
+            )
+        )
+
+    return DeviceObservableDataset(
+        independent_variable_name="programming_time",
+        independent_variable_unit="s",
+        independent_values=programming_times_s,
+        observable_name="memory_window",
+        observable_unit="V",
+        observed_values=memory_windows_V,
+        observed_uncertainty=uncertainty,
+        metadata=metadata,
+        conditions=tuple(conditions),
+    )
+
+
 __all__ = [
     "load_cv_csv",
+    "load_memory_window_vs_program_voltage_csv",
+    "load_memory_window_vs_programming_time_csv",
     "load_optical_absorption_csv",
 ]
