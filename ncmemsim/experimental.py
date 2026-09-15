@@ -9,19 +9,58 @@ import numpy as np
 from .hashing import canonical_hash
 
 
-def _validate_optional_text(value: str | None, *, field_name: str) -> None:
+def _validate_optional_text(
+    value: str | None,
+    *,
+    field_name: str,
+) -> None:
     if value is not None and not value.strip():
         raise ValueError(f"{field_name} cannot be empty.")
 
 
-def _readonly_float_array(values: np.ndarray, *, field_name: str) -> np.ndarray:
+def _normalize_required_text(
+    value: str,
+    *,
+    field_name: str,
+) -> str:
+    normalized = value.strip()
+
+    if not normalized:
+        raise ValueError(f"{field_name} cannot be empty.")
+
+    return normalized
+
+
+def _normalize_optional_text(
+    value: str | None,
+    *,
+    field_name: str,
+) -> str | None:
+    if value is None:
+        return None
+
+    normalized = value.strip()
+
+    if not normalized:
+        raise ValueError(f"{field_name} cannot be empty.")
+
+    return normalized
+
+
+def _readonly_float_array(
+    values: np.ndarray,
+    *,
+    field_name: str,
+) -> np.ndarray:
     array = np.array(values, dtype=float, copy=True)
 
     if array.ndim != 1:
         raise ValueError(f"{field_name} must be one-dimensional.")
 
     if not np.all(np.isfinite(array)):
-        raise ValueError(f"{field_name} must contain only finite values.")
+        raise ValueError(
+            f"{field_name} must contain only finite values."
+        )
 
     array.setflags(write=False)
     return array
@@ -46,13 +85,22 @@ class ExperimentalDatasetMetadata:
         if not self.source.strip():
             raise ValueError("source cannot be empty.")
 
-        _validate_optional_text(self.doi, field_name="doi")
-        _validate_optional_text(self.sample_id, field_name="sample_id")
+        _validate_optional_text(
+            self.doi,
+            field_name="doi",
+        )
+        _validate_optional_text(
+            self.sample_id,
+            field_name="sample_id",
+        )
         _validate_optional_text(
             self.temperature_description,
             field_name="temperature_description",
         )
-        _validate_optional_text(self.notes, field_name="notes")
+        _validate_optional_text(
+            self.notes,
+            field_name="notes",
+        )
 
         if self.temperature_K is not None:
             if (
@@ -99,9 +147,13 @@ class OpticalAbsorptionDataset:
     absorption_uncertainty_m_inv: np.ndarray | None = None
 
     def __post_init__(self) -> None:
-        if not isinstance(self.metadata, ExperimentalDatasetMetadata):
+        if not isinstance(
+            self.metadata,
+            ExperimentalDatasetMetadata,
+        ):
             raise TypeError(
-                "metadata must be an ExperimentalDatasetMetadata instance."
+                "metadata must be an "
+                "ExperimentalDatasetMetadata instance."
             )
 
         if (
@@ -116,53 +168,76 @@ class OpticalAbsorptionDataset:
             self.wavelength_nm,
             field_name="wavelength_nm",
         )
-        absorption_coefficient_m_inv = _readonly_float_array(
-            self.absorption_coefficient_m_inv,
-            field_name="absorption_coefficient_m_inv",
+        absorption_coefficient_m_inv = (
+            _readonly_float_array(
+                self.absorption_coefficient_m_inv,
+                field_name=(
+                    "absorption_coefficient_m_inv"
+                ),
+            )
         )
 
         if wavelength_nm.size < 2:
             raise ValueError(
-                "An optical absorption dataset requires at least two points."
+                "An optical absorption dataset "
+                "requires at least two points."
             )
 
-        if wavelength_nm.shape != absorption_coefficient_m_inv.shape:
+        if (
+            wavelength_nm.shape
+            != absorption_coefficient_m_inv.shape
+        ):
             raise ValueError(
-                "wavelength_nm and absorption_coefficient_m_inv "
+                "wavelength_nm and "
+                "absorption_coefficient_m_inv "
                 "must have the same shape."
             )
 
         if np.any(wavelength_nm <= 0.0):
             raise ValueError(
-                "wavelength_nm values must be strictly positive."
+                "wavelength_nm values must be "
+                "strictly positive."
             )
 
-        if np.any(absorption_coefficient_m_inv < 0.0):
+        if np.any(
+            absorption_coefficient_m_inv < 0.0
+        ):
             raise ValueError(
-                "absorption_coefficient_m_inv values must be non-negative."
+                "absorption_coefficient_m_inv values "
+                "must be non-negative."
             )
 
         uncertainty: np.ndarray | None = None
 
-        if self.absorption_uncertainty_m_inv is not None:
+        if (
+            self.absorption_uncertainty_m_inv
+            is not None
+        ):
             uncertainty = _readonly_float_array(
                 self.absorption_uncertainty_m_inv,
-                field_name="absorption_uncertainty_m_inv",
+                field_name=(
+                    "absorption_uncertainty_m_inv"
+                ),
             )
 
             if uncertainty.shape != wavelength_nm.shape:
                 raise ValueError(
-                    "absorption_uncertainty_m_inv must have the same shape "
-                    "as wavelength_nm."
+                    "absorption_uncertainty_m_inv "
+                    "must have the same shape as "
+                    "wavelength_nm."
                 )
 
             if np.any(uncertainty <= 0.0):
                 raise ValueError(
-                    "absorption_uncertainty_m_inv values must be "
-                    "strictly positive."
+                    "absorption_uncertainty_m_inv "
+                    "values must be strictly positive."
                 )
 
-        object.__setattr__(self, "wavelength_nm", wavelength_nm)
+        object.__setattr__(
+            self,
+            "wavelength_nm",
+            wavelength_nm,
+        )
         object.__setattr__(
             self,
             "absorption_coefficient_m_inv",
@@ -180,7 +255,10 @@ class OpticalAbsorptionDataset:
 
     @property
     def has_uncertainty(self) -> bool:
-        return self.absorption_uncertainty_m_inv is not None
+        return (
+            self.absorption_uncertainty_m_inv
+            is not None
+        )
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -188,14 +266,21 @@ class OpticalAbsorptionDataset:
             "dataset_type": "optical_absorption",
             "metadata": self.metadata.to_dict(),
             "sn_fraction": self.sn_fraction,
-            "wavelength_nm": self.wavelength_nm.tolist(),
+            "wavelength_nm": (
+                self.wavelength_nm.tolist()
+            ),
             "absorption_coefficient_m_inv": (
                 self.absorption_coefficient_m_inv.tolist()
             ),
             "absorption_uncertainty_m_inv": (
                 None
-                if self.absorption_uncertainty_m_inv is None
-                else self.absorption_uncertainty_m_inv.tolist()
+                if (
+                    self.absorption_uncertainty_m_inv
+                    is None
+                )
+                else (
+                    self.absorption_uncertainty_m_inv.tolist()
+                )
             ),
         }
 
@@ -205,7 +290,332 @@ class OpticalAbsorptionDataset:
         return canonical_hash(self.to_dict())
 
 
+ConditionValue = str | float | int | bool
+
+
+@dataclass(frozen=True)
+class ExperimentalCondition:
+    """
+    One fixed experimental condition associated with a dataset.
+
+    Conditions describe quantities or labels that remain fixed while the
+    dataset independent variable is scanned. Examples include measurement
+    frequency, sweep direction, illumination mode, pulse width, or read bias.
+
+    Numeric condition values are normalized to float for deterministic
+    serialization. Boolean and string values retain their semantic type.
+    """
+
+    name: str
+    value: ConditionValue
+    unit: str | None = None
+
+    def __post_init__(self) -> None:
+        name = _normalize_required_text(
+            self.name,
+            field_name="name",
+        )
+        unit = _normalize_optional_text(
+            self.unit,
+            field_name="unit",
+        )
+
+        value = self.value
+
+        if isinstance(value, bool):
+            normalized_value: ConditionValue = value
+        elif isinstance(value, (int, float, np.integer, np.floating)):
+            normalized_numeric = float(value)
+
+            if not math.isfinite(normalized_numeric):
+                raise ValueError(
+                    "ExperimentalCondition numeric "
+                    "value must be finite."
+                )
+
+            normalized_value = normalized_numeric
+        elif isinstance(value, str):
+            normalized_value = _normalize_required_text(
+                value,
+                field_name="value",
+            )
+        else:
+            raise TypeError(
+                "ExperimentalCondition value must be "
+                "a string, finite number, or bool."
+            )
+
+        object.__setattr__(
+            self,
+            "name",
+            name,
+        )
+        object.__setattr__(
+            self,
+            "value",
+            normalized_value,
+        )
+        object.__setattr__(
+            self,
+            "unit",
+            unit,
+        )
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "name": self.name,
+            "value": self.value,
+            "unit": self.unit,
+        }
+
+
+@dataclass(frozen=True)
+class DeviceObservableDataset:
+    """
+    Generic one-dimensional experimental device-observable dataset.
+
+    The dataset represents one measured observable as a function of one
+    independent variable while zero or more experimental conditions are held
+    fixed.
+
+    Examples include:
+
+    - capacitance_F_m2 versus gate_voltage_V;
+    - memory_window_V versus program_voltage_V;
+    - mean_occupation versus programming_time_s;
+    - retained_charge_C_m2 versus time_s.
+
+    Variable and observable units are explicit strings rather than inferred.
+    This generic layer deliberately does not assign physical meaning to a
+    particular observable; specialized adapters added in later phases can
+    validate simulator compatibility.
+
+    Input arrays are copied and made read-only. Measurement order is preserved
+    exactly because forward/backward sweeps and time histories are ordered
+    experimental protocols rather than unordered point sets.
+    """
+
+    independent_variable_name: str
+    independent_variable_unit: str | None
+    independent_values: np.ndarray
+    observable_name: str
+    observable_unit: str | None
+    observed_values: np.ndarray
+    metadata: ExperimentalDatasetMetadata
+    observed_uncertainty: np.ndarray | None = None
+    conditions: tuple[ExperimentalCondition, ...] = ()
+
+    def __post_init__(self) -> None:
+        if not isinstance(
+            self.metadata,
+            ExperimentalDatasetMetadata,
+        ):
+            raise TypeError(
+                "metadata must be an "
+                "ExperimentalDatasetMetadata instance."
+            )
+
+        independent_variable_name = (
+            _normalize_required_text(
+                self.independent_variable_name,
+                field_name=(
+                    "independent_variable_name"
+                ),
+            )
+        )
+        independent_variable_unit = (
+            _normalize_optional_text(
+                self.independent_variable_unit,
+                field_name=(
+                    "independent_variable_unit"
+                ),
+            )
+        )
+        observable_name = _normalize_required_text(
+            self.observable_name,
+            field_name="observable_name",
+        )
+        observable_unit = _normalize_optional_text(
+            self.observable_unit,
+            field_name="observable_unit",
+        )
+
+        independent_values = _readonly_float_array(
+            self.independent_values,
+            field_name="independent_values",
+        )
+        observed_values = _readonly_float_array(
+            self.observed_values,
+            field_name="observed_values",
+        )
+
+        if independent_values.size < 2:
+            raise ValueError(
+                "A device observable dataset requires "
+                "at least two points."
+            )
+
+        if independent_values.shape != observed_values.shape:
+            raise ValueError(
+                "independent_values and observed_values "
+                "must have the same shape."
+            )
+
+        uncertainty: np.ndarray | None = None
+
+        if self.observed_uncertainty is not None:
+            uncertainty = _readonly_float_array(
+                self.observed_uncertainty,
+                field_name="observed_uncertainty",
+            )
+
+            if (
+                uncertainty.shape
+                != independent_values.shape
+            ):
+                raise ValueError(
+                    "observed_uncertainty must have "
+                    "the same shape as "
+                    "independent_values."
+                )
+
+            if np.any(uncertainty <= 0.0):
+                raise ValueError(
+                    "observed_uncertainty values must "
+                    "be strictly positive."
+                )
+
+        conditions = tuple(self.conditions)
+
+        if not all(
+            isinstance(
+                condition,
+                ExperimentalCondition,
+            )
+            for condition in conditions
+        ):
+            raise TypeError(
+                "conditions must contain only "
+                "ExperimentalCondition instances."
+            )
+
+        condition_names = [
+            condition.name
+            for condition in conditions
+        ]
+
+        if len(condition_names) != len(
+            set(condition_names)
+        ):
+            raise ValueError(
+                "ExperimentalCondition names must be "
+                "unique within a dataset."
+            )
+
+        # Condition ordering is not part of experimental identity.
+        # Canonicalize it so semantically identical condition sets hash
+        # identically regardless of caller insertion order.
+        conditions = tuple(
+            sorted(
+                conditions,
+                key=lambda condition: condition.name,
+            )
+        )
+
+        object.__setattr__(
+            self,
+            "independent_variable_name",
+            independent_variable_name,
+        )
+        object.__setattr__(
+            self,
+            "independent_variable_unit",
+            independent_variable_unit,
+        )
+        object.__setattr__(
+            self,
+            "independent_values",
+            independent_values,
+        )
+        object.__setattr__(
+            self,
+            "observable_name",
+            observable_name,
+        )
+        object.__setattr__(
+            self,
+            "observable_unit",
+            observable_unit,
+        )
+        object.__setattr__(
+            self,
+            "observed_values",
+            observed_values,
+        )
+        object.__setattr__(
+            self,
+            "observed_uncertainty",
+            uncertainty,
+        )
+        object.__setattr__(
+            self,
+            "conditions",
+            conditions,
+        )
+
+    @property
+    def n_points(self) -> int:
+        return int(self.independent_values.size)
+
+    @property
+    def has_uncertainty(self) -> bool:
+        return self.observed_uncertainty is not None
+
+    @property
+    def condition_dict(
+        self,
+    ) -> dict[str, ConditionValue]:
+        return {
+            condition.name: condition.value
+            for condition in self.conditions
+        }
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": 1,
+            "dataset_type": "device_observable",
+            "metadata": self.metadata.to_dict(),
+            "independent_variable": {
+                "name": self.independent_variable_name,
+                "unit": self.independent_variable_unit,
+                "values": self.independent_values.tolist(),
+            },
+            "observable": {
+                "name": self.observable_name,
+                "unit": self.observable_unit,
+                "values": self.observed_values.tolist(),
+                "uncertainty": (
+                    None
+                    if self.observed_uncertainty is None
+                    else self.observed_uncertainty.tolist()
+                ),
+            },
+            "conditions": [
+                condition.to_dict()
+                for condition in self.conditions
+            ],
+        }
+
+    def dataset_hash(self) -> str:
+        """Return a deterministic SHA-256 hash of the normalized dataset."""
+
+        return canonical_hash(self.to_dict())
+
+
 __all__ = [
+    "ConditionValue",
+    "DeviceObservableDataset",
+    "ExperimentalCondition",
     "ExperimentalDatasetMetadata",
     "OpticalAbsorptionDataset",
 ]
