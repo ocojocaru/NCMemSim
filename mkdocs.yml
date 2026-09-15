@@ -54,6 +54,7 @@ nav:
       - GeSn near-edge reference: near_edge_reference.md
       - Glossary and notation: glossary.md
   - Quality and reproducibility:
+      - Experimental fitting and calibration: calibration.md
       - Validation overview: validation.md
       - Reproducibility and benchmarks: reproducibility.md
       - Phase D6 validation report: Validation_Report.md

@@ -61,22 +61,37 @@ The optical implementation is intentionally compact. Absolute absorption amplitu
 
 ### v0.11.0: Experimental fitting and calibration
 
-The next scientific milestone is experimental calibration of the compact electrical and optical models.
+The v0.11.0 milestone adds traceable experimental-data handling, parameter fitting, uncertainty and identifiability diagnostics, and explicit calibration qualification.
 
-Planned capabilities include:
+The release is still under development. The following capabilities are implemented on the development branch:
 
-- import of experimental C–V, memory-window, programming, retention, and optical-response data;
-- objective functions and parameter bounds;
-- deterministic fitting workflows;
-- optional global-search initialization;
-- fitting of electrical and optical model parameters;
-- uncertainty-aware calibration;
-- parameter-correlation and identifiability diagnostics;
-- residual analysis and goodness-of-fit metrics;
-- calibrated material and device parameter provenance;
-- reproducible storage of fitted configurations and metadata.
+- structured experimental optical datasets with source and sample metadata;
+- validated CSV import using canonical wavelength and absorption units;
+- deterministic least-squares objective evaluation with optional uncertainty weighting;
+- explicit fit-parameter bounds and reproducibility hashes;
+- optional SciPy-backed deterministic least-squares fitting;
+- a GeSn near-edge fitting workflow for the direct prefactor \(A\) and Urbach energy \(\Delta E\);
+- model-based local uncertainty estimates, covariance, parameter correlation, rank, and scaled-condition diagnostics;
+- a generic calibration-qualification framework with explicit quantitative validation criteria;
+- separation of `FITTED` from `CALIBRATED` parameter provenance;
+- GeSn-specific promotion from `FITTED` to a new `CALIBRATED` parameter set only when all configured qualification criteria pass;
+- a provenance-preserving digitized optical reference dataset from Tran et al. (2016);
+- a reproducible real-data fitting and holdout-validation workflow for Tran et al. sample A;
+- serialized dataset, parameter-specification, criteria, and qualification hashes.
 
-Candidate fitted parameters may include:
+The first real-data reference workflow intentionally does **not** produce a calibrated parameter set. Using the digitized Tran et al. sample-A holdout, the fitted near-edge model gives a validation RMSE of approximately \(4.50\times10^4\ \mathrm{m^{-1}}\), above the predeclared digitization-based qualification threshold of approximately \(1.57\times10^4\ \mathrm{m^{-1}}\). The workflow therefore reports `NOT_CALIBRATED`.
+
+This negative qualification result is preserved as a scientific result rather than weakening the validation threshold.
+
+Remaining v0.11.0 work may include:
+
+- expansion of the fitting infrastructure to electrical and device-level observables such as C–V, memory window, programming, and retention;
+- device-level fitting of parameters such as photo-capture efficiency against appropriate device observables;
+- optional global-search initialization before deterministic local fitting;
+- additional independent experimental validation datasets;
+- release documentation, examples, and final release validation.
+
+Candidate fitted parameters for later workflows may include:
 
 - electrically active nanocrystal fraction;
 - nanocrystal diameter or effective size parameters;
@@ -88,7 +103,7 @@ Candidate fitted parameters may include:
 - photo-capture efficiency;
 - photo-transition weights.
 
-Calibration procedures must distinguish fitted effective parameters from independently measured material properties.
+Calibration procedures must distinguish fitted effective parameters from independently measured material properties. Material-absorption data must not be used to infer device-specific photo-capture efficiency without a corresponding device observable.
 
 ### v0.12.0: Design-space exploration and DTCO
 
@@ -135,7 +150,7 @@ Target requirements include:
 
 Several optical effects are intentionally outside the current compact model and may be introduced in later revisions:
 
-- experimental calibration of wavelength-dependent absorption;
+- further experimental calibration of wavelength-dependent absorption using independent datasets;
 - experimentally calibrated photo-capture efficiencies;
 - broadband and measured optical spectra;
 - strain-dependent direct and indirect band gaps;

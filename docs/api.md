@@ -4,6 +4,9 @@ The stable import surface for NCMemSim v0.10.0 is defined primarily in
 `ncmemsim/__init__.py`, with optical material models exposed from
 `ncmemsim.materials.optics`.
 
+The v0.11.0 development branch also exposes experimental-data, fitting,
+diagnostic, and calibration APIs from their dedicated modules.
+
 The following groups summarize the principal public objects.
 
 ## Version
@@ -140,7 +143,6 @@ point = model.evaluate(material, wavelength_nm=2000.0)
 print(point.absorption_coefficient_m_inv)
 print(point.branch.value)
 print(point.domain_status.value)
-
 ```
 
 The model uses the Tran et al. literature-fitted direct prefactor and
@@ -152,8 +154,149 @@ not selected automatically by the existing optical-programming
 workflow.
 
 See [GeSn near-edge reference](near_edge_reference.md) for the full
-scientific scope, provenance, equations, validation domain, and
-limitations.
+scientific scope, provenance, equations, validation domain, fitting
+workflow, and limitations.
+
+## Experimental optical datasets
+
+Experimental optical absorption datasets are represented by:
+
+```python
+from ncmemsim.experimental import (
+    ExperimentalDatasetMetadata,
+    OpticalAbsorptionDataset,
+)
+```
+
+`OpticalAbsorptionDataset` stores canonical:
+
+- wavelength in nm;
+- absorption coefficient in \(\mathrm{m^{-1}}\);
+- Sn fraction;
+- source and sample metadata;
+- optional pointwise absorption uncertainty in \(\mathrm{m^{-1}}\).
+
+CSV import is available from:
+
+```python
+from ncmemsim.io import load_optical_absorption_csv
+```
+
+The validated optical CSV schema is:
+
+```text
+wavelength_nm,absorption_coefficient_m_inv,absorption_uncertainty_m_inv
+```
+
+The uncertainty column is optional when the source dataset has no
+declared pointwise uncertainty.
+
+## Generic fitting
+
+The fitting layer is available from `ncmemsim.fitting`.
+
+Principal objects include:
+
+- `FitParameter`
+- `FitParameterSet`
+- `LeastSquaresConfig`
+- `DeterministicFitResult`
+- `evaluate_least_squares_objective`
+- `run_least_squares_fit`
+
+The deterministic runner uses normalized parameter coordinates internally
+while reporting fitted values and stored Jacobians in physical parameter
+coordinates.
+
+SciPy is an optional fitting dependency rather than a mandatory runtime
+dependency for the base package.
+
+## Fit uncertainty and identifiability
+
+Local fit diagnostics are available from:
+
+```python
+from ncmemsim.fit_diagnostics import (
+    FitUncertaintyDiagnostics,
+    analyze_fit_uncertainty,
+)
+```
+
+Diagnostics include:
+
+- Jacobian rank;
+- bound-scaled singular values;
+- scaled condition number;
+- covariance matrix when available;
+- parameter standard errors;
+- parameter correlation;
+- active-bound count;
+- a local-identifiability flag.
+
+`locally_identifiable=True` means that the local Jacobian has full
+column rank. It is not a claim of global identifiability.
+
+The reported standard errors are model-based linearized fit estimates.
+They are not source-reported experimental uncertainties.
+
+## Calibration qualification
+
+The generic calibration API is available from:
+
+```python
+from ncmemsim.calibration import (
+    CalibrationCriteria,
+    CalibrationCriterionResult,
+    CalibrationQualification,
+    qualify_calibration,
+)
+```
+
+`CalibrationCriteria` can configure:
+
+- maximum validation RMSE;
+- maximum validation MAE;
+- minimum validation \(R^2\);
+- maximum scaled condition number;
+- whether a distinct validation-dataset hash is required;
+- whether local identifiability is required;
+- whether covariance availability is required.
+
+At least one quantitative validation threshold is required.
+
+A successful optimizer result alone never creates `CALIBRATED`
+provenance.
+
+## GeSn near-edge fitting and calibration
+
+The GeSn-specific public API is exposed from
+`ncmemsim.materials.optics`:
+
+```python
+from ncmemsim.materials.optics import (
+    GESN_NEAR_EDGE_FIT_PARAMETER_NAMES,
+    GeSnNearEdgeCalibrationResult,
+    GeSnNearEdgeFitResult,
+    fit_gesn_near_edge_absorption,
+    predict_gesn_near_edge_absorption_m_inv,
+    qualify_gesn_near_edge_fit,
+)
+```
+
+The first adapter fits exactly the direct prefactor and Urbach energy
+while keeping the direct-gap relation fixed.
+
+A successful fit creates a separate near-edge parameter set whose fitted
+parameters have `FITTED` provenance.
+
+`qualify_gesn_near_edge_fit()` evaluates a declared validation dataset
+without re-optimizing the fitted parameters. If every configured
+criterion passes, it creates a **new** parameter set with `CALIBRATED`
+provenance. If qualification fails, the result remains auditable but no
+calibrated parameter set is created.
+
+See [Experimental fitting and calibration](calibration.md) for the
+reference workflow and scientific interpretation.
 
 ## Optical absorption
 
@@ -257,6 +400,10 @@ zero while wavelength-dependent material properties can remain defined.
 - `validate_internal_charge_conservation`
 - `validate_simulation`
 - `build_reproducibility_manifest`
+
+The v0.11.0 fitting/calibration layer also records deterministic dataset,
+parameter-specification, solver-configuration, criteria, and
+qualification hashes where applicable.
 
 ## Golden references and benchmarks
 

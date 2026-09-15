@@ -122,6 +122,83 @@ See [GeSn near-edge reference](near_edge_reference.md) for the complete
 equations, parameter provenance, scientific assumptions, and example
 usage.
 
+## v0.11.0 fitting and calibration qualification
+
+The near-edge reference model can be fitted against an
+`OpticalAbsorptionDataset` without changing the literature reference
+parameter set.
+
+The GeSn adapter fits exactly:
+
+```text
+direct_prefactor_A
+urbach_energy_eV
+```
+
+while keeping the existing direct-gap relation fixed.
+
+A successful optimizer result produces `FITTED` provenance, not
+`CALIBRATED` provenance. Qualification is a separate step with explicit
+validation criteria.
+
+The generic qualification layer can require:
+
+- a distinct validation-dataset hash;
+- local identifiability;
+- covariance availability;
+- maximum validation RMSE;
+- maximum validation MAE;
+- minimum validation \(R^2\);
+- maximum scaled condition number.
+
+Only a qualification that passes every configured criterion can promote
+the fitted values into a **new** parameter set with `CALIBRATED`
+provenance. The original fitted parameter set remains unchanged.
+
+See [Experimental fitting and calibration](calibration.md) for the
+complete workflow and provenance semantics.
+
+### Tran 2016 reference workflow
+
+The first reproducible real-data workflow uses eight near-edge points
+digitized from Tran et al. Figure 6(a), sample A. Four points are used
+for fitting and four disjoint points are retained as a holdout.
+
+The points are model-derived experimental optical data: the original
+publication derives absorption coefficients from spectroscopic
+ellipsometry using the Johs-Herzinger optical model. The NCMemSim data
+package then digitizes the published symbols.
+
+The holdout is from the same published curve and is not an independent
+experiment.
+
+The deterministic fit gives approximately:
+
+```text
+A  = 2.417634e6 m^-1 eV^(1/2)
+ΔE = 8.63322 meV
+```
+
+The holdout validation gives:
+
+```text
+R²              = 0.94096
+validation RMSE = 44978.9 m^-1
+RMSE threshold  = 15747.6 m^-1
+```
+
+The RMSE threshold was derived in advance from the assigned 5%
+digitization uncertainty. Since the validation RMSE exceeds that
+threshold by approximately a factor of 2.86, the workflow reports:
+
+```text
+NOT_CALIBRATED
+```
+
+No calibrated parameter set is created. The result demonstrates why
+goodness of fit, local identifiability, and calibration qualification
+must be treated as separate concepts.
+
 ## Floating-gate absorption
 
 The nanocrystal absorption coefficient is converted to an effective floating-gate absorption coefficient using the nanocrystal volume fraction:
@@ -256,3 +333,7 @@ The v0.11.0 near-edge reference model improves the traceability of the
 bulk-like direct and Urbach absorption baseline, but it does not remove
 the nanocrystal-, strain-, field-, propagation-, or
 photo-capture-calibration limitations listed above.
+
+The first Tran digitized fitting workflow also remains explicitly
+`NOT_CALIBRATED`; it must not be used to claim absolute experimental
+validation of the nanocrystal optical-programming model.
