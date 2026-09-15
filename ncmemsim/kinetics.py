@@ -83,6 +83,66 @@ class OccupancyEngine:
         )
 
     @staticmethod
+    def step_backward_euler(
+        state: FloatingGateState,
+        rates: RateArrays,
+        dt_s: float,
+    ) -> FloatingGateState:
+        """Advance one local three-state occupancy step with backward Euler.
+
+        This A-stable implicit update is intended for stiff retention steps.
+        The legacy explicit-Euler ``step`` method is intentionally unchanged.
+        """
+        if dt_s < 0.0 or not math.isfinite(dt_s):
+            raise ValueError("dt_s must be finite and non-negative")
+
+        if dt_s == 0.0:
+            return state.copy()
+
+        p0 = np.asarray(state.P0, dtype=float)
+        p1 = np.asarray(state.P1, dtype=float)
+        p2 = np.asarray(state.P2, dtype=float)
+
+        n = p0.size
+        generator = np.zeros((n, 3, 3), dtype=float)
+        generator[:, 0, 0] = -rates.r01
+        generator[:, 0, 1] = rates.r10
+        generator[:, 1, 0] = rates.r01
+        generator[:, 1, 1] = -(rates.r10 + rates.r12)
+        generator[:, 1, 2] = rates.r21
+        generator[:, 2, 1] = rates.r12
+        generator[:, 2, 2] = -rates.r21
+
+        matrix = np.eye(3, dtype=float)[None, :, :] - dt_s * generator
+        rhs = np.stack((p0, p1, p2), axis=1)[..., None]
+        updated = np.linalg.solve(matrix, rhs)[..., 0]
+
+        if not np.all(np.isfinite(updated)):
+            raise FloatingPointError(
+                "Backward-Euler occupancy step produced non-finite values."
+            )
+
+        # For this Markov generator, the backward-Euler matrix is an M-matrix.
+        # Clip only numerical roundoff before restoring probability normalization.
+        updated = np.maximum(updated, 0.0)
+        total = np.sum(updated, axis=1)
+        if np.any(total <= 0.0) or not np.all(np.isfinite(total)):
+            raise FloatingPointError(
+                "Backward-Euler occupancy step produced invalid probability mass."
+            )
+        updated = updated / total[:, None]
+
+        return FloatingGateState(
+            updated[:, 0],
+            updated[:, 1],
+            updated[:, 2],
+            fg_id=state.fg_id,
+            layer_name=state.layer_name,
+            z_center_nm=state.z_center_nm,
+            metadata=dict(state.metadata),
+        )
+
+    @staticmethod
     def charge_density_C_m3(state, density_m3): return ELEMENTARY_CHARGE_C*density_m3*state.occupation
     @staticmethod
     def total_charge_C_m2(rho_C_m3, dx_m): return float(np.sum(rho_C_m3)*dx_m)

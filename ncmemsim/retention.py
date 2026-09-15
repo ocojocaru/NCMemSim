@@ -25,6 +25,7 @@ class RetentionConfig:
     quasi_equilibrium_tolerance_C_m2_s: float = 1.0e-18
     quasi_equilibrium_steps: int = 4
     stop_at_quasi_equilibrium: bool = False
+    occupancy_integrator: str = "backward_euler"
 
     def validate(self) -> None:
         if self.total_time_s < 0.0:
@@ -39,6 +40,13 @@ class RetentionConfig:
             raise ValueError("quasi-equilibrium tolerance cannot be negative")
         if self.quasi_equilibrium_steps < 1:
             raise ValueError("quasi_equilibrium_steps must be positive")
+        if self.occupancy_integrator not in {
+            "explicit_euler",
+            "backward_euler",
+        }:
+            raise ValueError(
+                "occupancy_integrator must be 'explicit_euler' or 'backward_euler'"
+            )
 
 
 @dataclass
@@ -119,6 +127,7 @@ class RetentionSolver:
             c.gate_voltage_V,
             dwell_time_s=0.0,
             internal_dt_s=c.initial_dt_s,
+            occupancy_integrator=c.occupancy_integrator,
         )
         state = initial["state"]
         snapshots = [self._snapshot(initial)]
@@ -143,6 +152,7 @@ class RetentionSolver:
                 c.gate_voltage_V,
                 dwell_time_s=step,
                 internal_dt_s=step,
+                occupancy_integrator=c.occupancy_integrator,
             )
             state = out["state"]
             current_q = float(out["qfg_C_m2"])

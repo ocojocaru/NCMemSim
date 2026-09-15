@@ -132,12 +132,22 @@ class Simulator:
         light_source: LightSource | None = None,
         photo_config: PhotoTransitionConfig | None = None,
         photo_weights: PhotoTransitionWeights | None = None,
+        occupancy_integrator: str = "explicit_euler",
     ):
         state.validate(self.device)
         dwell = self.config.dwell_time_s if dwell_time_s is None else dwell_time_s
         dt = self.config.internal_dt_s if internal_dt_s is None else internal_dt_s
         if dwell < 0 or dt <= 0:
             raise ValueError("dwell_time_s must be non-negative and internal_dt_s positive")
+
+        if occupancy_integrator == "explicit_euler":
+            occupancy_stepper = self.physics.occupancy.step
+        elif occupancy_integrator == "backward_euler":
+            occupancy_stepper = self.physics.occupancy.step_backward_euler
+        else:
+            raise ValueError(
+                "occupancy_integrator must be 'explicit_euler' or 'backward_euler'"
+            )
 
         current = state.copy()
         fgs = self.device.floating_gates()
@@ -207,7 +217,7 @@ class Simulator:
                 rates_by_fg[fg_index] = rates
                 
                 next_states.append(
-                    self.physics.occupancy.step(
+                    occupancy_stepper(
                         current.floating_gates[fg_index], rates, actual_dt
                     )
                 )
