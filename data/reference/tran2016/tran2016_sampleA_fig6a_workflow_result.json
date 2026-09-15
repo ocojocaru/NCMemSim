@@ -1,0 +1,193 @@
+{
+  "calibration_result": {
+    "calibrated": false,
+    "calibrated_parameter_set_name": null,
+    "eligible_for_calibration": false,
+    "failed_criteria": [
+      "validation_rmse"
+    ],
+    "qualification_hash": "7c4ea7fa39f509f8221e5a34745f3bd85e55d25f7d9efdeb930f77ea215e0b4e",
+    "validation_objective": {
+      "coefficient_of_determination": 0.940959879107221,
+      "mean_absolute_error": 31598.062306813226,
+      "n_points": 4,
+      "objective_residuals": [
+        -2.6639119784877003,
+        2.2130152571884087,
+        1.2253383794578983,
+        -3.259425766613269
+      ],
+      "objective_sum_squares": 24.119174029913935,
+      "residual_sum_squares": 8092404805.8942795,
+      "residuals": [
+        -6675.593375260767,
+        14224.772244410065,
+        18972.961775081,
+        -86518.92183250107
+      ],
+      "root_mean_square_error": 44978.89729054693,
+      "weighted": true
+    }
+  },
+  "fit_configuration": {
+    "direct_gap_policy": "Use the existing NCMemSim direct_gap_gesn_eV() relation unchanged; direct gap and bowing are not optimized in F4f1.",
+    "fitted_parameter_set_name": "gesn-near-edge-tran2016-fig6a-sampleA-fit-v1",
+    "parameter_specification": {
+      "parameters": [
+        {
+          "description": "Direct near-edge absorption prefactor.",
+          "initial_value": 3680000.0,
+          "lower_bound": 1000000.0,
+          "name": "direct_prefactor_A",
+          "unit": "m^-1 eV^(1/2)",
+          "upper_bound": 7000000.0
+        },
+        {
+          "description": "Urbach energy.",
+          "initial_value": 0.01058,
+          "lower_bound": 0.005,
+          "name": "urbach_energy_eV",
+          "unit": "eV",
+          "upper_bound": 0.02
+        }
+      ],
+      "schema_version": 1
+    },
+    "parameter_specification_hash": "6224b310ccac98741f56489b41b32681a566e1aa4be54346b7c26d4eda7ca99e"
+  },
+  "fit_result": {
+    "objective": {
+      "coefficient_of_determination": 0.8972502822548422,
+      "mean_absolute_error": 48401.124349012294,
+      "n_points": 4,
+      "objective_residuals": [
+        -1.6415406071366604e-08,
+        3.8701266383629735,
+        -1.5886180940541286,
+        -3.9280775675743413
+      ],
+      "objective_sum_squares": 32.93138102260362,
+      "residual_sum_squares": 17143146721.90378,
+      "residuals": [
+        -6.41805527266115e-05,
+        39841.12050939974,
+        -33671.48236836196,
+        -120091.89445410692
+      ],
+      "root_mean_square_error": 65465.91999258809,
+      "weighted": true
+    },
+    "parameter_correlation": {
+      "direct_prefactor_A": {
+        "direct_prefactor_A": 1.0,
+        "urbach_energy_eV": -0.5052263443539823
+      },
+      "urbach_energy_eV": {
+        "direct_prefactor_A": -0.5052263443539825,
+        "urbach_energy_eV": 1.0
+      }
+    },
+    "parameter_standard_errors": {
+      "direct_prefactor_A": 287165.556334303,
+      "urbach_energy_eV": 0.00219894239140193
+    },
+    "parameter_status": "fitted",
+    "parameters": {
+      "direct_prefactor_A": 2417634.0845416766,
+      "urbach_energy_eV": 0.008633220243398364
+    },
+    "success": true,
+    "uncertainty_diagnostics": {
+      "active_bound_count": 0,
+      "bound_constrained": false,
+      "correlation_matrix": [
+        [
+          1.0,
+          -0.5052263443539823
+        ],
+        [
+          -0.5052263443539825,
+          1.0
+        ]
+      ],
+      "covariance_available": true,
+      "covariance_matrix": [
+        [
+          82464056744.78973,
+          -319.0304876852515
+        ],
+        [
+          -319.0304876852515,
+          4.835347640704439e-06
+        ]
+      ],
+      "covariance_parameterization": "physical-parameter-values",
+      "degrees_of_freedom": 2,
+      "jacobian_full_rank": true,
+      "jacobian_rank": 2,
+      "jacobian_scaling": "fit-parameter-bounds-[0,1]",
+      "locally_identifiable": true,
+      "method": "linearized-local-least-squares",
+      "n_observations": 4,
+      "n_parameters": 2,
+      "parameter_names": [
+        "direct_prefactor_A",
+        "urbach_energy_eV"
+      ],
+      "parameter_standard_errors": {
+        "direct_prefactor_A": 287165.556334303,
+        "urbach_energy_eV": 0.00219894239140193
+      },
+      "residual_variance": 16.46569051130181,
+      "scaled_condition_number": 3.6538906217165756,
+      "scaled_singular_values": [
+        99.68132584460945,
+        27.280872955572974
+      ],
+      "schema_version": 1,
+      "standard_errors": [
+        287165.556334303,
+        0.00219894239140193
+      ],
+      "variance_scaling": "objective-sse/degrees-of-freedom"
+    }
+  },
+  "inputs": {
+    "assigned_relative_alpha_uncertainty": 0.05,
+    "fit_dataset_hash": "e575b461dbf2befea3ec4d6ad05ed84ec2b110b165b58d79191bc1c6aea094c1",
+    "fit_dataset_id": "tran2016-sampleA-fig6a-fit",
+    "fit_n_points": 4,
+    "validation_dataset_hash": "c8fa198af3b946250c68a59f1631b1b3c3172f932ab63ec9e8f3c70219805fec",
+    "validation_dataset_id": "tran2016-sampleA-fig6a-validation",
+    "validation_n_points": 4
+  },
+  "qualification_policy": {
+    "criteria": {
+      "max_scaled_condition_number": null,
+      "max_validation_mae": null,
+      "max_validation_rmse": 15747.55181462015,
+      "min_validation_r2": null,
+      "require_covariance": true,
+      "require_distinct_validation_dataset": true,
+      "require_local_identifiability": true,
+      "schema_version": 1
+    },
+    "criteria_hash": "daa4fbaf3a4793d9e8b0a2ec9c4071ab310c78617789e8cc72dbca754e7ab47a",
+    "criterion_basis": "validation RMSE <= RMS of the assigned pointwise digitization uncertainties",
+    "note": "The threshold is derived before evaluating model predictions and is not tuned to force a CALIBRATED outcome.",
+    "validation_rmse_threshold_m_inv": 15747.55181462015
+  },
+  "reference_classification": "DIGITIZED_MODEL_DERIVED_EXPERIMENTAL_DATA",
+  "schema_version": 1,
+  "scientific_conclusion": "NOT_CALIBRATED",
+  "scientific_scope": {
+    "independent_experiment": false,
+    "interpretation": "This workflow validates against a disjoint holdout from the same published curve. It is not an independent experimental replication.",
+    "reported_in_plane_compressive_strain_percent": 0.0,
+    "sample": "A",
+    "sn_fraction": 0.0,
+    "temperature_description": "room temperature",
+    "validation_type": "holdout_from_same_published_curve"
+  },
+  "workflow": "tran2016_sampleA_fig6a_near_edge_calibration"
+}
