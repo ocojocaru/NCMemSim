@@ -4,6 +4,8 @@ import csv
 import math
 from pathlib import Path
 
+import numpy as np
+
 from .experimental import (
     DeviceObservableDataset,
     ExperimentalCondition,
@@ -54,6 +56,28 @@ _MEMORY_WINDOW_VS_PROGRAMMING_TIME_HEADER_WITH_UNCERTAINTY = (
     "programming_time_s",
     "memory_window_V",
     "memory_window_uncertainty_V",
+)
+
+_RETENTION_DELTA_VFB_HEADER = (
+    "time_s",
+    "delta_vfb_V",
+)
+
+_RETENTION_DELTA_VFB_HEADER_WITH_UNCERTAINTY = (
+    "time_s",
+    "delta_vfb_V",
+    "delta_vfb_uncertainty_V",
+)
+
+_RETENTION_CHARGE_FRACTION_HEADER = (
+    "time_s",
+    "total_charge_retention_fraction",
+)
+
+_RETENTION_CHARGE_FRACTION_HEADER_WITH_UNCERTAINTY = (
+    "time_s",
+    "total_charge_retention_fraction",
+    "total_charge_retention_fraction_uncertainty",
 )
 
 
@@ -245,6 +269,27 @@ def _read_strict_two_or_three_column_csv(
         observed_values,
         uncertainties if has_uncertainty else None,
     )
+
+
+def _validate_retention_times(
+    time_s: list[float],
+) -> None:
+    times = np.asarray(time_s, dtype=float)
+
+    if not np.all(np.isfinite(times)):
+        raise ValueError(
+            "time_s values must contain only finite values."
+        )
+
+    if np.any(times < 0.0):
+        raise ValueError(
+            "time_s values must be non-negative."
+        )
+
+    if np.any(np.diff(times) <= 0.0):
+        raise ValueError(
+            "time_s values must be strictly increasing."
+        )
 
 
 def load_optical_absorption_csv(
@@ -582,9 +627,207 @@ def load_memory_window_vs_programming_time_csv(
     )
 
 
+def load_retention_delta_vfb_csv(
+    path: str | Path,
+    *,
+    metadata: ExperimentalDatasetMetadata,
+    retention_gate_voltage_V: float,
+    measurement_frequency_Hz: float | None = None,
+) -> DeviceObservableDataset:
+    """
+    Load retention flat-band-voltage shift versus time from strict CSV.
+
+    Accepted schemas are exactly:
+
+    time_s,delta_vfb_V
+
+    or:
+
+    time_s,delta_vfb_V,delta_vfb_uncertainty_V
+
+    Retention times must be finite, non-negative, and strictly increasing.
+    A first point at t = 0 is allowed but is not required.
+
+    ``retention_gate_voltage_V`` maps directly to
+    ``RetentionConfig.gate_voltage_V``. ``measurement_frequency_Hz`` is
+    optional readout metadata for electrically extracted flat-band shifts.
+
+    The returned canonical device-observable dataset uses:
+
+    - independent variable: ``time`` in s;
+    - observable: ``delta_vfb`` in V;
+    - condition: ``retention_gate_voltage`` in V;
+    - optional condition: ``measurement_frequency`` in Hz.
+    """
+
+    if not isinstance(
+        metadata,
+        ExperimentalDatasetMetadata,
+    ):
+        raise TypeError(
+            "metadata must be an "
+            "ExperimentalDatasetMetadata instance."
+        )
+
+    gate_voltage_V = _normalize_finite_float(
+        retention_gate_voltage_V,
+        field_name="retention_gate_voltage_V",
+    )
+    frequency = _normalize_measurement_frequency_Hz(
+        measurement_frequency_Hz
+    )
+
+    (
+        time_s,
+        delta_vfb_V,
+        uncertainty,
+    ) = _read_strict_two_or_three_column_csv(
+        path,
+        header_without_uncertainty=(
+            _RETENTION_DELTA_VFB_HEADER
+        ),
+        header_with_uncertainty=(
+            _RETENTION_DELTA_VFB_HEADER_WITH_UNCERTAINTY
+        ),
+        dataset_label="retention/delta-vfb",
+    )
+
+    _validate_retention_times(time_s)
+
+    conditions = [
+        ExperimentalCondition(
+            name="retention_gate_voltage",
+            value=gate_voltage_V,
+            unit="V",
+        )
+    ]
+
+    if frequency is not None:
+        conditions.append(
+            ExperimentalCondition(
+                name="measurement_frequency",
+                value=frequency,
+                unit="Hz",
+            )
+        )
+
+    return DeviceObservableDataset(
+        independent_variable_name="time",
+        independent_variable_unit="s",
+        independent_values=time_s,
+        observable_name="delta_vfb",
+        observable_unit="V",
+        observed_values=delta_vfb_V,
+        observed_uncertainty=uncertainty,
+        metadata=metadata,
+        conditions=tuple(conditions),
+    )
+
+
+def load_retention_charge_fraction_csv(
+    path: str | Path,
+    *,
+    metadata: ExperimentalDatasetMetadata,
+    retention_gate_voltage_V: float,
+    measurement_frequency_Hz: float | None = None,
+) -> DeviceObservableDataset:
+    """
+    Load normalized total-charge retention versus time from strict CSV.
+
+    Accepted schemas are exactly:
+
+    time_s,total_charge_retention_fraction
+
+    or:
+
+    time_s,total_charge_retention_fraction,total_charge_retention_fraction_uncertainty
+
+    Retention times must be finite, non-negative, and strictly increasing.
+    A first point at t = 0 is allowed but is not required.
+
+    The observable name intentionally matches
+    ``RetentionResult.total_charge_retention_fraction``. No [0, 1] bound is
+    imposed because experimental noise or charge redistribution can produce
+    values slightly above unity, and the simulator itself does not impose
+    such a bound on q(t) / q(0).
+
+    The returned canonical device-observable dataset uses:
+
+    - independent variable: ``time`` in s;
+    - observable: ``total_charge_retention_fraction`` (dimensionless);
+    - condition: ``retention_gate_voltage`` in V;
+    - optional condition: ``measurement_frequency`` in Hz.
+    """
+
+    if not isinstance(
+        metadata,
+        ExperimentalDatasetMetadata,
+    ):
+        raise TypeError(
+            "metadata must be an "
+            "ExperimentalDatasetMetadata instance."
+        )
+
+    gate_voltage_V = _normalize_finite_float(
+        retention_gate_voltage_V,
+        field_name="retention_gate_voltage_V",
+    )
+    frequency = _normalize_measurement_frequency_Hz(
+        measurement_frequency_Hz
+    )
+
+    (
+        time_s,
+        retention_fraction,
+        uncertainty,
+    ) = _read_strict_two_or_three_column_csv(
+        path,
+        header_without_uncertainty=(
+            _RETENTION_CHARGE_FRACTION_HEADER
+        ),
+        header_with_uncertainty=(
+            _RETENTION_CHARGE_FRACTION_HEADER_WITH_UNCERTAINTY
+        ),
+        dataset_label="retention/charge-fraction",
+    )
+
+    _validate_retention_times(time_s)
+
+    conditions = [
+        ExperimentalCondition(
+            name="retention_gate_voltage",
+            value=gate_voltage_V,
+            unit="V",
+        )
+    ]
+
+    if frequency is not None:
+        conditions.append(
+            ExperimentalCondition(
+                name="measurement_frequency",
+                value=frequency,
+                unit="Hz",
+            )
+        )
+
+    return DeviceObservableDataset(
+        independent_variable_name="time",
+        independent_variable_unit="s",
+        independent_values=time_s,
+        observable_name="total_charge_retention_fraction",
+        observable_unit=None,
+        observed_values=retention_fraction,
+        observed_uncertainty=uncertainty,
+        metadata=metadata,
+        conditions=tuple(conditions),
+    )
+
+
 __all__ = [
     "load_cv_csv",
     "load_memory_window_vs_program_voltage_csv",
     "load_memory_window_vs_programming_time_csv",
     "load_optical_absorption_csv",
+    "load_retention_charge_fraction_csv",
+    "load_retention_delta_vfb_csv",
 ]
