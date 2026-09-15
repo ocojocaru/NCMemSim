@@ -20,7 +20,7 @@ ellipsometry observables.
 - `tran2016_sampleA_fig6a_digitization_audit.csv` - pixel coordinates, converted
   photon energies, alpha values, selected/excluded markers, and split labels.
 - `tran2016_sampleA_fig6a_metadata.json` - complete provenance and digitization metadata.
-- `tran2016_sampleA_fig6a_overlay.png` - visual verification of marker centers.
+- A verification overlay derived from the publication figure was used locally during digitization QA but is intentionally not redistributed.
 
 The three loader-ready CSV files use exactly:
 

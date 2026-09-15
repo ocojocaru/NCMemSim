@@ -532,10 +532,12 @@ tran2016_sampleA_fig6a_digitization_audit.csv
 tran2016_sampleA_fig6a_fit.csv
 tran2016_sampleA_fig6a_metadata.json
 tran2016_sampleA_fig6a_near_edge_all.csv
-tran2016_sampleA_fig6a_overlay.png
 tran2016_sampleA_fig6a_validation.csv
 tran2016_sampleA_fig6a_workflow_result.json
 ```
+
+A verification overlay derived from the publication figure was used
+locally during digitization QA but is intentionally not redistributed.
 
 The metadata records source identity, digitization calibration, split
 policy, limitations, and SHA-256 hashes for the reference artifacts.

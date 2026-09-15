@@ -144,12 +144,13 @@ def test_reference_package_contains_expected_files():
         FIT_PATH,
         VALIDATION_PATH,
         AUDIT_PATH,
-        OVERLAY_PATH,
         README_PATH,
     )
 
     for path in expected_paths:
         assert path.is_file(), path
+
+    assert not OVERLAY_PATH.exists(), OVERLAY_PATH
 
 
 def test_reference_metadata_schema_and_classification():
@@ -536,7 +537,6 @@ def test_artifact_sha256_values_match_repository_files():
         FIT_PATH.name: FIT_PATH,
         VALIDATION_PATH.name: VALIDATION_PATH,
         AUDIT_PATH.name: AUDIT_PATH,
-        OVERLAY_PATH.name: OVERLAY_PATH,
     }
 
     assert set(
