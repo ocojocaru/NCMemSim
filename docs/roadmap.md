@@ -79,17 +79,26 @@ The release is still under development. The following capabilities are implement
 - a reproducible real-data fitting and holdout-validation workflow for Tran et al. sample A;
 - serialized dataset, parameter-specification, criteria, and qualification hashes.
 
+- generic device-observable datasets and objective adapters for C–V, memory-window, and retention measurements;
+- controlled device-calibration parameter bindings with structural degeneracy checks and identifiability warnings;
+- a synthetic single-parameter C–V recovery workflow for `qfix_C_m2`;
+- explicit fixed-voltage program-pulse and zero-dwell \(\Delta V_\mathrm{FB}\) readout semantics;
+- a synthetic single-parameter \(\Delta V_\mathrm{FB}(t_\mathrm{prog})\) recovery workflow for `nu0_Hz`;
+- an explicit paired program/erase protocol with independent branches and a pulse-defined memory window;
+- explicit separation between dynamic C–V hysteresis windows and pulse-defined state-separation windows.
+
 The first real-data reference workflow intentionally does **not** produce a calibrated parameter set. Using the digitized Tran et al. sample-A holdout, the fitted near-edge model gives a validation RMSE of approximately \(4.50\times10^4\ \mathrm{m^{-1}}\), above the predeclared digitization-based qualification threshold of approximately \(1.57\times10^4\ \mathrm{m^{-1}}\). The workflow therefore reports `NOT_CALIBRATED`.
 
 This negative qualification result is preserved as a scientific result rather than weakening the validation threshold.
 
 Remaining v0.11.0 work may include:
 
-- expansion of the fitting infrastructure to electrical and device-level observables such as C–V, memory window, programming, and retention;
+- end-to-end fitting adapters for pulse-defined memory-window and retention observables;
 - device-level fitting of parameters such as photo-capture efficiency against appropriate device observables;
+- explicit calibration qualification of fitted device parameters against independent validation datasets;
 - optional global-search initialization before deterministic local fitting;
 - additional independent experimental validation datasets;
-- release documentation, examples, and final release validation.
+- final release documentation and release validation.
 
 Candidate fitted parameters for later workflows may include:
 

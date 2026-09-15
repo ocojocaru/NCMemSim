@@ -55,6 +55,7 @@ nav:
       - Glossary and notation: glossary.md
   - Quality and reproducibility:
       - Experimental fitting and calibration: calibration.md
+      - Device-level calibration and pulse protocols: device_calibration.md
       - Validation overview: validation.md
       - Reproducibility and benchmarks: reproducibility.md
       - Phase D6 validation report: Validation_Report.md

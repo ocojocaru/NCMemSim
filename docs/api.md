@@ -298,6 +298,124 @@ calibrated parameter set is created.
 See [Experimental fitting and calibration](calibration.md) for the
 reference workflow and scientific interpretation.
 
+
+## Device-observable datasets
+
+Generic device-level experimental data are represented by:
+
+```python
+from ncmemsim.experimental import (
+    DeviceObservableDataset,
+    ExperimentalCondition,
+    ExperimentalDatasetMetadata,
+)
+```
+
+The device-observable layer supports explicit independent-variable and
+observable names/units, optional uncertainty, experimental conditions, stable
+serialization, and deterministic dataset hashes.
+
+Current F4g adapters cover C–V, memory-window, and retention observables.
+
+## Device calibration bindings
+
+Controlled device-parameter application is available from:
+
+```python
+from ncmemsim.device_calibration import (
+    DeviceCalibrationContext,
+    DeviceCalibrationSpec,
+    DeviceFitParameterBinding,
+    DeviceFitTarget,
+    apply_device_calibration_parameters,
+)
+```
+
+`DeviceCalibrationSpec` maps an ordered `FitParameterSet` to supported
+device, kinetics, tunnelling, or simulation targets.
+
+The binding layer rejects structurally degenerate parameter combinations such
+as simultaneous `qfix_C_m2` and `qit_C_m2` fitting, and simultaneous active
+fraction plus nanocrystal volume fraction for the same floating gate.
+
+Applying a parameter vector creates a cloned calibration context. It does not
+assign `CALIBRATED` provenance.
+
+## Device-level fitting
+
+The first C–V fit adapter is exposed from:
+
+```python
+from ncmemsim.device_fit import (
+    CVCalibrationProtocol,
+    DeviceCVFitResult,
+    fit_single_parameter_cv_dataset,
+)
+```
+
+The F4h2a reference workflow intentionally fits exactly one parameter.
+
+Program-time fitting is exposed from:
+
+```python
+from ncmemsim.program_fit import (
+    DeviceProgramTimeFitResult,
+    ProgramTimeFitProtocol,
+    ProgramTimePrediction,
+    fit_single_parameter_delta_vfb_vs_programming_time,
+    predict_delta_vfb_vs_programming_time,
+)
+```
+
+The F4h2b2 reference workflow fits one parameter to
+\(\Delta V_\mathrm{FB}\) versus fixed-voltage programming time. Every
+programming-time point starts from the same initial state.
+
+Successful results report `scientific_status == "FITTED"`.
+
+## Explicit electrical pulse protocols
+
+A single program pulse followed by nondestructive readout is represented by:
+
+```python
+from ncmemsim.program_protocol import (
+    ProgramPulseReadProtocol,
+    ProgramPulseReadResult,
+    run_program_pulse_read,
+)
+```
+
+The read step uses zero dwell. `programming_time_s` is the explicit
+fixed-voltage pulse duration and is distinct from
+`SimulationConfig.dwell_time_s`, which remains the simulator's default
+per-voltage relaxation time.
+
+Paired program/erase state preparation is available from:
+
+```python
+from ncmemsim.paired_pulse_protocol import (
+    PairedPulseMemoryProtocol,
+    PairedPulseMemoryResult,
+    PulseBranchResult,
+    run_paired_pulse_memory_protocol,
+)
+```
+
+Its signed pulse-defined memory window is:
+
+\[
+\Delta V_\mathrm{FB,program}
+-
+\Delta V_\mathrm{FB,erase}.
+\]
+
+This is a state-separation observable and is distinct from
+`CVResult.memory_window_V`, which is the dynamic forward/backward C–V
+hysteresis window.
+
+See [Device-level calibration and pulse protocols](device_calibration.md) for
+the complete semantics and reproducible example.
+
 ## Optical absorption
 
 The optical layer model provides:

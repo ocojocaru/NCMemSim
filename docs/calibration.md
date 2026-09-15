@@ -503,6 +503,45 @@ Because the holdout comes from the same published curve, even a future
 passing result would need to be described as holdout qualification, not
 as independent experimental replication.
 
+
+## Device-level fitting and pulse protocols
+
+The v0.11.0 development branch now includes controlled device-level parameter
+bindings and synthetic end-to-end fitting references for electrical
+observables.
+
+Implemented reference workflows include:
+
+- single-parameter C–V fitting with `qfix_C_m2`;
+- explicit fixed-voltage program pulses followed by zero-dwell
+  \(\Delta V_\mathrm{FB}\) readout;
+- single-parameter \(\Delta V_\mathrm{FB}(t_\mathrm{prog})\) fitting with
+  `nu0_Hz`;
+- independent program and erase branches defining a pulse-based memory
+  window.
+
+The device-level workflows preserve the same provenance rule used by the
+optical calibration layer: successful numerical recovery produces `FITTED`,
+not `CALIBRATED`.
+
+Two memory-window definitions are now intentionally separate:
+
+```text
+CVResult.memory_window_V
+    = forward/backward dynamic C–V hysteresis
+
+PairedPulseMemoryResult.memory_window_V
+    = ΔVFB_programmed - ΔVFB_erased
+```
+
+`SimulationConfig.dwell_time_s` remains the default per-voltage relaxation
+time used by sweeps. It is not the program-pulse duration of the explicit
+pulse protocol.
+
+See [Device-level calibration and pulse protocols](device_calibration.md) for
+the parameter-binding policy, protocol semantics, implemented workflows, and
+current limitations.
+
 ## What is not calibrated
 
 The current result does **not** calibrate:
