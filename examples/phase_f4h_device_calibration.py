@@ -11,6 +11,7 @@ from ncmemsim.device_calibration import (
     DeviceCalibrationSpec,
     DeviceFitParameterBinding,
     DeviceFitTarget,
+    apply_device_calibration_parameters,
 )
 from ncmemsim.device_fit import (
     CVCalibrationProtocol,
@@ -37,12 +38,31 @@ from ncmemsim.program_fit import (
     predict_delta_vfb_vs_programming_time,
 )
 from ncmemsim.reference import make_v53_reference_device
+from ncmemsim.retention import RetentionConfig
+from ncmemsim.retention_fit import (
+    RetentionFitProtocol,
+    fit_single_parameter_retention_fraction,
+    predict_retention_fraction,
+)
 from ncmemsim.simulator import SimulationConfig, Simulator
 from ncmemsim.state import DeviceState
 
 
 TRUE_QFIX_C_M2 = 1.2e-3
 TRUE_NU0_HZ = 2.0e12
+TRUE_PHI_ERASE_EV = 2.10
+RETENTION_GATE_VOLTAGE_V = -14.0
+RETENTION_TIMES_S = np.asarray(
+    [
+        1.0e-4,
+        3.0e-4,
+        1.0e-3,
+        3.0e-3,
+        1.0e-2,
+        3.0e-2,
+    ],
+    dtype=float,
+)
 
 
 def strict_solver() -> LeastSquaresConfig:
@@ -294,6 +314,151 @@ def run_paired_pulse_window():
     )
 
 
+
+def make_pure_p2_state(device):
+    """Return the controlled synthetic retention initial condition."""
+
+    state = DeviceState.empty_for_device(device)
+
+    for fg_state in state.floating_gates:
+        fg_state.P0[:] = 0.0
+        fg_state.P1[:] = 0.0
+        fg_state.P2[:] = 1.0
+
+    state.validate(device)
+    return state
+
+
+def retention_protocol() -> RetentionFitProtocol:
+    return RetentionFitProtocol(
+        RetentionConfig(
+            gate_voltage_V=RETENTION_GATE_VOLTAGE_V,
+            total_time_s=3.0e-2,
+            initial_dt_s=1.0e-7,
+            maximum_dt_s=1.0e-3,
+            output_points=81,
+            occupancy_integrator="backward_euler",
+        )
+    )
+
+
+def erase_barrier_specification(
+    *,
+    initial_value: float,
+) -> DeviceCalibrationSpec:
+    parameter = FitParameter(
+        name="phi_barrier_erase_eV",
+        initial_value=initial_value,
+        lower_bound=1.80,
+        upper_bound=2.40,
+        unit="eV",
+        description=(
+            "Synthetic effective erase-barrier recovery parameter."
+        ),
+    )
+
+    return DeviceCalibrationSpec(
+        parameter_set=FitParameterSet((parameter,)),
+        bindings=(
+            DeviceFitParameterBinding(
+                parameter_name="phi_barrier_erase_eV",
+                target=(
+                    DeviceFitTarget.FG_PHI_BARRIER_ERASE_EV
+                ),
+                fg_index=0,
+            ),
+        ),
+        name="example-retention-erase-barrier-recovery",
+        notes=(
+            "Single-parameter synthetic fixed-bias retention benchmark; "
+            "the fitted barrier remains an effective parameter."
+        ),
+    )
+
+
+def run_retention_recovery():
+    protocol = retention_protocol()
+
+    truth_device, truth_physics, truth_config = (
+        make_base_objects(dwell_time_s=5.0e-3)
+    )
+
+    truth_specification = erase_barrier_specification(
+        initial_value=1.90,
+    )
+    truth_context = apply_device_calibration_parameters(
+        truth_device,
+        truth_physics,
+        truth_config,
+        truth_specification,
+        np.asarray([TRUE_PHI_ERASE_EV], dtype=float),
+    )
+
+    truth_initial_state = make_pure_p2_state(
+        truth_context.device
+    )
+    truth_prediction = predict_retention_fraction(
+        Simulator(
+            truth_context.device,
+            truth_context.physics,
+            truth_context.simulation_config,
+        ),
+        protocol,
+        initial_state=truth_initial_state,
+    )
+
+    observed = np.interp(
+        RETENTION_TIMES_S,
+        truth_prediction.time_s,
+        truth_prediction.predicted_retention_fraction,
+    )
+
+    dataset = DeviceObservableDataset(
+        independent_variable_name="time",
+        independent_variable_unit="s",
+        independent_values=RETENTION_TIMES_S,
+        observable_name="total_charge_retention_fraction",
+        observable_unit=None,
+        observed_values=observed,
+        metadata=ExperimentalDatasetMetadata(
+            dataset_id="example-synthetic-retention-erase-barrier",
+            source=(
+                "NCMemSim synthetic F4h2c2 retention-fitting example"
+            ),
+            sample_id="synthetic-v53",
+            temperature_K=300.0,
+            notes=(
+                "Controlled accelerated fixed-bias synthetic benchmark; "
+                "not an experimental zero-bias retention dataset."
+            ),
+        ),
+        conditions=(
+            ExperimentalCondition(
+                name="retention_gate_voltage",
+                value=RETENTION_GATE_VOLTAGE_V,
+                unit="V",
+            ),
+        ),
+    )
+
+    device, physics, config = make_base_objects(
+        dwell_time_s=5.0e-3
+    )
+    initial_state = make_pure_p2_state(device)
+
+    return fit_single_parameter_retention_fraction(
+        dataset,
+        base_device=device,
+        base_physics=physics,
+        base_simulation_config=config,
+        calibration_spec=erase_barrier_specification(
+            initial_value=1.90,
+        ),
+        protocol=protocol,
+        initial_state=initial_state,
+        least_squares_config=strict_solver(),
+    )
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
@@ -312,12 +477,18 @@ def main() -> None:
     cv_result = run_cv_recovery()
     time_result = run_program_time_recovery()
     paired_result = run_paired_pulse_window()
+    retention_result = run_retention_recovery()
 
     fitted_qfix = (
         cv_result.fitted_parameter_values["qfix_C_m2"]
     )
     fitted_nu0 = (
         time_result.fitted_parameter_values["nu0_Hz"]
+    )
+    fitted_phi_erase = (
+        retention_result.fitted_parameter_values[
+            "phi_barrier_erase_eV"
+        ]
     )
 
     print("F4h synthetic device-level workflows")
@@ -341,6 +512,13 @@ def main() -> None:
         f"{paired_result.memory_window_magnitude_V:.6e} V"
     )
     print(
+        "Retention phi_erase recovery: "
+        f"truth={TRUE_PHI_ERASE_EV:.6f} eV, "
+        f"fit={fitted_phi_erase:.6f} eV, "
+        f"Vret={RETENTION_GATE_VOLTAGE_V:.1f} V, "
+        f"status={retention_result.scientific_status}"
+    )
+    print(
         "Scientific conclusion: synthetic parameter recovery "
         "demonstrated; no experimental CALIBRATED claim."
     )
@@ -354,9 +532,12 @@ def main() -> None:
         "scientific_conclusion": "FITTED_NOT_CALIBRATED",
         "cv_qfix_truth_C_m2": TRUE_QFIX_C_M2,
         "program_time_nu0_truth_Hz": TRUE_NU0_HZ,
+        "retention_phi_erase_truth_eV": TRUE_PHI_ERASE_EV,
+        "retention_gate_voltage_V": RETENTION_GATE_VOLTAGE_V,
         "cv_fit": cv_result.to_dict(),
         "program_time_fit": time_result.to_dict(),
         "paired_pulse_memory": paired_result.to_dict(),
+        "retention_fit": retention_result.to_dict(),
     }
 
     if args.output is not None:

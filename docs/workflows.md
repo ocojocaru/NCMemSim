@@ -681,6 +681,51 @@ different observables.
 A nearly constant total charge can coexist with substantial movement of charge
 between floating gates.
 
+
+### Retention-fraction fitting on the v0.11.0 development branch
+
+The device-fitting layer can fit one controlled model parameter directly to
+`total_charge_retention_fraction(time)` through:
+
+```python
+from ncmemsim.retention import RetentionConfig
+from ncmemsim.retention_fit import (
+    RetentionFitProtocol,
+    fit_single_parameter_retention_fraction,
+)
+
+protocol = RetentionFitProtocol(
+    RetentionConfig(
+        gate_voltage_V=-14.0,
+        total_time_s=3e-2,
+        initial_dt_s=1e-7,
+        maximum_dt_s=1e-3,
+        output_points=81,
+        occupancy_integrator="backward_euler",
+    )
+)
+```
+
+The dataset supplies the measurement times. One continuous fixed-bias
+retention trajectory is simulated from the caller-supplied initial
+`DeviceState`, and the F4g retention objective interpolates that trajectory
+onto the experimental grid in **linear physical time**. Extrapolation is not
+allowed.
+
+For reproducibility, the workflow records both the protocol hash and an
+occupation-defined initial-state hash. The caller's initial state and baseline
+model objects are not mutated by fitting.
+
+The synthetic F4h2c2 reference uses a pure-P2 initial state, `Vret = -14 V`,
+and recovers `phi_barrier_erase_eV = 2.10 eV` for FG0. This is an accelerated
+fixed-bias numerical-identifiability benchmark, not a claim about ordinary
+zero-bias retention. The fitted erase barrier is effective and remains
+confounded with erase attempt frequencies and other tunnelling parameters when
+those quantities are not independently constrained.
+
+A successful result reports `FITTED`. It does not automatically become
+`CALIBRATED`.
+
 ## 22. Programming followed by retention
 
 A common study is:
@@ -987,6 +1032,13 @@ The most relevant v0.10.0 optical examples are:
 ```text
 examples/e6a_swir_wavelength_sweep.py
 examples/e6d_swir_voltage_reduction.py
+```
+
+The v0.11.0 development branch also provides the integrated synthetic
+device-calibration example:
+
+```text
+examples/phase_f4h_device_calibration.py
 ```
 
 Earlier examples remain useful for electrical and multi-FG workflows:

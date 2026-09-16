@@ -85,15 +85,20 @@ The release is still under development. The following capabilities are implement
 - explicit fixed-voltage program-pulse and zero-dwell \(\Delta V_\mathrm{FB}\) readout semantics;
 - a synthetic single-parameter \(\Delta V_\mathrm{FB}(t_\mathrm{prog})\) recovery workflow for `nu0_Hz`;
 - an explicit paired program/erase protocol with independent branches and a pulse-defined memory window;
+- a synthetic single-parameter pulse-defined memory-window-versus-programming-time recovery workflow;
+- backward-Euler stabilization for long-time retention occupancy integration;
+- a synthetic single-parameter retention-fraction-versus-time fitting workflow with caller-supplied initial-state and protocol hashes, physical-time interpolation, and no extrapolation;
+- recovery of the effective FG erase barrier in an accelerated fixed-bias retention benchmark;
 - explicit separation between dynamic C–V hysteresis windows and pulse-defined state-separation windows.
 
 The first real-data reference workflow intentionally does **not** produce a calibrated parameter set. Using the digitized Tran et al. sample-A holdout, the fitted near-edge model gives a validation RMSE of approximately \(4.50\times10^4\ \mathrm{m^{-1}}\), above the predeclared digitization-based qualification threshold of approximately \(1.57\times10^4\ \mathrm{m^{-1}}\). The workflow therefore reports `NOT_CALIBRATED`.
 
 This negative qualification result is preserved as a scientific result rather than weakening the validation threshold.
 
+The synthetic device-level recovery workflows, including pulse-memory and retention fitting, demonstrate deterministic parameter recovery only. They report `FITTED`, not `CALIBRATED`, and do not substitute for independent experimental device validation.
+
 Remaining v0.11.0 work may include:
 
-- end-to-end fitting adapters for pulse-defined memory-window and retention observables;
 - device-level fitting of parameters such as photo-capture efficiency against appropriate device observables;
 - explicit calibration qualification of fitted device parameters against independent validation datasets;
 - optional global-search initialization before deterministic local fitting;

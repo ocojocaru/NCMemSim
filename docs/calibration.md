@@ -542,6 +542,58 @@ See [Device-level calibration and pulse protocols](device_calibration.md) for
 the parameter-binding policy, protocol semantics, implemented workflows, and
 current limitations.
 
+
+### Retention-fraction fitting
+
+The F4h2c2 workflow adds an end-to-end single-parameter fit for
+`total_charge_retention_fraction` versus physical time. The production API is
+implemented in `ncmemsim.retention_fit` and uses the existing F4g retention
+objective adapter rather than a separate fitting-only observable definition.
+
+The workflow requires:
+
+- a caller-supplied `DeviceState` as the retention initial condition;
+- an explicit `RetentionFitProtocol` containing the `RetentionConfig`;
+- `occupancy_integrator="backward_euler"`;
+- `stop_at_quasi_equilibrium=False`, so the declared simulation domain is
+  always available to the objective adapter;
+- exactly one free parameter in the `DeviceCalibrationSpec`;
+- exact matching of the dataset `retention_gate_voltage` condition;
+- linear interpolation in physical time;
+- no extrapolation beyond the simulated retention interval.
+
+The initial occupation state and protocol are serialized and hashed. Local
+field and potential diagnostics are intentionally excluded from the initial
+state identity because they are recomputed self-consistently at the retention
+bias.
+
+The synthetic reference benchmark uses a pure-P2 initial state and fits the
+FG0 effective erase barrier:
+
+```text
+observable                 total_charge_retention_fraction
+retention gate voltage     -14 V
+truth phi_barrier_erase    2.10 eV
+fit interval               1e-4 to 3e-2 s
+free parameter             FG_PHI_BARRIER_ERASE_EV
+scientific status          FITTED
+```
+
+The negative gate bias is a deliberately accelerated constant-bias synthetic
+identifiability benchmark. It must not be described as representative
+zero-bias data retention.
+
+`phi_barrier_erase_eV` is an **effective compact-model parameter**. In the
+current kinetics it controls the erase tunnelling transmission used by both
+escape channels and can be strongly correlated with `nu1_Hz`, `nu2_Hz`, and
+other tunnelling quantities. The single-parameter benchmark therefore tests
+numerical recovery under a fixed model and protocol; it does not establish a
+unique microscopic barrier value.
+
+Successful synthetic recovery remains `FITTED`, not `CALIBRATED`. Promotion to
+`CALIBRATED` would require a separate experimental validation dataset and
+explicit calibration qualification.
+
 ## What is not calibrated
 
 The current result does **not** calibrate:

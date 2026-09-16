@@ -373,6 +373,34 @@ programming-time point starts from the same initial state.
 
 Successful results report `scientific_status == "FITTED"`.
 
+
+Retention-fraction fitting is exposed from:
+
+```python
+from ncmemsim.retention_fit import (
+    DeviceRetentionFractionFitResult,
+    RetentionFitProtocol,
+    RetentionFractionPrediction,
+    fit_single_parameter_retention_fraction,
+    predict_retention_fraction,
+)
+```
+
+The F4h2c2 workflow fits exactly one parameter to
+`total_charge_retention_fraction` versus time from a caller-supplied initial
+`DeviceState`. It uses the standard `RetentionResult` plus the F4g
+`evaluate_retention_objective()` adapter, performs linear interpolation in
+physical time, and rejects extrapolation. The protocol requires the
+backward-Euler occupancy integrator and a complete declared simulation domain.
+
+`RetentionFractionPrediction` records the continuous simulated trajectory and
+an occupation-defined initial-state manifest/hash. `DeviceRetentionFractionFitResult`
+records the dataset hash, calibration-specification hash, protocol hash,
+parameter-application manifest, fitted numerical result, and objective.
+
+A successful retention fit reports `scientific_status == "FITTED"`; it does
+not assign `CALIBRATED` provenance.
+
 ## Explicit electrical pulse protocols
 
 A single program pulse followed by nondestructive readout is represented by:
@@ -507,6 +535,11 @@ zero while wavelength-dependent material properties can remain defined.
 - `RetentionConfig`
 - `RetentionSolver`
 - `RetentionResult`
+
+The v0.11.0 retention-fitting API is provided by the dedicated
+`ncmemsim.retention_fit` module rather than the v0.10.0 top-level import
+surface. See the device-level fitting section above for the fit protocol,
+prediction, and result objects.
 
 ## Validation and reproducibility
 
