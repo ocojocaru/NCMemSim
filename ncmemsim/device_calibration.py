@@ -13,6 +13,7 @@ from .fitting import FitParameterSet
 from .hashing import canonical_hash
 from .materials.base import NanocrystalMaterial
 from .physics import PhysicsModel
+from .photo import PhotoTransitionConfig
 from .simulator import SimulationConfig
 
 
@@ -34,6 +35,8 @@ class DeviceFitTarget(str, Enum):
     TUNNELING_OXIDE_EFFECTIVE_MASS_M0 = "tunneling.oxide_effective_mass_m0"
     TUNNELING_FIELD_COUPLING_FACTOR = "tunneling.field_coupling_factor"
     TUNNELING_ACTIVATION_BETA_V_INV = "tunneling.activation_beta_V_inv"
+
+    PHOTO_CAPTURE_EFFICIENCY = "photo.photo_capture_efficiency"
 
     SIMULATION_QFIX_C_M2 = "simulation.qfix_C_m2"
     SIMULATION_QIT_C_M2 = "simulation.qit_C_m2"
@@ -68,6 +71,10 @@ _SIMULATION_FIELDS = {
     DeviceFitTarget.SIMULATION_QIT_C_M2: "qit_C_m2",
 }
 
+_PHOTO_FIELDS = {
+    DeviceFitTarget.PHOTO_CAPTURE_EFFICIENCY: "photo_capture_efficiency",
+}
+
 _CANONICAL_UNITS: dict[DeviceFitTarget, str | None] = {
     DeviceFitTarget.FG_ELECTRICALLY_ACTIVE_FRACTION: None,
     DeviceFitTarget.FG_NC_VOLUME_FRACTION: None,
@@ -82,6 +89,7 @@ _CANONICAL_UNITS: dict[DeviceFitTarget, str | None] = {
     DeviceFitTarget.TUNNELING_OXIDE_EFFECTIVE_MASS_M0: "m0",
     DeviceFitTarget.TUNNELING_FIELD_COUPLING_FACTOR: None,
     DeviceFitTarget.TUNNELING_ACTIVATION_BETA_V_INV: "1/V",
+    DeviceFitTarget.PHOTO_CAPTURE_EFFICIENCY: None,
     DeviceFitTarget.SIMULATION_QFIX_C_M2: "C/m^2",
     DeviceFitTarget.SIMULATION_QIT_C_M2: "C/m^2",
 }
@@ -370,6 +378,7 @@ class DeviceCalibrationContext:
     specification_hash: str
     parameter_values: dict[str, float]
     identifiability_warnings: tuple[str, ...]
+    photo_config: PhotoTransitionConfig | None = None
 
     def parameter_application_manifest(self) -> dict:
         return {
@@ -414,6 +423,7 @@ def _validate_target_value(
     if target in {
         DeviceFitTarget.FG_ELECTRICALLY_ACTIVE_FRACTION,
         DeviceFitTarget.FG_NC_VOLUME_FRACTION,
+        DeviceFitTarget.PHOTO_CAPTURE_EFFICIENCY,
     }:
         if not 0.0 <= value <= 1.0:
             raise ValueError(f"{target.value} must lie in [0, 1].")
@@ -543,12 +553,15 @@ def apply_device_calibration_parameters(
     base_simulation_config: SimulationConfig,
     spec: DeviceCalibrationSpec,
     values: np.ndarray | Sequence[float],
+    *,
+    base_photo_config: PhotoTransitionConfig | None = None,
 ) -> DeviceCalibrationContext:
     """
     Apply one bounded parameter vector to isolated deep-copied model objects.
 
-    The three baseline objects are copied together so aliasing inside the
-    object graph is preserved. Baselines are never mutated.
+    The device, physics, and simulation-config baselines are copied together
+    so aliasing inside the object graph is preserved. An optional photo
+    configuration is copied in the same operation. Baselines are never mutated.
 
     This function only applies parameters. It does not run a simulator,
     evaluate an objective, or assign FITTED/CALIBRATED provenance.
@@ -564,23 +577,52 @@ def apply_device_calibration_parameters(
         )
     if not isinstance(spec, DeviceCalibrationSpec):
         raise TypeError("spec must be a DeviceCalibrationSpec.")
+    if (
+        base_photo_config is not None
+        and not isinstance(base_photo_config, PhotoTransitionConfig)
+    ):
+        raise TypeError(
+            "base_photo_config must be a PhotoTransitionConfig or None."
+        )
+    if (
+        set(_PHOTO_FIELDS).intersection(_targets(spec.bindings))
+        and base_photo_config is None
+    ):
+        raise ValueError(
+            "Photo fit targets require an explicit base_photo_config."
+        )
 
     base_device.validate()
     _validate_physics_sharing(base_physics)
     vector = spec.parameter_set.validate_values(values)
 
-    device, physics, simulation_config = deepcopy(
-        (base_device, base_physics, base_simulation_config)
+    device, physics, simulation_config, photo_config = deepcopy(
+        (
+            base_device,
+            base_physics,
+            base_simulation_config,
+            base_photo_config,
+        )
     )
     _validate_physics_sharing(physics)
 
     for binding, raw_value in zip(spec.bindings, vector):
+        value = float(raw_value)
+        if binding.target in _PHOTO_FIELDS:
+            _validate_target_value(binding, value)
+            assert photo_config is not None
+            photo_config = replace(
+                photo_config,
+                **{_PHOTO_FIELDS[binding.target]: value},
+            )
+            continue
+
         simulation_config = _apply_binding(
             device,
             physics,
             simulation_config,
             binding,
-            float(raw_value),
+            value,
         )
 
     device.validate()
@@ -593,6 +635,7 @@ def apply_device_calibration_parameters(
         specification_hash=spec.specification_hash(),
         parameter_values=spec.parameter_set.values_to_dict(vector),
         identifiability_warnings=spec.identifiability_warnings,
+        photo_config=photo_config,
     )
 
 
