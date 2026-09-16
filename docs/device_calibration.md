@@ -20,6 +20,11 @@ The implemented device-level calibration layer currently covers:
 - synthetic fitting of \(\Delta V_\mathrm{FB}\) versus programming time;
 - independent program and erase branches for a pulse-defined memory window.
 
+- illuminated program-pulse prediction with explicit optical conditions;
+- single-parameter fitting of `photo_capture_efficiency`;
+- shared `photo_capture_efficiency` fitting across multiple wavelength/power conditions;
+- local joint-Jacobian uncertainty and identifiability diagnostics.
+
 These workflows are infrastructure and validation references. A successful
 synthetic recovery result has scientific status `FITTED`, not `CALIBRATED`.
 
@@ -288,9 +293,77 @@ A future adapter may explicitly connect a pulse-defined memory-window dataset
 to `PairedPulseMemoryResult`, but that connection is not implied by the
 current API.
 
+## Electro-optical photo-capture fitting
+
+The F4i workflow adds a dedicated electro-optical program-time fitting layer:
+
+```python
+from ncmemsim.photo_program_fit import (
+    DevicePhotoMultiConditionFitResult,
+    DevicePhotoProgramTimeFitResult,
+    ElectroOpticalProgramTimeFitProtocol,
+    ElectroOpticalProgramTimePrediction,
+    fit_single_parameter_photo_capture_efficiency_multi_condition,
+    fit_single_parameter_photo_capture_efficiency_vs_programming_time,
+    predict_electro_optical_delta_vfb_vs_programming_time,
+)
+```
+
+`ElectroOpticalProgramTimeFitProtocol` fixes the electrical pulse/read
+conditions, monochromatic `LightSource`, `PhotoTransitionWeights`, and
+occupancy integrator. The device-level `photo_capture_efficiency` is supplied
+separately through `PhotoTransitionConfig`; it is not part of the protocol
+hash.
+
+For a programming-time dataset, every time point is simulated independently
+from the same initial state. Illumination is active during the program pulse
+only. Readout is dark and uses zero dwell.
+
+The single-condition workflow fits exactly one free parameter:
+
+```text
+DeviceFitTarget.PHOTO_CAPTURE_EFFICIENCY
+```
+
+The multi-condition workflow fits the same parameter simultaneously against
+two or more datasets. F4i4 deliberately allows the optical source wavelength
+and/or incident optical power density to vary while keeping the electrical
+program/read conditions, transition weights, numerical integration settings,
+and device parameterization fixed. The optimizer receives the concatenation
+of all per-condition objective residuals.
+
+The multi-condition result attaches the generic
+`FitUncertaintyDiagnostics` computed from the full joint Jacobian. It records
+the local Jacobian rank, bound-scaled singular values, scaled condition
+number, covariance and standard error when available, and a
+`locally_identifiable` flag. It also exposes
+`condition_scaled_jacobian_l2_norms`, which reports the local sensitivity
+magnitude contributed by each optical condition.
+
+For the current single-free-parameter workflow, a nonzero full-rank
+one-column Jacobian has a scaled condition number of one. That numerical fact
+must not be interpreted as strong evidence of global identifiability.
+`locally_identifiable=True` means only that the local linearized joint
+Jacobian has full column rank under the fixed optical model.
+
+In particular, the F4i4 result does not by itself separate
+`photo_capture_efficiency` from systematic errors or uncertainty in incident
+optical power, absorption amplitudes, nanocrystal density, or
+photo-transition weights. Those quantities are fixed in this workflow.
+
+All F4i3/F4i4 synthetic recovery results remain:
+
+```text
+scientific_status = FITTED
+```
+
+They are not promoted to `CALIBRATED`. Independent device-observable
+validation and explicit calibration qualification are required for that
+promotion.
+
 ## Reproducible device-level example
 
-The consolidated reference example is:
+The consolidated electrical/device reference example is:
 
 ```text
 examples/phase_f4h_device_calibration.py
@@ -320,6 +393,30 @@ python examples/phase_f4h_device_calibration.py \
 The example is self-generated synthetic validation. It demonstrates numerical
 recovery and protocol semantics, not experimental calibration.
 
+The electro-optical F4i reference example is:
+
+```text
+examples/phase_f4i_photo_capture_fit.py
+```
+
+Run it with:
+
+```bash
+python examples/phase_f4i_photo_capture_fit.py
+```
+
+or serialize the full joint fit and compact summary with:
+
+```bash
+python examples/phase_f4i_photo_capture_fit.py \
+    --output photo_capture_fit_result.json
+```
+
+It generates three synthetic optical conditions with one common
+`photo_capture_efficiency`, performs a shared fit, and reports the joint local
+identifiability diagnostics. Its scientific conclusion is
+`FITTED_NOT_CALIBRATED`.
+
 ## Current limitations
 
 The device-level workflows do not yet establish calibrated values for
@@ -330,8 +427,10 @@ experimental device datasets.
 The paired pulse protocol is currently a simulation protocol, not a complete
 end-to-end fit adapter.
 
-Retention already has experimental-data and objective infrastructure, but a
-dedicated end-to-end retention fitting workflow is still future work.
+The current photo-capture multi-condition workflow holds optical-model
+quantities such as absorption amplitudes and transition weights fixed. Its
+local identifiability diagnostics therefore do not establish global
+identifiability against those nuisance quantities.
 
 Independent experimental validation and explicit calibration qualification
 remain necessary before a fitted device parameter can be described as

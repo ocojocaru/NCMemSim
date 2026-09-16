@@ -401,6 +401,45 @@ parameter-application manifest, fitted numerical result, and objective.
 A successful retention fit reports `scientific_status == "FITTED"`; it does
 not assign `CALIBRATED` provenance.
 
+### Electro-optical photo-capture fitting
+
+Electro-optical programming-time prediction and fitting are exposed from:
+
+```python
+from ncmemsim.photo_program_fit import (
+    DevicePhotoMultiConditionFitResult,
+    DevicePhotoProgramTimeFitResult,
+    ElectroOpticalProgramTimeFitProtocol,
+    ElectroOpticalProgramTimePrediction,
+    fit_single_parameter_photo_capture_efficiency_multi_condition,
+    fit_single_parameter_photo_capture_efficiency_vs_programming_time,
+    predict_electro_optical_delta_vfb_vs_programming_time,
+)
+```
+
+The protocol fixes the electrical pulse/read conditions and optical source
+conditions. `photo_capture_efficiency` is supplied separately through
+`PhotoTransitionConfig` so the fitted device parameter is not embedded in the
+protocol hash.
+
+The single-condition adapter fits one
+`DeviceFitTarget.PHOTO_CAPTURE_EFFICIENCY` to illuminated
+`delta_vfb`-versus-programming-time data.
+
+The multi-condition adapter fits one shared value across two or more distinct
+wavelength/power conditions. Its residual vector is the concatenation of the
+per-condition objective residuals. The result includes
+`FitUncertaintyDiagnostics` evaluated on the full joint Jacobian and
+per-condition bound-scaled Jacobian L2 norms.
+
+`locally_identifiable=True` is a local linearized rank statement conditional
+on the fixed optical model. It is not a claim of global identifiability.
+For the present one-parameter workflow, a full-rank one-column Jacobian has
+scaled condition number one, so that value must not be over-interpreted.
+
+Successful single- and multi-condition photo-capture fits report `FITTED`,
+not `CALIBRATED`.
+
 ## Explicit electrical pulse protocols
 
 A single program pulse followed by nondestructive readout is represented by:

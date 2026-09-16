@@ -92,6 +92,12 @@ The release is still under development. The following capabilities are implement
 - numerical-refinement audit of that accelerated retention benchmark, including cross-grid parameter-bias/runtime selection of a practical reproducible example grid;
 - explicit separation between dynamic C–V hysteresis windows and pulse-defined state-separation windows.
 
+- explicit electro-optical program-pulse prediction with dark, zero-dwell readout;
+- controlled device-level binding of `photo_capture_efficiency`;
+- synthetic single-parameter recovery of `photo_capture_efficiency` from illuminated `delta_vfb` versus programming-time data;
+- shared-parameter fitting across multiple optical wavelength/power conditions;
+- joint local uncertainty and identifiability diagnostics from the full multi-condition Jacobian, including per-condition local sensitivity magnitudes.
+
 The first real-data reference workflow intentionally does **not** produce a calibrated parameter set. Using the digitized Tran et al. sample-A holdout, the fitted near-edge model gives a validation RMSE of approximately \(4.50\times10^4\ \mathrm{m^{-1}}\), above the predeclared digitization-based qualification threshold of approximately \(1.57\times10^4\ \mathrm{m^{-1}}\). The workflow therefore reports `NOT_CALIBRATED`.
 
 This negative qualification result is preserved as a scientific result rather than weakening the validation threshold.
@@ -100,7 +106,6 @@ The synthetic device-level recovery workflows, including pulse-memory and retent
 
 Remaining v0.11.0 work may include:
 
-- device-level fitting of parameters such as photo-capture efficiency against appropriate device observables;
 - explicit calibration qualification of fitted device parameters against independent validation datasets;
 - optional global-search initialization before deterministic local fitting;
 - additional independent experimental validation datasets;
