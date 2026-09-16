@@ -19,6 +19,10 @@ from .electro_optical_program_protocol import (
     run_electro_optical_program_pulse_read,
 )
 from .experimental import DeviceObservableDataset
+from .fit_diagnostics import (
+    FitUncertaintyDiagnostics,
+    analyze_fit_uncertainty,
+)
 from .fitting import (
     DeterministicFitResult,
     LeastSquaresConfig,
@@ -913,6 +917,7 @@ class DevicePhotoMultiConditionFitResult:
     ]
     calibration_specification_hash: str
     numerical_result: DeterministicFitResult
+    uncertainty_diagnostics: FitUncertaintyDiagnostics
     objectives: tuple[ObjectiveEvaluation, ...]
     fitted_context: DeviceCalibrationContext
     predictions: tuple[
@@ -979,6 +984,64 @@ class DevicePhotoMultiConditionFitResult:
                 "ElectroOpticalProgramTimePrediction instances."
             )
 
+        if not isinstance(
+            self.uncertainty_diagnostics,
+            FitUncertaintyDiagnostics,
+        ):
+            raise TypeError(
+                "uncertainty_diagnostics must be a "
+                "FitUncertaintyDiagnostics instance."
+            )
+
+        diagnostics = self.uncertainty_diagnostics
+
+        if (
+            diagnostics.parameter_names
+            != self.numerical_result.parameter_set.names
+        ):
+            raise ValueError(
+                "uncertainty_diagnostics parameter names must "
+                "match the numerical fit parameter order."
+            )
+
+        expected_observations = int(
+            sum(
+                objective.n_points
+                for objective in objectives
+            )
+        )
+        if diagnostics.n_observations != expected_observations:
+            raise ValueError(
+                "uncertainty_diagnostics observation count must "
+                "match the joint multi-condition objective."
+            )
+
+        if (
+            diagnostics.n_parameters
+            != self.numerical_result.parameter_set.n_parameters
+        ):
+            raise ValueError(
+                "uncertainty_diagnostics parameter count must "
+                "match the numerical fit."
+            )
+
+        joint_residuals = np.concatenate(
+            [
+                objective.objective_residuals
+                for objective in objectives
+            ]
+        )
+        if not np.allclose(
+            joint_residuals,
+            self.numerical_result.objective_residuals,
+            rtol=1.0e-10,
+            atol=1.0e-12,
+        ):
+            raise ValueError(
+                "Final joint residuals are inconsistent with "
+                "the numerical optimizer result."
+            )
+
         self.dataset_ids = dataset_ids
         self.dataset_hashes = dataset_hashes
         self.protocols = protocols
@@ -996,6 +1059,61 @@ class DevicePhotoMultiConditionFitResult:
     @property
     def scientific_status(self) -> str:
         return "FITTED"
+
+    @property
+    def locally_identifiable(self) -> bool:
+        return self.uncertainty_diagnostics.locally_identifiable
+
+    @property
+    def parameter_standard_errors(
+        self,
+    ) -> dict[str, float] | None:
+        return (
+            self.uncertainty_diagnostics.parameter_standard_errors
+        )
+
+    @property
+    def condition_scaled_jacobian_l2_norms(
+        self,
+    ) -> tuple[float, ...]:
+        if self.numerical_result.jacobian is None:
+            raise ValueError(
+                "Condition sensitivity diagnostics require "
+                "a stored fit Jacobian."
+            )
+
+        physical_jacobian = np.asarray(
+            self.numerical_result.jacobian,
+            dtype=float,
+        )
+        spans = (
+            self.numerical_result.parameter_set.upper_bounds
+            - self.numerical_result.parameter_set.lower_bounds
+        )
+        scaled_jacobian = (
+            physical_jacobian * spans[np.newaxis, :]
+        )
+
+        norms: list[float] = []
+        start = 0
+        for objective in self.objectives:
+            stop = start + objective.n_points
+            norms.append(
+                float(
+                    np.linalg.norm(
+                        scaled_jacobian[start:stop, :]
+                    )
+                )
+            )
+            start = stop
+
+        if start != scaled_jacobian.shape[0]:
+            raise ValueError(
+                "Objective point counts do not partition the "
+                "stored joint Jacobian."
+            )
+
+        return tuple(norms)
 
     @property
     def n_conditions(self) -> int:
@@ -1113,6 +1231,19 @@ class DevicePhotoMultiConditionFitResult:
             "weighted": self.weighted,
             "calibration_specification_hash": (
                 self.calibration_specification_hash
+            ),
+            "uncertainty_diagnostics": (
+                self.uncertainty_diagnostics.to_dict()
+            ),
+            "locally_identifiable": self.locally_identifiable,
+            "identifiability_scope": (
+                "local-linearized-conditional-on-fixed-optical-model"
+            ),
+            "parameter_standard_errors": (
+                self.parameter_standard_errors
+            ),
+            "condition_scaled_jacobian_l2_norms": list(
+                self.condition_scaled_jacobian_l2_norms
             ),
             "parameter_application": (
                 self.fitted_context
@@ -1246,8 +1377,10 @@ def fit_single_parameter_photo_capture_efficiency_multi_condition(
     vector. Datasets must use a consistent weighting mode: either all provide
     pointwise uncertainty or all omit it.
 
-    The result is ``FITTED`` only. Identifiability diagnostics are attached in
-    the subsequent F4i4b checkpoint.
+    The result remains ``FITTED`` and carries local linearized uncertainty
+    and identifiability diagnostics computed from the full joint Jacobian.
+    These diagnostics are conditional on the fixed optical model and do not
+    prove global identifiability or establish ``CALIBRATED`` provenance.
     """
 
     dataset_tuple, protocol_tuple = (
@@ -1353,6 +1486,18 @@ def fit_single_parameter_photo_capture_efficiency_multi_condition(
         config=least_squares_config,
     )
 
+    if not numerical_result.success:
+        raise RuntimeError(
+            "Multi-condition photo-capture fitting did not "
+            "converge successfully: "
+            f"status={numerical_result.status}; "
+            f"message={numerical_result.message}"
+        )
+
+    uncertainty_diagnostics = analyze_fit_uncertainty(
+        numerical_result
+    )
+
     (
         fitted_context,
         predictions,
@@ -1387,6 +1532,7 @@ def fit_single_parameter_photo_capture_efficiency_multi_condition(
             calibration_spec.specification_hash()
         ),
         numerical_result=numerical_result,
+        uncertainty_diagnostics=uncertainty_diagnostics,
         objectives=objectives,
         fitted_context=fitted_context,
         predictions=predictions,

@@ -22,6 +22,7 @@ from ncmemsim.experimental import (
     ExperimentalCondition,
     ExperimentalDatasetMetadata,
 )
+from ncmemsim.fit_diagnostics import FitUncertaintyDiagnostics
 from ncmemsim.fitting import (
     FitParameter,
     FitParameterSet,
@@ -568,3 +569,126 @@ def test_joint_fit_rejects_mixed_weighting_modes(
             base_photo_config=photo_config,
             calibration_spec=_eta_spec(),
         )
+
+def test_joint_fit_attaches_generic_uncertainty_diagnostics(
+    joint_fit_bundle,
+):
+    result = joint_fit_bundle[0]
+    diagnostics = result.uncertainty_diagnostics
+
+    assert isinstance(
+        diagnostics,
+        FitUncertaintyDiagnostics,
+    )
+    assert diagnostics.parameter_names == (
+        "photo_capture_efficiency",
+    )
+    assert diagnostics.n_observations == (
+        len(OPTICAL_CONDITIONS)
+        * PROGRAMMING_TIMES_S.size
+    )
+    assert diagnostics.n_observations == result.n_observations
+    assert diagnostics.n_parameters == 1
+    assert diagnostics.degrees_of_freedom == (
+        result.n_observations - 1
+    )
+
+
+def test_joint_fit_is_locally_identifiable_on_full_joint_jacobian(
+    joint_fit_bundle,
+):
+    result = joint_fit_bundle[0]
+    diagnostics = result.uncertainty_diagnostics
+
+    assert diagnostics.jacobian_rank == 1
+    assert diagnostics.jacobian_full_rank is True
+    assert diagnostics.locally_identifiable is True
+    assert result.locally_identifiable is True
+    assert diagnostics.active_bound_count == 0
+
+
+def test_single_parameter_condition_number_is_one_but_not_global_proof(
+    joint_fit_bundle,
+):
+    result = joint_fit_bundle[0]
+    diagnostics = result.uncertainty_diagnostics
+
+    assert diagnostics.scaled_singular_values.size == 1
+    assert diagnostics.scaled_singular_values[0] > 0.0
+    assert diagnostics.scaled_condition_number == pytest.approx(
+        1.0
+    )
+
+
+def test_joint_fit_covariance_and_standard_error_are_available(
+    joint_fit_bundle,
+):
+    result = joint_fit_bundle[0]
+    diagnostics = result.uncertainty_diagnostics
+
+    assert diagnostics.covariance_available is True
+    assert diagnostics.covariance_matrix is not None
+    assert diagnostics.standard_errors is not None
+    assert diagnostics.correlation_matrix is not None
+    assert result.parameter_standard_errors is not None
+
+    standard_error = result.parameter_standard_errors[
+        "photo_capture_efficiency"
+    ]
+    assert np.isfinite(standard_error)
+    assert standard_error >= 0.0
+
+
+def test_every_optical_condition_contributes_local_eta_sensitivity(
+    joint_fit_bundle,
+):
+    result = joint_fit_bundle[0]
+    norms = result.condition_scaled_jacobian_l2_norms
+
+    assert len(norms) == len(OPTICAL_CONDITIONS)
+    assert all(
+        np.isfinite(value) and value > 0.0
+        for value in norms
+    )
+
+
+def test_joint_fit_serializes_identifiability_scope(
+    joint_fit_bundle,
+):
+    result = joint_fit_bundle[0]
+    payload = result.to_dict()
+
+    assert payload["locally_identifiable"] is True
+    assert (
+        payload["identifiability_scope"]
+        == "local-linearized-conditional-on-fixed-optical-model"
+    )
+    assert (
+        payload["uncertainty_diagnostics"]["n_observations"]
+        == result.n_observations
+    )
+    assert (
+        payload["uncertainty_diagnostics"]["jacobian_rank"]
+        == 1
+    )
+    assert len(
+        payload["condition_scaled_jacobian_l2_norms"]
+    ) == len(OPTICAL_CONDITIONS)
+    assert payload["scientific_status"] == "FITTED"
+
+
+def test_joint_diagnostics_use_optimizer_residual_vector(
+    joint_fit_bundle,
+):
+    result = joint_fit_bundle[0]
+
+    assert np.allclose(
+        result.joint_objective_residuals,
+        result.numerical_result.objective_residuals,
+        rtol=1.0e-10,
+        atol=1.0e-12,
+    )
+    assert (
+        result.numerical_result.jacobian.shape
+        == (result.n_observations, 1)
+    )
