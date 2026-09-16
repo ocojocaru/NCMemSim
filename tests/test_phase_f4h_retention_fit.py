@@ -73,6 +73,10 @@ def _pure_p2_state(device):
     return state
 
 
+# This helper intentionally uses a fast same-grid configuration.
+# Its exact-recovery tests verify fitter/workflow semantics, not numerical
+# convergence of the accelerated retention benchmark. The reproducible example
+# and F4h2c2 numerical audit use separately justified refinement settings.
 def _protocol(
     *,
     gate_voltage=RETENTION_GATE_VOLTAGE_V,

@@ -335,8 +335,8 @@ def retention_protocol() -> RetentionFitProtocol:
             gate_voltage_V=RETENTION_GATE_VOLTAGE_V,
             total_time_s=3.0e-2,
             initial_dt_s=1.0e-7,
-            maximum_dt_s=1.0e-3,
-            output_points=81,
+            maximum_dt_s=1.0e-5,
+            output_points=321,
             occupancy_integrator="backward_euler",
         )
     )

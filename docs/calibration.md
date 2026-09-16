@@ -583,6 +583,46 @@ The negative gate bias is a deliberately accelerated constant-bias synthetic
 identifiability benchmark. It must not be described as representative
 zero-bias data retention.
 
+## Numerical refinement of the synthetic retention benchmark
+
+The accelerated fixed-bias retention benchmark was audited separately for
+maximum-timestep and output-grid sensitivity. The original coarse
+`maximum_dt_s = 1e-3` / `output_points = 81` configuration is not used as the
+numerically justified reference for this transition.
+
+A high-resolution numerical audit used:
+
+```text
+maximum_dt_s = 1e-7 s
+output_points = 5001
+```
+
+This high-resolution run is a **numerical reference**, not physical truth and
+not experimental calibration. Cross-grid fitting of that reference with the
+selected practical example grid,
+
+```text
+maximum_dt_s = 1e-5 s
+output_points = 321
+```
+
+recovered `phi_barrier_erase_eV = 2.099668909 eV` from the synthetic truth
+`2.10 eV`, corresponding to an absolute bias of approximately
+`-3.31e-4 eV` (`-0.0158%`) and an objective RMSE of approximately
+`2.79e-5`.
+
+The selected practical grid is specific to this accelerated synthetic
+benchmark. It is not a universal retention timestep or output-grid default.
+Same-grid exact recovery remains a workflow regression check and must not be
+interpreted as a numerical-convergence result.
+
+The numerical audit can be reproduced with:
+
+- `examples/phase_f4h_retention_timestep_convergence.py`, which establishes
+  timestep stabilization using a fixed dense output grid;
+- `examples/phase_f4h_retention_practical_grid.py`, which measures cross-grid
+  parameter bias and runtime to select the practical benchmark grid.
+
 `phi_barrier_erase_eV` is an **effective compact-model parameter**. In the
 current kinetics it controls the erase tunnelling transmission used by both
 escape channels and can be strongly correlated with `nu1_Hz`, `nu2_Hz`, and

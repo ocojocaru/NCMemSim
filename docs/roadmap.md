@@ -89,6 +89,7 @@ The release is still under development. The following capabilities are implement
 - backward-Euler stabilization for long-time retention occupancy integration;
 - a synthetic single-parameter retention-fraction-versus-time fitting workflow with caller-supplied initial-state and protocol hashes, physical-time interpolation, and no extrapolation;
 - recovery of the effective FG erase barrier in an accelerated fixed-bias retention benchmark;
+- numerical-refinement audit of that accelerated retention benchmark, including cross-grid parameter-bias/runtime selection of a practical reproducible example grid;
 - explicit separation between dynamic C–V hysteresis windows and pulse-defined state-separation windows.
 
 The first real-data reference workflow intentionally does **not** produce a calibrated parameter set. Using the digitized Tran et al. sample-A holdout, the fitted near-edge model gives a validation RMSE of approximately \(4.50\times10^4\ \mathrm{m^{-1}}\), above the predeclared digitization-based qualification threshold of approximately \(1.57\times10^4\ \mathrm{m^{-1}}\). The workflow therefore reports `NOT_CALIBRATED`.

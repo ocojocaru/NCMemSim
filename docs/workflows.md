@@ -699,8 +699,8 @@ protocol = RetentionFitProtocol(
         gate_voltage_V=-14.0,
         total_time_s=3e-2,
         initial_dt_s=1e-7,
-        maximum_dt_s=1e-3,
-        output_points=81,
+        maximum_dt_s=1e-5,
+        output_points=321,
         occupancy_integrator="backward_euler",
     )
 )
@@ -715,6 +715,16 @@ allowed.
 For reproducibility, the workflow records both the protocol hash and an
 occupation-defined initial-state hash. The caller's initial state and baseline
 model objects are not mutated by fitting.
+
+Numerical refinement of this accelerated benchmark showed that the earlier
+`maximum_dt_s = 1e-3` / `output_points = 81` configuration was too coarse for
+the sharp transition. The reproducible F4h2c2 example therefore uses
+`maximum_dt_s = 1e-5 s` and `output_points = 321`. That practical grid was
+selected by cross-grid fitting against a `1e-7 s` / 5001-point numerical
+reference: the recovered erase barrier was `2.099668909 eV` for a synthetic
+truth of `2.10 eV` (approximately `-0.0158%` bias). The finer run is a
+numerical audit reference only, not experimental truth, and this grid choice
+is benchmark-specific rather than a universal retention default.
 
 The synthetic F4h2c2 reference uses a pure-P2 initial state, `Vret = -14 V`,
 and recovers `phi_barrier_erase_eV = 2.10 eV` for FG0. This is an accelerated
