@@ -361,6 +361,69 @@ They are not promoted to `CALIBRATED`. Independent device-observable
 validation and explicit calibration qualification are required for that
 promotion.
 
+## Photo-capture numerical sensitivity audit
+
+The F4i3 single-parameter synthetic recovery was followed by a dedicated
+timestep-sensitivity and cross-grid audit before device-level calibration
+qualification.
+
+The reference benchmark uses:
+
+```text
+wavelength                  1550 nm
+incident optical power      1000 W/m^2
+programming times           0.1, 0.3, 1.0 ms
+true photo-capture eta      2e-7
+practical timestep          1e-5 s
+refined reference timestep  2.5e-6 s
+```
+
+An eta sweep from zero through `1e-6` showed a monotonic, essentially linear
+photo-induced `delta_vfb` response over this benchmark range. At `eta=0`, the
+remaining `delta_vfb` was at numerical-zero scale, approximately `1e-21 V`.
+
+For `eta=2e-7`, timestep refinement from `1e-5 s` to `5e-6 s` and
+`2.5e-6 s` changed the predicted programming-time curve only at floating-point
+roundoff scale. Relative to the `2.5e-6 s` reference, the `1e-5 s` prediction
+had:
+
+```text
+maximum absolute delta_vfb difference  2.12e-21 V
+RMSE                                    1.23e-21 V
+```
+
+A cross-grid fit generated synthetic truth at `2.5e-6 s` and fitted it with
+the practical `1e-5 s` grid. It recovered:
+
+```text
+true eta                    2.000000000000e-7
+fitted eta                  2.000000000000e-7
+relative eta bias           1.32e-16
+delta_vfb RMSE              1.37e-22 V
+optimizer evaluations       7
+scientific status           FITTED
+```
+
+These values justify `1e-5 s` as a practical reproducible timestep for this
+specific synthetic benchmark. They do **not** establish a universal optical
+programming timestep, a universal numerical tolerance, or experimental
+calibration accuracy. The near-machine-precision agreement also reflects the
+low-signal, nearly linear regime exercised by this benchmark and must not be
+generalized to stronger optical loading or different pulse regimes without a
+new convergence audit.
+
+The reproducible audit is:
+
+```text
+examples/phase_f4i_photo_capture_timestep_convergence.py
+```
+
+Run it with:
+
+```bash
+python examples/phase_f4i_photo_capture_timestep_convergence.py
+```
+
 ## Reproducible device-level example
 
 The consolidated electrical/device reference example is:

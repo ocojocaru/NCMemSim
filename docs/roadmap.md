@@ -97,6 +97,7 @@ The release is still under development. The following capabilities are implement
 - synthetic single-parameter recovery of `photo_capture_efficiency` from illuminated `delta_vfb` versus programming-time data;
 - shared-parameter fitting across multiple optical wavelength/power conditions;
 - joint local uncertainty and identifiability diagnostics from the full multi-condition Jacobian, including per-condition local sensitivity magnitudes.
+- numerical timestep-sensitivity and cross-grid recovery audit for the synthetic photo-capture benchmark, retaining 1e-5 s as the practical example timestep for that benchmark only.
 
 The first real-data reference workflow intentionally does **not** produce a calibrated parameter set. Using the digitized Tran et al. sample-A holdout, the fitted near-edge model gives a validation RMSE of approximately \(4.50\times10^4\ \mathrm{m^{-1}}\), above the predeclared digitization-based qualification threshold of approximately \(1.57\times10^4\ \mathrm{m^{-1}}\). The workflow therefore reports `NOT_CALIBRATED`.
 
