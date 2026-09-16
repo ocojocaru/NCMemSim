@@ -512,7 +512,7 @@ def _validate_photo_protocol_conditions(
     wavelength_nm = protocol.light_source.wavelength_nm
     if wavelength_nm is None:
         raise ValueError(
-            "F4i3b photo-capture fitting currently requires "
+            "Photo-capture fitting currently requires "
             "a monochromatic light source with wavelength_nm."
         )
 
@@ -771,10 +771,633 @@ def fit_single_parameter_photo_capture_efficiency_vs_programming_time(
         prediction=prediction,
     )
 
+
+
+def _multi_condition_nonoptical_manifest(
+    protocol: ElectroOpticalProgramTimeFitProtocol,
+) -> dict[str, Any]:
+    return {
+        "program_voltage_V": protocol.program_voltage_V,
+        "read_voltage_V": protocol.read_voltage_V,
+        "program_internal_dt_s": (
+            protocol.program_internal_dt_s
+        ),
+        "photo_transition_weights": _photo_weights_dict(
+            protocol.photo_weights
+        ),
+        "occupancy_integrator": protocol.occupancy_integrator,
+    }
+
+
+def _validate_photo_multi_condition_pairs(
+    datasets: Sequence[DeviceObservableDataset],
+    protocols: Sequence[
+        ElectroOpticalProgramTimeFitProtocol
+    ],
+) -> tuple[
+    tuple[DeviceObservableDataset, ...],
+    tuple[ElectroOpticalProgramTimeFitProtocol, ...],
+]:
+    dataset_tuple = tuple(datasets)
+    protocol_tuple = tuple(protocols)
+
+    if len(dataset_tuple) < 2:
+        raise ValueError(
+            "Multi-condition photo-capture fitting requires "
+            "at least two datasets."
+        )
+    if len(dataset_tuple) != len(protocol_tuple):
+        raise ValueError(
+            "datasets and protocols must contain the same "
+            "number of entries."
+        )
+
+    for dataset, protocol in zip(
+        dataset_tuple,
+        protocol_tuple,
+    ):
+        _require_photo_program_time_dataset(dataset)
+        if not isinstance(
+            protocol,
+            ElectroOpticalProgramTimeFitProtocol,
+        ):
+            raise TypeError(
+                "protocols must contain only "
+                "ElectroOpticalProgramTimeFitProtocol instances."
+            )
+        _validate_photo_protocol_conditions(
+            dataset,
+            protocol,
+        )
+
+    dataset_hashes = tuple(
+        dataset.dataset_hash()
+        for dataset in dataset_tuple
+    )
+    if len(set(dataset_hashes)) != len(dataset_hashes):
+        raise ValueError(
+            "Multi-condition fitting rejects duplicate datasets "
+            "to avoid accidental repeated weighting."
+        )
+
+    weighting_modes = tuple(
+        dataset.observed_uncertainty is not None
+        for dataset in dataset_tuple
+    )
+    if len(set(weighting_modes)) != 1:
+        raise ValueError(
+            "All multi-condition datasets must either provide "
+            "pointwise uncertainty or all omit it."
+        )
+
+    reference_nonoptical_hash = canonical_hash(
+        _multi_condition_nonoptical_manifest(
+            protocol_tuple[0]
+        )
+    )
+    for protocol in protocol_tuple[1:]:
+        current_hash = canonical_hash(
+            _multi_condition_nonoptical_manifest(
+                protocol
+            )
+        )
+        if current_hash != reference_nonoptical_hash:
+            raise ValueError(
+                "F4i4a varies optical source conditions only; "
+                "program/read voltages, program timestep, "
+                "photo-transition weights, and occupancy "
+                "integrator must remain identical across "
+                "multi-condition protocols."
+            )
+
+    optical_conditions = tuple(
+        (
+            float(protocol.light_source.wavelength_nm),
+            float(
+                protocol.light_source
+                .power_density_W_m2
+            ),
+        )
+        for protocol in protocol_tuple
+    )
+    if len(set(optical_conditions)) < 2:
+        raise ValueError(
+            "Multi-condition fitting requires at least two "
+            "distinct (wavelength_nm, power_density_W_m2) "
+            "optical conditions."
+        )
+
+    return dataset_tuple, protocol_tuple
+
+
+@dataclass
+class DevicePhotoMultiConditionFitResult:
+    """
+    Shared single-parameter photo-capture fit across multiple optical
+    conditions.
+
+    The same fitted device-level ``photo_capture_efficiency`` is applied to
+    every condition. Per-condition objectives remain explicit, while the
+    optimizer sees their concatenated residual vector.
+
+    This is numerical ``FITTED`` provenance only. Multi-condition consistency
+    improves the identifiability test but does not itself establish
+    ``CALIBRATED`` provenance.
+    """
+
+    dataset_ids: tuple[str, ...]
+    dataset_hashes: tuple[str, ...]
+    protocols: tuple[
+        ElectroOpticalProgramTimeFitProtocol,
+        ...,
+    ]
+    calibration_specification_hash: str
+    numerical_result: DeterministicFitResult
+    objectives: tuple[ObjectiveEvaluation, ...]
+    fitted_context: DeviceCalibrationContext
+    predictions: tuple[
+        ElectroOpticalProgramTimePrediction,
+        ...,
+    ]
+
+    def __post_init__(self) -> None:
+        dataset_ids = tuple(self.dataset_ids)
+        dataset_hashes = tuple(self.dataset_hashes)
+        protocols = tuple(self.protocols)
+        objectives = tuple(self.objectives)
+        predictions = tuple(self.predictions)
+
+        n_conditions = len(dataset_ids)
+        if n_conditions < 2:
+            raise ValueError(
+                "Multi-condition fit results require at least "
+                "two conditions."
+            )
+        if not (
+            len(dataset_hashes)
+            == len(protocols)
+            == len(objectives)
+            == len(predictions)
+            == n_conditions
+        ):
+            raise ValueError(
+                "Multi-condition result fields must have "
+                "matching condition counts."
+            )
+
+        if any(
+            not isinstance(
+                protocol,
+                ElectroOpticalProgramTimeFitProtocol,
+            )
+            for protocol in protocols
+        ):
+            raise TypeError(
+                "protocols must contain only "
+                "ElectroOpticalProgramTimeFitProtocol instances."
+            )
+        if any(
+            not isinstance(
+                objective,
+                ObjectiveEvaluation,
+            )
+            for objective in objectives
+        ):
+            raise TypeError(
+                "objectives must contain only "
+                "ObjectiveEvaluation instances."
+            )
+        if any(
+            not isinstance(
+                prediction,
+                ElectroOpticalProgramTimePrediction,
+            )
+            for prediction in predictions
+        ):
+            raise TypeError(
+                "predictions must contain only "
+                "ElectroOpticalProgramTimePrediction instances."
+            )
+
+        self.dataset_ids = dataset_ids
+        self.dataset_hashes = dataset_hashes
+        self.protocols = protocols
+        self.objectives = objectives
+        self.predictions = predictions
+
+    @property
+    def fitted_parameter_values(
+        self,
+    ) -> dict[str, float]:
+        return dict(
+            self.fitted_context.parameter_values
+        )
+
+    @property
+    def scientific_status(self) -> str:
+        return "FITTED"
+
+    @property
+    def n_conditions(self) -> int:
+        return len(self.dataset_ids)
+
+    @property
+    def n_observations(self) -> int:
+        return int(
+            sum(
+                objective.n_points
+                for objective in self.objectives
+            )
+        )
+
+    @property
+    def weighted(self) -> bool:
+        return all(
+            objective.weighted
+            for objective in self.objectives
+        )
+
+    @property
+    def joint_objective_residuals(
+        self,
+    ) -> np.ndarray:
+        residuals = np.concatenate(
+            [
+                objective.objective_residuals
+                for objective in self.objectives
+            ]
+        ).astype(float, copy=True)
+        residuals.setflags(write=False)
+        return residuals
+
+    @property
+    def joint_raw_residuals_V(
+        self,
+    ) -> np.ndarray:
+        residuals = np.concatenate(
+            [
+                objective.residuals
+                for objective in self.objectives
+            ]
+        ).astype(float, copy=True)
+        residuals.setflags(write=False)
+        return residuals
+
+    @property
+    def joint_objective_sum_squares(self) -> float:
+        residuals = self.joint_objective_residuals
+        return float(np.dot(residuals, residuals))
+
+    @property
+    def joint_root_mean_square_error_V(self) -> float:
+        residuals = self.joint_raw_residuals_V
+        return float(
+            np.sqrt(
+                np.dot(residuals, residuals)
+                / residuals.size
+            )
+        )
+
+    def to_dict(self) -> dict[str, Any]:
+        if self.fitted_context.photo_config is None:
+            raise ValueError(
+                "Multi-condition photo fit requires a fitted "
+                "photo_config."
+            )
+
+        conditions = []
+        for (
+            dataset_id,
+            dataset_hash,
+            protocol,
+            objective,
+            prediction,
+        ) in zip(
+            self.dataset_ids,
+            self.dataset_hashes,
+            self.protocols,
+            self.objectives,
+            self.predictions,
+        ):
+            conditions.append(
+                {
+                    "dataset_id": dataset_id,
+                    "dataset_hash": dataset_hash,
+                    "protocol": protocol.to_dict(),
+                    "protocol_hash": (
+                        protocol.protocol_hash()
+                    ),
+                    "programming_times_s": (
+                        prediction
+                        .programming_times_s
+                        .tolist()
+                    ),
+                    "predicted_delta_vfb_V": (
+                        prediction
+                        .predicted_delta_vfb_V
+                        .tolist()
+                    ),
+                    "objective": objective.to_dict(),
+                }
+            )
+
+        return {
+            "schema_version": 1,
+            "workflow": (
+                "shared-photo-capture-efficiency-"
+                "multi-optical-condition-fit"
+            ),
+            "scientific_status": self.scientific_status,
+            "n_conditions": self.n_conditions,
+            "n_observations": self.n_observations,
+            "weighted": self.weighted,
+            "calibration_specification_hash": (
+                self.calibration_specification_hash
+            ),
+            "parameter_application": (
+                self.fitted_context
+                .parameter_application_manifest()
+            ),
+            "fitted_photo_transition_config": {
+                "photo_capture_efficiency": (
+                    self.fitted_context
+                    .photo_config
+                    .photo_capture_efficiency
+                ),
+            },
+            "joint_objective_sum_squares": (
+                self.joint_objective_sum_squares
+            ),
+            "joint_root_mean_square_error_V": (
+                self.joint_root_mean_square_error_V
+            ),
+            "joint_objective_residuals": (
+                self.joint_objective_residuals.tolist()
+            ),
+            "numerical_result": (
+                self.numerical_result.to_dict()
+            ),
+            "conditions": conditions,
+        }
+
+
+def _evaluate_photo_multi_condition_candidate(
+    datasets: tuple[DeviceObservableDataset, ...],
+    protocols: tuple[
+        ElectroOpticalProgramTimeFitProtocol,
+        ...,
+    ],
+    *,
+    base_device: Device,
+    base_physics: PhysicsModel,
+    base_simulation_config: SimulationConfig,
+    base_photo_config: PhotoTransitionConfig,
+    calibration_spec: DeviceCalibrationSpec,
+    parameter_values,
+) -> tuple[
+    DeviceCalibrationContext,
+    tuple[ElectroOpticalProgramTimePrediction, ...],
+    tuple[ObjectiveEvaluation, ...],
+    np.ndarray,
+]:
+    context = apply_device_calibration_parameters(
+        base_device,
+        base_physics,
+        base_simulation_config,
+        calibration_spec,
+        parameter_values,
+        base_photo_config=base_photo_config,
+    )
+
+    if context.photo_config is None:
+        raise ValueError(
+            "Multi-condition photo fitting requires a "
+            "photo_config after parameter application."
+        )
+
+    predictions: list[
+        ElectroOpticalProgramTimePrediction
+    ] = []
+    objectives: list[ObjectiveEvaluation] = []
+
+    for dataset, protocol in zip(
+        datasets,
+        protocols,
+    ):
+        prediction = (
+            predict_electro_optical_delta_vfb_vs_programming_time(
+                Simulator(
+                    context.device,
+                    context.physics,
+                    context.simulation_config,
+                ),
+                dataset.independent_values,
+                protocol,
+                photo_config=context.photo_config,
+            )
+        )
+        objective = evaluate_least_squares_objective(
+            dataset.observed_values,
+            prediction.predicted_delta_vfb_V,
+            uncertainty=dataset.observed_uncertainty,
+        )
+        predictions.append(prediction)
+        objectives.append(objective)
+
+    objective_tuple = tuple(objectives)
+    joint_residuals = np.concatenate(
+        [
+            objective.objective_residuals
+            for objective in objective_tuple
+        ]
+    ).astype(float, copy=True)
+
+    return (
+        context,
+        tuple(predictions),
+        objective_tuple,
+        joint_residuals,
+    )
+
+
+def fit_single_parameter_photo_capture_efficiency_multi_condition(
+    datasets: Sequence[DeviceObservableDataset],
+    protocols: Sequence[
+        ElectroOpticalProgramTimeFitProtocol
+    ],
+    *,
+    base_device: Device,
+    base_physics: PhysicsModel,
+    base_simulation_config: SimulationConfig,
+    base_photo_config: PhotoTransitionConfig,
+    calibration_spec: DeviceCalibrationSpec,
+    least_squares_config: LeastSquaresConfig | None = None,
+) -> DevicePhotoMultiConditionFitResult:
+    """
+    Fit one shared photo-capture-efficiency parameter across multiple optical
+    conditions.
+
+    F4i4a deliberately varies only wavelength and/or incident optical power.
+    Electrical pulse/read settings, photo-transition weights, numerical
+    integration, and the fitted device parameter are shared across all
+    conditions.
+
+    The optimizer receives the concatenation of each condition's residual
+    vector. Datasets must use a consistent weighting mode: either all provide
+    pointwise uncertainty or all omit it.
+
+    The result is ``FITTED`` only. Identifiability diagnostics are attached in
+    the subsequent F4i4b checkpoint.
+    """
+
+    dataset_tuple, protocol_tuple = (
+        _validate_photo_multi_condition_pairs(
+            datasets,
+            protocols,
+        )
+    )
+
+    if not isinstance(base_device, Device):
+        raise TypeError(
+            "base_device must be a Device instance."
+        )
+    if not isinstance(
+        base_physics,
+        PhysicsModel,
+    ):
+        raise TypeError(
+            "base_physics must be a PhysicsModel instance."
+        )
+    if not isinstance(
+        base_simulation_config,
+        SimulationConfig,
+    ):
+        raise TypeError(
+            "base_simulation_config must be a "
+            "SimulationConfig instance."
+        )
+    if not isinstance(
+        base_photo_config,
+        PhotoTransitionConfig,
+    ):
+        raise TypeError(
+            "base_photo_config must be a "
+            "PhotoTransitionConfig instance."
+        )
+    if not isinstance(
+        calibration_spec,
+        DeviceCalibrationSpec,
+    ):
+        raise TypeError(
+            "calibration_spec must be a "
+            "DeviceCalibrationSpec."
+        )
+
+    if (
+        calibration_spec.parameter_set.n_parameters
+        != 1
+    ):
+        raise ValueError(
+            "F4i4a multi-condition photo fitting requires "
+            "exactly one free parameter."
+        )
+
+    binding = calibration_spec.bindings[0]
+    if (
+        binding.target
+        != DeviceFitTarget.PHOTO_CAPTURE_EFFICIENCY
+    ):
+        raise ValueError(
+            "F4i4a multi-condition photo fitting requires "
+            "the single free parameter to target "
+            "DeviceFitTarget.PHOTO_CAPTURE_EFFICIENCY."
+        )
+
+    # Fail early before entering the optimizer.
+    _evaluate_photo_multi_condition_candidate(
+        dataset_tuple,
+        protocol_tuple,
+        base_device=base_device,
+        base_physics=base_physics,
+        base_simulation_config=(
+            base_simulation_config
+        ),
+        base_photo_config=base_photo_config,
+        calibration_spec=calibration_spec,
+        parameter_values=(
+            calibration_spec
+            .parameter_set.initial_values
+        ),
+    )
+
+    def residual_function(parameter_values):
+        _, _, _, joint_residuals = (
+            _evaluate_photo_multi_condition_candidate(
+                dataset_tuple,
+                protocol_tuple,
+                base_device=base_device,
+                base_physics=base_physics,
+                base_simulation_config=(
+                    base_simulation_config
+                ),
+                base_photo_config=base_photo_config,
+                calibration_spec=calibration_spec,
+                parameter_values=parameter_values,
+            )
+        )
+        return joint_residuals
+
+    numerical_result = run_least_squares_fit(
+        calibration_spec.parameter_set,
+        residual_function,
+        config=least_squares_config,
+    )
+
+    (
+        fitted_context,
+        predictions,
+        objectives,
+        _,
+    ) = _evaluate_photo_multi_condition_candidate(
+        dataset_tuple,
+        protocol_tuple,
+        base_device=base_device,
+        base_physics=base_physics,
+        base_simulation_config=(
+            base_simulation_config
+        ),
+        base_photo_config=base_photo_config,
+        calibration_spec=calibration_spec,
+        parameter_values=(
+            numerical_result.fitted_values
+        ),
+    )
+
+    return DevicePhotoMultiConditionFitResult(
+        dataset_ids=tuple(
+            dataset.metadata.dataset_id
+            for dataset in dataset_tuple
+        ),
+        dataset_hashes=tuple(
+            dataset.dataset_hash()
+            for dataset in dataset_tuple
+        ),
+        protocols=protocol_tuple,
+        calibration_specification_hash=(
+            calibration_spec.specification_hash()
+        ),
+        numerical_result=numerical_result,
+        objectives=objectives,
+        fitted_context=fitted_context,
+        predictions=predictions,
+    )
+
 __all__ = [
+    "DevicePhotoMultiConditionFitResult",
     "DevicePhotoProgramTimeFitResult",
     "ElectroOpticalProgramTimeFitProtocol",
     "ElectroOpticalProgramTimePrediction",
+    "fit_single_parameter_photo_capture_efficiency_multi_condition",
     "fit_single_parameter_photo_capture_efficiency_vs_programming_time",
     "predict_electro_optical_delta_vfb_vs_programming_time",
 ]
