@@ -140,6 +140,21 @@ calibration baseline.
   analysis and result hashes without changing G1/G2/G3 serialization.
 - Adds independent-reference, tie, exclusion, precision and identity tests.
 
+### G5 — sensitivity analysis
+
+- Adds explicit numeric-axis/metric selection and assessed/feasible-only
+  eligibility over completed G3 analyses without rerunning simulations.
+- Computes adjacent numeric secants while holding all other axes fixed,
+  preserving source indices and excluding missing neighbors without bridging.
+- Records local slope estimates, endpoint exclusions and arithmetic failures,
+  with physical metric/axis unit metadata and unchanged signed responses.
+- Adds equal-valid-edge grid-wide signed/absolute slope summaries with
+  attempted/estimated/excluded/failed counts and explicit coverage.
+- Adds immutable serializable records, complete source provenance and
+  deterministic definition/analysis/result hashes without changing G1–G4.
+- Adds analytic nonuniform-grid, interaction, isolation, precision and
+  real program/read integration coverage.
+
 ## v0.11.0 — Experimental Fitting and Calibration
 
 NCMemSim v0.11.0 adds traceable experimental-data handling, deterministic

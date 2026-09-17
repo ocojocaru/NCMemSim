@@ -543,3 +543,128 @@ The algorithm uses O(N² M) comparisons and up to O(N²) memory for N feasible
 points and M objectives. Large studies should account for this cost.
 G4 exposes trade-off fronts and does not select a single optimum.
 Sensitivity analysis is deferred to G5.
+
+## G5: sensitivity analysis of structured grids
+
+`analyze_sensitivity(metric_analysis, spec=None)` computes local finite-interval
+secants and grid-wide summaries over a completed G3 analysis, without rerunning
+simulation or changing G1–G4 serialization.
+
+`SensitivityAnalysisSpec(name, axis_names, metric_names, eligibility)` selects
+numeric design-variable axes and G3 metrics in explicit order. Directionless
+reporting metrics are supported: sensitivity uses raw signed response values,
+independent of optimization direction. Unknown names, duplicate/empty selections
+and selected categorical axes are rejected.
+
+Without a specification, all numeric axes and all G3 metrics are selected in
+declaration order. At least one numeric axis and one metric are required.
+Singleton axes are allowed and have no intervals to estimate. Other axes can
+remain categorical background contexts; they are held fixed.
+
+### Local estimates
+
+For each selected axis, its declared values are sorted in ascending numeric order.
+For each fixed combination of the other axes, adjacent values define a secant:
+
+```text
+slope = (metric_at_right - metric_at_left) / (axis_right - axis_left)
+```
+
+The remaining coordinates are identical at both endpoints. Original source point
+indices, axis values and metric identities are retained, and the source order is
+unchanged. Output order is selected axis, selected metric, other-axis contexts in
+declared Cartesian order, then ascending adjacent axis intervals.
+
+Integer differences are computed before division; slopes are floating-point
+estimates. Unit metadata is the explicit ratio `(metric_unit)/(axis_unit)`,
+without conversion, normalization, absolute-value transformation or implicit
+unit simplification. Secants on discrete axes are finite-step response changes,
+not a claim of an infinitesimal derivative.
+
+`SensitivityEligibility.ASSESSED` (default) includes both feasible and infeasible
+G3 points with successfully extracted metrics. `FEASIBLE_ONLY` includes only
+feasible points. Both endpoints must qualify. Source/extraction failures and
+infeasible endpoints under feasible-only analysis exclude the interval.
+
+Missing or excluded neighbors are never bridged. Every declared adjacent interval
+has a record: `estimated`, `excluded`, or `failed` for non-finite/overflowing
+arithmetic. Exclusions identify the endpoint and G3 status; arithmetic failures
+retain their type and message. No invalid slope is silently replaced with zero.
+
+### Example: program-duration sensitivity
+
+```python
+from ncmemsim import DeviceBuilder, Simulator
+from ncmemsim.dtco import (
+    BindingScope, DesignVariable, DesignVariableRole, ExperimentSpec,
+    MetricAnalysisSpec, MetricDefinition, ParameterBinding,
+    SensitivityAnalysisSpec, SensitivityEligibility,
+    analyze_sensitivity, analyze_sweep, run_cartesian_sweep,
+)
+from ncmemsim.program_protocol import ProgramPulseReadProtocol, run_program_pulse_read
+
+device = DeviceBuilder.v2(n_fgs=1)
+protocol = ProgramPulseReadProtocol(5.0, 1.0e-6)
+duration = DesignVariable(
+    name="duration",
+    binding=ParameterBinding(BindingScope.OPERATING, ("program", "time_s")),
+    values=(1.0e-6, 2.0e-6, 3.0e-6),
+    role=DesignVariableRole.ELECTRICAL, unit="s",
+)
+experiment = ExperimentSpec.from_device(
+    name="duration-sensitivity", device=device, variables=(duration,),
+    operating_protocol=protocol,
+)
+
+def evaluate(candidate_device, candidate_protocol, point):
+    return run_program_pulse_read(Simulator(candidate_device), candidate_protocol).to_dict()
+
+sweep = run_cartesian_sweep(
+    experiment, device, evaluate, base_protocol=protocol,
+    evaluation_id="program-read-sensitivity-example-v1",
+    evaluation_parameters={"simulator_configuration": "defaults-v0.12.0.dev0"},
+)
+analysis = analyze_sweep(sweep, MetricAnalysisSpec(
+    name="shift-metrics",
+    metrics=(MetricDefinition("signed_shift", ("observable", "value"), "V"),),
+))
+sensitivity = analyze_sensitivity(analysis, SensitivityAnalysisSpec(
+    name="duration-secants", axis_names=("duration",),
+    metric_names=("signed_shift",),
+    eligibility=SensitivityEligibility.ASSESSED,
+))
+print(sensitivity.summaries)
+manifest_json = sensitivity.to_json()
+```
+
+### Grid-wide summaries, coverage and identity
+
+Each axis/metric pair has its own summary: attempted, estimated, excluded and
+arithmetic-failed interval counts; coverage fraction; complete flag; mean signed
+slope; mean absolute slope; and maximum absolute slope.
+
+Every valid grid edge has equal weight. These statistics summarize sampled
+finite-interval slopes over the whole grid, including changes with background
+context; they are not Sobol indices, variance decomposition, probability-weighted
+sensitivities or a ranking across differently dimensioned axes. Nonuniform
+sampling changes these summaries. Signed means can cancel; the absolute-slope
+statistics remain available separately.
+
+Excluded and failed intervals are omitted from statistics but remain in the
+denominator of coverage. With no valid estimates, statistics are null.
+A singleton axis has zero attempted intervals, null coverage, and complete=false.
+Partial coverage is never presented as complete.
+
+Definitions and edge records are immutable; summary dictionaries and exported
+manifests are fresh snapshots. The manifest includes selected axes/units, metric
+definitions, eligibility/method policy, all edge records and coverage summaries,
+plus the complete G3 source analysis and its result hash.
+
+`definition_hash` identifies the ordered specification and method policy.
+`analysis_hash` links it to the exact source result, and `result_hash` identifies
+the full sensitivity result. Changing selection, eligibility, domains, metrics or
+source results changes the corresponding identity.
+
+Analysis retains the source and all interval records in memory. G5 does not infer
+a continuous response surface, impute missing points or fit an optimizer.
+Reproducible reports and reference workflows are deferred to G6.

@@ -50,7 +50,21 @@ from .pareto import (
     analyze_pareto,
 )
 
+from .sensitivity import (
+    SensitivityEligibility,
+    SensitivityAnalysisSpec,
+    SensitivityEdge,
+    SensitivityAnalysisResult,
+    analyze_sensitivity,
+)
+
 __all__ = [
+    "SensitivityEligibility",
+    "SensitivityAnalysisSpec",
+    "SensitivityEdge",
+    "SensitivityAnalysisResult",
+    "analyze_sensitivity",
+
     "ParetoAnalysisResult",
     "ParetoAnalysisSpec",
     "ParetoPointResult",
