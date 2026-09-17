@@ -53,6 +53,18 @@ calibration baseline.
   G1b so composition-dependent and protocol-specific semantics can be added
   explicitly rather than inferred.
 
+### G1c1 — material-aware GeSn composition binding
+
+- Added an explicit floating-gate GeSn `sn_fraction` binding path.
+- Rebuilds the complete GeSn nanocrystal material through `make_gesn()` rather
+  than mutating a derived material field in place.
+- Preserves copy-on-write device semantics and post-application validation.
+- Rejects non-GeSn materials, invalid fractions, and non-numeric composition
+  values.
+- Rejects custom/non-canonical GeSn parameterizations when their original
+  parameter-set inputs cannot be reconstructed safely from the material object.
+- Added experiment design-point coverage for GeSn composition variables.
+
 ## v0.11.0 — Experimental Fitting and Calibration
 
 NCMemSim v0.11.0 adds traceable experimental-data handling, deterministic

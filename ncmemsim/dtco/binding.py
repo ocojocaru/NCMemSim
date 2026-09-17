@@ -8,10 +8,12 @@ allow-list, and the resulting device is validated before it is returned.
 from __future__ import annotations
 
 from copy import deepcopy
+import math
 from typing import Iterable, Mapping
 
 from ..device import Device
 from ..layers import FloatingGateLayer
+from ..materials import make_gesn
 from .spec import BindingScope, ExperimentSpec, ParameterBinding, ScalarValue
 
 
@@ -36,6 +38,60 @@ _FLOATING_GATE_ATTRIBUTES = {
     "electrically_active_fraction",
     "grid_points",
 }
+
+
+def _apply_gesn_composition_binding(
+    device: Device,
+    *,
+    layer_name: str,
+    value: ScalarValue,
+) -> None:
+    """Replace one canonical GeSn material through the model factory.
+
+    The current material must match the canonical ``make_gesn`` definition at
+    its existing Sn fraction. This prevents a composition sweep from silently
+    discarding a custom GeSn parameterization that cannot be reconstructed from
+    ``NanocrystalMaterial`` alone.
+    """
+
+    try:
+        layer = device.get_layer(layer_name)
+    except KeyError as exc:
+        raise BindingApplicationError(
+            f"unknown layer in binding: {layer_name!r}"
+        ) from exc
+
+    if not isinstance(layer, FloatingGateLayer):
+        raise BindingApplicationError(
+            f"layer {layer_name!r} is not a floating-gate layer"
+        )
+
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise BindingApplicationError(
+            "GeSn sn_fraction requires a numeric value"
+        )
+
+    sn_fraction = float(value)
+    if not math.isfinite(sn_fraction) or not 0.0 <= sn_fraction <= 1.0:
+        raise BindingApplicationError(
+            "GeSn sn_fraction must be finite and in [0, 1]"
+        )
+
+    current = layer.nc_material
+    if current.model_name != "GeSnModel":
+        raise BindingApplicationError(
+            "GeSn composition binding requires a GeSnModel nanocrystal material"
+        )
+
+    canonical_current = make_gesn(current.sn_fraction)
+    if current.to_dict() != canonical_current.to_dict():
+        raise BindingApplicationError(
+            "GeSn composition binding requires the canonical default GeSn "
+            "parameterization; custom parameter sets cannot be reconstructed "
+            "safely in G1c1"
+        )
+
+    layer.nc_material = make_gesn(sn_fraction)
 
 
 def _coerce_for_target(current: object, value: ScalarValue, *, label: str) -> object:
@@ -117,6 +173,24 @@ def _apply_binding_in_place(
     binding: ParameterBinding,
     value: ScalarValue,
 ) -> None:
+    if binding.scope is not BindingScope.DEVICE:
+        raise BindingApplicationError(
+            "G1b/G1c supports only BindingScope.DEVICE bindings"
+        )
+
+    path = binding.path
+    if (
+        len(path) == 4
+        and path[0] == "layers"
+        and path[2:] == ("nc_material", "sn_fraction")
+    ):
+        _apply_gesn_composition_binding(
+            device,
+            layer_name=path[1],
+            value=value,
+        )
+        return
+
     target, attribute = _resolve_device_target(device, binding)
     current = getattr(target, attribute)
     label = ".".join(binding.path)

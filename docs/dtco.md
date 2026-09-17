@@ -104,3 +104,27 @@ composition-dependent material properties remain internally consistent.
 device to match the recorded base-device hash, assignment keys to match the
 experiment variables exactly, every value to belong to its declared domain,
 and all variables to use `BindingScope.DEVICE`.
+
+
+## G1c1: material-aware GeSn composition binding
+
+GeSn composition is not applied by mutating `sn_fraction` directly on the
+material object. The material is rebuilt through the existing `make_gesn()`
+factory so composition-dependent dielectric, band-gap, affinity, effective-mass,
+and program/erase barrier values remain internally consistent.
+
+The supported semantic path is:
+
+```text
+("layers", "<FG name>", "nc_material", "sn_fraction")
+```
+
+G1c1 intentionally accepts only a canonical default `GeSnModel` material. A
+custom GeSn parameterization is rejected because the current immutable
+`NanocrystalMaterial` retains the derived material properties but not enough
+information to reconstruct every original `GeSnParameterSet` input when the Sn
+fraction changes. Silently falling back to the default parameter set would
+destroy provenance and change the scientific model.
+
+The original base device remains unchanged because material-aware composition
+application uses the same copy-on-write path as the other device bindings.

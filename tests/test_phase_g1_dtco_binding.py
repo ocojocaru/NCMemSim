@@ -15,6 +15,7 @@ from ncmemsim.dtco import (
     apply_experiment_design_point,
 )
 from ncmemsim.hashing import canonical_hash
+from ncmemsim.materials import make_gesn
 
 
 def _device():
@@ -147,7 +148,7 @@ def test_nested_material_mutation_is_rejected():
     with pytest.raises(BindingApplicationError, match="unsupported device"):
         apply_device_binding(
             _device(),
-            _binding("layers", "FG1", "nc_material", "sn_fraction"),
+            _binding("layers", "FG1", "nc_material", "bandgap_eV"),
             0.08,
         )
 
@@ -292,3 +293,100 @@ def test_experiment_design_point_rejects_non_device_variable_scope():
             base,
             {"program_voltage": 4.0},
         )
+
+
+def test_gesn_composition_binding_rebuilds_material_and_preserves_base():
+    base = DeviceBuilder.v2(
+        n_fgs=1,
+        nc_material=make_gesn(0.08),
+        name="gesn-base",
+    )
+    base_hash = canonical_hash(base.to_dict())
+    original = base.floating_gates()[0].nc_material
+
+    candidate = apply_device_binding(
+        base,
+        _binding("layers", "FG1", "nc_material", "sn_fraction"),
+        0.12,
+    )
+
+    updated = candidate.floating_gates()[0].nc_material
+    assert updated.sn_fraction == pytest.approx(0.12)
+    assert updated.name == "GeSn_12.0atpctSn"
+    assert updated.bandgap_eV != pytest.approx(original.bandgap_eV)
+    assert updated.phi_barrier_prog_eV != pytest.approx(
+        original.phi_barrier_prog_eV
+    )
+    assert base.floating_gates()[0].nc_material.sn_fraction == pytest.approx(0.08)
+    assert canonical_hash(base.to_dict()) == base_hash
+
+
+@pytest.mark.parametrize("value", [-0.01, 1.01])
+def test_gesn_composition_binding_rejects_fraction_outside_unit_interval(value):
+    base = DeviceBuilder.v2(n_fgs=1, nc_material=make_gesn(0.08))
+    with pytest.raises(BindingApplicationError, match=r"\[0, 1\]"):
+        apply_device_binding(
+            base,
+            _binding("layers", "FG1", "nc_material", "sn_fraction"),
+            value,
+        )
+
+
+def test_gesn_composition_binding_rejects_non_gesn_material():
+    with pytest.raises(BindingApplicationError, match="requires a GeSnModel"):
+        apply_device_binding(
+            _device(),
+            _binding("layers", "FG1", "nc_material", "sn_fraction"),
+            0.08,
+        )
+
+
+def test_gesn_composition_binding_rejects_custom_parameterization():
+    custom = make_gesn(0.08, phi_ge_prog_eV=3.1)
+    base = DeviceBuilder.v2(n_fgs=1, nc_material=custom)
+    with pytest.raises(BindingApplicationError, match="canonical default GeSn"):
+        apply_device_binding(
+            base,
+            _binding("layers", "FG1", "nc_material", "sn_fraction"),
+            0.12,
+        )
+
+
+@pytest.mark.parametrize("value", [True, "0.12"])
+def test_gesn_composition_binding_rejects_non_numeric_values(value):
+    base = DeviceBuilder.v2(n_fgs=1, nc_material=make_gesn(0.08))
+    with pytest.raises(BindingApplicationError, match="numeric value"):
+        apply_device_binding(
+            base,
+            _binding("layers", "FG1", "nc_material", "sn_fraction"),
+            value,
+        )
+
+
+def test_experiment_design_point_applies_gesn_composition_variable():
+    base = DeviceBuilder.v2(
+        n_fgs=1,
+        nc_material=make_gesn(0.08),
+        name="gesn-experiment-base",
+    )
+    composition = DesignVariable(
+        name="sn_fraction",
+        binding=_binding("layers", "FG1", "nc_material", "sn_fraction"),
+        values=(0.06, 0.08, 0.10),
+        role=DesignVariableRole.MATERIAL,
+        unit="1",
+    )
+    spec = ExperimentSpec.from_device(
+        name="composition-study",
+        device=base,
+        variables=(composition,),
+    )
+
+    candidate = apply_experiment_design_point(
+        spec,
+        base,
+        {"sn_fraction": 0.10},
+    )
+
+    assert candidate.floating_gates()[0].nc_material.sn_fraction == pytest.approx(0.10)
+    assert base.floating_gates()[0].nc_material.sn_fraction == pytest.approx(0.08)
