@@ -21,6 +21,20 @@ calibration baseline.
 - Kept advanced optimizers outside the initial implementation scope: the first
   sweep engine will be deterministic and grid-based.
 
+### G1a — design-variable and experiment-specification core
+
+- Added a dedicated `ncmemsim.dtco` namespace.
+- Added typed semantic parameter bindings for device, operating, and model
+  scopes without yet applying mutations.
+- Added deterministic design-variable definitions with ordered finite domains,
+  units, scientific roles, and optional parameter provenance.
+- Added experiment specifications tied to the canonical hash of the exact base
+  device definition.
+- Added deterministic experiment-definition hashes and Cartesian design-point
+  counts in preparation for the G2 sweep engine.
+- Kept device mutation, sweep execution, metrics, Pareto analysis, and
+  optimization outside the G1a checkpoint.
+
 ## v0.11.0 — Experimental Fitting and Calibration
 
 NCMemSim v0.11.0 adds traceable experimental-data handling, deterministic

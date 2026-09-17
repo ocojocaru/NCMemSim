@@ -46,6 +46,7 @@ nav:
   - Scientific model:
       - Scope and assumptions: scientific_scope.md
       - Device and state model: device_model.md
+      - Design-space exploration and DTCO: dtco.md
       - Physics overview: physics.md
       - Electrostatics and fields: electrostatics.md
       - Transport and retention: transport_retention.md
