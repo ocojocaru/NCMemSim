@@ -8,6 +8,17 @@ Development of v0.12.0 is organized as Phase G. The cycle starts from the
 released v0.11.0 electrical, retention, optical, electro-optical, fitting, and
 calibration baseline.
 
+### G7 — release validation and distribution checks
+
+- Added wheel and source distribution archive checks and separate installed
+  DTCO reference workflows outside the source checkout.
+- Verify deterministic reports, manifest restoration, candidate failures and
+  CSV exports from each installed distribution.
+- Extended CI to the DTCO branch with clean distribution checks on Python
+  3.11–3.13 and strict documentation builds.
+- Gate tag publication on installed distribution validation; preserve the
+  development version and existing scientific behavior.
+
 ### G0 — cycle bootstrap and architecture freeze
 
 - Started the `dev/v0.12.0-dtco` development cycle from the tagged v0.11.0

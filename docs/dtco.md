@@ -777,4 +777,43 @@ scientific settings change, update the G2 evaluator identity/parameters.
 
 G6 packages completed results and examples. It does not modify simulation
 semantics, run an optimizer or bypass G3/G4 eligibility.
-G7 remains for release validation and distribution checks.
+## G7: release validation and distribution checks
+
+CI now validates the DTCO development branch and main on Python 3.11, 3.12,
+and 3.13. Full regression tests remain in the existing matrix. A separate
+matrix builds wheel and source distributions and installs each in its own
+virtual environment. Strict documentation builds also gate CI.
+
+Run the distribution check from the repository root:
+
+```console
+python scripts/validate_dtco_distribution.py
+```
+
+The default check downloads build tools/dependencies as needed and creates
+clean environments. Build tools are installed in a separate clean builder;
+source installation uses freshly installed setuptools/wheel. On Windows Conda,
+a temporary startup file registers the interpreter's runtime DLL directory
+for stdlib extensions such as `pyexpat` and `ssl`; it does not expose host
+Python packages. This file stays inside temporary environments. It checks all DTCO modules in each archive, proves imports
+come from the installed package outside the checkout, and runs the real G6
+reference with and without failed candidates. It checks repeatable hashes,
+manifest round trips, CSV row counts and all four exported files. Examples
+remain repository assets; the reference is copied separately into the probe.
+
+For a local offline check with existing NumPy/build tools:
+
+```console
+python scripts/validate_dtco_distribution.py --reuse-dependencies
+```
+
+This mode inherits dependencies from the invoking interpreter. NCMemSim itself
+must still load from the newly installed distribution. It does not substitute
+for clean dependency resolution in CI. Temporary builds, environments and
+reports are removed automatically. Hash equality is checked within each
+runtime, not across Python/NumPy versions recorded in the manifest.
+
+The tag release workflow validates installed distributions before publication.
+G7 adds release gates; it does not change `0.12.0.dev0`, create a tag, publish
+artifacts, or establish scientific calibration. Python 3.11/3.12 execution is
+confirmed by CI, not by a local run on Python 3.13.
