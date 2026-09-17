@@ -12,12 +12,11 @@ The v0.10.0 repository has strong verification and regression infrastructure.
 
 Experimental validation remains device- and dataset-dependent and must be demonstrated in the associated scientific study.
 
-## v0.10.0 release validation
+## v0.11.0 release-candidate validation
 
-The v0.10.0 release extends the validated electrical model with
-wavelength-dependent optical absorption and photo-assisted programming.
+The v0.11.0 release candidate preserves the validated electrical and optical model while adding experimental-data, fitting, uncertainty, identifiability, and calibration-qualification workflows.
 
-The automated suite contains **194 tests**, covering Phases A through E6, including:
+The automated suite contains **1091 tests**, covering the retained Phases A through E6 baseline and the v0.11.0 Phase F workflows, including:
 
 - foundation and device construction;
 - V5.3 electrical regression;
@@ -40,10 +39,9 @@ The automated suite contains **194 tests**, covering Phases A through E6, includ
 - SWIR programming benchmarks;
 - SWIR voltage-reduction benchmarks.
 
-The complete local suite passes on Python 3.13.12.
+The complete v0.11.0 release-candidate suite passes locally on Python 3.13.
 
-The official v0.10.0 release has been verified on the supported Python
-3.11, 3.12, and 3.13 CI matrix.
+The repository CI matrix is configured for Python 3.11, 3.12, and 3.13. Final matrix verification of the v0.11.0 release commit is part of the release gate before tagging.
 
 ## Electrical regression
 
@@ -174,10 +172,10 @@ Run all tests with:
 python -m pytest
 ```
 
-The current v0.10.0 local validation target is:
+The current v0.11.0 local validation target is:
 
 ```text
-194 passed
+1091 passed
 ```
 
 ## Physics checks

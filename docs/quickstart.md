@@ -1,6 +1,6 @@
 # Quick start
 
-This guide introduces the main NCMemSim v0.10.0 workflows:
+This guide introduces the main NCMemSim v0.11.0 workflows:
 
 1. build a nanocrystal-memory device;
 2. create its initial charge state;
@@ -24,7 +24,7 @@ print(ncmemsim.__version__)
 For the official release, the expected version is:
 
 ```text
-0.10.0
+0.11.0
 ```
 
 ## 2. Build a device
@@ -622,7 +622,7 @@ After completing this quick start:
 
 ## Scientific interpretation
 
-NCMemSim v0.10.0 is a software-verified compact physical simulator.
+NCMemSim v0.11.0 is a software-verified compact physical simulator with explicit experimental-data fitting and calibration-qualification infrastructure.
 
 The electrical and optical workflows can be used for controlled mechanism
 studies, parameter sweeps, spectral comparisons, retention studies, and

@@ -281,7 +281,7 @@ photo = PhotoTransitionConfig(
 Photo-assisted rates should be constructed from explicit optical inputs rather
 than by directly modifying occupation probabilities.
 
-The current v0.10.0 model represents photo-assisted loading through:
+The compact photo-assisted loading model introduced in v0.10.0 and retained in v0.11.0 represents photo-assisted loading through:
 
 ```text
 0 -> 1

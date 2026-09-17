@@ -8,8 +8,8 @@
 
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
-> **Current release:** `0.10.0` — Optical Programming
-> **Scientific status:** research software under active development; Phase D electrical/retention physics and Phase E optical-programming capabilities are implemented and covered by automated validation.
+> **Current development version:** `0.11.0` — Experimental Fitting and Calibration (release candidate)
+> **Scientific status:** research software under active development; the v0.11.0 release candidate preserves the validated electrical/retention and optical-programming baselines and adds traceable experimental-data fitting, local uncertainty/identifiability diagnostics, and explicit calibration qualification.
 
 ## Why NCMemSim?
 
@@ -26,11 +26,11 @@ The framework is intended for:
 - retention and charge-redistribution studies;
 - wavelength-dependent optical and electro-optical programming studies;
 - SWIR response studies for Ge/GeSn nanocrystal floating gates;
-- future experimental fitting, uncertainty-aware calibration, and design-space exploration.
+- experimental fitting, uncertainty-aware calibration qualification, and future design-space exploration.
 
 ## Implemented capabilities
 
-| Area | Available in v0.10.0 |
+| Area | Available in v0.11.0 |
 |---|---|
 | Device construction | V1 and V2 architectures, 1–3 floating gates |
 | Materials | Si, SiO2, HfO2, Ge, composition-dependent GeSn |
@@ -48,10 +48,14 @@ The framework is intended for:
 | Optical diagnostics | Per-FG absorption, photon flux, and photo-transition rates |
 | SWIR validation | Wavelength sweeps and programming-voltage-reduction benchmarks |
 | Validation | Probability, device, field, charge-conservation, optical, and kinetic checks |
-| Reproducibility | Device/simulation hashes and runtime manifest |
+| Reproducibility | Device/simulation hashes, dataset/protocol/specification hashes, and runtime manifests |
+| Experimental data | Optical and device-observable datasets with metadata, conditions, optional uncertainty, and deterministic hashes |
+| Parameter fitting | Deterministic bounded least-squares adapters for optical and device-level observables |
+| Fit diagnostics | Local covariance, standard errors, correlations, rank, singular values, and scaled-condition diagnostics |
+| Calibration qualification | Explicit FITTED/CALIBRATED separation with independent-validation criteria and auditable qualification results |
 | Regression | Golden reference suite and benchmark utilities |
 
-Experimental parameter fitting, automated DTCO, and advanced quantum corrections remain roadmap items. Optical programming is implemented in v0.10.0 using a compact model whose absolute absorption amplitudes and photo-capture efficiencies remain provisional unless independently calibrated.
+Experimental-data handling, deterministic parameter fitting, local uncertainty/identifiability diagnostics, and calibration qualification are implemented in v0.11.0. Automated DTCO and advanced quantum corrections remain roadmap items. The compact optical model introduced in v0.10.0 is retained; absolute absorption amplitudes and device-specific photo-capture efficiencies remain provisional unless supported by appropriate independent experimental calibration.
 
 ## Installation
 
@@ -80,10 +84,10 @@ Verify the installation with:
 python -c "import ncmemsim; print(ncmemsim.__version__)"
 ```
 
-For this release, the expected version is:
+For this release candidate, the expected version is:
 
 ```text
-0.10.0
+0.11.0
 ```
 
 ## Quick start
@@ -131,6 +135,18 @@ The Phase E examples include:
 
 - `examples/e6a_swir_wavelength_sweep.py` — wavelength-dependent Ge/GeSn optical response;
 - `examples/e6d_swir_voltage_reduction.py` — compact SWIR-assisted programming-voltage-reduction benchmark.
+
+The v0.11.0 fitting/calibration reference examples include:
+
+- `examples/phase_f4f_tran2016_calibration.py` — real-data near-edge fitting
+  with independent holdout qualification;
+- `examples/phase_f4h_device_calibration.py` — synthetic device-level
+  electrical fitting and pulse protocols;
+- `examples/phase_f4i_photo_capture_fit.py` — shared multi-condition
+  photo-capture fitting and local identifiability diagnostics;
+- `examples/phase_f4i_photo_capture_calibration.py` — synthetic positive and
+  negative device-level qualification paths.
+
 
 ## Package architecture
 
@@ -246,13 +262,13 @@ Phase E adds validation for:
 - **E5** — simulator, voltage-sweep, and C–V optical integration;
 - **E6** — SWIR spectral behaviour and programming benchmarks.
 
-The v0.10.0 release suite contains:
+The v0.11.0 release-candidate suite currently contains:
 
 ```text
-194 tests
+1091 tests
 ```
 
-The release was validated locally on Python 3.13 and through the repository CI matrix on Python 3.11, 3.12, and 3.13.
+The v0.11.0 release candidate has been validated locally on Python 3.13. Final verification on the repository CI matrix for Python 3.11, 3.12, and 3.13 is part of the release gate before tagging.
 
 Run the complete test suite with:
 
@@ -320,7 +336,7 @@ Main sections:
 | v0.9.0 | Phase D6 validation baseline | Complete |
 | v0.9.1 | Repository polish, documentation, GitHub infrastructure, branding and release engineering | Complete |
 | v0.10.0 | Optical programming engine and SWIR validation | **Complete** |
-| v0.11.0 | Experimental fitting and uncertainty-aware calibration | Planned |
+| v0.11.0 | Experimental fitting and uncertainty-aware calibration | **Release candidate** |
 | v0.12.0 | Design-space exploration / DTCO | Planned |
 | v1.0.0 | First stable scientific release | Planned |
 

@@ -768,7 +768,7 @@ silently modifying unrelated kernels.
 
 ## Architectural validation baseline
 
-The official v0.10.0 release is the current architectural baseline.
+The v0.10.0 release remains the validated Phase E simulator architecture baseline; v0.11.0 adds experimental-data, fitting, diagnostic, and calibration-qualification layers without replacing that simulation core.
 
 It integrates:
 

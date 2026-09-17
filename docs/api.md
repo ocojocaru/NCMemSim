@@ -1,11 +1,11 @@
 # Public API overview
 
-The stable import surface for NCMemSim v0.10.0 is defined primarily in
+The stable import surface for NCMemSim v0.11.0 is defined primarily in
 `ncmemsim/__init__.py`, with optical material models exposed from
 `ncmemsim.materials.optics`.
 
-The v0.11.0 development branch also exposes experimental-data, fitting,
-diagnostic, and calibration APIs from their dedicated modules.
+Experimental-data, fitting, diagnostic, and calibration APIs are exposed
+from their dedicated v0.11.0 modules.
 
 The following groups summarize the principal public objects.
 

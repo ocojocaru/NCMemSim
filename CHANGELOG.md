@@ -2,6 +2,84 @@
 
 All notable changes to NCMemSim are documented in this file.
 
+## v0.11.0 — Experimental Fitting and Calibration
+
+NCMemSim v0.11.0 adds traceable experimental-data handling, deterministic
+parameter fitting, uncertainty and identifiability diagnostics, and explicit
+calibration qualification while preserving the validated v0.10.0 electrical
+and optical simulation baseline.
+
+### Experimental data and deterministic fitting
+
+- Added structured optical and device-observable experimental datasets with
+  metadata, conditions, optional uncertainties, deterministic serialization,
+  and dataset hashes.
+- Added validated optical CSV import with canonical wavelength and absorption
+  units.
+- Added deterministic least-squares objectives, bounded fit-parameter
+  specifications, normalized optimization coordinates, and optional
+  SciPy-backed local fitting.
+- Added model-based local uncertainty diagnostics including covariance,
+  standard errors, parameter correlations, Jacobian rank, scaled singular
+  values, and scaled condition number.
+
+### GeSn near-edge fitting and calibration
+
+- Added an opt-in literature-anchored GeSn near-edge reference model and a
+  fitting workflow for the direct prefactor and Urbach energy.
+- Added explicit FITTED versus CALIBRATED provenance and generic quantitative
+  calibration criteria.
+- Added independent holdout qualification without re-optimizing fitted
+  parameters.
+- Added the provenance-preserving digitized Tran et al. (2016) sample-A
+  workflow.
+- Preserved the scientifically negative real-data result: the declared
+  holdout criterion fails, so that workflow reports NOT_CALIBRATED rather
+  than weakening the validation threshold.
+
+### Device-level fitting
+
+- Added controlled device-parameter bindings with structural-degeneracy
+  checks and identifiability warnings.
+- Added synthetic single-parameter fitting workflows for C-V fixed charge,
+  fixed-voltage programming-time response, pulse-defined memory window, and
+  retention fraction.
+- Added an explicit paired program/erase protocol and zero-dwell readout
+  semantics.
+- Added backward-Euler stabilization for long-time retention occupancy
+  integration and numerical refinement audits for the retained synthetic
+  benchmarks.
+
+### Electro-optical fitting and photo-capture qualification
+
+- Added device-level binding of `photo_capture_efficiency`.
+- Added electro-optical programming-time prediction with illumination during
+  programming and dark zero-dwell readout.
+- Added single-condition and shared multi-condition
+  `photo_capture_efficiency` fitting.
+- Added full joint-Jacobian local uncertainty and identifiability diagnostics
+  plus per-condition local sensitivity magnitudes.
+- Added numerical timestep-sensitivity and cross-grid recovery validation for
+  the synthetic photo-capture benchmark.
+- Added independent validation qualification of the fitted photo-capture
+  efficiency without re-optimization.
+- Added auditable CALIBRATED and NOT_CALIBRATED qualification outcomes with
+  training-collection, validation, protocol, criteria, and qualification
+  hashes.
+- Added an explicit synthetic software-validation example that exercises both
+  qualification outcomes while making no experimental calibration claim.
+
+### Validation and compatibility
+
+- Expanded the local automated regression suite to **1091 passing tests** at
+  the v0.11.0 release-candidate checkpoint.
+- Preserved the v0.10.0 electrical, retention, optical, and electro-optical
+  regression baselines.
+- Preserved the distinction between software verification, parameter fitting,
+  qualification, and experimental calibration.
+- Kept optional global-search initialization and additional independent
+  experimental datasets outside the required v0.11.0 scientific scope.
+
 ## v0.10.0 — Optical Programming
 
 NCMemSim v0.10.0 introduces wavelength-dependent optical and

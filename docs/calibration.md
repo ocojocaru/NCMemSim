@@ -506,7 +506,7 @@ as independent experimental replication.
 
 ## Device-level fitting and pulse protocols
 
-The v0.11.0 development branch now includes controlled device-level parameter
+NCMemSim v0.11.0 includes controlled device-level parameter
 bindings and synthetic end-to-end fitting references for electrical
 observables.
 

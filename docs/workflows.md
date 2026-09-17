@@ -682,7 +682,7 @@ A nearly constant total charge can coexist with substantial movement of charge
 between floating gates.
 
 
-### Retention-fraction fitting on the v0.11.0 development branch
+### Retention-fraction fitting in v0.11.0
 
 The device-fitting layer can fit one controlled model parameter directly to
 `total_charge_retention_fraction(time)` through:
@@ -1044,7 +1044,7 @@ examples/e6a_swir_wavelength_sweep.py
 examples/e6d_swir_voltage_reduction.py
 ```
 
-The v0.11.0 development branch also provides the integrated synthetic
+NCMemSim v0.11.0 also provides the integrated synthetic
 device-calibration example:
 
 ```text

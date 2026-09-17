@@ -57,13 +57,13 @@ The v0.10.0 validation suite contains 194 tests and covers Phases A through E6.
 
 The optical implementation is intentionally compact. Absolute absorption amplitudes and photo-capture efficiencies remain provisional unless independently calibrated.
 
-## Planned scientific releases
+## Current and planned scientific releases
 
 ### v0.11.0: Experimental fitting and calibration
 
 The v0.11.0 milestone adds traceable experimental-data handling, parameter fitting, uncertainty and identifiability diagnostics, and explicit calibration qualification.
 
-The release is still under development. The following capabilities are implemented on the development branch:
+The v0.11.0 scientific scope is complete on the release-candidate branch. The release includes:
 
 - structured experimental optical datasets with source and sample metadata;
 - validated CSV import using canonical wavelength and absorption units;
@@ -107,11 +107,12 @@ This negative qualification result is preserved as a scientific result rather th
 
 The synthetic device-level recovery workflows, including pulse-memory and retention fitting, demonstrate deterministic parameter recovery only. They report `FITTED`, not `CALIBRATED`, and do not substitute for independent experimental device validation.
 
-Remaining v0.11.0 work may include:
+Remaining v0.11.0 work is release engineering: final metadata review, package/distribution validation, supported-Python CI verification, and tagged-release verification. No additional scientific functionality is required for the release.
+
+Post-v0.11.0 extensions may include:
 
 - optional global-search initialization before deterministic local fitting;
-- additional independent experimental validation datasets;
-- final release documentation and release validation.
+- additional independent experimental validation datasets.
 
 Candidate fitted parameters for later workflows may include:
 

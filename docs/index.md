@@ -6,9 +6,10 @@
 floating-gate nanocrystal memories based on Ge, GeSn, and high-k dielectric
 stacks.
 
-NCMemSim v0.10.0 extends the validated electrical kernel with
-wavelength-dependent optical absorption, photo-assisted charge-state
-transitions, and electro-optical programming.
+NCMemSim v0.11.0 preserves the validated electrical, retention, optical,
+and electro-optical simulation kernel and adds traceable experimental-data
+handling, deterministic parameter fitting, local uncertainty and
+identifiability diagnostics, and explicit calibration qualification.
 
 The platform supports one to three floating gates, local one-dimensional
 electrostatics, compact WKB transport, charge redistribution, retention
@@ -54,8 +55,9 @@ calibrated against experiment.
 
 ### Current status
 
-The v0.10.0 release completes the Phase E optical-programming
-extension.
+The v0.11.0 release candidate adds the Phase F experimental fitting and
+calibration layer while retaining the Phase E optical-programming
+implementation and its regression baseline.
 
 The Phase D electrical framework includes:
 
@@ -84,8 +86,23 @@ Phase E adds:
 - SWIR wavelength and programming benchmarks;
 - SWIR programming-voltage-reduction validation.
 
-The current automated suite contains **194 tests** and passes locally on
-Python 3.13.12.
+Phase F adds:
+
+- structured experimental optical and device-observable datasets;
+- deterministic bounded least-squares fitting;
+- local uncertainty and identifiability diagnostics;
+- explicit FITTED versus CALIBRATED provenance;
+- independent-validation calibration qualification;
+- GeSn near-edge real-data fitting with a preserved NOT_CALIBRATED holdout
+  result;
+- synthetic device-level electrical, retention, and electro-optical recovery
+  workflows;
+- multi-condition photo-capture fitting and auditable qualification.
+
+
+The current v0.11.0 release-candidate suite contains **1091 tests** and
+passes locally on the release-preparation environment. Final supported-
+Python CI verification remains part of the release gate before tagging.
 
 Regression against the retained V5.3 electrical reference remains part of the
 validation suite. The legacy timestep inconsistency identified during v0.9.1

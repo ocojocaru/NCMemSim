@@ -578,9 +578,19 @@ NCMemSim v0.10.0 provides extensive support for the first three.
 Experimental validity remains dependent on the specific material, sample,
 device, and dataset.
 
-## v0.10.0 verification baseline
+## v0.11.0 release-candidate verification baseline
 
-The official v0.10.0 release baseline contains:
+The v0.11.0 release candidate currently passes:
+
+```text
+1091 passed
+```
+
+It preserves the v0.10.0 electrical, retention, optical, and electro-optical regression baseline while adding fitting, uncertainty, identifiability, and calibration-qualification tests.
+
+### Historical v0.10.0 verification baseline
+
+The v0.10.0 release baseline contains:
 
 ```text
 194 passed
