@@ -166,15 +166,15 @@ The supported device families are summarized below.
 
 Each floating gate uses three charge-state probabilities:
 
-\[
+$$
 P_0 + P_1 + P_2 = 1,
-\]
+$$
 
 with mean occupation represented by the model as
 
-\[
+$$
 m = \frac{P_1}{2} + P_2.
-\]
+$$
 
 The compact electrostatic model decomposes the flat-band shift into per-FG contributions and reconstructs local fields across the multilayer stack. Tunnelling probabilities are evaluated with WKB-type barrier integrals, while inter-FG redistribution is solved through an explicit nearest-neighbour transport network. Retention integrates the coupled state in time with adaptive step growth and logarithmically spaced outputs.
 
