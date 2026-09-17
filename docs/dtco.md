@@ -270,7 +270,7 @@ sweep = run_cartesian_sweep(
     spec, device, evaluate,
     base_protocol=protocol,
     evaluation_id="program-pulse-read-defaults-v1",
-    evaluation_parameters={"simulator_configuration": "defaults-v0.12.0.dev0"},
+    evaluation_parameters={"simulator_configuration": "defaults-v0.12.0"},
 )
 print(sweep.success_count, sweep.failure_count)
 print(sweep.sweep_hash, sweep.result_hash)
@@ -380,7 +380,7 @@ def evaluate(candidate_device, candidate_protocol, point):
 sweep = run_cartesian_sweep(
     experiment, device, evaluate, base_protocol=protocol,
     evaluation_id="program-read-payload-v1",
-    evaluation_parameters={"simulator_configuration": "defaults-v0.12.0.dev0"},
+    evaluation_parameters={"simulator_configuration": "defaults-v0.12.0"},
 )
 metrics = MetricAnalysisSpec(
     name="program-read-feasibility",
@@ -491,7 +491,7 @@ def evaluate(candidate_device, candidate_protocol, point):
 sweep = run_cartesian_sweep(
     experiment, device, evaluate, base_protocol=protocol,
     evaluation_id="program-read-pareto-example-v1",
-    evaluation_parameters={"simulator_configuration": "defaults-v0.12.0.dev0"},
+    evaluation_parameters={"simulator_configuration": "defaults-v0.12.0"},
 )
 analysis = analyze_sweep(sweep, MetricAnalysisSpec(
     name="response-duration-metrics",
@@ -622,7 +622,7 @@ def evaluate(candidate_device, candidate_protocol, point):
 sweep = run_cartesian_sweep(
     experiment, device, evaluate, base_protocol=protocol,
     evaluation_id="program-read-sensitivity-example-v1",
-    evaluation_parameters={"simulator_configuration": "defaults-v0.12.0.dev0"},
+    evaluation_parameters={"simulator_configuration": "defaults-v0.12.0"},
 )
 analysis = analyze_sweep(sweep, MetricAnalysisSpec(
     name="shift-metrics",
@@ -814,6 +814,8 @@ reports are removed automatically. Hash equality is checked within each
 runtime, not across Python/NumPy versions recorded in the manifest.
 
 The tag release workflow validates installed distributions before publication.
-G7 adds release gates; it does not change `0.12.0.dev0`, create a tag, publish
-artifacts, or establish scientific calibration. Python 3.11/3.12 execution is
-confirmed by CI, not by a local run on Python 3.13.
+G7 adds release gates without establishing scientific calibration. The G7
+baseline passed the full CI matrix on Python 3.11–3.13. Release preparation
+sets `0.12.0` separately; tag creation and artifact publication are subsequent
+steps. Repeated report hashes are checked within the same runtime, not
+across version changes recorded in report provenance.

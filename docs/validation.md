@@ -12,6 +12,23 @@ The v0.10.0 repository has strong verification and regression infrastructure.
 
 Experimental validation remains device- and dataset-dependent and must be demonstrated in the associated scientific study.
 
+## v0.12.0 DTCO release preparation
+
+The complete verification suite contains **1598 tests**, including **507**
+Phase G cases. G7 commit `cdbb785be24a99170e2fa08c6682fb1e342edf6d` passed
+full tests and clean installed wheel/source workflows on Python 3.11, 3.12
+and 3.13, plus strict documentation in CI. These results establish the Phase G
+baseline; the stable-version release changes are validated separately.
+
+DTCO verification covers canonical bindings/units, copy-on-write candidates,
+Cartesian ordering and failure isolation, finite metric extraction, inclusive
+constraints, mixed-direction Pareto sorting, adjacent-grid sensitivity,
+manifest integrity, report exports and the real reference workflow.
+
+This is software verification and regression evidence, not a claim of
+independent device-specific physical calibration. Tag/version matching and
+installed distribution checks gate the existing GitHub release workflow.
+
 ## v0.11.0 release validation
 
 The v0.11.0 release preserves the validated electrical and optical model while adding experimental-data, fitting, uncertainty, identifiability, and calibration-qualification workflows.

@@ -2,11 +2,22 @@
 
 All notable changes to NCMemSim are documented in this file.
 
-## v0.12.0.dev0 — Design-Space Exploration and DTCO (in development)
+## v0.12.0 — Design-Space Exploration and DTCO
 
-Development of v0.12.0 is organized as Phase G. The cycle starts from the
-released v0.11.0 electrical, retention, optical, electro-optical, fitting, and
-calibration baseline.
+Phase G adds deterministic Cartesian design-space exploration, canonical
+binding/unit contracts, explicit metrics and feasibility constraints,
+multi-objective Pareto fronts, adjacent-grid sensitivity and reproducible
+DTCO reports on the preserved v0.11.0 simulation and calibration baseline.
+
+Release preparation sets the package and citation version to `0.12.0`.
+The G7 baseline passed all seven CI jobs on Python 3.11–3.13, including
+installed wheel/source workflows and strict documentation. The tag workflow
+checks version agreement, regressions and installed distributions before
+publication. Creating a tag and publishing release assets are separate steps.
+
+Advanced optimizers and MODEL-scope binding application remain outside the
+implemented scope. Grid sensitivity is not a probabilistic Sobol analysis;
+software verification does not establish device-specific physical calibration.
 
 ### G7 — release validation and distribution checks
 

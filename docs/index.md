@@ -6,16 +6,12 @@
 floating-gate nanocrystal memories based on Ge, GeSn, and high-k dielectric
 stacks.
 
-NCMemSim v0.11.0 is the latest tagged release. It preserves the validated
-electrical, retention, optical, and electro-optical simulation kernel and adds
-traceable experimental-data handling, deterministic parameter fitting, local
-uncertainty and identifiability diagnostics, and explicit calibration
-qualification.
-
-The current development line is v0.12.0.dev0 (Phase G), which introduces
-design-space exploration and DTCO incrementally on top of the v0.11.0
-baseline. DTCO functionality is considered provisional until its dedicated
-Phase G validation gates pass.
+NCMemSim v0.12.0 preserves the electrical, retention, optical, electro-optical,
+fitting and calibration baseline while adding deterministic design-space
+exploration and DTCO. Typed experiment definitions, Cartesian sweeps, explicit
+metrics and constraints, Pareto fronts, grid sensitivity and reproducible
+reports are covered by dedicated Phase G tests and installed distribution
+checks. See [DTCO](dtco.md) for contracts, examples and scientific limits.
 
 The platform supports one to three floating gates, local one-dimensional
 electrostatics, compact WKB transport, charge redistribution, retention
@@ -65,10 +61,11 @@ The v0.11.0 release adds the Phase F experimental fitting and calibration
 layer while retaining the Phase E optical-programming implementation and its
 regression baseline.
 
-Phase G / v0.12.0 is now the active development cycle. Its first objective is
-a deterministic, reproducible design-space layer with explicit variables,
-constraints, metrics, provenance, and stable experiment definitions before
-multi-objective analysis is added.
+Phase G / v0.12.0 adds deterministic, reproducible design-space exploration
+with explicit variables, units, constraints, metrics and provenance, stable
+experiment definitions, multi-objective Pareto analysis, grid sensitivity
+and exportable reports. G0–G7 implementation and validation are complete;
+release publication is tracked separately.
 
 The Phase D electrical framework includes:
 

@@ -131,7 +131,12 @@ Calibration procedures must distinguish fitted effective parameters from indepen
 
 ### v0.12.0: Design-space exploration and DTCO
 
-**Status: active development (`0.12.0.dev0`).**
+**Status: implementation and G7 validation complete; v0.12.0 release preparation.**
+
+The G7 baseline passed full regression tests and clean installed distribution
+workflows on Python 3.11–3.13, plus strict documentation. The package version
+is now `0.12.0`; stable-version CI, tag creation and publication are subsequent
+release steps.
 
 Phase G is organized as:
 
@@ -147,15 +152,15 @@ Phase G is organized as:
   objective direction, constraint evaluation, and infeasible-point handling;
 - **G4 — multi-objective / Pareto analysis:** non-dominated sorting and
   transparent trade-off surfaces without a single opaque optimum;
-- **G5 — sensitivity analysis:** reproducible local/global sensitivity
-  summaries appropriate to the implemented sweep designs;
+- **G5 — sensitivity analysis:** adjacent-grid secants and coverage
+  summaries with explicit units (not probabilistic global sensitivity);
 - **G6 — reproducible DTCO reports and reference examples:** exportable
   experiment/result manifests, publication-ready summaries, and end-to-end
   examples;
 - **G7 — v0.12.0 release validation:** regression preservation, supported
   Python CI, documentation, distribution validation, and tagged release.
 
-Initial v0.12.0 capabilities target:
+Implemented v0.12.0 capabilities include:
 
 - structured deterministic parameter sweeps;
 - reproducible experiment definitions;

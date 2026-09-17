@@ -618,7 +618,8 @@ After completing this quick start:
 - read [Optical programming](optics.md) for the complete Phase E model;
 - read [Validation](validation.md) for the verification strategy;
 - read [API reference](api.md) for the public programming interface;
-- read [Roadmap](roadmap.md) for planned calibration and DTCO development.
+- read [DTCO](dtco.md) for deterministic exploration and reproducible reports;
+- read [Roadmap](roadmap.md) for planned extensions.
 
 ## Scientific interpretation
 

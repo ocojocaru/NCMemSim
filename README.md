@@ -8,9 +8,8 @@
 
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
-> **Latest release:** `0.11.0` — Experimental Fitting and Calibration
-> **Current development version:** `0.12.0.dev0` — Design-Space Exploration and DTCO
-> **Scientific status:** Phase G development builds on the validated v0.11.0 electrical, retention, optical, electro-optical, fitting, and calibration baseline. DTCO capabilities are introduced incrementally and are not treated as validated until their dedicated Phase G tests and release gates pass.
+> **Current package version:** `0.12.0` — Design-Space Exploration and DTCO
+> **Scientific status:** Phase G adds verified deterministic DTCO workflows to the retained v0.11.0 simulation and calibration baseline. Device-specific experimental calibration remains study-dependent.
 
 ## Why NCMemSim?
 
@@ -56,7 +55,7 @@ The framework is intended for:
 | Calibration qualification | Explicit FITTED/CALIBRATED separation with independent-validation criteria and auditable qualification results |
 | Regression | Golden reference suite and benchmark utilities |
 
-Experimental-data handling, deterministic parameter fitting, local uncertainty/identifiability diagnostics, and calibration qualification are implemented in v0.11.0. Deterministic design-space exploration and DTCO are under active development for v0.12.0; advanced quantum corrections remain roadmap items. The compact optical model introduced in v0.10.0 is retained; absolute absorption amplitudes and device-specific photo-capture efficiencies remain provisional unless supported by appropriate independent experimental calibration.
+Experimental-data handling, deterministic parameter fitting, local uncertainty/identifiability diagnostics, and calibration qualification are implemented in v0.11.0. Deterministic design-space exploration and DTCO are implemented in v0.12.0; advanced quantum corrections remain roadmap items. The compact optical model introduced in v0.10.0 is retained; absolute absorption amplitudes and device-specific photo-capture efficiencies remain provisional unless supported by appropriate independent experimental calibration.
 
 ## Installation
 
@@ -88,10 +87,10 @@ python -c "import ncmemsim; print(ncmemsim.__version__)"
 For the current development branch, the expected version is:
 
 ```text
-0.12.0.dev0
+0.12.0
 ```
 
-The latest tagged release remains `0.11.0`.
+Published tags and assets are listed on the [GitHub releases page](https://github.com/ocojocaru/NCMemSim/releases).
 
 ## Quick start
 
@@ -265,13 +264,13 @@ Phase E adds validation for:
 - **E5** — simulator, voltage-sweep, and C–V optical integration;
 - **E6** — SWIR spectral behaviour and programming benchmarks.
 
-The v0.11.0 release suite contains:
+The v0.12.0 verification suite contains:
 
 ```text
-1091 tests
+1598 tests
 ```
 
-The v0.11.0 release was validated locally on Python 3.13 and by the repository CI matrix on Python 3.11, 3.12, and 3.13.
+The Phase G baseline passed locally on Python 3.13 and in CI on Python 3.11, 3.12, and 3.13, including clean installed wheel and source-distribution workflows.
 
 Run the complete test suite with:
 
@@ -340,7 +339,7 @@ Main sections:
 | v0.9.1 | Repository polish, documentation, GitHub infrastructure, branding and release engineering | Complete |
 | v0.10.0 | Optical programming engine and SWIR validation | **Complete** |
 | v0.11.0 | Experimental fitting and uncertainty-aware calibration | **Complete** |
-| v0.12.0 | Design-space exploration / DTCO | **Active development** |
+| v0.12.0 | Design-space exploration / DTCO | Implemented; release preparation |
 | v1.0.0 | First stable scientific release | Planned |
 
 Potential post-v0.10 optical extensions include experimental calibration, broadband or measured spectra, strain-dependent optical properties, nanocrystal quantum confinement, field-dependent absorption, state filling, and sequential optical propagation through multi-FG structures.
