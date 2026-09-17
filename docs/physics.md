@@ -576,7 +576,7 @@ for every physical parameter or fabricated device.
 
 ## Current model limitations
 
-The v0.10.0 model intentionally does not include all physical mechanisms that
+The compact physics retained in v0.12.0 does not include all mechanisms that
 may influence a real nanocrystal memory.
 
 Important current limitations include:
@@ -598,9 +598,10 @@ Important current limitations include:
 - no sequential optical attenuation through multiple floating gates;
 - provisional absolute optical absorption amplitudes;
 - phenomenological, uncalibrated default photo-capture efficiency;
-- no device-specific experimental calibration in the current release.
+- no automatic experimental calibration of defaults; Phase F supports
+  dataset-specific fitting and qualification, whose status must be reported.
 
-These limitations define the interpretation range of v0.10.0 results and
+These limitations define the interpretation range of v0.12.0 results and
 should be reported when the simulator is used in scientific publications.
 
 ## Interpretation of results
@@ -622,5 +623,6 @@ It should not automatically be described as an experimentally predictive
 result unless the relevant material and device parameters have been calibrated
 against suitable measurements.
 
-The planned experimental-fitting stage will provide the framework for making
-that distinction quantitative.
+The implemented [fitting and calibration workflows](calibration.md) provide
+explicit diagnostics and qualification for that distinction. A fitted parameter
+is not automatically independently calibrated.

@@ -643,6 +643,25 @@ qualification hashes where applicable.
 - `run_benchmark_suite`
 - `write_benchmark_report`
 
+## Design-space exploration and DTCO (v0.12.0)
+
+Import the dedicated public namespace `ncmemsim.dtco`, rather than assuming
+DTCO symbols are re-exported from `ncmemsim`:
+
+- specification: `ParameterBinding`, `DesignVariable`, `ExperimentSpec`;
+- execution: `iter_cartesian_points`, `run_cartesian_sweep`;
+- metrics/constraints: `MetricDefinition`, `MetricConstraint`,
+  `MetricAnalysisSpec`, `analyze_sweep`;
+- Pareto: `ParetoAnalysisSpec`, `analyze_pareto`;
+- grid sensitivity: `SensitivityAnalysisSpec`, `analyze_sensitivity`;
+- reports: `DTCOReport`, `build_dtco_report`, `write_dtco_report`.
+
+See [DTCO](dtco.md) for enums, result types, exact units, evaluator contracts,
+complete examples and limitations. Candidate application is copy-on-write;
+unsupported MODEL bindings cannot execute. Pareto sorting uses explicit
+min/max directions, and sensitivity uses adjacent-grid secants with coverage.
+Report restoration checks canonical payload integrity, not authentication.
+
 ## Compatibility note
 
 Before v1.0, internal module paths and some result-dictionary details may

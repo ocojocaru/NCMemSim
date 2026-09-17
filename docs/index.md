@@ -65,7 +65,7 @@ Phase G / v0.12.0 adds deterministic, reproducible design-space exploration
 with explicit variables, units, constraints, metrics and provenance, stable
 experiment definitions, multi-objective Pareto analysis, grid sensitivity
 and exportable reports. G0–G7 implementation and validation are complete;
-release publication is tracked separately.
+v0.12.0 is tagged and published, and the DTCO branch is integrated in `main`.
 
 The Phase D electrical framework includes:
 
@@ -108,9 +108,13 @@ Phase F adds:
 - multi-condition photo-capture fitting and auditable qualification.
 
 
-The v0.11.0 release suite contains **1091 tests** and passes locally on the
-release-preparation environment. The repository CI matrix also passes on
-Python 3.11, 3.12, and 3.13.
+Phase G adds canonical binding/unit contracts, deterministic Cartesian sweeps,
+metrics and feasibility constraints, Pareto fronts, adjacent-grid sensitivity,
+and reproducible report exports.
+
+The v0.12.0 suite contains **1598 tests**, including **507 Phase G cases**.
+Full tests and clean installed distribution workflows passed on Python 3.11,
+3.12 and 3.13; strict documentation and the tag release workflow also passed.
 
 Regression against the retained V5.3 electrical reference remains part of the
 validation suite. The legacy timestep inconsistency identified during v0.9.1

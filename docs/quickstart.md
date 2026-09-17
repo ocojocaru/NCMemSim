@@ -499,7 +499,8 @@ correctness.
 Version 0.10.0 includes an executable Phase E6 wavelength-sweep example:
 
 ```bash
-python examples/e6a_swir_wavelength_sweep.py
+python examples/phase_g6_dtco_reference.py
+examples/e6a_swir_wavelength_sweep.py
 ```
 
 The example compares wavelength-dependent optical behaviour for Ge and GeSn
@@ -568,9 +569,11 @@ compact model rather than an absolute prediction for a fabricated device.
 The `examples/` directory contains phase-oriented scripts covering the
 electrical, retention, transport, and optical development path.
 
-The most useful starting points for the current release are:
+Useful starting points include the v0.12.0 DTCO reference and retained
+optical benchmarks:
 
 ```text
+examples/phase_g6_dtco_reference.py
 examples/e6a_swir_wavelength_sweep.py
 examples/e6d_swir_voltage_reduction.py
 ```
@@ -586,10 +589,10 @@ From the repository root:
 python -m pytest -q
 ```
 
-The official v0.10.0 validation baseline contains:
+The current v0.12.0 verification suite contains:
 
 ```text
-194 passed
+1598 passed
 ```
 
 Continuous integration verifies the supported Python 3.11, 3.12, and 3.13
@@ -597,9 +600,10 @@ matrix.
 
 ## 20. Build the documentation
 
-Install the development dependencies if required, then run:
+Install documentation dependencies explicitly, then run:
 
 ```bash
+python -m pip install -e ".[docs]"
 python -m mkdocs build --strict
 ```
 

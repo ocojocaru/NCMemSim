@@ -131,12 +131,12 @@ Calibration procedures must distinguish fitted effective parameters from indepen
 
 ### v0.12.0: Design-space exploration and DTCO
 
-**Status: implementation and G7 validation complete; v0.12.0 release preparation.**
+**Status: released as `v0.12.0`, integrated in `main`.**
 
 The G7 baseline passed full regression tests and clean installed distribution
 workflows on Python 3.11–3.13, plus strict documentation. The package version
-is now `0.12.0`; stable-version CI, tag creation and publication are subsequent
-release steps.
+is `0.12.0`; stable-version/main CI, tag publication and documentation
+deployment have passed.
 
 Phase G is organized as:
 
@@ -177,18 +177,16 @@ exploration. Latin-hypercube sampling, Bayesian optimization, evolutionary
 optimization, and other adaptive/global optimizers are not prerequisites for
 the initial Phase G architecture.
 
-Candidate design variables include:
+Supported executable bindings include device work function, substrate doping,
+temperature, named-layer thickness/NC diameter/volume and active fractions,
+grid points, canonical GeSn composition, program voltage/time/internal step,
+read voltage, optical wavelength and optical power density. The exact paths
+and units are listed in [DTCO binding contracts](dtco.md#g1d-bindingunit-contracts).
 
-- dielectric thicknesses;
-- floating-gate count;
-- nanocrystal diameter;
-- nanocrystal volume fraction;
-- electrically active fraction;
-- GeSn composition;
-- tunnelling-barrier parameters;
-- programming waveform;
-- optical wavelength;
-- optical power density.
+Changing FG count, arbitrary tunnelling barriers and arbitrary programming
+waveforms is not an executable DTCO binding in v0.12.0. MODEL scope remains
+declarative; advanced optimizers and categorical sweep execution require
+future semantic contracts.
 
 The DTCO layer should expose trade-offs rather than return a single opaque optimum.
 

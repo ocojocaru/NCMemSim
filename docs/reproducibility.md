@@ -578,7 +578,20 @@ NCMemSim v0.10.0 provides extensive support for the first three.
 Experimental validity remains dependent on the specific material, sample,
 device, and dataset.
 
-## v0.11.0 release verification baseline
+## v0.12.0 release verification baseline
+
+The v0.12.0 suite passes **1598 tests**, including **507 Phase G cases**, with
+full tests and clean installed wheel/source workflows on Python 3.11–3.13.
+The stable-version/main CI and tag release workflow passed at
+`cc8999b1373f7c3282c2352562635ed9a48ad50a`.
+
+DTCO reports record the exact experiment, evaluator identity/parameters,
+metrics, constraints and optional analysis components. Hash checks establish
+payload consistency; they are not digital signatures or physical validation.
+Runtime/software provenance can change hashes across environments; repeatability
+is checked within a fixed runtime. See [DTCO reports](dtco.md#g6-reproducible-report-bundles-and-reference-workflow).
+
+## Historical v0.11.0 release verification baseline
 
 The v0.11.0 release passes:
 
@@ -652,10 +665,13 @@ interpretation of the model.
 The final documentation check is:
 
 ```bash
-python -m mkdocs build --strict
+python -m mkdocs build --strict --site-dir .mkdocs-build
 ```
 
-For the current documentation audit, this strict build can be performed once
+This keeps the tracked historical `site/` snapshot untouched. Pages builds
+from Markdown sources on pushes to `main`; a release tag does not deploy Pages.
+
+For a documentation audit, this strict build can be performed once
 after the Markdown sources have been reviewed, rather than after every file
 edit.
 

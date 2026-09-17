@@ -467,7 +467,7 @@ python -m pytest tests/test_phase_e6c_swir_voltage_reduction.py -q
 python -m pytest -q
 ```
 
-The official v0.10.0 release baseline contains:
+The historical v0.10.0 release baseline contained:
 
 ```text
 194 passed
@@ -480,6 +480,8 @@ The repository CI matrix verifies Python:
 3.12
 3.13
 ```
+
+The current v0.12.0 suite contains 1598 tests, including 507 Phase G cases.
 
 A feature is not considered integrated merely because its new tests pass.
 
@@ -703,13 +705,18 @@ Before considering a physical feature complete, verify that:
 - reproducibility implications are reviewed;
 - changelog impact is reviewed.
 
-For the v0.10.0 baseline, the final repository-level checks are:
+For v0.12.0, the final repository-level checks are:
 
 ```bash
 git diff --check
 python -m pytest -q
-python -m mkdocs build --strict
+python -m mkdocs build --strict --site-dir .mkdocs-build
+python scripts/validate_dtco_distribution.py
 ```
+
+Use a temporary pytest base directory when the default sandbox temp path is
+inaccessible. Clean distribution validation requires package-index access.
+Pages deploys source documentation on `main`, separately from release tags.
 
 Generated files under `site/` are MkDocs build output and should not be edited
 as substitutes for changes to the Markdown sources.

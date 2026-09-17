@@ -26,11 +26,11 @@ The framework is intended for:
 - retention and charge-redistribution studies;
 - wavelength-dependent optical and electro-optical programming studies;
 - SWIR response studies for Ge/GeSn nanocrystal floating gates;
-- experimental fitting, uncertainty-aware calibration qualification, and future design-space exploration.
+- experimental fitting, uncertainty-aware calibration qualification, and deterministic design-space exploration.
 
 ## Implemented capabilities
 
-| Area | Available in v0.11.0 |
+| Area | Available in v0.12.0 |
 |---|---|
 | Device construction | V1 and V2 architectures, 1–3 floating gates |
 | Materials | Si, SiO2, HfO2, Ge, composition-dependent GeSn |
@@ -54,6 +54,10 @@ The framework is intended for:
 | Fit diagnostics | Local covariance, standard errors, correlations, rank, singular values, and scaled-condition diagnostics |
 | Calibration qualification | Explicit FITTED/CALIBRATED separation with independent-validation criteria and auditable qualification results |
 | Regression | Golden reference suite and benchmark utilities |
+| DTCO experiments | Typed variables, canonical units, device/operating bindings and experiment hashes |
+| Design-space sweeps | Deterministic Cartesian execution with candidate failure isolation |
+| DTCO analysis | Metrics, feasibility constraints, Pareto fronts and adjacent-grid sensitivity |
+| DTCO reports | Integrity-checked JSON manifests, CSV exports and Markdown summaries |
 
 Experimental-data handling, deterministic parameter fitting, local uncertainty/identifiability diagnostics, and calibration qualification are implemented in v0.11.0. Deterministic design-space exploration and DTCO are implemented in v0.12.0; advanced quantum corrections remain roadmap items. The compact optical model introduced in v0.10.0 is retained; absolute absorption amplitudes and device-specific photo-capture efficiencies remain provisional unless supported by appropriate independent experimental calibration.
 
@@ -84,7 +88,7 @@ Verify the installation with:
 python -c "import ncmemsim; print(ncmemsim.__version__)"
 ```
 
-For the current development branch, the expected version is:
+For the v0.12.0 source checkout, the expected version is:
 
 ```text
 0.12.0
@@ -339,7 +343,7 @@ Main sections:
 | v0.9.1 | Repository polish, documentation, GitHub infrastructure, branding and release engineering | Complete |
 | v0.10.0 | Optical programming engine and SWIR validation | **Complete** |
 | v0.11.0 | Experimental fitting and uncertainty-aware calibration | **Complete** |
-| v0.12.0 | Design-space exploration / DTCO | Implemented; release preparation |
+| v0.12.0 | Design-space exploration / DTCO | Released |
 | v1.0.0 | First stable scientific release | Planned |
 
 Potential post-v0.10 optical extensions include experimental calibration, broadband or measured spectra, strain-dependent optical properties, nanocrystal quantum confinement, field-dependent absorption, state filling, and sequential optical propagation through multi-FG structures.

@@ -21,7 +21,7 @@ The simulator is designed primarily for:
 - combined electro-optical programming;
 - parameter sweeps;
 - reproducible design-space exploration;
-- future design-technology co-optimization (DTCO).
+- deterministic design-technology co-optimization (DTCO).
 
 NCMemSim is intentionally a compact-model framework. It is not intended to
 replace a full multidimensional TCAD, atomistic, quantum-transport, or
@@ -429,7 +429,7 @@ voltage reduction of a fabricated device.
 
 ## Appropriate scientific use
 
-Version 0.10.0 is appropriate for studies such as:
+Version 0.12.0 is appropriate for studies such as:
 
 - comparison of one-, two-, and three-FG architectures;
 - sensitivity to dielectric thickness;
@@ -446,12 +446,13 @@ Version 0.10.0 is appropriate for studies such as:
 - relative SWIR programming efficiency;
 - controlled voltage-reduction studies;
 - reproducible parameter sweeps;
-- preparation for calibrated DTCO workflows.
+- deterministic DTCO sweeps, feasibility and Pareto trade-offs;
+- adjacent-grid sensitivity with explicit coverage and units.
 
 ## Uses requiring additional validation
 
 Additional physical modelling or experimental calibration is required before
-using NCMemSim v0.10.0 for claims such as:
+using NCMemSim v0.12.0 for claims such as:
 
 - absolute prediction of programming voltage for a fabricated device;
 - absolute prediction of optical quantum efficiency;
@@ -467,20 +468,22 @@ using NCMemSim v0.10.0 for claims such as:
 
 ## Current validation baseline
 
-The v0.11.0 release is the current verified baseline. It preserves the validated v0.10.0 electrical, retention, optical, and electro-optical baseline while adding Phase F fitting, uncertainty, identifiability, and calibration-qualification workflows.
+The v0.12.0 release preserves the v0.10.0 electrical/optical and v0.11.0
+fitting/calibration baselines, and adds the verified Phase G DTCO layer.
 
 Its validation suite contains:
 
 ```text
-194 passed
+1598 passed
 ```
 
-and covers Phases A through E6.
+and covers the retained Phases A–F and 507 dedicated Phase G cases.
 
 The release is verified on the supported Python 3.11, 3.12, and 3.13 CI matrix.
 
-The v0.10.0 release workflow, package artifacts, and published documentation
-have also been verified.
+The v0.12.0 tag workflow, clean installed wheel/source workflows and
+documentation deployment have also passed. This is software verification,
+not independent physical validation of every material or device.
 
 Future changes to physical assumptions or numerical behaviour should preserve
 this baseline through explicit regression testing or document intentionally
@@ -490,16 +493,14 @@ reviewed changes.
 
 The next development stages are expected to focus on:
 
-- experimental fitting and calibration;
 - calibrated optical absorption;
 - calibrated photo-capture parameters;
-- uncertainty and identifiability analysis;
 - strain-dependent optical models;
 - nanocrystal quantum-confinement corrections;
 - field-dependent optical response;
 - sequential optical propagation through multi-FG stacks;
-- systematic design-space exploration;
-- DTCO and Pareto analysis.
+- uncertainty propagation through DTCO studies;
+- adaptive optimization beyond deterministic Cartesian grids.
 
 These capabilities are roadmap items and should not be described as available
 until they are implemented, tested, and documented.

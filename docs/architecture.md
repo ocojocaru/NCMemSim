@@ -749,26 +749,30 @@ models and keeps individual kernels independently testable.
 The architecture is intended to support future additions without invalidating
 the existing electrical and optical paths.
 
-Planned extension points include:
+The implemented workflow layers now include Phase F fitting/calibration and
+Phase G DTCO. `ncmemsim.dtco` sits above device/protocol application and the
+caller-supplied evaluator; it does not replace the simulator physics. The
+pipeline is experiment specification → Cartesian sweep → metrics/constraints
+→ Pareto and sensitivity → reports. See [DTCO](dtco.md) for public contracts.
 
-- experimentally fitted material parameters;
+Further extension points include:
 - calibrated optical absorption;
 - calibrated photo-capture efficiency;
-- uncertainty and identifiability analysis;
 - strain-dependent GeSn optical properties;
 - nanocrystal quantum-confinement corrections;
 - field-dependent optical response;
 - state-filling effects;
 - sequential optical attenuation through multi-FG stacks;
-- systematic design-space exploration;
-- DTCO and Pareto analysis.
+- uncertainty propagation through design studies;
+- adaptive exploration and robust multi-objective optimization.
 
 New capabilities should enter through explicit model interfaces rather than by
 silently modifying unrelated kernels.
 
 ## Architectural validation baseline
 
-The v0.10.0 release remains the validated Phase E simulator architecture baseline; v0.11.0 adds experimental-data, fitting, diagnostic, and calibration-qualification layers without replacing that simulation core.
+The v0.10.0 release remains the validated Phase E simulator architecture baseline; v0.11.0 adds experimental-data, fitting, diagnostic, and calibration-qualification layers without replacing that simulation core. v0.12.0 adds the Phase G workflow
+layer and preserves those numerical baselines.
 
 It integrates:
 

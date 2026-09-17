@@ -1114,5 +1114,7 @@ For further details, see:
 - [Optical programming](optics.md) for the Phase E optical model;
 - [Validation](validation.md) for verification methodology;
 - [Reproducibility](reproducibility.md) for manifests and traceability;
+- [DTCO](dtco.md) for design variables, sweeps, feasibility, Pareto fronts,
+  grid sensitivity and reproducible reports;
 - [API reference](api.md) for documented programming interfaces;
 - [Developer guide](developer.md) for extension rules.

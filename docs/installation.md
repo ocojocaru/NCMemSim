@@ -13,6 +13,7 @@ Development dependencies include:
 - `mypy`
 - `build`
 - `matplotlib`
+- `scipy` (fitting workflows)
 
 `matplotlib` is required by the retained V5.3 legacy regression reference and
 is therefore included in the development dependency set rather than the
@@ -24,6 +25,24 @@ From the repository root:
 
 ```bash
 python -m venv .venv
+```
+
+Activate the environment before installing packages. On Windows CMD:
+
+```cmd
+.venv\Scripts\activate
+```
+
+On Linux/macOS:
+
+```bash
+source .venv/bin/activate
+```
+
+If a Conda environment is already activated, use that environment instead of
+creating a nested venv. Then, from the repository root:
+
+```bash
 python -m pip install --upgrade pip
 python -m pip install -e .
 ```
@@ -41,7 +60,9 @@ python -c "import ncmemsim; print(ncmemsim.__version__)"
 python -m pytest -q
 ```
 
-The expected package version for the v0.11.0 release is `0.11.0`.
+The expected package version for the v0.12.0 checkout is `0.12.0`.
+Running pytest requires a source checkout and the `[dev]` dependencies; tests
+and examples are not an installed-wheel interface.
 
 ## Documentation tools
 

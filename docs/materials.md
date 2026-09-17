@@ -280,8 +280,9 @@ NCMemSim distinguishes three different concepts:
 
 The v0.10.0 optical model contains the first two categories.
 
-Device-specific calibration is planned for the experimental-fitting stage and
-is not implied by the current defaults.
+Phase F provides fitting and calibration-qualification workflows; see
+[Calibration](calibration.md) and [Device calibration](device_calibration.md).
+Their availability does not imply that default parameters are calibrated.
 
 In particular:
 

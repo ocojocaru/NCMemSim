@@ -9,6 +9,18 @@ The DTCO layer is designed to expose explicit trade-offs. It does not define a
 single opaque optimum and does not alter the scientific provenance of
 underlying model parameters.
 
+## Release overview
+
+v0.12.0 implements the full specification → Cartesian sweep → metrics and
+constraints → Pareto/grid sensitivity → report pipeline. The G1–G7 sections
+below explain delivery checkpoints; statements about what an early checkpoint
+excluded are historical, not omissions from the completed release.
+
+DEVICE and OPERATING execution supports the allow-listed paths and exact units
+below. MODEL scope is declarative and cannot be executed by the sweep engine;
+FG-count changes and arbitrary model parameters are not supported bindings.
+No adaptive optimizer or probabilistic global sensitivity analysis is included.
+
 ## G1a: specification core
 
 The first Phase G checkpoint defines experiment identity before any sweep
@@ -690,7 +702,10 @@ No wall-clock timestamp, output path or generated filename enters report identit
 ```python
 from ncmemsim.dtco import DTCOReport, build_dtco_report, write_dtco_report
 
-# analysis, pareto and sensitivity are the completed G3/G4/G5 results.
+# Continue from the G4 example above. All components must share this analysis.
+from ncmemsim.dtco import analyze_pareto, analyze_sensitivity
+pareto = analyze_pareto(analysis)
+sensitivity = analyze_sensitivity(analysis)
 report = build_dtco_report(
     analysis, name="My DTCO study", pareto=pareto, sensitivity=sensitivity,
     metadata={"study_id": "study-v1"},
@@ -815,7 +830,7 @@ runtime, not across Python/NumPy versions recorded in the manifest.
 
 The tag release workflow validates installed distributions before publication.
 G7 adds release gates without establishing scientific calibration. The G7
-baseline passed the full CI matrix on Python 3.11–3.13. Release preparation
-sets `0.12.0` separately; tag creation and artifact publication are subsequent
-steps. Repeated report hashes are checked within the same runtime, not
+baseline and stable-version commit passed CI on Python 3.11–3.13. The
+`v0.12.0` tag release workflow published wheel/source assets, and integration
+in `main` deployed the documentation. Repeated report hashes are checked within the same runtime, not
 across version changes recorded in report provenance.

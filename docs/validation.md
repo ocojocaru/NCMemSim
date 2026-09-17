@@ -12,13 +12,16 @@ The v0.10.0 repository has strong verification and regression infrastructure.
 
 Experimental validation remains device- and dataset-dependent and must be demonstrated in the associated scientific study.
 
-## v0.12.0 DTCO release preparation
+## v0.12.0 DTCO release validation
 
 The complete verification suite contains **1598 tests**, including **507**
 Phase G cases. G7 commit `cdbb785be24a99170e2fa08c6682fb1e342edf6d` passed
 full tests and clean installed wheel/source workflows on Python 3.11, 3.12
-and 3.13, plus strict documentation in CI. These results establish the Phase G
-baseline; the stable-version release changes are validated separately.
+and 3.13, plus strict documentation in CI. Stable-version commit
+`cc8999b1373f7c3282c2352562635ed9a48ad50a` also passed branch/main CI,
+the `v0.12.0` tag release workflow and documentation deployment. The release
+contains the wheel and source distribution. See the
+[v0.12.0 release](https://github.com/ocojocaru/NCMemSim/releases/tag/v0.12.0).
 
 DTCO verification covers canonical bindings/units, copy-on-write candidates,
 Cartesian ordering and failure isolation, finite metric extraction, inclusive
@@ -189,10 +192,10 @@ Run all tests with:
 python -m pytest
 ```
 
-The current v0.11.0 local validation target is:
+The current v0.12.0 local verification target is:
 
 ```text
-1091 passed
+1598 passed
 ```
 
 ## Physics checks
