@@ -7,8 +7,10 @@ from .binding import (
     apply_experiment_design_point,
 )
 from .operating import (
+    AppliedExperimentPoint,
     OperatingBindingError,
     OperatingProtocol,
+    apply_experiment_point,
     apply_operating_binding,
     apply_operating_bindings,
 )
@@ -22,6 +24,7 @@ from .spec import (
 )
 
 __all__ = [
+    "AppliedExperimentPoint",
     "BindingApplicationError",
     "BindingScope",
     "DesignVariable",
@@ -34,6 +37,7 @@ __all__ = [
     "apply_device_binding",
     "apply_device_bindings",
     "apply_experiment_design_point",
+    "apply_experiment_point",
     "apply_operating_binding",
     "apply_operating_bindings",
 ]

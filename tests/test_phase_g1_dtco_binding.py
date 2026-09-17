@@ -16,6 +16,7 @@ from ncmemsim.dtco import (
 )
 from ncmemsim.hashing import canonical_hash
 from ncmemsim.materials import make_gesn
+from ncmemsim.program_protocol import ProgramPulseReadProtocol
 
 
 def _device():
@@ -286,6 +287,10 @@ def test_experiment_design_point_rejects_non_device_variable_scope():
         name="operating-scope",
         device=base,
         variables=(operating,),
+        operating_protocol=ProgramPulseReadProtocol(
+            program_voltage_V=5.0,
+            programming_time_s=1.0e-3,
+        ),
     )
     with pytest.raises(BindingApplicationError, match="device-scope"):
         apply_experiment_design_point(

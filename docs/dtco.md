@@ -158,3 +158,26 @@ condition. The v0.11 semantics keep it separate from illumination conditions
 because it is a fitted device/model parameter supplied at execution time.
 Experiment-level operating-baseline identity and mixed device/operating point
 application are deferred to G1c2b.
+
+
+## G1c2b: operating-baseline identity and mixed experiment points
+
+`ExperimentSpec.from_device()` can now optionally record an operating baseline
+through `operating_protocol=`. The baseline identity hashes a canonical payload
+containing both the supported protocol kind and its complete `to_dict()`
+representation.
+
+The operating identity is optional for device-only studies. When it is absent,
+the new operating fields are omitted from `ExperimentSpec.to_dict()`, preserving
+the existing device-only experiment serialization and experiment hashes.
+Experiments containing `BindingScope.OPERATING` variables, however, must record
+an operating baseline so that the experiment definition is complete.
+
+`apply_experiment_point()` validates both the base-device and base-operating
+identities, requires an exact assignment for every declared variable, checks
+each value against its declared domain, and then applies device and operating
+bindings through their existing copy-on-write/immutable mechanisms.
+
+`BindingScope.MODEL` remains outside G1c2b. In particular,
+`photo_capture_efficiency` is still treated as a fitted model/device parameter,
+not as an experimental illumination condition.

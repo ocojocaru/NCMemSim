@@ -78,6 +78,18 @@ calibration baseline.
 - Defers operating-baseline identity and mixed experiment-point application
   to G1c2b.
 
+### G1c2b — operating-baseline identity and mixed experiment points
+
+- Added optional canonical operating-protocol identity to `ExperimentSpec`.
+- Preserved device-only experiment serialization by omitting operating identity
+  fields when no operating baseline is supplied.
+- Requires an operating baseline whenever an experiment declares
+  `BindingScope.OPERATING` variables.
+- Added mixed device/operating experiment-point application with exact
+  assignment, domain, and baseline-identity checks.
+- Keeps `BindingScope.MODEL` application deferred so fitted model parameters
+  remain distinct from operating conditions.
+
 ## v0.11.0 — Experimental Fitting and Calibration
 
 NCMemSim v0.11.0 adds traceable experimental-data handling, deterministic

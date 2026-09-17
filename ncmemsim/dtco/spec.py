@@ -60,6 +60,34 @@ def _device_definition_payload(device: "Device") -> dict[str, Any]:
     }
 
 
+def _operating_definition_payload(operating_protocol: Any) -> dict[str, Any]:
+    """Return a canonical identity payload for supported operating protocols."""
+
+    # Local imports avoid a module cycle: dtco.operating imports this module.
+    from ..electro_optical_program_protocol import (
+        ElectroOpticalProgramPulseReadProtocol,
+    )
+    from ..program_protocol import ProgramPulseReadProtocol
+
+    if isinstance(operating_protocol, ProgramPulseReadProtocol):
+        kind = "program_pulse_read"
+    elif isinstance(
+        operating_protocol,
+        ElectroOpticalProgramPulseReadProtocol,
+    ):
+        kind = "electro_optical_program_pulse_read"
+    else:
+        raise TypeError(
+            "operating_protocol must be ProgramPulseReadProtocol or "
+            "ElectroOpticalProgramPulseReadProtocol"
+        )
+
+    return {
+        "kind": kind,
+        "protocol": operating_protocol.to_dict(),
+    }
+
+
 class BindingScope(str, Enum):
     """Top-level object family addressed by a DTCO parameter binding."""
 
@@ -207,6 +235,9 @@ class ExperimentSpec:
     base_device_name: str | None = None
     description: str | None = None
     schema_version: str = "dtco-experiment-v1"
+    # Appended after original fields to preserve positional compatibility.
+    base_operating_hash: str | None = None
+    base_operating_kind: str | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "variables", tuple(self.variables))
@@ -224,6 +255,28 @@ class ExperimentSpec:
                 raise ValueError("base_device_name cannot be empty")
             if self.base_device_name != self.base_device_name.strip():
                 raise ValueError("base_device_name cannot have outer whitespace")
+        if (self.base_operating_hash is None) != (
+            self.base_operating_kind is None
+        ):
+            raise ValueError(
+                "base_operating_hash and base_operating_kind "
+                "must be supplied together"
+            )
+        if self.base_operating_hash is not None:
+            if not _SHA256_RE.fullmatch(self.base_operating_hash):
+                raise ValueError(
+                    "base_operating_hash must be a lowercase "
+                    "SHA-256 hex digest"
+                )
+            if (
+                not isinstance(self.base_operating_kind, str)
+                or not self.base_operating_kind.strip()
+            ):
+                raise ValueError("base_operating_kind cannot be empty")
+            if self.base_operating_kind != self.base_operating_kind.strip():
+                raise ValueError(
+                    "base_operating_kind cannot have outer whitespace"
+                )
         if self.description is not None and not self.description.strip():
             raise ValueError("description cannot be empty when provided")
         if self.schema_version != "dtco-experiment-v1":
@@ -242,6 +295,16 @@ class ExperimentSpec:
         if len(set(binding_ids)) != len(binding_ids):
             raise ValueError("each design variable must target a unique binding")
 
+        has_operating_variable = any(
+            variable.binding.scope is BindingScope.OPERATING
+            for variable in self.variables
+        )
+        if has_operating_variable and self.base_operating_hash is None:
+            raise ValueError(
+                "experiments with operating-scope variables require "
+                "an operating baseline identity"
+            )
+
     @classmethod
     def from_device(
         cls,
@@ -250,14 +313,27 @@ class ExperimentSpec:
         device: "Device",
         variables: Iterable[DesignVariable],
         description: str | None = None,
+        operating_protocol: Any | None = None,
     ) -> "ExperimentSpec":
         device.validate()
+
+        base_operating_hash = None
+        base_operating_kind = None
+        if operating_protocol is not None:
+            operating_payload = _operating_definition_payload(
+                operating_protocol
+            )
+            base_operating_hash = canonical_hash(operating_payload)
+            base_operating_kind = operating_payload["kind"]
+
         return cls(
             name=name,
             base_device_hash=canonical_hash(_device_definition_payload(device)),
             base_device_name=device.name,
             variables=tuple(variables),
             description=description,
+            base_operating_hash=base_operating_hash,
+            base_operating_kind=base_operating_kind,
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -268,6 +344,9 @@ class ExperimentSpec:
             "base_device_name": self.base_device_name,
             "variables": [variable.to_dict() for variable in self.variables],
         }
+        if self.base_operating_hash is not None:
+            data["base_operating_hash"] = self.base_operating_hash
+            data["base_operating_kind"] = self.base_operating_kind
         if self.description is not None:
             data["description"] = self.description
         return data
@@ -293,6 +372,29 @@ class ExperimentSpec:
     def require_matching_device(self, device: "Device") -> None:
         if not self.matches_device(device):
             raise ValueError("device does not match the experiment base_device_hash")
+
+    def matches_operating(self, operating_protocol: Any) -> bool:
+        if self.base_operating_hash is None:
+            return False
+        payload = _operating_definition_payload(operating_protocol)
+        return (
+            payload["kind"] == self.base_operating_kind
+            and canonical_hash(payload) == self.base_operating_hash
+        )
+
+    def require_matching_operating(
+        self,
+        operating_protocol: Any,
+    ) -> None:
+        if self.base_operating_hash is None:
+            raise ValueError(
+                "experiment has no operating baseline identity"
+            )
+        if not self.matches_operating(operating_protocol):
+            raise ValueError(
+                "operating protocol does not match the experiment "
+                "base_operating_hash"
+            )
 
 
 __all__ = [

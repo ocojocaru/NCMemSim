@@ -3,13 +3,20 @@
 from __future__ import annotations
 
 from copy import deepcopy
-from dataclasses import replace
+from dataclasses import dataclass, replace
 import math
-from typing import Iterable, TypeAlias
+from typing import Iterable, Mapping, TypeAlias
 
+from ..device import Device
 from ..electro_optical_program_protocol import ElectroOpticalProgramPulseReadProtocol
 from ..program_protocol import ProgramPulseReadProtocol
-from .spec import BindingScope, ParameterBinding, ScalarValue
+from .binding import BindingApplicationError, apply_device_bindings
+from .spec import (
+    BindingScope,
+    ExperimentSpec,
+    ParameterBinding,
+    ScalarValue,
+)
 
 
 OperatingProtocol: TypeAlias = (
@@ -19,6 +26,15 @@ OperatingProtocol: TypeAlias = (
 
 class OperatingBindingError(ValueError):
     """Raised when an operating-condition binding cannot be applied safely."""
+
+
+@dataclass(frozen=True)
+class AppliedExperimentPoint:
+    """One validated mixed device/operating DTCO point."""
+
+    device: Device
+    operating_protocol: OperatingProtocol
+    values_by_name: tuple[tuple[str, ScalarValue], ...]
 
 
 def _numeric(value: ScalarValue, *, label: str) -> float:
@@ -161,9 +177,107 @@ def apply_operating_bindings(
     return candidate
 
 
+def apply_experiment_point(
+    spec: ExperimentSpec,
+    base_device: Device,
+    base_protocol: OperatingProtocol,
+    values_by_name: Mapping[str, ScalarValue],
+) -> AppliedExperimentPoint:
+    """Apply one complete mixed device/operating experiment point."""
+
+    if not isinstance(spec, ExperimentSpec):
+        raise TypeError("spec must be an ExperimentSpec")
+
+    spec.require_matching_device(base_device)
+    spec.require_matching_operating(base_protocol)
+
+    expected_names = tuple(
+        variable.name for variable in spec.variables
+    )
+    provided_names = tuple(values_by_name.keys())
+
+    missing = [
+        name for name in expected_names
+        if name not in values_by_name
+    ]
+    extra = [
+        name for name in provided_names
+        if name not in expected_names
+    ]
+    if missing or extra:
+        details = []
+        if missing:
+            details.append(f"missing={missing!r}")
+        if extra:
+            details.append(f"extra={extra!r}")
+        raise OperatingBindingError(
+            "design-point assignments must match experiment "
+            "variables exactly: "
+            + ", ".join(details)
+        )
+
+    device_assignments: list[
+        tuple[ParameterBinding, ScalarValue]
+    ] = []
+    operating_assignments: list[
+        tuple[ParameterBinding, ScalarValue]
+    ] = []
+
+    for variable in spec.variables:
+        value = values_by_name[variable.name]
+        if value not in variable.values:
+            raise OperatingBindingError(
+                f"value {value!r} is outside declared domain for "
+                f"{variable.name!r}"
+            )
+
+        scope = variable.binding.scope
+        if scope is BindingScope.DEVICE:
+            device_assignments.append(
+                (variable.binding, value)
+            )
+        elif scope is BindingScope.OPERATING:
+            operating_assignments.append(
+                (variable.binding, value)
+            )
+        else:
+            raise OperatingBindingError(
+                "BindingScope.MODEL application is not "
+                "implemented in G1c2b"
+            )
+
+    try:
+        device = apply_device_bindings(
+            base_device,
+            tuple(device_assignments),
+        )
+    except BindingApplicationError as exc:
+        raise OperatingBindingError(
+            f"device part of experiment point is invalid: {exc}"
+        ) from exc
+
+    operating_protocol = apply_operating_bindings(
+        base_protocol,
+        tuple(operating_assignments),
+    )
+
+    ordered_values = tuple(
+        (variable.name, values_by_name[variable.name])
+        for variable in spec.variables
+    )
+
+    return AppliedExperimentPoint(
+        device=device,
+        operating_protocol=operating_protocol,
+        values_by_name=ordered_values,
+    )
+
+
 __all__ = [
+    "AppliedExperimentPoint",
     "OperatingBindingError",
     "OperatingProtocol",
+    "apply_experiment_point",
     "apply_operating_binding",
     "apply_operating_bindings",
 ]
