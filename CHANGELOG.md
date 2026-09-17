@@ -114,6 +114,19 @@ calibration baseline.
 - Adds ordering, isolation, identity, serialization, electrical/optical, GeSn,
   and real program/read integration tests.
 
+### G3 — metrics and feasibility constraints
+
+- Adds explicit scalar JSON-path metric definitions with units and optional
+  minimize/maximize objective direction, preserving signed numeric values.
+- Adds named inclusive lower/upper bounds with finite thresholds and exact
+  metric/constraint unit contracts.
+- Analyzes completed sweeps without rerunning simulation; distinguishes
+  feasible, infeasible, source-failed, and extraction-failed points.
+- Preserves ordered results, individual bound evaluations, source provenance,
+  immutable snapshots, and deterministic analysis/result hashes.
+- Keeps G1/G2 serialization unchanged and Pareto ranking deferred to G4.
+- Adds dedicated validation, isolation, identity, and real program/read tests.
+
 ## v0.11.0 — Experimental Fitting and Calibration
 
 NCMemSim v0.11.0 adds traceable experimental-data handling, deterministic

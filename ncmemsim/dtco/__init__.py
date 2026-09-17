@@ -31,7 +31,29 @@ from .sweep import (
     run_cartesian_sweep,
 )
 
+from .metrics import (
+    ConstraintEvaluation,
+    ConstraintOperator,
+    MetricAnalysisResult,
+    MetricAnalysisSpec,
+    MetricConstraint,
+    MetricDefinition,
+    MetricPointResult,
+    ObjectiveDirection,
+    analyze_sweep,
+)
+
 __all__ = [
+    "ConstraintEvaluation",
+    "ConstraintOperator",
+    "MetricAnalysisResult",
+    "MetricAnalysisSpec",
+    "MetricConstraint",
+    "MetricDefinition",
+    "MetricPointResult",
+    "ObjectiveDirection",
+    "analyze_sweep",
+
     "SweepPoint", "SweepPointResult", "SweepResult",
     "iter_cartesian_points", "run_cartesian_sweep",
     "AppliedExperimentPoint",

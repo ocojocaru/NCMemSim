@@ -320,3 +320,122 @@ Execution retains the full result manifest in memory. Large studies can consume
 the lazy point iterator with a caller-managed workflow instead. Parallel workers,
 caching/resume, metric definitions, feasibility and Pareto analysis are outside
 G2; metrics and constraints belong to G3.
+
+## G3: metrics and feasibility constraints
+
+G3 analyzes a completed `SweepResult` without rerunning simulations. It preserves
+every point's order and source identity, including failures.
+
+`MetricDefinition(name, path, unit, direction=None)` names one numeric scalar in
+an evaluator's output. A string path segment selects an object key; a nonnegative
+integer selects an array index. Paths are explicit, with no attribute traversal,
+wildcards, array reduction or implicit conversions. Boolean, string, null,
+container and non-finite terminal values are rejected.
+
+Units are explicit and unchanged (`"1"` for dimensionless quantities).
+`ObjectiveDirection.MINIMIZE` and `ObjectiveDirection.MAXIMIZE` identify
+objectives; `None` defines a reporting or constraint-only metric. Values retain
+their original sign and numeric representation. Direction is metadata for later
+multi-objective analysis, not a scalar score or a feasibility rule. Compute derived
+quantities explicitly in the G2 evaluator and expose them as scalar JSON output.
+
+`MetricConstraint(name, metric_name, operator, threshold, unit)` references an
+existing metric by name. Supported operators are `ConstraintOperator.LE` (`<=`)
+and `ConstraintOperator.GE` (`>=`). Bounds are inclusive, thresholds are finite
+numeric scalars, and constraint units must exactly match the metric unit.
+There is no implicit unit conversion, numerical tolerance, penalty, or aggregation
+across differently dimensioned constraints. An interval uses two named bounds.
+Contradictory bounds are allowed and produce infeasible points.
+
+### Analyzing a program/read sweep
+
+The existing program/read result's `to_dict()` exposes the signed flat-band shift
+under `observable/value` and per-floating-gate occupation as an array:
+
+```python
+from ncmemsim import DeviceBuilder, Simulator
+from ncmemsim.dtco import (
+    BindingScope, ConstraintOperator, DesignVariable, DesignVariableRole,
+    ExperimentSpec, MetricAnalysisSpec, MetricConstraint, MetricDefinition,
+    ObjectiveDirection, ParameterBinding, analyze_sweep, run_cartesian_sweep,
+)
+from ncmemsim.program_protocol import ProgramPulseReadProtocol, run_program_pulse_read
+
+device = DeviceBuilder.v2(n_fgs=1)
+protocol = ProgramPulseReadProtocol(5.0, 1.0e-6)
+voltage = DesignVariable(
+    name="voltage",
+    binding=ParameterBinding(BindingScope.OPERATING, ("program", "voltage_V")),
+    values=(5.0, 6.0), role=DesignVariableRole.ELECTRICAL, unit="V",
+)
+experiment = ExperimentSpec.from_device(
+    name="program-study", device=device, variables=(voltage,),
+    operating_protocol=protocol,
+)
+
+def evaluate(candidate_device, candidate_protocol, point):
+    pulse = run_program_pulse_read(Simulator(candidate_device), candidate_protocol)
+    return pulse.to_dict()
+
+sweep = run_cartesian_sweep(
+    experiment, device, evaluate, base_protocol=protocol,
+    evaluation_id="program-read-payload-v1",
+    evaluation_parameters={"simulator_configuration": "defaults-v0.12.0.dev0"},
+)
+metrics = MetricAnalysisSpec(
+    name="program-read-feasibility",
+    metrics=(
+        MetricDefinition("signed_shift", ("observable", "value"), "V",
+                         ObjectiveDirection.MAXIMIZE),
+        MetricDefinition("occupation", ("mean_occupation",), "1"),
+        MetricDefinition("first_fg", ("mean_occupation_by_fg", 0), "1"),
+    ),
+    constraints=(
+        MetricConstraint("occupation_min", "occupation", ConstraintOperator.GE, 0.0, "1"),
+        MetricConstraint("occupation_max", "occupation", ConstraintOperator.LE, 1.0, "1"),
+    ),
+)
+analysis = analyze_sweep(sweep, metrics)
+print(analysis.feasible_count, analysis.infeasible_count, analysis.failure_count)
+manifest_json = analysis.to_json()
+```
+
+The signed shift is not automatically converted to a magnitude or a memory window.
+Choose a metric and direction appropriate to the observable under study.
+Metric units describe the evaluator's numeric payload; G3 cannot infer or verify
+physical units from a JSON number alone. The analysis specification checks the
+unit contract between each metric and its constraints.
+
+### Point classification and identity
+
+Each `MetricPointResult` has one of three statuses:
+
+- `feasible`: all metrics were extracted and all constraints satisfied;
+- `infeasible`: metrics were extracted but at least one bound was violated;
+- `failed`: the source sweep point failed, or metric extraction failed.
+
+No constraints means every successful extraction is feasible. An infeasible point
+retains its metrics and all individual bound evaluations (actual value, threshold,
+operator, unit and satisfied flag). A failed point is not classified as infeasible
+and exposes no partial metrics or partial constraint results.
+
+Source failures retain their exception details and receive analysis failure stage
+`sweep`; the complete source manifest preserves the original G2 failure stage.
+Missing keys, wrong container types, out-of-range indices and invalid scalar values
+receive stage `extraction`. Other points continue to be analyzed.
+
+`MetricAnalysisSpec` rejects empty metrics, duplicate names, unknown constraint
+references and mismatched units before analysis. Definitions and result records are
+immutable; exported dictionaries and JSON are snapshots independent of callers.
+
+The result manifest includes the complete source sweep, source sweep/result hashes,
+ordered metric/constraint definitions, point classifications and counts.
+`definition_hash` identifies the ordered analysis specification.
+`analysis_hash` links that definition to the exact source result hash.
+`result_hash` additionally identifies the full analysis result.
+Changing paths, units, objective directions, bounds or source results changes the
+corresponding identity. G1/G2 serialization and hashes remain unchanged.
+
+The analysis retains the source sweep and all classifications in memory.
+It does not remove failed or infeasible points, select an optimum, or compute
+Pareto fronts; non-dominated sorting belongs to G4.
