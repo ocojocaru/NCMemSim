@@ -155,6 +155,20 @@ calibration baseline.
 - Adds analytic nonuniform-grid, interaction, isolation, precision and
   real program/read integration coverage.
 
+### G6 — reproducible DTCO reports and reference examples
+
+- Adds immutable report manifests linking exact G2/G3 sources with optional
+  Pareto/sensitivity results, rejecting mismatched analyses.
+- Adds canonical report hashes and integrity-checked JSON import, with shared
+  source data and verifiable component/definition/point identity chains.
+- Exports all points and sensitivity intervals to UTF-8 CSV plus complete
+  Markdown summaries, refusing existing report targets before writing.
+- Adds an executable electrical reference workflow with explicit configuration,
+  initial-state policy, runtime versions, derived observables and failure demo.
+- Adds optional 300-dpi PNG/vector SVG trade-off figures without a base plotting
+  dependency or changes to G1–G5 hashes and simulation semantics.
+- Adds integrity, precision, export, source-isolation and reference-workflow tests.
+
 ## v0.11.0 — Experimental Fitting and Calibration
 
 NCMemSim v0.11.0 adds traceable experimental-data handling, deterministic

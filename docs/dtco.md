@@ -668,3 +668,113 @@ source results changes the corresponding identity.
 Analysis retains the source and all interval records in memory. G5 does not infer
 a continuous response surface, impute missing points or fit an optimizer.
 Reproducible reports and reference workflows are deferred to G6.
+
+## G6: reproducible report bundles and reference workflow
+
+`build_dtco_report(metric_analysis, pareto=None, sensitivity=None, ...)` combines
+a G3 analysis with optional G4/G5 results from the exact same source analysis.
+Mismatched source hashes are rejected before report construction.
+
+`DTCOReport` is an immutable canonical JSON snapshot. Its manifest contains the
+complete G3 analysis and G2 sweep once. Pareto and sensitivity sections reference
+that analysis without duplicating it; their original result hashes remain
+verifiable by restoring the shared `source_analysis` field.
+
+The manifest records the report name, NCMemSim version, caller-declared metadata,
+component/result hashes, complete experiment/evaluator definitions, source outputs,
+assignments, units, constraint evaluations, exclusions, failures and coverage.
+No wall-clock timestamp, output path or generated filename enters report identity.
+
+### Report API
+
+```python
+from ncmemsim.dtco import DTCOReport, build_dtco_report, write_dtco_report
+
+# analysis, pareto and sensitivity are the completed G3/G4/G5 results.
+report = build_dtco_report(
+    analysis, name="My DTCO study", pareto=pareto, sensitivity=sensitivity,
+    metadata={"study_id": "study-v1"},
+)
+manifest_json = report.to_json()
+verified = DTCOReport.from_json(manifest_json)
+assert verified.report_hash == report.report_hash
+paths = write_dtco_report(report, "results/my-dtco-study")
+```
+
+`from_json()` rejects duplicate keys, unsupported schemas, stale report/component
+hashes and inconsistent source/definition/point identity links. This checks
+manifest integrity and consistency; it is not a digital signature or independent
+validation of the scientific model. A self-consistent manifest can be authored
+by any caller.
+
+`write_dtco_report()` writes four UTF-8 files and refuses existing target filenames
+before writing. Other files in the directory are preserved. In case of an
+unexpected I/O interruption, the directory can contain a partial bundle; no
+transactional directory replacement is claimed.
+
+| Artifact | Contents |
+| --- | --- |
+| `manifest.json` | Canonical manifest and report hash |
+| `points.csv` | Every source point, status, optional Pareto rank and JSON payload columns |
+| `sensitivity.csv` | Every interval, endpoint indices/values, estimate or exclusion/error, slope unit |
+| `report.md` | Metric/constraint definitions, counts, fronts, all classifications and coverage summaries |
+
+The point CSV uses fixed column names and JSON fields for assignments, metrics,
+constraints and failures. JSON preserves numeric payload precision and explicit
+names without ambiguous dynamic CSV headers. Units and evaluator settings remain
+in the manifest and Markdown definitions. A blank rank denotes either exclusion
+or an omitted Pareto component; the status and manifest distinguish these cases.
+When sensitivity is absent, its CSV contains the header only.
+
+Markdown reports retain all point classifications and all sensitivity summaries.
+They do not promote an infeasible point or select a single optimum.
+Report payloads remain exact; spreadsheet applications may apply their own
+numeric interpretation if CSV JSON fields are manually expanded.
+
+### Executable reference example
+
+From the repository root, with the package installed or the checkout importable:
+
+```text
+python -m examples.phase_g6_dtco_reference --output-dir results/g6-reference
+```
+
+The example sweeps temperature and program duration on the existing electrical
+program/read workflow, starting from a fresh empty state per candidate. It records
+the complete `SimulationConfig`, default physics identity, NCMemSim/Python/NumPy
+versions and derived-observable policy in the evaluator definition.
+
+It explicitly derives `abs(delta_vfb_V)` as a single-program shift magnitude,
+maximizes that response and minimizes pulse duration. Occupation bounds determine
+feasibility. This is an illustrative electrical reference, not a memory-window
+definition, a calibrated prediction or evidence of a universal design optimum.
+
+An intentional invalid-duration demonstration exercises failures and partial
+sensitivity coverage:
+
+```text
+python -m examples.phase_g6_dtco_reference --output-dir results/g6-failure-demo --include-invalid-point
+```
+
+For publication-resolution PNG (300 dpi) and vector SVG output, add `--plots`.
+This optional path requires Matplotlib from the existing development dependencies;
+the base reporting API adds no plotting dependency.
+
+```text
+python -m examples.phase_g6_dtco_reference --output-dir results/g6-reference-plots --plots
+```
+
+The figure plots assessed points and outlines front-zero members, with source point
+indices as labels. Failed points remain in the bundle and have no plotted response.
+No line implies a continuous response curve. Figure files are presentation
+artifacts outside the report hash; rendering depends on the plotting environment.
+SVG dates are omitted and identifier salts follow report identity.
+
+Use a new output directory for repeat exports, or remove the previous files
+explicitly. Identical source results and declared metadata yield the same report
+hash in the same recorded execution environment. If callback semantics or
+scientific settings change, update the G2 evaluator identity/parameters.
+
+G6 packages completed results and examples. It does not modify simulation
+semantics, run an optimizer or bypass G3/G4 eligibility.
+G7 remains for release validation and distribution checks.

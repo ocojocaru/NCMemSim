@@ -58,7 +58,12 @@ from .sensitivity import (
     analyze_sensitivity,
 )
 
+from .reporting import DTCOReport, build_dtco_report, write_dtco_report
+
 __all__ = [
+    "DTCOReport",
+    "build_dtco_report",
+    "write_dtco_report",
     "SensitivityEligibility",
     "SensitivityAnalysisSpec",
     "SensitivityEdge",
