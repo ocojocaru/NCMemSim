@@ -72,7 +72,7 @@ and optical simulation baseline.
 ### Validation and compatibility
 
 - Expanded the local automated regression suite to **1091 passing tests** at
-  the v0.11.0 release-candidate checkpoint.
+  the v0.11.0 release-validation checkpoint.
 - Preserved the v0.10.0 electrical, retention, optical, and electro-optical
   regression baselines.
 - Preserved the distinction between software verification, parameter fitting,

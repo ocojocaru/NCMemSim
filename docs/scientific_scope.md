@@ -467,7 +467,7 @@ using NCMemSim v0.10.0 for claims such as:
 
 ## Current validation baseline
 
-The v0.11.0 release candidate is the current verification target. It preserves the validated v0.10.0 electrical, retention, optical, and electro-optical baseline while adding Phase F fitting, uncertainty, identifiability, and calibration-qualification workflows.
+The v0.11.0 release is the current verified baseline. It preserves the validated v0.10.0 electrical, retention, optical, and electro-optical baseline while adding Phase F fitting, uncertainty, identifiability, and calibration-qualification workflows.
 
 Its validation suite contains:
 

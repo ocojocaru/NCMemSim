@@ -55,7 +55,7 @@ calibrated against experiment.
 
 ### Current status
 
-The v0.11.0 release candidate adds the Phase F experimental fitting and
+The v0.11.0 release adds the Phase F experimental fitting and
 calibration layer while retaining the Phase E optical-programming
 implementation and its regression baseline.
 
@@ -100,9 +100,9 @@ Phase F adds:
 - multi-condition photo-capture fitting and auditable qualification.
 
 
-The current v0.11.0 release-candidate suite contains **1091 tests** and
-passes locally on the release-preparation environment. Final supported-
-Python CI verification remains part of the release gate before tagging.
+The v0.11.0 release suite contains **1091 tests** and passes locally on the
+release-preparation environment. The repository CI matrix also passes on
+Python 3.11, 3.12, and 3.13.
 
 Regression against the retained V5.3 electrical reference remains part of the
 validation suite. The legacy timestep inconsistency identified during v0.9.1

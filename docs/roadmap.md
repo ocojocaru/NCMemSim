@@ -63,7 +63,7 @@ The optical implementation is intentionally compact. Absolute absorption amplitu
 
 The v0.11.0 milestone adds traceable experimental-data handling, parameter fitting, uncertainty and identifiability diagnostics, and explicit calibration qualification.
 
-The v0.11.0 scientific scope is complete on the release-candidate branch. The release includes:
+The v0.11.0 scientific scope is complete and released. The release includes:
 
 - structured experimental optical datasets with source and sample metadata;
 - validated CSV import using canonical wavelength and absorption units;

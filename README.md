@@ -8,8 +8,8 @@
 
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
-> **Current development version:** `0.11.0` — Experimental Fitting and Calibration (release candidate)
-> **Scientific status:** research software under active development; the v0.11.0 release candidate preserves the validated electrical/retention and optical-programming baselines and adds traceable experimental-data fitting, local uncertainty/identifiability diagnostics, and explicit calibration qualification.
+> **Current release:** `0.11.0` — Experimental Fitting and Calibration
+> **Scientific status:** research software under active development; the v0.11.0 release preserves the validated electrical/retention and optical-programming baselines and adds traceable experimental-data fitting, local uncertainty/identifiability diagnostics, and explicit calibration qualification.
 
 ## Why NCMemSim?
 
@@ -84,7 +84,7 @@ Verify the installation with:
 python -c "import ncmemsim; print(ncmemsim.__version__)"
 ```
 
-For this release candidate, the expected version is:
+For this release, the expected version is:
 
 ```text
 0.11.0
@@ -262,13 +262,13 @@ Phase E adds validation for:
 - **E5** — simulator, voltage-sweep, and C–V optical integration;
 - **E6** — SWIR spectral behaviour and programming benchmarks.
 
-The v0.11.0 release-candidate suite currently contains:
+The v0.11.0 release suite contains:
 
 ```text
 1091 tests
 ```
 
-The v0.11.0 release candidate has been validated locally on Python 3.13. Final verification on the repository CI matrix for Python 3.11, 3.12, and 3.13 is part of the release gate before tagging.
+The v0.11.0 release was validated locally on Python 3.13 and by the repository CI matrix on Python 3.11, 3.12, and 3.13.
 
 Run the complete test suite with:
 
@@ -336,7 +336,7 @@ Main sections:
 | v0.9.0 | Phase D6 validation baseline | Complete |
 | v0.9.1 | Repository polish, documentation, GitHub infrastructure, branding and release engineering | Complete |
 | v0.10.0 | Optical programming engine and SWIR validation | **Complete** |
-| v0.11.0 | Experimental fitting and uncertainty-aware calibration | **Release candidate** |
+| v0.11.0 | Experimental fitting and uncertainty-aware calibration | **Complete** |
 | v0.12.0 | Design-space exploration / DTCO | Planned |
 | v1.0.0 | First stable scientific release | Planned |
 

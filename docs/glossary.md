@@ -868,7 +868,7 @@ Hash associated with the serialized simulation configuration.
 A versioned software state whose tests, documentation, and release artifacts
 have been verified.
 
-The `v0.10.0` release remains the historical Phase E optical baseline; `v0.11.0` is the current release candidate and adds experimental fitting, diagnostics, and calibration qualification.
+The `v0.10.0` release remains the historical Phase E optical baseline; `v0.11.0` is the current release and adds experimental fitting, diagnostics, and calibration qualification.
 
 ## Common units
 

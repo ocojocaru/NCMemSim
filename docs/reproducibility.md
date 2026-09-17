@@ -578,9 +578,9 @@ NCMemSim v0.10.0 provides extensive support for the first three.
 Experimental validity remains dependent on the specific material, sample,
 device, and dataset.
 
-## v0.11.0 release-candidate verification baseline
+## v0.11.0 release verification baseline
 
-The v0.11.0 release candidate currently passes:
+The v0.11.0 release passes:
 
 ```text
 1091 passed
