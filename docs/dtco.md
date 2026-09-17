@@ -70,3 +70,37 @@ print(spec.design_point_count)
 
 G1a does **not** yet modify the device, generate Cartesian design points, run
 simulations, compute objectives, or perform Pareto analysis.
+
+
+## G1b: controlled device-binding application
+
+G1b adds mutation semantics for **device-scope bindings only**. Application is
+copy-on-write: the supplied base device is validated, one deep copy is created,
+bindings are resolved through a strict allow-list, target types are checked,
+all assignments are applied to the copy, and the complete candidate device is
+validated before it is returned.
+
+The base device is never modified, including when binding resolution or
+post-application validation fails.
+
+Supported G1b bindings include top-level `gate_work_function_eV`,
+`substrate_doping_m3`, and `temperature_K`; `thickness_nm` for named layers;
+and for floating-gate layers: `thickness_nm`, `nc_diameter_nm`,
+`nc_volume_fraction`, `electrically_active_fraction`, and `grid_points`.
+
+The DTCO base-device hash includes the complete material definitions attached
+to every layer in addition to the established `Device.to_dict()` payload.
+This prevents physically distinct material models from aliasing the same
+experiment identity when their names or composition labels are unchanged.
+
+`spatial_profile` is intentionally not bindable in G1b because non-uniform
+profile semantics are not yet explicitly validated by the current model.
+
+Nested material mutation is intentionally not supported in G1b. GeSn
+composition must later use a material-aware replacement/factory path so that
+composition-dependent material properties remain internally consistent.
+
+`apply_experiment_design_point()` additionally requires the supplied base
+device to match the recorded base-device hash, assignment keys to match the
+experiment variables exactly, every value to belong to its declared domain,
+and all variables to use `BindingScope.DEVICE`.

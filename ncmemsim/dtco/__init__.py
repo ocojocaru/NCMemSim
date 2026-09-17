@@ -1,5 +1,11 @@
 """Design-space exploration and DTCO specifications."""
 
+from .binding import (
+    BindingApplicationError,
+    apply_device_binding,
+    apply_device_bindings,
+    apply_experiment_design_point,
+)
 from .spec import (
     BindingScope,
     DesignVariable,
@@ -10,10 +16,14 @@ from .spec import (
 )
 
 __all__ = [
+    "BindingApplicationError",
     "BindingScope",
     "DesignVariable",
     "DesignVariableRole",
     "ExperimentSpec",
     "ParameterBinding",
     "ScalarValue",
+    "apply_device_binding",
+    "apply_device_bindings",
+    "apply_experiment_design_point",
 ]

@@ -15,6 +15,7 @@ import re
 from typing import TYPE_CHECKING, Any, Iterable
 
 from ..hashing import canonical_hash
+from ..layers import FloatingGateLayer
 from ..materials.provenance import ParameterProvenance
 
 if TYPE_CHECKING:
@@ -23,6 +24,40 @@ if TYPE_CHECKING:
 
 ScalarValue = int | float | str
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+
+
+def _device_definition_payload(device: "Device") -> dict[str, Any]:
+    """Return the full DTCO identity payload for a validated device.
+
+    ``Device.to_dict()`` is retained for backward compatibility and does not
+    serialize every material-model parameter. DTCO experiment identity must
+    also include the complete material definitions attached to each layer so
+    that a physically different material cannot alias the same base-device
+    hash merely by retaining the same material name/composition label.
+    """
+
+    material_definitions: list[dict[str, Any]] = []
+    for layer in device.layers:
+        if isinstance(layer, FloatingGateLayer):
+            material_definitions.append(
+                {
+                    "layer_name": layer.name,
+                    "matrix_material": layer.matrix_material.to_dict(),
+                    "nc_material": layer.nc_material.to_dict(),
+                }
+            )
+        else:
+            material_definitions.append(
+                {
+                    "layer_name": layer.name,
+                    "material": layer.material.to_dict(),
+                }
+            )
+
+    return {
+        "device": device.to_dict(),
+        "layer_material_definitions": material_definitions,
+    }
 
 
 class BindingScope(str, Enum):
@@ -219,7 +254,7 @@ class ExperimentSpec:
         device.validate()
         return cls(
             name=name,
-            base_device_hash=canonical_hash(device.to_dict()),
+            base_device_hash=canonical_hash(_device_definition_payload(device)),
             base_device_name=device.name,
             variables=tuple(variables),
             description=description,
@@ -250,7 +285,10 @@ class ExperimentSpec:
 
     def matches_device(self, device: "Device") -> bool:
         device.validate()
-        return canonical_hash(device.to_dict()) == self.base_device_hash
+        return (
+            canonical_hash(_device_definition_payload(device))
+            == self.base_device_hash
+        )
 
     def require_matching_device(self, device: "Device") -> None:
         if not self.matches_device(device):

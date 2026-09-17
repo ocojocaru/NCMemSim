@@ -35,6 +35,24 @@ calibration baseline.
 - Kept device mutation, sweep execution, metrics, Pareto analysis, and
   optimization outside the G1a checkpoint.
 
+### G1b — controlled device-binding application
+
+- Added copy-on-write application of device-scope parameter bindings.
+- Added strict semantic resolution for supported device and named-layer
+  attributes rather than arbitrary attribute traversal.
+- Added target-type checks and complete post-application device validation.
+- Added atomic multi-binding application while preserving the original base
+  device on success and failure paths.
+- Added experiment design-point application with exact variable-key matching,
+  declared-domain checks, and base-device hash verification.
+- Strengthened DTCO base-device identity with complete per-layer material
+  definitions so material-parameter changes cannot alias the same hash.
+- Kept `spatial_profile` outside the controllable binding allow-list until
+  non-uniform profile semantics are explicitly validated.
+- Kept nested material mutation plus operating/model-scope application outside
+  G1b so composition-dependent and protocol-specific semantics can be added
+  explicitly rather than inferred.
+
 ## v0.11.0 — Experimental Fitting and Calibration
 
 NCMemSim v0.11.0 adds traceable experimental-data handling, deterministic

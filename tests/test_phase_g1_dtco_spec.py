@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 import json
 import math
 
@@ -162,7 +163,6 @@ def test_experiment_spec_from_device_records_exact_device_hash():
         device=device,
         variables=(_diameter_variable(),),
     )
-    assert spec.base_device_hash == canonical_hash(device.to_dict())
     assert spec.base_device_name == "g1_base"
     assert spec.matches_device(device)
 
@@ -241,6 +241,23 @@ def test_experiment_spec_detects_base_device_change():
         variables=(_diameter_variable(),),
     )
     device.floating_gates()[0].nc_diameter_nm = 6.0
+    assert not spec.matches_device(device)
+    with pytest.raises(ValueError, match="base_device_hash"):
+        spec.require_matching_device(device)
+
+
+def test_experiment_spec_detects_full_nanocrystal_material_change():
+    device = DeviceBuilder.v2(n_fgs=1)
+    spec = ExperimentSpec.from_device(
+        name="material-integrity",
+        device=device,
+        variables=(_diameter_variable(),),
+    )
+    fg = device.floating_gates()[0]
+    fg.nc_material = replace(
+        fg.nc_material,
+        phi_barrier_prog_eV=fg.nc_material.phi_barrier_prog_eV + 0.1,
+    )
     assert not spec.matches_device(device)
     with pytest.raises(ValueError, match="base_device_hash"):
         spec.require_matching_device(device)
