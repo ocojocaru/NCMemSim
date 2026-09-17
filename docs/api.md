@@ -440,6 +440,44 @@ scaled condition number one, so that value must not be over-interpreted.
 Successful single- and multi-condition photo-capture fits report `FITTED`,
 not `CALIBRATED`.
 
+### Photo-capture calibration qualification
+
+Independent device-level qualification of the F4i4 multi-condition fit is
+exposed from:
+
+```python
+from ncmemsim.photo_calibration import (
+    CalibratedPhotoCaptureEfficiency,
+    DevicePhotoCalibrationResult,
+    qualify_photo_capture_efficiency_fit,
+)
+```
+
+`qualify_photo_capture_efficiency_fit()` evaluates a declared validation
+`DeviceObservableDataset` using the already fitted
+`photo_capture_efficiency`. It does not re-optimize the parameter on
+validation data.
+
+The validation protocol may vary optical wavelength and/or incident optical
+power while preserving the non-optical training protocol. Qualification uses
+the generic `CalibrationCriteria` and `CalibrationQualification`
+infrastructure.
+
+For the multi-condition training fit, the adapter records a deterministic
+hash of the ordered training-dataset hash collection and separately verifies
+that a required validation dataset hash is not equal to any individual
+training dataset hash.
+
+A successful qualification returns a
+`CalibratedPhotoCaptureEfficiency` record with status `CALIBRATED` and a
+separate promoted `PhotoTransitionConfig`. Failed qualification returns an
+auditable `DevicePhotoCalibrationResult` with
+`scientific_status == "NOT_CALIBRATED"` and no promoted parameter/config.
+
+Dataset-hash distinctness is a data-reuse check, not proof of experimental
+independence. Experimental calibration claims additionally require suitable
+dataset provenance and experimental validation design.
+
 ## Explicit electrical pulse protocols
 
 A single program pulse followed by nondestructive readout is represented by:

@@ -24,6 +24,8 @@ The implemented device-level calibration layer currently covers:
 - single-parameter fitting of `photo_capture_efficiency`;
 - shared `photo_capture_efficiency` fitting across multiple wavelength/power conditions;
 - local joint-Jacobian uncertainty and identifiability diagnostics.
+- independent validation qualification of a multi-condition fitted `photo_capture_efficiency` without refitting;
+- auditable calibrated-parameter records and separate `PhotoTransitionConfig` promotion only when all declared criteria pass.
 
 These workflows are infrastructure and validation references. A successful
 synthetic recovery result has scientific status `FITTED`, not `CALIBRATED`.
@@ -424,6 +426,92 @@ Run it with:
 python examples/phase_f4i_photo_capture_timestep_convergence.py
 ```
 
+## Independent photo-capture calibration qualification
+
+F4i5 adds a device-level qualification adapter:
+
+```python
+from ncmemsim.photo_calibration import (
+    CalibratedPhotoCaptureEfficiency,
+    DevicePhotoCalibrationResult,
+    qualify_photo_capture_efficiency_fit,
+)
+```
+
+The adapter accepts an already completed
+`DevicePhotoMultiConditionFitResult`, a validation
+`DeviceObservableDataset`, a matching
+`ElectroOpticalProgramTimeFitProtocol`, and explicit
+`CalibrationCriteria`.
+
+The fitted `photo_capture_efficiency` is used **unchanged** on the validation
+dataset. The qualification path performs no parameter re-optimization.
+
+The validation protocol may change optical wavelength and/or incident optical
+power, but it must preserve the non-optical training protocol: program/read
+voltages, program timestep, photo-transition weights, and occupancy
+integrator.
+
+Because F4i4 training uses multiple datasets, F4i5 stores a deterministic hash
+of the ordered training-dataset hash collection. When distinct validation is
+required, the validation dataset hash must also differ from **every**
+individual training dataset hash. A validation dataset that reuses any
+training dataset therefore fails the `distinct_validation_dataset` criterion.
+
+Passing all configured criteria creates:
+
+```text
+CalibratedPhotoCaptureEfficiency
+status = CALIBRATED
+```
+
+plus a separate `PhotoTransitionConfig` containing the qualified
+`photo_capture_efficiency`. Failed qualification remains fully auditable and
+returns:
+
+```text
+scientific_status = NOT_CALIBRATED
+```
+
+with no calibrated parameter record and no promoted photo configuration.
+
+The qualification record includes the training-dataset collection hash,
+validation-dataset hash, validation-protocol hash, criteria hash through the
+generic qualification object, and qualification hash. Model-based fit
+uncertainty remains in the fit/qualification diagnostics and is not copied
+into source-reported experimental uncertainty.
+
+### What hash distinctness does and does not establish
+
+Dataset-hash distinctness is a reproducibility and data-reuse safeguard. It
+shows that the validation dataset is not identical to any training dataset as
+serialized by NCMemSim.
+
+It does **not** by itself establish experimental independence. For a physical
+calibration claim, independence must also be supported by the dataset
+provenance and experimental design, for example by a held-out device,
+measurement run, sample, or other declared validation split appropriate to
+the experiment.
+
+### Synthetic software-validation example
+
+The F4i5 reference example deliberately contains two synthetic validation
+cases:
+
+```text
+compatible synthetic validation   -> CALIBRATED
+incompatible synthetic validation -> NOT_CALIBRATED
+```
+
+The first verifies the positive software promotion path. The second perturbs
+the synthetic validation observable so the declared RMSE criterion fails,
+demonstrating that qualification is blocked rather than silently weakening
+the threshold.
+
+These statuses are **software-validation outcomes relative to synthetic input
+datasets and declared criteria**. They do not establish that the physical
+value of `photo_capture_efficiency` is experimentally calibrated.
+
 ## Reproducible device-level example
 
 The consolidated electrical/device reference example is:
@@ -480,12 +568,42 @@ It generates three synthetic optical conditions with one common
 identifiability diagnostics. Its scientific conclusion is
 `FITTED_NOT_CALIBRATED`.
 
+The F4i5 qualification reference example is:
+
+```text
+examples/phase_f4i_photo_capture_calibration.py
+```
+
+Run it with:
+
+```bash
+python examples/phase_f4i_photo_capture_calibration.py
+```
+
+or serialize the training fit and both qualification outcomes with:
+
+```bash
+python examples/phase_f4i_photo_capture_calibration.py \
+    --output photo_capture_calibration_result.json
+```
+
+It reports one compatible synthetic validation case that exercises the
+`CALIBRATED` promotion path and one incompatible synthetic validation case
+that remains `NOT_CALIBRATED`. The example labels itself
+`SYNTHETIC_SOFTWARE_VALIDATION` and explicitly makes no experimental
+calibration claim.
+
 ## Current limitations
 
-The device-level workflows do not yet establish calibrated values for
-photo-capture efficiency, program or erase barriers, attempt frequencies,
-fixed charge, interface charge, or other device parameters against independent
-experimental device datasets.
+The photo-capture workflow now provides explicit post-fit qualification
+against a validation dataset, but NCMemSim does not yet bundle an independent
+experimental device dataset that establishes an experimentally calibrated
+`photo_capture_efficiency`. The F4i5 synthetic example validates the software
+qualification mechanism only.
+
+Program or erase barriers, attempt frequencies, fixed charge, interface
+charge, and other device parameters likewise remain without independent
+experimental device calibration in the bundled reference workflows.
 
 The paired pulse protocol is currently a simulation protocol, not a complete
 end-to-end fit adapter.

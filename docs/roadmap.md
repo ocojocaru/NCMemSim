@@ -98,6 +98,8 @@ The release is still under development. The following capabilities are implement
 - shared-parameter fitting across multiple optical wavelength/power conditions;
 - joint local uncertainty and identifiability diagnostics from the full multi-condition Jacobian, including per-condition local sensitivity magnitudes.
 - numerical timestep-sensitivity and cross-grid recovery audit for the synthetic photo-capture benchmark, retaining 1e-5 s as the practical example timestep for that benchmark only.
+- independent device-level qualification of a fitted `photo_capture_efficiency` against a validation dataset without re-optimizing the fitted parameter;
+- auditable `CALIBRATED`/`NOT_CALIBRATED` photo-capture qualification results with training-collection, validation, protocol, criteria, and qualification hashes.
 
 The first real-data reference workflow intentionally does **not** produce a calibrated parameter set. Using the digitized Tran et al. sample-A holdout, the fitted near-edge model gives a validation RMSE of approximately \(4.50\times10^4\ \mathrm{m^{-1}}\), above the predeclared digitization-based qualification threshold of approximately \(1.57\times10^4\ \mathrm{m^{-1}}\). The workflow therefore reports `NOT_CALIBRATED`.
 
@@ -107,7 +109,6 @@ The synthetic device-level recovery workflows, including pulse-memory and retent
 
 Remaining v0.11.0 work may include:
 
-- explicit calibration qualification of fitted device parameters against independent validation datasets;
 - optional global-search initialization before deterministic local fitting;
 - additional independent experimental validation datasets;
 - final release documentation and release validation.
