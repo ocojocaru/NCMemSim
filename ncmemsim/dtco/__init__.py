@@ -6,6 +6,12 @@ from .binding import (
     apply_device_bindings,
     apply_experiment_design_point,
 )
+from .operating import (
+    OperatingBindingError,
+    OperatingProtocol,
+    apply_operating_binding,
+    apply_operating_bindings,
+)
 from .spec import (
     BindingScope,
     DesignVariable,
@@ -21,9 +27,13 @@ __all__ = [
     "DesignVariable",
     "DesignVariableRole",
     "ExperimentSpec",
+    "OperatingBindingError",
+    "OperatingProtocol",
     "ParameterBinding",
     "ScalarValue",
     "apply_device_binding",
     "apply_device_bindings",
     "apply_experiment_design_point",
+    "apply_operating_binding",
+    "apply_operating_bindings",
 ]

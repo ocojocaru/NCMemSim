@@ -128,3 +128,33 @@ destroy provenance and change the scientific model.
 
 The original base device remains unchanged because material-aware composition
 application uses the same copy-on-write path as the other device bindings.
+
+
+## G1c2a: operating-variable binding primitives
+
+G1c2a adds immutable operating-condition bindings for the existing electrical
+and electro-optical pulse protocols. Bindings reconstruct frozen dataclasses
+with `dataclasses.replace()` so the established protocol and light-source
+validators remain authoritative.
+
+Stable operating paths are:
+
+```text
+("program", "voltage_V")
+("program", "time_s")
+("program", "internal_dt_s")
+("read", "voltage_V")
+("optical", "wavelength_nm")
+("optical", "power_density_W_m2")
+```
+
+The electrical paths apply both to `ProgramPulseReadProtocol` and to the
+nested electrical protocol in `ElectroOpticalProgramPulseReadProtocol`.
+Optical paths require the electro-optical protocol; wavelength variation is
+restricted to LED and laser sources.
+
+`photo_capture_efficiency` is deliberately not exposed as an operating
+condition. The v0.11 semantics keep it separate from illumination conditions
+because it is a fitted device/model parameter supplied at execution time.
+Experiment-level operating-baseline identity and mixed device/operating point
+application are deferred to G1c2b.

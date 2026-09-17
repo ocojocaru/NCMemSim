@@ -65,6 +65,19 @@ calibration baseline.
   parameter-set inputs cannot be reconstructed safely from the material object.
 - Added experiment design-point coverage for GeSn composition variables.
 
+### G1c2a — operating-variable binding primitives
+
+- Added immutable bindings for program voltage/time, read voltage, and
+  optional program integration timestep.
+- Added electro-optical bindings for monochromatic wavelength and incident
+  optical power density.
+- Reconstructs frozen protocol/light-source dataclasses so their existing
+  validation remains authoritative.
+- Preserves the v0.11 separation of fitted `photo_capture_efficiency` from
+  experimental illumination conditions.
+- Defers operating-baseline identity and mixed experiment-point application
+  to G1c2b.
+
 ## v0.11.0 — Experimental Fitting and Calibration
 
 NCMemSim v0.11.0 adds traceable experimental-data handling, deterministic
