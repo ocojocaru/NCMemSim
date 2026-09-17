@@ -98,9 +98,9 @@
     "The reported Sample A direct gap is 0.805 +/- 0.037 eV, whereas the current NCMemSim pure-Ge direct-gap endpoint is fixed separately; this difference must be treated as a model-assumption issue in F4f1."
   ],
   "artifact_sha256": {
-    "tran2016_sampleA_fig6a_near_edge_all.csv": "e79252d266f3374374f9cbca7c0b10403ec1ffa79182127bdd2a2ac3470d2e74",
-    "tran2016_sampleA_fig6a_fit.csv": "09a2c4b8463cfaccbc958fdc64b4aae45c1199f847306118d2f52a5069d1f930",
-    "tran2016_sampleA_fig6a_validation.csv": "550abf8fe16136e6b5c19488e872bd62eb4a3de88e31eedcc31f61886676fe53",
-	"tran2016_sampleA_fig6a_digitization_audit.csv": "140e90104d744d90772496caf72fb7c35d1e4df09b45d67e9458413e2fafae8b"
+    "tran2016_sampleA_fig6a_near_edge_all.csv": "8175449c5e5c2c9ed365c2fc71b5d8315051adfcf25a1162b04384d5b74bf145",
+    "tran2016_sampleA_fig6a_fit.csv": "17d325ad8a595357300eb0d8db20f5dbd251d383680acb912333bb2c17bdd89c",
+    "tran2016_sampleA_fig6a_validation.csv": "01925188e5ec2cf9fd8af09be31558ca79213a5273b73188937396d7e0a49cd6",
+	"tran2016_sampleA_fig6a_digitization_audit.csv": "9d50bdca0fa6f60b5918ec606b618c436de8bc04f5274ab7dc01470cd52d94c9"
   }
 }
