@@ -2,6 +2,25 @@
 
 All notable changes to NCMemSim are documented in this file.
 
+## v0.12.0.dev0 — Design-Space Exploration and DTCO (in development)
+
+Development of v0.12.0 is organized as Phase G. The cycle starts from the
+released v0.11.0 electrical, retention, optical, electro-optical, fitting, and
+calibration baseline.
+
+### G0 — cycle bootstrap and architecture freeze
+
+- Started the `dev/v0.12.0-dtco` development cycle from the tagged v0.11.0
+  release.
+- Established `0.12.0.dev0` as the development version.
+- Defined the Phase G delivery sequence for deterministic design-space
+  exploration, metrics and constraints, Pareto analysis, sensitivity analysis,
+  and reproducible DTCO reporting.
+- Preserved v0.11.0 scientific and regression semantics as the baseline for
+  all Phase G work.
+- Kept advanced optimizers outside the initial implementation scope: the first
+  sweep engine will be deterministic and grid-based.
+
 ## v0.11.0 — Experimental Fitting and Calibration
 
 NCMemSim v0.11.0 adds traceable experimental-data handling, deterministic

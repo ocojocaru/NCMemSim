@@ -107,7 +107,8 @@ This negative qualification result is preserved as a scientific result rather th
 
 The synthetic device-level recovery workflows, including pulse-memory and retention fitting, demonstrate deterministic parameter recovery only. They report `FITTED`, not `CALIBRATED`, and do not substitute for independent experimental device validation.
 
-Remaining v0.11.0 work is release engineering: final metadata review, package/distribution validation, supported-Python CI verification, and tagged-release verification. No additional scientific functionality is required for the release.
+The v0.11.0 release-engineering cycle is complete: package/distribution validation,
+supported-Python CI, tagged release verification, and release assets all passed.
 
 Post-v0.11.0 extensions may include:
 
@@ -130,16 +131,46 @@ Calibration procedures must distinguish fitted effective parameters from indepen
 
 ### v0.12.0: Design-space exploration and DTCO
 
-Planned capabilities include:
+**Status: active development (`0.12.0.dev0`).**
 
-- structured parameter sweeps;
+Phase G is organized as:
+
+- **G0 — cycle bootstrap / architecture freeze:** development version,
+  scope, invariants, delivery sequence, and release baseline;
+- **G1 — design variables and experiment specifications:** typed variables,
+  domains, units, parameter bindings, deterministic experiment definitions,
+  and provenance;
+- **G2 — deterministic structured sweeps:** Cartesian/grid exploration,
+  stable point ordering, failure isolation, reproducible hashing, and
+  serializable results;
+- **G3 — metrics and feasibility constraints:** explicit metric extraction,
+  objective direction, constraint evaluation, and infeasible-point handling;
+- **G4 — multi-objective / Pareto analysis:** non-dominated sorting and
+  transparent trade-off surfaces without a single opaque optimum;
+- **G5 — sensitivity analysis:** reproducible local/global sensitivity
+  summaries appropriate to the implemented sweep designs;
+- **G6 — reproducible DTCO reports and reference examples:** exportable
+  experiment/result manifests, publication-ready summaries, and end-to-end
+  examples;
+- **G7 — v0.12.0 release validation:** regression preservation, supported
+  Python CI, documentation, distribution validation, and tagged release.
+
+Initial v0.12.0 capabilities target:
+
+- structured deterministic parameter sweeps;
 - reproducible experiment definitions;
 - geometry and material design variables;
 - electrical and optical operating variables;
+- explicit feasibility constraints;
 - multi-objective metrics;
 - Pareto analysis;
 - sensitivity analysis;
 - reproducible DTCO reports.
+
+The first implementation intentionally prioritizes deterministic grid-based
+exploration. Latin-hypercube sampling, Bayesian optimization, evolutionary
+optimization, and other adaptive/global optimizers are not prerequisites for
+the initial Phase G architecture.
 
 Candidate design variables include:
 

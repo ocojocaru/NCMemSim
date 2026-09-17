@@ -8,8 +8,9 @@
 
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
-> **Current release:** `0.11.0` — Experimental Fitting and Calibration
-> **Scientific status:** research software under active development; the v0.11.0 release preserves the validated electrical/retention and optical-programming baselines and adds traceable experimental-data fitting, local uncertainty/identifiability diagnostics, and explicit calibration qualification.
+> **Latest release:** `0.11.0` — Experimental Fitting and Calibration
+> **Current development version:** `0.12.0.dev0` — Design-Space Exploration and DTCO
+> **Scientific status:** Phase G development builds on the validated v0.11.0 electrical, retention, optical, electro-optical, fitting, and calibration baseline. DTCO capabilities are introduced incrementally and are not treated as validated until their dedicated Phase G tests and release gates pass.
 
 ## Why NCMemSim?
 
@@ -55,7 +56,7 @@ The framework is intended for:
 | Calibration qualification | Explicit FITTED/CALIBRATED separation with independent-validation criteria and auditable qualification results |
 | Regression | Golden reference suite and benchmark utilities |
 
-Experimental-data handling, deterministic parameter fitting, local uncertainty/identifiability diagnostics, and calibration qualification are implemented in v0.11.0. Automated DTCO and advanced quantum corrections remain roadmap items. The compact optical model introduced in v0.10.0 is retained; absolute absorption amplitudes and device-specific photo-capture efficiencies remain provisional unless supported by appropriate independent experimental calibration.
+Experimental-data handling, deterministic parameter fitting, local uncertainty/identifiability diagnostics, and calibration qualification are implemented in v0.11.0. Deterministic design-space exploration and DTCO are under active development for v0.12.0; advanced quantum corrections remain roadmap items. The compact optical model introduced in v0.10.0 is retained; absolute absorption amplitudes and device-specific photo-capture efficiencies remain provisional unless supported by appropriate independent experimental calibration.
 
 ## Installation
 
@@ -84,11 +85,13 @@ Verify the installation with:
 python -c "import ncmemsim; print(ncmemsim.__version__)"
 ```
 
-For this release, the expected version is:
+For the current development branch, the expected version is:
 
 ```text
-0.11.0
+0.12.0.dev0
 ```
+
+The latest tagged release remains `0.11.0`.
 
 ## Quick start
 
@@ -337,7 +340,7 @@ Main sections:
 | v0.9.1 | Repository polish, documentation, GitHub infrastructure, branding and release engineering | Complete |
 | v0.10.0 | Optical programming engine and SWIR validation | **Complete** |
 | v0.11.0 | Experimental fitting and uncertainty-aware calibration | **Complete** |
-| v0.12.0 | Design-space exploration / DTCO | Planned |
+| v0.12.0 | Design-space exploration / DTCO | **Active development** |
 | v1.0.0 | First stable scientific release | Planned |
 
 Potential post-v0.10 optical extensions include experimental calibration, broadband or measured spectra, strain-dependent optical properties, nanocrystal quantum confinement, field-dependent absorption, state filling, and sequential optical propagation through multi-FG structures.
