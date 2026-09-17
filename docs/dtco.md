@@ -439,3 +439,107 @@ corresponding identity. G1/G2 serialization and hashes remain unchanged.
 The analysis retains the source sweep and all classifications in memory.
 It does not remove failed or infeasible points, select an optimum, or compute
 Pareto fronts; non-dominated sorting belongs to G4.
+
+## G4: multi-objective / Pareto analysis
+
+`analyze_pareto(metric_analysis, spec=None)` performs deterministic non-dominated
+sorting over the feasible points of a completed G3 analysis. It does not rerun
+simulation or change G1/G2/G3 serialization.
+
+A point dominates another if it is no worse on every selected objective and
+strictly better on at least one. Each metric's declared `ObjectiveDirection`
+determines the comparison. Values retain their sign, unit and integer precision;
+there are no weights, absolute-value transforms, numerical tolerances or combined
+scores. Equal objective vectors do not dominate one another, so all duplicate
+vectors are retained.
+
+`ParetoAnalysisSpec(name, objective_names)` selects an ordered subset of directed
+G3 metrics. Unknown names, duplicate names, empty selections and directionless
+reporting metrics are rejected. If no specification is provided, all directed
+metrics are selected in G3 declaration order. At least one objective is required.
+
+### Example: response versus pulse duration
+
+This example evaluates the existing program/read protocol and compares the signed
+flat-band shift with the pulse duration. The chosen shift direction is illustrative;
+choose the observable and direction appropriate to the physical study.
+
+```python
+from ncmemsim import DeviceBuilder, Simulator
+from ncmemsim.dtco import (
+    BindingScope, DesignVariable, DesignVariableRole, ExperimentSpec,
+    MetricAnalysisSpec, MetricDefinition, ObjectiveDirection, ParameterBinding,
+    ParetoAnalysisSpec, analyze_pareto, analyze_sweep, run_cartesian_sweep,
+)
+from ncmemsim.program_protocol import ProgramPulseReadProtocol, run_program_pulse_read
+
+device = DeviceBuilder.v2(n_fgs=1)
+protocol = ProgramPulseReadProtocol(5.0, 1.0e-6)
+duration = DesignVariable(
+    name="duration",
+    binding=ParameterBinding(BindingScope.OPERATING, ("program", "time_s")),
+    values=(1.0e-6, 2.0e-6), role=DesignVariableRole.ELECTRICAL, unit="s",
+)
+experiment = ExperimentSpec.from_device(
+    name="response-duration", device=device, variables=(duration,),
+    operating_protocol=protocol,
+)
+
+def evaluate(candidate_device, candidate_protocol, point):
+    return run_program_pulse_read(Simulator(candidate_device), candidate_protocol).to_dict()
+
+sweep = run_cartesian_sweep(
+    experiment, device, evaluate, base_protocol=protocol,
+    evaluation_id="program-read-pareto-example-v1",
+    evaluation_parameters={"simulator_configuration": "defaults-v0.12.0.dev0"},
+)
+analysis = analyze_sweep(sweep, MetricAnalysisSpec(
+    name="response-duration-metrics",
+    metrics=(
+        MetricDefinition("signed_shift", ("observable", "value"), "V",
+                         ObjectiveDirection.MAXIMIZE),
+        MetricDefinition("duration", ("protocol", "programming_time_s"), "s",
+                         ObjectiveDirection.MINIMIZE),
+    ),
+))
+pareto = analyze_pareto(
+    analysis, ParetoAnalysisSpec("response-duration-fronts", ("signed_shift", "duration")),
+)
+print(pareto.pareto_indices)
+print(pareto.fronts)
+manifest_json = pareto.to_json()
+```
+
+The objectives may have different units because each is compared independently.
+Constraint-only and reporting metrics affect neither dominance nor ranking unless
+they are explicitly directed and selected; G3 constraints still govern eligibility.
+
+### Fronts, exclusions and reproducibility
+
+Ranks start at zero. Front zero contains all non-dominated feasible points.
+Removing it exposes front one, and so on until every feasible point has a rank.
+Front members appear in original source order, including ties. This order carries
+no preference between members of the same front.
+
+`ParetoAnalysisResult.points` retains every G3 point in source order.
+Feasible points retain the selected objective values and integer rank.
+Infeasible or failed points have `rank=None`, no ranking objective vector, and
+an explicit exclusion reason; their metrics, constraint evaluations and errors
+remain available through the complete source analysis in the result manifest.
+
+`fronts` is a tuple of tuples of source point indices.
+`pareto_indices` is front zero, or an empty tuple if no feasible points exist.
+The manifest includes the specification, selected metric definitions and
+directions, source analysis/result hash, complete source analysis, all point
+records, fronts, ranked count and excluded count.
+
+`definition_hash` identifies the selection and exact ranking policy.
+`analysis_hash` links the specification to the exact G3 result.
+`result_hash` identifies the full Pareto result. Changing objective selection,
+selection order, direction or source results changes the corresponding identity.
+Exports are independent JSON snapshots; analysis does not mutate its source.
+
+The algorithm uses O(N² M) comparisons and up to O(N²) memory for N feasible
+points and M objectives. Large studies should account for this cost.
+G4 exposes trade-off fronts and does not select a single optimum.
+Sensitivity analysis is deferred to G5.

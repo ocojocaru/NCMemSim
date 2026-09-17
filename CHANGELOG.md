@@ -127,6 +127,19 @@ calibration baseline.
 - Keeps G1/G2 serialization unchanged and Pareto ranking deferred to G4.
 - Adds dedicated validation, isolation, identity, and real program/read tests.
 
+### G4 — multi-objective / Pareto analysis
+
+- Adds explicit ordered objective selection from directed G3 metrics.
+- Adds exact non-dominated sorting across minimize/maximize objectives, with
+  zero-based fronts, stable source ordering and retention of tied vectors.
+- Ranks feasible points only and retains infeasible/failed points with explicit
+  exclusion reasons, preserving all source metrics and failure provenance.
+- Preserves signed values and integer precision without weights, tolerances,
+  automatic normalization or selection of a single optimum.
+- Adds immutable serializable Pareto records and deterministic definition,
+  analysis and result hashes without changing G1/G2/G3 serialization.
+- Adds independent-reference, tie, exclusion, precision and identity tests.
+
 ## v0.11.0 — Experimental Fitting and Calibration
 
 NCMemSim v0.11.0 adds traceable experimental-data handling, deterministic

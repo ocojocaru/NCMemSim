@@ -43,7 +43,18 @@ from .metrics import (
     analyze_sweep,
 )
 
+from .pareto import (
+    ParetoAnalysisResult,
+    ParetoAnalysisSpec,
+    ParetoPointResult,
+    analyze_pareto,
+)
+
 __all__ = [
+    "ParetoAnalysisResult",
+    "ParetoAnalysisSpec",
+    "ParetoPointResult",
+    "analyze_pareto",
     "ConstraintEvaluation",
     "ConstraintOperator",
     "MetricAnalysisResult",
