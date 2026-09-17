@@ -100,6 +100,20 @@ calibration baseline.
   hashes, domain order, and existing application validation.
 - Adds dedicated contract and compatibility coverage.
 
+### G2 — deterministic structured sweeps
+
+- Adds lazy Cartesian points preserving declared axis/domain order, with
+  stable indices and experiment-bound point hashes.
+- Adds serial evaluation on independent device/protocol candidates using
+  the existing validated G1 binding application.
+- Isolates application, evaluation, and serialization failures per point;
+  rejects invalid setup before evaluation and propagates process interrupts.
+- Records finite JSON output snapshots, complete ordered result manifests,
+  explicit evaluator identity/parameters, and sweep/result hashes.
+- Keeps MODEL application, metrics, constraints, and Pareto analysis deferred.
+- Adds ordering, isolation, identity, serialization, electrical/optical, GeSn,
+  and real program/read integration tests.
+
 ## v0.11.0 — Experimental Fitting and Calibration
 
 NCMemSim v0.11.0 adds traceable experimental-data handling, deterministic

@@ -214,3 +214,109 @@ unit or numeric-domain contracts yet; the general domain validation still applie
 All categorical strings must have no outer whitespace; internal whitespace is
 preserved. Valid variable serialization, domain order, and definition hashes are
 unchanged.
+
+## G2: deterministic structured sweeps
+
+G2 exposes lazy Cartesian enumeration through `iter_cartesian_points(spec)`
+and serial execution through `run_cartesian_sweep()`. Variable order and each
+domain's declared order are preserved; the last declared axis varies fastest.
+Point indices start at zero. Enumeration does not apply bindings, so declarative
+MODEL and categorical axes can be inspected even though MODEL execution remains
+deferred.
+
+Each `SweepPoint` records its experiment hash, index, ordered assignments and
+canonical point hash. The point's `assignments` property returns a fresh dictionary.
+Enumeration is lazy and does not materialize the Cartesian product.
+
+### Executing a study
+
+The evaluator receives `(candidate_device, candidate_protocol, point)` and returns
+a dictionary containing finite JSON values: string keys, dictionaries, lists,
+strings, integers, finite floats, booleans and null. Convert scientific arrays
+explicitly with `.tolist()`; arbitrary objects are not stringified.
+
+```python
+from ncmemsim import DeviceBuilder, Simulator
+from ncmemsim.dtco import (
+    BindingScope, DesignVariable, DesignVariableRole, ExperimentSpec,
+    ParameterBinding, run_cartesian_sweep,
+)
+from ncmemsim.program_protocol import (
+    ProgramPulseReadProtocol, run_program_pulse_read,
+)
+
+device = DeviceBuilder.v2(n_fgs=1)
+protocol = ProgramPulseReadProtocol(5.0, 1.0e-6)
+voltage = DesignVariable(
+    name="program_voltage",
+    binding=ParameterBinding(BindingScope.OPERATING, ("program", "voltage_V")),
+    values=(5.0, 6.0),
+    role=DesignVariableRole.ELECTRICAL,
+    unit="V",
+)
+spec = ExperimentSpec.from_device(
+    name="program-voltage-study",
+    device=device,
+    variables=(voltage,),
+    operating_protocol=protocol,
+)
+
+def evaluate(candidate_device, candidate_protocol, point):
+    simulator = Simulator(candidate_device)
+    pulse = run_program_pulse_read(simulator, candidate_protocol)
+    return {"delta_vfb_V": pulse.delta_vfb_V}
+
+sweep = run_cartesian_sweep(
+    spec, device, evaluate,
+    base_protocol=protocol,
+    evaluation_id="program-pulse-read-defaults-v1",
+    evaluation_parameters={"simulator_configuration": "defaults-v0.12.0.dev0"},
+)
+print(sweep.success_count, sweep.failure_count)
+print(sweep.sweep_hash, sweep.result_hash)
+manifest_json = sweep.to_json()
+```
+
+For device-only studies without a recorded operating identity, omit
+`base_protocol`; the evaluator receives `None` as its protocol. To evaluate even a
+device-only study under a fixed protocol, record that protocol in the experiment.
+A protocol supplied without a recorded identity is rejected.
+
+The engine snapshots the baseline and evaluation definition before evaluation.
+Every candidate is independently reconstructed using the existing G1 application
+functions. Candidate mutation by an evaluator cannot contaminate later points.
+Evaluators must construct fresh simulators and state for each point and avoid
+sharing mutable simulation state through a closure or global variable.
+
+### Failures and result identity
+
+Setup errors (baseline mismatch, missing/unrecorded operating identity, MODEL
+execution, invalid evaluator or evaluation definition) raise before evaluation.
+Ordinary point exceptions are recorded with status `failed`, stage
+(`application`, `evaluation`, or `serialization`), fully qualified exception
+type and message. Subsequent points continue, including when every point fails.
+`KeyboardInterrupt` and `SystemExit` propagate.
+
+Success outputs are immutable JSON snapshots internally; exported dictionaries
+are fresh copies. `SweepResult.points` contains one record per declared Cartesian
+point, including failures, in the same deterministic order. The complete
+experiment definition, evaluation identity/parameters, assignments, point hashes,
+outputs, failures and counts are available in `to_dict()` and `to_json()`.
+
+`evaluation_id` identifies the evaluator implementation/version.
+`evaluation_parameters` must declare all execution settings affecting the
+scientific result, including simulator configuration, fitted parameters and
+initial-state policy. The engine cannot infer callback code or hidden closure
+state. Update the identity when evaluator semantics change.
+
+`sweep_hash` identifies the experiment, evaluator definition, ordering and serial
+execution policy. `result_hash` additionally hashes all outputs and failures.
+Identical definitions and deterministic evaluators produce repeatable manifests;
+the engine does not guarantee numerical equivalence across solver/library
+versions. Failure messages containing external paths or other changing text can
+also change the result hash.
+
+Execution retains the full result manifest in memory. Large studies can consume
+the lazy point iterator with a caller-managed workflow instead. Parallel workers,
+caching/resume, metric definitions, feasibility and Pareto analysis are outside
+G2; metrics and constraints belong to G3.

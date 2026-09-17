@@ -23,7 +23,17 @@ from .spec import (
     ScalarValue,
 )
 
+from .sweep import (
+    SweepPoint,
+    SweepPointResult,
+    SweepResult,
+    iter_cartesian_points,
+    run_cartesian_sweep,
+)
+
 __all__ = [
+    "SweepPoint", "SweepPointResult", "SweepResult",
+    "iter_cartesian_points", "run_cartesian_sweep",
     "AppliedExperimentPoint",
     "BindingApplicationError",
     "BindingScope",
