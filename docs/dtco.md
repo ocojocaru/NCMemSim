@@ -181,3 +181,36 @@ bindings through their existing copy-on-write/immutable mechanisms.
 `BindingScope.MODEL` remains outside G1c2b. In particular,
 `photo_capture_efficiency` is still treated as a fitted model/device parameter,
 not as an experimental illumination condition.
+
+## G1d: binding/unit contracts
+
+Known numeric DEVICE and OPERATING bindings require their exact canonical unit
+when constructing a `DesignVariable`. No aliases or unit conversions are applied,
+and categorical domains for these bindings are rejected immediately.
+
+| Scope | Path | Unit |
+| --- | --- | --- |
+| DEVICE | `gate_work_function_eV` | `eV` |
+| DEVICE | `substrate_doping_m3` | `m^-3` |
+| DEVICE | `temperature_K` | `K` |
+| DEVICE | `layers/<name>/thickness_nm` | `nm` |
+| DEVICE | `layers/<name>/nc_diameter_nm` | `nm` |
+| DEVICE | `layers/<name>/nc_volume_fraction` | `1` |
+| DEVICE | `layers/<name>/electrically_active_fraction` | `1` |
+| DEVICE | `layers/<name>/grid_points` | `1` |
+| DEVICE | `layers/<name>/nc_material/sn_fraction` | `1` |
+| OPERATING | `program/voltage_V` | `V` |
+| OPERATING | `program/time_s` | `s` |
+| OPERATING | `program/internal_dt_s` | `s` |
+| OPERATING | `read/voltage_V` | `V` |
+| OPERATING | `optical/wavelength_nm` | `nm` |
+| OPERATING | `optical/power_density_W_m2` | `W/m^2` |
+
+Layer names are resolved during application; declaring a contract does not
+enable additional target fields or bypass device, material, or protocol validation.
+Unknown paths retain their declarative G1 behavior. MODEL bindings have no binding
+unit or numeric-domain contracts yet; the general domain validation still applies.
+
+All categorical strings must have no outer whitespace; internal whitespace is
+preserved. Valid variable serialization, domain order, and definition hashes are
+unchanged.

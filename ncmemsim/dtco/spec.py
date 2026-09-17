@@ -133,6 +133,47 @@ class ParameterBinding:
         return canonical_hash(self.to_dict())
 
 
+_DEVICE_UNITS = {
+    "gate_work_function_eV": "eV",
+    "substrate_doping_m3": "m^-3",
+    "temperature_K": "K",
+}
+_LAYER_UNITS = {
+    "thickness_nm": "nm",
+    "nc_diameter_nm": "nm",
+    "nc_volume_fraction": "1",
+    "electrically_active_fraction": "1",
+    "grid_points": "1",
+}
+_OPERATING_UNITS = {
+    ("program", "voltage_V"): "V",
+    ("program", "time_s"): "s",
+    ("program", "internal_dt_s"): "s",
+    ("read", "voltage_V"): "V",
+    ("optical", "wavelength_nm"): "nm",
+    ("optical", "power_density_W_m2"): "W/m^2",
+}
+
+
+def _canonical_binding_unit(binding: ParameterBinding) -> str | None:
+    """Resolve only known numeric paths; model contracts remain deferred."""
+    path = binding.path
+    if binding.scope is BindingScope.OPERATING:
+        return _OPERATING_UNITS.get(path)
+    if binding.scope is BindingScope.DEVICE:
+        if len(path) == 1:
+            return _DEVICE_UNITS.get(path[0])
+        if len(path) == 3 and path[0] == "layers":
+            return _LAYER_UNITS.get(path[2])
+        if (
+            len(path) == 4
+            and path[0] == "layers"
+            and path[2:] == ("nc_material", "sn_fraction")
+        ):
+            return "1"
+    return None
+
+
 @dataclass(frozen=True)
 class DesignVariable:
     """One explicitly enumerated variable in a deterministic DTCO experiment."""
@@ -177,6 +218,10 @@ class DesignVariable:
                 raise ValueError("numeric design-variable values must be finite")
             if is_string and not value.strip():
                 raise ValueError("categorical design-variable values cannot be empty")
+            if is_string and value != value.strip():
+                raise ValueError(
+                    "categorical design-variable values cannot have outer whitespace"
+                )
 
         all_numeric = all(numeric_flags)
         all_strings = all(string_flags)
@@ -184,6 +229,18 @@ class DesignVariable:
             raise TypeError(
                 "a design-variable domain cannot mix numeric and categorical values"
             )
+
+        canonical_unit = _canonical_binding_unit(self.binding)
+        if canonical_unit is not None:
+            if not all_numeric:
+                raise TypeError(
+                    f"binding {self.binding.path!r} requires numeric values"
+                )
+            if self.unit != canonical_unit:
+                raise ValueError(
+                    f"binding {self.binding.path!r} requires canonical unit "
+                    f"{canonical_unit!r}, got {self.unit!r}"
+                )
 
         if all_numeric:
             if self.unit is None or not self.unit.strip():

@@ -90,6 +90,16 @@ calibration baseline.
 - Keeps `BindingScope.MODEL` application deferred so fitted model parameters
   remain distinct from operating conditions.
 
+### G1d — binding/unit contracts
+
+- Validates exact canonical units for known numeric DEVICE and OPERATING
+  bindings at DesignVariable construction, without conversions or aliases.
+- Rejects categorical domains for known numeric bindings and categorical
+  strings with outer whitespace.
+- Leaves MODEL binding contracts deferred and preserves valid serialization,
+  hashes, domain order, and existing application validation.
+- Adds dedicated contract and compatibility coverage.
+
 ## v0.11.0 — Experimental Fitting and Calibration
 
 NCMemSim v0.11.0 adds traceable experimental-data handling, deterministic
