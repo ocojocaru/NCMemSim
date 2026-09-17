@@ -1,0 +1,7 @@
+include CITATION.cff
+include mkdocs.yml
+graft docs
+graft assets
+recursive-include examples *.py
+include scripts/validate_dtco_distribution.py
+global-exclude __pycache__ *.py[cod]

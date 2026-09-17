@@ -14,6 +14,41 @@ import zipfile
 REQUIRED = {f"ncmemsim/dtco/{name}.py" for name in
             ("__init__", "spec", "binding", "operating", "sweep", "metrics", "pareto", "sensitivity", "reporting")}
 
+# Source releases must carry the audited documentation and its build entry points.
+SOURCE_REQUIRED = {
+    'CITATION.cff',
+    'assets/banner.svg',
+    'docs/NCMemSim_v6_Software_Design_Specification_Rev1.md',
+    'docs/Validation_Report.md',
+    'docs/api.md',
+    'docs/architecture.md',
+    'docs/assets/banner.svg',
+    'docs/branding.md',
+    'docs/calibration.md',
+    'docs/developer.md',
+    'docs/device_calibration.md',
+    'docs/device_model.md',
+    'docs/dtco.md',
+    'docs/electrostatics.md',
+    'docs/glossary.md',
+    'docs/index.md',
+    'docs/installation.md',
+    'docs/materials.md',
+    'docs/near_edge_reference.md',
+    'docs/optics.md',
+    'docs/physics.md',
+    'docs/quickstart.md',
+    'docs/reproducibility.md',
+    'docs/roadmap.md',
+    'docs/scientific_scope.md',
+    'docs/transport_retention.md',
+    'docs/validation.md',
+    'docs/workflows.md',
+    'examples/phase_g6_dtco_reference.py',
+    'mkdocs.yml',
+    'scripts/validate_dtco_distribution.py',
+}
+
 def check_archive(path: Path) -> None:
     if path.suffix == ".whl":
         with zipfile.ZipFile(path) as archive:
@@ -21,9 +56,10 @@ def check_archive(path: Path) -> None:
     else:
         with tarfile.open(path, "r:gz") as archive:
             names = {name.partition("/")[2] for name in archive.getnames()}
-    missing = REQUIRED - names
+    required = REQUIRED if path.suffix == ".whl" else REQUIRED | SOURCE_REQUIRED
+    missing = required - names
     if missing:
-        raise ValueError(f"{path.name}: missing DTCO modules: {sorted(missing)}")
+        raise ValueError(f"{path.name}: missing required release files: {sorted(missing)}")
 
 def run(*args: str, cwd: Path) -> None:
     subprocess.run(args, cwd=cwd, check=True)
