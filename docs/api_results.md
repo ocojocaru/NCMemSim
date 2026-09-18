@@ -149,3 +149,7 @@ from the core dataclass ownership rules.
   the complete source inventory, not just its generated constructor declarations.
 - Retain historical read-only archive fixtures and define supported schemas/migrations.
 - Review numerical defaults separately; no physics or defaults change in this patch.
+
+The [fitting, qualification and DTCO result review](api_analysis_results.md)
+extends this core review to the analysis layers. Historical archive/schema
+compatibility remains a separate gate.

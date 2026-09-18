@@ -70,6 +70,7 @@ nav:
       - API compatibility preparation: api_compatibility.md
       - API source inventory: api_inventory.md
       - Result contract review: api_results.md
+      - Analysis result contracts: api_analysis_results.md
       - Developer guide: developer.md
       - Roadmap: roadmap.md
       - Software design specification: NCMemSim_v6_Software_Design_Specification_Rev1.md

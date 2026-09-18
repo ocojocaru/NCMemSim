@@ -4,6 +4,11 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased — stability preparation from v0.14.0
 
+- Audit fitting/qualification and DTCO result semantics: raw versus weighted
+  residuals, physical covariance units, unavailable diagnostics, failure
+  denominators, exact eligibility and provenance boundaries.
+- Add cross-layer contract checks without changing library algorithms/defaults.
+
 - Record complete package source/export/documented-import inventory with source
   signatures, public methods and declared fields; add a read-only drift check.
 - Document and verify core result units, FG/link/grid axes, dark NaN/zero

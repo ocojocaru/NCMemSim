@@ -27,6 +27,7 @@ SOURCE_REQUIRED = {
     'docs/api_inventory.md',
     'docs/api_inventory.json',
     'docs/api_results.md',
+    'docs/api_analysis_results.md',
     'scripts/validate_api_contract.py',
     'docs/architecture.md',
     'docs/assets/banner.svg',

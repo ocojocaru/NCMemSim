@@ -778,3 +778,7 @@ source signatures, public methods and declared fields. The
 [result contract review](api_results.md) documents units, array dimensions,
 optional values and ownership of core simulation results. These baselines
 support review; they do not approve every source-visible helper as stable.
+
+The [fitting, qualification and DTCO result review](api_analysis_results.md)
+records residual/uncertainty units, undefined values, failure denominators and
+provenance semantics separately from numerical solver success.
