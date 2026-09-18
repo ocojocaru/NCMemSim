@@ -109,3 +109,7 @@ from .variation import (VariationKind, VariationProvenance, UniformVariation,
 
 __all__ += ["VariationKind", "VariationProvenance", "UniformVariation",
             "TruncatedNormalVariation", "VariationDefinition"]
+
+from .sampling import SamplingSpec, SampleManifest, SamplingError, sample_variations
+
+__all__ += ["SamplingSpec", "SampleManifest", "SamplingError", "sample_variations"]

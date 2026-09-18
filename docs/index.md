@@ -19,8 +19,9 @@ simulation, deterministic regression references, reproducibility metadata,
 and compact Ge/GeSn optical programming models.
 
 The v0.13.0 development line (`0.13.0.dev0`) starts Phase H.
-[Robust DTCO](robust_dtco.md) defines its planned scope and contracts;
-sampling and robust analysis are not implemented by the H0 bootstrap.
+[Robust DTCO](robust_dtco.md) provides H1 bounded definitions and H2
+reproducible independent sampling with exact manifests. Sample propagation
+and robust analysis remain planned for H3 onward.
 
 ## Start here
 

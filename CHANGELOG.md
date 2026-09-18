@@ -24,6 +24,18 @@ All notable changes to NCMemSim are documented in this file.
 - Require variation kind, source and applicability; add nominal endpoint validation and identity hashes.
 - Sampling and propagation remain planned for H2/H3; Phase G APIs remain unchanged.
 
+### H2 — reproducible independent sampling
+
+- Add explicit seed/count/attempt-budget specifications with unique ordered bindings.
+- Sample bounded uniform and truncated-normal laws using local PCG64 scalar draws;
+  reject out-of-bounds draws and report exhaustion without clipping or partial output.
+- Preserve exact immutable manifests, definitions/provenance, algorithm/runtime
+  identity and hashes; restore JSON without regenerating inputs.
+- Add dedicated deterministic, statistical, integrity and exhaustion tests.
+- Keep documentation current at each step; run Documentation manually at release
+  candidate and CI manually or on release tags, without intermediate push/PR Actions.
+- Retain propagation and robust statistics as future phases.
+
 ## v0.12.0 — Design-Space Exploration and DTCO
 
 Phase G adds deterministic Cartesian design-space exploration, canonical

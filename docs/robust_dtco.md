@@ -5,8 +5,9 @@
 H0 starts v0.13.0 at `0.13.0.dev0` from the published v0.12.0 commit
 `6da07c5c661a25b2187c13944f9507346c5bc7b0`. The Phase G nominal sweep,
 metrics, feasibility, Pareto, grid sensitivity and reporting remain available.
-H0 defines the contracts below. H1 adds bounded variation definitions; sampling
-and robust analysis remain planned.
+H0 defines the contracts below. H1 adds bounded variation definitions and H2
+adds reproducible independent sampling with exact manifests. Sample propagation
+and robust analysis remain planned for H3 onward.
 
 Phase H asks how response and feasibility change when supported parameters
 vary. It does not introduce new simulator physics or establish experimental
@@ -16,11 +17,11 @@ compatible with Phase G.
 
 ## Delivery sequence
 
-| Phase | Planned deliverable |
+| Phase | Deliverable and development status |
 | --- | --- |
-| H0 | Scope/contracts, development version and documentation workflow policy |
-| H1 | Typed bounded variation definitions, units and provenance |
-| H2 | Reproducible sampling, explicit seed and sample manifest |
+| H0 | Implemented: scope/contracts and development bootstrap |
+| H1 | Implemented: typed bounded definitions, units and provenance |
+| H2 | Implemented: reproducible sampling, seed and exact manifest |
 | H3 | Sample propagation through supported binding/evaluator contracts |
 | H4 | Response statistics and explicit feasibility/failure accounting |
 | H5 | Nominal/robust comparisons and explicitly defined robust objectives |
@@ -57,7 +58,7 @@ remain outside the first implementation.
 
 ## Sampling identity and execution
 
-H2 must record distribution definitions, binding order, seed, sample count,
+H2 records distribution definitions, binding order, seed, sample count,
 algorithm identifier/version and relevant library/runtime versions. The exact
 sample manifest, not the seed alone, establishes the input to propagation.
 Reproducibility is defined within a recorded algorithm/runtime; bitwise equality
@@ -108,8 +109,12 @@ Run full scientific regression, supported-Python CI and clean installed wheel
 and source checks for code/packaging changes. Version, tag, source archive and
 published assets must agree before closing the release.
 
-Documentation-only commits run Documentation, not full CI. Development and PR
-builds validate strictly but do not replace the published main Pages site.
+Update documentation and changelog alongside each development step, and run
+the relevant local checks. Intermediate pushes and pull requests do not start
+CI or Documentation Actions. At release candidate, run the full documentation
+audit and start Documentation manually; only a manual main build can deploy
+Pages. CI runs manually for release-candidate validation and on `v*` release
+tags. Package builds and clean installation checks belong to release validation.
 Generated `site/` is not the source of truth and is not regenerated for commits.
 
 ## H1: bounded variation definitions
@@ -151,3 +156,73 @@ kind and provenance. It does not identify a nominal device, protocol or sample
 manifest; those links belong to later phases. Returned dictionaries are fresh
 copies. Definitions and provenance are immutable. No MODEL contract is added to
 Phase G: MODEL and integer bindings are simply outside this new H1 API.
+
+## H2: reproducible sampling and exact manifests
+
+`SamplingSpec(variations, seed, sample_count, max_draws_per_value=10000)`
+requires at least one H1 definition, unique names and bindings, an explicit
+nonnegative integer seed smaller than `2**128`, and positive integer sample
+count and draw budget. Booleans are rejected as integers. Definition order is
+preserved; list inputs are copied into an immutable tuple.
+
+`sample_variations(spec)` uses a local NumPy `Generator(PCG64(seed))` and does
+not change global random state. The algorithm is
+`numpy-pcg64-scalar-rejection-v1`: scalar float64 draws in sample-major order,
+then declared variation order. Uniform values use convex interpolation to avoid
+interval-width overflow. Normal values are drawn from the underlying normal and
+accepted only when finite and inside the explicit bounds. There is no clipping
+or substitution. Independence is a declared assumption, not an inference.
+
+Each value has an explicit attempt budget. Narrow or remote-tail intervals may
+exhaust it. `SamplingError` records `sample_index`, `variation_name` and
+`attempts`; no partial manifest is returned and no sample disappears.
+`KeyboardInterrupt` and `SystemExit` propagate.
+
+```python
+from ncmemsim.dtco import (BindingScope, ParameterBinding, UniformVariation,
+    TruncatedNormalVariation, VariationDefinition, VariationKind,
+    VariationProvenance, SamplingSpec, SampleManifest, sample_variations)
+
+provenance = VariationProvenance(
+    source="Assumed intervals for a reproducibility demonstration",
+    applicability="Reference electrical protocol, not manufacturing calibration",
+)
+voltage = VariationDefinition(
+    name="program_voltage",
+    binding=ParameterBinding(BindingScope.OPERATING, ("program", "voltage_V")),
+    distribution=UniformVariation(4.5, 5.5), unit="V",
+    kind=VariationKind.PARAMETER_ESTIMATION, provenance=provenance,
+)
+duration = VariationDefinition(
+    name="program_duration",
+    binding=ParameterBinding(BindingScope.OPERATING, ("program", "time_s")),
+    distribution=TruncatedNormalVariation(0.5e-6, 1.5e-6, 1e-6, 0.1e-6),
+    unit="s", kind=VariationKind.PARAMETER_ESTIMATION, provenance=provenance,
+)
+spec = SamplingSpec((voltage, duration), seed=2026, sample_count=8,
+                    max_draws_per_value=10000)
+manifest = sample_variations(spec)
+assert manifest.to_json() == sample_variations(spec).to_json()
+restored = SampleManifest.from_json(manifest.to_json())
+assert restored.values == manifest.values
+assert restored.manifest_hash == manifest.manifest_hash
+assert len(manifest.values) == 8
+assert all(4.5 <= row[0] <= 5.5 and 0.5e-6 <= row[1] <= 1.5e-6
+           for row in manifest.values)
+```
+
+`SampleManifest.values` is an immutable tuple of rows in definition order.
+`to_dict()` returns fresh nested data with zero-based contiguous sample indices,
+the full specification and provenance, exact values, Python version and
+implementation, NumPy/package versions, and specification/manifest hashes.
+`to_json()` and `from_json()` preserve those inputs without regenerating draws.
+Restoration validates schema, algorithm, indices, shape, bounds and hashes,
+and rejects extra/duplicate keys and nonfinite values. Integrity hashes do not
+authenticate a manifest or establish physical calibration.
+
+The seed alone is insufficient for cross-runtime reproducibility. Within the
+recorded algorithm/runtime, repeated calls reproduce the exact manifest; across
+arbitrary NumPy/Python versions bitwise equality is not promised. Use the stored
+manifest as propagation input. H2 does not run the simulator, link a nominal
+device/protocol or compute feasibility/statistics. Validate definition context
+before a study and validate every combined candidate during H3 propagation.

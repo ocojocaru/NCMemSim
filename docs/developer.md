@@ -723,11 +723,13 @@ as substitutes for changes to the Markdown sources.
 
 ## Documentation workflow and release audit
 
-Documentation-only edits to docs/assets/README/changelog/citation/MkDocs and
-the Documentation workflow are excluded from full CI. Code, tests, dependency,
-packaging or CI/release-workflow changes still trigger full CI. Mixed commits
-run full CI even if they also edit Markdown. Strict documentation is handled by
-the separate Documentation workflow; only main push/manual builds deploy Pages.
+Update documentation and changelog with each development step and run the
+relevant tests locally. Intermediate pushes and pull requests do not launch
+CI or Documentation Actions. CI is started manually for release-candidate
+validation and also runs on `v*` release tags. Documentation is started manually
+at release candidate; only manual builds on `main` deploy Pages. Development
+builds do not replace the published site. Full regression, package builds and
+clean installed-distribution checks belong to the release validation gate.
 
 Before tagging a release, audit current status/version claims, syntax/imports,
 complete examples, local links/anchors and scientific limits. Inspect the actual

@@ -662,6 +662,23 @@ unsupported MODEL bindings cannot execute. Pareto sorting uses explicit
 min/max directions, and sensitivity uses adjacent-grid secants with coverage.
 Report restoration checks canonical payload integrity, not authentication.
 
+## Robust DTCO definitions and sampling (v0.13.0 development)
+
+Import from `ncmemsim.dtco`:
+
+- variation laws: `UniformVariation`, `TruncatedNormalVariation`;
+- definitions and provenance: `VariationDefinition`, `VariationKind`,
+  `VariationProvenance`;
+- reproducible sampling: `SamplingSpec`, `sample_variations`;
+- exact inputs and restoration: `SampleManifest`;
+- explicit bounded-draw exhaustion: `SamplingError`.
+
+H1/H2 support independent continuous DEVICE/OPERATING bindings with canonical
+units. H2 records the exact manifest, seed, algorithm, order and runtime; it
+does not execute physics or calculate robust statistics. See
+[Robust DTCO](robust_dtco.md) for the complete example, rejection policy,
+manifest integrity checks and reproducibility limits.
+
 ## Compatibility note
 
 Before v1.0, internal module paths and some result-dictionary details may

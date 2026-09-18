@@ -1,36 +1,6 @@
 name: Documentation
 
 on:
-  push:
-    branches: [main, "dev/v0.13.0-robust-dtco"]
-    paths:
-      - "docs/**"
-      - "assets/**"
-      - "README.md"
-      - "CHANGELOG.md"
-      - "CITATION.cff"
-      - "mkdocs.yml"
-      - "pyproject.toml"
-      - "MANIFEST.in"
-      - "ncmemsim/**"
-      - "examples/**"
-      - "scripts/validate_dtco_distribution.py"
-      - ".github/workflows/docs.yml"
-  pull_request:
-    branches: [main, "dev/v0.13.0-robust-dtco"]
-    paths:
-      - "docs/**"
-      - "assets/**"
-      - "README.md"
-      - "CHANGELOG.md"
-      - "CITATION.cff"
-      - "mkdocs.yml"
-      - "pyproject.toml"
-      - "MANIFEST.in"
-      - "ncmemsim/**"
-      - "examples/**"
-      - "scripts/validate_dtco_distribution.py"
-      - ".github/workflows/docs.yml"
   workflow_dispatch:
 
 permissions:

@@ -1,28 +1,9 @@
 name: CI
 
 on:
+  workflow_dispatch:
   push:
-    branches: [main, "dev/v0.13.0-robust-dtco"]
-    paths-ignore:
-      - "docs/**"
-      - "assets/**"
-      - "site/**"
-      - "README.md"
-      - "CHANGELOG.md"
-      - "CITATION.cff"
-      - "mkdocs.yml"
-      - ".github/workflows/docs.yml"
-  pull_request:
-    branches: [main, "dev/v0.13.0-robust-dtco"]
-    paths-ignore:
-      - "docs/**"
-      - "assets/**"
-      - "site/**"
-      - "README.md"
-      - "CHANGELOG.md"
-      - "CITATION.cff"
-      - "mkdocs.yml"
-      - ".github/workflows/docs.yml"
+    tags: ["v*"]
 
 permissions:
   contents: read
