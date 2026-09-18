@@ -9,7 +9,7 @@ Existing fitting/calibration, nominal DTCO and Robust DTCO APIs remain available
 I0 supplies scope/contracts and development setup. I1 adds immutable evidence
 and identity contracts in `ncmemsim.workflows`; I2 adds fitted application and full
 evaluator contexts. I3 supplies the complete synthetic electrical reference;
-the optical reference and linked integration reports remain planned.
+I4 supplies the synthetic electro-optical reference. Verification and linked integration reports remain I5–I6 work.
 
 ## Delivery sequence
 
@@ -19,8 +19,8 @@ the optical reference and linked integration reports remain planned.
 | I1 | Immutable workflow evidence and identity contracts | Implemented |
 | I2 | Explicit fitted-parameter application and evaluator context adapter | Implemented |
 | I3 | Electrical fitting/qualification → nominal/Robust DTCO reference | Implemented |
-| I4 | Electro-optical fitting/qualification → nominal/Robust DTCO reference | Next |
-| I5 | End-to-end provenance, failure and compatibility verification | Planned |
+| I4 | Electro-optical fitting/qualification → nominal/Robust DTCO reference | Implemented |
+| I5 | End-to-end provenance, failure and compatibility verification | Next |
 | I6 | Linked workflow evidence report and reproducible exports | Planned |
 | I7 | Final version/documentation audit, full CI and clean distributions | Planned |
 
@@ -258,7 +258,7 @@ and staged Phase H failures remain visible.
 This standalone synthetic C-V example demonstrates application and isolated
 evaluation, without claiming parameter recovery, qualification or experimental
 calibration. The complete electrical reference is supplied by I3 below; the
-optical reference remains I4 work:
+optical reference is supplied by I4 below:
 
 ```python
 from dataclasses import replace
@@ -387,3 +387,70 @@ The new dedicated linked workflow report/restore/export contract remains I6;
 the existing Phase H serializer does not add new I3-specific metadata semantics.
 The reference is registered in source-archive inventory and clean installed probes,
 with the optional fit extra; actual package/installed checks remain I7 gates.
+
+
+## I4 — synthetic electro-optical workflow reference
+
+`examples/phase_i4_electro_optical_workflow_reference.py` connects the existing
+photo-capture fit, uncertainty diagnostics and held-out qualification to an I2
+application, real illuminated nominal/sample execution, H4 statistics, H5 robust
+objectives and existing H6 exports. It adds no physics or library API.
+
+The fixture uses one floating gate containing GeSn with Sn fraction 0.08 and
+seven grid points. Training and validation use a 2 V program pulse, 0 V dark
+zero-dwell read, 1550 nm laser illumination at 1000 W/m² and 10 µs internal
+steps. Photo weights are `(r01=1, r12=1, r10=0, r21=0)` and integration is
+explicit Euler. Every duration starts from fresh empty occupancy.
+
+The synthetic generator uses photo-capture efficiency `2e-7`; the fitted
+parameter starts at `5e-8` with bounds `[1e-9, 1e-6]`. The existing fit contract
+represents this dimensionless parameter with `FitParameter.unit=None`.
+Illumination belongs to the operating protocol; fitted efficiency belongs to
+the separate `PhotoTransitionConfig`. It is neither an OPERATING binding nor
+a MODEL variation. The archive retains both configurations explicitly.
+
+Training durations are `[1e-4, 3e-4, 6e-4, 1e-3]` s. Held-out durations are
+`[1.5e-4, 4e-4, 7e-4, 9e-4]` s, with a distinct dataset identity but the same
+synthetic generator. Deterministic noise has scale `1e-11` V and the declared
+weighting scale is `1e-10` V. These are software fixtures, not measured
+uncertainty. Qualification uses the existing identifiability/covariance rules
+and maximum held-out raw RMSE `1e-8` V. Eligibility remains a synthetic software
+result; scientific status is **FITTED**, never experimentally CALIBRATED.
+
+One explicit fitted application supplies common physics, simulation and photo
+configuration to DEVICE temperature variants 300 K and 325 K. Qualification
+covers only the 300 K fixture; 325 K is an exploratory variant without separate
+qualification. Both variants reuse exactly one seed-2026 manifest with four
+independent samples: program duration uniform `[1e-4, 3e-4]` s and optical power
+density uniform `[800, 1200]` W/m². These assumed intervals are not inferred from
+fit covariance and do not describe fabrication statistics. Wavelength, source
+family, integrator, photo weights and fitted efficiency stay fixed.
+
+Responses retain signed ΔVFB, its absolute magnitude, mean occupation, duration
+and optical power. Occupation constraints `[0,1]` check physical bounds only;
+they are not a device performance acceptance specification. Robust objectives
+explicitly maximize the 5% linear quantile of shift magnitude and minimize mean
+duration. The normal policy requires four assessed samples, no failures and
+observed feasible fraction 1.
+
+```bat
+python examples\phase_i4_electro_optical_workflow_reference.py
+python examples\phase_i4_electro_optical_workflow_reference.py --include-failures
+python examples\phase_i4_electro_optical_workflow_reference.py --output-dir results\i4-optical
+```
+
+The deliberate failure mode records sample 1 evaluation failure, sample 2
+metric extraction failure and sample 3 serialization failure. Each design has
+one assessed sample out of four attempted: observed feasibility 0.25,
+conditional feasibility 1 and failure fraction 0.75. An explicit assessed-only
+policy permits this demonstration; failure is not silently labelled infeasible.
+These small sample fractions are not yield or reliability estimates.
+
+No files are written by default. Explicit output uses the six existing H6
+exports and rejects overwrite. Full source evidence, fitted application,
+nominal results and exact sample manifests retain their identity links;
+restoration does not refit or rerun physics. The existing Phase H report does
+not add new I4 metadata validation semantics; the dedicated linked workflow
+report remains I6. The optional `fit` extra is required. Clean installed
+execution and source archive inclusion are final-version preparation gates;
+I4 checks their probe syntax/inventory locally without building packages.

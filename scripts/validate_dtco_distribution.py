@@ -51,6 +51,7 @@ SOURCE_REQUIRED = {
     'examples/phase_g6_dtco_reference.py',
     'examples/phase_h6_robust_dtco_reference.py',
     'examples/phase_i3_electrical_workflow_reference.py',
+    'examples/phase_i4_electro_optical_workflow_reference.py',
     'scripts/validate_documentation.py',
     'mkdocs.yml',
     'scripts/validate_dtco_distribution.py',
@@ -145,6 +146,7 @@ def main() -> None:
             shutil.copyfile(root / "examples/phase_g6_dtco_reference.py", work / "reference.py")
             shutil.copyfile(root / "examples/phase_h6_robust_dtco_reference.py", work / "robust_reference.py")
             shutil.copyfile(root / "examples/phase_i3_electrical_workflow_reference.py", work / "electrical_workflow_reference.py")
+            shutil.copyfile(root / "examples/phase_i4_electro_optical_workflow_reference.py", work / "electro_optical_workflow_reference.py")
             probe = work / "probe.py"
             probe.write_text(PROBE, encoding="utf-8")
             run(str(python), "-I", str(probe), str(root), str(environment), str(work), cwd=work)
@@ -239,6 +241,26 @@ for failures in (False, True):
         assert applied.to_dict()['workflow_evidence'] == source.to_dict()
     assert RobustDTCOReport.from_json(report.to_json()).report_hash == report.report_hash
 print('Installed I3 electrical fitting/qualification/application/nominal/sample source links: PASS')
+spec = importlib.util.spec_from_file_location("electro_optical_workflow_reference", work / "electro_optical_workflow_reference.py")
+electro_optical_workflow_reference = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(electro_optical_workflow_reference)
+for failures in (False, True):
+    report = electro_optical_workflow_reference.build_reference_report(include_failures=failures)
+    data = report.to_dict()
+    source = WorkflowEvidence.from_json(json.dumps(data['metadata']['source_workflow_evidence']))
+    assert source.scientific_status == 'FITTED' and source.qualification_eligible is True
+    assert source.to_dict()['fit_dataset']['origin'] == 'synthetic'
+    for section in data['analyses']:
+        analysis = section['data']
+        assert analysis['counts']['total'] == 4 and analysis['counts']['failed'] == (3 if failures else 0)
+        applied = AppliedWorkflowEvidence.from_json(json.dumps(
+            analysis['source']['study']['evaluation']['parameters']['applied_workflow_evidence']))
+        assert applied.evidence_hash == data['metadata']['applied_workflow_evidence_hash']
+        assert applied.to_dict()['workflow_evidence'] == source.to_dict()
+        context = applied.to_dict()['applied_context']
+        assert abs(context['photo_config']['photo_capture_efficiency'] - 2e-7) < 2e-10
+    assert RobustDTCOReport.from_json(report.to_json()).report_hash == report.report_hash
+print('Installed I4 electro-optical fitting/qualification/application/nominal/sample source links: PASS')
 print("Installed DTCO reference, failure handling, deterministic hashes and exports: PASS", origin)
 '''
 

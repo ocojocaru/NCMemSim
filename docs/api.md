@@ -739,3 +739,11 @@ sampled Phase H evaluation with explicit synthetic data. It uses the existing
 `RobustDTCOReport` and exports; a new linked workflow report remains I6 work.
 See [I3 electrical reference](scientific_workflows.md#i3-synthetic-electrical-workflow-reference)
 for units, synthetic qualification threshold, assumed variations and failure mode.
+
+
+The runnable `examples/phase_i4_electro_optical_workflow_reference.py` uses the
+existing photo-capture fitting API and I2 adapter with explicit
+`base_photo_config`. Fitted efficiency stays separate from protocol wavelength
+and power. Actual nominal/sample responses use the captured photo configuration.
+See [I4 electro-optical reference](scientific_workflows.md#i4-synthetic-electro-optical-workflow-reference)
+for synthetic qualification limits, exact manifest and failure policies.

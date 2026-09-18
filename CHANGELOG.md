@@ -4,6 +4,19 @@ All notable changes to NCMemSim are documented in this file.
 
 ## v0.14.0.dev0 — Scientific workflow integration (in development)
 
+
+### Phase I4 — synthetic electro-optical workflow reference
+
+- Connect existing photo-capture fitting, diagnostics and held-out synthetic
+  qualification to explicit fitted application and actual nominal/Robust DTCO.
+- Retain illumination and fitted photo configuration separately, source identity
+  links, common exact duration/power manifest and explicit failure accounting.
+- Add dedicated parameter recovery, execution, isolation, archive/export and
+  optical contract tests; extend the future installed probe/source inventory.
+- Update development documentation. No physics/default/API changes or claims
+  of experimental calibration/manufacturing yield; package/Actions gates remain
+  final-version preparation work.
+
 ### I0 — bootstrap and scope/contracts
 
 - Start from published v0.13.0 commit `c3b1c10824c8296e7900e0b9bd8cbb19d6d75f8f`.
