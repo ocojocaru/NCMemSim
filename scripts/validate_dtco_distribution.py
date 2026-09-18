@@ -29,6 +29,7 @@ SOURCE_REQUIRED = {
     'docs/api_results.md',
     'docs/api_analysis_results.md',
     'docs/api_archives.md',
+    'docs/scientific_defaults.md',
     'scripts/validate_api_contract.py',
     'docs/architecture.md',
     'docs/assets/banner.svg',

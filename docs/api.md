@@ -784,3 +784,5 @@ records residual/uncertainty units, undefined values, failure denominators and
 provenance semantics separately from numerical solver success.
 
 See [archive schema compatibility](api_archives.md) for retained published-tag fixtures and typed JSON reader contracts.
+
+See [scientific default/unit/provenance review](scientific_defaults.md) for compatibility baselines and model-status boundaries.
