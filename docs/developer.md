@@ -772,3 +772,5 @@ numerical traceability.
 Use the [API compatibility preparation policy](api_compatibility.md) when
 reviewing imports, signatures, result ownership and historical archive support.
 The approved surface and scientific default review remain acceptance gates.
+
+See [v1.0 readiness consolidation](release_readiness.md) for reviewed evidence, pending approvals and final-candidate gates.

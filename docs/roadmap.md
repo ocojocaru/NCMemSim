@@ -208,7 +208,7 @@ strict documentation auditing and clean wheel/sdist installations.
 
 ### v0.14.0: Scientific workflow integration
 
-**Status: I0–I6 implemented; package `0.14.0`, I7 final-version preparation.**
+**Status: v0.14.0 published; I0–I7 completed. Stability preparation remains on version `0.14.0`.**
 
 Local full regression, strict documentation and clean distributions are final
 gates. CI/Documentation run after push on the prepared dev branch; tag/publication
@@ -282,3 +282,11 @@ Future development should continue to follow four project rules:
 2. new model parameters must include units, provenance, calibration status, and applicability range;
 3. new physics must include focused unit tests and end-to-end validation;
 4. compact-model predictions must be clearly distinguished from experimentally calibrated results.
+
+## Stability preparation from published v0.14.0
+
+Local API/result/archive/default/distribution reviews are recorded in the
+[v1.0 readiness consolidation](release_readiness.md). Approval of the stable
+surface, scientific scope and archival plan remains separate from the final
+regression/documentation/clean-distribution/Actions gates. No v0.15.0 or v1.0
+version change is implied by these preparation audits.

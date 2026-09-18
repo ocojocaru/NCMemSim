@@ -4,6 +4,8 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased — stability preparation from v0.14.0
 
+- Consolidate v1.0 readiness evidence, pending scope/compatibility decisions and final-candidate gates in a read-only validated matrix.
+
 - Extend distribution gates to all package modules, scientific reference data and frozen archive readers; review runtime/configuration identity limits.
 
 - Review scientific defaults, physical units/signs and scoped parameter provenance; retain existing algorithms and values with compatibility tests.

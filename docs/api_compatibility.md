@@ -74,3 +74,5 @@ Use the [source API inventory](api_inventory.md) and [result contracts](api_resu
 `scripts/validate_api_contract.py` checks the recorded source inventory without
 importing optional fitting dependencies. Explicit baseline regeneration requires
 review of every change and does not by itself approve stability.
+
+See [v1.0 readiness consolidation](release_readiness.md) for reviewed evidence, pending approvals and final-candidate gates.
