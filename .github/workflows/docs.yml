@@ -2,6 +2,8 @@ name: Documentation
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["dev/v0.13.0-robust-dtco"]
 
 permissions:
   contents: read

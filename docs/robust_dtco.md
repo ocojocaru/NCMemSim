@@ -1,4 +1,4 @@
-# Robust DTCO — Phase H development
+# Robust DTCO — Phase H / v0.13.0
 
 ## Status and baseline
 
@@ -11,7 +11,7 @@ inputs serially through isolated candidates. H4 adds complete-case response
 statistics and explicit feasibility/failure accounting. H5 adds linked nominal
 comparisons and explicitly defined robust Pareto objectives. H6 adds linked
 report snapshots, portable exports and a complete electrical reference. Final
-release validation remains H7.
+release-candidate validation is completed by H7; the package version is now `0.13.0`.
 
 Phase H asks how response and feasibility change when supported parameters
 vary. It does not introduce new simulator physics or establish experimental
@@ -30,7 +30,7 @@ compatible with Phase G.
 | H4 | Implemented: response statistics and feasibility/failure accounting |
 | H5 | Implemented: linked nominal comparison and explicit robust Pareto objectives |
 | H6 | Implemented: linked report bundles and electrical Robust DTCO reference |
-| H7 | Implemented: local regression/distribution/documentation gates; remote candidate CI/Documentation pending |
+| H7 | Complete: local regression/distribution/documentation gates and manual candidate CI/Documentation passed |
 
 ## Variation semantics
 
@@ -582,7 +582,7 @@ remain physical program/read calls. The study is an assumed uncertainty example,
 not an experimentally calibrated manufacturing-yield estimate.
 
 Full scientific regression, supported-Python CI, strict documentation audit,
-source-content and installed-distribution validation remain the H7 release gate.
+source-content and installed-distribution validation form the H7 release gate.
 
 ## H7 — release-candidate validation
 
@@ -600,8 +600,13 @@ The built source archive is compared byte for byte with audited source modules,
 documentation, assets and reference/build entry points. `--reuse-dependencies`
 is an offline convenience and does not satisfy the clean-install release gate.
 
-Full pytest and manual CI across supported Python versions, followed by manual
-Documentation on the exact candidate commit, are required before release. Branch
-pushes do not trigger these workflows. H7 does not create a release tag or bump
-the development version; remote gates remain pending until the candidate is
-committed and pushed after local review.
+Full pytest, supported-Python CI and strict Documentation checks on the exact
+final commit are required before release. Ordinary development pushes remain
+without automatic checks. Final preparation enables CI and Documentation push
+checks on `dev/v0.13.0-robust-dtco`, including final corrections. Candidate
+`b5d8374e1a386e00a442b37839784134ae6e6209` passed all six CI jobs
+(Python 3.11–3.13 tests and clean distributions) and manual Documentation:
+[CI](https://github.com/ocojocaru/NCMemSim/actions/runs/35317323748),
+[Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/35317328574).
+Documentation deployment was correctly skipped on the dev branch. Final metadata
+preparation sets `0.13.0`; publication and the release tag follow separate review.

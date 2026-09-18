@@ -12,6 +12,23 @@ The v0.10.0 repository has strong verification and regression infrastructure.
 
 Experimental validation remains device- and dataset-dependent and must be demonstrated in the associated scientific study.
 
+## v0.13.0 Robust DTCO validation
+
+The candidate `b5d8374e1a386e00a442b37839784134ae6e6209` passed
+**1808 local tests**, including **717 Phase G/H DTCO cases**. Strict MkDocs
+and rendered-link auditing covered 27 pages and 4747 local references without
+errors; 111 Python snippets and 301 public imports were checked, with current
+G/H examples executed. Clean wheel/sdist installations exercise both nominal
+and Robust DTCO references, deliberate failures, repeatable hashes, restoration
+and exports. Source-release verification compares 67 audited source files.
+
+All six supported-Python candidate test/distribution jobs passed on Python
+3.11, 3.12 and 3.13 in [CI](https://github.com/ocojocaru/NCMemSim/actions/runs/35317323748).
+The [Documentation audit](https://github.com/ocojocaru/NCMemSim/actions/runs/35317328574)
+passed; deployment was skipped on the dev branch. These remote results belong
+to the stated candidate commit. Final version/citation/documentation preparation
+is checked locally again before publication; preparation itself creates no tag.
+
 ## v0.12.0 DTCO release validation
 
 The complete verification suite contains **1598 tests**, including **507**
@@ -192,10 +209,10 @@ Run all tests with:
 python -m pytest
 ```
 
-The current v0.12.0 local verification target is:
+The current v0.13.0 local verification target is:
 
 ```text
-1598 passed
+1808 passed
 ```
 
 ## Physics checks

@@ -60,8 +60,9 @@ python -c "import ncmemsim; print(ncmemsim.__version__)"
 python -m pytest -q
 ```
 
-The tagged v0.12.0 checkout reports `0.12.0`; the Phase H development
-branch reports `0.13.0.dev0`. Check the branch/tag used for installation.
+The prepared v0.13.0 checkout reports `0.13.0`; the published v0.12.0
+tag reports `0.12.0`. Check the branch/tag used for installation; release
+preparation does not itself publish the final tag.
 Running pytest requires a source checkout and the `[dev]` dependencies; tests
 and examples are not an installed-wheel interface.
 

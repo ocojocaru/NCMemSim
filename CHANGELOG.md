@@ -2,7 +2,20 @@
 
 All notable changes to NCMemSim are documented in this file.
 
-## v0.13.0.dev0 — Robust DTCO (in development)
+## v0.13.0 — Robust DTCO
+
+Release preparation sets package/citation metadata to `0.13.0` (2026-09-18).
+Phase H adds bounded independent variation contracts, exact reproducible sample
+manifests, isolated propagation, response statistics, explicit feasibility/failure
+accounting, linked nominal comparisons, robust Pareto objectives and report bundles.
+Existing physics and Phase G APIs remain compatible. Variation assumptions do
+not establish experimentally calibrated manufacturing yield.
+
+The candidate `b5d8374e1a386e00a442b37839784134ae6e6209` passed all six
+manual CI test/distribution jobs on Python 3.11–3.13 and manual Documentation.
+Local verification passed 1808 tests, strict rendered-documentation auditing and
+clean wheel/sdist workflows. Final publication follows review of this release
+metadata change; no release tag is created by preparation.
 
 ### H0 — bootstrap and contract freeze
 
@@ -22,7 +35,7 @@ All notable changes to NCMemSim are documented in this file.
 - Add immutable uniform and truncated-normal definitions with finite explicit bounds.
 - Enforce continuous DEVICE/OPERATING bindings, exact canonical units and physical ranges.
 - Require variation kind, source and applicability; add nominal endpoint validation and identity hashes.
-- Sampling and propagation remain planned for H2/H3; Phase G APIs remain unchanged.
+- Subsequent H2/H3 complete sampling and propagation; Phase G APIs remain unchanged.
 
 ### H2 — reproducible independent sampling
 
@@ -74,7 +87,7 @@ All notable changes to NCMemSim are documented in this file.
   source studies with reasons; reject incomparable definitions/evaluators/runtimes.
 - Add linked comparison, eligibility, statistical selection and real program/read
   tests, plus executable examples and updated development status.
-- Leave reproducible report bundles and final release gates for H6/H7.
+- H6/H7 complete reproducible report bundles and release-candidate validation.
 
 ### H6 — reproducible Robust DTCO reports and reference
 
@@ -87,7 +100,7 @@ All notable changes to NCMemSim are documented in this file.
 - Add a real electrical program/read reference with two nominal temperatures,
   independent assumed variation marginals and deliberate failure-accounting mode.
 - Add reporting/restoration/export tests and executable current documentation.
-- Leave full regression, CI/documentation and distribution gates for H7.
+- H7 completes regression, CI/documentation and distribution gates.
 
 ### H7 release-candidate validation
 - Audit rendered documentation links/anchors, examples and public imports before release.

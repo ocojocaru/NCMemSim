@@ -2,7 +2,7 @@
 
 ## Overview
 
-NCMemSim v0.10.0 implements a compact multiphysics model for distributed
+NCMemSim v0.13.0 implements a compact multiphysics model for distributed
 floating-gate nanocrystal memories.
 
 The current verified framework combines:
@@ -576,7 +576,7 @@ for every physical parameter or fabricated device.
 
 ## Current model limitations
 
-The compact physics retained in v0.12.0 does not include all mechanisms that
+The compact physics retained in v0.13.0 does not include all mechanisms that
 may influence a real nanocrystal memory.
 
 Important current limitations include:
@@ -601,7 +601,7 @@ Important current limitations include:
 - no automatic experimental calibration of defaults; Phase F supports
   dataset-specific fitting and qualification, whose status must be reported.
 
-These limitations define the interpretation range of v0.12.0 results and
+These limitations define the interpretation range of v0.13.0 results and
 should be reported when the simulator is used in scientific publications.
 
 ## Interpretation of results

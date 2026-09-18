@@ -578,11 +578,14 @@ NCMemSim v0.10.0 provides extensive support for the first three.
 Experimental validity remains dependent on the specific material, sample,
 device, and dataset.
 
-## v0.12.0 release verification baseline
+## v0.13.0 candidate verification baseline
 
-The v0.12.0 suite passes **1598 tests**, including **507 Phase G cases**, with
-full tests and clean installed wheel/source workflows on Python 3.11–3.13.
-The stable-version/main CI and tag release workflow passed at
+The v0.13.0 suite passes **1808 tests**, including **717 Phase G/H DTCO cases**, with
+full tests and clean installed wheel/source workflows on Python 3.11–3.13 at
+candidate `b5d8374e1a386e00a442b37839784134ae6e6209`. Final metadata
+preparation is rechecked locally before publication.
+
+For historical v0.12.0 provenance, the stable-version/main CI and tag release workflow passed at
 `cc8999b1373f7c3282c2352562635ed9a48ad50a`.
 
 DTCO reports record the exact experiment, evaluator identity/parameters,

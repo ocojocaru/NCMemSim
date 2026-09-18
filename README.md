@@ -8,9 +8,8 @@
 
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
-> **Latest release:** `0.12.0` — Design-Space Exploration and DTCO
-> **Development version:** `0.13.0.dev0` — Robust DTCO (H1–H6 Robust DTCO APIs and reports; H7 validation tools implemented; remote candidate gates pending)
-> **Scientific status:** Phase G adds verified deterministic DTCO workflows to the retained v0.11.0 simulation and calibration baseline. Device-specific experimental calibration remains study-dependent.
+> **Version:** `0.13.0` — Robust DTCO (H0–H7 complete)
+> **Scientific status:** Phases G/H add deterministic and bounded independent Robust DTCO workflows to the retained simulation/calibration baseline. Device-specific experimental calibration remains study-dependent.
 
 ## Why NCMemSim?
 
@@ -31,7 +30,7 @@ The framework is intended for:
 
 ## Implemented capabilities
 
-| Area | Available in v0.12.0 |
+| Area | Available in v0.13.0 |
 |---|---|
 | Device construction | V1 and V2 architectures, 1–3 floating gates |
 | Materials | Si, SiO2, HfO2, Ge, composition-dependent GeSn |
@@ -59,6 +58,7 @@ The framework is intended for:
 | Design-space sweeps | Deterministic Cartesian execution with candidate failure isolation |
 | DTCO analysis | Metrics, feasibility constraints, Pareto fronts and adjacent-grid sensitivity |
 | DTCO reports | Integrity-checked JSON manifests, CSV exports and Markdown summaries |
+| Robust DTCO | Bounded independent variations, exact sample manifests, isolated propagation, response statistics, nominal comparisons, explicit robust fronts and linked reports |
 
 Experimental-data handling, deterministic parameter fitting, local uncertainty/identifiability diagnostics, and calibration qualification are implemented in v0.11.0. Deterministic design-space exploration and DTCO are implemented in v0.12.0; advanced quantum corrections remain roadmap items. The compact optical model introduced in v0.10.0 is retained; absolute absorption amplitudes and device-specific photo-capture efficiencies remain provisional unless supported by appropriate independent experimental calibration.
 
@@ -89,10 +89,10 @@ Verify the installation with:
 python -c "import ncmemsim; print(ncmemsim.__version__)"
 ```
 
-For the v0.13.0 development checkout, the expected version is:
+For the prepared v0.13.0 checkout, the expected version is:
 
 ```text
-0.13.0.dev0
+0.13.0
 ```
 
 Published tags and assets are listed on the [GitHub releases page](https://github.com/ocojocaru/NCMemSim/releases).
@@ -269,13 +269,13 @@ Phase E adds validation for:
 - **E5** — simulator, voltage-sweep, and C–V optical integration;
 - **E6** — SWIR spectral behaviour and programming benchmarks.
 
-The v0.12.0 verification suite contains:
+The v0.13.0 verification suite contains:
 
 ```text
-1598 tests
+1808 tests
 ```
 
-The Phase G baseline passed locally on Python 3.13 and in CI on Python 3.11, 3.12, and 3.13, including clean installed wheel and source-distribution workflows.
+The Phase H candidate passed locally on Python 3.13 and in CI on Python 3.11, 3.12, and 3.13, including clean installed wheel and source-distribution workflows. Strict documentation auditing validates rendered links, public imports and G/H examples.
 
 Run the complete test suite with:
 
@@ -345,7 +345,7 @@ Main sections:
 | v0.10.0 | Optical programming engine and SWIR validation | **Complete** |
 | v0.11.0 | Experimental fitting and uncertainty-aware calibration | **Complete** |
 | v0.12.0 | Design-space exploration / DTCO | Released |
-| v0.13.0 | Robust DTCO: variations and uncertainty propagation | H0–H6 implemented; H7 validation tools implemented; remote candidate gates pending |
+| v0.13.0 | Robust DTCO: variations and uncertainty propagation | H0–H7 complete |
 | v1.0.0 | First stable scientific release | Planned |
 
 Potential post-v0.10 optical extensions include experimental calibration, broadband or measured spectra, strain-dependent optical properties, nanocrystal quantum confinement, field-dependent absorption, state filling, and sequential optical propagation through multi-FG structures.

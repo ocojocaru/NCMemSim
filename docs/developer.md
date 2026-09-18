@@ -1,6 +1,6 @@
 # Developer guide
 
-This guide describes the development conventions for NCMemSim v0.10.0 and the
+This guide describes the development conventions for NCMemSim v0.13.0 and the
 requirements for extending the simulator without losing physical traceability,
 numerical reproducibility, or regression stability.
 
@@ -481,7 +481,7 @@ The repository CI matrix verifies Python:
 3.13
 ```
 
-The current v0.12.0 suite contains 1598 tests, including 507 Phase G cases.
+The current v0.13.0 suite contains 1808 tests, including 717 Phase G/H DTCO cases.
 
 A feature is not considered integrated merely because its new tests pass.
 
@@ -725,11 +725,14 @@ as substitutes for changes to the Markdown sources.
 
 Update documentation and changelog with each development step and run the
 relevant tests locally. Intermediate pushes and pull requests do not launch
-CI or Documentation Actions. CI is started manually for release-candidate
-validation and also runs on `v*` release tags. Documentation is started manually
-at release candidate; only manual builds on `main` deploy Pages. Development
-builds do not replace the published site. Full regression, package builds and
-clean installed-distribution checks belong to the release validation gate.
+CI or Documentation Actions. At final-version preparation, enable automatic
+push checks for the exact active `dev/*` branch, including final corrections;
+other development branches remain without automatic checks. CI also runs on
+`v*` release tags and both workflows remain manually runnable. For v0.13.0,
+automatic final checks target `dev/v0.13.0-robust-dtco`. Only builds on `main`
+deploy Pages; development builds do not replace the published site. Full
+regression, strict documentation, package builds and clean installed-distribution
+checks belong to this final-version gate.
 
 Before tagging a release, audit current status/version claims, syntax/imports,
 complete examples, local links/anchors and scientific limits. Inspect the actual

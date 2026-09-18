@@ -1,6 +1,6 @@
 # Public API overview
 
-The stable import surface for NCMemSim v0.11.0 is defined primarily in
+The public import surface for NCMemSim v0.13.0 is defined primarily in
 `ncmemsim/__init__.py`, with optical material models exposed from
 `ncmemsim.materials.optics`.
 
@@ -662,7 +662,7 @@ unsupported MODEL bindings cannot execute. Pareto sorting uses explicit
 min/max directions, and sensitivity uses adjacent-grid secants with coverage.
 Report restoration checks canonical payload integrity, not authentication.
 
-## Robust DTCO definitions, sampling, propagation and objectives (v0.13.0 development)
+## Robust DTCO definitions, sampling, propagation and objectives (v0.13.0)
 
 Import from `ncmemsim.dtco`:
 

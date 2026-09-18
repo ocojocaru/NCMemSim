@@ -468,21 +468,22 @@ using NCMemSim v0.12.0 for claims such as:
 
 ## Current validation baseline
 
-The v0.12.0 release preserves the v0.10.0 electrical/optical and v0.11.0
-fitting/calibration baselines, and adds the verified Phase G DTCO layer.
+Version v0.13.0 preserves the electrical/optical and fitting/calibration
+baselines and the Phase G DTCO layer, adding bounded independent Robust DTCO.
 
 Its validation suite contains:
 
 ```text
-1598 passed
+1808 passed
 ```
 
-and covers the retained Phases A–F and 507 dedicated Phase G cases.
+and covers the retained Phases A–F and 717 dedicated Phase G/H DTCO cases.
 
 The release is verified on the supported Python 3.11, 3.12, and 3.13 CI matrix.
 
-The v0.12.0 tag workflow, clean installed wheel/source workflows and
-documentation deployment have also passed. This is software verification,
+The Phase H candidate passed clean installed wheel/source workflows and
+manual documentation auditing. Final publication follows metadata preparation.
+This is software verification,
 not independent physical validation of every material or device.
 
 Future changes to physical assumptions or numerical behaviour should preserve
@@ -499,7 +500,8 @@ The next development stages are expected to focus on:
 - nanocrystal quantum-confinement corrections;
 - field-dependent optical response;
 - sequential optical propagation through multi-FG stacks;
-- uncertainty propagation through DTCO studies;
+- correlated and experimentally qualified uncertainty models beyond the
+  implemented independent bounded DTCO marginals;
 - adaptive optimization beyond deterministic Cartesian grids.
 
 These capabilities are roadmap items and should not be described as available

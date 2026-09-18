@@ -6,7 +6,7 @@
 floating-gate nanocrystal memories based on Ge, GeSn, and high-k dielectric
 stacks.
 
-NCMemSim v0.12.0 preserves the electrical, retention, optical, electro-optical,
+NCMemSim v0.13.0 preserves the electrical, retention, optical, electro-optical,
 fitting and calibration baseline while adding deterministic design-space
 exploration and DTCO. Typed experiment definitions, Cartesian sweeps, explicit
 metrics and constraints, Pareto fronts, grid sensitivity and reproducible
@@ -18,13 +18,14 @@ electrostatics, compact WKB transport, charge redistribution, retention
 simulation, deterministic regression references, reproducibility metadata,
 and compact Ge/GeSn optical programming models.
 
-The v0.13.0 development line (`0.13.0.dev0`) starts Phase H.
+Version `0.13.0` completes Phase H.
 [Robust DTCO](robust_dtco.md) provides H1 bounded definitions and H2
 reproducible independent sampling with exact manifests. H3 propagates the
 stored samples through isolated candidates, and H4 adds descriptive statistics
 and separate feasibility/failure accounting. H5 adds linked nominal comparisons
 and explicit robust Pareto objectives. H6 adds linked reports and an electrical
-reference; H7 supplies release validation tools; remote candidate gates remain pending.
+reference. H7 candidate regression, supported-Python CI, documentation audit
+and clean installed distributions have passed; final publication follows release preparation.
 
 ## Start here
 
@@ -120,9 +121,10 @@ Phase G adds canonical binding/unit contracts, deterministic Cartesian sweeps,
 metrics and feasibility constraints, Pareto fronts, adjacent-grid sensitivity,
 and reproducible report exports.
 
-The v0.12.0 suite contains **1598 tests**, including **507 Phase G cases**.
+The v0.13.0 suite contains **1808 tests**, including **717 Phase G/H DTCO cases**.
 Full tests and clean installed distribution workflows passed on Python 3.11,
-3.12 and 3.13; strict documentation and the tag release workflow also passed.
+3.12 and 3.13 on the Phase H candidate; strict documentation also passed.
+Final v0.13.0 publication and its tag workflow follow release preparation.
 
 Regression against the retained V5.3 electrical reference remains part of the
 validation suite. The legacy timestep inconsistency identified during v0.9.1
