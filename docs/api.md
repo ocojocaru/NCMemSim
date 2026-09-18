@@ -732,3 +732,10 @@ or H3 callback arguments and reports `delta_vfb_V` (V) and `mean_occupation` (1)
 Use the same `evaluation_id`/`evaluation_parameters` in nominal and sampled studies.
 See [I2 application and evaluator adapter](scientific_workflows.md#i2-application-and-evaluator-adapter)
 for the supported core implementation, model-side/photo requirements and limits.
+
+The runnable `examples/phase_i3_electrical_workflow_reference.py` connects existing
+program-time fitting/qualification, I1/I2 source/application evidence and nominal/
+sampled Phase H evaluation with explicit synthetic data. It uses the existing
+`RobustDTCOReport` and exports; a new linked workflow report remains I6 work.
+See [I3 electrical reference](scientific_workflows.md#i3-synthetic-electrical-workflow-reference)
+for units, synthetic qualification threshold, assumed variations and failure mode.

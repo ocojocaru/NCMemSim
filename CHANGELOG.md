@@ -46,6 +46,22 @@ All notable changes to NCMemSim are documented in this file.
 - Add genuine fit/application, target compatibility, isolation, context identity,
   restoration and Phase H nominal/sample/failure tests; update docs/source inventory.
 
+### I3 — synthetic electrical fitting/qualification to nominal/Robust DTCO
+
+- Add a runnable electrical reference linking real program-time fitting,
+  held-out synthetic qualification, I1/I2 source/context evidence and fresh
+  nominal/sample simulator calls, without changing physics or existing APIs.
+- Reuse one explicit fitted context across two DEVICE temperature variants and
+  one exact manifest; retain full nominal definitions and evaluator/source links.
+- Declare synthetic data/noise/weights, RMSE threshold in V, assumed independent
+  variations, metric units, occupation-only constraints and robust objectives/policy.
+- Preserve FITTED status and separate synthetic eligibility; add declared software
+  failures with all-attempted/assessed denominators using existing Phase H reports.
+- Test actual fitted predictions, source identities, sampling reuse, direct
+  captured-context recomputation, failure accounting, restoration and non-overwrite exports.
+- Register the reference in source inventory and future installed probes using
+  the existing optional fit extra; defer actual clean builds/installs to I7.
+
 ## v0.13.0 — Robust DTCO
 
 Release preparation sets package/citation metadata to `0.13.0` (2026-09-18).

@@ -31,8 +31,9 @@ The v0.14.0 development line (`0.14.0.dev0`) starts Phase I:
 [Scientific workflow integration](scientific_workflows.md). I0 freezes scope
 and contracts for linking fitting/qualification to nominal and Robust DTCO;
 I1 supplies immutable source evidence; I2 adds explicit fitted-parameter application
-and full evaluator contexts with fresh execution state. Complete references and
-reports remain planned for I3–I6; simulator physics is unchanged.
+and full evaluator contexts with fresh execution state. I3 supplies the synthetic
+electrical reference; the optical reference and linked reports remain I4–I6 work.
+Simulator physics is unchanged.
 
 ## Start here
 

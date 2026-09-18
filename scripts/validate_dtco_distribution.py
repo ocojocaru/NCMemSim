@@ -50,6 +50,7 @@ SOURCE_REQUIRED = {
     'docs/workflows.md',
     'examples/phase_g6_dtco_reference.py',
     'examples/phase_h6_robust_dtco_reference.py',
+    'examples/phase_i3_electrical_workflow_reference.py',
     'scripts/validate_documentation.py',
     'mkdocs.yml',
     'scripts/validate_dtco_distribution.py',
@@ -138,10 +139,12 @@ def main() -> None:
             if not args.reuse_dependencies and artifact.suffix != ".whl":
                 run(str(python), "-m", "pip", "install", "setuptools>=68", "wheel", cwd=work)
                 options = ["--no-build-isolation"]
-            run(str(python), "-m", "pip", "install", *options, str(artifact), cwd=work)
+            # The integration reference uses the declared optional fit extra.
+            run(str(python), "-m", "pip", "install", *options, str(artifact) + "[fit]", cwd=work)
             # Copy only the public reference example, never the source package.
             shutil.copyfile(root / "examples/phase_g6_dtco_reference.py", work / "reference.py")
             shutil.copyfile(root / "examples/phase_h6_robust_dtco_reference.py", work / "robust_reference.py")
+            shutil.copyfile(root / "examples/phase_i3_electrical_workflow_reference.py", work / "electrical_workflow_reference.py")
             probe = work / "probe.py"
             probe.write_text(PROBE, encoding="utf-8")
             run(str(python), "-I", str(probe), str(root), str(environment), str(work), cwd=work)
@@ -150,6 +153,7 @@ def main() -> None:
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
 
 PROBE = r'''import csv
+import json
 import importlib.util
 from pathlib import Path
 import sys
@@ -217,6 +221,24 @@ for failures in (False, True):
     with (destination / "samples.csv").open(newline="", encoding="utf-8") as stream:
         assert len(list(csv.DictReader(stream))) == 8
 print("Installed Robust DTCO: reproducibility, three failure stages, restoration and six exports PASS")
+spec = importlib.util.spec_from_file_location("electrical_workflow_reference", work / "electrical_workflow_reference.py")
+electrical_workflow_reference = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(electrical_workflow_reference)
+for failures in (False, True):
+    report = electrical_workflow_reference.build_reference_report(include_failures=failures)
+    data = report.to_dict()
+    source = WorkflowEvidence.from_json(json.dumps(data['metadata']['source_workflow_evidence']))
+    assert source.scientific_status == 'FITTED' and source.qualification_eligible is True
+    assert source.to_dict()['fit_dataset']['origin'] == 'synthetic'
+    for section in data['analyses']:
+        analysis = section['data']
+        assert analysis['counts']['total'] == 4 and analysis['counts']['failed'] == (3 if failures else 0)
+        applied = AppliedWorkflowEvidence.from_json(json.dumps(
+            analysis['source']['study']['evaluation']['parameters']['applied_workflow_evidence']))
+        assert applied.evidence_hash == data['metadata']['applied_workflow_evidence_hash']
+        assert applied.to_dict()['workflow_evidence'] == source.to_dict()
+    assert RobustDTCOReport.from_json(report.to_json()).report_hash == report.report_hash
+print('Installed I3 electrical fitting/qualification/application/nominal/sample source links: PASS')
 print("Installed DTCO reference, failure handling, deterministic hashes and exports: PASS", origin)
 '''
 

@@ -8,7 +8,8 @@ I0 starts `0.14.0.dev0` from published v0.13.0 commit
 Existing fitting/calibration, nominal DTCO and Robust DTCO APIs remain available.
 I0 supplies scope/contracts and development setup. I1 adds immutable evidence
 and identity contracts in `ncmemsim.workflows`; I2 adds fitted application and full
-evaluator contexts. Complete references and linked integration reports remain planned.
+evaluator contexts. I3 supplies the complete synthetic electrical reference;
+the optical reference and linked integration reports remain planned.
 
 ## Delivery sequence
 
@@ -17,8 +18,8 @@ evaluator contexts. Complete references and linked integration reports remain pl
 | I0 | Bootstrap, scope and acceptance contracts | Implemented |
 | I1 | Immutable workflow evidence and identity contracts | Implemented |
 | I2 | Explicit fitted-parameter application and evaluator context adapter | Implemented |
-| I3 | Electrical fitting/qualification → nominal/Robust DTCO reference | Next |
-| I4 | Electro-optical fitting/qualification → nominal/Robust DTCO reference | Planned |
+| I3 | Electrical fitting/qualification → nominal/Robust DTCO reference | Implemented |
+| I4 | Electro-optical fitting/qualification → nominal/Robust DTCO reference | Next |
 | I5 | End-to-end provenance, failure and compatibility verification | Planned |
 | I6 | Linked workflow evidence report and reproducible exports | Planned |
 | I7 | Final version/documentation audit, full CI and clean distributions | Planned |
@@ -256,7 +257,8 @@ and staged Phase H failures remain visible.
 
 This standalone synthetic C-V example demonstrates application and isolated
 evaluation, without claiming parameter recovery, qualification or experimental
-calibration. Complete electrical and optical references remain I3/I4 work:
+calibration. The complete electrical reference is supplied by I3 below; the
+optical reference remains I4 work:
 
 ```python
 from dataclasses import replace
@@ -316,3 +318,72 @@ and photo efficiency, every retained non-photo application target, nominal/sampl
 consistency, isolation, model-setting identity changes and staged failures.
 Insensitive zero-dwell target fits check application compatibility, not
 identifiability or physical parameter recovery.
+
+## I3 — synthetic electrical workflow reference
+
+`examples/phase_i3_electrical_workflow_reference.py` connects the retained
+program-time fit, uncertainty diagnostics, qualification, I1/I2 evidence and
+actual nominal/sample simulator calls. It is a runnable reference example,
+not a new library API or report schema. It requires the optional `fit` extra
+(`pip install -e ".[fit]"` for a development checkout).
+
+The source fixture uses a single reference FG with seven grid points, programming
+voltage 3 V, read voltage 0 V and internal dt `1e-5` s. Four training durations
+(`1e-4`, `3e-4`, `6e-4`, `1e-3` s) and four distinct held-out durations
+(`1.5e-4`, `4e-4`, `7e-4`, `9e-4` s) are generated with `nu0_Hz=2e12` Hz.
+The fit starts at `5e11` Hz within `[1e11, 5e12]` Hz. Declared deterministic noise
+has scale `1e-11` V; weighting has a synthetic scale of `1e-10` V, not a measured
+uncertainty estimate. The held-out RMSE threshold is `1e-8` V, an explicit
+software fixture threshold with the retained qualification identifiability/
+covariance/distinct-dataset checks. Distinct durations/hashes do not make the
+shared synthetic generator an independent experiment. Origin stays synthetic,
+scientific status stays FITTED and eligible qualification is retained separately.
+
+One explicit I2 fitted application supplies the common kinetics/physics/config/
+protocol. Two DEVICE temperature design variants (300 K and 325 K) use that
+same evaluator declaration; their complete nominal device definitions are retained
+by Phase H. This avoids conflating differences in nominal design with differences
+in the response model. Qualification uses the 300 K synthetic fixture; the 325 K
+variant is exploratory and has no separate qualification. Every nominal/sample
+call constructs fresh simulator state.
+The fitted kinetics actually drive predictions; tests compare against both direct
+captured-context execution and the unfitted baseline.
+
+Both designs reuse one exact four-sample manifest (seed 2026), with independent
+assumed uniform programming durations `[1e-4, 3e-4]` s and gate work functions
+`[4.7, 4.9]` eV. These exploratory parameter-estimation intervals are declared
+separately from fit covariance, not inferred fabrication statistics. Metrics retain
+signed delta_vfb (V), its explicitly defined absolute magnitude (V), duration (s)
+and occupation (1). Constraints check only occupation in `[0, 1]`; they are not
+a device performance qualification. Explicit robust objectives maximize the 5%
+sample quantile of shift magnitude and minimize mean duration, with the existing
+linear quantile convention. Four samples demonstrate software behavior, not a
+tail-probability estimate or calibrated manufacturing yield.
+
+```bat
+python examples\phase_i3_electrical_workflow_reference.py
+python examples\phase_i3_electrical_workflow_reference.py --include-failures
+python examples\phase_i3_electrical_workflow_reference.py --output-dir results\i3-electrical
+```
+
+Normal mode has four assessed samples and no failures per design; robust policy
+requires no failures, at least four assessed samples and observed feasible fraction
+1. Failure mode declares deliberate index 1 evaluation failure, index 2 missing
+metrics (extraction failure), and index 3 non-JSON NumPy output (serialization
+failure). Per design it retains one assessed and three failed attempts, observed
+feasible fraction `1/4` versus conditional assessed fraction `1/1`. Its explicit
+robust policy allows assessed cases with failures, minimum assessed count 1 and
+minimum observed feasible fraction 0. These are demonstration errors, not physical
+infeasibility; the nominal call is unaffected. The injection flag/semantics are
+included in both nominal and sampled evaluator settings.
+
+The existing Phase H `RobustDTCOReport` holds complete source workflow evidence
+in metadata and full I2 application evidence in each evaluator declaration,
+plus exact manifests, responses, failures, statistics, nominal comparisons and
+robust policy/fronts. Source/application hashes and cross-source links are checked
+in integration tests and future installed probes. It uses the existing six-file
+JSON/CSV/Markdown export with non-overwrite behavior; it writes nothing by default.
+The new dedicated linked workflow report/restore/export contract remains I6;
+the existing Phase H serializer does not add new I3-specific metadata semantics.
+The reference is registered in source-archive inventory and clean installed probes,
+with the optional fit extra; actual package/installed checks remain I7 gates.
