@@ -24,7 +24,7 @@ reproducible independent sampling with exact manifests. H3 propagates the
 stored samples through isolated candidates, and H4 adds descriptive statistics
 and separate feasibility/failure accounting. H5 adds linked nominal comparisons
 and explicit robust Pareto objectives. H6 adds linked reports and an electrical
-reference; final release validation remains H7.
+reference; H7 supplies release validation tools; remote candidate gates remain pending.
 
 ## Start here
 

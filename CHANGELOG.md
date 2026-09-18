@@ -89,6 +89,12 @@ All notable changes to NCMemSim are documented in this file.
 - Add reporting/restoration/export tests and executable current documentation.
 - Leave full regression, CI/documentation and distribution gates for H7.
 
+### H7 release-candidate validation
+- Audit rendered documentation links/anchors, examples and public imports before release.
+- Validate every Robust DTCO module and both reference workflows in clean wheel/sdist installations.
+- Compare built source-release documentation, assets and required modules with audited checkout bytes.
+- Keep CI and Documentation manual during development; remote candidate gates precede publication.
+
 ## v0.12.0 — Design-Space Exploration and DTCO
 
 Phase G adds deterministic Cartesian design-space exploration, canonical

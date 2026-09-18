@@ -12,7 +12,7 @@ import venv
 import zipfile
 
 REQUIRED = {f"ncmemsim/dtco/{name}.py" for name in
-            ("__init__", "spec", "binding", "operating", "sweep", "metrics", "pareto", "sensitivity", "reporting", "variation")}
+            ("__init__", "spec", "binding", "operating", "sweep", "metrics", "pareto", "sensitivity", "reporting", "variation", "sampling", "propagation", "sample_analysis", "robust", "robust_reporting")}
 
 # Source releases must carry the audited documentation and its build entry points.
 SOURCE_REQUIRED = {
@@ -46,6 +46,8 @@ SOURCE_REQUIRED = {
     'docs/validation.md',
     'docs/workflows.md',
     'examples/phase_g6_dtco_reference.py',
+    'examples/phase_h6_robust_dtco_reference.py',
+    'scripts/validate_documentation.py',
     'mkdocs.yml',
     'scripts/validate_dtco_distribution.py',
 }
@@ -61,6 +63,28 @@ def check_archive(path: Path) -> None:
     missing = required - names
     if missing:
         raise ValueError(f"{path.name}: missing required release files: {sorted(missing)}")
+
+def check_source_content(path: Path, root: Path) -> int:
+    """Compare audited source bytes, including every documentation asset."""
+    expected = REQUIRED | SOURCE_REQUIRED | {"README.md", "MANIFEST.in"}
+    for directory in ("docs", "assets"):
+        expected.update(p.relative_to(root).as_posix() for p in (root / directory).rglob("*")
+                        if p.is_file() and "__pycache__" not in p.parts)
+    with tarfile.open(path, "r:gz") as archive:
+        members = {}
+        for member in archive.getmembers():
+            name = member.name.partition("/")[2]
+            if name in members:
+                raise ValueError(f"duplicate source archive member: {name}")
+            members[name] = member
+        for name in sorted(expected):
+            member = members.get(name)
+            if member is None or not member.isfile():
+                raise ValueError(f"missing source content: {name}")
+            with archive.extractfile(member) as stream:
+                if stream.read() != (root / name).read_bytes():
+                    raise ValueError(f"source content differs: {name}")
+    return len(expected)
 
 def run(*args: str, cwd: Path) -> None:
     subprocess.run(args, cwd=cwd, check=True)
@@ -101,6 +125,7 @@ def main() -> None:
         wheels, sources = list(dist.glob("*.whl")), list(dist.glob("*.tar.gz"))
         if len(wheels) != 1 or len(sources) != 1:
             raise ValueError("Expected exactly one wheel and one source distribution")
+        source_count = check_source_content(sources[0], root)
         results = []
         for number, artifact in enumerate(wheels + sources):
             check_archive(artifact)
@@ -113,11 +138,12 @@ def main() -> None:
             run(str(python), "-m", "pip", "install", *options, str(artifact), cwd=work)
             # Copy only the public reference example, never the source package.
             shutil.copyfile(root / "examples/phase_g6_dtco_reference.py", work / "reference.py")
+            shutil.copyfile(root / "examples/phase_h6_robust_dtco_reference.py", work / "robust_reference.py")
             probe = work / "probe.py"
             probe.write_text(PROBE, encoding="utf-8")
             run(str(python), "-I", str(probe), str(root), str(environment), str(work), cwd=work)
             results.append({"artifact": artifact.name, "installed_workflow": "PASS"})
-        print(json.dumps({"distributions": results,
+        print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
 
 PROBE = r'''import csv
@@ -156,6 +182,31 @@ for invalid in (False, True):
     assert DTCOReport.from_json((destination / "manifest.json").read_text(encoding="utf-8")).report_hash == first.report_hash
     with (destination / "points.csv").open(newline="", encoding="utf-8") as stream:
         assert len(list(csv.DictReader(stream))) == len(points)
+from ncmemsim.dtco import RobustDTCOReport, write_robust_dtco_report
+import importlib
+for name in ("sampling", "propagation", "sample_analysis", "robust", "robust_reporting"):
+    module = importlib.import_module("ncmemsim.dtco." + name)
+    assert Path(module.__file__).resolve().is_relative_to(environment.resolve())
+spec = importlib.util.spec_from_file_location("robust_reference", work / "robust_reference.py")
+robust_reference = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(robust_reference)
+for failures in (False, True):
+    report = robust_reference.build_reference_report(include_failures=failures)
+    assert report.report_hash == robust_reference.build_reference_report(include_failures=failures).report_hash
+    assert RobustDTCOReport.from_json(report.to_json()).report_hash == report.report_hash
+    analyses = report.to_dict()["analyses"]
+    assert len(analyses) == 2
+    for analysis in analyses:
+        points = analysis["data"]["points"]
+        assert len(points) == 4
+        assert sum(p["status"] == "failed" for p in points) == (3 if failures else 0)
+    destination = environment / ("robust-failures" if failures else "robust-reference")
+    write_robust_dtco_report(report, destination)
+    assert {p.name for p in destination.iterdir()} == {"manifest.json", "samples.csv", "statistics.csv", "nominal.csv", "robust.csv", "report.md"}
+    assert RobustDTCOReport.from_json((destination / "manifest.json").read_text(encoding="utf-8")).report_hash == report.report_hash
+    with (destination / "samples.csv").open(newline="", encoding="utf-8") as stream:
+        assert len(list(csv.DictReader(stream))) == 8
+print("Installed Robust DTCO: reproducibility, three failure stages, restoration and six exports PASS")
 print("Installed DTCO reference, failure handling, deterministic hashes and exports: PASS", origin)
 '''
 

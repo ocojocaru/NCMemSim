@@ -30,7 +30,7 @@ compatible with Phase G.
 | H4 | Implemented: response statistics and feasibility/failure accounting |
 | H5 | Implemented: linked nominal comparison and explicit robust Pareto objectives |
 | H6 | Implemented: linked report bundles and electrical Robust DTCO reference |
-| H7 | Regression/CI/distribution validation and documentation audit before tag |
+| H7 | Implemented: local regression/distribution/documentation gates; remote candidate CI/Documentation pending |
 
 ## Variation semantics
 
@@ -583,3 +583,25 @@ not an experimentally calibrated manufacturing-yield estimate.
 
 Full scientific regression, supported-Python CI, strict documentation audit,
 source-content and installed-distribution validation remain the H7 release gate.
+
+## H7 — release-candidate validation
+
+Run `python scripts/validate_documentation.py` from the checkout to build
+strictly in a temporary directory, check rendered local links/anchors and README
+references, validate Python snippets/public imports and execute G/H examples.
+The historical software design specification remains an explicitly historical
+document, excluded from executable snippet validation.
+
+Run `python scripts/validate_dtco_distribution.py` for clean wheel/sdist
+installations outside the checkout. Both installed electrical references exercise
+normal and deliberate failure cases, repeatable hashes, snapshot restoration and
+CSV exports. Every Robust DTCO module must resolve inside the fresh environment.
+The built source archive is compared byte for byte with audited source modules,
+documentation, assets and reference/build entry points. `--reuse-dependencies`
+is an offline convenience and does not satisfy the clean-install release gate.
+
+Full pytest and manual CI across supported Python versions, followed by manual
+Documentation on the exact candidate commit, are required before release. Branch
+pushes do not trigger these workflows. H7 does not create a release tag or bump
+the development version; remote gates remain pending until the candidate is
+committed and pushed after local review.

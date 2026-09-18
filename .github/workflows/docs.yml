@@ -21,7 +21,9 @@ jobs:
           cache: pip
       - name: Install documentation dependencies
         run: python -m pip install ".[docs]"
-      - name: Build documentation strictly
+      - name: Audit documentation, examples and rendered links
+        run: python scripts/validate_documentation.py
+      - name: Build Pages artifact strictly
         run: python -m mkdocs build --strict
       - name: Upload Pages artifact
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'

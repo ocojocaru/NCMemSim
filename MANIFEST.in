@@ -5,3 +5,4 @@ graft assets
 recursive-include examples *.py
 include scripts/validate_dtco_distribution.py
 global-exclude __pycache__ *.py[cod]
+include scripts/validate_documentation.py

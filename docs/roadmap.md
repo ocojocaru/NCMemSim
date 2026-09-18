@@ -192,7 +192,7 @@ The DTCO layer should expose trade-offs rather than return a single opaque optim
 
 ### v0.13.0: Robust DTCO
 
-**Status: H0–H6 implemented (`0.13.0.dev0`); H7 release validation planned.**
+**Status: H0–H6 implemented (`0.13.0.dev0`); H7 validation tools implemented; remote candidate gates pending.**
 
 Phase H adds independent bounded parameter variations and uncertainty
 propagation on the preserved deterministic Phase G workflow. See
@@ -203,7 +203,7 @@ H3 adds serial propagation with isolated candidates and staged failure records.
 H4 adds assessed response statistics with explicit denominators and separate
 feasible/infeasible/failure counts. H5 adds linked nominal comparisons and explicit
 robust objectives/fronts. H6 adds linked report bundles and an electrical reference
-with deliberate failure accounting. Final release validation remains H7.
+with deliberate failure accounting. H7 supplies release validation tools; remote candidate gates remain pending.
 
 ### v1.0.0: First stable scientific release
 
