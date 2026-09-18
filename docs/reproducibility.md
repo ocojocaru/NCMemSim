@@ -730,3 +730,5 @@ WorkflowReport archives. Full regression contains 2000 tests. Final local
 strict documentation and clean installed electrical/optical references precede
 remote CI/Documentation on the prepared dev commit. Keep historical v0.13.0
 results above separate from the current commit's release evidence.
+
+See [distribution and runtime contract review](distribution_contracts.md) for source-content, isolated-installation and legacy manifest identity boundaries.

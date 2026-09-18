@@ -16,9 +16,15 @@ REQUIRED = {f"ncmemsim/dtco/{name}.py" for name in
 
 REQUIRED |= {"ncmemsim/workflows/__init__.py", "ncmemsim/workflows/evidence.py", "ncmemsim/workflows/application.py", "ncmemsim/workflows/reporting.py"}
 
+# Every package source module is required, not only the DTCO/workflow subset.
+REQUIRED |= {p.relative_to(Path(__file__).resolve().parents[1]).as_posix()
+             for p in (Path(__file__).resolve().parents[1] / "ncmemsim").rglob("*.py")}
+
 # Source releases must carry the audited documentation and its build entry points.
 SOURCE_REQUIRED = {
     'CITATION.cff',
+    'LICENSE',
+    'pyproject.toml',
     'assets/banner.svg',
     'docs/NCMemSim_v6_Software_Design_Specification_Rev1.md',
     'docs/Validation_Report.md',
@@ -30,6 +36,7 @@ SOURCE_REQUIRED = {
     'docs/api_analysis_results.md',
     'docs/api_archives.md',
     'docs/scientific_defaults.md',
+    'docs/distribution_contracts.md',
     'scripts/validate_api_contract.py',
     'docs/architecture.md',
     'docs/assets/banner.svg',
@@ -83,9 +90,10 @@ def check_archive(path: Path) -> None:
 def check_source_content(path: Path, root: Path) -> int:
     """Compare audited source bytes, including every documentation asset."""
     expected = REQUIRED | SOURCE_REQUIRED | {"README.md", "MANIFEST.in"}
-    for directory in ("docs", "assets"):
+    for directory in ("docs", "assets", "data/reference", "examples", "tests/fixtures/archives"):
         expected.update(p.relative_to(root).as_posix() for p in (root / directory).rglob("*")
-                        if p.is_file() and "__pycache__" not in p.parts)
+                        if p.is_file() and "__pycache__" not in p.parts
+                        and p.suffix not in {".pyc", ".pyo"})
     with tarfile.open(path, "r:gz") as archive:
         members = {}
         for member in archive.getmembers():
@@ -160,6 +168,8 @@ def main() -> None:
             shutil.copyfile(root / "examples/phase_i4_electro_optical_workflow_reference.py", work / "electro_optical_workflow_reference.py")
             for filename in ('phase_i3_electrical_workflow_reference.py', 'phase_i4_electro_optical_workflow_reference.py', 'phase_i6_linked_workflow_report.py'):
                 shutil.copyfile(root / 'examples' / filename, work / filename)
+            shutil.copytree(root / "tests/fixtures/archives/v0_14_0",
+                            work / "archive_fixtures", dirs_exist_ok=True)
             probe = work / "probe.py"
             probe.write_text(PROBE, encoding="utf-8")
             run(str(python), "-I", str(probe), str(root), str(environment), str(work), cwd=work)
@@ -287,6 +297,20 @@ for optical in (False, True):
         assert len(write_workflow_report(report, destination)) == 6
         assert WorkflowReport.from_json((destination / 'manifest.json').read_text(encoding='utf-8')).report_hash == report.report_hash
 print('Installed I6 linked electrical/optical normal/error sources and six exports: PASS')
+# Frozen published-code archives must be readable by the installed package.
+import hashlib
+from ncmemsim.dtco import SampleManifest
+fixture_root = work / 'archive_fixtures'
+fixture_inventory = json.loads((fixture_root / 'inventory.json').read_text(encoding='utf-8'))
+readers = {'dtco': DTCOReport, 'robust': RobustDTCOReport, 'workflow': WorkflowReport,
+    'dataset_evidence': DatasetEvidence, 'workflow_evidence': WorkflowEvidence,
+    'applied_evidence': AppliedWorkflowEvidence, 'sample_manifest': SampleManifest}
+for entry in fixture_inventory['files']:
+    path = fixture_root / entry['file']
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == entry['sha256']
+    text = path.read_text(encoding='utf-8')
+    assert readers[path.stem].from_json(text).to_dict() == json.loads(text)
+print('Installed frozen published-v0.14.0 archive readers: PASS')
 print("Installed DTCO reference, failure handling, deterministic hashes and exports: PASS", origin)
 '''
 

@@ -4,6 +4,8 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased — stability preparation from v0.14.0
 
+- Extend distribution gates to all package modules, scientific reference data and frozen archive readers; review runtime/configuration identity limits.
+
 - Review scientific defaults, physical units/signs and scoped parameter provenance; retain existing algorithms and values with compatibility tests.
 
 - Audit typed JSON archive readers and retain seven published-v0.14.0 reference fixtures with integrity and compatibility tests.
