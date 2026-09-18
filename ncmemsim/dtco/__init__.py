@@ -117,3 +117,7 @@ __all__ += ["SamplingSpec", "SampleManifest", "SamplingError", "sample_variation
 from .propagation import SamplePoint, SamplePointResult, PropagationResult, propagate_samples
 
 __all__ += ["SamplePoint", "SamplePointResult", "PropagationResult", "propagate_samples"]
+
+from .sample_analysis import SampleAnalysisSpec, SampleMetricPointResult, SampleAnalysisResult, analyze_samples
+
+__all__ += ["SampleAnalysisSpec", "SampleMetricPointResult", "SampleAnalysisResult", "analyze_samples"]

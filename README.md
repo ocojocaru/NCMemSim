@@ -9,7 +9,7 @@
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
 > **Latest release:** `0.12.0` — Design-Space Exploration and DTCO
-> **Development version:** `0.13.0.dev0` — Robust DTCO (H1 definitions, H2 sampling and H3 propagation; H4–H7 planned)
+> **Development version:** `0.13.0.dev0` — Robust DTCO (H1–H4 definitions, sampling, propagation and statistics; H5–H7 planned)
 > **Scientific status:** Phase G adds verified deterministic DTCO workflows to the retained v0.11.0 simulation and calibration baseline. Device-specific experimental calibration remains study-dependent.
 
 ## Why NCMemSim?
@@ -345,7 +345,7 @@ Main sections:
 | v0.10.0 | Optical programming engine and SWIR validation | **Complete** |
 | v0.11.0 | Experimental fitting and uncertainty-aware calibration | **Complete** |
 | v0.12.0 | Design-space exploration / DTCO | Released |
-| v0.13.0 | Robust DTCO: variations and uncertainty propagation | H0–H3 implemented; H4–H7 planned |
+| v0.13.0 | Robust DTCO: variations and uncertainty propagation | H0–H4 implemented; H5–H7 planned |
 | v1.0.0 | First stable scientific release | Planned |
 
 Potential post-v0.10 optical extensions include experimental calibration, broadband or measured spectra, strain-dependent optical properties, nanocrystal quantum confinement, field-dependent absorption, state filling, and sequential optical propagation through multi-FG structures.

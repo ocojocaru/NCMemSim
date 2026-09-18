@@ -7,8 +7,9 @@ H0 starts v0.13.0 at `0.13.0.dev0` from the published v0.12.0 commit
 metrics, feasibility, Pareto, grid sensitivity and reporting remain available.
 H0 defines the contracts below. H1 adds bounded variation definitions and H2
 adds reproducible independent sampling with exact manifests. H3 propagates those
-inputs serially through isolated candidates. Statistics and robust analysis
-remain planned for H4 onward.
+inputs serially through isolated candidates. H4 adds complete-case response
+statistics and explicit feasibility/failure accounting. Robust comparisons and
+objectives remain planned for H5 onward.
 
 Phase H asks how response and feasibility change when supported parameters
 vary. It does not introduce new simulator physics or establish experimental
@@ -24,7 +25,7 @@ compatible with Phase G.
 | H1 | Implemented: typed bounded definitions, units and provenance |
 | H2 | Implemented: reproducible sampling, seed and exact manifest |
 | H3 | Implemented: serial isolated propagation with staged failure records |
-| H4 | Response statistics and explicit feasibility/failure accounting |
+| H4 | Implemented: response statistics and feasibility/failure accounting |
 | H5 | Nominal/robust comparisons and explicitly defined robust objectives |
 | H6 | Reproducible reports and an end-to-end reference |
 | H7 | Regression/CI/distribution validation and documentation audit before tag |
@@ -297,5 +298,99 @@ ordered point results. `nominal_hash` identifies the full baseline, `study_hash`
 the declared inputs/execution, and `result_hash` additionally includes outcomes.
 `to_dict()` returns fresh data and `to_json()` exports the result; report
 restoration is a later phase. Hashes check integrity, not authentication.
-A successful callback does not establish physical feasibility: H4 will add
-metrics, constraints and separate assessed/feasible/infeasible/failure accounting.
+A successful callback does not establish physical feasibility. H4 applies
+declared metrics/constraints with separate accounting below.
+
+## H4: response statistics and explicit denominators
+
+`analyze_samples(propagation_result, SampleAnalysisSpec(metric_spec, quantiles))`
+consumes completed H3 results without reevaluating physics. `metric_spec` is the
+existing Phase G `MetricAnalysisSpec`: ordered numeric output paths, exact units
+and inclusive named constraints. All metrics must extract successfully for a
+sample to be assessed. Missing/nonnumeric/nonfinite outputs or integers that
+cannot be represented exactly as finite floats become extraction failures;
+partial metrics and constraints are discarded. Phase G extraction is unchanged.
+
+`SampleMetricPointResult.status` is `feasible`, `infeasible` or `failed`.
+Assessed samples satisfy or violate the declared constraints; without
+constraints, every assessed sample is feasible. A propagation failure retains
+its original source stage/type/message and is classified as `propagation`; an
+analysis failure is `extraction`. Neither is treated as physical infeasibility.
+Every source sample remains present in manifest order.
+
+`SampleAnalysisResult` exposes `total_count`, `assessed_count`, `feasible_count`,
+`infeasible_count` and `failure_count`. Total equals assessed plus failed, and
+assessed equals feasible plus infeasible. JSON also separates propagation and
+extraction failure counts. Three distinct observed fractions have explicit
+numerators and denominators:
+
+- `observed_feasible_fraction_all_attempted`: feasible / total;
+- `conditional_feasible_fraction_assessed`: feasible / assessed, or `None` when
+  assessed is zero;
+- `failure_fraction_all_attempted`: failed / total.
+
+With failures, the all-attempted feasible fraction is conservative observed
+evidence, not an unbiased estimate of physical feasibility probability. The
+conditional fraction describes only assessed samples. No yield guarantee,
+confidence interval or automatic probabilistic interpretation is produced.
+
+Metric statistics use all assessed complete cases, including infeasible
+samples. Each record includes metric name/unit, denominator and exact source
+sample indices. Minimum, maximum, mean, population standard deviation (`ddof=0`)
+and quantiles are descriptive response summaries, not fitted distributions.
+Quantile probabilities are finite and unique in `[0, 1]`, defaulting to
+`(0.05, 0.5, 0.95)`; declared order is preserved and an empty tuple omits quantiles.
+The method is fixed: sort observed values, interpolate at `(n-1)*q` using convex
+weights (`linear-n-minus-one`). No absolute-value transformation or unit mixing.
+
+With no assessed samples, denominator is zero, indices are empty and all
+statistics/quantile values are `None` (JSON `null`). A singleton has population
+standard deviation zero. No failed value is zero-filled.
+
+```python
+from ncmemsim import DeviceBuilder
+from ncmemsim.dtco import (BindingScope, ParameterBinding, UniformVariation,
+    VariationDefinition, VariationKind, VariationProvenance, SamplingSpec,
+    sample_variations, propagate_samples, MetricDefinition, MetricConstraint,
+    MetricAnalysisSpec, ConstraintOperator, SampleAnalysisSpec, analyze_samples)
+
+variation = VariationDefinition(
+    "temperature", ParameterBinding(BindingScope.DEVICE, ("temperature_K",)),
+    UniformVariation(295.0, 305.0), "K", VariationKind.PARAMETER_ESTIMATION,
+    VariationProvenance("Assumed demonstration interval", "Synthetic accounting example"),
+)
+manifest = sample_variations(SamplingSpec((variation,), seed=2026, sample_count=4))
+
+def evaluate(candidate, protocol, point):
+    # Synthetic outputs illustrate accounting, not a physical response model.
+    if point.index == 2:
+        raise RuntimeError("Demonstration evaluation failure")
+    if point.index == 3:
+        return {}  # Deliberately missing the response metric.
+    return {"response_V": 1.0 if point.index == 0 else 3.0}
+
+propagation = propagate_samples(
+    manifest, DeviceBuilder.v2(n_fgs=1), evaluate,
+    evaluation_id="h4-synthetic-accounting-v1",
+    evaluation_parameters={"response_model": "synthetic index-based demonstration"},
+)
+metric_spec = MetricAnalysisSpec(
+    "responses", (MetricDefinition("response", ("response_V",), "V"),),
+    (MetricConstraint("maximum", "response", ConstraintOperator.LE, 2.0, "V"),),
+)
+analysis = analyze_samples(propagation, SampleAnalysisSpec(metric_spec, (0.0, 0.5, 1.0)))
+assert (analysis.total_count, analysis.assessed_count, analysis.feasible_count,
+        analysis.infeasible_count, analysis.failure_count) == (4, 2, 1, 1, 2)
+assert analysis.observed_feasible_fraction_all_attempted == 0.25
+assert analysis.conditional_feasible_fraction_assessed == 0.5
+assert analysis.failure_fraction_all_attempted == 0.5
+assert analysis.metric_statistics[0]["sample_indices"] == [0, 1]
+assert analysis.metric_statistics[0]["mean"] == 2.0
+```
+
+Specifications/results are immutable and exported dictionaries are fresh
+snapshots. `analysis_hash` links the metric/statistic definition to the exact
+propagation result and snapshotted aggregation runtime/algorithm; `result_hash`
+also includes assessed statuses and summaries. `to_json()` exports full inputs
+and outcomes. Hashes are integrity links, not signatures or calibration evidence.
+Robust objectives and nominal/robust comparisons remain for H5; reports for H6.

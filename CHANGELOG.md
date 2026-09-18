@@ -49,6 +49,19 @@ All notable changes to NCMemSim are documented in this file.
   plus current API documentation and an executable electrical example.
 - Leave metrics, feasibility and robust statistics for H4 onward.
 
+### H4 — response statistics and feasibility accounting
+
+- Reuse Phase G metric/unit/constraint definitions on exact H3 results without reevaluation.
+- Assess complete metric cases; keep propagation/extraction failures distinct from infeasibility.
+- Report total/assessed/feasible/infeasible/failed counts and observed fractions
+  with explicit numerators, denominators and undefined zero-assessed behavior.
+- Summarize all assessed responses with units/source indices, mean, range,
+  population standard deviation and explicitly defined linear quantiles.
+- Preserve immutable definitions/results and aggregation identity; reject lossy
+  integer-to-float extraction instead of silently changing constraint outcomes.
+- Add dedicated statistical/accounting/identity tests and an executable example.
+- Leave robust objectives/comparisons and reports for H5/H6.
+
 ## v0.12.0 — Design-Space Exploration and DTCO
 
 Phase G adds deterministic Cartesian design-space exploration, canonical
