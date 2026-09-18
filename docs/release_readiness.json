@@ -11,7 +11,10 @@
         "docs/api_inventory.json",
         "docs/api_inventory.md",
         "docs/api_compatibility.md",
-        "scripts/validate_api_contract.py"
+        "scripts/validate_api_contract.py",
+        "docs/stable_api_proposal.md",
+        "docs/stable_api_proposal.json",
+        "scripts/validate_stable_api_proposal.py"
       ],
       "required_decision": "Approve exact supported import paths and callable/constructor semantics; inventory is source evidence, not automatic stability approval."
     },
@@ -22,7 +25,8 @@
         "docs/api_results.md",
         "docs/api_analysis_results.md",
         "tests/test_stability_api_results.py",
-        "tests/test_stability_analysis_contracts.py"
+        "tests/test_stability_analysis_contracts.py",
+        "docs/stable_api_proposal.md"
       ],
       "required_decision": "Approve axes, units, undefined values, ownership and legacy empty-sweep/input-aliasing behavior; no universal deep immutability."
     },
@@ -63,7 +67,8 @@
         "docs/scientific_scope.md",
         "docs/roadmap.md",
         "docs/calibration.md",
-        "docs/scientific_workflows.md"
+        "docs/scientific_workflows.md",
+        "docs/stable_api_proposal.md"
       ],
       "required_decision": "Approve a stable compact-model/software release with explicit provisional and synthetic FITTED limits; select and retain experimental evidence required for intended publication claims."
     },

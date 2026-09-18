@@ -4,6 +4,8 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased — stability preparation from v0.14.0
 
+- Propose an exact 198-path stable API surface with source/runtime signatures, retained limitations and explicit scientific scope; approval remains pending.
+
 - Consolidate v1.0 readiness evidence, pending scope/compatibility decisions and final-candidate gates in a read-only validated matrix.
 
 - Extend distribution gates to all package modules, scientific reference data and frozen archive readers; review runtime/configuration identity limits.

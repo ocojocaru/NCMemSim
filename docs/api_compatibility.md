@@ -76,3 +76,5 @@ importing optional fitting dependencies. Explicit baseline regeneration requires
 review of every change and does not by itself approve stability.
 
 See [v1.0 readiness consolidation](release_readiness.md) for reviewed evidence, pending approvals and final-candidate gates.
+
+The [exact stable API proposal](stable_api_proposal.md) records 198 selected import paths, source contracts and actual constructor signatures, still pending maintainer approval.

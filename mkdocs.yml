@@ -75,6 +75,7 @@ nav:
       - Scientific default review: scientific_defaults.md
       - Distribution contract review: distribution_contracts.md
       - v1.0 readiness: release_readiness.md
+      - Stable API proposal: stable_api_proposal.md
       - Developer guide: developer.md
       - Roadmap: roadmap.md
       - Software design specification: NCMemSim_v6_Software_Design_Specification_Rev1.md
