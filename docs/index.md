@@ -27,6 +27,11 @@ and explicit robust Pareto objectives. H6 adds linked reports and an electrical
 reference. H7 candidate regression, supported-Python CI, documentation audit
 and clean installed distributions have passed; final publication follows release preparation.
 
+The v0.14.0 development line (`0.14.0.dev0`) starts Phase I:
+[Scientific workflow integration](scientific_workflows.md). I0 freezes scope
+and contracts for linking fitting/qualification to nominal and Robust DTCO;
+I1–I7 are planned. No new integration API or physics is supplied by I0.
+
 ## Start here
 
 - New users: [Installation](installation.md) and [Quick start](quickstart.md)

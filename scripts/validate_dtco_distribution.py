@@ -42,6 +42,7 @@ SOURCE_REQUIRED = {
     'docs/roadmap.md',
     'docs/robust_dtco.md',
     'docs/scientific_scope.md',
+    'docs/scientific_workflows.md',
     'docs/transport_retention.md',
     'docs/validation.md',
     'docs/workflows.md',

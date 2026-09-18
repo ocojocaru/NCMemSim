@@ -728,8 +728,10 @@ relevant tests locally. Intermediate pushes and pull requests do not launch
 CI or Documentation Actions. At final-version preparation, enable automatic
 push checks for the exact active `dev/*` branch, including final corrections;
 other development branches remain without automatic checks. CI also runs on
-`v*` release tags and both workflows remain manually runnable. For v0.13.0,
-automatic final checks target `dev/v0.13.0-robust-dtco`. Only builds on `main`
+`v*` release tags and both workflows remain manually runnable. Phase I bootstrap
+removes the completed v0.13.0 branch triggers; `dev/v0.14.0-scientific-workflows`
+has no automatic Actions during I0–I6. Enable this exact branch only at final
+v0.14.0 preparation (I7), including final corrections. Only builds on `main`
 deploy Pages; development builds do not replace the published site. Full
 regression, strict documentation, package builds and clean installed-distribution
 checks belong to this final-version gate.

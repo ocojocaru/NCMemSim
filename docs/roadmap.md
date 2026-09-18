@@ -206,6 +206,21 @@ robust objectives/fronts. H6 adds linked report bundles and an electrical refere
 with deliberate failure accounting. H7 candidate validation passed local regression, manual supported-Python CI,
 strict documentation auditing and clean wheel/sdist installations.
 
+### v0.14.0: Scientific workflow integration
+
+**Status: I0 scope/contracts (`0.14.0.dev0`); I1–I7 planned.**
+
+Link existing fitting/calibration evidence and explicitly applied parameter
+contexts to nominal and Robust DTCO. Deliver electrical and electro-optical
+references, complete source/context provenance, staged failure verification and
+linked integration reports without changing simulator physics or promoting
+synthetic evidence to experimental-calibration claims. See
+[Scientific workflow integration](scientific_workflows.md) for I0–I7 acceptance
+contracts and final-release gates. Local focused tests/docs updates run at each
+step; full CI, strict Documentation and clean distributions run at final-version
+preparation on the same dev branch. DOI/archive and v1.0 stability review remain
+separate readiness requirements.
+
 ### v1.0.0: First stable scientific release
 
 Target requirements include:

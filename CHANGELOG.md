@@ -2,6 +2,21 @@
 
 All notable changes to NCMemSim are documented in this file.
 
+## v0.14.0.dev0 — Scientific workflow integration (in development)
+
+### I0 — bootstrap and scope/contracts
+
+- Start from published v0.13.0 commit `c3b1c10824c8296e7900e0b9bd8cbb19d6d75f8f`.
+- Set the package development version to `0.14.0.dev0`; retain v0.13.0 citation metadata.
+- Define I1–I7 evidence, parameter-application, electrical/electro-optical workflow,
+  integration report and final-validation deliverables without claiming implementation.
+- Preserve Phase F/G/H APIs, units, qualification semantics and simulator physics.
+- Require explicit data origin, full device/model/configuration provenance and
+  independent assumed variation definitions; no automatic experimental-calibration
+  claim, manufacturing yield or fit-covariance conversion.
+- Keep local focused tests/docs updates per step; defer full CI, strict Documentation
+  builds and clean package checks to final-version preparation on the same dev branch.
+
 ## v0.13.0 — Robust DTCO
 
 Release preparation sets package/citation metadata to `0.13.0` (2026-09-18).
