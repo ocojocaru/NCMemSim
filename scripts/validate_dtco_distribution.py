@@ -23,6 +23,7 @@ SOURCE_REQUIRED = {
     'docs/NCMemSim_v6_Software_Design_Specification_Rev1.md',
     'docs/Validation_Report.md',
     'docs/api.md',
+    'docs/api_compatibility.md',
     'docs/architecture.md',
     'docs/assets/banner.svg',
     'docs/branding.md',

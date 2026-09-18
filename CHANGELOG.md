@@ -2,6 +2,13 @@
 
 All notable changes to NCMemSim are documented in this file.
 
+## Unreleased — stability preparation from v0.14.0
+
+- Make transport exports explicit while preserving all v0.14.0 wildcard names.
+- Add API compatibility preparation policy and focused legacy import checks.
+- Correct the API overview to reflect implemented I6 linked workflow reports.
+- Preserve package version, scientific defaults and published release tag.
+
 ## v0.14.0 — Scientific workflow integration
 
 ### I7 — final-version preparation and release gates

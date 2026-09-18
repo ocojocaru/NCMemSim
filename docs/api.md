@@ -8,6 +8,8 @@ Experimental-data, fitting, diagnostic, and calibration APIs are exposed
 from their dedicated v0.11.0 modules.
 
 The following groups summarize the principal public objects.
+Compatibility preparation and remaining v1.0 gates are described in
+[API compatibility preparation](api_compatibility.md).
 
 ## Version
 
@@ -736,7 +738,7 @@ for the supported core implementation, model-side/photo requirements and limits.
 The runnable `examples/phase_i3_electrical_workflow_reference.py` connects existing
 program-time fitting/qualification, I1/I2 source/application evidence and nominal/
 sampled Phase H evaluation with explicit synthetic data. It uses the existing
-`RobustDTCOReport` and exports; a new linked workflow report remains I6 work.
+`RobustDTCOReport` and exports; linked workflow reports and exports are supplied by I6.
 See [I3 electrical reference](scientific_workflows.md#i3-synthetic-electrical-workflow-reference)
 for units, synthetic qualification threshold, assumed variations and failure mode.
 

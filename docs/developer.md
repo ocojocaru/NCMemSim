@@ -766,3 +766,9 @@ reproducible outputs
 
 rather than increasing model complexity without corresponding scientific and
 numerical traceability.
+
+## v1.0 compatibility preparation
+
+Use the [API compatibility preparation policy](api_compatibility.md) when
+reviewing imports, signatures, result ownership and historical archive support.
+The approved surface and scientific default review remain acceptance gates.

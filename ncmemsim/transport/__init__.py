@@ -4,4 +4,6 @@ from .network import TunnelNetwork
 from .rates import LinkTransportResult, TransportStepResult
 from .engine import TransportConfig, TransportEngine
 
-__all__ = [name for name in globals() if not name.startswith("_")]
+# Retain the v0.14.0 wildcard surface, including legacy submodule aliases.
+# Future helper imports must not silently become public exports.
+__all__ = ['base', 'NodeKind', 'TransportNode', 'link', 'TunnelLink', 'network', 'TunnelNetwork', 'rates', 'LinkTransportResult', 'TransportStepResult', 'engine', 'TransportConfig', 'TransportEngine']
