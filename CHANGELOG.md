@@ -17,6 +17,13 @@ All notable changes to NCMemSim are documented in this file.
   development/PR documentation without deploying it over main Pages.
 - Require documentation and source-archive content audits before release tags.
 
+### H1 — bounded variation contracts (0.13.0.dev0)
+
+- Add immutable uniform and truncated-normal definitions with finite explicit bounds.
+- Enforce continuous DEVICE/OPERATING bindings, exact canonical units and physical ranges.
+- Require variation kind, source and applicability; add nominal endpoint validation and identity hashes.
+- Sampling and propagation remain planned for H2/H3; Phase G APIs remain unchanged.
+
 ## v0.12.0 — Design-Space Exploration and DTCO
 
 Phase G adds deterministic Cartesian design-space exploration, canonical

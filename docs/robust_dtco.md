@@ -5,7 +5,8 @@
 H0 starts v0.13.0 at `0.13.0.dev0` from the published v0.12.0 commit
 `6da07c5c661a25b2187c13944f9507346c5bc7b0`. The Phase G nominal sweep,
 metrics, feasibility, Pareto, grid sensitivity and reporting remain available.
-H0 defines the contracts below; it adds no sampling or robust-analysis API.
+H0 defines the contracts below. H1 adds bounded variation definitions; sampling
+and robust analysis remain planned.
 
 Phase H asks how response and feasibility change when supported parameters
 vary. It does not introduce new simulator physics or establish experimental
@@ -41,7 +42,7 @@ distribution describes the study's assumption, not an inferred measured fact.
 Fitting covariance is not automatically a manufacturing distribution, and
 independent marginal sampling is not justified merely by fit standard errors.
 
-H1 will validate exact units, finite numeric parameters, ordered finite bounds,
+H1 validates exact units, finite numeric parameters, ordered finite bounds,
 and valid distribution parameters before execution. Initial distribution
 families are bounded uniform and normal truncated to explicit finite bounds.
 Normal parameters describe the underlying normal law before truncation; they
@@ -110,3 +111,43 @@ published assets must agree before closing the release.
 Documentation-only commits run Documentation, not full CI. Development and PR
 builds validate strictly but do not replace the published main Pages site.
 Generated `site/` is not the source of truth and is not regenerated for commits.
+
+## H1: bounded variation definitions
+
+`UniformVariation(lower, upper)` requires finite, strictly ordered bounds.
+`TruncatedNormalVariation(lower, upper, mean, standard_deviation)` additionally
+requires a finite mean and strictly positive finite standard deviation. Its mean
+may lie outside the bounds: these parameters describe the underlying normal.
+No values are drawn, clipped, converted or inferred in H1.
+
+```python
+from ncmemsim.dtco import (BindingScope, ParameterBinding, UniformVariation,
+    VariationDefinition, VariationKind, VariationProvenance)
+
+variation = VariationDefinition(
+    name="temperature",
+    binding=ParameterBinding(BindingScope.DEVICE, ("temperature_K",)),
+    distribution=UniformVariation(290.0, 310.0),
+    unit="K",
+    kind=VariationKind.PARAMETER_ESTIMATION,
+    provenance=VariationProvenance(
+        source="Assumed study interval, not experimental calibration",
+        applicability="Nominal reference device near room temperature",
+    ),
+)
+assert variation.to_dict()["distribution"]["family"] == "uniform"
+assert len(variation.definition_hash) == 64
+```
+
+Call `variation.validate_context(device, protocol)` before a study to check both
+endpoints using existing Phase G bindings on isolated copies. DEVICE variations
+do not require a protocol; OPERATING variations do. A layer name, material model
+and optical protocol must actually support the requested binding. This is a
+context check, not execution, a joint-range proof or a guarantee of convergence.
+Future propagation must validate every combined candidate.
+
+The definition hash covers the schema, name, binding, distribution, exact unit,
+kind and provenance. It does not identify a nominal device, protocol or sample
+manifest; those links belong to later phases. Returned dictionaries are fresh
+copies. Definitions and provenance are immutable. No MODEL contract is added to
+Phase G: MODEL and integer bindings are simply outside this new H1 API.

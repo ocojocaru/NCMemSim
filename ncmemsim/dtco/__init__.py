@@ -103,3 +103,9 @@ __all__ = [
     "apply_operating_binding",
     "apply_operating_bindings",
 ]
+
+from .variation import (VariationKind, VariationProvenance, UniformVariation,
+                        TruncatedNormalVariation, VariationDefinition)
+
+__all__ += ["VariationKind", "VariationProvenance", "UniformVariation",
+            "TruncatedNormalVariation", "VariationDefinition"]

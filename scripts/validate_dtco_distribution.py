@@ -12,7 +12,7 @@ import venv
 import zipfile
 
 REQUIRED = {f"ncmemsim/dtco/{name}.py" for name in
-            ("__init__", "spec", "binding", "operating", "sweep", "metrics", "pareto", "sensitivity", "reporting")}
+            ("__init__", "spec", "binding", "operating", "sweep", "metrics", "pareto", "sensitivity", "reporting", "variation")}
 
 # Source releases must carry the audited documentation and its build entry points.
 SOURCE_REQUIRED = {
@@ -125,7 +125,14 @@ import importlib.util
 from pathlib import Path
 import sys
 import ncmemsim
-from ncmemsim.dtco import DTCOReport, write_dtco_report
+from ncmemsim.dtco import (DTCOReport, write_dtco_report, UniformVariation,
+    TruncatedNormalVariation, VariationDefinition, VariationKind, VariationProvenance,
+    ParameterBinding, BindingScope)
+variation = VariationDefinition("temperature", ParameterBinding(BindingScope.DEVICE,
+    ("temperature_K",)), UniformVariation(290,310), "K",
+    VariationKind.PARAMETER_ESTIMATION, VariationProvenance("Assumed", "Reference"))
+assert len(variation.definition_hash) == 64
+assert TruncatedNormalVariation(290,310,300,2).to_dict()["family"] == "truncated_normal"
 root, environment, work = map(Path, sys.argv[1:])
 origin = Path(ncmemsim.__file__).resolve()
 assert origin.is_relative_to(environment.resolve()), origin
