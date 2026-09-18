@@ -22,8 +22,7 @@ def test_current_matrix_records_contract_approval_without_candidate_readiness():
  assert data['ready_for_candidate'] is False
  assert all(c['state']=='not_run' for c in data['final_candidate_checks'])
  gate_states={g['id']:g['state'] for g in data['gates']}
- assert gate_states['archival_citation']=='pending'
- assert all(state=='approved' for key,state in gate_states.items() if key!='archival_citation')
+ assert all(state=='approved' for state in gate_states.values())
 
 @pytest.mark.parametrize('fault',['omit_gate','omit_check','duplicate','missing_evidence','outside_evidence','unsupported_schema','version','premature_ready','passed_without_evidence'])
 def test_invalid_readiness_rejected(tmp_path,fault):

@@ -37,8 +37,7 @@ def test_proposal_marks_contract_approval_but_not_final_checks(proposal):
  data=validate(ROOT)
  assert data['ready_for_candidate'] is False
  gate_states={g['id']:g['state'] for g in data['gates']}
- assert gate_states['archival_citation']=='pending'
- assert all(state=='approved' for key,state in gate_states.items() if key!='archival_citation')
+ assert all(state=='approved' for state in gate_states.values())
  assert all(c['state']=='not_run' for c in data['final_candidate_checks'])
 
 def test_runtime_signature_drift_is_observed(proposal,monkeypatch):

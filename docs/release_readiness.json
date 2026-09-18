@@ -77,13 +77,17 @@
     },
     {
       "id": "archival_citation",
-      "state": "pending",
+      "state": "approved",
       "evidence": [
         "CITATION.cff",
+        "docs/archival_citation.md",
+        "docs/archival_citation.json",
         "docs/reproducibility.md",
-        "docs/roadmap.md"
+        "docs/roadmap.md",
+        "scripts/validate_archival_citation.py",
+        "tests/test_stability_archival_citation.py"
       ],
-      "required_decision": "Prepare archival/DOI publication and citation plan before final release; verify deposited final artifact, identifier and citation afterwards without inventing a DOI."
+      "required_decision": "Approved archival/citation plan for final source identity, citation metadata and future DOI/deposit verification; no DOI, tag, release or external deposit is created by this preparation step."
     }
   ],
   "final_candidate_checks": [

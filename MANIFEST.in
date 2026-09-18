@@ -11,3 +11,4 @@ recursive-include tests/fixtures/archives *.json
 graft data/reference
 include scripts/validate_release_readiness.py
 include scripts/validate_stable_api_proposal.py
+include scripts/validate_archival_citation.py

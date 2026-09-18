@@ -75,6 +75,6 @@ Use the [source API inventory](api_inventory.md) and [result contracts](api_resu
 importing optional fitting dependencies. Explicit baseline regeneration requires
 review of every change and does not by itself approve stability.
 
-See [v1.0 readiness consolidation](release_readiness.md) for reviewed evidence, approved contract gates and remaining final-candidate gates.
+See [v1.0 readiness consolidation](release_readiness.md) for reviewed evidence, approved contract/archival gates and remaining final-candidate gates.
 
 The [approved stable API candidate](stable_api_proposal.md) records 204 selected import paths, source contracts and actual constructor signatures for v1.0 candidate preparation.

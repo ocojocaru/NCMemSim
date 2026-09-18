@@ -285,8 +285,8 @@ Future development should continue to follow four project rules:
 
 ## Stability preparation from published v0.14.0
 
-Local API/result/archive/default/distribution reviews are recorded in the
-[v1.0 readiness consolidation](release_readiness.md). Approval of the stable
-surface, scientific scope and archival plan remains separate from the final
-regression/documentation/clean-distribution/Actions gates. No v0.15.0 or v1.0
-version change is implied by these preparation audits.
+Local API/result/archive/default/distribution reviews and the archival/citation
+plan are recorded in the [v1.0 readiness consolidation](release_readiness.md).
+Approval of the stable surface, scientific scope and archival plan remains
+separate from the final regression/documentation/clean-distribution/Actions
+gates. No v0.15.0 or v1.0 version change is implied by these preparation audits.

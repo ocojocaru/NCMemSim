@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "name": "v1.0 archival and citation plan",
+  "preparation_version": "0.14.0",
+  "status": "approved_plan_pending_final_deposit",
+  "repository_code": "https://github.com/ocojocaru/NCMemSim",
+  "current_citation_file": "CITATION.cff",
+  "current_citation_version": "0.14.0",
+  "final_release_version": "1.0.0",
+  "doi": null,
+  "archive_service": "to_be_selected_before_final_release",
+  "approved_scope": [
+    "Archive the exact final v1.0 source identity after all final candidate checks pass.",
+    "Keep the package, tag, release archive, documentation source and CITATION.cff version aligned.",
+    "Add a DOI only after an external archival service has assigned and exposed the identifier.",
+    "Retain repository and exact version citation instructions when no DOI is available yet.",
+    "Record final CI, documentation, distribution and archive/deposit evidence before ready_for_candidate can become true."
+  ],
+  "not_approved": [
+    "No DOI is invented or reserved by this preparation step.",
+    "No v1.0 package version, tag, GitHub release or external deposit is created by this preparation step.",
+    "No scientific publication, experimental validation or blanket predictive claim is established by archival planning."
+  ],
+  "final_candidate_evidence_required": [
+    "full_local_regression",
+    "strict_documentation_audit",
+    "clean_installed_distributions",
+    "supported_runtime_ci",
+    "remote_documentation",
+    "final_archive_or_deposit_record"
+  ]
+}

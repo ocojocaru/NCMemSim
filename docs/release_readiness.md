@@ -1,9 +1,9 @@
 # v1.0 readiness consolidation
 
 The package remains 0.14.0 on prep/v1.0-stability; the published v0.14.0 tag is
-unchanged. This consolidation records audited evidence, approved contract
-decisions and final gates still needed. It does not bump the version, approve all
-exports or declare a release candidate. The machine-readable matrix is
+unchanged. This consolidation records audited evidence, approved contract and
+archival/citation decisions, and final gates still needed. It does not bump the
+version, approve all exports or declare a release candidate. The machine-readable matrix is
 [release_readiness.json](release_readiness.json).
 
 ## Approved contract reviews
@@ -16,6 +16,7 @@ exports or declare a release candidate. The machine-readable matrix is
 | Defaults | [scientific review](scientific_defaults.md), [stable API candidate](stable_api_proposal.md) | Accept existing values, applicability and provenance scope; decide any legacy validation hardening separately |
 | Distribution | [distribution review](distribution_contracts.md), [stable API candidate](stable_api_proposal.md) | Accept all-module/source-byte inventory and explicit clean versus inherited-dependency installation modes |
 | Scientific scope | [scientific scope](scientific_scope.md), [roadmap](roadmap.md), [calibration scope](calibration.md), [scientific workflows](scientific_workflows.md), [stable API candidate](stable_api_proposal.md) | Approve a stable compact-model simulation/fitting/DTCO software release with explicit ASSUMED/provisional/synthetic FITTED limits and without new experimental-validity claims |
+| Archival/citation | [archival and citation plan](archival_citation.md), [citation metadata](../CITATION.cff), [reproducibility](reproducibility.md) | Approve the plan for final source identity, citation metadata and future DOI/deposit verification without inventing a DOI or creating a release |
 
 These audits are complete as local reviews and approved for candidate
 preparation. Their tests are evidence for the specific stated behaviors, not
@@ -34,10 +35,11 @@ No new measured dataset, blanket predictive-validity claim or DOI is introduced
 by this consolidation. See [scientific scope](scientific_scope.md).
 
 The roadmap's software archive, DOI-backed citation and reproducibility-package
-requirements remain open. Prepare the archive/deposit/citation plan before the
-final release, then verify the deposited final artifact and identifier when
-publication makes them available. Do not invent a DOI or mark a deposit complete
-because GitHub publication alone succeeded.
+requirements remain final-release work. The [archival/citation plan](archival_citation.md)
+is approved, but the actual archive/deposit, final citation version and any DOI
+must be verified after final source identity and release artifacts exist. Do not
+invent a DOI or mark a deposit complete because GitHub publication alone
+succeeded.
 
 ## Final-candidate checks not yet run for this preparation
 
@@ -64,8 +66,8 @@ agreed workflow; no trigger changes are part of this patch.
 Run python -I scripts/validate_release_readiness.py for a read-only check of
 structure, required gates, local evidence paths and preparation-version consistency.
 A successful check can report ready_for_candidate=false: it means the matrix is
-internally consistent and the open gates are still open. The contract and
-scientific-scope reviews are approved; archival planning is pending; all five
+internally consistent and the final gates are still open. The contract,
+scientific-scope and archival/citation reviews are approved; all five
 final-candidate checks are not_run.
 
 Approval is a maintainer decision documented with evidence. A passed final check
@@ -78,5 +80,5 @@ Before a version change, explicitly review the matrix and its preparation versio
 Only after approvals and final checks can ready_for_candidate become true. A final
 tag/publication still requires its release procedure and deposit verification.
 
-The next concrete step is archival/citation planning, then final candidate
-preparation and execution of the final gates on one source identity.
+The next concrete step is final candidate preparation and execution of the final
+gates on one source identity.
