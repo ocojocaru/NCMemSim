@@ -703,3 +703,18 @@ evolve.
 Code intended to survive minor releases should prefer the documented
 public imports, documented result objects, and stable simulator entry
 points.
+
+## Scientific workflow evidence (v0.14.0 development)
+
+The dedicated `ncmemsim.workflows` surface captures dataset origin/provenance and
+immutable evidence linking existing fits, specifications and optional qualification.
+It preserves FITTED and qualification eligibility separately; no provenance is
+promoted. See [Scientific workflow integration](scientific_workflows.md#i1-immutable-source-evidence)
+for supported source types, identity checks, runtime and scientific limits.
+
+```python
+from ncmemsim.workflows import (
+    DataOrigin, DatasetEvidence, WorkflowEvidence,
+    capture_dataset_evidence, build_workflow_evidence,
+)
+```

@@ -6,16 +6,17 @@ I0 starts `0.14.0.dev0` from published v0.13.0 commit
 `c3b1c10824c8296e7900e0b9bd8cbb19d6d75f8f` on
 `dev/v0.14.0-scientific-workflows`. Citation metadata remains on v0.13.0.
 Existing fitting/calibration, nominal DTCO and Robust DTCO APIs remain available.
-I0 supplies scope/contracts and development setup; the integration APIs and
-references below are planned, not implemented.
+I0 supplies scope/contracts and development setup. I1 adds immutable evidence
+and identity contracts in `ncmemsim.workflows`; application adapters, complete
+references and linked integration reports remain planned.
 
 ## Delivery sequence
 
 | Phase | Deliverable | Status |
 |---|---|---|
 | I0 | Bootstrap, scope and acceptance contracts | Implemented |
-| I1 | Immutable workflow evidence and identity contracts | Next |
-| I2 | Explicit fitted-parameter application and evaluator context adapter | Planned |
+| I1 | Immutable workflow evidence and identity contracts | Implemented |
+| I2 | Explicit fitted-parameter application and evaluator context adapter | Next |
 | I3 | Electrical fitting/qualification → nominal/Robust DTCO reference | Planned |
 | I4 | Electro-optical fitting/qualification → nominal/Robust DTCO reference | Planned |
 | I5 | End-to-end provenance, failure and compatibility verification | Planned |
@@ -118,3 +119,78 @@ experimental qualification, calibrated yield prediction, correlated uncertainty,
 adaptive optimizer, numerical backend acceleration or physics-default changes.
 DOI/archive and stable-API review remain separate v1.0 readiness requirements;
 completing this integration cycle alone does not declare v1.0 stability.
+
+## I1 — immutable source evidence
+
+The dedicated `ncmemsim.workflows` surface exposes `DataOrigin`,
+`DatasetEvidence`, `WorkflowEvidence`, `capture_dataset_evidence` and
+`build_workflow_evidence`. Existing top-level/Phase F/G/H exports are unchanged.
+
+Dataset capture requires an explicit synthetic/measured origin, nonempty source
+and applicability without outer whitespace. Origin is a caller declaration,
+not inferred from the dataset class/source text and not independently attested.
+The dataset hash remains its existing normalized-data identity; evidence hashes
+also include origin/source/applicability. Full snapshots are immutable canonical
+JSON, with fresh dictionaries returned on inspection and integrity-checked JSON
+restoration. Ordinary metadata must be finite strict JSON, without lossy NumPy,
+tuple or key coercion.
+
+This standalone example captures a synthetic observable; it performs no fitting
+or qualification and makes no experimental claim:
+
+```python
+from ncmemsim.experimental import DeviceObservableDataset, ExperimentalDatasetMetadata
+from ncmemsim.workflows import DataOrigin, DatasetEvidence, capture_dataset_evidence
+
+dataset = DeviceObservableDataset(
+    "programming_time", "s", [1e-7, 2e-7, 3e-7],
+    "delta_vfb", "V", [0.01, 0.02, 0.03],
+    ExperimentalDatasetMetadata("i1-synthetic", "Declared synthetic fixture"),
+)
+evidence = capture_dataset_evidence(
+    dataset, origin=DataOrigin.SYNTHETIC,
+    source="Software contract example", applicability="Synthetic example only",
+)
+restored = DatasetEvidence.from_json(evidence.to_json())
+assert restored.evidence_hash == evidence.evidence_hash
+assert restored.dataset_hash == dataset.dataset_hash()
+assert restored.origin is DataOrigin.SYNTHETIC
+```
+
+`build_workflow_evidence` takes a name, captured training dataset, existing
+single-dataset device fit result and its full `DeviceCalibrationSpec`. Initial
+supported fit types are `DeviceCVFitResult`, `DeviceProgramTimeFitResult` and
+`DevicePhotoProgramTimeFitResult`. Generic/optical-absorption/multi-condition fit
+results are not automatically adapted. Standalone optical-absorption dataset
+capture is supported. Optional fields are diagnostics, captured validation data,
+qualification and strict JSON metadata. Validation data without qualification is
+retained, with unknown qualification eligibility.
+
+The factory checks training identity, calibration/parameter specification,
+protocol hash, solver configuration, applied versus numerical fitted values and
+provided diagnostics against existing `analyze_fit_uncertainty` on that numerical
+fit. Qualification additionally requires linked validation data with matching
+variable/observable names and units, supplied diagnostics, dataset/criteria links
+and consistent criterion accounting. This checks identifiable source contracts;
+it does not attest historical fitting execution or measurement independence from
+hashes alone. Existing qualification objects do not contain a numerical-fit hash;
+the envelope adds a fit source identity but cannot prove provenance absent from
+the original source. Full applied simulator/evaluator context is the I2 contract,
+not an I1 feature. No fit, simulator or qualification is rerun by capture.
+
+The resulting `scientific_status` remains `FITTED` exactly as in supported fit
+results. `qualification_eligible` is `None` without qualification, otherwise the
+original boolean; eligibility never assigns `CALIBRATED` provenance. Synthetic
+passing/failed qualification evidence stays explicitly synthetic. Rank-deficient
+or unavailable diagnostics preserve `None` and tagged non-finite values such as
+`{"_workflow_float":"positive_infinity"}` in diagnostic/qualification sections;
+finite metadata/dataset/fit requirements remain unchanged. Source hashes use the
+existing canonical source representation, while exported JSON uses explicit tags.
+
+Workflow evidence snapshots include source schemas/hashes, full fit/specification,
+optional diagnostics/qualification, declared dataset provenance, metadata and
+Python/implementation/NumPy/package runtime. `to_json`/`from_json` verifies envelope,
+source hashes and cross-source links; restoration does not refit, recompute
+uncertainty or requalify, and preserves the captured runtime. Hashes establish
+consistency, not authenticity, signatures or physical validation. Repeatability
+is within a fixed runtime; cross-runtime bitwise equality is not guaranteed.

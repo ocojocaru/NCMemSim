@@ -17,6 +17,19 @@ All notable changes to NCMemSim are documented in this file.
 - Keep local focused tests/docs updates per step; defer full CI, strict Documentation
   builds and clean package checks to final-version preparation on the same dev branch.
 
+### I1 — immutable scientific workflow evidence
+
+- Add a dedicated `ncmemsim.workflows` API for declared dataset origin/provenance,
+  immutable dataset and linked workflow evidence snapshots.
+- Link existing single-dataset C-V/electrical/photo-program fits to full calibration
+  specifications, applied fitted values, optional diagnostics and qualification.
+- Preserve FITTED status, explicit eligibility/unknown qualification, synthetic versus
+  measured declarations and unavailable/non-finite diagnostic values without promotion.
+- Validate source identities and strict JSON restoration without refitting/requalification;
+  keep full evaluator-context application and end-to-end references for I2–I6.
+- Add real synthetic C-V fit/qualification linkage, mismatch, mutation, restoration,
+  scientific-label and rank-diagnostic tests; extend required distribution inventory.
+
 ## v0.13.0 — Robust DTCO
 
 Release preparation sets package/citation metadata to `0.13.0` (2026-09-18).

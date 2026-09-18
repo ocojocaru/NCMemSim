@@ -9,7 +9,7 @@
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
 > **Latest release:** `0.13.0` — Robust DTCO (H0–H7 complete)
-> **Development version:** `0.14.0.dev0` — Scientific workflow integration (I0 scope/contracts; I1–I7 planned)
+> **Development version:** `0.14.0.dev0` — Scientific workflow integration (I0/I1 implemented; I2–I7 planned)
 > **Scientific status:** Phases G/H add deterministic and bounded independent Robust DTCO workflows to the retained simulation/calibration baseline. Device-specific experimental calibration remains study-dependent.
 
 ## Why NCMemSim?
@@ -30,8 +30,8 @@ The framework is intended for:
 - experimental fitting, uncertainty-aware calibration qualification, and deterministic design-space exploration.
 
 The v0.14.0 cycle defines [scientific workflow integration contracts](docs/scientific_workflows.md).
-The new linked evidence, application adapters and end-to-end reports are planned;
-I0 preserves existing APIs and physics.
+I1 supplies immutable linked source evidence; application adapters and end-to-end
+references/reports remain planned. Existing APIs and physics are preserved.
 
 ## Implemented capabilities
 
@@ -351,7 +351,7 @@ Main sections:
 | v0.11.0 | Experimental fitting and uncertainty-aware calibration | **Complete** |
 | v0.12.0 | Design-space exploration / DTCO | Released |
 | v0.13.0 | Robust DTCO: variations and uncertainty propagation | Released |
-| v0.14.0 | Scientific workflow integration: fitting/calibration → DTCO → Robust DTCO | I0 scope/contracts; I1–I7 planned |
+| v0.14.0 | Scientific workflow integration: fitting/calibration → DTCO → Robust DTCO | I0/I1 implemented; I2–I7 planned |
 | v1.0.0 | First stable scientific release | Planned |
 
 Potential post-v0.10 optical extensions include experimental calibration, broadband or measured spectra, strain-dependent optical properties, nanocrystal quantum confinement, field-dependent absorption, state filling, and sequential optical propagation through multi-FG structures.
