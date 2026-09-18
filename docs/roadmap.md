@@ -208,7 +208,7 @@ strict documentation auditing and clean wheel/sdist installations.
 
 ### v0.14.0: Scientific workflow integration
 
-**Status: I0/I1 implemented (`0.14.0.dev0`); I2–I7 planned.**
+**Status: I0–I2 implemented (`0.14.0.dev0`); I3–I7 planned.**
 
 Link existing fitting/calibration evidence and explicitly applied parameter
 contexts to nominal and Robust DTCO. Deliver electrical and electro-optical

@@ -30,6 +30,22 @@ All notable changes to NCMemSim are documented in this file.
 - Add real synthetic C-V fit/qualification linkage, mismatch, mutation, restoration,
   scientific-label and rank-diagnostic tests; extend required distribution inventory.
 
+### I2 — explicit fitted application and complete evaluator context
+
+- Add `AppliedWorkflowEvidence`, `WorkflowEvaluator` and `apply_workflow_parameters`
+  in the dedicated workflows API; preserve Phase F/G/H and top-level interfaces.
+- Apply exact ordered fitted values through existing APIs, with exact canonical
+  fitting-unit checks in the adapter and no alias or implicit conversion.
+- Capture baseline/applied full devices, materials/layer metadata, core physics,
+  shared tunneling, simulation/photo settings, fixed optical defaults, operating
+  protocol, sources and application runtime; distinguish full and application hashes.
+- Create fresh simulators/state for electrical or electro-optical nominal/sample
+  callbacks, passing fitted photo efficiency explicitly at execution.
+- Verify strict archival restoration and declared application deltas without running
+  fits/physics; reject custom incomplete contexts, model/family drift and mismatches.
+- Add genuine fit/application, target compatibility, isolation, context identity,
+  restoration and Phase H nominal/sample/failure tests; update docs/source inventory.
+
 ## v0.13.0 — Robust DTCO
 
 Release preparation sets package/citation metadata to `0.13.0` (2026-09-18).

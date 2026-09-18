@@ -14,7 +14,7 @@ import zipfile
 REQUIRED = {f"ncmemsim/dtco/{name}.py" for name in
             ("__init__", "spec", "binding", "operating", "sweep", "metrics", "pareto", "sensitivity", "reporting", "variation", "sampling", "propagation", "sample_analysis", "robust", "robust_reporting")}
 
-REQUIRED |= {"ncmemsim/workflows/__init__.py", "ncmemsim/workflows/evidence.py"}
+REQUIRED |= {"ncmemsim/workflows/__init__.py", "ncmemsim/workflows/evidence.py", "ncmemsim/workflows/application.py"}
 
 # Source releases must carry the audited documentation and its build entry points.
 SOURCE_REQUIRED = {
@@ -155,6 +155,7 @@ from pathlib import Path
 import sys
 import ncmemsim
 from ncmemsim.workflows import DataOrigin, DatasetEvidence, WorkflowEvidence, capture_dataset_evidence, build_workflow_evidence
+from ncmemsim.workflows import AppliedWorkflowEvidence, WorkflowEvaluator, apply_workflow_parameters
 assert DataOrigin.SYNTHETIC.value == "synthetic"
 from ncmemsim.dtco import (DTCOReport, write_dtco_report, UniformVariation,
     TruncatedNormalVariation, VariationDefinition, VariationKind, VariationProvenance,
@@ -170,6 +171,8 @@ assert origin.is_relative_to(environment.resolve()), origin
 assert not origin.is_relative_to(root.resolve()), origin
 import ncmemsim.workflows.evidence as workflow_evidence
 assert Path(workflow_evidence.__file__).resolve().is_relative_to(environment.resolve())
+import ncmemsim.workflows.application as workflow_application
+assert Path(workflow_application.__file__).resolve().is_relative_to(environment.resolve())
 spec = importlib.util.spec_from_file_location("reference", work / "reference.py")
 reference = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(reference)

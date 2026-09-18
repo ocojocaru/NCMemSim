@@ -716,5 +716,19 @@ for supported source types, identity checks, runtime and scientific limits.
 from ncmemsim.workflows import (
     DataOrigin, DatasetEvidence, WorkflowEvidence,
     capture_dataset_evidence, build_workflow_evidence,
+    AppliedWorkflowEvidence, WorkflowEvaluator, apply_workflow_parameters,
 )
 ```
+
+`apply_workflow_parameters` returns a `WorkflowEvaluator`, using explicit baseline
+device/physics/simulation/photo settings, a matching calibration specification,
+captured workflow evidence, a program-pulse/read protocol and `evaluation_id`.
+It checks exact canonical fitting units and applies the recorded ordered values
+through existing Phase F APIs. `evidence` captures both baseline/applied contexts,
+full materials, core physics, optical defaults, protocol and source/runtime links.
+`base_device`, `base_protocol` and `evaluation_parameters` return copies;
+`fresh_simulator` returns an independent simulator. `evaluate` accepts nominal/G2
+or H3 callback arguments and reports `delta_vfb_V` (V) and `mean_occupation` (1).
+Use the same `evaluation_id`/`evaluation_parameters` in nominal and sampled studies.
+See [I2 application and evaluator adapter](scientific_workflows.md#i2-application-and-evaluator-adapter)
+for the supported core implementation, model-side/photo requirements and limits.
