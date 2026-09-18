@@ -747,3 +747,10 @@ existing photo-capture fitting API and I2 adapter with explicit
 and power. Actual nominal/sample responses use the captured photo configuration.
 See [I4 electro-optical reference](scientific_workflows.md#i4-synthetic-electro-optical-workflow-reference)
 for synthetic qualification limits, exact manifest and failure policies.
+
+
+I5 adds cross-workflow integration verification without new public API. Existing
+`WorkflowEvidence`, `AppliedWorkflowEvidence`, evaluator, nominal comparison and
+sample-analysis contracts reject broken links and incompatible execution contexts.
+See [I5 integration verification](scientific_workflows.md#i5-cross-workflow-integration-verification)
+for recalculated-hash checks, complete-case denominators and archive semantics.

@@ -4,6 +4,17 @@ All notable changes to NCMemSim are documented in this file.
 
 ## v0.14.0.dev0 — Scientific workflow integration (in development)
 
+### I5 — cross-workflow integration verification
+
+- Verify real electrical/electro-optical source, fitted application and held-out
+  identity links against swaps and recalculated-hash context corruption.
+- Verify runtime archive/execution distinction, nominal mismatch rejection,
+  all-failed complete-case denominators and unchanged sources in error demos.
+- Restore all four linked reference archives with execution entry points disabled.
+- Preserve Phase F/G/H API, physics and synthetic/FITTED scientific semantics;
+  update development documentation and retain final-version package/Actions gates.
+
+
 
 ### Phase I4 — synthetic electro-optical workflow reference
 

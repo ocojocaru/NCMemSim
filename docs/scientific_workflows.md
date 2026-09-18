@@ -9,7 +9,7 @@ Existing fitting/calibration, nominal DTCO and Robust DTCO APIs remain available
 I0 supplies scope/contracts and development setup. I1 adds immutable evidence
 and identity contracts in `ncmemsim.workflows`; I2 adds fitted application and full
 evaluator contexts. I3 supplies the complete synthetic electrical reference;
-I4 supplies the synthetic electro-optical reference. Verification and linked integration reports remain I5–I6 work.
+I4 supplies the synthetic electro-optical reference. I5 verifies cross-workflow provenance, failure accounting and compatibility. Linked integration reports remain I6 work.
 
 ## Delivery sequence
 
@@ -20,8 +20,8 @@ I4 supplies the synthetic electro-optical reference. Verification and linked int
 | I2 | Explicit fitted-parameter application and evaluator context adapter | Implemented |
 | I3 | Electrical fitting/qualification → nominal/Robust DTCO reference | Implemented |
 | I4 | Electro-optical fitting/qualification → nominal/Robust DTCO reference | Implemented |
-| I5 | End-to-end provenance, failure and compatibility verification | Next |
-| I6 | Linked workflow evidence report and reproducible exports | Planned |
+| I5 | End-to-end provenance, failure and compatibility verification | Implemented |
+| I6 | Linked workflow evidence report and reproducible exports | Next |
 | I7 | Final version/documentation audit, full CI and clean distributions | Planned |
 
 ## Scope
@@ -454,3 +454,36 @@ not add new I4 metadata validation semantics; the dedicated linked workflow
 report remains I6. The optional `fit` extra is required. Clean installed
 execution and source archive inclusion are final-version preparation gates;
 I4 checks their probe syntax/inventory locally without building packages.
+
+
+## I5 — cross-workflow integration verification
+
+`tests/test_phase_i5_workflow_integration.py` exercises the real I3/I4 references
+through existing F/G/H contracts. It introduces no library API, physics, schema
+or new fit algorithm. Tests cover both electrical and illuminated execution:
+
+- Swapped source evidence, held-out datasets and fitted application manifests
+  are rejected, including envelopes with recalculated integrity hashes.
+- Changed fitted targets or undeclared simulation settings are rejected even
+  when the full context hash is recalculated. Hashes establish consistency,
+  not authenticity or independent scientific validation.
+- Foreign runtime snapshots remain restorable archives; execution rejects
+  incompatible runtime. Electrical and optical full context identities differ.
+- Nominal comparisons reject unrelated device baselines or evaluator settings.
+- A response with only one of two required metrics is a complete-case failure.
+  With four attempted and zero assessed samples, observed feasibility is 0,
+  failure fraction is 1, conditional feasibility is undefined (`None`) and all
+  descriptive metric statistics are undefined. The available metric does not
+  silently enter statistics. Extraction failures remain distinct from propagation.
+- Deliberate error mode preserves the real fit, fitted application, exact sample
+  manifest and nominal response values, while changing declared failure policy
+  and sample accounting. Failures are not relabelled as physical infeasibility.
+- All four normal/error reference archives restore their nested evidence with
+  application and electrical/optical execution entry points disabled.
+
+The synthetic data origin, qualification eligibility and **FITTED** status are
+preserved. These checks do not establish experimental calibration, manufacturing
+yield, signatures or historical baselines missing from original evidence.
+The retained F/G/H tests run alongside I1–I5 locally. The dedicated report link
+validation/export contract remains I6; strict rendered documentation, full
+pytest, supported-Python CI and clean package execution remain I7.
