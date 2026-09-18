@@ -4,6 +4,18 @@ All notable changes to NCMemSim are documented in this file.
 
 ## v0.14.0.dev0 — Scientific workflow integration (in development)
 
+### I6 — linked workflow reports and portable exports
+
+- Add immutable WorkflowReport and typed builder/writer linking full workflow,
+  applied context and ordered Robust DTCO studies with explicit DEVICE variants.
+- Validate source, evaluator, operating/runtime and declared device links;
+  derive scientific status/origins/qualification without provenance promotion.
+- Restore archives without fitting/physics and export six non-overwriting
+  JSON/CSV/Markdown artifacts retaining source hashes and failure denominators.
+- Add electrical/optical normal/error reporting reference and dedicated tests;
+  update docs and future installed probe. Existing F/G/H APIs/physics unchanged.
+
+
 ### I5 — cross-workflow integration verification
 
 - Verify real electrical/electro-optical source, fitted application and held-out

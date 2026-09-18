@@ -754,3 +754,17 @@ I5 adds cross-workflow integration verification without new public API. Existing
 sample-analysis contracts reject broken links and incompatible execution contexts.
 See [I5 integration verification](scientific_workflows.md#i5-cross-workflow-integration-verification)
 for recalculated-hash checks, complete-case denominators and archive semantics.
+
+
+### Linked scientific workflow reports
+
+```python
+from ncmemsim.workflows import WorkflowReport, build_workflow_report, write_workflow_report
+```
+
+The builder requires typed source/application/Robust DTCO evidence and explicit
+ordered `device_variants`, each an iterable of `(DEVICE ParameterBinding, value)`
+assignments. Empty assignments declare the unchanged applied device.
+`WorkflowReport.from_json` validates hashes and source/context/variant links
+without refitting or physics. The writer produces six non-overwriting portable
+artifacts. See [I6 report contract](scientific_workflows.md#i6-linked-workflow-report-and-portable-exports).

@@ -177,7 +177,7 @@ def build_reference_report(*, include_failures: bool = False) -> RobustDTCORepor
             'scientific_status': 'FITTED', 'data_origin': 'synthetic',
             'scope': 'Software verification only; no experimental calibration or manufacturing yield',
             'constraints_applicability': 'Occupation bounds only; not a performance acceptance specification',
-            'report_contract': 'Existing Phase H report; new linked workflow report schema remains I6'} )
+            'report_contract': 'Existing Phase H report; linked WorkflowReport wrapper supplied by I6'} )
 
 
 def protocol_for_study():

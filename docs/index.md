@@ -32,7 +32,7 @@ The v0.14.0 development line (`0.14.0.dev0`) starts Phase I:
 and contracts for linking fitting/qualification to nominal and Robust DTCO;
 I1 supplies immutable source evidence; I2 adds explicit fitted-parameter application
 and full evaluator contexts with fresh execution state. I3 supplies the synthetic
-electrical reference, and I4 the electro-optical reference; I5 verifies their integration; linked reports remain I6 work.
+electrical reference, and I4 the electro-optical reference; I5 verifies their integration; I6 supplies linked reports and portable exports.
 Simulator physics is unchanged.
 
 ## Start here

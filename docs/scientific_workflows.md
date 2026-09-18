@@ -9,7 +9,7 @@ Existing fitting/calibration, nominal DTCO and Robust DTCO APIs remain available
 I0 supplies scope/contracts and development setup. I1 adds immutable evidence
 and identity contracts in `ncmemsim.workflows`; I2 adds fitted application and full
 evaluator contexts. I3 supplies the complete synthetic electrical reference;
-I4 supplies the synthetic electro-optical reference. I5 verifies cross-workflow provenance, failure accounting and compatibility. Linked integration reports remain I6 work.
+I4 supplies the synthetic electro-optical reference. I5 verifies cross-workflow provenance, failure accounting and compatibility. I6 supplies linked integration reports and portable exports.
 
 ## Delivery sequence
 
@@ -21,8 +21,8 @@ I4 supplies the synthetic electro-optical reference. I5 verifies cross-workflow 
 | I3 | Electrical fitting/qualification → nominal/Robust DTCO reference | Implemented |
 | I4 | Electro-optical fitting/qualification → nominal/Robust DTCO reference | Implemented |
 | I5 | End-to-end provenance, failure and compatibility verification | Implemented |
-| I6 | Linked workflow evidence report and reproducible exports | Next |
-| I7 | Final version/documentation audit, full CI and clean distributions | Planned |
+| I6 | Linked workflow evidence report and reproducible exports | Implemented |
+| I7 | Final version/documentation audit, full CI and clean distributions | Next |
 
 ## Scope
 
@@ -383,7 +383,7 @@ plus exact manifests, responses, failures, statistics, nominal comparisons and
 robust policy/fronts. Source/application hashes and cross-source links are checked
 in integration tests and future installed probes. It uses the existing six-file
 JSON/CSV/Markdown export with non-overwrite behavior; it writes nothing by default.
-The new dedicated linked workflow report/restore/export contract remains I6;
+The dedicated linked workflow report/restore/export contract is supplied by I6 below;
 the existing Phase H serializer does not add new I3-specific metadata semantics.
 The reference is registered in source-archive inventory and clean installed probes,
 with the optional fit extra; actual package/installed checks remain I7 gates.
@@ -451,7 +451,7 @@ exports and rejects overwrite. Full source evidence, fitted application,
 nominal results and exact sample manifests retain their identity links;
 restoration does not refit or rerun physics. The existing Phase H report does
 not add new I4 metadata validation semantics; the dedicated linked workflow
-report remains I6. The optional `fit` extra is required. Clean installed
+report is supplied by I6 below. The optional `fit` extra is required. Clean installed
 execution and source archive inclusion are final-version preparation gates;
 I4 checks their probe syntax/inventory locally without building packages.
 
@@ -485,5 +485,71 @@ The synthetic data origin, qualification eligibility and **FITTED** status are
 preserved. These checks do not establish experimental calibration, manufacturing
 yield, signatures or historical baselines missing from original evidence.
 The retained F/G/H tests run alongside I1–I5 locally. The dedicated report link
-validation/export contract remains I6; strict rendered documentation, full
+validation/export contract is supplied by I6; strict rendered documentation, full
 pytest, supported-Python CI and clean package execution remain I7.
+
+
+## I6 — linked workflow report and portable exports
+
+`WorkflowReport`, `build_workflow_report` and `write_workflow_report` are dedicated
+public imports from `ncmemsim.workflows`. Schema `scientific-workflow-report-v1`
+contains one full `WorkflowEvidence`, one full `AppliedWorkflowEvidence`, an
+existing `RobustDTCOReport` and explicit ordered DEVICE variant assignments.
+Existing Phase F/G/H reports and APIs remain available and unchanged.
+
+Construction and restoration validate the authoritative nested source hashes
+and semantic contracts. The applied source must equal the workflow source;
+every study must retain the same application, evaluation ID and execution runtime.
+Each declared DEVICE assignment uses the canonical binding unit and reconstructs
+the study's exact nominal device from the applied device. Undeclared device
+changes, missing/reordered variants, MODEL/OPERATING assignments or changed units
+are rejected. The baseline operating protocol must equal the applied protocol.
+Propagated samples still use their exact retained H manifests and ordered input
+hashes. Analysis algorithm provenance remains separate from execution runtime.
+
+Scientific summary is derived from the typed workflow source. Recalculated outer
+hashes cannot promote FITTED to CALIBRATED, synthetic to measured or alter
+qualification eligibility. If legacy H metadata declares source/application
+links, these must agree too. Arbitrary free metadata is supplementary and never
+substitutes for authoritative sources. Integrity checks establish consistency,
+not authenticity, independent measurements or historical baselines absent from
+original evidence. Existing H count/fraction/nominal/Pareto source checks are
+retained; the wrapper does not rerun physics or requalify calibration.
+
+```python
+import json
+from ncmemsim.workflows import WorkflowReport
+from examples.phase_i6_linked_workflow_report import build_reference_report
+
+report = build_reference_report(optical=True)
+restored = WorkflowReport.from_json(report.to_json())
+assert restored.report_hash == report.report_hash
+assert restored.to_dict()['scientific_summary']['fit_data_origin'] == 'synthetic'
+```
+
+The runnable reference supports electrical/electro-optical and normal/error modes:
+
+```bat
+python examples\phase_i6_linked_workflow_report.py
+python examples\phase_i6_linked_workflow_report.py --optical
+python examples\phase_i6_linked_workflow_report.py --optical --include-failures
+python examples\phase_i6_linked_workflow_report.py --output-dir results\i6-linked
+```
+
+Without an output directory it writes no files. Explicit output creates six
+artifacts: `manifest.json` restores the complete linked wrapper, `samples.csv`,
+`statistics.csv`, `nominal.csv` and `robust.csv` preserve all existing H fields
+and prepend report/source/application hashes, status, data origins and
+qualification eligibility; `report.md` includes these identities, source and
+applicability declarations and existing H failure/denominator/policy summaries.
+CSV blank values retain the existing representation of undefined values; JSON
+is the authoritative typed archive. All target collisions are checked before
+writing, and existing files are never overwritten.
+
+The references remain synthetic software verification. 300 K qualification does
+not separately qualify the exploratory 325 K variant, and assumed sample
+intervals are not inferred from covariance or fabrication data. The optional
+`fit` extra is required to execute references, not to restore existing archives.
+The installed-distribution probe now includes all four I6 modes and exports;
+I6 checks only its syntax/inventory locally. Actual clean installations, strict
+rendered documentation, full pytest and Actions remain final I7 gates.

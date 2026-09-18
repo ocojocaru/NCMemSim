@@ -14,7 +14,7 @@ import zipfile
 REQUIRED = {f"ncmemsim/dtco/{name}.py" for name in
             ("__init__", "spec", "binding", "operating", "sweep", "metrics", "pareto", "sensitivity", "reporting", "variation", "sampling", "propagation", "sample_analysis", "robust", "robust_reporting")}
 
-REQUIRED |= {"ncmemsim/workflows/__init__.py", "ncmemsim/workflows/evidence.py", "ncmemsim/workflows/application.py"}
+REQUIRED |= {"ncmemsim/workflows/__init__.py", "ncmemsim/workflows/evidence.py", "ncmemsim/workflows/application.py", "ncmemsim/workflows/reporting.py"}
 
 # Source releases must carry the audited documentation and its build entry points.
 SOURCE_REQUIRED = {
@@ -52,6 +52,7 @@ SOURCE_REQUIRED = {
     'examples/phase_h6_robust_dtco_reference.py',
     'examples/phase_i3_electrical_workflow_reference.py',
     'examples/phase_i4_electro_optical_workflow_reference.py',
+    'examples/phase_i6_linked_workflow_report.py',
     'scripts/validate_documentation.py',
     'mkdocs.yml',
     'scripts/validate_dtco_distribution.py',
@@ -147,6 +148,8 @@ def main() -> None:
             shutil.copyfile(root / "examples/phase_h6_robust_dtco_reference.py", work / "robust_reference.py")
             shutil.copyfile(root / "examples/phase_i3_electrical_workflow_reference.py", work / "electrical_workflow_reference.py")
             shutil.copyfile(root / "examples/phase_i4_electro_optical_workflow_reference.py", work / "electro_optical_workflow_reference.py")
+            for filename in ('phase_i3_electrical_workflow_reference.py', 'phase_i4_electro_optical_workflow_reference.py', 'phase_i6_linked_workflow_report.py'):
+                shutil.copyfile(root / 'examples' / filename, work / filename)
             probe = work / "probe.py"
             probe.write_text(PROBE, encoding="utf-8")
             run(str(python), "-I", str(probe), str(root), str(environment), str(work), cwd=work)
@@ -261,6 +264,19 @@ for failures in (False, True):
         assert abs(context['photo_config']['photo_capture_efficiency'] - 2e-7) < 2e-10
     assert RobustDTCOReport.from_json(report.to_json()).report_hash == report.report_hash
 print('Installed I4 electro-optical fitting/qualification/application/nominal/sample source links: PASS')
+from ncmemsim.workflows import WorkflowReport, build_workflow_report, write_workflow_report
+spec = importlib.util.spec_from_file_location('linked_workflow_reference', work / 'phase_i6_linked_workflow_report.py')
+linked_workflow_reference = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(linked_workflow_reference)
+for optical in (False, True):
+    for failures in (False, True):
+        report = linked_workflow_reference.build_reference_report(optical=optical, include_failures=failures)
+        assert WorkflowReport.from_json(report.to_json()).report_hash == report.report_hash
+        assert report.to_dict()['scientific_summary']['scientific_status'] == 'FITTED'
+        destination = environment / ('workflow-%s-%s' % (optical, failures))
+        assert len(write_workflow_report(report, destination)) == 6
+        assert WorkflowReport.from_json((destination / 'manifest.json').read_text(encoding='utf-8')).report_hash == report.report_hash
+print('Installed I6 linked electrical/optical normal/error sources and six exports: PASS')
 print("Installed DTCO reference, failure handling, deterministic hashes and exports: PASS", origin)
 '''
 
