@@ -3,6 +3,7 @@ name: CI
 on:
   workflow_dispatch:
   push:
+    branches: ["dev/v0.14.0-scientific-workflows"]
     tags: ["v*"]
 
 permissions:

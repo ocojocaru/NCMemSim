@@ -468,21 +468,21 @@ using NCMemSim v0.12.0 for claims such as:
 
 ## Current validation baseline
 
-Version v0.13.0 preserves the electrical/optical and fitting/calibration
-baselines and the Phase G DTCO layer, adding bounded independent Robust DTCO.
+Version v0.14.0 preserves the electrical/optical and fitting/calibration
+baselines, nominal/Robust DTCO and linked scientific workflow evidence.
 
 Its validation suite contains:
 
 ```text
-1808 passed
+2000 tests
 ```
 
-and covers the retained Phases A–F and 717 dedicated Phase G/H DTCO cases.
+and covers retained Phases A–F, 717 Phase G/H and 192 Phase I cases.
 
-The release is verified on the supported Python 3.11, 3.12, and 3.13 CI matrix.
+The prepared commit must pass the supported Python 3.11–3.13 CI matrix before tagging.
 
-The Phase H candidate passed clean installed wheel/source workflows and
-manual documentation auditing. Final publication follows metadata preparation.
+Phase I final preparation verifies clean installed wheel/source workflows and
+strict documentation locally; remote gates and publication follow the prepared commit.
 This is software verification,
 not independent physical validation of every material or device.
 

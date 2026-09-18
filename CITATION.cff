@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use NCMemSim in research, cite the exact software version and this repository."
 title: "NCMemSim: Nanocrystal Memory Simulation Platform"
 type: software
-version: 0.13.0
+version: 0.14.0
 date-released: 2026-09-18
 license: Apache-2.0
 authors:
@@ -18,7 +18,9 @@ abstract: >-
   deterministic parameter fitting, uncertainty diagnostics, calibration
   qualification, deterministic design-space sweeps, Pareto and grid sensitivity
   analysis, bounded independent uncertainty propagation, explicit robust objectives,
-  reproducible nominal and Robust DTCO reports, validation, and reproducibility tools.
+  reproducible nominal and Robust DTCO reports, immutable scientific workflow
+  evidence, fitted evaluator contexts, linked workflow exports, validation,
+  and reproducibility tools.
 keywords:
   - nanocrystal memory
   - non-volatile memory

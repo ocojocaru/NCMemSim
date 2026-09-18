@@ -6,7 +6,7 @@
 floating-gate nanocrystal memories based on Ge, GeSn, and high-k dielectric
 stacks.
 
-NCMemSim v0.13.0 preserves the electrical, retention, optical, electro-optical,
+NCMemSim v0.14.0 preserves the electrical, retention, optical, electro-optical,
 fitting and calibration baseline while adding deterministic design-space
 exploration and DTCO. Typed experiment definitions, Cartesian sweeps, explicit
 metrics and constraints, Pareto fronts, grid sensitivity and reproducible
@@ -27,7 +27,7 @@ and explicit robust Pareto objectives. H6 adds linked reports and an electrical
 reference. H7 candidate regression, supported-Python CI, documentation audit
 and clean installed distributions have passed; final publication follows release preparation.
 
-The v0.14.0 development line (`0.14.0.dev0`) starts Phase I:
+Version `0.14.0` implements Phase I:
 [Scientific workflow integration](scientific_workflows.md). I0 freezes scope
 and contracts for linking fitting/qualification to nominal and Robust DTCO;
 I1 supplies immutable source evidence; I2 adds explicit fitted-parameter application
@@ -129,10 +129,11 @@ Phase G adds canonical binding/unit contracts, deterministic Cartesian sweeps,
 metrics and feasibility constraints, Pareto fronts, adjacent-grid sensitivity,
 and reproducible report exports.
 
-The v0.13.0 suite contains **1808 tests**, including **717 Phase G/H DTCO cases**.
-Full tests and clean installed distribution workflows passed on Python 3.11,
-3.12 and 3.13 on the Phase H candidate; strict documentation also passed.
-Final v0.13.0 publication and its tag workflow follow release preparation.
+The v0.14.0 suite contains **2000 tests**, including **717 Phase G/H** and
+**192 Phase I** cases. Final preparation checks full regression, strict
+documentation and clean installed distributions locally on Python 3.13.
+The supported-Python CI matrix and Documentation execute after push on the
+prepared dev branch; successful final-commit results precede tagging/publication.
 
 Regression against the retained V5.3 electrical reference remains part of the
 validation suite. The legacy timestep inconsistency identified during v0.9.1

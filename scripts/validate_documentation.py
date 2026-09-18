@@ -94,3 +94,8 @@ with tempfile.TemporaryDirectory(prefix="ncmemsim-doc-audit-") as name:
     for i, block in enumerate(re.findall(r"```python\n(.*?)```", (repository/"docs/robust_dtco.md").read_text(encoding="utf-8"), re.S)):
         exec(compile(block, "Robust DTCO example " + str(i), "exec"), {"__name__": "__documentation_example__"})
     print("H1–H6 examples PASS")
+
+
+    for i, block in enumerate(re.findall(r"```python\n(.*?)```", (repository/"docs/scientific_workflows.md").read_text(encoding="utf-8"), re.S)):
+        exec(compile(block, "Scientific workflow example " + str(i), "exec"), {"__name__": "__documentation_example__"})
+    print("I1–I6 documentation examples PASS")

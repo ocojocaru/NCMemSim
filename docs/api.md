@@ -1,6 +1,6 @@
 # Public API overview
 
-The public import surface for NCMemSim v0.13.0 is defined primarily in
+The public import surface for NCMemSim v0.14.0 is defined primarily in
 `ncmemsim/__init__.py`, with optical material models exposed from
 `ncmemsim.materials.optics`.
 
@@ -704,7 +704,7 @@ Code intended to survive minor releases should prefer the documented
 public imports, documented result objects, and stable simulator entry
 points.
 
-## Scientific workflow evidence (v0.14.0 development)
+## Scientific workflow evidence (v0.14.0)
 
 The dedicated `ncmemsim.workflows` surface captures dataset origin/provenance and
 immutable evidence linking existing fits, specifications and optional qualification.

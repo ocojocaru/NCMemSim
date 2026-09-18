@@ -1,10 +1,10 @@
-# Scientific workflow integration — Phase I / v0.14.0 development
+# Scientific workflow integration — Phase I / v0.14.0
 
 ## Status and baseline
 
-I0 starts `0.14.0.dev0` from published v0.13.0 commit
+I0 started `0.14.0.dev0` from published v0.13.0 commit
 `c3b1c10824c8296e7900e0b9bd8cbb19d6d75f8f` on
-`dev/v0.14.0-scientific-workflows`. Citation metadata remains on v0.13.0.
+`dev/v0.14.0-scientific-workflows`. I7 preparation sets package and citation to 0.14.0; tagging/publication follow remote gates.
 Existing fitting/calibration, nominal DTCO and Robust DTCO APIs remain available.
 I0 supplies scope/contracts and development setup. I1 adds immutable evidence
 and identity contracts in `ncmemsim.workflows`; I2 adds fitted application and full
@@ -22,7 +22,7 @@ I4 supplies the synthetic electro-optical reference. I5 verifies cross-workflow 
 | I4 | Electro-optical fitting/qualification → nominal/Robust DTCO reference | Implemented |
 | I5 | End-to-end provenance, failure and compatibility verification | Implemented |
 | I6 | Linked workflow evidence report and reproducible exports | Implemented |
-| I7 | Final version/documentation audit, full CI and clean distributions | Next |
+| I7 | Final version/documentation audit, full CI and clean distributions | Final preparation; remote gates before tag |
 
 ## Scope
 

@@ -3,7 +3,7 @@
 > **Historical design document:** This Revision 1 specification records the
 > original Phase A / alpha design of NCMemSim and is retained for project
 > provenance. It does not describe the current software architecture or
-> implementation status. For the current v0.13.0 implementation, see [Home](index.md),
+> implementation status. For the current v0.14.0 implementation, see [Home](index.md),
 > `architecture.md`, `physics.md`, `optics.md`, and `roadmap.md`.
 
 **Expanded name:** Unified Nanocrystal Memory Simulation Platform  

@@ -2,7 +2,22 @@
 
 All notable changes to NCMemSim are documented in this file.
 
-## v0.14.0.dev0 — Scientific workflow integration (in development)
+## v0.14.0 — Scientific workflow integration
+
+### I7 — final-version preparation and release gates
+
+- Align package/citation and current documentation with 0.14.0; retain historical
+  release evidence and explicit synthetic/FITTED applicability limits.
+- Audit strict MkDocs, rendered links, source references and executable I1–I6
+  examples; full suite contains 2000 tests, including 192 Phase I cases.
+- Validate clean wheel/sdist installations with actual electrical/optical fits,
+  linked archives and exports, and audited source-archive bytes.
+- Enable CI/Documentation on push to the exact active dev branch, including
+  final corrections; remote supported-Python gates follow push before tagging.
+- Documentation installs its optional fit dependency for executed examples.
+  Preparation does not create a tag, publish assets or establish experimental
+  calibration. Remote results must refer to the final prepared commit.
+
 
 ### I6 — linked workflow reports and portable exports
 

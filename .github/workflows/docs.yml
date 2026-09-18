@@ -2,6 +2,8 @@ name: Documentation
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["dev/v0.14.0-scientific-workflows"]
 
 permissions:
   contents: read
@@ -20,7 +22,7 @@ jobs:
           python-version: "3.12"
           cache: pip
       - name: Install documentation dependencies
-        run: python -m pip install ".[docs]"
+        run: python -m pip install ".[docs,fit]"
       - name: Audit documentation, examples and rendered links
         run: python scripts/validate_documentation.py
       - name: Build Pages artifact strictly

@@ -208,7 +208,11 @@ strict documentation auditing and clean wheel/sdist installations.
 
 ### v0.14.0: Scientific workflow integration
 
-**Status: I0–I6 implemented (`0.14.0.dev0`); I7 planned.**
+**Status: I0–I6 implemented; package `0.14.0`, I7 final-version preparation.**
+
+Local full regression, strict documentation and clean distributions are final
+gates. CI/Documentation run after push on the prepared dev branch; tag/publication
+follow successful remote checks on that exact commit.
 
 Link existing fitting/calibration evidence and explicitly applied parameter
 contexts to nominal and Robust DTCO. Deliver electrical and electro-optical

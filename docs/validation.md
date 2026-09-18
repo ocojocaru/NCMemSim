@@ -12,6 +12,22 @@ The v0.10.0 repository has strong verification and regression infrastructure.
 
 Experimental validation remains device- and dataset-dependent and must be demonstrated in the associated scientific study.
 
+## v0.14.0 scientific workflow final preparation
+
+The suite contains **2000 tests**, including **192 Phase I** integration cases
+and **717 retained Phase G/H** cases. Local final preparation runs full pytest,
+strict MkDocs/rendered-link and source-reference auditing, public imports and
+executable G/H/I examples, then clean wheel/sdist installations with actual
+electrical/optical fitting, linked report restoration and exports. Source
+archive bytes are compared with the audited checkout.
+
+CI and Documentation run automatically after push to
+`dev/v0.14.0-scientific-workflows`. Python 3.11–3.13 remote results must belong
+to the prepared commit; local Python 3.13 results do not substitute for them.
+No v0.14.0 tag or publication is implied by this preparation. Synthetic
+qualification, consistency hashes and descriptive feasibility fractions are
+not experimental calibration, authenticity or manufacturing yield.
+
 ## v0.13.0 Robust DTCO validation
 
 The candidate `b5d8374e1a386e00a442b37839784134ae6e6209` passed
@@ -209,10 +225,10 @@ Run all tests with:
 python -m pytest
 ```
 
-The current v0.13.0 local verification target is:
+The current v0.14.0 local verification target is:
 
 ```text
-1808 passed
+2000 tests
 ```
 
 ## Physics checks

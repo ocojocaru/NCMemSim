@@ -721,3 +721,12 @@ For related information, see:
 - [Materials and provenance](materials.md) for parameter status;
 - [Optical programming](optics.md) for optical-model assumptions;
 - [Developer guide](developer.md) for rules governing new physical models.
+
+
+## v0.14.0 final preparation
+
+Phase I adds immutable source evidence, fitted application contexts and linked
+WorkflowReport archives. Full regression contains 2000 tests. Final local
+strict documentation and clean installed electrical/optical references precede
+remote CI/Documentation on the prepared dev commit. Keep historical v0.13.0
+results above separate from the current commit's release evidence.
