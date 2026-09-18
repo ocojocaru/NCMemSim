@@ -1,0 +1,42 @@
+{
+  "source_commit": "f210f3fcf1e8d48806b0f9a94e564abc0aaabfc9",
+  "source_tag": "v0.14.0",
+  "generation": "Published-tag reference builders with deliberate failures; synthetic evidence only. Generated once using local runtime; archived runtime is authoritative.",
+  "files": [
+    {
+      "file": "dtco.json",
+      "sha256": "1f554b8895f7a617f2b76e37c1d9bb5058a32aee99d520a6aa62545d341d317f",
+      "schema_version": "dtco-report-v1"
+    },
+    {
+      "file": "robust.json",
+      "sha256": "c7b7af6e60f73aa035a2629b3904f941fd8f6886a1dc64730526ac47d0095290",
+      "schema_version": "dtco-robust-report-v1"
+    },
+    {
+      "file": "workflow.json",
+      "sha256": "2e635f283910ac076adf23d3d4d602c920c6124117791d7982cc1f2652d42e27",
+      "schema_version": "scientific-workflow-report-v1"
+    },
+    {
+      "file": "workflow_evidence.json",
+      "sha256": "035d5bbdbe3151fdb3625b7e63d7732e5d4abdbb42ea91d9f415dcb313b99cb4",
+      "schema_version": "scientific-workflow-evidence-v1"
+    },
+    {
+      "file": "applied_evidence.json",
+      "sha256": "adec653405272727b7b4ab7e44fff2edeaea9b005a07a3698c30a2ee31802446",
+      "schema_version": "applied-workflow-evidence-v1"
+    },
+    {
+      "file": "dataset_evidence.json",
+      "sha256": "8fbcada761f6e1c71ff313cf81490cafe3a1e2974dfd5e69a7778a45c3105e57",
+      "schema_version": "workflow-dataset-evidence-v1"
+    },
+    {
+      "file": "sample_manifest.json",
+      "sha256": "bf7ccbb8a9f1a6c9c1c11cc8db452957aa4de5a8b4698d2ff9e1d845a1652d34",
+      "schema_version": 1
+    }
+  ]
+}

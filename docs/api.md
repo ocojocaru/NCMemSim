@@ -782,3 +782,5 @@ support review; they do not approve every source-visible helper as stable.
 The [fitting, qualification and DTCO result review](api_analysis_results.md)
 records residual/uncertainty units, undefined values, failure denominators and
 provenance semantics separately from numerical solver success.
+
+See [archive schema compatibility](api_archives.md) for retained published-tag fixtures and typed JSON reader contracts.

@@ -4,6 +4,8 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased — stability preparation from v0.14.0
 
+- Audit typed JSON archive readers and retain seven published-v0.14.0 reference fixtures with integrity and compatibility tests.
+
 - Audit fitting/qualification and DTCO result semantics: raw versus weighted
   residuals, physical covariance units, unavailable diagnostics, failure
   denominators, exact eligibility and provenance boundaries.

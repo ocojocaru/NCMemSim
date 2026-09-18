@@ -28,6 +28,7 @@ SOURCE_REQUIRED = {
     'docs/api_inventory.json',
     'docs/api_results.md',
     'docs/api_analysis_results.md',
+    'docs/api_archives.md',
     'scripts/validate_api_contract.py',
     'docs/architecture.md',
     'docs/assets/banner.svg',
@@ -63,6 +64,8 @@ SOURCE_REQUIRED = {
     'mkdocs.yml',
     'scripts/validate_dtco_distribution.py',
 }
+SOURCE_REQUIRED |= {"tests/fixtures/archives/v0_14_0/" + name + ".json" for name in
+    ("dtco", "robust", "workflow", "dataset_evidence", "workflow_evidence", "applied_evidence", "sample_manifest", "inventory")}
 
 def check_archive(path: Path) -> None:
     if path.suffix == ".whl":

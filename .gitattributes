@@ -1,3 +1,6 @@
 # Canonical LF endings for byte-hashed Tran et al. reference artifacts.
 data/reference/tran2016/*.csv text eol=lf
 data/reference/tran2016/*.json text eol=lf
+
+# Frozen archive fixtures use exact byte hashes across platforms.
+tests/fixtures/archives/**/*.json text eol=lf
