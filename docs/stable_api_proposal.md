@@ -1,9 +1,9 @@
-# Proposed stable v1.0 API surface
+# Approved stable v1.0 API candidate surface
 
-Status: proposal_pending_approval. Preparation version remains 0.14.0.
-This list is a proposed contract, not a declaration that v1.0 is released.
+Status: approved_for_v1_candidate_preparation. Preparation version remains 0.14.0.
+This list is the approved candidate contract for v1.0 preparation, not a declaration that v1.0 is released.
 
-All existing documented imports plus explicit root-package exports and legacy transport exports; other aliases/helpers are not implicitly selected.
+All existing documented imports, explicit root-package exports, legacy transport exports and reviewed generic fitting primitives; other aliases/helpers are not implicitly selected.
 
 Exact signatures, declared fields and public methods are in [stable_api_proposal.json](stable_api_proposal.json).
 Class call signatures include generated dataclass constructors; source records identify declared methods and fields.
@@ -120,8 +120,14 @@ Version strings are runtime identity, not a promise to retain the literal versio
 | ncmemsim.experimental.OpticalAbsorptionDataset | ncmemsim.experimental.OpticalAbsorptionDataset | class |
 | ncmemsim.fit_diagnostics.FitUncertaintyDiagnostics | ncmemsim.fit_diagnostics.FitUncertaintyDiagnostics | class |
 | ncmemsim.fit_diagnostics.analyze_fit_uncertainty | ncmemsim.fit_diagnostics.analyze_fit_uncertainty | function |
+| ncmemsim.fitting.DeterministicFitResult | ncmemsim.fitting.DeterministicFitResult | class |
 | ncmemsim.fitting.FitParameter | ncmemsim.fitting.FitParameter | class |
 | ncmemsim.fitting.FitParameterSet | ncmemsim.fitting.FitParameterSet | class |
+| ncmemsim.fitting.LeastSquaresConfig | ncmemsim.fitting.LeastSquaresConfig | class |
+| ncmemsim.fitting.ObjectiveEvaluation | ncmemsim.fitting.ObjectiveEvaluation | class |
+| ncmemsim.fitting.evaluate_least_squares_objective | ncmemsim.fitting.evaluate_least_squares_objective | function |
+| ncmemsim.fitting.least_squares_residuals | ncmemsim.fitting.least_squares_residuals | function |
+| ncmemsim.fitting.run_least_squares_fit | ncmemsim.fitting.run_least_squares_fit | function |
 | ncmemsim.io.load_optical_absorption_csv | ncmemsim.io.load_optical_absorption_csv | function |
 | ncmemsim.make_ge | ncmemsim.materials.models.ge.make_ge | function |
 | ncmemsim.make_gesn | ncmemsim.materials.models.gesn.make_gesn | function |
@@ -211,7 +217,7 @@ Version strings are runtime identity, not a promise to retain the literal versio
 | ncmemsim.write_benchmark_report | ncmemsim.benchmark.write_benchmark_report | function |
 | ncmemsim.write_golden_suite | ncmemsim.golden.write_golden_suite | function |
 
-## Proposed maintenance contract
+## Approved maintenance contract
 
 Retain these paths, accepted existing parameter names/order/kinds/defaults and declared result fields in compatible releases.
 Existing positional arguments remain supported where the recorded callable signature permits them; new examples should prefer keywords.
@@ -221,7 +227,7 @@ Numerical behavior, applicability and ownership are governed by the reviewed res
 Protocol/enum signatures describe Python mechanics; they do not imply that abstract protocols are intended as concrete engines.
 Deprecation/removal follows [compatibility policy](api_compatibility.md). New optional APIs may be added without invalidating old calls.
 
-## Proposed limitations to retain
+## Approved limitations to retain
 
 Accept current empty-sweep shape and input aliasing, shallow nested state/context ownership, writable arrays in legacy frozen containers,
 None/NaN/zero conventions, strict current-schema archive readers and the legacy manifest hash/copy scope as documented.
@@ -229,7 +235,7 @@ Do not silently harden or reinterpret those behaviors in this preparation. Any l
 See [core results](api_results.md), [analysis results](api_analysis_results.md), [archives](api_archives.md),
 [defaults](scientific_defaults.md), and [distribution](distribution_contracts.md).
 
-## Proposed scientific release scope
+## Approved scientific release scope
 
 A stable compact-model simulation/fitting/DTCO software release with explicit applicability and provisional parameters.
 Synthetic workflows remain synthetic FITTED evidence. Numerical success, covariance and qualification eligibility do not imply independent experimental validation.
@@ -237,10 +243,10 @@ No new physics, all-device predictive validity, manufactured yield or experiment
 Literature/model/parameter attribution retains its specific scope. New measured claims require their own dataset/provenance and validation evidence.
 Out-of-model effects remain outside the contract unless explicitly introduced and tested.
 
-## Approval still required
+## Remaining release gates
 
-Review the exact list and the limitations/scientific scope above. Reject or revise individual entries before freezing; do not expand it merely to match every importable name.
-The readiness matrix remains pending approval; this proposal changes no gate to approved and records no final checks as passed.
+The exact list and documented limitations/scientific scope have been reviewed for candidate preparation. Do not expand it merely to match every importable name.
+The readiness matrix records approved contract reviews while leaving archival/citation planning and all final checks open.
 Archival/DOI planning and full final-candidate tests/build/CI/documentation remain separate requirements.
 Run python scripts/validate_stable_api_proposal.py to compare the retained proposal against current source/runtime declarations.
-This command detects drift; it does not regenerate the baseline, grant approval or test numerical behavior.
+This command detects drift; it does not regenerate the baseline, verify external deposits or test numerical behavior.

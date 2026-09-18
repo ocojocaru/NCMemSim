@@ -1,4 +1,4 @@
-"""Exact proposed imports/constructors remain explicit and pending approval."""
+"""Exact approved candidate imports/constructors remain explicit."""
 from pathlib import Path
 import json,subprocess,sys
 import pytest
@@ -10,7 +10,7 @@ ROOT=Path(__file__).resolve().parents[1]
 def proposal():return build_proposal(ROOT)
 
 def test_selected_surface_and_class_constructor_coverage(proposal):
- assert len(proposal['entries'])==198
+ assert len(proposal['entries'])==204
  assert proposal==json.loads((ROOT/'docs/stable_api_proposal.json').read_text(encoding='utf-8'))
  paths={e['import_path'] for e in proposal['entries']}
  inventory=json.loads((ROOT/'docs/api_inventory.json').read_text(encoding='utf-8'))
@@ -21,6 +21,8 @@ def test_selected_surface_and_class_constructor_coverage(proposal):
  fit=next(e for e in proposal['entries'] if e['import_path']=='ncmemsim.fitting.FitParameter')
  assert fit['source_contract']['constructor'] is None
  assert 'initial_value' in fit['runtime_call_signature'] and 'lower_bound' in fit['runtime_call_signature']
+ runner=next(e for e in proposal['entries'] if e['import_path']=='ncmemsim.fitting.run_least_squares_fit')
+ assert runner['runtime_call_signature']=="(parameter_set: 'FitParameterSet', residual_function: 'ResidualFunction', *, config: 'LeastSquaresConfig | None' = None) -> 'DeterministicFitResult'"
  assert (ROOT/'docs/stable_api_proposal.md').read_text(encoding='utf-8')==render(proposal)
 
 def test_root_alias_target_and_result_identity_are_distinct(proposal):
@@ -30,11 +32,13 @@ def test_root_alias_target_and_result_identity_are_distinct(proposal):
  module=next(e for e in proposal['entries'] if e['import_path']=='ncmemsim.transport.base')
  assert module['kind']=='module' and module['runtime_call_signature'] is None
 
-def test_proposal_does_not_mark_approval_or_final_checks_passed(proposal):
- assert proposal['status']=='proposal_pending_approval'
+def test_proposal_marks_contract_approval_but_not_final_checks(proposal):
+ assert proposal['status']=='approved_for_v1_candidate_preparation'
  data=validate(ROOT)
  assert data['ready_for_candidate'] is False
- assert all(g['state']!='approved' for g in data['gates'])
+ gate_states={g['id']:g['state'] for g in data['gates']}
+ assert gate_states['archival_citation']=='pending'
+ assert all(state=='approved' for key,state in gate_states.items() if key!='archival_citation')
  assert all(c['state']=='not_run' for c in data['final_candidate_checks'])
 
 def test_runtime_signature_drift_is_observed(proposal,monkeypatch):

@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "status": "proposal_pending_approval",
+  "status": "approved_for_v1_candidate_preparation",
   "preparation_version": "0.14.0",
   "source_baseline_commit": "6409e42087992f5dfde966cd6e320d3964b264b1",
-  "selection_policy": "All existing documented imports plus explicit root-package exports and legacy transport exports; other aliases/helpers are not implicitly selected.",
+  "selection_policy": "All existing documented imports, explicit root-package exports, legacy transport exports and reviewed generic fitting primitives; other aliases/helpers are not implicitly selected.",
   "entries": [
     {
       "import_path": "ncmemsim",
@@ -9416,6 +9416,227 @@
       }
     },
     {
+      "import_path": "ncmemsim.fitting.DeterministicFitResult",
+      "definition_path": "ncmemsim.fitting.DeterministicFitResult",
+      "kind": "class",
+      "runtime_call_signature": "(parameter_set: 'FitParameterSet', config: 'LeastSquaresConfig', initial_values: 'np.ndarray', fitted_values: 'np.ndarray', objective_residuals: 'np.ndarray', success: 'bool', status: 'int', message: 'str', nfev: 'int', njev: 'int | None', optimality: 'float', active_mask: 'np.ndarray', scipy_version: 'str', jacobian: 'np.ndarray | None' = None) -> None",
+      "source_contract": {
+        "name": "DeterministicFitResult",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "parameter_set",
+            "annotation": "FitParameterSet",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "config",
+            "annotation": "LeastSquaresConfig",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "initial_values",
+            "annotation": "np.ndarray",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "fitted_values",
+            "annotation": "np.ndarray",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "objective_residuals",
+            "annotation": "np.ndarray",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "success",
+            "annotation": "bool",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "status",
+            "annotation": "int",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "message",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "nfev",
+            "annotation": "int",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "njev",
+            "annotation": "int | None",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "optimality",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "active_mask",
+            "annotation": "np.ndarray",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "scipy_version",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "jacobian",
+            "annotation": "np.ndarray | None",
+            "default_expression": "None",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "objective_sum_squares",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "float",
+            "source_signature": "(self) -> float",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "cost",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "float",
+            "source_signature": "(self) -> float",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "parameter_specification_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "solver_configuration_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "initial_parameters",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, float]",
+            "source_signature": "(self) -> dict[str, float]",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "fitted_parameters",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, float]",
+            "source_signature": "(self) -> dict[str, float]",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
       "import_path": "ncmemsim.fitting.FitParameter",
       "definition_path": "ncmemsim.fitting.FitParameter",
       "kind": "class",
@@ -9691,6 +9912,288 @@
             "decorators": []
           }
         ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.fitting.LeastSquaresConfig",
+      "definition_path": "ncmemsim.fitting.LeastSquaresConfig",
+      "kind": "class",
+      "runtime_call_signature": "(ftol: 'float' = 1e-08, xtol: 'float' = 1e-08, gtol: 'float' = 1e-08, max_nfev: 'int' = 1000) -> None",
+      "source_contract": {
+        "name": "LeastSquaresConfig",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "ftol",
+            "annotation": "float",
+            "default_expression": "1e-08",
+            "required_in_source": false
+          },
+          {
+            "name": "xtol",
+            "annotation": "float",
+            "default_expression": "1e-08",
+            "required_in_source": false
+          },
+          {
+            "name": "gtol",
+            "annotation": "float",
+            "default_expression": "1e-08",
+            "required_in_source": false
+          },
+          {
+            "name": "max_nfev",
+            "annotation": "int",
+            "default_expression": "1000",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "configuration_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.fitting.ObjectiveEvaluation",
+      "definition_path": "ncmemsim.fitting.ObjectiveEvaluation",
+      "kind": "class",
+      "runtime_call_signature": "(residuals: 'np.ndarray', objective_residuals: 'np.ndarray', weighted: 'bool', residual_sum_squares: 'float', objective_sum_squares: 'float', root_mean_square_error: 'float', mean_absolute_error: 'float', coefficient_of_determination: 'float | None') -> None",
+      "source_contract": {
+        "name": "ObjectiveEvaluation",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "residuals",
+            "annotation": "np.ndarray",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "objective_residuals",
+            "annotation": "np.ndarray",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "weighted",
+            "annotation": "bool",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "residual_sum_squares",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "objective_sum_squares",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "root_mean_square_error",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "mean_absolute_error",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "coefficient_of_determination",
+            "annotation": "float | None",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "n_points",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.fitting.evaluate_least_squares_objective",
+      "definition_path": "ncmemsim.fitting.evaluate_least_squares_objective",
+      "kind": "function",
+      "runtime_call_signature": "(observed: 'np.ndarray | Sequence[float]', predicted: 'np.ndarray | Sequence[float]', *, uncertainty: 'np.ndarray | Sequence[float] | None' = None) -> 'ObjectiveEvaluation'",
+      "source_contract": {
+        "name": "evaluate_least_squares_objective",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "observed",
+            "kind": "positional_or_keyword",
+            "annotation": "np.ndarray | Sequence[float]",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "predicted",
+            "kind": "positional_or_keyword",
+            "annotation": "np.ndarray | Sequence[float]",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "uncertainty",
+            "kind": "keyword_only",
+            "annotation": "np.ndarray | Sequence[float] | None",
+            "required": false,
+            "default_expression": "None"
+          }
+        ],
+        "return_annotation": "ObjectiveEvaluation",
+        "source_signature": "(observed: np.ndarray | Sequence[float], predicted: np.ndarray | Sequence[float], *, uncertainty: np.ndarray | Sequence[float] | None=None) -> ObjectiveEvaluation",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.fitting.least_squares_residuals",
+      "definition_path": "ncmemsim.fitting.least_squares_residuals",
+      "kind": "function",
+      "runtime_call_signature": "(observed: 'np.ndarray | Sequence[float]', predicted: 'np.ndarray | Sequence[float]', *, uncertainty: 'np.ndarray | Sequence[float] | None' = None) -> 'np.ndarray'",
+      "source_contract": {
+        "name": "least_squares_residuals",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "observed",
+            "kind": "positional_or_keyword",
+            "annotation": "np.ndarray | Sequence[float]",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "predicted",
+            "kind": "positional_or_keyword",
+            "annotation": "np.ndarray | Sequence[float]",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "uncertainty",
+            "kind": "keyword_only",
+            "annotation": "np.ndarray | Sequence[float] | None",
+            "required": false,
+            "default_expression": "None"
+          }
+        ],
+        "return_annotation": "np.ndarray",
+        "source_signature": "(observed: np.ndarray | Sequence[float], predicted: np.ndarray | Sequence[float], *, uncertainty: np.ndarray | Sequence[float] | None=None) -> np.ndarray",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.fitting.run_least_squares_fit",
+      "definition_path": "ncmemsim.fitting.run_least_squares_fit",
+      "kind": "function",
+      "runtime_call_signature": "(parameter_set: 'FitParameterSet', residual_function: 'ResidualFunction', *, config: 'LeastSquaresConfig | None' = None) -> 'DeterministicFitResult'",
+      "source_contract": {
+        "name": "run_least_squares_fit",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "parameter_set",
+            "kind": "positional_or_keyword",
+            "annotation": "FitParameterSet",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "residual_function",
+            "kind": "positional_or_keyword",
+            "annotation": "ResidualFunction",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "config",
+            "kind": "keyword_only",
+            "annotation": "LeastSquaresConfig | None",
+            "required": false,
+            "default_expression": "None"
+          }
+        ],
+        "return_annotation": "DeterministicFitResult",
+        "source_signature": "(parameter_set: FitParameterSet, residual_function: ResidualFunction, *, config: LeastSquaresConfig | None=None) -> DeterministicFitResult",
+        "decorators": []
       }
     },
     {

@@ -17,11 +17,13 @@ def fixture_root(tmp_path):
 
 def save(root,data):(root/'docs/release_readiness.json').write_text(json.dumps(data),encoding='utf-8')
 
-def test_current_matrix_does_not_claim_release_approval():
+def test_current_matrix_records_contract_approval_without_candidate_readiness():
  data=validate(ROOT)
  assert data['ready_for_candidate'] is False
  assert all(c['state']=='not_run' for c in data['final_candidate_checks'])
- assert not any(g['state']=='approved' for g in data['gates'])
+ gate_states={g['id']:g['state'] for g in data['gates']}
+ assert gate_states['archival_citation']=='pending'
+ assert all(state=='approved' for key,state in gate_states.items() if key!='archival_citation')
 
 @pytest.mark.parametrize('fault',['omit_gate','omit_check','duplicate','missing_evidence','outside_evidence','unsupported_schema','version','premature_ready','passed_without_evidence'])
 def test_invalid_readiness_rejected(tmp_path,fault):

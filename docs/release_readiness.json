@@ -6,7 +6,7 @@
   "gates": [
     {
       "id": "api_surface",
-      "state": "reviewed_pending_approval",
+      "state": "approved",
       "evidence": [
         "docs/api_inventory.json",
         "docs/api_inventory.md",
@@ -16,11 +16,11 @@
         "docs/stable_api_proposal.json",
         "scripts/validate_stable_api_proposal.py"
       ],
-      "required_decision": "Approve exact supported import paths and callable/constructor semantics; inventory is source evidence, not automatic stability approval."
+      "required_decision": "Approved exact supported import paths and callable/constructor semantics for v1.0 candidate preparation; inventory remains source evidence, not automatic stability approval for every importable helper."
     },
     {
       "id": "result_semantics",
-      "state": "reviewed_pending_approval",
+      "state": "approved",
       "evidence": [
         "docs/api_results.md",
         "docs/api_analysis_results.md",
@@ -28,41 +28,44 @@
         "tests/test_stability_analysis_contracts.py",
         "docs/stable_api_proposal.md"
       ],
-      "required_decision": "Approve axes, units, undefined values, ownership and legacy empty-sweep/input-aliasing behavior; no universal deep immutability."
+      "required_decision": "Approved axes, units, undefined values, ownership and legacy empty-sweep/input-aliasing behavior; no universal deep immutability is promised."
     },
     {
       "id": "archive_read_policy",
-      "state": "reviewed_pending_approval",
+      "state": "approved",
       "evidence": [
         "docs/api_archives.md",
         "tests/test_stability_archive_contracts.py",
-        "tests/fixtures/archives/v0_14_0/inventory.json"
+        "tests/fixtures/archives/v0_14_0/inventory.json",
+        "docs/stable_api_proposal.md"
       ],
-      "required_decision": "Approve the seven retained schemas and strict unsupported-field/version policy; fixture coverage is electrical published-code v0.14.0, not all historical/optical archives."
+      "required_decision": "Approved the seven retained schemas and strict unsupported-field/version policy; fixture coverage is electrical published-code v0.14.0, not all historical/optical archives."
     },
     {
       "id": "scientific_defaults",
-      "state": "reviewed_pending_approval",
+      "state": "approved",
       "evidence": [
         "docs/scientific_defaults.md",
-        "tests/test_stability_scientific_contracts.py"
+        "tests/test_stability_scientific_contracts.py",
+        "docs/stable_api_proposal.md"
       ],
-      "required_decision": "Approve existing defaults/applicability and documented legacy validation/provenance limits; decide separately any hardening or incompatible changes."
+      "required_decision": "Approved existing defaults/applicability and documented legacy validation/provenance limits; any hardening or incompatible change remains a separate migration decision."
     },
     {
       "id": "distribution_contract",
-      "state": "reviewed_pending_approval",
+      "state": "approved",
       "evidence": [
         "docs/distribution_contracts.md",
         "MANIFEST.in",
         "scripts/validate_dtco_distribution.py",
-        "tests/test_stability_distribution_contracts.py"
+        "tests/test_stability_distribution_contracts.py",
+        "docs/stable_api_proposal.md"
       ],
-      "required_decision": "Approve source/wheel content and runtime identity scope; clean installed execution of the final candidate remains required."
+      "required_decision": "Approved source/wheel content and runtime identity scope for candidate preparation; clean installed execution of the final candidate remains required."
     },
     {
       "id": "scientific_scope",
-      "state": "pending",
+      "state": "approved",
       "evidence": [
         "docs/scientific_scope.md",
         "docs/roadmap.md",
@@ -70,7 +73,7 @@
         "docs/scientific_workflows.md",
         "docs/stable_api_proposal.md"
       ],
-      "required_decision": "Approve a stable compact-model/software release with explicit provisional and synthetic FITTED limits; select and retain experimental evidence required for intended publication claims."
+      "required_decision": "Approved a stable compact-model/software release with explicit provisional and synthetic FITTED limits; experimental claims remain limited to retained evidence and do not become blanket predictive validity."
     },
     {
       "id": "archival_citation",
