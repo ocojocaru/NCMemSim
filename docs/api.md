@@ -770,3 +770,11 @@ assignments. Empty assignments declare the unchanged applied device.
 `WorkflowReport.from_json` validates hashes and source/context/variant links
 without refitting or physics. The writer produces six non-overwriting portable
 artifacts. See [I6 report contract](scientific_workflows.md#i6-linked-workflow-report-and-portable-exports).
+
+## Compatibility review inventories
+
+The [complete source API inventory](api_inventory.md) records export paths,
+source signatures, public methods and declared fields. The
+[result contract review](api_results.md) documents units, array dimensions,
+optional values and ownership of core simulation results. These baselines
+support review; they do not approve every source-visible helper as stable.

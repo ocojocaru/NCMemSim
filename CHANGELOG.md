@@ -4,6 +4,13 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased — stability preparation from v0.14.0
 
+- Record complete package source/export/documented-import inventory with source
+  signatures, public methods and declared fields; add a read-only drift check.
+- Document and verify core result units, FG/link/grid axes, dark NaN/zero
+  diagnostics, state-copy limits and legacy empty-sweep/input-aliasing behavior.
+- Preserve physics/defaults; final approval of all result/schema contracts remains
+  separate from this observed baseline.
+
 - Make transport exports explicit while preserving all v0.14.0 wildcard names.
 - Add API compatibility preparation policy and focused legacy import checks.
 - Correct the API overview to reflect implemented I6 linked workflow reports.

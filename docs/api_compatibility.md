@@ -67,3 +67,10 @@ Audit iterations update docs and run focused compatibility checks locally.
 No CI/Documentation push trigger is added for the preparation branch. Full
 regression, strict documentation, clean distributions and supported-Python
 Actions belong to final-version preparation before the release candidate/tag.
+
+## Recorded review baselines
+
+Use the [source API inventory](api_inventory.md) and [result contracts](api_results.md).
+`scripts/validate_api_contract.py` checks the recorded source inventory without
+importing optional fitting dependencies. Explicit baseline regeneration requires
+review of every change and does not by itself approve stability.
