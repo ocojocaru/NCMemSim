@@ -8,8 +8,9 @@ metrics, feasibility, Pareto, grid sensitivity and reporting remain available.
 H0 defines the contracts below. H1 adds bounded variation definitions and H2
 adds reproducible independent sampling with exact manifests. H3 propagates those
 inputs serially through isolated candidates. H4 adds complete-case response
-statistics and explicit feasibility/failure accounting. Robust comparisons and
-objectives remain planned for H5 onward.
+statistics and explicit feasibility/failure accounting. H5 adds linked nominal
+comparisons and explicitly defined robust Pareto objectives. Reports and release
+validation remain planned for H6/H7.
 
 Phase H asks how response and feasibility change when supported parameters
 vary. It does not introduce new simulator physics or establish experimental
@@ -26,7 +27,7 @@ compatible with Phase G.
 | H2 | Implemented: reproducible sampling, seed and exact manifest |
 | H3 | Implemented: serial isolated propagation with staged failure records |
 | H4 | Implemented: response statistics and feasibility/failure accounting |
-| H5 | Nominal/robust comparisons and explicitly defined robust objectives |
+| H5 | Implemented: linked nominal comparison and explicit robust Pareto objectives |
 | H6 | Reproducible reports and an end-to-end reference |
 | H7 | Regression/CI/distribution validation and documentation audit before tag |
 
@@ -393,4 +394,112 @@ snapshots. `analysis_hash` links the metric/statistic definition to the exact
 propagation result and snapshotted aggregation runtime/algorithm; `result_hash`
 also includes assessed statuses and summaries. `to_json()` exports full inputs
 and outcomes. Hashes are integrity links, not signatures or calibration evidence.
-Robust objectives and nominal/robust comparisons remain for H5; reports for H6.
+H5 adds linked comparisons/objectives below; reproducible reports remain for H6.
+
+## H5: nominal comparisons and explicit robust objectives
+
+`evaluate_nominal(device, evaluator, evaluation_id=..., evaluation_parameters=...,
+base_protocol=...)` evaluates an isolated nominal copy. Its callback takes
+`(device, protocol)` and must use the same scientific response model/settings as
+the H3 callback, with fresh simulator/state objects. Setup errors fail early;
+ordinary evaluation/serialization errors become `NominalResult` failure records.
+Interrupts propagate. Definitions, evaluator settings, runtime and finite JSON
+outputs are immutable snapshots.
+
+`compare_nominal(sample_analysis, nominal_result)` rejects any mismatch in full
+nominal device/material/protocol identity, evaluator id/parameters or recorded
+propagation runtime. Matching ids are caller declarations, not code inspection.
+The nominal result must be evaluated with the same scientific settings. Metric
+extraction reuses H4's complete-case rules and units. The comparison records
+nominal feasibility, all assessed sample summaries and signed `mean_minus_nominal`.
+No assessed samples yields an undefined difference (`None`/`null` with reason
+`no_assessed_samples`); arithmetic overflow yields `arithmetic_overflow`. Nominal
+failures or missing metrics remain explicit, without substituted values.
+
+`RobustObjective(name, metric_name, unit, direction, statistic, quantile=None)`
+requires exact source units, explicit `ObjectiveDirection` and `RobustStatistic`.
+Available statistics are mean, minimum, maximum, population standard deviation
+and quantile. Quantile objectives require a probability already computed in H4;
+other statistics reject a quantile argument. There is no automatic sign change,
+absolute value, weighting, unit conversion or quantile inference.
+
+`RobustParetoSpec` requires all eligibility settings explicitly:
+
+- `failure_policy`: `REQUIRE_NO_FAILURES` or `ALLOW_ASSESSED_WITH_FAILURES`;
+- `minimum_assessed_count`: positive integer;
+- `minimum_observed_feasible_fraction`: threshold in `[0,1]` applied to
+  feasible / all attempted, not the conditional fraction.
+
+Allowing failures selects statistics over assessed complete cases; it does not
+estimate missing responses or turn failures into physical infeasibility. Studies
+with undefined objectives are excluded. Excluded studies retain every source
+result and ordered reasons, with no rank or objective substitution.
+
+`analyze_robust_pareto(analyses, spec)` requires common metric/constraint/quantile
+definitions, evaluator id/settings and recorded propagation/aggregation runtimes.
+Nominal designs, sample counts, seeds and declared variation laws may differ;
+their exact manifests/provenance remain visible, and comparability of these study
+assumptions is the caller's responsibility. Ranking compares explicit vectors
+exactly: no worse in all objectives and strictly better in at least one. Equal
+vectors are all retained. All fronts preserve declared study order, with zero-based
+ranks. An entirely excluded set has empty fronts. Sorting is O(N²M) time and
+O(N²) worst-case memory for N eligible studies and M objectives.
+
+```python
+from ncmemsim import DeviceBuilder
+from ncmemsim.dtco import (BindingScope, ParameterBinding, UniformVariation,
+    VariationDefinition, VariationKind, VariationProvenance, SamplingSpec,
+    sample_variations, propagate_samples, MetricDefinition, MetricAnalysisSpec,
+    SampleAnalysisSpec, analyze_samples, evaluate_nominal, compare_nominal,
+    ObjectiveDirection, RobustStatistic, RobustFailurePolicy, RobustObjective,
+    RobustParetoSpec, analyze_robust_pareto)
+
+variation = VariationDefinition(
+    "temperature", ParameterBinding(BindingScope.DEVICE, ("temperature_K",)),
+    UniformVariation(295.0, 305.0), "K", VariationKind.PARAMETER_ESTIMATION,
+    VariationProvenance("Assumed example interval", "Synthetic linear response example"),
+)
+manifest = sample_variations(SamplingSpec((variation,), seed=2026, sample_count=4))
+metric_spec = SampleAnalysisSpec(MetricAnalysisSpec(
+    "response", (MetricDefinition("response", ("response_V",), "V"),),
+))
+parameters = {"response_model": "synthetic linear example", "temperature_slope_V_K": 0.01}
+
+def response(candidate, protocol):
+    # Demonstration model, not experimental calibration or simulator physics.
+    return {"response_V": candidate.gate_work_function_eV
+            + parameters["temperature_slope_V_K"] * (candidate.temperature_K - 300.0)}
+
+designs = [DeviceBuilder.v2(n_fgs=1, name="h5-design-a"),
+           DeviceBuilder.v2(n_fgs=1, name="h5-design-b")]
+designs[1].gate_work_function_eV = 4.9
+analyses = []
+for design in designs:
+    propagation = propagate_samples(
+        manifest, design, lambda c, p, point: response(c, p),
+        evaluation_id="h5-linear-example-v1", evaluation_parameters=parameters,
+    )
+    analyses.append(analyze_samples(propagation, metric_spec))
+nominal = evaluate_nominal(
+    designs[0], response, evaluation_id="h5-linear-example-v1",
+    evaluation_parameters=parameters,
+)
+comparison = compare_nominal(analyses[0], nominal)
+assert comparison.to_dict()["status"] == "assessed"
+robust_spec = RobustParetoSpec(
+    "lower-quantile-response",
+    (RobustObjective("q05", "response", "V", ObjectiveDirection.MAXIMIZE,
+                     RobustStatistic.QUANTILE, quantile=0.05),),
+    failure_policy=RobustFailurePolicy.REQUIRE_NO_FAILURES,
+    minimum_assessed_count=4, minimum_observed_feasible_fraction=1.0,
+)
+fronts = analyze_robust_pareto(analyses, robust_spec)
+assert fronts.pareto_indices == (1,)
+assert len(fronts.to_dict()["points"]) == 2
+```
+
+`NominalComparison` and `RobustParetoResult` export fresh dictionaries/JSON and
+integrity hashes linking their source results. Robust ranking is a separate
+analysis, not a nominal simulator output, calibrated optimum or guaranteed yield.
+Scientific eligibility and failure handling are always visible in the spec.
+Reproducible report bundles and an end-to-end reference remain for H6.

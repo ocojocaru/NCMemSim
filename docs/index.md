@@ -22,8 +22,8 @@ The v0.13.0 development line (`0.13.0.dev0`) starts Phase H.
 [Robust DTCO](robust_dtco.md) provides H1 bounded definitions and H2
 reproducible independent sampling with exact manifests. H3 propagates the
 stored samples through isolated candidates, and H4 adds descriptive statistics
-and separate feasibility/failure accounting. Robust comparisons and objectives
-remain planned for H5 onward.
+and separate feasibility/failure accounting. H5 adds linked nominal comparisons
+and explicit robust Pareto objectives; reports remain planned for H6.
 
 ## Start here
 

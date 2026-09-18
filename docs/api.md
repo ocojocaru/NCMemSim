@@ -662,7 +662,7 @@ unsupported MODEL bindings cannot execute. Pareto sorting uses explicit
 min/max directions, and sensitivity uses adjacent-grid secants with coverage.
 Report restoration checks canonical payload integrity, not authentication.
 
-## Robust DTCO definitions, sampling, propagation and statistics (v0.13.0 development)
+## Robust DTCO definitions, sampling, propagation and objectives (v0.13.0 development)
 
 Import from `ncmemsim.dtco`:
 
@@ -675,14 +675,19 @@ Import from `ncmemsim.dtco`:
 - isolated propagation: `propagate_samples`, `SamplePoint`, `SamplePointResult`,
   `PropagationResult`;
 - assessed metrics/statistics: `SampleAnalysisSpec`, `SampleMetricPointResult`,
-  `SampleAnalysisResult`, `analyze_samples`.
+  `SampleAnalysisResult`, `analyze_samples`;
+- linked nominal comparison: `NominalResult`, `evaluate_nominal`,
+  `NominalComparison`, `compare_nominal`;
+- explicit robust objectives/fronts: `RobustStatistic`, `RobustFailurePolicy`,
+  `RobustObjective`, `RobustParetoSpec`, `RobustParetoResult`, `analyze_robust_pareto`.
 
 H1/H2 support independent continuous DEVICE/OPERATING bindings with canonical
 units. H2 records the exact manifest, seed, algorithm, order and runtime; it
 does not execute physics. H3 links the full nominal baseline and evaluator to
 serial isolated execution with staged failure records. H4 assesses complete-case
 metrics/constraints and descriptive statistics with explicit sample identities
-and denominators. Robust objectives remain planned for H5. See
+and denominators. H5 adds identity-checked nominal comparisons and explicitly
+defined robust Pareto objectives with eligibility/failure policies. See
 [Robust DTCO](robust_dtco.md) for the complete example, rejection policy,
 manifest integrity checks and reproducibility limits.
 

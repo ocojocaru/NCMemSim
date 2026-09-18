@@ -62,6 +62,20 @@ All notable changes to NCMemSim are documented in this file.
 - Add dedicated statistical/accounting/identity tests and an executable example.
 - Leave robust objectives/comparisons and reports for H5/H6.
 
+### H5 — linked nominal comparisons and robust objectives
+
+- Evaluate isolated nominal baselines and compare them with H4 only when full
+  device/material/protocol, evaluator/settings and propagation runtime match.
+- Preserve nominal failures, feasibility, signed mean differences and explicit
+  undefined reasons for missing assessed responses or arithmetic overflow.
+- Define robust objectives with exact metric units, direction and statistic/quantile;
+  require explicit failure policy, assessed-count and observed-feasibility eligibility.
+- Sort eligible studies into exact Pareto fronts, retaining ties and all excluded
+  source studies with reasons; reject incomparable definitions/evaluators/runtimes.
+- Add linked comparison, eligibility, statistical selection and real program/read
+  tests, plus executable examples and updated development status.
+- Leave reproducible report bundles and final release gates for H6/H7.
+
 ## v0.12.0 — Design-Space Exploration and DTCO
 
 Phase G adds deterministic Cartesian design-space exploration, canonical

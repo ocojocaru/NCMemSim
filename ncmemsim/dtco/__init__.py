@@ -121,3 +121,11 @@ __all__ += ["SamplePoint", "SamplePointResult", "PropagationResult", "propagate_
 from .sample_analysis import SampleAnalysisSpec, SampleMetricPointResult, SampleAnalysisResult, analyze_samples
 
 __all__ += ["SampleAnalysisSpec", "SampleMetricPointResult", "SampleAnalysisResult", "analyze_samples"]
+
+from .robust import (NominalResult, NominalComparison, evaluate_nominal, compare_nominal,
+    RobustStatistic, RobustFailurePolicy, RobustObjective, RobustParetoSpec,
+    RobustParetoResult, analyze_robust_pareto)
+
+__all__ += ["NominalResult", "NominalComparison", "evaluate_nominal", "compare_nominal",
+    "RobustStatistic", "RobustFailurePolicy", "RobustObjective", "RobustParetoSpec",
+    "RobustParetoResult", "analyze_robust_pareto"]
