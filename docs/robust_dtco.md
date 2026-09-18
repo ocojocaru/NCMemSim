@@ -6,8 +6,9 @@ H0 starts v0.13.0 at `0.13.0.dev0` from the published v0.12.0 commit
 `6da07c5c661a25b2187c13944f9507346c5bc7b0`. The Phase G nominal sweep,
 metrics, feasibility, Pareto, grid sensitivity and reporting remain available.
 H0 defines the contracts below. H1 adds bounded variation definitions and H2
-adds reproducible independent sampling with exact manifests. Sample propagation
-and robust analysis remain planned for H3 onward.
+adds reproducible independent sampling with exact manifests. H3 propagates those
+inputs serially through isolated candidates. Statistics and robust analysis
+remain planned for H4 onward.
 
 Phase H asks how response and feasibility change when supported parameters
 vary. It does not introduce new simulator physics or establish experimental
@@ -22,7 +23,7 @@ compatible with Phase G.
 | H0 | Implemented: scope/contracts and development bootstrap |
 | H1 | Implemented: typed bounded definitions, units and provenance |
 | H2 | Implemented: reproducible sampling, seed and exact manifest |
-| H3 | Sample propagation through supported binding/evaluator contracts |
+| H3 | Implemented: serial isolated propagation with staged failure records |
 | H4 | Response statistics and explicit feasibility/failure accounting |
 | H5 | Nominal/robust comparisons and explicitly defined robust objectives |
 | H6 | Reproducible reports and an end-to-end reference |
@@ -223,6 +224,78 @@ authenticate a manifest or establish physical calibration.
 The seed alone is insufficient for cross-runtime reproducibility. Within the
 recorded algorithm/runtime, repeated calls reproduce the exact manifest; across
 arbitrary NumPy/Python versions bitwise equality is not promised. Use the stored
-manifest as propagation input. H2 does not run the simulator, link a nominal
-device/protocol or compute feasibility/statistics. Validate definition context
-before a study and validate every combined candidate during H3 propagation.
+manifest as propagation input. H2 itself does not run the simulator, link a nominal device/protocol or compute
+feasibility/statistics. H3 adds nominal linking and candidate propagation below.
+
+## H3: propagation through isolated candidates
+
+`propagate_samples(manifest, base_device, evaluator, evaluation_id=...,
+evaluation_parameters=..., base_protocol=...)` consumes exact stored values
+without sampling again. Device-only studies may omit a protocol; any OPERATING
+variation requires a supported nominal protocol. The study snapshots the caller's
+device/protocol, checks the nominal baseline and each definition's endpoint
+context, then validates every combined candidate using existing Phase G bindings.
+Setup/context errors fail before any callback. Binding type/material/layer/optical
+restrictions remain unchanged.
+
+Each callback receives `(candidate_device, candidate_protocol, sample_point)`.
+Candidates start from fresh copies of the frozen nominal baseline, in manifest
+order. Callbacks must create fresh simulator/state objects, return a finite JSON
+object and declare their scientific settings in `evaluation_parameters`.
+`evaluation_id` identifies callback code/settings conventions; it is not inferred
+from the callable. Mutations of candidates cannot contaminate later candidates.
+An evaluator's external shared state remains the caller's responsibility.
+
+```python
+from ncmemsim import DeviceBuilder
+from ncmemsim.dtco import (BindingScope, ParameterBinding, UniformVariation,
+    VariationDefinition, VariationKind, VariationProvenance, SamplingSpec,
+    sample_variations, propagate_samples)
+from ncmemsim.program_protocol import ProgramPulseReadProtocol, run_program_pulse_read
+from ncmemsim.simulator import Simulator, SimulationConfig
+from dataclasses import asdict
+
+device = DeviceBuilder.v2(n_fgs=1, name="h3-electrical-example")
+protocol = ProgramPulseReadProtocol(5.0, 1e-7)
+variation = VariationDefinition(
+    name="duration",
+    binding=ParameterBinding(BindingScope.OPERATING, ("program", "time_s")),
+    distribution=UniformVariation(1e-7, 2e-7), unit="s",
+    kind=VariationKind.PARAMETER_ESTIMATION,
+    provenance=VariationProvenance("Assumed example interval", "Reference protocol"),
+)
+manifest = sample_variations(SamplingSpec((variation,), seed=2026, sample_count=2))
+config = SimulationConfig()
+
+def evaluate(candidate, candidate_protocol, sample_point):
+    pulse = run_program_pulse_read(Simulator(candidate, config=config), candidate_protocol)
+    return {"delta_vfb_V": pulse.delta_vfb_V, "sample_index": sample_point.index}
+
+result = propagate_samples(
+    manifest, device, evaluate, base_protocol=protocol,
+    evaluation_id="h3-electrical-example-v1",
+    evaluation_parameters={"simulation_config": asdict(config),
+                           "physics_model": "PhysicsModel.default",
+                           "initial_state": "empty_for_each_candidate"},
+)
+assert result.success_count == 2 and result.failure_count == 0
+assert tuple(p.point.index for p in result.points) == (0, 1)
+assert all(p.point.manifest_hash == manifest.manifest_hash for p in result.points)
+```
+
+`SamplePoint` records manifest identity, zero-based index and ordered exact
+assignments; `assignments` returns a fresh mapping. `SamplePointResult` is either
+a success with an immutable JSON output snapshot or a failure with stage, error
+type and message. Ordinary exceptions at `application`, `evaluation` or
+`serialization` become records and execution continues. Every manifest sample
+has exactly one result, including failed samples. `KeyboardInterrupt` and
+`SystemExit` propagate. No output is silently coerced, clipped or zero-filled.
+
+`PropagationResult` preserves the manifest, full nominal device/material and
+protocol definitions, evaluator identity/parameters, propagation runtime and
+ordered point results. `nominal_hash` identifies the full baseline, `study_hash`
+the declared inputs/execution, and `result_hash` additionally includes outcomes.
+`to_dict()` returns fresh data and `to_json()` exports the result; report
+restoration is a later phase. Hashes check integrity, not authentication.
+A successful callback does not establish physical feasibility: H4 will add
+metrics, constraints and separate assessed/feasible/infeasible/failure accounting.

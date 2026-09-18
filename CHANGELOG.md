@@ -36,6 +36,19 @@ All notable changes to NCMemSim are documented in this file.
   candidate and CI manually or on release tags, without intermediate push/PR Actions.
 - Retain propagation and robust statistics as future phases.
 
+### H3 — isolated sample propagation
+
+- Consume exact H2 manifest values without resampling and preserve every sample index.
+- Snapshot full nominal device/material/protocol definitions and evaluator settings;
+  link nominal, manifest, study and result identities with runtime provenance.
+- Validate setup/endpoint context and every combined candidate using Phase G bindings.
+- Evaluate serially on isolated copies; snapshot finite JSON outputs and record
+  application/evaluation/serialization failures without dropping samples.
+- Preserve interrupts and require fresh simulator/state objects in each callback.
+- Add dedicated isolation, identity, failure, validation and real program/read tests,
+  plus current API documentation and an executable electrical example.
+- Leave metrics, feasibility and robust statistics for H4 onward.
+
 ## v0.12.0 — Design-Space Exploration and DTCO
 
 Phase G adds deterministic Cartesian design-space exploration, canonical

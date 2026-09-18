@@ -20,8 +20,9 @@ and compact Ge/GeSn optical programming models.
 
 The v0.13.0 development line (`0.13.0.dev0`) starts Phase H.
 [Robust DTCO](robust_dtco.md) provides H1 bounded definitions and H2
-reproducible independent sampling with exact manifests. Sample propagation
-and robust analysis remain planned for H3 onward.
+reproducible independent sampling with exact manifests. H3 propagates the
+stored samples through isolated candidates; statistics and robust analysis
+remain planned for H4 onward.
 
 ## Start here
 

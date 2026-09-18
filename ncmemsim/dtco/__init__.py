@@ -113,3 +113,7 @@ __all__ += ["VariationKind", "VariationProvenance", "UniformVariation",
 from .sampling import SamplingSpec, SampleManifest, SamplingError, sample_variations
 
 __all__ += ["SamplingSpec", "SampleManifest", "SamplingError", "sample_variations"]
+
+from .propagation import SamplePoint, SamplePointResult, PropagationResult, propagate_samples
+
+__all__ += ["SamplePoint", "SamplePointResult", "PropagationResult", "propagate_samples"]
