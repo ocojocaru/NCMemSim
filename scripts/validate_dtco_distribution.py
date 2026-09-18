@@ -40,6 +40,7 @@ SOURCE_REQUIRED = {
     'docs/quickstart.md',
     'docs/reproducibility.md',
     'docs/roadmap.md',
+    'docs/robust_dtco.md',
     'docs/scientific_scope.md',
     'docs/transport_retention.md',
     'docs/validation.md',

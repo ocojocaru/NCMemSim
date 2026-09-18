@@ -2,9 +2,27 @@ name: CI
 
 on:
   push:
-    branches: [main, "dev/v0.12.0-dtco"]
+    branches: [main, "dev/v0.13.0-robust-dtco"]
+    paths-ignore:
+      - "docs/**"
+      - "assets/**"
+      - "site/**"
+      - "README.md"
+      - "CHANGELOG.md"
+      - "CITATION.cff"
+      - "mkdocs.yml"
+      - ".github/workflows/docs.yml"
   pull_request:
-    branches: [main, "dev/v0.12.0-dtco"]
+    branches: [main, "dev/v0.13.0-robust-dtco"]
+    paths-ignore:
+      - "docs/**"
+      - "assets/**"
+      - "site/**"
+      - "README.md"
+      - "CHANGELOG.md"
+      - "CITATION.cff"
+      - "mkdocs.yml"
+      - ".github/workflows/docs.yml"
 
 permissions:
   contents: read
@@ -49,15 +67,3 @@ jobs:
         run: python -m pip install build
       - name: Validate installed wheel and source distribution
         run: python scripts/validate_dtco_distribution.py
-
-  documentation:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Install documentation dependencies
-        run: python -m pip install ".[docs]"
-      - name: Build documentation strictly
-        run: python -m mkdocs build --strict

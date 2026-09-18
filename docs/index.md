@@ -18,6 +18,10 @@ electrostatics, compact WKB transport, charge redistribution, retention
 simulation, deterministic regression references, reproducibility metadata,
 and compact Ge/GeSn optical programming models.
 
+The v0.13.0 development line (`0.13.0.dev0`) starts Phase H.
+[Robust DTCO](robust_dtco.md) defines its planned scope and contracts;
+sampling and robust analysis are not implemented by the H0 bootstrap.
+
 ## Start here
 
 - New users: [Installation](installation.md) and [Quick start](quickstart.md)

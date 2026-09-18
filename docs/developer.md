@@ -721,6 +721,21 @@ Pages deploys source documentation on `main`, separately from release tags.
 Generated files under `site/` are MkDocs build output and should not be edited
 as substitutes for changes to the Markdown sources.
 
+## Documentation workflow and release audit
+
+Documentation-only edits to docs/assets/README/changelog/citation/MkDocs and
+the Documentation workflow are excluded from full CI. Code, tests, dependency,
+packaging or CI/release-workflow changes still trigger full CI. Mixed commits
+run full CI even if they also edit Markdown. Strict documentation is handled by
+the separate Documentation workflow; only main push/manual builds deploy Pages.
+
+Before tagging a release, audit current status/version claims, syntax/imports,
+complete examples, local links/anchors and scientific limits. Inspect the actual
+built source archive and compare audited documentation contents, not just file
+names. Validate code/distributions in CI, then publish and inspect downloaded
+release assets. This gate precedes publication; fixes should not require moving
+a public tag afterward. Keep historical release counts explicitly labelled.
+
 ## Development principle
 
 NCMemSim should remain easy to extend without making its scientific meaning

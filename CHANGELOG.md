@@ -2,6 +2,21 @@
 
 All notable changes to NCMemSim are documented in this file.
 
+## v0.13.0.dev0 — Robust DTCO (in development)
+
+### H0 — bootstrap and contract freeze
+
+- Start Phase H from the published v0.12.0 baseline, preserving its physics,
+  DTCO APIs, canonical experiment definitions and scientific regressions.
+- Set the development version to `0.13.0.dev0`; keep citation metadata tied
+  to the latest published v0.12.0 release.
+- Define independent bounded variation and uncertainty contracts, reproducible
+  sampling, failure accounting and robust reporting goals without yet adding
+  execution APIs or claiming experimental calibration.
+- Separate Documentation from full CI for documentation-only changes; validate
+  development/PR documentation without deploying it over main Pages.
+- Require documentation and source-archive content audits before release tags.
+
 ## v0.12.0 — Design-Space Exploration and DTCO
 
 Phase G adds deterministic Cartesian design-space exploration, canonical

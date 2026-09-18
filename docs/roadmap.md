@@ -190,6 +190,16 @@ future semantic contracts.
 
 The DTCO layer should expose trade-offs rather than return a single opaque optimum.
 
+### v0.13.0: Robust DTCO
+
+**Status: H0 bootstrap (`0.13.0.dev0`); H1–H7 planned.**
+
+Phase H adds independent bounded parameter variations and uncertainty
+propagation on the preserved deterministic Phase G workflow. See
+[Robust DTCO scope and contracts](robust_dtco.md) for the delivery sequence,
+failure accounting, reproducibility rules and scientific limits. Sampling,
+robust statistics and robust fronts are not implemented in H0.
+
 ### v1.0.0: First stable scientific release
 
 Target requirements include:
@@ -232,7 +242,7 @@ Potential post-v1.0 extensions include:
 - self-consistent carrier statistics;
 - stochastic nanocrystal ensembles;
 - temperature-dependent electrical and optical material properties;
-- uncertainty propagation;
+- correlated and hierarchical uncertainty propagation beyond Phase H;
 - neuromorphic and in-memory programming metrics;
 - multispectral memory operation;
 - larger device families;

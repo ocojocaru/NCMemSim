@@ -60,7 +60,8 @@ python -c "import ncmemsim; print(ncmemsim.__version__)"
 python -m pytest -q
 ```
 
-The expected package version for the v0.12.0 checkout is `0.12.0`.
+The tagged v0.12.0 checkout reports `0.12.0`; the Phase H development
+branch reports `0.13.0.dev0`. Check the branch/tag used for installation.
 Running pytest requires a source checkout and the `[dev]` dependencies; tests
 and examples are not an installed-wheel interface.
 
