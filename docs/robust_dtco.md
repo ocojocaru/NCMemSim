@@ -9,8 +9,9 @@ H0 defines the contracts below. H1 adds bounded variation definitions and H2
 adds reproducible independent sampling with exact manifests. H3 propagates those
 inputs serially through isolated candidates. H4 adds complete-case response
 statistics and explicit feasibility/failure accounting. H5 adds linked nominal
-comparisons and explicitly defined robust Pareto objectives. Reports and release
-validation remain planned for H6/H7.
+comparisons and explicitly defined robust Pareto objectives. H6 adds linked
+report snapshots, portable exports and a complete electrical reference. Final
+release validation remains H7.
 
 Phase H asks how response and feasibility change when supported parameters
 vary. It does not introduce new simulator physics or establish experimental
@@ -28,7 +29,7 @@ compatible with Phase G.
 | H3 | Implemented: serial isolated propagation with staged failure records |
 | H4 | Implemented: response statistics and feasibility/failure accounting |
 | H5 | Implemented: linked nominal comparison and explicit robust Pareto objectives |
-| H6 | Reproducible reports and an end-to-end reference |
+| H6 | Implemented: linked report bundles and electrical Robust DTCO reference |
 | H7 | Regression/CI/distribution validation and documentation audit before tag |
 
 ## Variation semantics
@@ -394,7 +395,7 @@ snapshots. `analysis_hash` links the metric/statistic definition to the exact
 propagation result and snapshotted aggregation runtime/algorithm; `result_hash`
 also includes assessed statuses and summaries. `to_json()` exports full inputs
 and outcomes. Hashes are integrity links, not signatures or calibration evidence.
-H5 adds linked comparisons/objectives below; reproducible reports remain for H6.
+H5 adds linked comparisons/objectives below; H6 supplies report bundles.
 
 ## H5: nominal comparisons and explicit robust objectives
 
@@ -502,4 +503,83 @@ assert len(fronts.to_dict()["points"]) == 2
 integrity hashes linking their source results. Robust ranking is a separate
 analysis, not a nominal simulator output, calibrated optimum or guaranteed yield.
 Scientific eligibility and failure handling are always visible in the spec.
-Reproducible report bundles and an end-to-end reference remain for H6.
+H6 supplies reproducible report bundles and an electrical reference below.
+
+## H6: reproducible reports and electrical reference
+
+`build_robust_dtco_report(analyses, name=..., nominal_comparisons=...,
+robust_pareto=..., metadata=...)` snapshots ordered H4 analyses and optional
+H5 comparisons/fronts into `RobustDTCOReport`. Comparisons must have the same
+source analysis at each position; robust fronts must reference the exact ordered
+analyses. Missing nominal comparisons are explicit `None` entries, not silently
+matched by name. Empty input or mismatched source/order/count is rejected.
+
+The manifest preserves full variation definitions/provenance, exact sampled
+values, baseline device/material/protocol definitions, evaluator/settings/runtime,
+responses, metric constraints/statistics, nominal comparisons, robust eligibility
+and every failure stage. Integrity hashes link sections and the complete report.
+`to_dict()` returns fresh data; the report itself is an immutable JSON snapshot.
+`from_json()` checks report/section hashes, source links, exact sample indices and
+assignments, assessment counts, denominators and statistic units/source indices.
+It rejects duplicate JSON keys and nonfinite values and does not regenerate
+samples, rerun physics or require the original runtime to be installed. These
+checks establish payload consistency, not signatures or scientific calibration.
+
+`write_robust_dtco_report(report, output_dir)` writes six UTF-8 artifacts:
+
+- `manifest.json`: full exact report and integrity hash;
+- `samples.csv`: all study/sample indices, assignments, responses, constraints
+  and propagation/analysis failures;
+- `statistics.csv`: metric units, denominators, source indices, descriptive
+  summaries and quantiles;
+- `nominal.csv`: nominal values/differences or explicit nominal failure records;
+- `robust.csv`: study identities, ranks, objectives and exclusion reasons;
+- `report.md`: counts, observed fractions, fronts and scientific interpretation.
+
+Undefined numeric CSV cells use the literal JSON `null`; structured cells are
+JSON. Optional absent sections produce header-only CSV files. Existing target
+files cause an error before writing; export never overwrites them. This is not
+a transactional database: an I/O failure can leave a partial new bundle.
+
+```python
+from tempfile import TemporaryDirectory
+from pathlib import Path
+from examples.phase_h6_robust_dtco_reference import build_reference_report
+from ncmemsim.dtco import RobustDTCOReport, write_robust_dtco_report
+
+report = build_reference_report()
+restored = RobustDTCOReport.from_json(report.to_json())
+assert restored.report_hash == report.report_hash
+with TemporaryDirectory(prefix="robust-dtco-example-") as temporary:
+    paths = write_robust_dtco_report(restored, Path(temporary) / "report")
+    assert len(paths) == 6
+    assert RobustDTCOReport.from_json(paths[0].read_text(encoding="utf-8")).report_hash == report.report_hash
+```
+
+The source example `examples/phase_h6_robust_dtco_reference.py` evaluates two
+nominal temperatures, using one exact four-sample manifest with independent
+assumed duration/work-function marginals. Each electrical program/read call
+creates a fresh simulator/state. Nominal and sampled evaluations declare the
+same response model/configuration and use signed shift, duration and occupation
+metrics. The robust objectives maximize the lower signed-shift quantile and
+minimize mean duration; no absolute-value interpretation is inferred.
+
+From the repository root, export to separate new directories:
+
+```text
+python examples/phase_h6_robust_dtco_reference.py --output-dir results/h6-reference
+python examples/phase_h6_robust_dtco_reference.py --include-failures --output-dir results/h6-failures
+```
+
+The normal reference has two studies with four assessed samples each. Failure
+mode deliberately injects evaluation, missing-metric and serialization failures,
+leaving one assessed and three failed samples per study. Failure injection and
+its explicit eligibility policy are declared in provenance/settings; it does not
+claim those errors were physical simulator predictions. This mode permits
+assessed-with-failures objectives and reports the failure fraction alongside
+all-attempted and conditional assessed feasibility fractions. Nominal evaluations
+remain physical program/read calls. The study is an assumed uncertainty example,
+not an experimentally calibrated manufacturing-yield estimate.
+
+Full scientific regression, supported-Python CI, strict documentation audit,
+source-content and installed-distribution validation remain the H7 release gate.

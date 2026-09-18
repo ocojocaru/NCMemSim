@@ -76,6 +76,19 @@ All notable changes to NCMemSim are documented in this file.
   tests, plus executable examples and updated development status.
 - Leave reproducible report bundles and final release gates for H6/H7.
 
+### H6 — reproducible Robust DTCO reports and reference
+
+- Snapshot full ordered sample analyses, exact manifests, nominal comparisons
+  and robust fronts into integrity-linked immutable report JSON.
+- Validate section hashes, source/order links, counts, denominators and statistic
+  source identities on restoration without sampling or reevaluating physics.
+- Export six non-overwriting UTF-8 JSON/CSV/Markdown artifacts preserving failures,
+  undefined values, exact units, objectives and explicit eligibility policies.
+- Add a real electrical program/read reference with two nominal temperatures,
+  independent assumed variation marginals and deliberate failure-accounting mode.
+- Add reporting/restoration/export tests and executable current documentation.
+- Leave full regression, CI/documentation and distribution gates for H7.
+
 ## v0.12.0 — Design-Space Exploration and DTCO
 
 Phase G adds deterministic Cartesian design-space exploration, canonical

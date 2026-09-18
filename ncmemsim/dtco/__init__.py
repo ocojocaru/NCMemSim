@@ -129,3 +129,7 @@ from .robust import (NominalResult, NominalComparison, evaluate_nominal, compare
 __all__ += ["NominalResult", "NominalComparison", "evaluate_nominal", "compare_nominal",
     "RobustStatistic", "RobustFailurePolicy", "RobustObjective", "RobustParetoSpec",
     "RobustParetoResult", "analyze_robust_pareto"]
+
+from .robust_reporting import RobustDTCOReport, build_robust_dtco_report, write_robust_dtco_report
+
+__all__ += ["RobustDTCOReport", "build_robust_dtco_report", "write_robust_dtco_report"]
