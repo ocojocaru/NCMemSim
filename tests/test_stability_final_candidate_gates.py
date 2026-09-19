@@ -17,7 +17,7 @@ def test_final_gate_plan_is_configured_without_readiness():
     readiness = json.loads((ROOT / "docs/release_readiness.json").read_text(encoding="utf-8"))
     assert readiness["ready_for_candidate"] is False
     states = {check["id"]: check["state"] for check in readiness["final_candidate_checks"]}
-    assert states["full_local_regression"] == "not_run"
+    assert states["full_local_regression"] in {"not_run", "passed"}
     assert states["strict_documentation_audit"] == "not_run"
     assert states["clean_installed_distributions"] == "not_run"
     assert states["supported_runtime_ci"] in {"not_run", "passed"}
@@ -30,7 +30,7 @@ def test_final_gate_plan_is_configured_without_readiness():
         "wrong_status",
         "wrong_branch",
         "missing_check",
-        "local_readiness_check_passed",
+        "strict_documentation_check_passed",
         "failed_remote_check",
         "premature_ready",
         "ci_branch_missing",
@@ -52,9 +52,11 @@ def test_invalid_final_gate_configuration_is_rejected(tmp_path, fault):
         plan["source_branch"] = "main"
     elif fault == "missing_check":
         plan["required_checks"].pop()
-    elif fault == "local_readiness_check_passed":
-        readiness["final_candidate_checks"][0]["state"] = "passed"
-        readiness["final_candidate_checks"][0]["evidence"] = ["docs/final.txt"]
+    elif fault == "strict_documentation_check_passed":
+        for check in readiness["final_candidate_checks"]:
+            if check["id"] == "strict_documentation_audit":
+                check["state"] = "passed"
+                check["evidence"] = ["docs/final.txt"]
         (tmp_path / "docs/final.txt").write_text("not real final evidence", encoding="utf-8")
     elif fault == "failed_remote_check":
         for check in readiness["final_candidate_checks"]:

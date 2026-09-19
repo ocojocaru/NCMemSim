@@ -77,6 +77,7 @@ nav:
       - v1.0 readiness: release_readiness.md
       - Final candidate gates: final_candidate_gates.md
       - Remote final gate evidence: final_candidate_remote_evidence.md
+      - Full local regression evidence: final_candidate_local_regression.md
       - Archival and citation plan: archival_citation.md
       - Stable API proposal: stable_api_proposal.md
       - Developer guide: developer.md

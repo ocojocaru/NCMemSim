@@ -93,8 +93,11 @@
   "final_candidate_checks": [
     {
       "id": "full_local_regression",
-      "state": "not_run",
-      "evidence": []
+      "state": "passed",
+      "evidence": [
+        "docs/final_candidate_local_regression.md",
+        "docs/final_candidate_local_regression.json"
+      ]
     },
     {
       "id": "strict_documentation_audit",

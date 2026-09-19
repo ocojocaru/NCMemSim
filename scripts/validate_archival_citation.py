@@ -25,6 +25,8 @@ def _citation_version(citation_text: str) -> str:
 
 
 LOCAL_FINAL_CHECKS = {"full_local_regression", "strict_documentation_audit", "clean_installed_distributions"}
+UNRESOLVED_LOCAL_FINAL_CHECKS = {"strict_documentation_audit", "clean_installed_distributions"}
+RECORDED_FINAL_CHECKS = {"full_local_regression", "supported_runtime_ci", "remote_documentation"}
 REMOTE_FINAL_CHECKS = {"supported_runtime_ci", "remote_documentation"}
 
 
@@ -74,10 +76,10 @@ def validate(root: Path) -> dict:
     if readiness["ready_for_candidate"] is not False:
         raise ValueError("candidate must remain not ready until final checks pass")
     final_states = {check["id"]: check["state"] for check in readiness["final_candidate_checks"]}
-    if any(final_states[name] != "not_run" for name in LOCAL_FINAL_CHECKS):
-        raise ValueError("local final candidate checks must remain not_run during planning")
-    if any(final_states[name] not in {"not_run", "passed"} for name in REMOTE_FINAL_CHECKS):
-        raise ValueError("remote final candidate checks must be not_run or passed")
+    if any(final_states[name] != "not_run" for name in UNRESOLVED_LOCAL_FINAL_CHECKS):
+        raise ValueError("strict documentation and clean distribution checks must remain not_run during planning")
+    if any(final_states[name] not in {"not_run", "passed"} for name in RECORDED_FINAL_CHECKS):
+        raise ValueError("recorded final candidate checks must be not_run or passed")
 
     evidence = set()
     for gate in readiness["gates"]:

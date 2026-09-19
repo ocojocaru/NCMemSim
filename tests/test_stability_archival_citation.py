@@ -20,7 +20,7 @@ def test_current_archival_plan_is_approved_without_candidate_readiness():
     assert {gate["id"]: gate["state"] for gate in readiness["gates"]}["archival_citation"] == "approved"
     assert readiness["ready_for_candidate"] is False
     states = {check["id"]: check["state"] for check in readiness["final_candidate_checks"]}
-    assert states["full_local_regression"] == "not_run"
+    assert states["full_local_regression"] in {"not_run", "passed"}
     assert states["strict_documentation_audit"] == "not_run"
     assert states["clean_installed_distributions"] == "not_run"
     assert states["supported_runtime_ci"] in {"not_run", "passed"}
@@ -60,9 +60,11 @@ def test_archival_plan_rejects_premature_release_claims(tmp_path, fault):
         next(g for g in readiness["gates"] if g["id"] == "archival_citation")["state"] = "pending"
     elif fault == "premature_ready":
         readiness["ready_for_candidate"] = True
-    elif fault == "local_final_check_passed":
-        readiness["final_candidate_checks"][0]["state"] = "passed"
-        readiness["final_candidate_checks"][0]["evidence"] = ["docs/final.txt"]
+    elif fault == "strict_documentation_check_passed":
+        for check in readiness["final_candidate_checks"]:
+            if check["id"] == "strict_documentation_audit":
+                check["state"] = "passed"
+                check["evidence"] = ["docs/final.txt"]
         (tmp_path / "docs/final.txt").write_text("not a real final check", encoding="utf-8")
     elif fault == "remote_final_check_failed":
         for check in readiness["final_candidate_checks"]:

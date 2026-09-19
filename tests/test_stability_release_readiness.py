@@ -21,7 +21,7 @@ def test_current_matrix_records_contract_approval_without_candidate_readiness():
  data=validate(ROOT)
  assert data['ready_for_candidate'] is False
  states={c['id']:c['state'] for c in data['final_candidate_checks']}
- assert states['full_local_regression']=='not_run'
+ assert states['full_local_regression'] in {'not_run','passed'}
  assert states['strict_documentation_audit']=='not_run'
  assert states['clean_installed_distributions']=='not_run'
  assert states['supported_runtime_ci'] in {'not_run','passed'}

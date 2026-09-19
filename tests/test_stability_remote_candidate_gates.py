@@ -16,11 +16,13 @@ def test_remote_candidate_gates_are_recorded_without_candidate_readiness():
     states = {item["id"]: item["state"] for item in readiness["final_candidate_checks"]}
     assert states["supported_runtime_ci"] == "passed"
     assert states["remote_documentation"] == "passed"
-    assert states["full_local_regression"] == "not_run"
+    assert states["full_local_regression"] in {"not_run", "passed"}
+    assert states["strict_documentation_audit"] == "not_run"
+    assert states["clean_installed_distributions"] == "not_run"
     assert readiness["ready_for_candidate"] is False
 
 
-@pytest.mark.parametrize("fault", ["ready", "local_passed", "remote_notrun", "bad_commit"])
+@pytest.mark.parametrize("fault", ["ready", "strict_docs_passed", "remote_notrun", "bad_commit"])
 def test_invalid_remote_candidate_gate_states_are_rejected(tmp_path, fault):
     (tmp_path / "docs").mkdir()
     (tmp_path / "ncmemsim").mkdir()
@@ -28,9 +30,11 @@ def test_invalid_remote_candidate_gate_states_are_rejected(tmp_path, fault):
     readiness = json.loads((ROOT / "docs/release_readiness.json").read_text(encoding="utf-8"))
     if fault == "ready":
         readiness["ready_for_candidate"] = True
-    elif fault == "local_passed":
-        readiness["final_candidate_checks"][0]["state"] = "passed"
-        readiness["final_candidate_checks"][0]["evidence"] = ["docs/final_candidate_remote_evidence.md"]
+    elif fault == "strict_docs_passed":
+        for check in readiness["final_candidate_checks"]:
+            if check["id"] == "strict_documentation_audit":
+                check["state"] = "passed"
+                check["evidence"] = ["docs/final_candidate_remote_evidence.md"]
     elif fault == "remote_notrun":
         for check in readiness["final_candidate_checks"]:
             if check["id"] == "supported_runtime_ci":

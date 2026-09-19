@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "name": "v1.0 full local regression evidence",
+  "preparation_version": "0.14.0",
+  "source_branch": "prep/v1.0-stability",
+  "tested_commit": "6fd4505d7de524caef4ca8361b07c4b5eea0966e",
+  "status": "passed",
+  "command": "python -m pytest -q --basetemp ..\\tmp-stability-full-local-regression-pytest",
+  "required_result": "all tests passed on the exact tested commit before committing this evidence",
+  "not_covered": [
+    "strict_documentation_audit",
+    "clean_installed_distributions"
+  ],
+  "notes": "Full local pytest passed locally on the exact tested commit during package preparation. The verify script reruns full pytest before staging.",
+  "observed_result": "2213 passed in 280.07s (0:04:40)"
+}

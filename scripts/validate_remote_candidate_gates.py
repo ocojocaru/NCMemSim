@@ -43,10 +43,16 @@ def validate(root: Path) -> dict:
 
     readiness = json.loads((root / "docs/release_readiness.json").read_text(encoding="utf-8"))
     states = {item["id"]: item for item in readiness["final_candidate_checks"]}
-    if {gate for gate, item in states.items() if item["state"] == "passed"} != REMOTE_GATES:
-        raise ValueError("only remote gates may be marked passed in this step")
-    if {gate for gate, item in states.items() if item["state"] == "not_run"} != LOCAL_GATES:
-        raise ValueError("local gates must remain not_run")
+    passed = {gate for gate, item in states.items() if item["state"] == "passed"}
+    if not REMOTE_GATES <= passed:
+        raise ValueError("remote gates must remain passed")
+    if not passed <= REMOTE_GATES | {"full_local_regression"}:
+        raise ValueError("only remote gates and separately recorded full local regression may be passed")
+    if states["full_local_regression"]["state"] not in {"not_run", "passed"}:
+        raise ValueError("full local regression must be not_run or passed")
+    for gate in {"strict_documentation_audit", "clean_installed_distributions"}:
+        if states[gate]["state"] != "not_run":
+            raise ValueError(gate + " must remain not_run")
     if readiness["ready_for_candidate"] is not False:
         raise ValueError("candidate readiness must remain false until local gates pass")
     for gate in REMOTE_GATES:
@@ -62,7 +68,7 @@ def main() -> int:
     except (ValueError, KeyError, TypeError, OSError) as exc:
         print("Remote candidate gate evidence FAIL:", exc, file=sys.stderr)
         return 1
-    print("Remote candidate gate evidence PASS: " + evidence["verified_commit"] + "; local final gates remain not_run.")
+    print("Remote candidate gate evidence PASS: " + evidence["verified_commit"] + "; remote gates remain passed; unresolved local gates remain not_run.")
     return 0
 
 

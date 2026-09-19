@@ -45,3 +45,10 @@ The remote CI and Documentation gates are recorded in
 [remote final candidate gate evidence](final_candidate_remote_evidence.md).
 The remaining local gates stay open until they are executed on the exact final
 source identity.
+
+## Local regression evidence
+
+The full local regression gate is recorded in
+[full local regression evidence](final_candidate_local_regression.md).
+Strict documentation and clean installed distributions remain open until they are
+executed on the exact final source identity.
