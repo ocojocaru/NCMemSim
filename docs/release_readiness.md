@@ -17,7 +17,7 @@ version, approve all exports or declare a release candidate. The machine-readabl
 | Defaults | [scientific review](scientific_defaults.md), [stable API candidate](stable_api_proposal.md) | Accept existing values, applicability and provenance scope; decide any legacy validation hardening separately |
 | Distribution | [distribution review](distribution_contracts.md), [stable API candidate](stable_api_proposal.md) | Accept all-module/source-byte inventory and explicit clean versus inherited-dependency installation modes |
 | Scientific scope | [scientific scope](scientific_scope.md), [roadmap](roadmap.md), [calibration scope](calibration.md), [scientific workflows](scientific_workflows.md), [stable API candidate](stable_api_proposal.md) | Approve a stable compact-model simulation/fitting/DTCO software release with explicit ASSUMED/provisional/synthetic FITTED limits and without new experimental-validity claims |
-| Archival/citation | [archival and citation plan](archival_citation.md), [citation metadata](../CITATION.cff), [reproducibility](reproducibility.md) | Approve the plan for final source identity, citation metadata and future DOI/deposit verification without inventing a DOI or creating a release |
+| Archival/citation | [archival and citation plan](archival_citation.md), citation metadata in `CITATION.cff`, [reproducibility](reproducibility.md) | Approve the plan for final source identity, citation metadata and future DOI/deposit verification without inventing a DOI or creating a release |
 
 These audits are complete as local reviews and approved for candidate
 preparation. Their tests are evidence for the specific stated behaviors, not
