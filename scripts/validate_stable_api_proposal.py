@@ -1,6 +1,6 @@
 """Compare the approved stable surface candidate against current source."""
 from pathlib import Path
-import importlib,inspect,json,sys
+import enum,importlib,inspect,json,sys
 
 def build_proposal(root):
     from scripts.validate_api_contract import build_inventory
@@ -38,7 +38,7 @@ def build_proposal(root):
             module,name=path.rsplit('.',1);obj=getattr(importlib.import_module(module),name)
         runtime_signature=None
         if inspect.isclass(obj) or inspect.isfunction(obj):
-            runtime_signature=str(inspect.signature(obj))
+            runtime_signature = "(*values)" if inspect.isclass(obj) and issubclass(obj, enum.Enum) else str(inspect.signature(obj))
             if ' at 0x' in runtime_signature:raise ValueError('nonportable default signature: '+path)
         entries.append({'import_path':path,'definition_path':target,'kind':contract['kind'],
             'runtime_call_signature':runtime_signature,'source_contract':contract})

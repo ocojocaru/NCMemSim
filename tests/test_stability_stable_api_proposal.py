@@ -25,6 +25,11 @@ def test_selected_surface_and_class_constructor_coverage(proposal):
  assert runner['runtime_call_signature']=="(parameter_set: 'FitParameterSet', residual_function: 'ResidualFunction', *, config: 'LeastSquaresConfig | None' = None) -> 'DeterministicFitResult'"
  assert (ROOT/'docs/stable_api_proposal.md').read_text(encoding='utf-8')==render(proposal)
 
+def test_enum_signatures_are_version_stable(proposal):
+ enum_paths = [e for e in proposal['entries'] if e['runtime_call_signature'] == '(*values)']
+ assert enum_paths
+ assert {e['import_path'] for e in enum_paths} >= {'ncmemsim.transport.NodeKind', 'ncmemsim.dtco.ObjectiveDirection'}
+
 def test_root_alias_target_and_result_identity_are_distinct(proposal):
  root=next(e for e in proposal['entries'] if e['import_path']=='ncmemsim.SweepResult')
  assert root['definition_path']=='ncmemsim.simulator.SweepResult'
