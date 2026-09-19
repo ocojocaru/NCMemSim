@@ -4,7 +4,8 @@ The package remains 0.14.0 on prep/v1.0-stability; the published v0.14.0 tag is
 unchanged. This consolidation records audited evidence, approved contract and
 archival/citation decisions, and final gates still needed. It does not bump the
 version, approve all exports or declare a release candidate. The machine-readable matrix is
-[release_readiness.json](release_readiness.json).
+[release_readiness.json](release_readiness.json), with the final candidate execution plan in
+[final_candidate_gates.md](final_candidate_gates.md).
 
 ## Approved contract reviews
 
@@ -57,9 +58,9 @@ succeeded.
 Focused audit passes and historical v0.14.0 release checks do not satisfy these
 new final-candidate checks. Do not sum overlapping focused test counts as a full
 suite count. If source changes after validation, identify the affected gates and
-validate the final source again. Configure automatic CI/Documentation on the
-chosen preparation branch only when preparing the final version, following the
-agreed workflow; no trigger changes are part of this patch.
+validate the final source again. Automatic CI and Documentation triggers are configured for `prep/v1.0-stability`
+so final candidate pushes validate the prepared source identity. This
+configuration does not mark any final check passed.
 
 ## Readiness matrix maintenance
 

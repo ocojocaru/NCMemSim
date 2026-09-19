@@ -289,4 +289,6 @@ Local API/result/archive/default/distribution reviews and the archival/citation
 plan are recorded in the [v1.0 readiness consolidation](release_readiness.md).
 Approval of the stable surface, scientific scope and archival plan remains
 separate from the final regression/documentation/clean-distribution/Actions
-gates. No v0.15.0 or v1.0 version change is implied by these preparation audits.
+gates. Final candidate gates are configured on `prep/v1.0-stability`, but every
+final check remains `not_run`. No v0.15.0 or v1.0 version change is implied by
+these preparation audits.

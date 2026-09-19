@@ -726,12 +726,10 @@ as substitutes for changes to the Markdown sources.
 Update documentation and changelog with each development step and run the
 relevant tests locally. Intermediate pushes and pull requests do not launch
 CI or Documentation Actions. At final-version preparation, enable automatic
-push checks for the exact active `dev/*` branch, including final corrections;
+push checks for the exact active preparation branch, including final corrections;
 other development branches remain without automatic checks. CI also runs on
-`v*` release tags and both workflows remain manually runnable. Phase I bootstrap
-removes the completed v0.13.0 branch triggers; `dev/v0.14.0-scientific-workflows`
-had no automatic Actions during I0–I6. I7 now enables this exact branch for
-final v0.14.0 preparation, including final corrections. Only builds on `main`
+`v*` release tags and both workflows remain manually runnable. The v1.0 stability
+preparation enables `prep/v1.0-stability` for final candidate gate execution. Only builds on `main`
 deploy Pages; development builds do not replace the published site. Full
 regression, strict documentation, package builds and clean installed-distribution
 checks belong to this final-version gate.
@@ -773,4 +771,4 @@ Use the [API compatibility preparation policy](api_compatibility.md) when
 reviewing imports, signatures, result ownership and historical archive support.
 The approved surface and scientific default review remain acceptance gates.
 
-See [v1.0 readiness consolidation](release_readiness.md) for reviewed evidence, pending approvals and final-candidate gates.
+See [v1.0 readiness consolidation](release_readiness.md) and [final candidate gates](final_candidate_gates.md) for reviewed evidence, approved scope and final checks that still need execution.

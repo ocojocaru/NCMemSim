@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "name": "v1.0 final candidate gate plan",
+  "preparation_version": "0.14.0",
+  "source_branch": "prep/v1.0-stability",
+  "status": "configured_not_run",
+  "required_checks": [
+    {
+      "id": "full_local_regression",
+      "required_state": "passed",
+      "evidence_kind": "local_log",
+      "description": "Full local pytest regression on the exact final prepared source identity."
+    },
+    {
+      "id": "strict_documentation_audit",
+      "required_state": "passed",
+      "evidence_kind": "local_log",
+      "description": "Strict documentation audit, executable examples, links, source inventory and MkDocs strict build on the exact final source identity."
+    },
+    {
+      "id": "clean_installed_distributions",
+      "required_state": "passed",
+      "evidence_kind": "local_log",
+      "description": "Clean wheel and source distribution validation outside the source checkout, including installed references and archive readers."
+    },
+    {
+      "id": "supported_runtime_ci",
+      "required_state": "passed",
+      "evidence_kind": "remote_actions",
+      "description": "GitHub CI workflow on supported Python versions for the exact final source identity."
+    },
+    {
+      "id": "remote_documentation",
+      "required_state": "passed",
+      "evidence_kind": "remote_actions",
+      "description": "Documentation workflow for the exact final source identity; Pages deployment remains a main-branch publication step."
+    }
+  ],
+  "workflow_configuration": {
+    "ci_push_branch": "prep/v1.0-stability",
+    "documentation_push_branch": "prep/v1.0-stability",
+    "tag_pushes_run_ci": true,
+    "documentation_deploys_only_from_main": true
+  },
+  "not_done_by_this_step": [
+    "No final check is marked passed.",
+    "No package version is bumped.",
+    "No v1.0 tag, GitHub release, Pages deployment, DOI or external deposit is created."
+  ]
+}

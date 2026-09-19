@@ -22,7 +22,7 @@ electrical/optical fitting, linked report restoration and exports. Source
 archive bytes are compared with the audited checkout.
 
 CI and Documentation run automatically after push to
-`dev/v0.14.0-scientific-workflows`. Python 3.11–3.13 remote results must belong
+`prep/v1.0-stability`. Python 3.11–3.13 remote results must belong
 to the prepared commit; local Python 3.13 results do not substitute for them.
 No v0.14.0 tag or publication is implied by this preparation. Synthetic
 qualification, consistency hashes and descriptive feasibility fractions are
