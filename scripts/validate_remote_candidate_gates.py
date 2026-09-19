@@ -46,16 +46,17 @@ def validate(root: Path) -> dict:
     passed = {gate for gate, item in states.items() if item["state"] == "passed"}
     if not REMOTE_GATES <= passed:
         raise ValueError("remote gates must remain passed")
-    if not passed <= REMOTE_GATES | {"full_local_regression", "strict_documentation_audit"}:
-        raise ValueError("only remote gates and separately recorded local gates may be passed")
+    if not passed <= REMOTE_GATES | LOCAL_GATES:
+        raise ValueError("only known remote and local final gates may be passed")
     if states["full_local_regression"]["state"] not in {"not_run", "passed"}:
         raise ValueError("full local regression must be not_run or passed")
     if states["strict_documentation_audit"]["state"] not in {"not_run", "passed"}:
         raise ValueError("strict_documentation_audit must be not_run or passed")
-    if states["clean_installed_distributions"]["state"] != "not_run":
-        raise ValueError("clean_installed_distributions must remain not_run")
-    if readiness["ready_for_candidate"] is not False:
-        raise ValueError("candidate readiness must remain false until local gates pass")
+    if states["clean_installed_distributions"]["state"] not in {"not_run", "passed"}:
+        raise ValueError("clean_installed_distributions must be not_run or passed")
+    ready = all(item["state"] == "passed" for item in states.values())
+    if readiness["ready_for_candidate"] is not ready:
+        raise ValueError("candidate readiness must match final gate state")
     for gate in REMOTE_GATES:
         if set(states[gate]["evidence"]) != {"docs/final_candidate_remote_evidence.md", "docs/final_candidate_remote_evidence.json"}:
             raise ValueError("remote gate evidence paths changed")
@@ -69,7 +70,7 @@ def main() -> int:
     except (ValueError, KeyError, TypeError, OSError) as exc:
         print("Remote candidate gate evidence FAIL:", exc, file=sys.stderr)
         return 1
-    print("Remote candidate gate evidence PASS: " + evidence["verified_commit"] + "; remote gates remain passed; unresolved local gates remain not_run.")
+    print("Remote candidate gate evidence PASS: " + evidence["verified_commit"] + "; remote gates remain passed and readiness is consistent.")
     return 0
 
 

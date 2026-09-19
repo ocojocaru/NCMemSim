@@ -17,18 +17,18 @@ def test_local_regression_gate_recorded_without_candidate_readiness():
     states = {item["id"]: item["state"] for item in readiness["final_candidate_checks"]}
     assert states["full_local_regression"] == "passed"
     assert states["strict_documentation_audit"] in {"not_run", "passed"}
-    assert states["clean_installed_distributions"] == "not_run"
-    assert readiness["ready_for_candidate"] is False
+    assert states["clean_installed_distributions"] == "passed"
+    assert readiness["ready_for_candidate"] is True
 
 
-@pytest.mark.parametrize("fault", ["ready", "docs_passed", "dist_passed", "regression_notrun", "bad_commit"])
+@pytest.mark.parametrize("fault", ["ready", "regression_notrun", "bad_commit"])
 def test_invalid_local_regression_gate_states_rejected(tmp_path, fault):
     (tmp_path / "docs").mkdir()
     (tmp_path / "ncmemsim").mkdir()
     evidence = json.loads((ROOT / "docs/final_candidate_local_regression.json").read_text(encoding="utf-8"))
     readiness = json.loads((ROOT / "docs/release_readiness.json").read_text(encoding="utf-8"))
     if fault == "ready":
-        readiness["ready_for_candidate"] = True
+        readiness["ready_for_candidate"] = False
     elif fault == "docs_passed":
         for check in readiness["final_candidate_checks"]:
             if check["id"] == "clean_installed_distributions":

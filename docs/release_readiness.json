@@ -110,8 +110,12 @@
     },
     {
       "id": "clean_installed_distributions",
-      "state": "not_run",
-      "evidence": []
+      "state": "passed",
+      "evidence": [
+        "docs/final_candidate_clean_distributions.md",
+        "docs/final_candidate_clean_distributions.json",
+        "scripts/validate_clean_distribution_gate.py"
+      ]
     },
     {
       "id": "supported_runtime_ci",
@@ -130,5 +134,5 @@
       ]
     }
   ],
-  "ready_for_candidate": false
+  "ready_for_candidate": true
 }

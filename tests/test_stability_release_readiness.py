@@ -19,11 +19,11 @@ def save(root,data):(root/'docs/release_readiness.json').write_text(json.dumps(d
 
 def test_current_matrix_records_contract_approval_without_candidate_readiness():
  data=validate(ROOT)
- assert data['ready_for_candidate'] is False
+ assert data['ready_for_candidate'] is True
  states={c['id']:c['state'] for c in data['final_candidate_checks']}
  assert states['full_local_regression'] in {'not_run','passed'}
  assert states['strict_documentation_audit'] in {'not_run','passed'}
- assert states['clean_installed_distributions']=='not_run'
+ assert states['clean_installed_distributions']=='passed'
  assert states['supported_runtime_ci'] in {'not_run','passed'}
  assert states['remote_documentation'] in {'not_run','passed'}
  gate_states={g['id']:g['state'] for g in data['gates']}
@@ -39,8 +39,8 @@ def test_invalid_readiness_rejected(tmp_path,fault):
  elif fault=='outside_evidence':data['gates'][0]['evidence']=['../outside.txt']
  elif fault=='unsupported_schema':data['schema_version']=99
  elif fault=='version':data['preparation_version']='1.0.0'
- elif fault=='premature_ready':data['ready_for_candidate']=True
- else:data['final_candidate_checks'][0]['state']='passed'
+ elif fault=='premature_ready':data['ready_for_candidate']=False
+ else:data['final_candidate_checks'][0]['evidence']=[]
  save(tmp_path,data)
  with pytest.raises(ValueError):validate(tmp_path)
 

@@ -45,13 +45,14 @@ def validate(root: Path) -> dict:
         raise ValueError("full local regression evidence paths changed")
     if states["strict_documentation_audit"]["state"] not in {"not_run", "passed"}:
         raise ValueError("strict_documentation_audit must be not_run or passed")
-    if states["clean_installed_distributions"]["state"] != "not_run" or states["clean_installed_distributions"]["evidence"]:
-        raise ValueError("clean_installed_distributions must remain not_run")
+    if states["clean_installed_distributions"]["state"] not in {"not_run", "passed"}:
+        raise ValueError("clean_installed_distributions must be not_run or passed")
     for gate in ("supported_runtime_ci", "remote_documentation"):
         if states[gate]["state"] != "passed":
             raise ValueError(gate + " must remain passed")
-    if readiness["ready_for_candidate"] is not False:
-        raise ValueError("candidate readiness must remain false until every final gate passes")
+    ready = all(item["state"] == "passed" for item in states.values())
+    if readiness["ready_for_candidate"] is not ready:
+        raise ValueError("candidate readiness must match final gate state")
     return evidence
 
 
@@ -62,7 +63,7 @@ def main() -> int:
     except (ValueError, KeyError, TypeError, OSError) as exc:
         print("Local regression gate evidence FAIL:", exc, file=sys.stderr)
         return 1
-    print("Local regression gate evidence PASS: " + evidence["tested_commit"] + "; clean distribution gate remains not_run.")
+    print("Local regression gate evidence PASS: " + evidence["tested_commit"] + "; downstream final gates are consistent.")
     return 0
 
 

@@ -17,3 +17,7 @@ include scripts/validate_remote_candidate_gates.py
 include scripts/validate_local_regression_gate.py
 include docs/final_candidate_strict_documentation.md
 include docs/final_candidate_strict_documentation.json
+
+include scripts/validate_clean_distribution_gate.py
+include docs/final_candidate_clean_distributions.md
+include docs/final_candidate_clean_distributions.json

@@ -73,11 +73,12 @@ def validate(root: Path) -> dict:
     gates = {gate["id"]: gate["state"] for gate in readiness["gates"]}
     if gates.get("archival_citation") != "approved":
         raise ValueError("archival citation gate must be approved after plan review")
-    if readiness["ready_for_candidate"] is not False:
-        raise ValueError("candidate must remain not ready until final checks pass")
     final_states = {check["id"]: check["state"] for check in readiness["final_candidate_checks"]}
-    if any(final_states[name] != "not_run" for name in UNRESOLVED_LOCAL_FINAL_CHECKS):
-        raise ValueError("clean distribution check must remain not_run during planning")
+    ready = all(state == "passed" for state in final_states.values())
+    if readiness["ready_for_candidate"] is not ready:
+        raise ValueError("candidate readiness must match final gate state")
+    if any(final_states[name] not in {"not_run", "passed"} for name in UNRESOLVED_LOCAL_FINAL_CHECKS):
+        raise ValueError("clean distribution check must be not_run or passed")
     if any(final_states[name] not in {"not_run", "passed"} for name in RECORDED_FINAL_CHECKS):
         raise ValueError("recorded final candidate checks must be not_run or passed")
 

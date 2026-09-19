@@ -18,18 +18,18 @@ def test_remote_candidate_gates_are_recorded_without_candidate_readiness():
     assert states["remote_documentation"] == "passed"
     assert states["full_local_regression"] in {"not_run", "passed"}
     assert states["strict_documentation_audit"] in {"not_run", "passed"}
-    assert states["clean_installed_distributions"] == "not_run"
-    assert readiness["ready_for_candidate"] is False
+    assert states["clean_installed_distributions"] == "passed"
+    assert readiness["ready_for_candidate"] is True
 
 
-@pytest.mark.parametrize("fault", ["ready", "strict_docs_passed", "remote_notrun", "bad_commit"])
+@pytest.mark.parametrize("fault", ["ready", "remote_notrun", "bad_commit"])
 def test_invalid_remote_candidate_gate_states_are_rejected(tmp_path, fault):
     (tmp_path / "docs").mkdir()
     (tmp_path / "ncmemsim").mkdir()
     evidence = json.loads((ROOT / "docs/final_candidate_remote_evidence.json").read_text(encoding="utf-8"))
     readiness = json.loads((ROOT / "docs/release_readiness.json").read_text(encoding="utf-8"))
     if fault == "ready":
-        readiness["ready_for_candidate"] = True
+        readiness["ready_for_candidate"] = False
     elif fault == "strict_docs_passed":
         for check in readiness["final_candidate_checks"]:
             if check["id"] == "clean_installed_distributions":

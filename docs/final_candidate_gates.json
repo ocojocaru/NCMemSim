@@ -3,7 +3,7 @@
   "name": "v1.0 final candidate gate plan",
   "preparation_version": "0.14.0",
   "source_branch": "prep/v1.0-stability",
-  "status": "configured_not_run",
+  "status": "passed",
   "required_checks": [
     {
       "id": "full_local_regression",
@@ -43,8 +43,31 @@
     "documentation_deploys_only_from_main": true
   },
   "not_done_by_this_step": [
-    "No final check is marked passed.",
     "No package version is bumped.",
     "No v1.0 tag, GitHub release, Pages deployment, DOI or external deposit is created."
-  ]
+  ],
+  "completed_evidence": {
+    "full_local_regression": [
+      "docs/final_candidate_local_regression.md",
+      "docs/final_candidate_local_regression.json"
+    ],
+    "strict_documentation_audit": [
+      "docs/final_candidate_strict_documentation.md",
+      "docs/final_candidate_strict_documentation.json",
+      "scripts/validate_documentation.py"
+    ],
+    "clean_installed_distributions": [
+      "docs/final_candidate_clean_distributions.md",
+      "docs/final_candidate_clean_distributions.json",
+      "scripts/validate_clean_distribution_gate.py"
+    ],
+    "supported_runtime_ci": [
+      "docs/final_candidate_remote_evidence.md",
+      "docs/final_candidate_remote_evidence.json"
+    ],
+    "remote_documentation": [
+      "docs/final_candidate_remote_evidence.md",
+      "docs/final_candidate_remote_evidence.json"
+    ]
+  }
 }

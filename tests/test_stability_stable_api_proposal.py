@@ -40,13 +40,13 @@ def test_root_alias_target_and_result_identity_are_distinct(proposal):
 def test_proposal_marks_contract_approval_but_not_final_checks(proposal):
  assert proposal['status']=='approved_for_v1_candidate_preparation'
  data=validate(ROOT)
- assert data['ready_for_candidate'] is False
+ assert data['ready_for_candidate'] is True
  gate_states={g['id']:g['state'] for g in data['gates']}
  assert all(state=='approved' for state in gate_states.values())
  states={c['id']:c['state'] for c in data['final_candidate_checks']}
  assert states['full_local_regression'] in {'not_run','passed'}
  assert states['strict_documentation_audit'] in {'not_run','passed'}
- assert states['clean_installed_distributions']=='not_run'
+ assert states['clean_installed_distributions']=='passed'
  assert states['supported_runtime_ci'] in {'not_run','passed'}
  assert states['remote_documentation'] in {'not_run','passed'}
 

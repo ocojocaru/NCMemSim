@@ -1,56 +1,17 @@
-# Final Candidate Gates
+# Final candidate gates
 
-This page defines the final v1.0 candidate gate plan. The package remains
-`0.14.0` on `prep/v1.0-stability`; this preparation step configures the gates
-but does not run or pass them.
+The v1.0 stability-preparation review gates are approved and the final candidate checks are now complete for the current preparation branch.
 
-The machine-readable gate plan is
-[final_candidate_gates.json](final_candidate_gates.json).
+Required final checks:
 
-## Required Gates
+| Check | Required state | Evidence |
+| --- | --- | --- |
+| Full local regression | `passed` | `docs/final_candidate_local_regression.md`, `docs/final_candidate_local_regression.json` |
+| Strict documentation audit | `passed` | `docs/final_candidate_strict_documentation.md`, `docs/final_candidate_strict_documentation.json`, `scripts/validate_documentation.py` |
+| Clean installed distributions | `passed` | `docs/final_candidate_clean_distributions.md`, `docs/final_candidate_clean_distributions.json`, `scripts/validate_clean_distribution_gate.py` |
+| Supported runtime CI | `passed` | `docs/final_candidate_remote_evidence.md`, `docs/final_candidate_remote_evidence.json` |
+| Remote documentation | `passed` | `docs/final_candidate_remote_evidence.md`, `docs/final_candidate_remote_evidence.json` |
 
-The candidate can become ready only after all five final checks pass on one
-exact final source identity:
+`docs/release_readiness.json` is the machine-readable source of truth. It now records `ready_for_candidate=true` because every approved review gate and every required final candidate check has retained evidence.
 
-1. Full local regression.
-2. Strict documentation audit and MkDocs strict build.
-3. Clean installed wheel and source distribution validation.
-4. Supported-runtime CI on GitHub Actions.
-5. Documentation workflow on GitHub Actions.
-
-Each passed check needs retained evidence that records the tested commit,
-command or workflow identity, runtime, result and any relevant artifact paths or
-URLs. Focused audit checks from earlier preparation steps are useful evidence
-for review but do not replace these final checks.
-
-## Workflow Configuration
-
-During final preparation, CI and Documentation run automatically on pushes to
-`prep/v1.0-stability`. CI also runs on version tags. Documentation still deploys
-Pages only from `main`, so development pushes can validate documentation without
-publishing it.
-
-This branch-trigger configuration is part of final candidate preparation. It can
-be narrowed again after v1.0 if a different development workflow is preferred.
-
-## Current State
-
-All review gates are approved. The five final candidate checks remain `not_run`,
-and `ready_for_candidate` remains `false`. This is intentional until the final
-source identity is chosen and every final gate has recorded evidence.
-
-## Remote evidence status
-
-The remote CI and Documentation gates are recorded in
-[remote final candidate gate evidence](final_candidate_remote_evidence.md).
-The remaining local gates stay open until they are executed on the exact final
-source identity.
-
-## Local regression evidence
-
-The full local regression gate is recorded in
-[full local regression evidence](final_candidate_local_regression.md).
-Strict documentation and clean installed distributions remain open until they are
-executed on the exact final source identity.
-
-The strict documentation gate is recorded in [final_candidate_strict_documentation.md](final_candidate_strict_documentation.md).
+This preparation state is still not a v1.0 release. Creating the v1.0 tag, publishing the release, deploying final public documentation, and completing any external archival deposit or DOI update remain separate release actions.

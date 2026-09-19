@@ -48,13 +48,14 @@ def validate(root: Path) -> dict:
     }
     if set(states["strict_documentation_audit"]["evidence"]) != expected:
         raise ValueError("strict documentation evidence paths changed")
-    if states["clean_installed_distributions"]["state"] != "not_run" or states["clean_installed_distributions"]["evidence"]:
-        raise ValueError("clean installed distributions must remain not_run")
+    if states["clean_installed_distributions"]["state"] not in {"not_run", "passed"}:
+        raise ValueError("clean installed distributions must be not_run or passed")
     for gate in ("full_local_regression", "supported_runtime_ci", "remote_documentation"):
         if states[gate]["state"] != "passed":
             raise ValueError(gate + " must remain passed")
-    if readiness["ready_for_candidate"] is not False:
-        raise ValueError("candidate readiness must remain false until every final gate passes")
+    ready = all(item["state"] == "passed" for item in states.values())
+    if readiness["ready_for_candidate"] is not ready:
+        raise ValueError("candidate readiness must match final gate state")
     return evidence
 
 
@@ -65,7 +66,7 @@ def main() -> int:
     except (ValueError, KeyError, TypeError, OSError) as exc:
         print("Strict documentation gate evidence FAIL:", exc, file=sys.stderr)
         return 1
-    print("Strict documentation gate evidence PASS: " + evidence["tested_commit"] + "; clean distribution gate remains not_run.")
+    print("Strict documentation gate evidence PASS: " + evidence["tested_commit"] + "; downstream final gates are consistent.")
     return 0
 
 

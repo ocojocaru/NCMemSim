@@ -1,4 +1,5 @@
 # Changelog
+- Recorded clean installed wheel/source-distribution evidence and marked the v1.0 stability-preparation candidate ready after all final gates passed.
 
 All notable changes to NCMemSim are documented in this file.
 

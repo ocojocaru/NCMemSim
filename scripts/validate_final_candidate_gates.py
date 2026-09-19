@@ -1,4 +1,4 @@
-"""Validate final gate configuration without marking the candidate ready."""
+"""Validate final candidate gate configuration and completed evidence."""
 from __future__ import annotations
 
 import ast
@@ -14,10 +14,6 @@ REQUIRED_CHECKS = {
     "supported_runtime_ci",
     "remote_documentation",
 }
-LOCAL_CHECKS = {"full_local_regression", "strict_documentation_audit", "clean_installed_distributions"}
-UNRESOLVED_LOCAL_CHECKS = {"clean_installed_distributions"}
-OPTIONAL_RECORDED_CHECKS = {"full_local_regression", "strict_documentation_audit", "supported_runtime_ci", "remote_documentation"}
-REMOTE_CHECKS = {"supported_runtime_ci", "remote_documentation"}
 
 
 def _package_version(root: Path) -> str:
@@ -57,8 +53,8 @@ def validate(root: Path) -> dict:
     plan = json.loads((root / "docs/final_candidate_gates.json").read_text(encoding="utf-8"))
     if plan.get("schema_version") != 1:
         raise ValueError("unsupported final gate plan schema")
-    if plan.get("status") != "configured_not_run":
-        raise ValueError("final gate plan must remain configured_not_run")
+    if plan.get("status") != "passed":
+        raise ValueError("final gate plan must be passed after clean distribution evidence")
     if plan.get("preparation_version") != _package_version(root):
         raise ValueError("final gate preparation version differs from package")
     if plan.get("source_branch") != "prep/v1.0-stability":
@@ -69,6 +65,9 @@ def validate(root: Path) -> dict:
     for item in plan["required_checks"]:
         if item.get("required_state") != "passed" or not item.get("description"):
             raise ValueError("invalid final gate requirement")
+    completed = plan.get("completed_evidence", {})
+    if set(completed) != REQUIRED_CHECKS or any(not value for value in completed.values()):
+        raise ValueError("completed final gate evidence is incomplete")
 
     config = plan.get("workflow_configuration", {})
     if config.get("ci_push_branch") != "prep/v1.0-stability":
@@ -81,15 +80,14 @@ def validate(root: Path) -> dict:
         raise ValueError("Documentation workflow does not run on prep/v1.0-stability")
 
     readiness = json.loads((root / "docs/release_readiness.json").read_text(encoding="utf-8"))
-    states = {check["id"]: check["state"] for check in readiness["final_candidate_checks"]}
+    states = {check["id"]: check for check in readiness["final_candidate_checks"]}
     if set(states) != REQUIRED_CHECKS:
         raise ValueError("final candidate check inventory changed")
-    if any(states[name] != "not_run" for name in UNRESOLVED_LOCAL_CHECKS):
-        raise ValueError("clean distribution check must remain not_run before execution")
-    if any(states[name] not in {"not_run", "passed"} for name in OPTIONAL_RECORDED_CHECKS):
-        raise ValueError("recordable final candidate checks must be not_run or passed")
-    if readiness["ready_for_candidate"] is not False:
-        raise ValueError("candidate readiness must remain false until all final gates pass")
+    for check_id, item in states.items():
+        if item.get("state") != "passed" or not item.get("evidence"):
+            raise ValueError(f"final candidate check is not passed with evidence: {check_id}")
+    if readiness.get("ready_for_candidate") is not True:
+        raise ValueError("candidate readiness must be true after all final gates pass")
     return plan
 
 
@@ -100,11 +98,7 @@ def main() -> int:
     except (ValueError, KeyError, TypeError, OSError, StopIteration) as exc:
         print("Final candidate gate plan FAIL:", exc, file=sys.stderr)
         return 1
-    print(
-        "Final candidate gate plan PASS: "
-        + plan["status"]
-        + "; unresolved local final checks remain not_run."
-    )
+    print("Final candidate gate plan PASS: " + plan["status"] + "; ready_for_candidate=true.")
     return 0
 
 

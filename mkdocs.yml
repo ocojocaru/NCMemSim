@@ -79,6 +79,7 @@ nav:
       - Remote final gate evidence: final_candidate_remote_evidence.md
       - Full local regression evidence: final_candidate_local_regression.md
       - Strict documentation evidence: final_candidate_strict_documentation.md
+      - Clean distribution evidence: final_candidate_clean_distributions.md
       - Archival and citation plan: archival_citation.md
       - Stable API proposal: stable_api_proposal.md
       - Developer guide: developer.md

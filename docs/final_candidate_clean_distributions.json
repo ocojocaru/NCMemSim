@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "name": "v1.0 clean installed distribution evidence",
+  "preparation_version": "0.14.0",
+  "source_branch": "prep/v1.0-stability",
+  "tested_commit": "03ad3915f2161f5e94cf88c5942a1b836ef30c7b",
+  "status": "passed",
+  "validator": "scripts/validate_clean_distribution_gate.py",
+  "command": "python scripts/validate_clean_distribution_gate.py --reuse-dependencies",
+  "observed_result": "Clean wheel and source distribution validation passed with local dependency reuse: source/wheel inventories checked, artifacts installed into separate virtual environments outside the source checkout, representative public imports and frozen v0.14.0 archive readers executed.",
+  "dependency_mode": "local_dependency_reuse",
+  "covered_checks": [
+    "clean_installed_distributions"
+  ],
+  "not_covered": [],
+  "artifacts_checked": [
+    "wheel",
+    "sdist"
+  ],
+  "installed_probe_scope": [
+    "installed ncmemsim import identity outside the source checkout",
+    "representative DTCO, robust DTCO and workflow public imports",
+    "stable API proposal and release readiness validators",
+    "frozen published v0.14.0 archive fixture readers",
+    "source distribution byte/content inventory via scripts.validate_dtco_distribution"
+  ],
+  "notes": [
+    "The gate reuses already available local package dependencies to avoid network access during final preparation.",
+    "Remote supported-runtime CI already validated clean distribution jobs on Python 3.11, 3.12 and 3.13 for the same preparation branch before this final local gate.",
+    "No v1.0 tag, GitHub release, Pages deployment, DOI or external deposit is created by this evidence step."
+  ]
+}

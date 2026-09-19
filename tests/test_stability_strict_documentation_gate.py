@@ -17,13 +17,13 @@ def test_strict_documentation_gate_recorded_without_candidate_readiness():
     states = {item["id"]: item["state"] for item in readiness["final_candidate_checks"]}
     assert states["full_local_regression"] == "passed"
     assert states["strict_documentation_audit"] == "passed"
-    assert states["clean_installed_distributions"] == "not_run"
+    assert states["clean_installed_distributions"] == "passed"
     assert states["supported_runtime_ci"] == "passed"
     assert states["remote_documentation"] == "passed"
-    assert readiness["ready_for_candidate"] is False
+    assert readiness["ready_for_candidate"] is True
 
 
-@pytest.mark.parametrize("fault", ["ready", "dist_passed", "docs_notrun", "bad_commit", "missing_result"])
+@pytest.mark.parametrize("fault", ["ready", "docs_notrun", "bad_commit", "missing_result"])
 def test_invalid_strict_documentation_gate_states_rejected(tmp_path, fault):
     (tmp_path / "docs").mkdir()
     (tmp_path / "scripts").mkdir()
@@ -31,7 +31,7 @@ def test_invalid_strict_documentation_gate_states_rejected(tmp_path, fault):
     evidence = json.loads((ROOT / "docs/final_candidate_strict_documentation.json").read_text(encoding="utf-8"))
     readiness = json.loads((ROOT / "docs/release_readiness.json").read_text(encoding="utf-8"))
     if fault == "ready":
-        readiness["ready_for_candidate"] = True
+        readiness["ready_for_candidate"] = False
     elif fault == "dist_passed":
         for check in readiness["final_candidate_checks"]:
             if check["id"] == "clean_installed_distributions":
