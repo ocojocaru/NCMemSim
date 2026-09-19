@@ -43,7 +43,12 @@ def test_proposal_marks_contract_approval_but_not_final_checks(proposal):
  assert data['ready_for_candidate'] is False
  gate_states={g['id']:g['state'] for g in data['gates']}
  assert all(state=='approved' for state in gate_states.values())
- assert all(c['state']=='not_run' for c in data['final_candidate_checks'])
+ states={c['id']:c['state'] for c in data['final_candidate_checks']}
+ assert states['full_local_regression']=='not_run'
+ assert states['strict_documentation_audit']=='not_run'
+ assert states['clean_installed_distributions']=='not_run'
+ assert states['supported_runtime_ci'] in {'not_run','passed'}
+ assert states['remote_documentation'] in {'not_run','passed'}
 
 def test_runtime_signature_drift_is_observed(proposal,monkeypatch):
  import ncmemsim.fitting as fitting

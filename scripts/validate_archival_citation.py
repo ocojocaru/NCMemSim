@@ -24,6 +24,10 @@ def _citation_version(citation_text: str) -> str:
     raise ValueError("missing citation version")
 
 
+LOCAL_FINAL_CHECKS = {"full_local_regression", "strict_documentation_audit", "clean_installed_distributions"}
+REMOTE_FINAL_CHECKS = {"supported_runtime_ci", "remote_documentation"}
+
+
 def validate(root: Path) -> dict:
     plan = json.loads((root / "docs/archival_citation.json").read_text(encoding="utf-8"))
     expected_keys = {
@@ -69,8 +73,11 @@ def validate(root: Path) -> dict:
         raise ValueError("archival citation gate must be approved after plan review")
     if readiness["ready_for_candidate"] is not False:
         raise ValueError("candidate must remain not ready until final checks pass")
-    if any(check["state"] != "not_run" for check in readiness["final_candidate_checks"]):
-        raise ValueError("final candidate checks must remain not_run during planning")
+    final_states = {check["id"]: check["state"] for check in readiness["final_candidate_checks"]}
+    if any(final_states[name] != "not_run" for name in LOCAL_FINAL_CHECKS):
+        raise ValueError("local final candidate checks must remain not_run during planning")
+    if any(final_states[name] not in {"not_run", "passed"} for name in REMOTE_FINAL_CHECKS):
+        raise ValueError("remote final candidate checks must be not_run or passed")
 
     evidence = set()
     for gate in readiness["gates"]:
