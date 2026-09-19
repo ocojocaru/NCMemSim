@@ -46,13 +46,14 @@ def validate(root: Path) -> dict:
     passed = {gate for gate, item in states.items() if item["state"] == "passed"}
     if not REMOTE_GATES <= passed:
         raise ValueError("remote gates must remain passed")
-    if not passed <= REMOTE_GATES | {"full_local_regression"}:
-        raise ValueError("only remote gates and separately recorded full local regression may be passed")
+    if not passed <= REMOTE_GATES | {"full_local_regression", "strict_documentation_audit"}:
+        raise ValueError("only remote gates and separately recorded local gates may be passed")
     if states["full_local_regression"]["state"] not in {"not_run", "passed"}:
         raise ValueError("full local regression must be not_run or passed")
-    for gate in {"strict_documentation_audit", "clean_installed_distributions"}:
-        if states[gate]["state"] != "not_run":
-            raise ValueError(gate + " must remain not_run")
+    if states["strict_documentation_audit"]["state"] not in {"not_run", "passed"}:
+        raise ValueError("strict_documentation_audit must be not_run or passed")
+    if states["clean_installed_distributions"]["state"] != "not_run":
+        raise ValueError("clean_installed_distributions must remain not_run")
     if readiness["ready_for_candidate"] is not False:
         raise ValueError("candidate readiness must remain false until local gates pass")
     for gate in REMOTE_GATES:

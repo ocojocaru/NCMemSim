@@ -43,9 +43,10 @@ def validate(root: Path) -> dict:
         raise ValueError("full local regression gate must be passed")
     if set(states["full_local_regression"]["evidence"]) != {"docs/final_candidate_local_regression.md", "docs/final_candidate_local_regression.json"}:
         raise ValueError("full local regression evidence paths changed")
-    for gate in ("strict_documentation_audit", "clean_installed_distributions"):
-        if states[gate]["state"] != "not_run" or states[gate]["evidence"]:
-            raise ValueError(gate + " must remain not_run")
+    if states["strict_documentation_audit"]["state"] not in {"not_run", "passed"}:
+        raise ValueError("strict_documentation_audit must be not_run or passed")
+    if states["clean_installed_distributions"]["state"] != "not_run" or states["clean_installed_distributions"]["evidence"]:
+        raise ValueError("clean_installed_distributions must remain not_run")
     for gate in ("supported_runtime_ci", "remote_documentation"):
         if states[gate]["state"] != "passed":
             raise ValueError(gate + " must remain passed")
@@ -61,7 +62,7 @@ def main() -> int:
     except (ValueError, KeyError, TypeError, OSError) as exc:
         print("Local regression gate evidence FAIL:", exc, file=sys.stderr)
         return 1
-    print("Local regression gate evidence PASS: " + evidence["tested_commit"] + "; docs/distribution gates remain not_run.")
+    print("Local regression gate evidence PASS: " + evidence["tested_commit"] + "; clean distribution gate remains not_run.")
     return 0
 
 

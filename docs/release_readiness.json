@@ -101,8 +101,12 @@
     },
     {
       "id": "strict_documentation_audit",
-      "state": "not_run",
-      "evidence": []
+      "state": "passed",
+      "evidence": [
+        "docs/final_candidate_strict_documentation.md",
+        "docs/final_candidate_strict_documentation.json",
+        "scripts/validate_documentation.py"
+      ]
     },
     {
       "id": "clean_installed_distributions",

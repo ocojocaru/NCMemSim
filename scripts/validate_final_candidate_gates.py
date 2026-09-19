@@ -15,8 +15,8 @@ REQUIRED_CHECKS = {
     "remote_documentation",
 }
 LOCAL_CHECKS = {"full_local_regression", "strict_documentation_audit", "clean_installed_distributions"}
-UNRESOLVED_LOCAL_CHECKS = {"strict_documentation_audit", "clean_installed_distributions"}
-OPTIONAL_RECORDED_CHECKS = {"full_local_regression", "supported_runtime_ci", "remote_documentation"}
+UNRESOLVED_LOCAL_CHECKS = {"clean_installed_distributions"}
+OPTIONAL_RECORDED_CHECKS = {"full_local_regression", "strict_documentation_audit", "supported_runtime_ci", "remote_documentation"}
 REMOTE_CHECKS = {"supported_runtime_ci", "remote_documentation"}
 
 
@@ -85,7 +85,7 @@ def validate(root: Path) -> dict:
     if set(states) != REQUIRED_CHECKS:
         raise ValueError("final candidate check inventory changed")
     if any(states[name] != "not_run" for name in UNRESOLVED_LOCAL_CHECKS):
-        raise ValueError("strict documentation and clean distribution checks must remain not_run before execution")
+        raise ValueError("clean distribution check must remain not_run before execution")
     if any(states[name] not in {"not_run", "passed"} for name in OPTIONAL_RECORDED_CHECKS):
         raise ValueError("recordable final candidate checks must be not_run or passed")
     if readiness["ready_for_candidate"] is not False:

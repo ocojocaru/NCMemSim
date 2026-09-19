@@ -21,7 +21,7 @@ def test_current_archival_plan_is_approved_without_candidate_readiness():
     assert readiness["ready_for_candidate"] is False
     states = {check["id"]: check["state"] for check in readiness["final_candidate_checks"]}
     assert states["full_local_regression"] in {"not_run", "passed"}
-    assert states["strict_documentation_audit"] == "not_run"
+    assert states["strict_documentation_audit"] in {"not_run", "passed"}
     assert states["clean_installed_distributions"] == "not_run"
     assert states["supported_runtime_ci"] in {"not_run", "passed"}
     assert states["remote_documentation"] in {"not_run", "passed"}
@@ -60,9 +60,9 @@ def test_archival_plan_rejects_premature_release_claims(tmp_path, fault):
         next(g for g in readiness["gates"] if g["id"] == "archival_citation")["state"] = "pending"
     elif fault == "premature_ready":
         readiness["ready_for_candidate"] = True
-    elif fault == "strict_documentation_check_passed":
+    elif fault == "clean_distribution_check_passed":
         for check in readiness["final_candidate_checks"]:
-            if check["id"] == "strict_documentation_audit":
+            if check["id"] == "clean_installed_distributions":
                 check["state"] = "passed"
                 check["evidence"] = ["docs/final.txt"]
         (tmp_path / "docs/final.txt").write_text("not a real final check", encoding="utf-8")

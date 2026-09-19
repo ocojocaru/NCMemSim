@@ -52,3 +52,5 @@ The full local regression gate is recorded in
 [full local regression evidence](final_candidate_local_regression.md).
 Strict documentation and clean installed distributions remain open until they are
 executed on the exact final source identity.
+
+The strict documentation gate is recorded in [final_candidate_strict_documentation.md](final_candidate_strict_documentation.md).

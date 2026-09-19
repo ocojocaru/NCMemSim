@@ -84,3 +84,5 @@ tag/publication still requires its release procedure and deposit verification.
 
 The next concrete step is final candidate preparation and execution of the final
 gates on one source identity.
+
+- Strict documentation audit evidence: [final_candidate_strict_documentation.md](final_candidate_strict_documentation.md).

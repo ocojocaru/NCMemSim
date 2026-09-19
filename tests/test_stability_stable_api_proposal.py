@@ -45,7 +45,7 @@ def test_proposal_marks_contract_approval_but_not_final_checks(proposal):
  assert all(state=='approved' for state in gate_states.values())
  states={c['id']:c['state'] for c in data['final_candidate_checks']}
  assert states['full_local_regression'] in {'not_run','passed'}
- assert states['strict_documentation_audit']=='not_run'
+ assert states['strict_documentation_audit'] in {'not_run','passed'}
  assert states['clean_installed_distributions']=='not_run'
  assert states['supported_runtime_ci'] in {'not_run','passed'}
  assert states['remote_documentation'] in {'not_run','passed'}

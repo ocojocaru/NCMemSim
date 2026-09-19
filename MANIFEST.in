@@ -15,3 +15,5 @@ include scripts/validate_archival_citation.py
 include scripts/validate_final_candidate_gates.py
 include scripts/validate_remote_candidate_gates.py
 include scripts/validate_local_regression_gate.py
+include docs/final_candidate_strict_documentation.md
+include docs/final_candidate_strict_documentation.json

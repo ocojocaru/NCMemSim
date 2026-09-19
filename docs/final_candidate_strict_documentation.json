@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "name": "v1.0 strict documentation audit evidence",
+  "preparation_version": "0.14.0",
+  "source_branch": "prep/v1.0-stability",
+  "tested_commit": "95405f4b6188c6609d3c1b38b609e7627ded2beb",
+  "status": "passed",
+  "command": "python scripts/validate_documentation.py",
+  "observed_result": "MkDocs strict build passed; 42 rendered pages; 7070 local references checked; 116 Python documentation blocks parsed; 338 public imports checked; DTCO, robust DTCO and scientific workflow examples executed.",
+  "not_covered": [
+    "clean_installed_distributions"
+  ],
+  "notes": "This gate records the strict local documentation audit. It does not replace clean installed wheel/source distribution validation."
+}
