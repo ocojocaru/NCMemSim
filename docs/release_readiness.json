@@ -108,13 +108,19 @@
     },
     {
       "id": "supported_runtime_ci",
-      "state": "not_run",
-      "evidence": []
+      "state": "passed",
+      "evidence": [
+        "docs/final_candidate_remote_evidence.md",
+        "docs/final_candidate_remote_evidence.json"
+      ]
     },
     {
       "id": "remote_documentation",
-      "state": "not_run",
-      "evidence": []
+      "state": "passed",
+      "evidence": [
+        "docs/final_candidate_remote_evidence.md",
+        "docs/final_candidate_remote_evidence.json"
+      ]
     }
   ],
   "ready_for_candidate": false

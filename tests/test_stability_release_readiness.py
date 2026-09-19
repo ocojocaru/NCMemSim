@@ -20,7 +20,12 @@ def save(root,data):(root/'docs/release_readiness.json').write_text(json.dumps(d
 def test_current_matrix_records_contract_approval_without_candidate_readiness():
  data=validate(ROOT)
  assert data['ready_for_candidate'] is False
- assert all(c['state']=='not_run' for c in data['final_candidate_checks'])
+ states={c['id']:c['state'] for c in data['final_candidate_checks']}
+ assert states['full_local_regression']=='not_run'
+ assert states['strict_documentation_audit']=='not_run'
+ assert states['clean_installed_distributions']=='not_run'
+ assert states['supported_runtime_ci'] in {'not_run','passed'}
+ assert states['remote_documentation'] in {'not_run','passed'}
  gate_states={g['id']:g['state'] for g in data['gates']}
  assert all(state=='approved' for state in gate_states.values())
 

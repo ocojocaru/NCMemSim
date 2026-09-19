@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "name": "v1.0 remote final candidate gate evidence",
+  "preparation_version": "0.14.0",
+  "source_branch": "prep/v1.0-stability",
+  "verified_commit": "04216ad9b25c32f3b83245e5c6d4612e4ae07af6",
+  "status": "passed_pending_evidence_commit_confirmation",
+  "verified_by": "maintainer GitHub Actions UI confirmation",
+  "verified_checks": [
+    {
+      "id": "supported_runtime_ci",
+      "workflow": "CI",
+      "state": "passed",
+      "scope": "push checks on supported Python runtimes and clean distributions",
+      "url": "https://github.com/ocojocaru/NCMemSim/actions"
+    },
+    {
+      "id": "remote_documentation",
+      "workflow": "Documentation",
+      "state": "passed",
+      "scope": "strict documentation audit and build workflow; deployment remains main-gated",
+      "url": "https://github.com/ocojocaru/NCMemSim/actions"
+    }
+  ],
+  "follow_up": "After committing this evidence file, CI and Documentation must also pass on the new evidence commit before tagging or declaring candidate readiness.",
+  "not_covered": [
+    "full_local_regression",
+    "strict_documentation_audit",
+    "clean_installed_distributions"
+  ]
+}

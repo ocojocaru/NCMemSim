@@ -38,3 +38,10 @@ be narrowed again after v1.0 if a different development workflow is preferred.
 All review gates are approved. The five final candidate checks remain `not_run`,
 and `ready_for_candidate` remains `false`. This is intentional until the final
 source identity is chosen and every final gate has recorded evidence.
+
+## Remote evidence status
+
+The remote CI and Documentation gates are recorded in
+[remote final candidate gate evidence](final_candidate_remote_evidence.md).
+The remaining local gates stay open until they are executed on the exact final
+source identity.

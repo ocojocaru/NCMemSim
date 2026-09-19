@@ -68,8 +68,8 @@ Run python -I scripts/validate_release_readiness.py for a read-only check of
 structure, required gates, local evidence paths and preparation-version consistency.
 A successful check can report ready_for_candidate=false: it means the matrix is
 internally consistent and the final gates are still open. The contract,
-scientific-scope and archival/citation reviews are approved; all five
-final-candidate checks are not_run.
+scientific-scope and archival/citation reviews are approved; remote CI and Documentation are passed with recorded evidence, while the three
+local final-candidate checks remain not_run.
 
 Approval is a maintainer decision documented with evidence. A passed final check
 needs a retained local evidence file with the tested commit/source identity and

@@ -4,6 +4,7 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased — stability preparation from v0.14.0
 
+- Record remote CI and Documentation final-gate evidence for `prep/v1.0-stability` while keeping local final gates open.
 - Configure final candidate gates and CI/Documentation push validation on `prep/v1.0-stability` while keeping every final check `not_run`.
 - Approve the v1.0 archival/citation plan while keeping DOI/deposit, final checks and candidate readiness open until final-release evidence exists.
 

@@ -14,6 +14,8 @@ REQUIRED_CHECKS = {
     "supported_runtime_ci",
     "remote_documentation",
 }
+LOCAL_CHECKS = {"full_local_regression", "strict_documentation_audit", "clean_installed_distributions"}
+REMOTE_CHECKS = {"supported_runtime_ci", "remote_documentation"}
 
 
 def _package_version(root: Path) -> str:
@@ -78,10 +80,14 @@ def validate(root: Path) -> dict:
 
     readiness = json.loads((root / "docs/release_readiness.json").read_text(encoding="utf-8"))
     states = {check["id"]: check["state"] for check in readiness["final_candidate_checks"]}
-    if set(states) != REQUIRED_CHECKS or any(state != "not_run" for state in states.values()):
-        raise ValueError("final candidate checks must remain not_run before execution")
+    if set(states) != REQUIRED_CHECKS:
+        raise ValueError("final candidate check inventory changed")
+    if any(states[name] != "not_run" for name in LOCAL_CHECKS):
+        raise ValueError("local final candidate checks must remain not_run before execution")
+    if any(states[name] not in {"not_run", "passed"} for name in REMOTE_CHECKS):
+        raise ValueError("remote final candidate checks must be not_run or passed")
     if readiness["ready_for_candidate"] is not False:
-        raise ValueError("candidate readiness must remain false before final gates pass")
+        raise ValueError("candidate readiness must remain false until all final gates pass")
     return plan
 
 
@@ -95,7 +101,7 @@ def main() -> int:
     print(
         "Final candidate gate plan PASS: "
         + plan["status"]
-        + "; all final checks remain not_run."
+        + "; local final checks remain not_run."
     )
     return 0
 
