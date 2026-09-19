@@ -18,7 +18,10 @@ import subprocess
 import sys
 import tempfile
 
-from validate_dtco_distribution import check_archive, check_source_content, create_environment
+try:
+    from .validate_dtco_distribution import check_archive, check_source_content, create_environment
+except ImportError:
+    from validate_dtco_distribution import check_archive, check_source_content, create_environment
 
 
 REQUIRED_CHECKS = {
