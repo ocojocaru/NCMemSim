@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 84 package source modules; 361 explicit export paths; 134 distinct documented Python import paths.
+Coverage: 85 package source modules; 373 explicit export paths; 140 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2769,7 +2769,7 @@ Decorators: `dataclass`.
 
 `ncmemsim/transport/__init__.py`
 
-Explicit exports: `base`, `NodeKind`, `TransportNode`, `link`, `TunnelLink`, `network`, `TunnelNetwork`, `rates`, `LinkTransportResult`, `TransportStepResult`, `engine`, `TransportConfig`, `TransportEngine`
+Explicit exports: `base`, `NodeKind`, `TransportNode`, `link`, `TunnelLink`, `network`, `TunnelNetwork`, `rates`, `LinkTransportResult`, `TransportStepResult`, `engine`, `TransportConfig`, `TransportEngine`, `TrapAssistedModel`, `TrapAssistedTransportSpec`, `TrapCarrier`, `TrapEnergyReference`, `TrapParameterStatus`, `TrapSpecies`
 
 
 ## ncmemsim.transport.base
@@ -2904,6 +2904,76 @@ Decorators: `dataclass(frozen=True)`.
 - Field `links: tuple[LinkTransportResult, ...]`; required declaration.
 - Field `net_electron_flux_by_fg_m2_s: np.ndarray`; required declaration.
 - `inter_fg_fluxes_m2_s(self) -> np.ndarray`; `property`.
+
+
+## ncmemsim.transport.traps
+
+`ncmemsim/transport/traps.py`
+
+Explicit exports: `TrapCarrier`, `TrapEnergyReference`, `TrapParameterStatus`, `TrapAssistedModel`, `TrapSpecies`, `TrapAssistedTransportSpec`
+
+### TrapCarrier
+
+Bases: `str`, `Enum`.
+
+- Assignment `ELECTRON = 'electron'`.
+
+### TrapEnergyReference
+
+Bases: `str`, `Enum`.
+
+- Assignment `CONDUCTION_BAND_DEPTH = 'conduction_band_depth'`.
+
+### TrapParameterStatus
+
+Bases: `str`, `Enum`.
+
+- Assignment `ASSUMED = 'assumed'`.
+- Assignment `LITERATURE = 'literature'`.
+- Assignment `FITTED = 'fitted'`.
+- Assignment `CALIBRATED = 'calibrated'`.
+
+### TrapAssistedModel
+
+Bases: `str`, `Enum`.
+
+- Assignment `SEQUENTIAL_TWO_STEP_WKB = 'sequential_two_step_wkb'`.
+
+### TrapSpecies
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `energy_depth_J: float`; required declaration.
+- Field `position_fraction: float`; required declaration.
+- Field `density_m3: float`; required declaration.
+- Field `capture_cross_section_m2: float`; required declaration.
+- Field `attempt_frequency_Hz: float`; required declaration.
+- Field `parameter_status: TrapParameterStatus`; required declaration.
+- Field `source: str`; required declaration.
+- Field `applicability: str`; required declaration.
+- Field `carrier: TrapCarrier`; default expression `TrapCarrier.ELECTRON`.
+- Field `energy_reference: TrapEnergyReference`; default expression `TrapEnergyReference.CONDUCTION_BAND_DEPTH`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, value: dict[str, Any]) -> 'TrapSpecies'`; `classmethod`.
+- `species_hash(self) -> str`; `property`.
+
+### TrapAssistedTransportSpec
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `enabled: bool`; default expression `False`.
+- Field `species: tuple[TrapSpecies, ...]`; default expression `()`.
+- Field `model: TrapAssistedModel`; default expression `TrapAssistedModel.SEQUENTIAL_TWO_STEP_WKB`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, value: dict[str, Any]) -> 'TrapAssistedTransportSpec'`; `classmethod`.
+- `configuration_hash(self) -> str`; `property`.
+- `to_json(self) -> str`.
+- `from_json(cls, value: str) -> 'TrapAssistedTransportSpec'`; `classmethod`.
 
 
 ## ncmemsim.tunneling

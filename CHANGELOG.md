@@ -4,6 +4,19 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### J1 - trap and defect contracts
+
+- Add immutable, strictly validated electron-trap and trap-assisted transport
+  specifications with canonical SI units, exact JSON round trips and
+  deterministic provenance/configuration hashes.
+- Select a compact sequential two-step WKB contract for J2, including the
+  representative trap position and an explicit active-trap factor; no new
+  transport rate is evaluated or connected to the engine in J1.
+- Preserve the approved 204-path v1.0 API baseline while documenting the new
+  v1.1 imports as additive APIs rather than retroactive v1.0 guarantees.
+- Record primary oxide/Flash TAT literature and distinguish the compact model
+  from full multiphonon, percolation and calibrated defect-population models.
+
 ### J0 - v1.1.0 advanced transport bootstrap
 
 - Start `1.1.0.dev0` from the published v1.0.0 tag while retaining v1.0.0

@@ -55,8 +55,8 @@ def validate(root: Path) -> dict:
         raise ValueError("unsupported final gate plan schema")
     if plan.get("status") != "passed":
         raise ValueError("final gate plan must be passed after clean distribution evidence")
-    if plan.get("preparation_version") != _package_version(root):
-        raise ValueError("final gate preparation version differs from package")
+    if plan.get("preparation_version") != "1.0.0":
+        raise ValueError("final gate plan must remain the v1.0.0 record")
     if plan.get("source_branch") != "main":
         raise ValueError("unexpected final gate source branch")
     checks = {item["id"] for item in plan.get("required_checks", [])}

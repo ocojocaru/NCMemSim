@@ -40,11 +40,11 @@ reviewed public API and result/archive contracts, retains explicit scientific
 scope limits, and is backed by full regression, strict documentation, clean
 installed distributions, and supported-runtime CI evidence.
 
-Version `1.1.0.dev0` starts Phase J. The
-[advanced transport](advanced_transport.md) J0 contract defines an additive,
-opt-in path toward trap-assisted transport and explicit barrier corrections.
-No new transport mechanism is implemented in J0; the v1.0.0 WKB and retention
-baseline remains unchanged when future mechanisms are disabled.
+Version `1.1.0.dev0` develops Phase J. The
+[advanced transport](advanced_transport.md) J1 contract adds immutable,
+opt-in trap specifications and selects the first compact TAT equation.
+No new transport rate is implemented in J1; the v1.0.0 WKB and retention
+baseline remains unchanged.
 
 ## Start here
 

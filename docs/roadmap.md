@@ -243,17 +243,17 @@ The release includes:
 
 ### v1.1.0: Advanced transport physics
 
-**Status: J0 bootstrap in development; package version `1.1.0.dev0`.**
+**Status: J1 contracts complete; package version `1.1.0.dev0`.**
 
 Phase J begins from the immutable v1.0.0 tag and preserves the approved v1
-public API and scientific baseline. J0 adds scope and contracts only. It does
-not yet change transport equations or defaults.
+public API and scientific baseline. J1 adds inert trap contracts and selects
+the compact J2 equation. It does not yet change transport equations or defaults.
 
 The planned sequence is:
 
 - **J0 - scope and architecture freeze:** compatibility boundary, mechanism
   decomposition, canonical units, provenance, failures and validation ladder;
-- **J1 - trap and defect contracts:** immutable specifications, selected TAT
+- **J1 - trap and defect contracts (complete):** immutable specifications, selected TAT
   equation, energy/field/carrier conventions and serialization;
 - **J2 - trap-assisted transport kernel:** opt-in rates, component diagnostics,
   analytic limits and numerical-range validation;

@@ -22,8 +22,8 @@ def validate(root: Path) -> dict:
     evidence = json.loads((root / "docs/final_candidate_local_regression.json").read_text(encoding="utf-8"))
     if evidence.get("schema_version") != 1:
         raise ValueError("unsupported local regression evidence schema")
-    if evidence.get("preparation_version") != _version(root):
-        raise ValueError("local regression evidence version differs from package")
+    if evidence.get("preparation_version") != "1.0.0":
+        raise ValueError("local regression evidence must remain the v1.0.0 record")
     if evidence.get("source_branch") != "prep/v1.0-stability":
         raise ValueError("unexpected local regression source branch")
     if not re.fullmatch(r"[0-9a-f]{40}", evidence.get("tested_commit", "")):

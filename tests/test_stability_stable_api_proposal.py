@@ -14,7 +14,10 @@ def test_selected_surface_and_class_constructor_coverage(proposal):
  assert proposal==json.loads((ROOT/'docs/stable_api_proposal.json').read_text(encoding='utf-8'))
  paths={e['import_path'] for e in proposal['entries']}
  inventory=json.loads((ROOT/'docs/api_inventory.json').read_text(encoding='utf-8'))
- assert set(inventory['documented_imports'])<=paths
+ # The v1.0 baseline is intentionally closed; compatible minor releases may
+ # document additive APIs without retroactively extending that baseline.
+ assert 'ncmemsim.transport.TrapSpecies' in inventory['documented_imports']
+ assert 'ncmemsim.transport.TrapSpecies' not in paths
  assert {'ncmemsim.transport.base','ncmemsim.transport.engine','ncmemsim.__version__'}<=paths
  classes=[e for e in proposal['entries'] if e['kind']=='class']
  assert classes and all(e['runtime_call_signature'] is not None for e in classes)

@@ -786,3 +786,24 @@ provenance semantics separately from numerical solver success.
 See [archive schema compatibility](api_archives.md) for retained published-tag fixtures and typed JSON reader contracts.
 
 See [scientific default/unit/provenance review](scientific_defaults.md) for compatibility baselines and model-status boundaries.
+
+## Advanced transport contracts (v1.1 development)
+
+```python
+from ncmemsim.transport import (
+    TrapAssistedModel,
+    TrapAssistedTransportSpec,
+    TrapCarrier,
+    TrapEnergyReference,
+    TrapParameterStatus,
+    TrapSpecies,
+)
+```
+
+J1 adds immutable configuration only. `TrapSpecies` fixes canonical SI units,
+electron carrier scope, the conduction-band-depth energy reference, a
+representative position on a directed link, parameter provenance and exact
+serialization. `TrapAssistedTransportSpec` is disabled by default and cannot
+be enabled without a positive-density species. Neither object executes a rate
+or changes `TransportEngine` behavior. See [Advanced transport
+physics](advanced_transport.md#j1-contract-state).

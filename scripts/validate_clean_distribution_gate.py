@@ -63,8 +63,8 @@ def validate_evidence(root: Path) -> dict:
     evidence = json.loads((root / "docs/final_candidate_clean_distributions.json").read_text(encoding="utf-8"))
     if evidence.get("schema_version") != 1:
         raise ValueError("unsupported clean distribution evidence schema")
-    if evidence.get("preparation_version") != _version(root):
-        raise ValueError("clean distribution evidence version differs from package")
+    if evidence.get("preparation_version") != "1.0.0":
+        raise ValueError("clean distribution evidence must remain the v1.0.0 record")
     if evidence.get("source_branch") != "prep/v1.0-stability":
         raise ValueError("unexpected clean distribution source branch")
     if evidence.get("status") != "passed":

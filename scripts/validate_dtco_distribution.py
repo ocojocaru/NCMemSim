@@ -208,6 +208,9 @@ import importlib.util
 from pathlib import Path
 import sys
 import ncmemsim
+from ncmemsim.transport import TrapAssistedTransportSpec, TrapSpecies
+assert TrapAssistedTransportSpec().enabled is False
+assert TrapSpecies.__module__ == "ncmemsim.transport.traps"
 from ncmemsim.workflows import DataOrigin, DatasetEvidence, WorkflowEvidence, capture_dataset_evidence, build_workflow_evidence
 from ncmemsim.workflows import AppliedWorkflowEvidence, WorkflowEvaluator, apply_workflow_parameters
 assert DataOrigin.SYNTHETIC.value == "synthetic"

@@ -2,22 +2,19 @@
 from pathlib import Path
 import enum,importlib,inspect,json,sys
 
-def build_proposal(root):
+def build_proposal(root, selected_paths=None):
     from scripts.validate_api_contract import build_inventory
     inventory=json.loads((root/'docs/api_inventory.json').read_text(encoding='utf-8'))
     if build_inventory(root)!=inventory:raise ValueError('Source API inventory drift; review before stable proposal validation.')
     modules={m['module']:m for m in inventory['modules']}
-    paths=set(inventory['documented_imports'])
-    for name in ('ncmemsim','ncmemsim.transport'):
-        paths.update(name+'.'+item for item in modules[name]['explicit_exports'])
-    paths.update({
-        'ncmemsim.fitting.DeterministicFitResult',
-        'ncmemsim.fitting.LeastSquaresConfig',
-        'ncmemsim.fitting.ObjectiveEvaluation',
-        'ncmemsim.fitting.evaluate_least_squares_objective',
-        'ncmemsim.fitting.least_squares_residuals',
-        'ncmemsim.fitting.run_least_squares_fit',
-    })
+    if selected_paths is None:
+        baseline=root/'docs/stable_api_proposal.json'
+        if baseline.is_file():
+            selected_paths=[entry['import_path'] for entry in json.loads(
+                baseline.read_text(encoding='utf-8'))['entries']]
+    if selected_paths is None:
+        raise ValueError('approved stable API path selection is required')
+    paths=set(selected_paths)
     def resolve(path):
         if path in modules:return path,{'kind':'module','module':path}
         module,name=path.rsplit('.',1);record=modules[module]
@@ -89,8 +86,8 @@ def render(data):
 def main():
     root=Path(__file__).resolve().parents[1]
     sys.path.insert(0,str(root))
-    actual=build_proposal(root)
     expected=json.loads((root/'docs/stable_api_proposal.json').read_text(encoding='utf-8'))
+    actual=build_proposal(root,[entry['import_path'] for entry in expected['entries']])
     if actual!=expected:raise SystemExit('Stable API proposal differs: review source/signature/scope changes explicitly.')
     if (root/'docs/stable_api_proposal.md').read_text(encoding='utf-8')!=render(actual):raise SystemExit('Stable API proposal Markdown differs from JSON.')
     print('Stable API proposal drift check PASS: '+str(len(actual['entries']))+' exact import paths; approved for v1.0.0.')

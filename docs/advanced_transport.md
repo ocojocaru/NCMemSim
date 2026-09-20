@@ -3,9 +3,10 @@
 ## Status and purpose
 
 This page defines the Phase J development contract for NCMemSim v1.1.0.
-The current `1.1.0.dev0` bootstrap is **J0 only**: it introduces scope,
-interfaces, invariants, validation requirements, and a delivery sequence. It
-does not yet add trap-assisted transport, defect-mediated currents,
+The current `1.1.0.dev0` work has completed **J1**. J0 introduced scope,
+interfaces, invariants, validation requirements, and a delivery sequence. J1
+adds inert trap/TAT specifications and selects the first compact equation. It
+does not yet evaluate trap-assisted transport, defect-mediated currents,
 image-force barrier lowering, or new calibrated material parameters.
 
 The published v1.0.0 direct-tunnelling and retention behavior remains the
@@ -62,9 +63,9 @@ Each contribution must remain observable in diagnostics. Implementations must
 not overwrite the direct contribution or expose only a total from which the
 selected mechanisms cannot be reconstructed.
 
-J0 does not select the final trap-assisted equation. J1 must record the exact
-equation, literature provenance, validity range, and limiting behavior before
-J2 implements it.
+J1 selects the first trap-assisted equation below. J2 will implement it only
+after this contract, literature provenance, validity range and limiting
+behavior pass review.
 
 ## Quantities and canonical units
 
@@ -121,6 +122,83 @@ plausible number from an undefined expression. Later phases must cover:
 Zero contribution from a disabled mechanism is distinct from a failed enabled
 mechanism. Diagnostics, sweeps, and Robust DTCO failure counts must preserve
 that distinction.
+
+## J1 contract state
+
+J1 adds `TrapSpecies` and `TrapAssistedTransportSpec` as immutable,
+serializable contracts. It does not execute a rate and it does not attach a
+mechanism to `TransportEngine`. The default specification is disabled and
+empty. Enabling a specification requires at least one species with positive
+volume density.
+
+The initial scope is deliberately narrow:
+
+- electron traps only;
+- homogeneous volume density `density_m3` in m^-3;
+- a single representative trap position `position_fraction` in `(0, 1)`,
+  measured from the source end of a directed link;
+- `energy_depth_J = E_C - E_trap > 0`, so a positive value is a level below
+  the local conduction-band edge;
+- capture cross section in m^2 and attempt frequency in s^-1;
+- explicit assumed, literature, fitted, or calibrated parameter status;
+- no implicit eV, cm^-3, nm, or percentage conversion.
+
+Every species records a source and applicability statement. A deterministic
+SHA-256 hash covers the complete canonical dictionary. The enclosing
+configuration has an exact, strict-JSON round trip with its own integrity
+hash; duplicate keys, non-finite constants, unknown fields and schema drift
+are rejected.
+
+### Selected compact equation for J2
+
+The first kernel is a **sequential two-step WKB** compact model. For one
+species on a link of length `L`, let `x = position_fraction * L`. J2 will
+evaluate two dimensionless WKB leg transmissions, `T_in` from source to the
+representative trap and `T_out` from the trap to the destination, with the
+energy and directed-field conventions above. With attempt frequency `nu`,
+
+\[
+k_{\mathrm{in}}=\nu T_{\mathrm{in}},\qquad
+k_{\mathrm{out}}=\nu T_{\mathrm{out}}.
+\]
+
+The compact probability that the path encounters an active trap is
+
+\[
+p_{\mathrm{active}}=1-\exp(-N_t\sigma L),
+\]
+
+where `N_t` is `density_m3` and `sigma` is
+`capture_cross_section_m2`. The steady two-state sequential rate selected for
+J2 is
+
+\[
+\Gamma_{\mathrm{TAT}} = p_{\mathrm{active}}
+\frac{k_{\mathrm{in}}k_{\mathrm{out}}}
+     {k_{\mathrm{in}}+k_{\mathrm{out}}}.
+\]
+
+The denominator-zero case has rate zero. The disabled and zero-density limits
+are exactly zero; a slow leg limits the rate; increasing the other leg without
+bound approaches the slow-leg rate. J2 must expose both leg transmissions,
+both leg rates, `p_active`, the combined contribution, and explicit numerical
+failure status. It must also define and independently test the exact WKB
+barrier profile used to obtain each leg transmission before any engine
+integration.
+
+This equation is an NCMemSim compact engineering contract inferred from a
+steady two-state sequence. It is **not the full multiphonon** or stochastic
+percolation formulation. Primary oxide/Flash literature supports the physical
+relevance of inelastic/multiphonon trap-assisted paths and the importance of
+trap energy and population: Kang et al., IEEE TED 48 (2001),
+[doi:10.1109/16.954471](https://doi.org/10.1109/16.954471), and Ielmini et al.,
+IEEE TED 50 (2003),
+[doi:10.1109/TED.2003.813236](https://doi.org/10.1109/TED.2003.813236).
+The Hurkx junction-recombination model
+([doi:10.1109/16.121690](https://doi.org/10.1109/16.121690)) is useful
+background but is not claimed as the implemented dielectric-link equation.
+Multiphonon coupling, random spatial percolation, trap occupancy interactions,
+and device-specific defect calibration remain outside this first kernel.
 
 ## Validation ladder
 

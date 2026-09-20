@@ -22,8 +22,8 @@ def validate(root: Path) -> dict:
     evidence = json.loads((root / "docs/final_candidate_strict_documentation.json").read_text(encoding="utf-8"))
     if evidence.get("schema_version") != 1:
         raise ValueError("unsupported strict documentation evidence schema")
-    if evidence.get("preparation_version") != _version(root):
-        raise ValueError("strict documentation evidence version differs from package")
+    if evidence.get("preparation_version") != "1.0.0":
+        raise ValueError("strict documentation evidence must remain the v1.0.0 record")
     if evidence.get("source_branch") != "prep/v1.0-stability":
         raise ValueError("unexpected strict documentation source branch")
     if not re.fullmatch(r"[0-9a-f]{40}", evidence.get("tested_commit", "")):

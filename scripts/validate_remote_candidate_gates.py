@@ -25,8 +25,8 @@ def validate(root: Path) -> dict:
     evidence = json.loads((root / "docs/final_candidate_remote_evidence.json").read_text(encoding="utf-8"))
     if evidence.get("schema_version") != 1:
         raise ValueError("unsupported remote evidence schema")
-    if evidence.get("preparation_version") != _version(root):
-        raise ValueError("remote evidence preparation version differs from package")
+    if evidence.get("preparation_version") != "1.0.0":
+        raise ValueError("remote evidence must remain the v1.0.0 record")
     if evidence.get("source_branch") != "main":
         raise ValueError("unexpected remote evidence source branch")
     if evidence.get("status") != "passed_on_main_before_version_commit":

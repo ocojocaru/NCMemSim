@@ -19088,7 +19088,13 @@
         "TransportStepResult",
         "engine",
         "TransportConfig",
-        "TransportEngine"
+        "TransportEngine",
+        "TrapAssistedModel",
+        "TrapAssistedTransportSpec",
+        "TrapCarrier",
+        "TrapEnergyReference",
+        "TrapParameterStatus",
+        "TrapSpecies"
       ],
       "package_import_aliases": {
         "LinkTransportResult": "ncmemsim.transport.rates.LinkTransportResult",
@@ -19097,6 +19103,12 @@
         "TransportEngine": "ncmemsim.transport.engine.TransportEngine",
         "TransportNode": "ncmemsim.transport.base.TransportNode",
         "TransportStepResult": "ncmemsim.transport.rates.TransportStepResult",
+        "TrapAssistedModel": "ncmemsim.transport.traps.TrapAssistedModel",
+        "TrapAssistedTransportSpec": "ncmemsim.transport.traps.TrapAssistedTransportSpec",
+        "TrapCarrier": "ncmemsim.transport.traps.TrapCarrier",
+        "TrapEnergyReference": "ncmemsim.transport.traps.TrapEnergyReference",
+        "TrapParameterStatus": "ncmemsim.transport.traps.TrapParameterStatus",
+        "TrapSpecies": "ncmemsim.transport.traps.TrapSpecies",
         "TunnelLink": "ncmemsim.transport.link.TunnelLink",
         "TunnelNetwork": "ncmemsim.transport.network.TunnelNetwork"
       },
@@ -19717,6 +19729,385 @@
               "source_signature": "(self) -> np.ndarray",
               "decorators": [
                 "property"
+              ]
+            }
+          ]
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.transport.traps",
+      "source": "ncmemsim/transport/traps.py",
+      "explicit_exports": [
+        "TrapCarrier",
+        "TrapEnergyReference",
+        "TrapParameterStatus",
+        "TrapAssistedModel",
+        "TrapSpecies",
+        "TrapAssistedTransportSpec"
+      ],
+      "package_import_aliases": {
+        "canonical_hash": "ncmemsim.hashing.canonical_hash"
+      },
+      "public_source_definitions": [
+        {
+          "name": "TrapCarrier",
+          "kind": "class",
+          "class_assignments": [
+            {
+              "names": [
+                "ELECTRON"
+              ],
+              "expression": "'electron'"
+            }
+          ],
+          "bases": [
+            "str",
+            "Enum"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "TrapEnergyReference",
+          "kind": "class",
+          "class_assignments": [
+            {
+              "names": [
+                "CONDUCTION_BAND_DEPTH"
+              ],
+              "expression": "'conduction_band_depth'"
+            }
+          ],
+          "bases": [
+            "str",
+            "Enum"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "TrapParameterStatus",
+          "kind": "class",
+          "class_assignments": [
+            {
+              "names": [
+                "ASSUMED"
+              ],
+              "expression": "'assumed'"
+            },
+            {
+              "names": [
+                "LITERATURE"
+              ],
+              "expression": "'literature'"
+            },
+            {
+              "names": [
+                "FITTED"
+              ],
+              "expression": "'fitted'"
+            },
+            {
+              "names": [
+                "CALIBRATED"
+              ],
+              "expression": "'calibrated'"
+            }
+          ],
+          "bases": [
+            "str",
+            "Enum"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "TrapAssistedModel",
+          "kind": "class",
+          "class_assignments": [
+            {
+              "names": [
+                "SEQUENTIAL_TWO_STEP_WKB"
+              ],
+              "expression": "'sequential_two_step_wkb'"
+            }
+          ],
+          "bases": [
+            "str",
+            "Enum"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "TrapSpecies",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "energy_depth_J",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "position_fraction",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "density_m3",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "capture_cross_section_m2",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "attempt_frequency_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "parameter_status",
+              "annotation": "TrapParameterStatus",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "source",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "applicability",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "carrier",
+              "annotation": "TrapCarrier",
+              "default_expression": "TrapCarrier.ELECTRON",
+              "required_in_source": false
+            },
+            {
+              "name": "energy_reference",
+              "annotation": "TrapEnergyReference",
+              "default_expression": "TrapEnergyReference.CONDUCTION_BAND_DEPTH",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "value",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "'TrapSpecies'",
+              "source_signature": "(cls, value: dict[str, Any]) -> 'TrapSpecies'",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "species_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TrapAssistedTransportSpec",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "enabled",
+              "annotation": "bool",
+              "default_expression": "False",
+              "required_in_source": false
+            },
+            {
+              "name": "species",
+              "annotation": "tuple[TrapSpecies, ...]",
+              "default_expression": "()",
+              "required_in_source": false
+            },
+            {
+              "name": "model",
+              "annotation": "TrapAssistedModel",
+              "default_expression": "TrapAssistedModel.SEQUENTIAL_TWO_STEP_WKB",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "value",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "'TrapAssistedTransportSpec'",
+              "source_signature": "(cls, value: dict[str, Any]) -> 'TrapAssistedTransportSpec'",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "configuration_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_json",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": []
+            },
+            {
+              "name": "from_json",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "value",
+                  "kind": "positional_or_keyword",
+                  "annotation": "str",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "'TrapAssistedTransportSpec'",
+              "source_signature": "(cls, value: str) -> 'TrapAssistedTransportSpec'",
+              "decorators": [
+                "classmethod"
               ]
             }
           ]
@@ -21417,6 +21808,12 @@
     "ncmemsim.retention_fit.predict_retention_fraction",
     "ncmemsim.simulator.SimulationConfig",
     "ncmemsim.simulator.Simulator",
+    "ncmemsim.transport.TrapAssistedModel",
+    "ncmemsim.transport.TrapAssistedTransportSpec",
+    "ncmemsim.transport.TrapCarrier",
+    "ncmemsim.transport.TrapEnergyReference",
+    "ncmemsim.transport.TrapParameterStatus",
+    "ncmemsim.transport.TrapSpecies",
     "ncmemsim.validate_simulation",
     "ncmemsim.workflows.AppliedWorkflowEvidence",
     "ncmemsim.workflows.DataOrigin",
