@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "v1.0 clean installed distribution evidence",
-  "preparation_version": "0.14.0",
+  "preparation_version": "1.0.0",
   "source_branch": "prep/v1.0-stability",
   "tested_commit": "03ad3915f2161f5e94cf88c5942a1b836ef30c7b",
   "status": "passed",

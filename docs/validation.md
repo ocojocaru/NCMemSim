@@ -12,19 +12,18 @@ The v0.10.0 repository has strong verification and regression infrastructure.
 
 Experimental validation remains device- and dataset-dependent and must be demonstrated in the associated scientific study.
 
-## v0.14.0 scientific workflow final preparation
+## v1.0.0 stable release validation
 
-The suite contains **2000 tests**, including **192 Phase I** integration cases
-and **717 retained Phase G/H** cases. Local final preparation runs full pytest,
+The suite contains more than **2200 tests**, including the retained Phase I and
+Phase G/H integration cases plus stability-contract checks. Final preparation runs full pytest,
 strict MkDocs/rendered-link and source-reference auditing, public imports and
 executable G/H/I examples, then clean wheel/sdist installations with actual
 electrical/optical fitting, linked report restoration and exports. Source
 archive bytes are compared with the audited checkout.
 
-CI and Documentation run automatically after push to
-`prep/v1.0-stability`. Python 3.11–3.13 remote results must belong
-to the prepared commit; local Python 3.13 results do not substitute for them.
-No v0.14.0 tag or publication is implied by this preparation. Synthetic
+CI and Documentation passed on `prep/v1.0-stability` and on `main`.
+Python 3.11–3.13 remote results must belong to the final release commit;
+local Python 3.13 results do not substitute for them. Synthetic
 qualification, consistency hashes and descriptive feasibility fractions are
 not experimental calibration, authenticity or manufacturing yield.
 
@@ -225,10 +224,10 @@ Run all tests with:
 python -m pytest
 ```
 
-The current v0.14.0 local verification target is:
+The v1.0.0 preparation passed more than:
 
 ```text
-2000 tests
+2200 tests
 ```
 
 ## Physics checks

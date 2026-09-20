@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "name": "v1.0 final candidate gate plan",
-  "preparation_version": "0.14.0",
-  "source_branch": "prep/v1.0-stability",
+  "preparation_version": "1.0.0",
+  "source_branch": "main",
   "status": "passed",
   "required_checks": [
     {
@@ -37,14 +37,14 @@
     }
   ],
   "workflow_configuration": {
-    "ci_push_branch": "prep/v1.0-stability",
-    "documentation_push_branch": "prep/v1.0-stability",
+    "ci_push_branch": "main",
+    "documentation_push_branch": "main",
     "tag_pushes_run_ci": true,
     "documentation_deploys_only_from_main": true
   },
   "not_done_by_this_step": [
-    "No package version is bumped.",
-    "No v1.0 tag, GitHub release, Pages deployment, DOI or external deposit is created."
+    "No v1.0 tag or GitHub release is created by validation alone.",
+    "No DOI or external deposit is claimed."
   ],
   "completed_evidence": {
     "full_local_regression": [

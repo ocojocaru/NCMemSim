@@ -42,15 +42,15 @@ def build_proposal(root):
             if ' at 0x' in runtime_signature:raise ValueError('nonportable default signature: '+path)
         entries.append({'import_path':path,'definition_path':target,'kind':contract['kind'],
             'runtime_call_signature':runtime_signature,'source_contract':contract})
-    return {'schema_version':1,'status':'approved_for_v1_candidate_preparation','preparation_version':'0.14.0',
+    return {'schema_version':1,'status':'approved_for_v1_release','preparation_version':'1.0.0',
         'source_baseline_commit':'6409e42087992f5dfde966cd6e320d3964b264b1',
         'selection_policy':'All existing documented imports, explicit root-package exports, legacy transport exports and reviewed generic fitting primitives; other aliases/helpers are not implicitly selected.',
         'entries':entries}
 
 def render(data):
     lines=['# Approved stable v1.0 API candidate surface','',
-        'Status: approved_for_v1_candidate_preparation. Preparation version remains 0.14.0.',
-        'This list is the approved candidate contract for v1.0 preparation, not a declaration that v1.0 is released.',
+        'Status: approved_for_v1_release. Release version is 1.0.0.',
+        'This list is the approved stable API contract for the v1.0.0 release.',
         '',data['selection_policy'],'',
         'Exact signatures, declared fields and public methods are in [stable_api_proposal.json](stable_api_proposal.json).',
         'Class call signatures include generated dataclass constructors; source records identify declared methods and fields.',
@@ -78,10 +78,10 @@ def render(data):
         'No new physics, all-device predictive validity, manufactured yield or experimental calibration is promised by stable software status.',
         'Literature/model/parameter attribution retains its specific scope. New measured claims require their own dataset/provenance and validation evidence.',
         'Out-of-model effects remain outside the contract unless explicitly introduced and tested.',
-        '', '## Remaining release gates','',
-        'The exact list and documented limitations/scientific scope have been reviewed for candidate preparation. Do not expand it merely to match every importable name.',
-        'The readiness matrix records approved contract reviews while leaving archival/citation planning and all final checks open.',
-        'Archival/DOI planning and full final-candidate tests/build/CI/documentation remain separate requirements.',
+        '', '## Release evidence','',
+        'The exact list and documented limitations/scientific scope are approved for v1.0.0. Do not expand it merely to match every importable name.',
+        'The readiness matrix records approved contract reviews and passed final checks.',
+        'Repository-and-version citation is approved without claiming a DOI; an optional future deposit remains independent.',
         'Run python scripts/validate_stable_api_proposal.py to compare the retained proposal against current source/runtime declarations.',
         'This command detects drift; it does not regenerate the baseline, verify external deposits or test numerical behavior.']
     return '\n'.join(lines)+'\n'
@@ -93,6 +93,6 @@ def main():
     expected=json.loads((root/'docs/stable_api_proposal.json').read_text(encoding='utf-8'))
     if actual!=expected:raise SystemExit('Stable API proposal differs: review source/signature/scope changes explicitly.')
     if (root/'docs/stable_api_proposal.md').read_text(encoding='utf-8')!=render(actual):raise SystemExit('Stable API proposal Markdown differs from JSON.')
-    print('Stable API proposal drift check PASS: '+str(len(actual['entries']))+' exact import paths; approved for candidate preparation.')
+    print('Stable API proposal drift check PASS: '+str(len(actual['entries']))+' exact import paths; approved for v1.0.0.')
 
 if __name__=='__main__':main()

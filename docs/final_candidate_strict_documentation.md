@@ -1,7 +1,7 @@
 # Strict documentation audit evidence
 
-The package remains `0.14.0` on `prep/v1.0-stability`. This page records the
-strict documentation audit gate for commit
+The v1.0.0 release retains the strict documentation audit gate first recorded
+on `prep/v1.0-stability` for commit
 `95405f4b6188c6609d3c1b38b609e7627ded2beb`.
 
 Machine-readable evidence is in

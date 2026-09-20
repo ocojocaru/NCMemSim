@@ -1,6 +1,6 @@
 # Final candidate gates
 
-The v1.0 stability-preparation review gates are approved and the final candidate checks are now complete for the current preparation branch.
+The v1.0 review gates are approved and the final candidate checks are complete for the release promoted to `main`.
 
 Required final checks:
 
@@ -14,4 +14,5 @@ Required final checks:
 
 `docs/release_readiness.json` is the machine-readable source of truth. It now records `ready_for_candidate=true` because every approved review gate and every required final candidate check has retained evidence.
 
-This preparation state is still not a v1.0 release. Creating the v1.0 tag, publishing the release, deploying final public documentation, and completing any external archival deposit or DOI update remain separate release actions.
+Publishing the v1.0.0 tag and GitHub release remains an explicit release action.
+No external archival deposit or DOI is required or claimed for this release.

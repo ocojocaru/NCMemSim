@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use NCMemSim in research, cite the exact software version and this repository."
 title: "NCMemSim: Nanocrystal Memory Simulation Platform"
 type: software
-version: 0.14.0
-date-released: 2026-09-18
+version: 1.0.0
+date-released: 2026-09-20
 license: Apache-2.0
 authors:
   - family-names: Cojocaru

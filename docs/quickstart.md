@@ -1,6 +1,6 @@
 # Quick start
 
-This guide introduces the main NCMemSim v0.14.0 workflows:
+This guide introduces the main NCMemSim v1.0.0 workflows:
 
 1. build a nanocrystal-memory device;
 2. create its initial charge state;
@@ -589,10 +589,10 @@ From the repository root:
 python -m pytest -q
 ```
 
-The current v0.14.0 verification suite contains:
+The v1.0.0 release preparation passed more than:
 
 ```text
-2000 tests
+2200 tests
 ```
 
 Continuous integration verifies the supported Python 3.11, 3.12, and 3.13
@@ -627,7 +627,7 @@ After completing this quick start:
 
 ## Scientific interpretation
 
-NCMemSim v0.14.0 is a software-verified compact physical simulator with explicit experimental-data fitting and calibration-qualification infrastructure.
+NCMemSim v1.0.0 is a software-verified compact physical simulator with explicit experimental-data fitting and calibration-qualification infrastructure.
 
 The electrical and optical workflows can be used for controlled mechanism
 studies, parameter sweeps, spectral comparisons, retention studies, and

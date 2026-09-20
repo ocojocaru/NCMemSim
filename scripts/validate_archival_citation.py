@@ -49,12 +49,12 @@ def validate(root: Path) -> dict:
     }
     if set(plan) != expected_keys or plan["schema_version"] != 1:
         raise ValueError("unsupported archival citation plan schema")
-    if plan["status"] != "approved_plan_pending_final_deposit":
+    if plan["status"] != "approved_repository_citation_no_doi":
         raise ValueError("unexpected archival citation status")
     if plan["doi"] is not None:
         raise ValueError("DOI must remain null until an external deposit exists")
-    if plan["archive_service"] != "to_be_selected_before_final_release":
-        raise ValueError("archive service must remain unresolved before final release")
+    if plan["archive_service"] is not None:
+        raise ValueError("archive service must remain null until an external deposit exists")
     if plan["final_release_version"] != "1.0.0":
         raise ValueError("final release version must be 1.0.0")
 
@@ -102,7 +102,7 @@ def main() -> int:
     print(
         "Archival citation plan PASS: "
         + plan["status"]
-        + "; DOI/deposit remain final-release work."
+        + "; repository/version citation approved without a DOI."
     )
     return 0
 

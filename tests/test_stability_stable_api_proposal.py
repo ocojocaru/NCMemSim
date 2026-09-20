@@ -38,7 +38,7 @@ def test_root_alias_target_and_result_identity_are_distinct(proposal):
  assert module['kind']=='module' and module['runtime_call_signature'] is None
 
 def test_proposal_marks_contract_approval_but_not_final_checks(proposal):
- assert proposal['status']=='approved_for_v1_candidate_preparation'
+ assert proposal['status']=='approved_for_v1_release'
  data=validate(ROOT)
  assert data['ready_for_candidate'] is True
  gate_states={g['id']:g['state'] for g in data['gates']}

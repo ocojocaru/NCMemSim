@@ -27,9 +27,9 @@ def validate(root: Path) -> dict:
         raise ValueError("unsupported remote evidence schema")
     if evidence.get("preparation_version") != _version(root):
         raise ValueError("remote evidence preparation version differs from package")
-    if evidence.get("source_branch") != "prep/v1.0-stability":
+    if evidence.get("source_branch") != "main":
         raise ValueError("unexpected remote evidence source branch")
-    if evidence.get("status") != "passed_pending_evidence_commit_confirmation":
+    if evidence.get("status") != "passed_on_main_before_version_commit":
         raise ValueError("unexpected remote evidence status")
     if not re.fullmatch(r"[0-9a-f]{40}", evidence.get("verified_commit", "")):
         raise ValueError("invalid verified commit")

@@ -1,8 +1,8 @@
 # Remote final candidate gate evidence
 
-The package remains `0.14.0` on `prep/v1.0-stability`. This page records the remote
-Actions gates that were confirmed green in the GitHub UI for commit
-`04216ad9b25c32f3b83245e5c6d4612e4ae07af6`.
+This page records the remote Actions gates confirmed green after the stability
+branch was promoted to `main`, at commit
+`f56e29aff9b1965d462b3a1404ebfd85bf47e05f`.
 
 Machine-readable evidence is in
 [final_candidate_remote_evidence.json](final_candidate_remote_evidence.json).
@@ -18,7 +18,6 @@ This evidence does not cover local final gates. The full local regression,
 strict local documentation audit and clean installed distribution validation
 remain separate final checks.
 
-Because this evidence is committed into the source tree, the evidence commit
-itself must also pass CI and Documentation before any tag, publication or
-candidate-ready declaration. This page does not create a tag, release, DOI,
-external deposit or Pages deployment.
+The final v1.0.0 version commit must also pass CI and Documentation before the
+tag is published. This page does not create a tag, release, DOI or external
+deposit.

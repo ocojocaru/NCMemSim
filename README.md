@@ -8,8 +8,8 @@
 
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
-> **Current package version:** `0.14.0` — Scientific workflow integration
-> **Release status:** I0–I6 implemented; I7 final preparation. Remote gates and publication follow the prepared commit.
+> **Current package version:** `1.0.0` — First stable scientific release
+> **Release status:** Stable API, compatibility contracts and all final release gates approved and passed.
 > **Scientific status:** Phases G/H/I add deterministic and Robust DTCO, immutable workflow evidence and linked reports to the retained simulation/calibration baseline. References remain synthetic/FITTED; device-specific experimental calibration remains study-dependent.
 
 ## Why NCMemSim?
@@ -29,16 +29,16 @@ The framework is intended for:
 - SWIR response studies for Ge/GeSn nanocrystal floating gates;
 - experimental fitting, uncertainty-aware calibration qualification, and deterministic design-space exploration.
 
-The v0.14.0 cycle defines [scientific workflow integration contracts](docs/scientific_workflows.md).
+The v0.14.0 cycle defined [scientific workflow integration contracts](docs/scientific_workflows.md), now included in the stable v1.0.0 surface.
 I1 supplies immutable linked source evidence; I2 explicitly applies fitted parameters
 and captures full evaluator contexts with isolated execution. I3 adds a complete
 synthetic electrical fitting/qualification → nominal/Robust DTCO reference.
-I4 adds the synthetic electro-optical reference; I5 verifies cross-workflow provenance, failures and compatibility. I6 adds authoritative linked workflow reports and portable exports. Final validation remains I7.
+I4 adds the synthetic electro-optical reference; I5 verifies cross-workflow provenance, failures and compatibility. I6 adds authoritative linked workflow reports and portable exports. I7 and the v1.0 stability gates are complete.
 Existing APIs and physics are preserved.
 
 ## Implemented capabilities
 
-| Area | Available in v0.14.0 |
+| Area | Available in v1.0.0 |
 |---|---|
 | Device construction | V1 and V2 architectures, 1–3 floating gates |
 | Materials | Si, SiO2, HfO2, Ge, composition-dependent GeSn |
@@ -98,10 +98,10 @@ Verify the installation with:
 python -c "import ncmemsim; print(ncmemsim.__version__)"
 ```
 
-For the v0.14.0 prepared checkout, the expected version is:
+For the stable release checkout, the expected version is:
 
 ```text
-0.14.0
+1.0.0
 ```
 
 Published tags and assets are listed on the [GitHub releases page](https://github.com/ocojocaru/NCMemSim/releases).
@@ -278,13 +278,13 @@ Phase E adds validation for:
 - **E5** — simulator, voltage-sweep, and C–V optical integration;
 - **E6** — SWIR spectral behaviour and programming benchmarks.
 
-The v0.14.0 verification suite contains:
+The v1.0.0 release retains and extends the v0.14.0 verification suite:
 
 ```text
-2000 tests
+more than 2200 tests
 ```
 
-The v0.14.0 final preparation verifies full regression, strict rendered documentation and clean wheel/sdist execution locally on Python 3.13. The Python 3.11–3.13 CI matrix and Documentation run automatically after push to the prepared dev branch; their final-commit results gate tagging. Historical Phase H CI remains evidence for v0.13.0.
+The v1.0.0 preparation passed full regression, strict rendered documentation and clean wheel/sdist execution locally on Python 3.13. The Python 3.11–3.13 CI matrix and Documentation also passed on the stability preparation branch and on `main`; the final release commit must remain green before tagging.
 
 Run the complete test suite with:
 
@@ -355,8 +355,8 @@ Main sections:
 | v0.11.0 | Experimental fitting and uncertainty-aware calibration | **Complete** |
 | v0.12.0 | Design-space exploration / DTCO | Released |
 | v0.13.0 | Robust DTCO: variations and uncertainty propagation | Released |
-| v0.14.0 | Scientific workflow integration: fitting/calibration → DTCO → Robust DTCO | I0–I6 implemented; final-version preparation |
-| v1.0.0 | First stable scientific release | Planned |
+| v0.14.0 | Scientific workflow integration: fitting/calibration → DTCO → Robust DTCO | Released |
+| v1.0.0 | First stable scientific release | Released |
 
 Potential post-v0.10 optical extensions include experimental calibration, broadband or measured spectra, strain-dependent optical properties, nanocrystal quantum confinement, field-dependent absorption, state filling, and sequential optical propagation through multi-FG structures.
 
@@ -380,7 +380,7 @@ Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before submitting changes.
 
 ## Citation
 
-Citation metadata is provided in [`CITATION.cff`](CITATION.cff). Until a DOI-backed software release or associated article is available, cite the repository and the exact software version used.
+Citation metadata is provided in [`CITATION.cff`](CITATION.cff). A DOI is not currently assigned; cite the repository and the exact software version used.
 
 For reproducible scientific work, record the NCMemSim version together with the device definition, simulation configuration, material parameter provenance, and relevant calibration assumptions.
 

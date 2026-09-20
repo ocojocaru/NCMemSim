@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_remote_candidate_gates_are_recorded_without_candidate_readiness():
     evidence = validate(ROOT)
-    assert evidence["status"] == "passed_pending_evidence_commit_confirmation"
+    assert evidence["status"] == "passed_on_main_before_version_commit"
     readiness = json.loads((ROOT / "docs/release_readiness.json").read_text(encoding="utf-8"))
     states = {item["id"]: item["state"] for item in readiness["final_candidate_checks"]}
     assert states["supported_runtime_ci"] == "passed"
@@ -45,6 +45,6 @@ def test_invalid_remote_candidate_gate_states_are_rejected(tmp_path, fault):
     (tmp_path / "docs/final_candidate_remote_evidence.json").write_text(json.dumps(evidence), encoding="utf-8")
     (tmp_path / "docs/final_candidate_remote_evidence.md").write_text("remote evidence", encoding="utf-8")
     (tmp_path / "docs/release_readiness.json").write_text(json.dumps(readiness), encoding="utf-8")
-    (tmp_path / "ncmemsim/_version.py").write_text("__version__='0.14.0'\n", encoding="utf-8")
+    (tmp_path / "ncmemsim/_version.py").write_text("__version__='1.0.0'\n", encoding="utf-8")
     with pytest.raises(ValueError):
         validate(tmp_path)

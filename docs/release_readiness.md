@@ -20,6 +20,8 @@ All final candidate checks are now passed:
 - supported runtime CI
 - remote documentation
 
-The candidate readiness flag is therefore `ready_for_candidate=true` for the current `prep/v1.0-stability` preparation branch state.
+The candidate readiness flag is therefore `ready_for_candidate=true` for the v1.0.0 release state promoted to `main`.
 
-This means the branch has retained evidence for v1.0 candidate preparation. It does not create a v1.0 tag, GitHub release, DOI, archival deposit or final public documentation deployment by itself. Those remain final release actions after the candidate branch is merged or otherwise promoted.
+This means the repository has retained evidence for the v1.0.0 release. The
+release tag and GitHub assets remain explicit publication actions. No DOI or
+external deposit is claimed; one may be added later if independently assigned.

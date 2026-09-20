@@ -6,7 +6,7 @@
 floating-gate nanocrystal memories based on Ge, GeSn, and high-k dielectric
 stacks.
 
-NCMemSim v0.14.0 preserves the electrical, retention, optical, electro-optical,
+NCMemSim v1.0.0 preserves the electrical, retention, optical, electro-optical,
 fitting and calibration baseline while adding deterministic design-space
 exploration and DTCO. Typed experiment definitions, Cartesian sweeps, explicit
 metrics and constraints, Pareto fronts, grid sensitivity and reproducible
@@ -34,6 +34,11 @@ I1 supplies immutable source evidence; I2 adds explicit fitted-parameter applica
 and full evaluator contexts with fresh execution state. I3 supplies the synthetic
 electrical reference, and I4 the electro-optical reference; I5 verifies their integration; I6 supplies linked reports and portable exports.
 Simulator physics is unchanged.
+
+Version `1.0.0` is the first stable scientific-software release. It freezes the
+reviewed public API and result/archive contracts, retains explicit scientific
+scope limits, and is backed by full regression, strict documentation, clean
+installed distributions, and supported-runtime CI evidence.
 
 ## Start here
 
@@ -129,11 +134,10 @@ Phase G adds canonical binding/unit contracts, deterministic Cartesian sweeps,
 metrics and feasibility constraints, Pareto fronts, adjacent-grid sensitivity,
 and reproducible report exports.
 
-The v0.14.0 suite contains **2000 tests**, including **717 Phase G/H** and
-**192 Phase I** cases. Final preparation checks full regression, strict
-documentation and clean installed distributions locally on Python 3.13.
-The supported-Python CI matrix and Documentation execute after push on the
-prepared dev branch; successful final-commit results precede tagging/publication.
+The stable-release preparation passed more than 2200 tests, including the
+retained Phase G/H/I suites and stability-contract checks. It also passed strict
+documentation and clean installed distributions locally on Python 3.13, plus
+the Python 3.11–3.13 CI matrix and Documentation workflow.
 
 Regression against the retained V5.3 electrical reference remains part of the
 validation suite. The legacy timestep inconsistency identified during v0.9.1

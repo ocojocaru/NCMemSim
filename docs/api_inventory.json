@@ -187,7 +187,7 @@
       "public_assignments": [
         {
           "name": "__version__",
-          "expression": "'0.14.0'"
+          "expression": "'1.0.0'"
         }
       ]
     },

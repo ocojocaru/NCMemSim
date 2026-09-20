@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[1]
 def fixture_root(tmp_path):
  data=json.loads((ROOT/'docs/release_readiness.json').read_text(encoding='utf-8'))
  (tmp_path/'docs').mkdir();(tmp_path/'ncmemsim').mkdir()
- (tmp_path/'ncmemsim/_version.py').write_text("__version__='0.14.0'\n",encoding='utf-8')
+ (tmp_path/'ncmemsim/_version.py').write_text("__version__='1.0.0'\n",encoding='utf-8')
  for gate in data['gates']:
   for name in gate['evidence']:
    path=tmp_path/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text('declared local evidence',encoding='utf-8')
@@ -38,7 +38,7 @@ def test_invalid_readiness_rejected(tmp_path,fault):
  elif fault=='missing_evidence':data['gates'][0]['evidence']=['missing.txt']
  elif fault=='outside_evidence':data['gates'][0]['evidence']=['../outside.txt']
  elif fault=='unsupported_schema':data['schema_version']=99
- elif fault=='version':data['preparation_version']='1.0.0'
+ elif fault=='version':data['preparation_version']='0.0.0'
  elif fault=='premature_ready':data['ready_for_candidate']=False
  else:data['final_candidate_checks'][0]['evidence']=[]
  save(tmp_path,data)

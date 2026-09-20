@@ -3,7 +3,7 @@ name: CI
 on:
   workflow_dispatch:
   push:
-    branches: ["prep/v1.0-stability"]
+    branches: ["main"]
     tags: ["v*"]
 
 permissions:

@@ -468,13 +468,13 @@ using NCMemSim v0.12.0 for claims such as:
 
 ## Current validation baseline
 
-Version v0.14.0 preserves the electrical/optical and fitting/calibration
+Version v1.0.0 preserves the electrical/optical and fitting/calibration
 baselines, nominal/Robust DTCO and linked scientific workflow evidence.
 
 Its validation suite contains:
 
 ```text
-2000 tests
+more than 2200 tests
 ```
 
 and covers retained Phases A–F, 717 Phase G/H and 192 Phase I cases.

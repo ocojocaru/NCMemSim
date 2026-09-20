@@ -1,6 +1,6 @@
 # Scientific defaults, units and parameter provenance review
 
-This review records version 0.14.0 behavior during v1.0 preparation. Values
+This review records the v0.14.0 behavior approved and retained for v1.0.0. Values
 below are compatibility baselines, not newly validated physical constants or
 recommended parameters for a particular experimental device. No algorithms,
 parameter values or scientific labels are changed by this audit.

@@ -208,7 +208,7 @@ strict documentation auditing and clean wheel/sdist installations.
 
 ### v0.14.0: Scientific workflow integration
 
-**Status: v0.14.0 published; I0–I7 completed. Stability preparation remains on version `0.14.0`.**
+**Status: v0.14.0 published; I0–I7 completed and promoted into v1.0.0.**
 
 Local full regression, strict documentation and clean distributions are final
 gates. CI/Documentation run after push on the prepared dev branch; tag/publication
@@ -222,20 +222,23 @@ synthetic evidence to experimental-calibration claims. See
 [Scientific workflow integration](scientific_workflows.md) for I0–I7 acceptance
 contracts and final-release gates. Local focused tests/docs updates run at each
 step; full CI, strict Documentation and clean distributions run at final-version
-preparation on the same dev branch. DOI/archive and v1.0 stability review remain
-separate readiness requirements.
+preparation on the same dev branch. The later v1.0 stability review approved
+the public API, compatibility scope, scientific defaults, distribution contract
+and final release gates.
 
 ### v1.0.0: First stable scientific release
 
-Target requirements include:
+**Status: final release prepared; all required local and remote gates passed.**
+
+The release includes:
 
 - stable and documented public API;
 - complete reference documentation;
 - reviewed scientific defaults and provenance;
 - validated end-to-end electrical and electro-optical examples;
 - experimental calibration workflows;
-- archived software release;
-- DOI-backed software citation;
+- exact versioned GitHub source and distribution archives;
+- repository-and-version software citation, with no DOI claimed until one is assigned;
 - publication-quality reproducibility package.
 
 ## Post-v0.10 optical extensions
@@ -286,9 +289,7 @@ Future development should continue to follow four project rules:
 ## Stability preparation from published v0.14.0
 
 Local API/result/archive/default/distribution reviews and the archival/citation
-plan are recorded in the [v1.0 readiness consolidation](release_readiness.md).
-Approval of the stable surface, scientific scope and archival plan remains
-separate from the final regression/documentation/clean-distribution/Actions
-gates. Final candidate gates are configured on `prep/v1.0-stability`, but every
-final check remains `not_run`. No v0.15.0 or v1.0 version change is implied by
-these preparation audits.
+policy are recorded in the [v1.0 readiness consolidation](release_readiness.md).
+The stable API, scientific scope and citation policy are approved, and the full
+regression, strict documentation, clean-distribution and remote Actions gates
+all passed. The preparation branch was promoted to `main` for v1.0.0.

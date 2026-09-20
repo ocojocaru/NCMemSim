@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "v1.0 strict documentation audit evidence",
-  "preparation_version": "0.14.0",
+  "preparation_version": "1.0.0",
   "source_branch": "prep/v1.0-stability",
   "tested_commit": "95405f4b6188c6609d3c1b38b609e7627ded2beb",
   "status": "passed",

@@ -1,6 +1,6 @@
 # Developer guide
 
-This guide describes the development conventions for NCMemSim v0.14.0 and the
+This guide describes the development conventions for NCMemSim v1.0.0 and the
 requirements for extending the simulator without losing physical traceability,
 numerical reproducibility, or regression stability.
 
@@ -481,7 +481,7 @@ The repository CI matrix verifies Python:
 3.13
 ```
 
-The current v0.14.0 suite contains 2000 tests, including 717 Phase G/H and 192 Phase I cases.
+The v1.0.0 preparation contains more than 2200 tests, including the retained Phase G/H/I suites and stability-contract checks.
 
 A feature is not considered integrated merely because its new tests pass.
 
@@ -728,9 +728,9 @@ relevant tests locally. Intermediate pushes and pull requests do not launch
 CI or Documentation Actions. At final-version preparation, enable automatic
 push checks for the exact active preparation branch, including final corrections;
 other development branches remain without automatic checks. CI also runs on
-`v*` release tags and both workflows remain manually runnable. The v1.0 stability
-preparation enables `prep/v1.0-stability` for final candidate gate execution. Only builds on `main`
-deploy Pages; development builds do not replace the published site. Full
+`v*` release tags and both workflows remain manually runnable. Final v1.0.0
+validation runs on `main`. Only builds on `main` deploy Pages; development
+builds do not replace the published site. Full
 regression, strict documentation, package builds and clean installed-distribution
 checks belong to this final-version gate.
 

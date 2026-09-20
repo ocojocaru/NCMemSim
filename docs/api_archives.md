@@ -1,7 +1,7 @@
 # Archive schema compatibility preparation
 
-This review remains on package version 0.14.0. It records reader contracts and
-retained fixtures; it does not declare a v1.0 compatibility guarantee yet.
+This review uses the published v0.14.0 archives as fixtures and defines the
+reader compatibility contract retained by v1.0.0.
 
 ## Portable reader surface
 

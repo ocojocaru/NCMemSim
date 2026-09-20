@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "status": "approved_for_v1_candidate_preparation",
-  "preparation_version": "0.14.0",
+  "status": "approved_for_v1_release",
+  "preparation_version": "1.0.0",
   "source_baseline_commit": "6409e42087992f5dfde966cd6e320d3964b264b1",
   "selection_policy": "All existing documented imports, explicit root-package exports, legacy transport exports and reviewed generic fitting primitives; other aliases/helpers are not implicitly selected.",
   "entries": [
@@ -5056,7 +5056,7 @@
         "kind": "declared_value",
         "source_assignment": {
           "name": "__version__",
-          "expression": "'0.14.0'"
+          "expression": "'1.0.0'"
         }
       }
     },

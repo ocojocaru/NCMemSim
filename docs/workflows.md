@@ -1,6 +1,6 @@
 # Scientific workflows
 
-NCMemSim v0.14.0 supports reproducible electrical, optical, electro-optical,
+NCMemSim v1.0.0 supports reproducible electrical, optical, electro-optical,
 retention, sweep, C-V, validation, and provenance workflows.
 
 This page focuses on how the principal components fit together during a

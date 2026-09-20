@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "v1.0 stability preparation readiness",
-  "preparation_version": "0.14.0",
+  "preparation_version": "1.0.0",
   "review_baseline_commit": "93bed94525e9eb4c9bb62f1d699110b455b45b44",
   "gates": [
     {

@@ -13,9 +13,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_current_archival_plan_is_approved_without_candidate_readiness():
     plan = validate(ROOT)
-    assert plan["status"] == "approved_plan_pending_final_deposit"
+    assert plan["status"] == "approved_repository_citation_no_doi"
     assert plan["doi"] is None
-    assert plan["current_citation_version"] == "0.14.0"
+    assert plan["current_citation_version"] == "1.0.0"
     readiness = validate_readiness(ROOT)
     assert {gate["id"]: gate["state"] for gate in readiness["gates"]}["archival_citation"] == "approved"
     assert readiness["ready_for_candidate"] is True
@@ -55,7 +55,7 @@ def test_archival_plan_rejects_premature_release_claims(tmp_path, fault):
     elif fault == "citation_doi":
         citation += "\ndoi: 10.0000/not-real\n"
     elif fault == "citation_version":
-        citation = citation.replace("version: 0.14.0", "version: 1.0.0")
+        citation = citation.replace("version: 1.0.0", "version: 0.0.0")
     elif fault == "unapproved_gate":
         next(g for g in readiness["gates"] if g["id"] == "archival_citation")["state"] = "pending"
     elif fault == "premature_ready":
@@ -75,7 +75,7 @@ def test_archival_plan_rejects_premature_release_claims(tmp_path, fault):
 
     (tmp_path / "docs/archival_citation.json").write_text(json.dumps(plan), encoding="utf-8")
     (tmp_path / "docs/release_readiness.json").write_text(json.dumps(readiness), encoding="utf-8")
-    (tmp_path / "ncmemsim/_version.py").write_text("__version__='0.14.0'\n", encoding="utf-8")
+    (tmp_path / "ncmemsim/_version.py").write_text("__version__='1.0.0'\n", encoding="utf-8")
     (tmp_path / "CITATION.cff").write_text(citation, encoding="utf-8")
     (tmp_path / "docs/archival_citation.md").write_text("plan", encoding="utf-8")
 

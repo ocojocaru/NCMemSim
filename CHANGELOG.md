@@ -1,9 +1,18 @@
 # Changelog
-- Recorded clean installed wheel/source-distribution evidence and marked the v1.0 stability-preparation candidate ready after all final gates passed.
 
 All notable changes to NCMemSim are documented in this file.
 
-## Unreleased — stability preparation from v0.14.0
+## Unreleased
+
+## v1.0.0 — Stable API and release readiness
+
+- Promote the reviewed 204-path API candidate to the first stable NCMemSim release.
+- Align package and citation metadata with `1.0.0` and the final release date.
+- Retain approved result, archive-reader, scientific-default, distribution and compatibility contracts.
+- Record green Python 3.11–3.13 CI, strict documentation, full local regression and clean installed wheel/source-distribution gates.
+- Keep the published v0.14.0 archive fixtures as compatibility evidence.
+- Publish repository-and-version citation metadata without claiming an unassigned DOI.
+- Recorded clean installed wheel/source-distribution evidence and marked the v1.0 stability-preparation candidate ready after all final gates passed.
 
 - Record full local regression final-gate evidence while strict documentation and clean distributions remain open.
 - Record remote CI and Documentation final-gate evidence for `prep/v1.0-stability` while keeping local final gates open.

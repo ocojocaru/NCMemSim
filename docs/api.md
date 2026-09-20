@@ -1,6 +1,6 @@
 # Public API overview
 
-The public import surface for NCMemSim v0.14.0 is defined primarily in
+The stable public import surface for NCMemSim v1.0.0 is defined primarily in
 `ncmemsim/__init__.py`, with optical material models exposed from
 `ncmemsim.materials.optics`.
 

@@ -1,8 +1,8 @@
 # API compatibility preparation
 
-This policy prepares the v1.0 API using the published v0.14.0 baseline. It does
-not declare every importable implementation detail stable. The package version
-remains 0.14.0 during this review; the published tag is unchanged.
+This policy defines the v1.0 API using the published v0.14.0 baseline. It does
+not declare every importable implementation detail stable. The approved
+204-path manifest is the supported v1.0.0 public surface.
 
 ## Public imports and pending approval
 
@@ -10,7 +10,7 @@ The public API overview lists intended entry points in the root package and
 in dedicated materials, optical, dataset, fitting, calibration, DTCO and workflow
 modules. Existing documented imports must remain available during preparation.
 `__all__` is export evidence, not sufficient approval for a stability guarantee.
-A complete approved import/signature manifest remains a v1.0 acceptance gate.
+The complete approved import/signature manifest is retained as v1.0 evidence.
 Underscore helpers and incidental imported names receive no new guarantee.
 
 The package module `ncmemsim.experimental` contains public dataset APIs. It is
@@ -46,7 +46,7 @@ None, empty arrays and numerical zero. Mutable NumPy arrays and final states
 must not be described as immutable just because their container is frozen.
 Ownership and copy guarantees require observed behavior and targeted tests.
 Adding result fields must preserve supported construction and reading patterns.
-The detailed per-result inventory and ownership review remain open gates.
+The detailed per-result inventory and ownership review is approved and retained.
 
 ## Archives and numerical replay
 
@@ -63,10 +63,9 @@ A retained historical-fixture and schema-migration review remains an open gate.
 
 ## Local and final validation
 
-Audit iterations update docs and run focused compatibility checks locally.
-No CI/Documentation push trigger is added for the preparation branch. Full
-regression, strict documentation, clean distributions and supported-Python
-Actions belong to final-version preparation before the release candidate/tag.
+Audit iterations ran focused compatibility checks locally. Final preparation
+also passed full regression, strict documentation, clean distributions and
+supported-Python Actions before the v1.0.0 tag.
 
 ## Recorded review baselines
 
@@ -77,4 +76,4 @@ review of every change and does not by itself approve stability.
 
 See [v1.0 readiness consolidation](release_readiness.md) for reviewed evidence, approved contract/archival gates and remaining final-candidate gates.
 
-The [approved stable API candidate](stable_api_proposal.md) records 204 selected import paths, source contracts and actual constructor signatures for v1.0 candidate preparation.
+The [approved stable API contract](stable_api_proposal.md) records 204 selected import paths, source contracts and actual constructor signatures for v1.0.0.

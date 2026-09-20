@@ -1,7 +1,8 @@
 # Distribution and reproducibility contract review
 
-This audit remains at package version 0.14.0 on prep/v1.0-stability. It changes
-release-validation tooling and documentation, not simulation algorithms.
+This audit was performed from the v0.14.0 baseline and is retained as the
+v1.0.0 distribution contract. It changes release-validation tooling and
+documentation, not simulation algorithms.
 
 ## Source and installed-package inventories
 

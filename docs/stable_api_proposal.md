@@ -1,7 +1,7 @@
 # Approved stable v1.0 API candidate surface
 
-Status: approved_for_v1_candidate_preparation. Preparation version remains 0.14.0.
-This list is the approved candidate contract for v1.0 preparation, not a declaration that v1.0 is released.
+Status: approved_for_v1_release. Release version is 1.0.0.
+This list is the approved stable API contract for the v1.0.0 release.
 
 All existing documented imports, explicit root-package exports, legacy transport exports and reviewed generic fitting primitives; other aliases/helpers are not implicitly selected.
 
@@ -243,10 +243,10 @@ No new physics, all-device predictive validity, manufactured yield or experiment
 Literature/model/parameter attribution retains its specific scope. New measured claims require their own dataset/provenance and validation evidence.
 Out-of-model effects remain outside the contract unless explicitly introduced and tested.
 
-## Remaining release gates
+## Release evidence
 
-The exact list and documented limitations/scientific scope have been reviewed for candidate preparation. Do not expand it merely to match every importable name.
-The readiness matrix records approved contract reviews while leaving archival/citation planning and all final checks open.
-Archival/DOI planning and full final-candidate tests/build/CI/documentation remain separate requirements.
+The exact list and documented limitations/scientific scope are approved for v1.0.0. Do not expand it merely to match every importable name.
+The readiness matrix records approved contract reviews and passed final checks.
+Repository-and-version citation is approved without claiming a DOI; an optional future deposit remains independent.
 Run python scripts/validate_stable_api_proposal.py to compare the retained proposal against current source/runtime declarations.
 This command detects drift; it does not regenerate the baseline, verify external deposits or test numerical behavior.

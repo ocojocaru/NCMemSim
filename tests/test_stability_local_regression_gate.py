@@ -51,6 +51,6 @@ def test_invalid_local_regression_gate_states_rejected(tmp_path, fault):
     (tmp_path / "docs/final_candidate_remote_evidence.json").write_text("{}", encoding="utf-8")
     (tmp_path / "docs/final_candidate_remote_evidence.md").write_text("remote", encoding="utf-8")
     (tmp_path / "docs/release_readiness.json").write_text(json.dumps(readiness), encoding="utf-8")
-    (tmp_path / "ncmemsim/_version.py").write_text("__version__='0.14.0'\n", encoding="utf-8")
+    (tmp_path / "ncmemsim/_version.py").write_text("__version__='1.0.0'\n", encoding="utf-8")
     with pytest.raises(ValueError):
         validate(tmp_path)

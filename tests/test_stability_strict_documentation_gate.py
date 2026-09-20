@@ -50,6 +50,6 @@ def test_invalid_strict_documentation_gate_states_rejected(tmp_path, fault):
     (tmp_path / "docs/final_candidate_strict_documentation.md").write_text("strict docs", encoding="utf-8")
     (tmp_path / "docs/release_readiness.json").write_text(json.dumps(readiness), encoding="utf-8")
     (tmp_path / "scripts/validate_documentation.py").write_text("print('ok')\n", encoding="utf-8")
-    (tmp_path / "ncmemsim/_version.py").write_text("__version__='0.14.0'\n", encoding="utf-8")
+    (tmp_path / "ncmemsim/_version.py").write_text("__version__='1.0.0'\n", encoding="utf-8")
     with pytest.raises(ValueError):
         validate(tmp_path)

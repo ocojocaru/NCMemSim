@@ -60,9 +60,8 @@ python -c "import ncmemsim; print(ncmemsim.__version__)"
 python -m pytest -q
 ```
 
-The prepared Phase I package and citation report `0.14.0`. Check the branch/tag
-used for installation; prepared version metadata does not itself publish a tag
-or release assets.
+The stable package and citation report `1.0.0`. For reproducible use, record the
+exact tag or commit used for installation together with the environment.
 Running pytest requires a source checkout and the `[dev]` dependencies; tests
 and examples are not an installed-wheel interface.
 

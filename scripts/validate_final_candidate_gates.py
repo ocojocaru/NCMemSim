@@ -57,7 +57,7 @@ def validate(root: Path) -> dict:
         raise ValueError("final gate plan must be passed after clean distribution evidence")
     if plan.get("preparation_version") != _package_version(root):
         raise ValueError("final gate preparation version differs from package")
-    if plan.get("source_branch") != "prep/v1.0-stability":
+    if plan.get("source_branch") != "main":
         raise ValueError("unexpected final gate source branch")
     checks = {item["id"] for item in plan.get("required_checks", [])}
     if checks != REQUIRED_CHECKS:
@@ -70,14 +70,14 @@ def validate(root: Path) -> dict:
         raise ValueError("completed final gate evidence is incomplete")
 
     config = plan.get("workflow_configuration", {})
-    if config.get("ci_push_branch") != "prep/v1.0-stability":
+    if config.get("ci_push_branch") != "main":
         raise ValueError("CI branch configuration missing from plan")
-    if config.get("documentation_push_branch") != "prep/v1.0-stability":
+    if config.get("documentation_push_branch") != "main":
         raise ValueError("Documentation branch configuration missing from plan")
-    if "prep/v1.0-stability" not in _workflow_branches(root / ".github/workflows/ci.yml"):
-        raise ValueError("CI workflow does not run on prep/v1.0-stability")
-    if "prep/v1.0-stability" not in _workflow_branches(root / ".github/workflows/docs.yml"):
-        raise ValueError("Documentation workflow does not run on prep/v1.0-stability")
+    if "main" not in _workflow_branches(root / ".github/workflows/ci.yml"):
+        raise ValueError("CI workflow does not run on main")
+    if "main" not in _workflow_branches(root / ".github/workflows/docs.yml"):
+        raise ValueError("Documentation workflow does not run on main")
 
     readiness = json.loads((root / "docs/release_readiness.json").read_text(encoding="utf-8"))
     states = {check["id"]: check for check in readiness["final_candidate_checks"]}
