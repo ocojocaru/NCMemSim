@@ -82,7 +82,12 @@ def build_inventory(root: Path):
                 else:
                     for target in targets:
                         if isinstance(target, ast.Name) and (not target.id.startswith('_') or target.id == '__version__'):
-                            constants.append({"name": target.id, "expression": _expr(node.value)})
+                            expression = _expr(node.value)
+                            if target.id == '__version__':
+                                # Runtime identity changes in compatible development and
+                                # maintenance releases; the literal is not an API signature.
+                                expression = "<runtime-version>"
+                            constants.append({"name": target.id, "expression": expression})
             elif isinstance(node, ast.AnnAssign) and isinstance(node.target, ast.Name) and not node.target.id.startswith('_'):
                 constants.append({"name": node.target.id, "expression": _expr(node.value), "annotation": _expr(node.annotation)})
             elif isinstance(node, ast.ImportFrom):

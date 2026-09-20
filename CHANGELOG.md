@@ -4,6 +4,20 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### J0 - v1.1.0 advanced transport bootstrap
+
+- Start `1.1.0.dev0` from the published v1.0.0 tag while retaining v1.0.0
+  citation metadata as the latest stable release.
+- Freeze the approved v1 API, result, archive, scientific-default and
+  distribution compatibility boundary for additive Phase J development.
+- Define the advanced-transport mechanism boundary, canonical SI units,
+  provenance requirements, failure semantics and staged validation ladder.
+- Plan J1-J7 delivery for trap/defect contracts, trap-assisted transport,
+  optional barrier corrections, network integration, validation, reports and
+  final release gates; no new transport physics is implemented in J0.
+- Keep automatic CI and Documentation pushes limited to `main`; development
+  branches use focused local checks until final-version preparation.
+
 ## v1.0.0 — Stable API and release readiness
 
 - Promote the reviewed 204-path API candidate to the first stable NCMemSim release.

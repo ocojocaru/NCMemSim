@@ -228,7 +228,7 @@ and final release gates.
 
 ### v1.0.0: First stable scientific release
 
-**Status: final release prepared; all required local and remote gates passed.**
+**Status: released as `v1.0.0`; all required local and remote gates passed.**
 
 The release includes:
 
@@ -240,6 +240,38 @@ The release includes:
 - exact versioned GitHub source and distribution archives;
 - repository-and-version software citation, with no DOI claimed until one is assigned;
 - publication-quality reproducibility package.
+
+### v1.1.0: Advanced transport physics
+
+**Status: J0 bootstrap in development; package version `1.1.0.dev0`.**
+
+Phase J begins from the immutable v1.0.0 tag and preserves the approved v1
+public API and scientific baseline. J0 adds scope and contracts only. It does
+not yet change transport equations or defaults.
+
+The planned sequence is:
+
+- **J0 - scope and architecture freeze:** compatibility boundary, mechanism
+  decomposition, canonical units, provenance, failures and validation ladder;
+- **J1 - trap and defect contracts:** immutable specifications, selected TAT
+  equation, energy/field/carrier conventions and serialization;
+- **J2 - trap-assisted transport kernel:** opt-in rates, component diagnostics,
+  analytic limits and numerical-range validation;
+- **J3 - image-force and barrier corrections:** explicit opt-in corrections
+  with unmodified-barrier diagnostics; this stage may be deferred if the
+  scientific contract is not sufficiently supported;
+- **J4 - transport-network integration:** explicit link attachment,
+  per-mechanism accounting, state isolation and failure propagation;
+- **J5 - scientific validation and sensitivity:** controlled references,
+  parameter sensitivity, identifiability limits and DTCO integration;
+- **J6 - reproducible examples and reports:** normal/failure references,
+  mechanism-resolved exports and interpretation limits;
+- **J7 - v1.1.0 release gates:** full regression, strict documentation, clean
+  distributions and supported-runtime remote validation.
+
+See [Advanced transport physics](advanced_transport.md) for the governing J0
+contracts. New mechanisms remain disabled by default and synthetic examples do
+not establish experimental defect calibration.
 
 ## Post-v0.10 optical extensions
 

@@ -5,6 +5,7 @@ import ast
 import json
 from pathlib import Path
 import sys
+import re
 
 
 def _package_version(root: Path) -> str:
@@ -22,6 +23,18 @@ def _citation_version(citation_text: str) -> str:
         if line.startswith("version:"):
             return line.split(":", 1)[1].strip()
     raise ValueError("missing citation version")
+
+
+def _compatible_development_version(version: str, baseline: str) -> bool:
+    current = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)\.dev\d+", version)
+    released = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)", baseline)
+    return bool(
+        current
+        and released
+        and current.group(1) == released.group(1)
+        and tuple(map(int, current.groups()[:3]))
+        >= tuple(map(int, released.groups()))
+    )
 
 
 LOCAL_FINAL_CHECKS = {"full_local_regression", "strict_documentation_audit", "clean_installed_distributions"}
@@ -62,12 +75,17 @@ def validate(root: Path) -> dict:
     citation_text = (root / "CITATION.cff").read_text(encoding="utf-8")
     if "doi:" in citation_text.lower():
         raise ValueError("CITATION.cff must not claim a DOI before deposit verification")
-    if _citation_version(citation_text) != package_version:
-        raise ValueError("current citation version must match package version")
-    if plan["preparation_version"] != package_version:
-        raise ValueError("plan preparation version must match package version")
-    if plan["current_citation_version"] != package_version:
+    citation_version = _citation_version(citation_text)
+    if citation_version != plan["current_citation_version"]:
         raise ValueError("plan citation version must match current citation file")
+    if plan["preparation_version"] != plan["final_release_version"]:
+        raise ValueError("archival plan must retain its published release baseline")
+    if citation_version != plan["final_release_version"]:
+        raise ValueError("citation must identify the latest published release")
+    if package_version != citation_version and not _compatible_development_version(
+        package_version, citation_version
+    ):
+        raise ValueError("citation release is incompatible with package version")
 
     readiness = json.loads((root / "docs/release_readiness.json").read_text(encoding="utf-8"))
     gates = {gate["id"]: gate["state"] for gate in readiness["gates"]}

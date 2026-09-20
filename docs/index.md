@@ -40,12 +40,19 @@ reviewed public API and result/archive contracts, retains explicit scientific
 scope limits, and is backed by full regression, strict documentation, clean
 installed distributions, and supported-runtime CI evidence.
 
+Version `1.1.0.dev0` starts Phase J. The
+[advanced transport](advanced_transport.md) J0 contract defines an additive,
+opt-in path toward trap-assisted transport and explicit barrier corrections.
+No new transport mechanism is implemented in J0; the v1.0.0 WKB and retention
+baseline remains unchanged when future mechanisms are disabled.
+
 ## Start here
 
 - New users: [Installation](installation.md) and [Quick start](quickstart.md)
 - Researchers: [Scientific scope and assumptions](scientific_scope.md)
 - Optical modelling: [Optical programming](optics.md)
 - Model developers: [Software architecture](architecture.md) and [Developer guide](developer.md)
+- Advanced transport development: [Phase J scope and contracts](advanced_transport.md)
 - Reproducibility: [Validation](validation.md) and [Reproducibility and benchmarking](reproducibility.md)
 
 ## Model map

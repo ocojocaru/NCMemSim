@@ -5056,7 +5056,7 @@
         "kind": "declared_value",
         "source_assignment": {
           "name": "__version__",
-          "expression": "'1.0.0'"
+          "expression": "<runtime-version>"
         }
       }
     },

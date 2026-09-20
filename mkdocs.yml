@@ -52,6 +52,7 @@ nav:
       - Physics overview: physics.md
       - Electrostatics and fields: electrostatics.md
       - Transport and retention: transport_retention.md
+      - Advanced transport physics: advanced_transport.md
       - Materials and provenance: materials.md
       - Optical programming: optics.md
       - GeSn near-edge reference: near_edge_reference.md

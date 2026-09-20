@@ -8,8 +8,9 @@
 
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
-> **Current package version:** `1.0.0` — First stable scientific release
-> **Release status:** Stable API, compatibility contracts and all final release gates approved and passed.
+> **Current development version:** `1.1.0.dev0` — Phase J advanced transport bootstrap
+> **Latest stable release:** `1.0.0` — stable API, compatibility contracts and all release gates passed
+> **Development status:** J0 freezes scope, units, provenance and validation; no new transport physics is enabled yet.
 > **Scientific status:** Phases G/H/I add deterministic and Robust DTCO, immutable workflow evidence and linked reports to the retained simulation/calibration baseline. References remain synthetic/FITTED; device-specific experimental calibration remains study-dependent.
 
 ## Why NCMemSim?
@@ -38,7 +39,7 @@ Existing APIs and physics are preserved.
 
 ## Implemented capabilities
 
-| Area | Available in v1.0.0 |
+| Area | Available in v1.0.0 / v1.1.0.dev0 |
 |---|---|
 | Device construction | V1 and V2 architectures, 1–3 floating gates |
 | Materials | Si, SiO2, HfO2, Ge, composition-dependent GeSn |
@@ -68,6 +69,7 @@ Existing APIs and physics are preserved.
 | DTCO reports | Integrity-checked JSON manifests, CSV exports and Markdown summaries |
 | Robust DTCO | Bounded independent variations, exact sample manifests, isolated propagation, response statistics, nominal comparisons, explicit robust fronts and linked reports |
 | Scientific workflows | Immutable source evidence, fitted evaluator contexts, electrical/optical integration references and linked portable reports |
+| Advanced transport | J0 scope and compatibility contracts only; trap-assisted and image-force mechanisms are not implemented yet |
 
 Experimental-data handling, deterministic parameter fitting, local uncertainty/identifiability diagnostics, and calibration qualification are implemented in v0.11.0. Deterministic design-space exploration and DTCO are implemented in v0.12.0; advanced quantum corrections remain roadmap items. The compact optical model introduced in v0.10.0 is retained; absolute absorption amplitudes and device-specific photo-capture efficiencies remain provisional unless supported by appropriate independent experimental calibration.
 
@@ -98,11 +100,14 @@ Verify the installation with:
 python -c "import ncmemsim; print(ncmemsim.__version__)"
 ```
 
-For the stable release checkout, the expected version is:
+For the `v1.0.0` stable release checkout, the expected version is:
 
 ```text
 1.0.0
 ```
+
+On `dev/v1.1.0-advanced-transport`, the expected development version is
+`1.1.0.dev0`. Development identifiers are not release tags.
 
 Published tags and assets are listed on the [GitHub releases page](https://github.com/ocojocaru/NCMemSim/releases).
 
@@ -335,6 +340,7 @@ Main sections:
 - [Physics](docs/physics.md)
 - [Electrostatics and fields](docs/electrostatics.md)
 - [Transport and retention](docs/transport_retention.md)
+- [Advanced transport physics](docs/advanced_transport.md)
 - [Materials](docs/materials.md)
 - [Optical programming](docs/optics.md)
 - [Validation](docs/validation.md)
@@ -357,8 +363,14 @@ Main sections:
 | v0.13.0 | Robust DTCO: variations and uncertainty propagation | Released |
 | v0.14.0 | Scientific workflow integration: fitting/calibration → DTCO → Robust DTCO | Released |
 | v1.0.0 | First stable scientific release | Released |
+| v1.1.0 | Advanced transport physics: trap/defect contracts and opt-in mechanisms | **J0 in development** |
 
-Potential post-v0.10 optical extensions include experimental calibration, broadband or measured spectra, strain-dependent optical properties, nanocrystal quantum confinement, field-dependent absorption, state filling, and sequential optical propagation through multi-FG structures.
+Phase J scope and compatibility rules are defined in
+[`docs/advanced_transport.md`](docs/advanced_transport.md). Potential optical
+extensions still include experimental calibration, broadband or measured
+spectra, strain-dependent optical properties, nanocrystal quantum confinement,
+field-dependent absorption, state filling, and sequential optical propagation
+through multi-FG structures.
 
 See [`VISION.md`](VISION.md) and [`docs/roadmap.md`](docs/roadmap.md) for the long-term scientific direction.
 

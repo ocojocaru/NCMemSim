@@ -60,8 +60,10 @@ python -c "import ncmemsim; print(ncmemsim.__version__)"
 python -m pytest -q
 ```
 
-The stable package and citation report `1.0.0`. For reproducible use, record the
-exact tag or commit used for installation together with the environment.
+The stable package and citation report `1.0.0`. The Phase J development branch
+reports package version `1.1.0.dev0` while retaining the `1.0.0` citation as the
+latest published release. For reproducible use, record the exact tag or commit
+used for installation together with the environment.
 Running pytest requires a source checkout and the `[dev]` dependencies; tests
 and examples are not an installed-wheel interface.
 

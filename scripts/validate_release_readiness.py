@@ -2,6 +2,12 @@
 from pathlib import Path
 import ast,json,re,sys
 
+def _compatible_development_version(version,baseline):
+    current=re.fullmatch(r'(\d+)\.(\d+)\.(\d+)\.dev\d+',version)
+    released=re.fullmatch(r'(\d+)\.(\d+)\.(\d+)',baseline)
+    return bool(current and released and current.group(1)==released.group(1)
+                and tuple(map(int,current.groups()[:3]))>=tuple(map(int,released.groups())))
+
 def validate(root):
     data=json.loads((root/'docs/release_readiness.json').read_text(encoding='utf-8'))
     if set(data)!={'schema_version','name','preparation_version','review_baseline_commit','gates','final_candidate_checks','ready_for_candidate'} or type(data['schema_version']) is not int or data['schema_version']!=1:
@@ -10,8 +16,8 @@ def validate(root):
         raise ValueError('invalid review baseline commit')
     tree=ast.parse((root/'ncmemsim/_version.py').read_text(encoding='utf-8'))
     version=next(ast.literal_eval(n.value) for n in tree.body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='__version__' for t in n.targets))
-    if version!=data['preparation_version']:
-        raise ValueError('readiness preparation version differs from package; review matrix explicitly before version change')
+    if version!=data['preparation_version'] and not _compatible_development_version(version,data['preparation_version']):
+        raise ValueError('readiness release baseline is incompatible with current package version')
     seen=set()
     for section,states in (('gates',{'pending','reviewed_pending_approval','approved'}),('final_candidate_checks',{'not_run','failed','passed'})):
         if not isinstance(data[section],list) or not data[section]:raise ValueError('empty readiness section')

@@ -63,6 +63,7 @@ SOURCE_REQUIRED = {
     'docs/final_candidate_gates.md',
     'scripts/validate_api_contract.py',
     'docs/architecture.md',
+    'docs/advanced_transport.md',
     'docs/assets/banner.svg',
     'docs/branding.md',
     'docs/calibration.md',
