@@ -19094,11 +19094,26 @@
         "TrapCarrier",
         "TrapEnergyReference",
         "TrapParameterStatus",
-        "TrapSpecies"
+        "TrapSpecies",
+        "TATBarrierProfile",
+        "TATRateBatch",
+        "TATRateComponent",
+        "TATRateEvaluation",
+        "TATRateStatus",
+        "build_tat_barrier_profile",
+        "evaluate_tat_species",
+        "evaluate_trap_assisted_transport",
+        "evaluate_trap_assisted_transport_array",
+        "linear_wkb_transmission"
       ],
       "package_import_aliases": {
         "LinkTransportResult": "ncmemsim.transport.rates.LinkTransportResult",
         "NodeKind": "ncmemsim.transport.base.NodeKind",
+        "TATBarrierProfile": "ncmemsim.transport.tat.TATBarrierProfile",
+        "TATRateBatch": "ncmemsim.transport.tat.TATRateBatch",
+        "TATRateComponent": "ncmemsim.transport.tat.TATRateComponent",
+        "TATRateEvaluation": "ncmemsim.transport.tat.TATRateEvaluation",
+        "TATRateStatus": "ncmemsim.transport.tat.TATRateStatus",
         "TransportConfig": "ncmemsim.transport.engine.TransportConfig",
         "TransportEngine": "ncmemsim.transport.engine.TransportEngine",
         "TransportNode": "ncmemsim.transport.base.TransportNode",
@@ -19110,7 +19125,12 @@
         "TrapParameterStatus": "ncmemsim.transport.traps.TrapParameterStatus",
         "TrapSpecies": "ncmemsim.transport.traps.TrapSpecies",
         "TunnelLink": "ncmemsim.transport.link.TunnelLink",
-        "TunnelNetwork": "ncmemsim.transport.network.TunnelNetwork"
+        "TunnelNetwork": "ncmemsim.transport.network.TunnelNetwork",
+        "build_tat_barrier_profile": "ncmemsim.transport.tat.build_tat_barrier_profile",
+        "evaluate_tat_species": "ncmemsim.transport.tat.evaluate_tat_species",
+        "evaluate_trap_assisted_transport": "ncmemsim.transport.tat.evaluate_trap_assisted_transport",
+        "evaluate_trap_assisted_transport_array": "ncmemsim.transport.tat.evaluate_trap_assisted_transport_array",
+        "linear_wkb_transmission": "ncmemsim.transport.tat.linear_wkb_transmission"
       },
       "public_source_definitions": [],
       "public_assignments": []
@@ -19735,6 +19755,574 @@
         }
       ],
       "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.transport.tat",
+      "source": "ncmemsim/transport/tat.py",
+      "explicit_exports": [
+        "TATRateStatus",
+        "TATBarrierProfile",
+        "TATRateComponent",
+        "TATRateEvaluation",
+        "TATRateBatch",
+        "linear_wkb_transmission",
+        "build_tat_barrier_profile",
+        "evaluate_tat_species",
+        "evaluate_trap_assisted_transport",
+        "evaluate_trap_assisted_transport_array"
+      ],
+      "package_import_aliases": {
+        "TrapAssistedTransportSpec": "ncmemsim.transport.traps.TrapAssistedTransportSpec",
+        "TrapSpecies": "ncmemsim.transport.traps.TrapSpecies",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash"
+      },
+      "public_source_definitions": [
+        {
+          "name": "TATRateStatus",
+          "kind": "class",
+          "class_assignments": [
+            {
+              "names": [
+                "DISABLED"
+              ],
+              "expression": "'disabled'"
+            },
+            {
+              "names": [
+                "ZERO_DENSITY"
+              ],
+              "expression": "'zero_density'"
+            },
+            {
+              "names": [
+                "EVALUATED"
+              ],
+              "expression": "'evaluated'"
+            },
+            {
+              "names": [
+                "TRANSMISSION_UNDERFLOW"
+              ],
+              "expression": "'transmission_underflow'"
+            }
+          ],
+          "bases": [
+            "str",
+            "Enum"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "linear_wkb_transmission",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "length_m",
+              "kind": "positional_or_keyword",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "start_barrier_J",
+              "kind": "positional_or_keyword",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "end_barrier_J",
+              "kind": "positional_or_keyword",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "effective_mass_m0",
+              "kind": "positional_or_keyword",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "tuple[float, float]",
+          "source_signature": "(length_m: float, start_barrier_J: float, end_barrier_J: float, effective_mass_m0: float) -> tuple[float, float]",
+          "decorators": []
+        },
+        {
+          "name": "TATBarrierProfile",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "link_length_m",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "trap_position_m",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "electric_field_V_m",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "effective_mass_m0",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "entry_start_barrier_J",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "trap_barrier_J",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "exit_end_barrier_J",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "TATRateComponent",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "species_name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "species_hash",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "barrier_profile",
+              "annotation": "TATBarrierProfile",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "entry_wkb_exponent",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "exit_wkb_exponent",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "entry_transmission",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "exit_transmission",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "entry_rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "exit_rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "active_probability",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "status",
+              "annotation": "TATRateStatus",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "result_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TATRateEvaluation",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "enabled",
+              "annotation": "bool",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "configuration_hash",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "components",
+              "annotation": "tuple[TATRateComponent, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "total_rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "status",
+              "annotation": "TATRateStatus",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "result_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TATRateBatch",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "shape",
+              "annotation": "tuple[int, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evaluations",
+              "annotation": "tuple[TATRateEvaluation, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "total_rates_Hz",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "np.ndarray",
+              "source_signature": "(self) -> np.ndarray",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build_tat_barrier_profile",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "species",
+              "kind": "positional_or_keyword",
+              "annotation": "TrapSpecies",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "link_length_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "electric_field_V_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "effective_mass_m0",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "TATBarrierProfile",
+          "source_signature": "(species: TrapSpecies, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> TATBarrierProfile",
+          "decorators": []
+        },
+        {
+          "name": "evaluate_tat_species",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "species",
+              "kind": "positional_or_keyword",
+              "annotation": "TrapSpecies",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "link_length_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "electric_field_V_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "effective_mass_m0",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "TATRateComponent",
+          "source_signature": "(species: TrapSpecies, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> TATRateComponent",
+          "decorators": []
+        },
+        {
+          "name": "evaluate_trap_assisted_transport",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "specification",
+              "kind": "positional_or_keyword",
+              "annotation": "TrapAssistedTransportSpec",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "link_length_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "electric_field_V_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "effective_mass_m0",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "TATRateEvaluation",
+          "source_signature": "(specification: TrapAssistedTransportSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> TATRateEvaluation",
+          "decorators": []
+        },
+        {
+          "name": "evaluate_trap_assisted_transport_array",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "specification",
+              "kind": "positional_or_keyword",
+              "annotation": "TrapAssistedTransportSpec",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "link_length_m",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "electric_field_V_m",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "effective_mass_m0",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "TATRateBatch",
+          "source_signature": "(specification: TrapAssistedTransportSpec, *, link_length_m, electric_field_V_m, effective_mass_m0) -> TATRateBatch",
+          "decorators": []
+        }
+      ],
+      "public_assignments": [
+        {
+          "name": "ELEMENTARY_CHARGE_C",
+          "expression": "1.602176634e-19"
+        },
+        {
+          "name": "ELECTRON_MASS_KG",
+          "expression": "9.1093837139e-31"
+        },
+        {
+          "name": "REDUCED_PLANCK_J_S",
+          "expression": "1.054571817e-34"
+        }
+      ]
     },
     {
       "module": "ncmemsim.transport.traps",
@@ -21808,12 +22396,22 @@
     "ncmemsim.retention_fit.predict_retention_fraction",
     "ncmemsim.simulator.SimulationConfig",
     "ncmemsim.simulator.Simulator",
+    "ncmemsim.transport.TATBarrierProfile",
+    "ncmemsim.transport.TATRateBatch",
+    "ncmemsim.transport.TATRateComponent",
+    "ncmemsim.transport.TATRateEvaluation",
+    "ncmemsim.transport.TATRateStatus",
     "ncmemsim.transport.TrapAssistedModel",
     "ncmemsim.transport.TrapAssistedTransportSpec",
     "ncmemsim.transport.TrapCarrier",
     "ncmemsim.transport.TrapEnergyReference",
     "ncmemsim.transport.TrapParameterStatus",
     "ncmemsim.transport.TrapSpecies",
+    "ncmemsim.transport.build_tat_barrier_profile",
+    "ncmemsim.transport.evaluate_tat_species",
+    "ncmemsim.transport.evaluate_trap_assisted_transport",
+    "ncmemsim.transport.evaluate_trap_assisted_transport_array",
+    "ncmemsim.transport.linear_wkb_transmission",
     "ncmemsim.validate_simulation",
     "ncmemsim.workflows.AppliedWorkflowEvidence",
     "ncmemsim.workflows.DataOrigin",

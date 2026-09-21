@@ -797,6 +797,16 @@ from ncmemsim.transport import (
     TrapEnergyReference,
     TrapParameterStatus,
     TrapSpecies,
+    TATBarrierProfile,
+    TATRateBatch,
+    TATRateComponent,
+    TATRateEvaluation,
+    TATRateStatus,
+    build_tat_barrier_profile,
+    evaluate_tat_species,
+    evaluate_trap_assisted_transport,
+    evaluate_trap_assisted_transport_array,
+    linear_wkb_transmission,
 )
 ```
 
@@ -804,6 +814,8 @@ J1 adds immutable configuration only. `TrapSpecies` fixes canonical SI units,
 electron carrier scope, the conduction-band-depth energy reference, a
 representative position on a directed link, parameter provenance and exact
 serialization. `TrapAssistedTransportSpec` is disabled by default and cannot
-be enabled without a positive-density species. Neither object executes a rate
-or changes `TransportEngine` behavior. See [Advanced transport
-physics](advanced_transport.md#j1-contract-state).
+be enabled without a positive-density species. J2 adds the isolated scalar and
+broadcast-array compact TAT evaluators with immutable component diagnostics,
+explicit underflow status and deterministic hashes. It does not change
+`TransportEngine` behavior or calculate device current. See [Advanced transport
+physics](advanced_transport.md#j2-isolated-kernel-state).

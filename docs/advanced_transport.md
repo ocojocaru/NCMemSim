@@ -3,11 +3,12 @@
 ## Status and purpose
 
 This page defines the Phase J development contract for NCMemSim v1.1.0.
-The current `1.1.0.dev0` work has completed **J1**. J0 introduced scope,
+The current `1.1.0.dev0` work has completed **J2**. J0 introduced scope,
 interfaces, invariants, validation requirements, and a delivery sequence. J1
-adds inert trap/TAT specifications and selects the first compact equation. It
-does not yet evaluate trap-assisted transport, defect-mediated currents,
-image-force barrier lowering, or new calibrated material parameters.
+added inert trap/TAT specifications and selected the first compact equation.
+J2 evaluates that conditional compact path with explicit diagnostics, but does
+not attach it to the transport engine, evaluate a device current, add
+image-force barrier lowering, or introduce calibrated material parameters.
 
 The published v1.0.0 direct-tunnelling and retention behavior remains the
 reference baseline. All future Phase J mechanisms must be opt-in and must
@@ -63,9 +64,9 @@ Each contribution must remain observable in diagnostics. Implementations must
 not overwrite the direct contribution or expose only a total from which the
 selected mechanisms cannot be reconstructed.
 
-J1 selects the first trap-assisted equation below. J2 will implement it only
-after this contract, literature provenance, validity range and limiting
-behavior pass review.
+J1 selected the first trap-assisted equation below. J2 now implements it as
+an isolated conditional-rate kernel after fixing its barrier profile, numerical
+behavior and limiting cases. Engine and device-current integration remain later work.
 
 ## Quantities and canonical units
 
@@ -152,10 +153,26 @@ are rejected.
 ### Selected compact equation for J2
 
 The first kernel is a **sequential two-step WKB** compact model. For one
-species on a link of length `L`, let `x = position_fraction * L`. J2 will
-evaluate two dimensionless WKB leg transmissions, `T_in` from source to the
-representative trap and `T_out` from the trap to the destination, with the
-energy and directed-field conventions above. With attempt frequency `nu`,
+species on a link of length `L`, let `x = position_fraction * L`. J2 evaluates
+two dimensionless WKB leg transmissions, `T_in` from source to the
+representative trap and `T_out` from the trap to the destination. Positive
+field points from source to destination and lowers electron potential energy
+by `q F s`. Relative to the representative trap energy, the raw linear leg
+barriers are
+
+\[
+U_{\mathrm{in}}(0)=E_d+qFx,\quad U_{\mathrm{in}}(x)=E_d,
+\]
+
+\[
+U_{\mathrm{out}}(x)=E_d,\quad
+U_{\mathrm{out}}(L)=E_d-qF(L-x),
+\]
+
+where `E_d = energy_depth_J`. Each WKB action integrates
+`sqrt(max(U(s), 0))`; a segment at or below the tunnelling energy contributes
+zero action. This clipping is reported by the raw endpoint diagnostics and is
+not image-force barrier lowering. With attempt frequency `nu`,
 
 \[
 k_{\mathrm{in}}=\nu T_{\mathrm{in}},\qquad
@@ -180,11 +197,12 @@ J2 is
 
 The denominator-zero case has rate zero. The disabled and zero-density limits
 are exactly zero; a slow leg limits the rate; increasing the other leg without
-bound approaches the slow-leg rate. J2 must expose both leg transmissions,
-both leg rates, `p_active`, the combined contribution, and explicit numerical
-failure status. It must also define and independently test the exact WKB
-barrier profile used to obtain each leg transmission before any engine
-integration.
+bound approaches the slow-leg rate. J2 exposes both WKB exponents and
+transmissions, both leg rates, `p_active`, every species contribution, the
+aggregate rate, raw barrier endpoints, deterministic result hashes and an
+explicit status. Exponential underflow is an exact zero with status
+`transmission_underflow`; invalid geometry, mass or non-finite inputs raise
+rather than create a plausible result.
 
 This equation is an NCMemSim compact engineering contract inferred from a
 steady two-state sequence. It is **not the full multiphonon** or stochastic
@@ -199,6 +217,61 @@ The Hurkx junction-recombination model
 background but is not claimed as the implemented dielectric-link equation.
 Multiphonon coupling, random spatial percolation, trap occupancy interactions,
 and device-specific defect calibration remain outside this first kernel.
+
+## J2 isolated kernel state
+
+`evaluate_tat_species` evaluates one trap population.
+`evaluate_trap_assisted_transport` preserves ordered per-species diagnostics
+and sums contributions with `math.fsum`. The disabled specification returns an
+exact zero and no evaluated components. `evaluate_trap_assisted_transport_array`
+broadcasts link length, signed field and effective mass, then applies the same
+scalar reference kernel at every point; `total_rates_Hz` returns an independent
+NumPy array.
+
+The WKB action for a linear leg is integrated analytically and checked against
+independent numerical quadrature. Active probability uses `-expm1(-N_t sigma L)`
+to retain small-probability accuracy. The harmonic sequential rate is evaluated
+through the slow leg to avoid overflow and must not exceed that leg.
+Field reversal combined with `position_fraction -> 1-position_fraction` swaps
+the two actions and preserves the combined rate.
+
+These rates are conditional pathway frequencies in s^-1. They do not contain
+reservoir occupations, Fermi factors, trap-state dynamics, thermal multiphonon
+capture, link area, carrier supply or a conversion to A m^-2. J2 therefore does
+not claim a device leakage current. `TransportEngine` is untouched, and the
+new mechanism cannot alter simulation state until a later integration phase.
+
+```python
+from ncmemsim.transport import (
+    TrapAssistedTransportSpec,
+    TrapParameterStatus,
+    TrapSpecies,
+    evaluate_trap_assisted_transport,
+)
+
+trap = TrapSpecies(
+    name="synthetic-electron-trap",
+    energy_depth_J=1.602176634e-19,
+    position_fraction=0.4,
+    density_m3=1.0e23,
+    capture_cross_section_m2=1.0e-19,
+    attempt_frequency_Hz=1.0e13,
+    parameter_status=TrapParameterStatus.ASSUMED,
+    source="synthetic J2 documentation example",
+    applicability="conditional homogeneous dielectric-link rate only",
+)
+result = evaluate_trap_assisted_transport(
+    TrapAssistedTransportSpec(enabled=True, species=(trap,)),
+    link_length_m=8.0e-9,
+    electric_field_V_m=2.0e8,
+    effective_mass_m0=0.2,
+)
+assert result.total_rate_Hz >= 0.0
+assert result.total_rate_Hz <= min(
+    result.components[0].entry_rate_Hz,
+    result.components[0].exit_rate_Hz,
+)
+```
 
 ## Validation ladder
 

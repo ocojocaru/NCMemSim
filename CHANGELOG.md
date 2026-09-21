@@ -4,6 +4,19 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### J2 - compact trap-assisted transport kernel
+
+- Implement the J1-selected sequential two-step WKB kernel as isolated scalar
+  and broadcast-array entry points, without attaching it to `TransportEngine`.
+- Define the exact directed barrier profile relative to the representative trap
+  level and expose both leg actions, transmissions, rates, active probability,
+  species contributions, aggregate rate and deterministic result hashes.
+- Preserve exact disabled and zero-density limits, report transmission
+  underflow explicitly, reject invalid numerical contexts, and use stable
+  active-probability and slow-leg rate evaluations.
+- Verify analytic actions, independent quadrature, field-reversal symmetry,
+  slow-leg bounds, broadcast behavior, immutability and v1 API isolation.
+
 ### J1 - trap and defect contracts
 
 - Add immutable, strictly validated electron-trap and trap-assisted transport

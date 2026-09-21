@@ -208,9 +208,18 @@ import importlib.util
 from pathlib import Path
 import sys
 import ncmemsim
-from ncmemsim.transport import TrapAssistedTransportSpec, TrapSpecies
+from ncmemsim.transport import (
+    TrapAssistedTransportSpec, TrapParameterStatus, TrapSpecies,
+    evaluate_trap_assisted_transport,
+)
 assert TrapAssistedTransportSpec().enabled is False
 assert TrapSpecies.__module__ == "ncmemsim.transport.traps"
+_tat_trap = TrapSpecies("installed-smoke", 1.602176634e-19, 0.5, 1e23, 1e-19,
+    1e13, TrapParameterStatus.ASSUMED, "synthetic installed check", "conditional rate")
+_tat_result = evaluate_trap_assisted_transport(
+    TrapAssistedTransportSpec(True, (_tat_trap,)), link_length_m=8e-9,
+    electric_field_V_m=2e8, effective_mass_m0=0.2)
+assert _tat_result.total_rate_Hz > 0 and len(_tat_result.components) == 1
 from ncmemsim.workflows import DataOrigin, DatasetEvidence, WorkflowEvidence, capture_dataset_evidence, build_workflow_evidence
 from ncmemsim.workflows import AppliedWorkflowEvidence, WorkflowEvaluator, apply_workflow_parameters
 assert DataOrigin.SYNTHETIC.value == "synthetic"

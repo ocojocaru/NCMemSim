@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 85 package source modules; 373 explicit export paths; 140 distinct documented Python import paths.
+Coverage: 86 package source modules; 393 explicit export paths; 150 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2769,7 +2769,7 @@ Decorators: `dataclass`.
 
 `ncmemsim/transport/__init__.py`
 
-Explicit exports: `base`, `NodeKind`, `TransportNode`, `link`, `TunnelLink`, `network`, `TunnelNetwork`, `rates`, `LinkTransportResult`, `TransportStepResult`, `engine`, `TransportConfig`, `TransportEngine`, `TrapAssistedModel`, `TrapAssistedTransportSpec`, `TrapCarrier`, `TrapEnergyReference`, `TrapParameterStatus`, `TrapSpecies`
+Explicit exports: `base`, `NodeKind`, `TransportNode`, `link`, `TunnelLink`, `network`, `TunnelNetwork`, `rates`, `LinkTransportResult`, `TransportStepResult`, `engine`, `TransportConfig`, `TransportEngine`, `TrapAssistedModel`, `TrapAssistedTransportSpec`, `TrapCarrier`, `TrapEnergyReference`, `TrapParameterStatus`, `TrapSpecies`, `TATBarrierProfile`, `TATRateBatch`, `TATRateComponent`, `TATRateEvaluation`, `TATRateStatus`, `build_tat_barrier_profile`, `evaluate_tat_species`, `evaluate_trap_assisted_transport`, `evaluate_trap_assisted_transport_array`, `linear_wkb_transmission`
 
 
 ## ncmemsim.transport.base
@@ -2905,6 +2905,87 @@ Decorators: `dataclass(frozen=True)`.
 - Field `net_electron_flux_by_fg_m2_s: np.ndarray`; required declaration.
 - `inter_fg_fluxes_m2_s(self) -> np.ndarray`; `property`.
 
+
+## ncmemsim.transport.tat
+
+`ncmemsim/transport/tat.py`
+
+Explicit exports: `TATRateStatus`, `TATBarrierProfile`, `TATRateComponent`, `TATRateEvaluation`, `TATRateBatch`, `linear_wkb_transmission`, `build_tat_barrier_profile`, `evaluate_tat_species`, `evaluate_trap_assisted_transport`, `evaluate_trap_assisted_transport_array`
+
+### TATRateStatus
+
+Bases: `str`, `Enum`.
+
+- Assignment `DISABLED = 'disabled'`.
+- Assignment `ZERO_DENSITY = 'zero_density'`.
+- Assignment `EVALUATED = 'evaluated'`.
+- Assignment `TRANSMISSION_UNDERFLOW = 'transmission_underflow'`.
+
+- `linear_wkb_transmission(length_m: float, start_barrier_J: float, end_barrier_J: float, effective_mass_m0: float) -> tuple[float, float]`
+### TATBarrierProfile
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `link_length_m: float`; required declaration.
+- Field `trap_position_m: float`; required declaration.
+- Field `electric_field_V_m: float`; required declaration.
+- Field `effective_mass_m0: float`; required declaration.
+- Field `entry_start_barrier_J: float`; required declaration.
+- Field `trap_barrier_J: float`; required declaration.
+- Field `exit_end_barrier_J: float`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+
+### TATRateComponent
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `species_name: str`; required declaration.
+- Field `species_hash: str`; required declaration.
+- Field `barrier_profile: TATBarrierProfile`; required declaration.
+- Field `entry_wkb_exponent: float`; required declaration.
+- Field `exit_wkb_exponent: float`; required declaration.
+- Field `entry_transmission: float`; required declaration.
+- Field `exit_transmission: float`; required declaration.
+- Field `entry_rate_Hz: float`; required declaration.
+- Field `exit_rate_Hz: float`; required declaration.
+- Field `active_probability: float`; required declaration.
+- Field `rate_Hz: float`; required declaration.
+- Field `status: TATRateStatus`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `result_hash(self) -> str`; `property`.
+
+### TATRateEvaluation
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `enabled: bool`; required declaration.
+- Field `configuration_hash: str`; required declaration.
+- Field `components: tuple[TATRateComponent, ...]`; required declaration.
+- Field `total_rate_Hz: float`; required declaration.
+- Field `status: TATRateStatus`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `result_hash(self) -> str`; `property`.
+
+### TATRateBatch
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `shape: tuple[int, ...]`; required declaration.
+- Field `evaluations: tuple[TATRateEvaluation, ...]`; required declaration.
+- `total_rates_Hz(self) -> np.ndarray`; `property`.
+
+- `build_tat_barrier_profile(species: TrapSpecies, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> TATBarrierProfile`
+- `evaluate_tat_species(species: TrapSpecies, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> TATRateComponent`
+- `evaluate_trap_assisted_transport(specification: TrapAssistedTransportSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> TATRateEvaluation`
+- `evaluate_trap_assisted_transport_array(specification: TrapAssistedTransportSpec, *, link_length_m, electric_field_V_m, effective_mass_m0) -> TATRateBatch`
 
 ## ncmemsim.transport.traps
 
