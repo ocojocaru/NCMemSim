@@ -4,6 +4,21 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### J4 - explicit transport-network integration
+
+- Add an additive `AdvancedTransportEngine` wrapper that attaches TAT only to
+  exact link identifiers while preserving the stable direct `TransportEngine`.
+- Retain the complete direct result and report direct/TAT forward rates,
+  backward rates, signed fluxes and totals separately for every network link.
+- Convert the J2/J3 conditional TAT frequency to reservoir-limited inter-FG
+  flux using the existing directional and occupancy conventions; substrate
+  attachments remain diagnostic and cannot double-count substrate kinetics.
+- Isolate optional-mechanism failures to their link, record sanitized failure
+  details, preserve direct transport and continue evaluating neighboring links.
+- Apply composite flux through a copied candidate state with conservative
+  clipping; unconfigured and disabled mechanisms leave the stable engine path
+  unchanged.
+
 ### J3 - opt-in image-force barrier corrections
 
 - Add a provenance-bearing, disabled-by-default image-force correction using

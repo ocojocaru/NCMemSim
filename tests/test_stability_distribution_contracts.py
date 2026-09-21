@@ -41,7 +41,7 @@ def test_dynamic_source_bytes(tmp_path,extra,fault):
 
 def test_actual_source_and_package_inventory():
  assert REQUIRED=={p.relative_to(ROOT).as_posix() for p in (ROOT/'ncmemsim').rglob('*.py')}
- assert len(REQUIRED)==87
+ assert len(REQUIRED)==88
  for name in SOURCE_REQUIRED:assert (ROOT/name).is_file(),name
  assert {'LICENSE','pyproject.toml'}<=SOURCE_REQUIRED
  assert 'graft data/reference' in (ROOT/'MANIFEST.in').read_text(encoding='utf-8')

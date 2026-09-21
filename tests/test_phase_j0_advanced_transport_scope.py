@@ -17,13 +17,13 @@ def test_j0_uses_development_version_and_retains_stable_citation():
     assert match and match.group(1) == "1.0.0"
 
 
-def test_phase_j_scope_freezes_v1_behavior_and_has_no_engine_integration_claim():
+def test_phase_j_scope_freezes_v1_behavior_and_documents_explicit_j4_integration():
     page = (ROOT / "docs/advanced_transport.md").read_text(encoding="utf-8")
     for required in (
-        "completed **J3**",
+        "completed **J4**",
         "New mechanisms are disabled by default",
         "reproduce that baseline exactly when disabled",
-        "attach it to the transport engine",
+        "adds `AdvancedTransportEngine` as an explicit wrapper",
         "Synthetic examples demonstrate deterministic implementation behavior only",
         "J7 - final release gates",
     ):

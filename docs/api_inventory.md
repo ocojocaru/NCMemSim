@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 87 package source modules; 415 explicit export paths; 161 distinct documented Python import paths.
+Coverage: 88 package source modules; 433 explicit export paths; 171 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2769,7 +2769,7 @@ Decorators: `dataclass`.
 
 `ncmemsim/transport/__init__.py`
 
-Explicit exports: `base`, `NodeKind`, `TransportNode`, `link`, `TunnelLink`, `network`, `TunnelNetwork`, `rates`, `LinkTransportResult`, `TransportStepResult`, `engine`, `TransportConfig`, `TransportEngine`, `TrapAssistedModel`, `TrapAssistedTransportSpec`, `TrapCarrier`, `TrapEnergyReference`, `TrapParameterStatus`, `TrapSpecies`, `TATBarrierProfile`, `TATRateBatch`, `TATRateComponent`, `TATRateEvaluation`, `TATRateStatus`, `build_tat_barrier_profile`, `evaluate_tat_species`, `evaluate_trap_assisted_transport`, `evaluate_trap_assisted_transport_array`, `linear_wkb_transmission`, `BarrierCorrectionStatus`, `BarrierHeightCorrection`, `CorrectedTATBarrierProfile`, `CorrectedTATRateComponent`, `CorrectedTATRateEvaluation`, `ImageForceBarrierSpec`, `apply_image_force_barrier_correction`, `build_corrected_tat_barrier_profile`, `evaluate_tat_species_with_barrier_correction`, `evaluate_trap_assisted_transport_with_barrier_correction`, `image_force_barrier_lowering_J`
+Explicit exports: `base`, `NodeKind`, `TransportNode`, `link`, `TunnelLink`, `network`, `TunnelNetwork`, `rates`, `LinkTransportResult`, `TransportStepResult`, `engine`, `TransportConfig`, `TransportEngine`, `TrapAssistedModel`, `TrapAssistedTransportSpec`, `TrapCarrier`, `TrapEnergyReference`, `TrapParameterStatus`, `TrapSpecies`, `TATBarrierProfile`, `TATRateBatch`, `TATRateComponent`, `TATRateEvaluation`, `TATRateStatus`, `build_tat_barrier_profile`, `evaluate_tat_species`, `evaluate_trap_assisted_transport`, `evaluate_trap_assisted_transport_array`, `linear_wkb_transmission`, `BarrierCorrectionStatus`, `BarrierHeightCorrection`, `CorrectedTATBarrierProfile`, `CorrectedTATRateComponent`, `CorrectedTATRateEvaluation`, `ImageForceBarrierSpec`, `apply_image_force_barrier_correction`, `build_corrected_tat_barrier_profile`, `evaluate_tat_species_with_barrier_correction`, `evaluate_trap_assisted_transport_with_barrier_correction`, `image_force_barrier_lowering_J`, `AdvancedTransportEngine`, `AdvancedTransportSpec`, `IntegratedLinkTransportResult`, `IntegratedTransportStepResult`, `MechanismContribution`, `MechanismEvaluationStatus`, `MechanismFailure`, `TATLinkAttachment`, `TransportMechanism`
 
 
 ## ncmemsim.transport.barrier_corrections
@@ -2922,6 +2922,122 @@ Constructor: `__init__(self, tunneling_engine, config: TransportConfig | None=No
 
 - `build_network(self, device) -> TunnelNetwork`.
 - `evaluate(self, device, state, field_profile, occupancy_engine) -> TransportStepResult`.
+- `step(self, device, state, field_profile, occupancy_engine, dt_s: float)`.
+
+
+## ncmemsim.transport.integration
+
+`ncmemsim/transport/integration.py`
+
+Explicit exports: `TransportMechanism`, `MechanismEvaluationStatus`, `MechanismFailure`, `TATLinkAttachment`, `AdvancedTransportSpec`, `MechanismContribution`, `IntegratedLinkTransportResult`, `IntegratedTransportStepResult`, `AdvancedTransportEngine`
+
+### TransportMechanism
+
+Bases: `str`, `Enum`.
+
+- Assignment `DIRECT_TUNNELLING = 'direct_tunnelling'`.
+- Assignment `TRAP_ASSISTED = 'trap_assisted'`.
+
+### MechanismEvaluationStatus
+
+Bases: `str`, `Enum`.
+
+- Assignment `EVALUATED = 'evaluated'`.
+- Assignment `NOT_ATTACHED = 'not_attached'`.
+- Assignment `DISABLED = 'disabled'`.
+- Assignment `DIAGNOSTIC_ONLY = 'diagnostic_only'`.
+- Assignment `FAILED = 'failed'`.
+
+### MechanismFailure
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `exception_type: str`; required declaration.
+- Field `message: str`; required declaration.
+- `to_dict(self) -> dict[str, str]`.
+
+### TATLinkAttachment
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `link_id: str`; required declaration.
+- Field `specification: TrapAssistedTransportSpec`; required declaration.
+- Field `barrier_correction: ImageForceBarrierSpec`; default expression `ImageForceBarrierSpec()`.
+- `to_dict(self) -> dict[str, Any]`.
+
+### AdvancedTransportSpec
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `attachments: tuple[TATLinkAttachment, ...]`; default expression `()`.
+- `to_dict(self) -> dict[str, Any]`.
+- `configuration_hash(self) -> str`; `property`.
+
+### MechanismContribution
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `mechanism: TransportMechanism`; required declaration.
+- Field `status: MechanismEvaluationStatus`; required declaration.
+- Field `forward_rate_Hz: float`; required declaration.
+- Field `backward_rate_Hz: float`; required declaration.
+- Field `net_electron_flux_m2_s: float`; required declaration.
+- Field `evaluation: CorrectedTATRateEvaluation | None`; default expression `None`.
+- Field `failure: MechanismFailure | None`; default expression `None`.
+- `to_dict(self) -> dict[str, Any]`.
+
+### IntegratedLinkTransportResult
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `baseline: LinkTransportResult`; required declaration.
+- Field `contributions: tuple[MechanismContribution, ...]`; required declaration.
+- Field `total_forward_rate_Hz: float`; required declaration.
+- Field `total_backward_rate_Hz: float`; required declaration.
+- Field `total_net_electron_flux_m2_s: float`; required declaration.
+- `link_id(self) -> str`; `property`.
+- `kind(self) -> str`; `property`.
+- `field_V_m(self) -> float`; `property`.
+- `potential_difference_V(self) -> float`; `property`.
+- `transmission(self) -> float`; `property`.
+- `forward_rate_Hz(self) -> float`; `property`.
+- `backward_rate_Hz(self) -> float`; `property`.
+- `net_electron_flux_m2_s(self) -> float`; `property`.
+- `left_fg_index(self) -> int | None`; `property`.
+- `right_fg_index(self) -> int | None`; `property`.
+- `contribution(self, mechanism: TransportMechanism) -> MechanismContribution`.
+
+### IntegratedTransportStepResult
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `baseline: TransportStepResult`; required declaration.
+- Field `links: tuple[IntegratedLinkTransportResult, ...]`; required declaration.
+- Field `net_electron_flux_by_fg_m2_s: np.ndarray`; required declaration.
+- `inter_fg_fluxes_m2_s(self) -> np.ndarray`; `property`.
+
+### AdvancedTransportEngine
+
+Bases: none.
+
+Constructor: `__init__(self, baseline: TransportEngine, specification: AdvancedTransportSpec | None=None)`.
+
+- `tunneling(self)`; `property`.
+- `config(self)`; `property`.
+- `build_network(self, device)`.
+- `evaluate(self, device, state, field_profile, occupancy_engine) -> IntegratedTransportStepResult`.
 - `step(self, device, state, field_profile, occupancy_engine, dt_s: float)`.
 
 

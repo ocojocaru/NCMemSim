@@ -44,8 +44,9 @@ Version `1.1.0.dev0` develops Phase J. The
 [advanced transport](advanced_transport.md) J1 contract adds immutable,
 opt-in trap specifications, J2 implements the selected compact TAT kernel,
 and J3 adds explicit image-force interface corrections with preserved raw
-barriers. Both evaluators remain isolated from
-`TransportEngine`; the v1.0.0 WKB and retention baseline is unchanged.
+barriers. J4 supplies an additive composite engine with explicit link
+attachments, direct/TAT accounting and link-local failures. The default
+`TransportEngine` and the v1.0.0 WKB/retention baseline remain unchanged.
 
 ## Start here
 

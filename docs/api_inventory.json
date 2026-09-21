@@ -19115,24 +19115,42 @@
         "build_corrected_tat_barrier_profile",
         "evaluate_tat_species_with_barrier_correction",
         "evaluate_trap_assisted_transport_with_barrier_correction",
-        "image_force_barrier_lowering_J"
+        "image_force_barrier_lowering_J",
+        "AdvancedTransportEngine",
+        "AdvancedTransportSpec",
+        "IntegratedLinkTransportResult",
+        "IntegratedTransportStepResult",
+        "MechanismContribution",
+        "MechanismEvaluationStatus",
+        "MechanismFailure",
+        "TATLinkAttachment",
+        "TransportMechanism"
       ],
       "package_import_aliases": {
+        "AdvancedTransportEngine": "ncmemsim.transport.integration.AdvancedTransportEngine",
+        "AdvancedTransportSpec": "ncmemsim.transport.integration.AdvancedTransportSpec",
         "BarrierCorrectionStatus": "ncmemsim.transport.barrier_corrections.BarrierCorrectionStatus",
         "BarrierHeightCorrection": "ncmemsim.transport.barrier_corrections.BarrierHeightCorrection",
         "CorrectedTATBarrierProfile": "ncmemsim.transport.barrier_corrections.CorrectedTATBarrierProfile",
         "CorrectedTATRateComponent": "ncmemsim.transport.barrier_corrections.CorrectedTATRateComponent",
         "CorrectedTATRateEvaluation": "ncmemsim.transport.barrier_corrections.CorrectedTATRateEvaluation",
         "ImageForceBarrierSpec": "ncmemsim.transport.barrier_corrections.ImageForceBarrierSpec",
+        "IntegratedLinkTransportResult": "ncmemsim.transport.integration.IntegratedLinkTransportResult",
+        "IntegratedTransportStepResult": "ncmemsim.transport.integration.IntegratedTransportStepResult",
         "LinkTransportResult": "ncmemsim.transport.rates.LinkTransportResult",
+        "MechanismContribution": "ncmemsim.transport.integration.MechanismContribution",
+        "MechanismEvaluationStatus": "ncmemsim.transport.integration.MechanismEvaluationStatus",
+        "MechanismFailure": "ncmemsim.transport.integration.MechanismFailure",
         "NodeKind": "ncmemsim.transport.base.NodeKind",
         "TATBarrierProfile": "ncmemsim.transport.tat.TATBarrierProfile",
+        "TATLinkAttachment": "ncmemsim.transport.integration.TATLinkAttachment",
         "TATRateBatch": "ncmemsim.transport.tat.TATRateBatch",
         "TATRateComponent": "ncmemsim.transport.tat.TATRateComponent",
         "TATRateEvaluation": "ncmemsim.transport.tat.TATRateEvaluation",
         "TATRateStatus": "ncmemsim.transport.tat.TATRateStatus",
         "TransportConfig": "ncmemsim.transport.engine.TransportConfig",
         "TransportEngine": "ncmemsim.transport.engine.TransportEngine",
+        "TransportMechanism": "ncmemsim.transport.integration.TransportMechanism",
         "TransportNode": "ncmemsim.transport.base.TransportNode",
         "TransportStepResult": "ncmemsim.transport.rates.TransportStepResult",
         "TrapAssistedModel": "ncmemsim.transport.traps.TrapAssistedModel",
@@ -20057,6 +20075,787 @@
               ],
               "return_annotation": "TransportStepResult",
               "source_signature": "(self, device, state, field_profile, occupancy_engine) -> TransportStepResult",
+              "decorators": []
+            },
+            {
+              "name": "step",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "device",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "state",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "field_profile",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "occupancy_engine",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "dt_s",
+                  "kind": "positional_or_keyword",
+                  "annotation": "float",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, device, state, field_profile, occupancy_engine, dt_s: float)",
+              "decorators": []
+            }
+          ]
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.transport.integration",
+      "source": "ncmemsim/transport/integration.py",
+      "explicit_exports": [
+        "TransportMechanism",
+        "MechanismEvaluationStatus",
+        "MechanismFailure",
+        "TATLinkAttachment",
+        "AdvancedTransportSpec",
+        "MechanismContribution",
+        "IntegratedLinkTransportResult",
+        "IntegratedTransportStepResult",
+        "AdvancedTransportEngine"
+      ],
+      "package_import_aliases": {
+        "CorrectedTATRateEvaluation": "ncmemsim.transport.barrier_corrections.CorrectedTATRateEvaluation",
+        "ImageForceBarrierSpec": "ncmemsim.transport.barrier_corrections.ImageForceBarrierSpec",
+        "LinkTransportResult": "ncmemsim.transport.rates.LinkTransportResult",
+        "TransportEngine": "ncmemsim.transport.engine.TransportEngine",
+        "TransportStepResult": "ncmemsim.transport.rates.TransportStepResult",
+        "TrapAssistedTransportSpec": "ncmemsim.transport.traps.TrapAssistedTransportSpec",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash",
+        "evaluate_trap_assisted_transport_with_barrier_correction": "ncmemsim.transport.barrier_corrections.evaluate_trap_assisted_transport_with_barrier_correction"
+      },
+      "public_source_definitions": [
+        {
+          "name": "TransportMechanism",
+          "kind": "class",
+          "class_assignments": [
+            {
+              "names": [
+                "DIRECT_TUNNELLING"
+              ],
+              "expression": "'direct_tunnelling'"
+            },
+            {
+              "names": [
+                "TRAP_ASSISTED"
+              ],
+              "expression": "'trap_assisted'"
+            }
+          ],
+          "bases": [
+            "str",
+            "Enum"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "MechanismEvaluationStatus",
+          "kind": "class",
+          "class_assignments": [
+            {
+              "names": [
+                "EVALUATED"
+              ],
+              "expression": "'evaluated'"
+            },
+            {
+              "names": [
+                "NOT_ATTACHED"
+              ],
+              "expression": "'not_attached'"
+            },
+            {
+              "names": [
+                "DISABLED"
+              ],
+              "expression": "'disabled'"
+            },
+            {
+              "names": [
+                "DIAGNOSTIC_ONLY"
+              ],
+              "expression": "'diagnostic_only'"
+            },
+            {
+              "names": [
+                "FAILED"
+              ],
+              "expression": "'failed'"
+            }
+          ],
+          "bases": [
+            "str",
+            "Enum"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "MechanismFailure",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "exception_type",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "message",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, str]",
+              "source_signature": "(self) -> dict[str, str]",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "TATLinkAttachment",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "link_id",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "specification",
+              "annotation": "TrapAssistedTransportSpec",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "barrier_correction",
+              "annotation": "ImageForceBarrierSpec",
+              "default_expression": "ImageForceBarrierSpec()",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "AdvancedTransportSpec",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "attachments",
+              "annotation": "tuple[TATLinkAttachment, ...]",
+              "default_expression": "()",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "configuration_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "MechanismContribution",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "mechanism",
+              "annotation": "TransportMechanism",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "status",
+              "annotation": "MechanismEvaluationStatus",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "forward_rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "backward_rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "net_electron_flux_m2_s",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evaluation",
+              "annotation": "CorrectedTATRateEvaluation | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "failure",
+              "annotation": "MechanismFailure | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "IntegratedLinkTransportResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "baseline",
+              "annotation": "LinkTransportResult",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "contributions",
+              "annotation": "tuple[MechanismContribution, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "total_forward_rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "total_backward_rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "total_net_electron_flux_m2_s",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "link_id",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "kind",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "field_V_m",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "float",
+              "source_signature": "(self) -> float",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "potential_difference_V",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "float",
+              "source_signature": "(self) -> float",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "transmission",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "float",
+              "source_signature": "(self) -> float",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "forward_rate_Hz",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "float",
+              "source_signature": "(self) -> float",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "backward_rate_Hz",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "float",
+              "source_signature": "(self) -> float",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "net_electron_flux_m2_s",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "float",
+              "source_signature": "(self) -> float",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "left_fg_index",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "int | None",
+              "source_signature": "(self) -> int | None",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "right_fg_index",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "int | None",
+              "source_signature": "(self) -> int | None",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "contribution",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "mechanism",
+                  "kind": "positional_or_keyword",
+                  "annotation": "TransportMechanism",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "MechanismContribution",
+              "source_signature": "(self, mechanism: TransportMechanism) -> MechanismContribution",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "IntegratedTransportStepResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "baseline",
+              "annotation": "TransportStepResult",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "links",
+              "annotation": "tuple[IntegratedLinkTransportResult, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "net_electron_flux_by_fg_m2_s",
+              "annotation": "np.ndarray",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "inter_fg_fluxes_m2_s",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "np.ndarray",
+              "source_signature": "(self) -> np.ndarray",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "AdvancedTransportEngine",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": {
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "baseline",
+                "kind": "positional_or_keyword",
+                "annotation": "TransportEngine",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "specification",
+                "kind": "positional_or_keyword",
+                "annotation": "AdvancedTransportSpec | None",
+                "required": false,
+                "default_expression": "None"
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self, baseline: TransportEngine, specification: AdvancedTransportSpec | None=None)",
+            "decorators": []
+          },
+          "methods": [
+            {
+              "name": "tunneling",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "config",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "build_network",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "device",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, device)",
+              "decorators": []
+            },
+            {
+              "name": "evaluate",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "device",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "state",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "field_profile",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "occupancy_engine",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "IntegratedTransportStepResult",
+              "source_signature": "(self, device, state, field_profile, occupancy_engine) -> IntegratedTransportStepResult",
               "decorators": []
             },
             {
@@ -23076,17 +23875,27 @@
     "ncmemsim.retention_fit.predict_retention_fraction",
     "ncmemsim.simulator.SimulationConfig",
     "ncmemsim.simulator.Simulator",
+    "ncmemsim.transport.AdvancedTransportEngine",
+    "ncmemsim.transport.AdvancedTransportSpec",
     "ncmemsim.transport.BarrierCorrectionStatus",
     "ncmemsim.transport.BarrierHeightCorrection",
     "ncmemsim.transport.CorrectedTATBarrierProfile",
     "ncmemsim.transport.CorrectedTATRateComponent",
     "ncmemsim.transport.CorrectedTATRateEvaluation",
     "ncmemsim.transport.ImageForceBarrierSpec",
+    "ncmemsim.transport.IntegratedLinkTransportResult",
+    "ncmemsim.transport.IntegratedTransportStepResult",
+    "ncmemsim.transport.MechanismContribution",
+    "ncmemsim.transport.MechanismEvaluationStatus",
+    "ncmemsim.transport.MechanismFailure",
     "ncmemsim.transport.TATBarrierProfile",
+    "ncmemsim.transport.TATLinkAttachment",
     "ncmemsim.transport.TATRateBatch",
     "ncmemsim.transport.TATRateComponent",
     "ncmemsim.transport.TATRateEvaluation",
     "ncmemsim.transport.TATRateStatus",
+    "ncmemsim.transport.TransportEngine",
+    "ncmemsim.transport.TransportMechanism",
     "ncmemsim.transport.TrapAssistedModel",
     "ncmemsim.transport.TrapAssistedTransportSpec",
     "ncmemsim.transport.TrapCarrier",

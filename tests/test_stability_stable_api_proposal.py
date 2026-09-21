@@ -22,6 +22,8 @@ def test_selected_surface_and_class_constructor_coverage(proposal):
  assert 'ncmemsim.transport.evaluate_trap_assisted_transport' not in paths
  assert 'ncmemsim.transport.ImageForceBarrierSpec' in inventory['documented_imports']
  assert 'ncmemsim.transport.ImageForceBarrierSpec' not in paths
+ assert 'ncmemsim.transport.AdvancedTransportEngine' in inventory['documented_imports']
+ assert 'ncmemsim.transport.AdvancedTransportEngine' not in paths
  assert {'ncmemsim.transport.base','ncmemsim.transport.engine','ncmemsim.__version__'}<=paths
  classes=[e for e in proposal['entries'] if e['kind']=='class']
  assert classes and all(e['runtime_call_signature'] is not None for e in classes)

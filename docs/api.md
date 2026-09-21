@@ -818,6 +818,15 @@ from ncmemsim.transport import (
     evaluate_tat_species_with_barrier_correction,
     evaluate_trap_assisted_transport_with_barrier_correction,
     image_force_barrier_lowering_J,
+    AdvancedTransportEngine,
+    AdvancedTransportSpec,
+    IntegratedLinkTransportResult,
+    IntegratedTransportStepResult,
+    MechanismContribution,
+    MechanismEvaluationStatus,
+    MechanismFailure,
+    TATLinkAttachment,
+    TransportMechanism,
 )
 ```
 
@@ -832,4 +841,4 @@ explicit underflow status and deterministic hashes. It does not change
 disabled-by-default `ImageForceBarrierSpec` and correction-aware scalar
 evaluator. Its result objects retain the unmodified J2 profile alongside the
 corrected interface heights, lowering energies, statuses and hashes. See
-[Advanced transport physics](advanced_transport.md#j3-image-force-correction-state).
+[Advanced transport physics](advanced_transport.md#j3-image-force-correction-state). J4 adds explicit link attachments through `AdvancedTransportEngine`, retains the direct baseline in each integrated result, exposes reconstructible direct/TAT totals, applies conservative copied-state updates and records optional failures per link. See [J4 network integration](advanced_transport.md#j4-explicit-transport-network-integration).

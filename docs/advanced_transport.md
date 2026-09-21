@@ -3,14 +3,16 @@
 ## Status and purpose
 
 This page defines the Phase J development contract for NCMemSim v1.1.0.
-The current `1.1.0.dev0` work has completed **J3**. J0 introduced scope,
+The current `1.1.0.dev0` work has completed **J4**. J0 introduced scope,
 interfaces, invariants, validation requirements, and a delivery sequence. J1
 added inert trap/TAT specifications and selected the first compact equation.
 J2 evaluates that conditional compact path with explicit diagnostics, but does
 not attach it to the transport engine or evaluate a device current. J3 adds a
 separate, explicitly enabled compact image-force correction while retaining
-the complete unmodified barrier profile. It does not introduce calibrated
-material parameters.
+the complete unmodified barrier profile. J4 adds explicit link attachment,
+mechanism-resolved rates/fluxes, conservative copied-state evolution and
+link-local failure results. It does not introduce calibrated material
+parameters.
 
 The published v1.0.0 direct-tunnelling and retention behavior remains the
 reference baseline. All future Phase J mechanisms must be opt-in and must
@@ -69,7 +71,7 @@ selected mechanisms cannot be reconstructed.
 
 J1 selected the first trap-assisted equation below. J2 now implements it as
 an isolated conditional-rate kernel after fixing its barrier profile, numerical
-behavior and limiting cases. Engine and device-current integration remain later work.
+behavior and limiting cases. J4 performs the first explicit network integration through an additive wrapper.
 
 ## Quantities and canonical units
 
@@ -383,6 +385,63 @@ Synthetic examples demonstrate deterministic implementation behavior only.
 Experimental qualification requires independent measurements and predeclared
 criteria.
 
+
+## J4 explicit transport-network integration
+
+J4 leaves `TransportEngine` as the stable direct-tunnelling implementation and
+adds `AdvancedTransportEngine` as an explicit wrapper. A study supplies an
+`AdvancedTransportSpec` containing exact `TATLinkAttachment.link_id` values.
+Unknown and duplicate identifiers are configuration errors; unlisted links are
+reported as `not_attached` and never receive an inferred mechanism.
+
+```python
+from ncmemsim.transport import (
+    AdvancedTransportEngine,
+    AdvancedTransportSpec,
+    ImageForceBarrierSpec,
+    MechanismEvaluationStatus,
+    TATLinkAttachment,
+    TransportEngine,
+    TransportMechanism,
+    TrapAssistedTransportSpec,
+)
+
+direct = TransportEngine(tunneling_engine)
+attachment = TATLinkAttachment(
+    link_id="FG1<->FG2",
+    specification=TrapAssistedTransportSpec(enabled=True, species=trap_species),
+    barrier_correction=ImageForceBarrierSpec(),
+)
+transport = AdvancedTransportEngine(
+    direct,
+    AdvancedTransportSpec((attachment,)),
+)
+```
+
+The J2/J3 aggregate conditional frequency is split with the existing signed
+potential-difference convention. For an inter-FG link, the two directed rates
+are multiplied by the same available-electron and empty-destination sheet
+densities used by the direct engine. The resulting signed TAT flux is added to
+the retained direct flux. Substrate links are diagnostic only because
+`OccupancyEngine` already owns substrate injection and emission.
+
+Every `IntegratedLinkTransportResult` retains the complete legacy
+`LinkTransportResult`, two explicit `MechanismContribution` records and the
+reconstructible totals. The composite step uses the summed inter-FG flux on a
+copy of the candidate state, applies the existing transfer-fraction and
+occupation bounds, and rebalances the update to conserve electron sheet
+density.
+
+Optional-mechanism exceptions are caught per link and represented by
+`MechanismEvaluationStatus.FAILED` plus `MechanismFailure`. The failed TAT
+contribution is exactly zero; the direct contribution and later links are not
+discarded. Structural errors such as an attachment to a nonexistent link fail
+before optional evaluation because they invalidate the study configuration.
+
+J4 does not claim that the synthetic trap parameters establish dielectric
+defect density, leakage current or retention accuracy for a fabricated device.
+Those questions remain part of J5 validation, sensitivity and identifiability.
+
 ## Delivery sequence
 
 ### J0 - scope and architecture freeze
@@ -413,7 +472,7 @@ criteria.
 - verify exact disabled/zero-field limits, sign symmetry, barrier suppression,
   deterministic hashing and unchanged J2 behavior when disabled.
 
-### J4 - transport-network integration
+### J4 - transport-network integration (complete)
 
 - attach enabled mechanisms to explicit links;
 - keep candidate state isolated;
