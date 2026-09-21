@@ -19129,10 +19129,14 @@
         "TransportSensitivityEntry",
         "TransportSensitivityParameter",
         "TransportSensitivityResult",
-        "analyze_tat_local_sensitivity"
+        "analyze_tat_local_sensitivity",
+        "AdvancedTransportReport",
+        "build_advanced_transport_report",
+        "write_advanced_transport_report"
       ],
       "package_import_aliases": {
         "AdvancedTransportEngine": "ncmemsim.transport.integration.AdvancedTransportEngine",
+        "AdvancedTransportReport": "ncmemsim.transport.reporting.AdvancedTransportReport",
         "AdvancedTransportSpec": "ncmemsim.transport.integration.AdvancedTransportSpec",
         "BarrierCorrectionStatus": "ncmemsim.transport.barrier_corrections.BarrierCorrectionStatus",
         "BarrierHeightCorrection": "ncmemsim.transport.barrier_corrections.BarrierHeightCorrection",
@@ -19172,6 +19176,7 @@
         "TunnelNetwork": "ncmemsim.transport.network.TunnelNetwork",
         "analyze_tat_local_sensitivity": "ncmemsim.transport.validation.analyze_tat_local_sensitivity",
         "apply_image_force_barrier_correction": "ncmemsim.transport.barrier_corrections.apply_image_force_barrier_correction",
+        "build_advanced_transport_report": "ncmemsim.transport.reporting.build_advanced_transport_report",
         "build_corrected_tat_barrier_profile": "ncmemsim.transport.barrier_corrections.build_corrected_tat_barrier_profile",
         "build_tat_barrier_profile": "ncmemsim.transport.tat.build_tat_barrier_profile",
         "evaluate_tat_species": "ncmemsim.transport.tat.evaluate_tat_species",
@@ -19180,7 +19185,8 @@
         "evaluate_trap_assisted_transport_array": "ncmemsim.transport.tat.evaluate_trap_assisted_transport_array",
         "evaluate_trap_assisted_transport_with_barrier_correction": "ncmemsim.transport.barrier_corrections.evaluate_trap_assisted_transport_with_barrier_correction",
         "image_force_barrier_lowering_J": "ncmemsim.transport.barrier_corrections.image_force_barrier_lowering_J",
-        "linear_wkb_transmission": "ncmemsim.transport.tat.linear_wkb_transmission"
+        "linear_wkb_transmission": "ncmemsim.transport.tat.linear_wkb_transmission",
+        "write_advanced_transport_report": "ncmemsim.transport.reporting.write_advanced_transport_report"
       },
       "public_source_definitions": [],
       "public_assignments": []
@@ -21241,6 +21247,221 @@
               ]
             }
           ]
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.transport.reporting",
+      "source": "ncmemsim/transport/reporting.py",
+      "explicit_exports": [
+        "AdvancedTransportReport",
+        "build_advanced_transport_report",
+        "write_advanced_transport_report"
+      ],
+      "package_import_aliases": {
+        "AdvancedTransportSpec": "ncmemsim.transport.integration.AdvancedTransportSpec",
+        "IntegratedTransportStepResult": "ncmemsim.transport.integration.IntegratedTransportStepResult",
+        "MechanismEvaluationStatus": "ncmemsim.transport.integration.MechanismEvaluationStatus",
+        "__version__": "ncmemsim._version.__version__",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash"
+      },
+      "public_source_definitions": [
+        {
+          "name": "AdvancedTransportReport",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "payload_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "report_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "to_json",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": []
+            },
+            {
+              "name": "from_json",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "value",
+                  "kind": "positional_or_keyword",
+                  "annotation": "str",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "'AdvancedTransportReport'",
+              "source_signature": "(cls, value: str) -> 'AdvancedTransportReport'",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "mechanisms_csv",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": []
+            },
+            {
+              "name": "provenance_csv",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": []
+            },
+            {
+              "name": "to_markdown",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "build_advanced_transport_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "result",
+              "kind": "positional_or_keyword",
+              "annotation": "IntegratedTransportStepResult",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "specification",
+              "kind": "positional_or_keyword",
+              "annotation": "AdvancedTransportSpec",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "name",
+              "kind": "keyword_only",
+              "annotation": "str",
+              "required": false,
+              "default_expression": "'Advanced transport report'"
+            },
+            {
+              "name": "metadata",
+              "kind": "keyword_only",
+              "annotation": "dict[str, Any] | None",
+              "required": false,
+              "default_expression": "None"
+            }
+          ],
+          "return_annotation": "AdvancedTransportReport",
+          "source_signature": "(result: IntegratedTransportStepResult, specification: AdvancedTransportSpec, *, name: str='Advanced transport report', metadata: dict[str, Any] | None=None) -> AdvancedTransportReport",
+          "decorators": []
+        },
+        {
+          "name": "write_advanced_transport_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "report",
+              "kind": "positional_or_keyword",
+              "annotation": "AdvancedTransportReport",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "output_dir",
+              "kind": "positional_or_keyword",
+              "annotation": "str | Path",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "tuple[Path, ...]",
+          "source_signature": "(report: AdvancedTransportReport, output_dir: str | Path) -> tuple[Path, ...]",
+          "decorators": []
         }
       ],
       "public_assignments": []

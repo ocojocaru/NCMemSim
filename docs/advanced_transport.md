@@ -479,6 +479,35 @@ yield estimate, and its numerical values do not qualify the model against a
 fabricated device. J6 will add portable mechanism-resolved reports and
 deliberate-failure references.
 
+## J6 reproducible mechanism-resolved reports
+
+J6 begins with a portable report contract for one
+`IntegratedTransportStepResult` and its exact `AdvancedTransportSpec`.
+`AdvancedTransportReport` snapshots the untouched direct-link baseline,
+ordered per-mechanism contributions, aggregate link totals and the final
+per-floating-gate electron-flux vector. The report also retains the complete
+advanced-transport configuration and verifies its deterministic hash.
+
+The portable bundle contains `manifest.json`, `mechanisms.csv`,
+`provenance.csv` and `report.md`. Mechanism rows retain explicit
+`evaluated`, `diagnostic_only`, `not_attached`, `disabled` or `failed`
+status. A failed enabled mechanism carries its sanitized exception type and
+message; it is not rewritten as an ordinary zero contribution. Direct
+tunnelling remains separately visible.
+
+Provenance rows retain the trap-species and image-force parameter status,
+source, applicability and deterministic evidence hashes. These hashes
+establish internal consistency, not authenticity. Assumed or literature
+parameters are not promoted to fitted or calibrated status by inclusion in a
+report.
+
+The report interpretation remains deliberately limited: the compact TAT path
+is not an experimentally calibrated leakage-current law, density and capture
+cross section retain the J5 structural-confounding limitation, and no report
+field is a manufacturing-yield claim. J6b adds runnable normal and deliberate
+failure examples around this report contract.
+
+
 ## Delivery sequence
 
 ### J0 - scope and architecture freeze
@@ -522,7 +551,7 @@ deliberate-failure references.
 - record parameter sensitivity and identifiability limits;
 - verify DTCO and Robust DTCO integration without yield claims.
 
-### J6 - reproducible examples and reports
+### J6 - reproducible examples and reports (in progress)
 
 - provide normal and deliberate-failure references;
 - export mechanism-resolved results and provenance;

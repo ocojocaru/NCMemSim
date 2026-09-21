@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 89 package source modules; 443 explicit export paths; 176 distinct documented Python import paths.
+Coverage: 90 package source modules; 449 explicit export paths; 176 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2769,7 +2769,7 @@ Decorators: `dataclass`.
 
 `ncmemsim/transport/__init__.py`
 
-Explicit exports: `base`, `NodeKind`, `TransportNode`, `link`, `TunnelLink`, `network`, `TunnelNetwork`, `rates`, `LinkTransportResult`, `TransportStepResult`, `engine`, `TransportConfig`, `TransportEngine`, `TrapAssistedModel`, `TrapAssistedTransportSpec`, `TrapCarrier`, `TrapEnergyReference`, `TrapParameterStatus`, `TrapSpecies`, `TATBarrierProfile`, `TATRateBatch`, `TATRateComponent`, `TATRateEvaluation`, `TATRateStatus`, `build_tat_barrier_profile`, `evaluate_tat_species`, `evaluate_trap_assisted_transport`, `evaluate_trap_assisted_transport_array`, `linear_wkb_transmission`, `BarrierCorrectionStatus`, `BarrierHeightCorrection`, `CorrectedTATBarrierProfile`, `CorrectedTATRateComponent`, `CorrectedTATRateEvaluation`, `ImageForceBarrierSpec`, `apply_image_force_barrier_correction`, `build_corrected_tat_barrier_profile`, `evaluate_tat_species_with_barrier_correction`, `evaluate_trap_assisted_transport_with_barrier_correction`, `image_force_barrier_lowering_J`, `AdvancedTransportEngine`, `AdvancedTransportSpec`, `IntegratedLinkTransportResult`, `IntegratedTransportStepResult`, `MechanismContribution`, `MechanismEvaluationStatus`, `MechanismFailure`, `TATLinkAttachment`, `TransportMechanism`, `TransportIdentifiabilityStatus`, `TransportSensitivityEntry`, `TransportSensitivityParameter`, `TransportSensitivityResult`, `analyze_tat_local_sensitivity`
+Explicit exports: `base`, `NodeKind`, `TransportNode`, `link`, `TunnelLink`, `network`, `TunnelNetwork`, `rates`, `LinkTransportResult`, `TransportStepResult`, `engine`, `TransportConfig`, `TransportEngine`, `TrapAssistedModel`, `TrapAssistedTransportSpec`, `TrapCarrier`, `TrapEnergyReference`, `TrapParameterStatus`, `TrapSpecies`, `TATBarrierProfile`, `TATRateBatch`, `TATRateComponent`, `TATRateEvaluation`, `TATRateStatus`, `build_tat_barrier_profile`, `evaluate_tat_species`, `evaluate_trap_assisted_transport`, `evaluate_trap_assisted_transport_array`, `linear_wkb_transmission`, `BarrierCorrectionStatus`, `BarrierHeightCorrection`, `CorrectedTATBarrierProfile`, `CorrectedTATRateComponent`, `CorrectedTATRateEvaluation`, `ImageForceBarrierSpec`, `apply_image_force_barrier_correction`, `build_corrected_tat_barrier_profile`, `evaluate_tat_species_with_barrier_correction`, `evaluate_trap_assisted_transport_with_barrier_correction`, `image_force_barrier_lowering_J`, `AdvancedTransportEngine`, `AdvancedTransportSpec`, `IntegratedLinkTransportResult`, `IntegratedTransportStepResult`, `MechanismContribution`, `MechanismEvaluationStatus`, `MechanismFailure`, `TATLinkAttachment`, `TransportMechanism`, `TransportIdentifiabilityStatus`, `TransportSensitivityEntry`, `TransportSensitivityParameter`, `TransportSensitivityResult`, `analyze_tat_local_sensitivity`, `AdvancedTransportReport`, `build_advanced_transport_report`, `write_advanced_transport_report`
 
 
 ## ncmemsim.transport.barrier_corrections
@@ -3117,6 +3117,30 @@ Decorators: `dataclass(frozen=True)`.
 - Field `net_electron_flux_by_fg_m2_s: np.ndarray`; required declaration.
 - `inter_fg_fluxes_m2_s(self) -> np.ndarray`; `property`.
 
+
+## ncmemsim.transport.reporting
+
+`ncmemsim/transport/reporting.py`
+
+Explicit exports: `AdvancedTransportReport`, `build_advanced_transport_report`, `write_advanced_transport_report`
+
+### AdvancedTransportReport
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `payload_json: str`; required declaration.
+- `report_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `to_json(self) -> str`.
+- `from_json(cls, value: str) -> 'AdvancedTransportReport'`; `classmethod`.
+- `mechanisms_csv(self) -> str`.
+- `provenance_csv(self) -> str`.
+- `to_markdown(self) -> str`.
+
+- `build_advanced_transport_report(result: IntegratedTransportStepResult, specification: AdvancedTransportSpec, *, name: str='Advanced transport report', metadata: dict[str, Any] | None=None) -> AdvancedTransportReport`
+- `write_advanced_transport_report(report: AdvancedTransportReport, output_dir: str | Path) -> tuple[Path, ...]`
 
 ## ncmemsim.transport.tat
 

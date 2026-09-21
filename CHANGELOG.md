@@ -4,6 +4,21 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### J6a - mechanism-resolved portable reporting
+
+- Add an immutable, integrity-checked `AdvancedTransportReport` for one
+  integrated advanced-transport step and its exact `AdvancedTransportSpec`.
+- Export portable JSON, mechanism-resolved CSV, provenance CSV and Markdown
+  while preserving direct/TAT separation, mechanism status and sanitized
+  failure details.
+- Retain trap-species and image-force parameter status, source, applicability
+  and deterministic evidence hashes in report artifacts.
+- State explicitly that integrity is consistency rather than authenticity,
+  experimental calibration, fabricated-device prediction or manufacturing
+  yield.
+- Add a deliberate typed failure reporting fixture that keeps the direct
+  baseline visible instead of converting failure to a plausible zero result.
+
 ### J5 - controlled validation, sensitivity and DTCO integration
 
 - Add a deterministic synthetic electrical and short-retention reference for
