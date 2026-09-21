@@ -243,7 +243,7 @@ The release includes:
 
 ### v1.1.0: Advanced transport physics
 
-**Status: J4 transport-network integration complete; package version `1.1.0.dev0`.**
+**Status: J5 scientific validation and sensitivity complete; package version `1.1.0.dev0`.**
 
 Phase J begins from the immutable v1.0.0 tag and preserves the approved v1
 public API and scientific baseline. J1 adds inert trap contracts and selects
@@ -251,6 +251,8 @@ the compact equation. J2 implements that equation as an isolated evaluator.
 J3 adds an explicitly enabled classical image-force correction with preserved
 unmodified barriers. J4 attaches that pathway only to named links through an
 additive composite engine and preserves the stable direct engine and defaults.
+J5 adds controlled electrical/retention references, local identifiability
+diagnostics and DTCO/Robust DTCO execution without yield claims.
 
 The planned sequence is:
 
@@ -266,7 +268,7 @@ The planned sequence is:
 - **J4 - transport-network integration (complete):** explicit link attachment,
   per-mechanism accounting, conservative candidate-state isolation and
   link-local failure propagation;
-- **J5 - scientific validation and sensitivity:** controlled references,
+- **J5 - scientific validation and sensitivity (complete):** controlled references,
   parameter sensitivity, identifiability limits and DTCO integration;
 - **J6 - reproducible examples and reports:** normal/failure references,
   mechanism-resolved exports and interpretation limits;

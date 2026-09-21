@@ -827,6 +827,11 @@ from ncmemsim.transport import (
     MechanismFailure,
     TATLinkAttachment,
     TransportMechanism,
+    TransportIdentifiabilityStatus,
+    TransportSensitivityEntry,
+    TransportSensitivityParameter,
+    TransportSensitivityResult,
+    analyze_tat_local_sensitivity,
 )
 ```
 
@@ -842,3 +847,9 @@ disabled-by-default `ImageForceBarrierSpec` and correction-aware scalar
 evaluator. Its result objects retain the unmodified J2 profile alongside the
 corrected interface heights, lowering energies, statuses and hashes. See
 [Advanced transport physics](advanced_transport.md#j3-image-force-correction-state). J4 adds explicit link attachments through `AdvancedTransportEngine`, retains the direct baseline in each integrated result, exposes reconstructible direct/TAT totals, applies conservative copied-state updates and records optional failures per link. See [J4 network integration](advanced_transport.md#j4-explicit-transport-network-integration).
+
+J5 adds a one-species, local one-at-a-time sensitivity contract. Each result
+retains the evaluated context, bracketing values/rates, normalized log secants,
+identifiability status, limitations and an integrity hash. Density and capture
+cross section are marked structurally confounded by the compact active-path
+factor. See [J5 controlled validation](advanced_transport.md#j5-controlled-validation-and-local-sensitivity).

@@ -46,7 +46,10 @@ opt-in trap specifications, J2 implements the selected compact TAT kernel,
 and J3 adds explicit image-force interface corrections with preserved raw
 barriers. J4 supplies an additive composite engine with explicit link
 attachments, direct/TAT accounting and link-local failures. The default
-`TransportEngine` and the v1.0.0 WKB/retention baseline remain unchanged.
+`TransportEngine` and the v1.0.0 WKB/retention baseline remain unchanged. J5
+adds controlled electrical/retention references, local sensitivity with
+explicit density/capture-cross-section confounding, and DTCO/Robust DTCO
+execution without calibration or yield claims.
 
 ## Start here
 

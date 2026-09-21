@@ -20,10 +20,11 @@ def test_j0_uses_development_version_and_retains_stable_citation():
 def test_phase_j_scope_freezes_v1_behavior_and_documents_explicit_j4_integration():
     page = (ROOT / "docs/advanced_transport.md").read_text(encoding="utf-8")
     for required in (
-        "completed **J4**",
+        "completed **J5**",
         "New mechanisms are disabled by default",
         "reproduce that baseline exactly when disabled",
         "adds `AdvancedTransportEngine` as an explicit wrapper",
+        "The Robust DTCO sample is descriptive software-verification evidence",
         "Synthetic examples demonstrate deterministic implementation behavior only",
         "J7 - final release gates",
     ):

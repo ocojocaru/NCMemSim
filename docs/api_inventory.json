@@ -19124,7 +19124,12 @@
         "MechanismEvaluationStatus",
         "MechanismFailure",
         "TATLinkAttachment",
-        "TransportMechanism"
+        "TransportMechanism",
+        "TransportIdentifiabilityStatus",
+        "TransportSensitivityEntry",
+        "TransportSensitivityParameter",
+        "TransportSensitivityResult",
+        "analyze_tat_local_sensitivity"
       ],
       "package_import_aliases": {
         "AdvancedTransportEngine": "ncmemsim.transport.integration.AdvancedTransportEngine",
@@ -19150,8 +19155,12 @@
         "TATRateStatus": "ncmemsim.transport.tat.TATRateStatus",
         "TransportConfig": "ncmemsim.transport.engine.TransportConfig",
         "TransportEngine": "ncmemsim.transport.engine.TransportEngine",
+        "TransportIdentifiabilityStatus": "ncmemsim.transport.validation.TransportIdentifiabilityStatus",
         "TransportMechanism": "ncmemsim.transport.integration.TransportMechanism",
         "TransportNode": "ncmemsim.transport.base.TransportNode",
+        "TransportSensitivityEntry": "ncmemsim.transport.validation.TransportSensitivityEntry",
+        "TransportSensitivityParameter": "ncmemsim.transport.validation.TransportSensitivityParameter",
+        "TransportSensitivityResult": "ncmemsim.transport.validation.TransportSensitivityResult",
         "TransportStepResult": "ncmemsim.transport.rates.TransportStepResult",
         "TrapAssistedModel": "ncmemsim.transport.traps.TrapAssistedModel",
         "TrapAssistedTransportSpec": "ncmemsim.transport.traps.TrapAssistedTransportSpec",
@@ -19161,6 +19170,7 @@
         "TrapSpecies": "ncmemsim.transport.traps.TrapSpecies",
         "TunnelLink": "ncmemsim.transport.link.TunnelLink",
         "TunnelNetwork": "ncmemsim.transport.network.TunnelNetwork",
+        "analyze_tat_local_sensitivity": "ncmemsim.transport.validation.analyze_tat_local_sensitivity",
         "apply_image_force_barrier_correction": "ncmemsim.transport.barrier_corrections.apply_image_force_barrier_correction",
         "build_corrected_tat_barrier_profile": "ncmemsim.transport.barrier_corrections.build_corrected_tat_barrier_profile",
         "build_tat_barrier_profile": "ncmemsim.transport.tat.build_tat_barrier_profile",
@@ -22183,6 +22193,343 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.transport.validation",
+      "source": "ncmemsim/transport/validation.py",
+      "explicit_exports": [
+        "TransportSensitivityParameter",
+        "TransportIdentifiabilityStatus",
+        "TransportSensitivityEntry",
+        "TransportSensitivityResult",
+        "analyze_tat_local_sensitivity"
+      ],
+      "package_import_aliases": {
+        "ImageForceBarrierSpec": "ncmemsim.transport.barrier_corrections.ImageForceBarrierSpec",
+        "TrapAssistedTransportSpec": "ncmemsim.transport.traps.TrapAssistedTransportSpec",
+        "TrapSpecies": "ncmemsim.transport.traps.TrapSpecies",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash",
+        "evaluate_trap_assisted_transport_with_barrier_correction": "ncmemsim.transport.barrier_corrections.evaluate_trap_assisted_transport_with_barrier_correction"
+      },
+      "public_source_definitions": [
+        {
+          "name": "TransportSensitivityParameter",
+          "kind": "class",
+          "class_assignments": [
+            {
+              "names": [
+                "ENERGY_DEPTH_J"
+              ],
+              "expression": "'energy_depth_J'"
+            },
+            {
+              "names": [
+                "DENSITY_M3"
+              ],
+              "expression": "'density_m3'"
+            },
+            {
+              "names": [
+                "CAPTURE_CROSS_SECTION_M2"
+              ],
+              "expression": "'capture_cross_section_m2'"
+            },
+            {
+              "names": [
+                "ATTEMPT_FREQUENCY_HZ"
+              ],
+              "expression": "'attempt_frequency_Hz'"
+            },
+            {
+              "names": [
+                "IMAGE_FORCE_RELATIVE_PERMITTIVITY"
+              ],
+              "expression": "'image_force_relative_permittivity'"
+            }
+          ],
+          "bases": [
+            "str",
+            "Enum"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "TransportIdentifiabilityStatus",
+          "kind": "class",
+          "class_assignments": [
+            {
+              "names": [
+                "LOCALLY_INFORMATIVE"
+              ],
+              "expression": "'locally_informative'"
+            },
+            {
+              "names": [
+                "STRUCTURALLY_CONFOUNDED"
+              ],
+              "expression": "'structurally_confounded'"
+            },
+            {
+              "names": [
+                "NONPOSITIVE_RESPONSE"
+              ],
+              "expression": "'nonpositive_response'"
+            }
+          ],
+          "bases": [
+            "str",
+            "Enum"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "TransportSensitivityEntry",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "parameter",
+              "annotation": "TransportSensitivityParameter",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "unit",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "lower_value",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "nominal_value",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "upper_value",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "lower_rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "nominal_rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "upper_rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "normalized_log_secant",
+              "annotation": "float | None",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "identifiability_status",
+              "annotation": "TransportIdentifiabilityStatus",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "confounded_group",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "TransportSensitivityResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "tat_configuration_hash",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "correction_configuration_hash",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "link_length_m",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "electric_field_V_m",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "effective_mass_m0",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "relative_step",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "entries",
+              "annotation": "tuple[TransportSensitivityEntry, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "limitations",
+              "annotation": "tuple[str, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "result_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "analyze_tat_local_sensitivity",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "specification",
+              "kind": "positional_or_keyword",
+              "annotation": "TrapAssistedTransportSpec",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "correction",
+              "kind": "positional_or_keyword",
+              "annotation": "ImageForceBarrierSpec",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "link_length_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "electric_field_V_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "effective_mass_m0",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "relative_step",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": false,
+              "default_expression": "0.1"
+            }
+          ],
+          "return_annotation": "TransportSensitivityResult",
+          "source_signature": "(specification: TrapAssistedTransportSpec, correction: ImageForceBarrierSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float, relative_step: float=0.1) -> TransportSensitivityResult",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.tunneling",
       "source": "ncmemsim/tunneling.py",
       "explicit_exports": null,
@@ -23895,13 +24242,18 @@
     "ncmemsim.transport.TATRateEvaluation",
     "ncmemsim.transport.TATRateStatus",
     "ncmemsim.transport.TransportEngine",
+    "ncmemsim.transport.TransportIdentifiabilityStatus",
     "ncmemsim.transport.TransportMechanism",
+    "ncmemsim.transport.TransportSensitivityEntry",
+    "ncmemsim.transport.TransportSensitivityParameter",
+    "ncmemsim.transport.TransportSensitivityResult",
     "ncmemsim.transport.TrapAssistedModel",
     "ncmemsim.transport.TrapAssistedTransportSpec",
     "ncmemsim.transport.TrapCarrier",
     "ncmemsim.transport.TrapEnergyReference",
     "ncmemsim.transport.TrapParameterStatus",
     "ncmemsim.transport.TrapSpecies",
+    "ncmemsim.transport.analyze_tat_local_sensitivity",
     "ncmemsim.transport.apply_image_force_barrier_correction",
     "ncmemsim.transport.build_corrected_tat_barrier_profile",
     "ncmemsim.transport.build_tat_barrier_profile",

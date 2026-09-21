@@ -93,6 +93,7 @@ SOURCE_REQUIRED = {
     'examples/phase_i3_electrical_workflow_reference.py',
     'examples/phase_i4_electro_optical_workflow_reference.py',
     'examples/phase_i6_linked_workflow_report.py',
+    'examples/phase_j5_advanced_transport_validation.py',
     'scripts/validate_documentation.py',
     'mkdocs.yml',
     'scripts/validate_dtco_distribution.py',
@@ -193,6 +194,8 @@ def main() -> None:
             shutil.copyfile(root / "examples/phase_i4_electro_optical_workflow_reference.py", work / "electro_optical_workflow_reference.py")
             for filename in ('phase_i3_electrical_workflow_reference.py', 'phase_i4_electro_optical_workflow_reference.py', 'phase_i6_linked_workflow_report.py'):
                 shutil.copyfile(root / 'examples' / filename, work / filename)
+            shutil.copyfile(root / 'examples/phase_j5_advanced_transport_validation.py',
+                            work / 'phase_j5_advanced_transport_validation.py')
             shutil.copytree(root / "tests/fixtures/archives/v0_14_0",
                             work / "archive_fixtures", dirs_exist_ok=True)
             probe = work / "probe.py"
@@ -211,6 +214,7 @@ import ncmemsim
 from ncmemsim.transport import (
     AdvancedTransportEngine, AdvancedTransportSpec, TATLinkAttachment,
     TrapAssistedTransportSpec, TrapParameterStatus, TrapSpecies,
+    TransportSensitivityResult, analyze_tat_local_sensitivity,
     evaluate_trap_assisted_transport,
 )
 assert TrapAssistedTransportSpec().enabled is False
@@ -224,6 +228,8 @@ assert _tat_result.total_rate_Hz > 0 and len(_tat_result.components) == 1
 assert AdvancedTransportSpec().attachments == ()
 assert AdvancedTransportEngine.__module__ == "ncmemsim.transport.integration"
 assert TATLinkAttachment.__module__ == "ncmemsim.transport.integration"
+assert TransportSensitivityResult.__module__ == "ncmemsim.transport.validation"
+assert analyze_tat_local_sensitivity.__module__ == "ncmemsim.transport.validation"
 from ncmemsim.workflows import DataOrigin, DatasetEvidence, WorkflowEvidence, capture_dataset_evidence, build_workflow_evidence
 from ncmemsim.workflows import AppliedWorkflowEvidence, WorkflowEvaluator, apply_workflow_parameters
 assert DataOrigin.SYNTHETIC.value == "synthetic"
@@ -338,6 +344,17 @@ for optical in (False, True):
         assert len(write_workflow_report(report, destination)) == 6
         assert WorkflowReport.from_json((destination / 'manifest.json').read_text(encoding='utf-8')).report_hash == report.report_hash
 print('Installed I6 linked electrical/optical normal/error sources and six exports: PASS')
+spec = importlib.util.spec_from_file_location(
+    'advanced_transport_validation', work / 'phase_j5_advanced_transport_validation.py')
+advanced_transport_validation = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(advanced_transport_validation)
+advanced = advanced_transport_validation.build_validation_bundle()
+assert advanced['dtco']['analysis']['feasible_count'] == 3
+assert advanced['robust_dtco']['analysis']['counts']['total'] == 4
+assert advanced['robust_dtco']['analysis']['counts']['failed'] == 0
+assert 'no yield estimate' in advanced['robust_dtco']['interpretation']
+assert len(advanced['electrical']['sensitivity_result_hash']) == 64
+print('Installed J5 electrical/retention/sensitivity/DTCO references: PASS')
 # Frozen published-code archives must be readable by the installed package.
 import hashlib
 from ncmemsim.dtco import SampleManifest

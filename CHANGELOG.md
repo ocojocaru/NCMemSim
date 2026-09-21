@@ -4,6 +4,21 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### J5 - controlled validation, sensitivity and DTCO integration
+
+- Add a deterministic synthetic electrical and short-retention reference for
+  the J4 composite engine with separate direct/TAT accounting and explicit
+  electron-sheet conservation checks.
+- Add immutable one-at-a-time local sensitivity results with normalized log
+  secants, deterministic hashes and explicit density/capture-cross-section
+  structural-confounding diagnostics.
+- Execute the controlled response through deterministic DTCO and four stored
+  Robust DTCO samples while retaining exact provenance and failure accounting.
+- Describe Robust DTCO statistics as a small assumed validation interval, not
+  a manufacturing distribution, experimental calibration or yield estimate.
+- Preserve the approved 204-path v1.0 surface and the disabled-by-default
+  direct-transport baseline; all J5 APIs are additive v1.1 development paths.
+
 ### J4 - explicit transport-network integration
 
 - Add an additive `AdvancedTransportEngine` wrapper that attaches TAT only to

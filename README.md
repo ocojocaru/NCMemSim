@@ -10,7 +10,9 @@ NCMemSim is a modular Python framework for the simulation and design–technolog
 
 > **Current development version:** `1.1.0.dev0` — Phase J advanced transport bootstrap
 > **Latest stable release:** `1.0.0` — stable API, compatibility contracts and all release gates passed
-> **Development status:** J4 adds explicit per-link TAT attachment, mechanism-resolved accounting, conservative candidate-state updates and link-local failure isolation.
+> **Development status:** J5 adds controlled electrical/retention references,
+> local sensitivity and DTCO/Robust DTCO validation without calibration or
+> manufacturing-yield claims.
 > **Scientific status:** Phases G/H/I add deterministic and Robust DTCO, immutable workflow evidence and linked reports to the retained simulation/calibration baseline. References remain synthetic/FITTED; device-specific experimental calibration remains study-dependent.
 
 ## Why NCMemSim?
@@ -69,7 +71,7 @@ Existing APIs and physics are preserved.
 | DTCO reports | Integrity-checked JSON manifests, CSV exports and Markdown summaries |
 | Robust DTCO | Bounded independent variations, exact sample manifests, isolated propagation, response statistics, nominal comparisons, explicit robust fronts and linked reports |
 | Scientific workflows | Immutable source evidence, fitted evaluator contexts, electrical/optical integration references and linked portable reports |
-| Advanced transport | J1 trap contracts, J2 compact TAT kernel, J3 opt-in barrier corrections and J4 explicit link integration with mechanism-resolved diagnostics |
+| Advanced transport | J1 trap contracts, J2 compact TAT kernel, J3 barrier corrections, J4 link integration and J5 controlled sensitivity/DTCO validation |
 
 Experimental-data handling, deterministic parameter fitting, local uncertainty/identifiability diagnostics, and calibration qualification are implemented in v0.11.0. Deterministic design-space exploration and DTCO are implemented in v0.12.0; advanced quantum corrections remain roadmap items. The compact optical model introduced in v0.10.0 is retained; absolute absorption amplitudes and device-specific photo-capture efficiencies remain provisional unless supported by appropriate independent experimental calibration.
 
@@ -363,7 +365,7 @@ Main sections:
 | v0.13.0 | Robust DTCO: variations and uncertainty propagation | Released |
 | v0.14.0 | Scientific workflow integration: fitting/calibration → DTCO → Robust DTCO | Released |
 | v1.0.0 | First stable scientific release | Released |
-| v1.1.0 | Advanced transport physics: trap/defect contracts and opt-in mechanisms | **J4 complete; J5 next** |
+| v1.1.0 | Advanced transport physics: trap/defect contracts and opt-in mechanisms | **J5 complete; J6 next** |
 
 Phase J scope and compatibility rules are defined in
 [`docs/advanced_transport.md`](docs/advanced_transport.md). Potential optical

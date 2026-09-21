@@ -3,7 +3,7 @@
 ## Status and purpose
 
 This page defines the Phase J development contract for NCMemSim v1.1.0.
-The current `1.1.0.dev0` work has completed **J4**. J0 introduced scope,
+The current `1.1.0.dev0` work has completed **J5**. J0 introduced scope,
 interfaces, invariants, validation requirements, and a delivery sequence. J1
 added inert trap/TAT specifications and selected the first compact equation.
 J2 evaluates that conditional compact path with explicit diagnostics, but does
@@ -11,8 +11,10 @@ not attach it to the transport engine or evaluate a device current. J3 adds a
 separate, explicitly enabled compact image-force correction while retaining
 the complete unmodified barrier profile. J4 adds explicit link attachment,
 mechanism-resolved rates/fluxes, conservative copied-state evolution and
-link-local failure results. It does not introduce calibrated material
-parameters.
+link-local failure results. J5 adds controlled electrical/retention references,
+local sensitivity and explicit identifiability limits, then executes the same
+response through DTCO and Robust DTCO. It does not introduce calibrated
+material parameters or a manufacturing-yield claim.
 
 The published v1.0.0 direct-tunnelling and retention behavior remains the
 reference baseline. All future Phase J mechanisms must be opt-in and must
@@ -440,7 +442,42 @@ before optional evaluation because they invalidate the study configuration.
 
 J4 does not claim that the synthetic trap parameters establish dielectric
 defect density, leakage current or retention accuracy for a fabricated device.
-Those questions remain part of J5 validation, sensitivity and identifiability.
+J5 makes those limits explicit and tests the software response; it does not
+resolve them as experimental material or device properties.
+
+## J5 controlled validation and local sensitivity
+
+J5 adds `analyze_tat_local_sensitivity` and immutable
+`TransportSensitivityResult` records. The first contract accepts exactly one
+enabled trap species and evaluates central normalized log secants around a
+declared link length, signed field, effective mass and relative step. It is a
+local one-at-a-time calculation. It is not a global sensitivity index, fitted
+covariance matrix or experimental calibration.
+
+The compact active-path factor contains
+`density_m3 * capture_cross_section_m2 * link_length_m`. Density and capture
+cross section therefore receive the same local response and are marked
+`structurally_confounded` with a shared group identifier. J5 does not infer
+either microscopic parameter separately from the compact response. The result
+also records nonpositive responses explicitly instead of fabricating a log
+derivative.
+
+`examples/phase_j5_advanced_transport_validation.py` supplies one controlled
+synthetic two-FG reference. It performs:
+
+- mechanism-resolved electrical evaluation on one explicitly attached link;
+- short zero-bias retention redistribution with copied-state bounds and
+  electron-sheet conservation;
+- the local trap/correction sensitivity audit;
+- a three-point deterministic DTCO thickness sweep;
+- four reproducible Robust DTCO samples from an assumed parameter-estimation
+  interval.
+
+The Robust DTCO sample is descriptive software-verification evidence. Its
+interval is not a fabrication distribution, its feasible fraction is not a
+yield estimate, and its numerical values do not qualify the model against a
+fabricated device. J6 will add portable mechanism-resolved reports and
+deliberate-failure references.
 
 ## Delivery sequence
 
@@ -479,7 +516,7 @@ Those questions remain part of J5 validation, sensitivity and identifiability.
 - preserve per-link and per-mechanism accounting;
 - propagate failures without corrupting neighboring candidates.
 
-### J5 - scientific validation and sensitivity
+### J5 - scientific validation and sensitivity (complete)
 
 - add controlled electrical/retention references;
 - record parameter sensitivity and identifiability limits;

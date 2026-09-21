@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 88 package source modules; 433 explicit export paths; 171 distinct documented Python import paths.
+Coverage: 89 package source modules; 443 explicit export paths; 176 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2769,7 +2769,7 @@ Decorators: `dataclass`.
 
 `ncmemsim/transport/__init__.py`
 
-Explicit exports: `base`, `NodeKind`, `TransportNode`, `link`, `TunnelLink`, `network`, `TunnelNetwork`, `rates`, `LinkTransportResult`, `TransportStepResult`, `engine`, `TransportConfig`, `TransportEngine`, `TrapAssistedModel`, `TrapAssistedTransportSpec`, `TrapCarrier`, `TrapEnergyReference`, `TrapParameterStatus`, `TrapSpecies`, `TATBarrierProfile`, `TATRateBatch`, `TATRateComponent`, `TATRateEvaluation`, `TATRateStatus`, `build_tat_barrier_profile`, `evaluate_tat_species`, `evaluate_trap_assisted_transport`, `evaluate_trap_assisted_transport_array`, `linear_wkb_transmission`, `BarrierCorrectionStatus`, `BarrierHeightCorrection`, `CorrectedTATBarrierProfile`, `CorrectedTATRateComponent`, `CorrectedTATRateEvaluation`, `ImageForceBarrierSpec`, `apply_image_force_barrier_correction`, `build_corrected_tat_barrier_profile`, `evaluate_tat_species_with_barrier_correction`, `evaluate_trap_assisted_transport_with_barrier_correction`, `image_force_barrier_lowering_J`, `AdvancedTransportEngine`, `AdvancedTransportSpec`, `IntegratedLinkTransportResult`, `IntegratedTransportStepResult`, `MechanismContribution`, `MechanismEvaluationStatus`, `MechanismFailure`, `TATLinkAttachment`, `TransportMechanism`
+Explicit exports: `base`, `NodeKind`, `TransportNode`, `link`, `TunnelLink`, `network`, `TunnelNetwork`, `rates`, `LinkTransportResult`, `TransportStepResult`, `engine`, `TransportConfig`, `TransportEngine`, `TrapAssistedModel`, `TrapAssistedTransportSpec`, `TrapCarrier`, `TrapEnergyReference`, `TrapParameterStatus`, `TrapSpecies`, `TATBarrierProfile`, `TATRateBatch`, `TATRateComponent`, `TATRateEvaluation`, `TATRateStatus`, `build_tat_barrier_profile`, `evaluate_tat_species`, `evaluate_trap_assisted_transport`, `evaluate_trap_assisted_transport_array`, `linear_wkb_transmission`, `BarrierCorrectionStatus`, `BarrierHeightCorrection`, `CorrectedTATBarrierProfile`, `CorrectedTATRateComponent`, `CorrectedTATRateEvaluation`, `ImageForceBarrierSpec`, `apply_image_force_barrier_correction`, `build_corrected_tat_barrier_profile`, `evaluate_tat_species_with_barrier_correction`, `evaluate_trap_assisted_transport_with_barrier_correction`, `image_force_barrier_lowering_J`, `AdvancedTransportEngine`, `AdvancedTransportSpec`, `IntegratedLinkTransportResult`, `IntegratedTransportStepResult`, `MechanismContribution`, `MechanismEvaluationStatus`, `MechanismFailure`, `TATLinkAttachment`, `TransportMechanism`, `TransportIdentifiabilityStatus`, `TransportSensitivityEntry`, `TransportSensitivityParameter`, `TransportSensitivityResult`, `analyze_tat_local_sensitivity`
 
 
 ## ncmemsim.transport.barrier_corrections
@@ -3268,6 +3268,68 @@ Decorators: `dataclass(frozen=True)`.
 - `to_json(self) -> str`.
 - `from_json(cls, value: str) -> 'TrapAssistedTransportSpec'`; `classmethod`.
 
+
+## ncmemsim.transport.validation
+
+`ncmemsim/transport/validation.py`
+
+Explicit exports: `TransportSensitivityParameter`, `TransportIdentifiabilityStatus`, `TransportSensitivityEntry`, `TransportSensitivityResult`, `analyze_tat_local_sensitivity`
+
+### TransportSensitivityParameter
+
+Bases: `str`, `Enum`.
+
+- Assignment `ENERGY_DEPTH_J = 'energy_depth_J'`.
+- Assignment `DENSITY_M3 = 'density_m3'`.
+- Assignment `CAPTURE_CROSS_SECTION_M2 = 'capture_cross_section_m2'`.
+- Assignment `ATTEMPT_FREQUENCY_HZ = 'attempt_frequency_Hz'`.
+- Assignment `IMAGE_FORCE_RELATIVE_PERMITTIVITY = 'image_force_relative_permittivity'`.
+
+### TransportIdentifiabilityStatus
+
+Bases: `str`, `Enum`.
+
+- Assignment `LOCALLY_INFORMATIVE = 'locally_informative'`.
+- Assignment `STRUCTURALLY_CONFOUNDED = 'structurally_confounded'`.
+- Assignment `NONPOSITIVE_RESPONSE = 'nonpositive_response'`.
+
+### TransportSensitivityEntry
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `parameter: TransportSensitivityParameter`; required declaration.
+- Field `unit: str`; required declaration.
+- Field `lower_value: float`; required declaration.
+- Field `nominal_value: float`; required declaration.
+- Field `upper_value: float`; required declaration.
+- Field `lower_rate_Hz: float`; required declaration.
+- Field `nominal_rate_Hz: float`; required declaration.
+- Field `upper_rate_Hz: float`; required declaration.
+- Field `normalized_log_secant: float | None`; required declaration.
+- Field `identifiability_status: TransportIdentifiabilityStatus`; required declaration.
+- Field `confounded_group: str | None`; default expression `None`.
+- `to_dict(self) -> dict[str, Any]`.
+
+### TransportSensitivityResult
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `tat_configuration_hash: str`; required declaration.
+- Field `correction_configuration_hash: str`; required declaration.
+- Field `link_length_m: float`; required declaration.
+- Field `electric_field_V_m: float`; required declaration.
+- Field `effective_mass_m0: float`; required declaration.
+- Field `relative_step: float`; required declaration.
+- Field `entries: tuple[TransportSensitivityEntry, ...]`; required declaration.
+- Field `limitations: tuple[str, ...]`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `result_hash(self) -> str`; `property`.
+
+- `analyze_tat_local_sensitivity(specification: TrapAssistedTransportSpec, correction: ImageForceBarrierSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float, relative_step: float=0.1) -> TransportSensitivityResult`
 
 ## ncmemsim.tunneling
 
