@@ -243,12 +243,13 @@ The release includes:
 
 ### v1.1.0: Advanced transport physics
 
-**Status: J2 compact kernel complete; package version `1.1.0.dev0`.**
+**Status: J3 barrier corrections complete; package version `1.1.0.dev0`.**
 
 Phase J begins from the immutable v1.0.0 tag and preserves the approved v1
 public API and scientific baseline. J1 adds inert trap contracts and selects
-the compact equation. J2 implements that equation as an isolated evaluator;
-it does not yet change transport-engine equations or defaults.
+the compact equation. J2 implements that equation as an isolated evaluator.
+J3 adds an explicitly enabled classical image-force correction with preserved
+unmodified barriers; neither stage changes transport-engine equations or defaults.
 
 The planned sequence is:
 
@@ -258,9 +259,9 @@ The planned sequence is:
   equation, energy/field/carrier conventions and serialization;
 - **J2 - trap-assisted transport kernel (complete):** opt-in isolated rates,
   component diagnostics, analytic limits and numerical-range validation;
-- **J3 - image-force and barrier corrections:** explicit opt-in corrections
-  with unmodified-barrier diagnostics; this stage may be deferred if the
-  scientific contract is not sufficiently supported;
+- **J3 - image-force and barrier corrections (complete):** explicit opt-in
+  Schottky peak-lowering correction, provenance, unmodified-barrier
+  diagnostics, symmetry and limit checks;
 - **J4 - transport-network integration:** explicit link attachment,
   per-mechanism accounting, state isolation and failure propagation;
 - **J5 - scientific validation and sensitivity:** controlled references,

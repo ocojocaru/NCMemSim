@@ -807,6 +807,17 @@ from ncmemsim.transport import (
     evaluate_trap_assisted_transport,
     evaluate_trap_assisted_transport_array,
     linear_wkb_transmission,
+    BarrierCorrectionStatus,
+    BarrierHeightCorrection,
+    CorrectedTATBarrierProfile,
+    CorrectedTATRateComponent,
+    CorrectedTATRateEvaluation,
+    ImageForceBarrierSpec,
+    apply_image_force_barrier_correction,
+    build_corrected_tat_barrier_profile,
+    evaluate_tat_species_with_barrier_correction,
+    evaluate_trap_assisted_transport_with_barrier_correction,
+    image_force_barrier_lowering_J,
 )
 ```
 
@@ -817,5 +828,8 @@ serialization. `TrapAssistedTransportSpec` is disabled by default and cannot
 be enabled without a positive-density species. J2 adds the isolated scalar and
 broadcast-array compact TAT evaluators with immutable component diagnostics,
 explicit underflow status and deterministic hashes. It does not change
-`TransportEngine` behavior or calculate device current. See [Advanced transport
-physics](advanced_transport.md#j2-isolated-kernel-state).
+`TransportEngine` behavior or calculate device current. J3 adds the isolated,
+disabled-by-default `ImageForceBarrierSpec` and correction-aware scalar
+evaluator. Its result objects retain the unmodified J2 profile alongside the
+corrected interface heights, lowering energies, statuses and hashes. See
+[Advanced transport physics](advanced_transport.md#j3-image-force-correction-state).

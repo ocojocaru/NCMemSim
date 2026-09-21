@@ -3,12 +3,14 @@
 ## Status and purpose
 
 This page defines the Phase J development contract for NCMemSim v1.1.0.
-The current `1.1.0.dev0` work has completed **J2**. J0 introduced scope,
+The current `1.1.0.dev0` work has completed **J3**. J0 introduced scope,
 interfaces, invariants, validation requirements, and a delivery sequence. J1
 added inert trap/TAT specifications and selected the first compact equation.
 J2 evaluates that conditional compact path with explicit diagnostics, but does
-not attach it to the transport engine, evaluate a device current, add
-image-force barrier lowering, or introduce calibrated material parameters.
+not attach it to the transport engine or evaluate a device current. J3 adds a
+separate, explicitly enabled compact image-force correction while retaining
+the complete unmodified barrier profile. It does not introduce calibrated
+material parameters.
 
 The published v1.0.0 direct-tunnelling and retention behavior remains the
 reference baseline. All future Phase J mechanisms must be opt-in and must
@@ -19,8 +21,9 @@ reproduce that baseline exactly when disabled.
 Phase J will extend the compact transport layer so that a study can represent
 well-defined additional conduction mechanisms without hiding their origin in
 an effective tunnelling prefactor. The first target is trap-assisted transport
-through dielectric links. Image-force barrier lowering may be added after its
-electrostatic and sign conventions are independently fixed and tested.
+through dielectric links. J3 uses the classical Schottky peak-lowering
+expression after fixing its energy units, field symmetry,
+effective-permittivity provenance and compact two-interface applicability.
 
 The implementation is intended for controlled compact-model studies. It will
 not, by itself, establish defect populations for a fabricated stack or turn a
@@ -273,6 +276,91 @@ assert result.total_rate_Hz <= min(
 )
 ```
 
+## J3 image-force correction state
+
+J3 adds an independent compact correction contract. For signed link field
+`F` and effective image-force relative permittivity `epsilon_r`, the classical
+Schottky peak lowering in energy units is
+
+\[
+\Delta E_{\mathrm{IF}} =
+\sqrt{\frac{q^3 |F|}{4\pi\epsilon_0\epsilon_r}}.
+\]
+
+The absolute field makes the magnitude even under field reversal. The
+effective image-force permittivity is an explicit input with provenance and
+applicability; it is not silently copied from a static material property.
+The physical basis and the importance of dielectric response for thin-film
+tunnelling are discussed by Simmons, *Journal of Applied Physics* 34 (1963),
+[doi:10.1063/1.1702682](https://doi.org/10.1063/1.1702682). Experimental
+metal/dielectric barrier measurements also distinguish the square-root
+Schottky term and field penetration: Mead, Snow and Deal, *Applied Physics
+Letters* 9 (1966), [CaltechAUTHORS record](https://authors.library.caltech.edu/records/ft7c5-rnk11).
+
+`ImageForceBarrierSpec` is disabled by default. When enabled, J3 subtracts the
+same compact peak-lowering energy from the source and destination interface
+heights of the J2 trap-referenced profile. The trap height itself is unchanged.
+This is a symmetric two-interface engineering approximation, not the full
+spatial image potential, a self-consistent electrostatic solution, or a
+one-sided Schottky-junction current law. Every result retains:
+
+- the complete unmodified J2 barrier profile;
+- source and destination lowering energies;
+- signed corrected interface heights before WKB clipping;
+- explicit `disabled`, `zero_field`, `applied`, or `barrier_suppressed` status;
+- the correction configuration hash and both TAT/correction hashes on the
+  aggregate result.
+
+A corrected interface height at or below the tunnelling reference is retained
+as a signed diagnostic. The existing J2 WKB rule then integrates
+`sqrt(max(U, 0))`; J3 does not hide this condition by silently replacing the
+diagnostic with zero. A disabled correction and an enabled correction at zero
+field are exact no-ops. Field reversal combined with mirroring the trap
+position swaps the two actions and preserves the combined conditional rate.
+
+```python
+from ncmemsim.transport import (
+    ImageForceBarrierSpec,
+    TrapAssistedTransportSpec,
+    TrapParameterStatus,
+    TrapSpecies,
+    evaluate_trap_assisted_transport_with_barrier_correction,
+)
+
+trap = TrapSpecies(
+    name="synthetic-j3-trap",
+    energy_depth_J=1.602176634e-19,
+    position_fraction=0.4,
+    density_m3=1.0e23,
+    capture_cross_section_m2=1.0e-19,
+    attempt_frequency_Hz=1.0e13,
+    parameter_status=TrapParameterStatus.ASSUMED,
+    source="synthetic J3 documentation example",
+    applicability="conditional homogeneous dielectric-link rate only",
+)
+correction = ImageForceBarrierSpec(
+    enabled=True,
+    relative_permittivity=3.9,
+    parameter_status=TrapParameterStatus.LITERATURE,
+    source="study-selected effective image-force permittivity",
+    applicability="symmetric two-interface compact correction",
+)
+result = evaluate_trap_assisted_transport_with_barrier_correction(
+    TrapAssistedTransportSpec(enabled=True, species=(trap,)),
+    correction,
+    link_length_m=8.0e-9,
+    electric_field_V_m=2.0e8,
+    effective_mass_m0=0.2,
+)
+assert result.total_rate_Hz >= 0.0
+assert result.components[0].barrier_diagnostics.unmodified_profile.trap_barrier_J == trap.energy_depth_J
+```
+
+The J3 output remains a conditional pathway frequency. It is not a current
+density, a calibrated oxide-defect model or evidence that image-force lowering
+is required for a particular device. `TransportEngine` remains untouched;
+explicit link attachment and state isolation begin in J4.
+
 ## Validation ladder
 
 Phase J uses a staged validation ladder.
@@ -318,14 +406,12 @@ criteria.
 - expose component diagnostics;
 - test analytic limits, numerical range, invalid inputs, and reproducibility.
 
-### J3 - image-force and barrier corrections
+### J3 - image-force and barrier corrections (complete)
 
-- define explicit opt-in barrier-lowering contracts;
-- preserve unmodified barrier diagnostics;
-- verify sign symmetry, limits, and applicability.
-
-This stage may be deferred if its scientific contract is not sufficiently
-supported. Deferral does not block a narrower, accurately described v1.1.0.
+- define the explicit opt-in Schottky peak-lowering contract with provenance;
+- preserve unmodified and signed corrected barrier diagnostics;
+- verify exact disabled/zero-field limits, sign symmetry, barrier suppression,
+  deterministic hashing and unchanged J2 behavior when disabled.
 
 ### J4 - transport-network integration
 

@@ -19104,9 +19104,26 @@
         "evaluate_tat_species",
         "evaluate_trap_assisted_transport",
         "evaluate_trap_assisted_transport_array",
-        "linear_wkb_transmission"
+        "linear_wkb_transmission",
+        "BarrierCorrectionStatus",
+        "BarrierHeightCorrection",
+        "CorrectedTATBarrierProfile",
+        "CorrectedTATRateComponent",
+        "CorrectedTATRateEvaluation",
+        "ImageForceBarrierSpec",
+        "apply_image_force_barrier_correction",
+        "build_corrected_tat_barrier_profile",
+        "evaluate_tat_species_with_barrier_correction",
+        "evaluate_trap_assisted_transport_with_barrier_correction",
+        "image_force_barrier_lowering_J"
       ],
       "package_import_aliases": {
+        "BarrierCorrectionStatus": "ncmemsim.transport.barrier_corrections.BarrierCorrectionStatus",
+        "BarrierHeightCorrection": "ncmemsim.transport.barrier_corrections.BarrierHeightCorrection",
+        "CorrectedTATBarrierProfile": "ncmemsim.transport.barrier_corrections.CorrectedTATBarrierProfile",
+        "CorrectedTATRateComponent": "ncmemsim.transport.barrier_corrections.CorrectedTATRateComponent",
+        "CorrectedTATRateEvaluation": "ncmemsim.transport.barrier_corrections.CorrectedTATRateEvaluation",
+        "ImageForceBarrierSpec": "ncmemsim.transport.barrier_corrections.ImageForceBarrierSpec",
         "LinkTransportResult": "ncmemsim.transport.rates.LinkTransportResult",
         "NodeKind": "ncmemsim.transport.base.NodeKind",
         "TATBarrierProfile": "ncmemsim.transport.tat.TATBarrierProfile",
@@ -19126,14 +19143,677 @@
         "TrapSpecies": "ncmemsim.transport.traps.TrapSpecies",
         "TunnelLink": "ncmemsim.transport.link.TunnelLink",
         "TunnelNetwork": "ncmemsim.transport.network.TunnelNetwork",
+        "apply_image_force_barrier_correction": "ncmemsim.transport.barrier_corrections.apply_image_force_barrier_correction",
+        "build_corrected_tat_barrier_profile": "ncmemsim.transport.barrier_corrections.build_corrected_tat_barrier_profile",
         "build_tat_barrier_profile": "ncmemsim.transport.tat.build_tat_barrier_profile",
         "evaluate_tat_species": "ncmemsim.transport.tat.evaluate_tat_species",
+        "evaluate_tat_species_with_barrier_correction": "ncmemsim.transport.barrier_corrections.evaluate_tat_species_with_barrier_correction",
         "evaluate_trap_assisted_transport": "ncmemsim.transport.tat.evaluate_trap_assisted_transport",
         "evaluate_trap_assisted_transport_array": "ncmemsim.transport.tat.evaluate_trap_assisted_transport_array",
+        "evaluate_trap_assisted_transport_with_barrier_correction": "ncmemsim.transport.barrier_corrections.evaluate_trap_assisted_transport_with_barrier_correction",
+        "image_force_barrier_lowering_J": "ncmemsim.transport.barrier_corrections.image_force_barrier_lowering_J",
         "linear_wkb_transmission": "ncmemsim.transport.tat.linear_wkb_transmission"
       },
       "public_source_definitions": [],
       "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.transport.barrier_corrections",
+      "source": "ncmemsim/transport/barrier_corrections.py",
+      "explicit_exports": [
+        "BarrierCorrectionStatus",
+        "ImageForceBarrierSpec",
+        "BarrierHeightCorrection",
+        "CorrectedTATBarrierProfile",
+        "CorrectedTATRateComponent",
+        "CorrectedTATRateEvaluation",
+        "image_force_barrier_lowering_J",
+        "apply_image_force_barrier_correction",
+        "build_corrected_tat_barrier_profile",
+        "evaluate_tat_species_with_barrier_correction",
+        "evaluate_trap_assisted_transport_with_barrier_correction"
+      ],
+      "package_import_aliases": {
+        "ELEMENTARY_CHARGE_C": "ncmemsim.transport.tat.ELEMENTARY_CHARGE_C",
+        "TATBarrierProfile": "ncmemsim.transport.tat.TATBarrierProfile",
+        "TATRateStatus": "ncmemsim.transport.tat.TATRateStatus",
+        "TrapAssistedTransportSpec": "ncmemsim.transport.traps.TrapAssistedTransportSpec",
+        "TrapParameterStatus": "ncmemsim.transport.traps.TrapParameterStatus",
+        "TrapSpecies": "ncmemsim.transport.traps.TrapSpecies",
+        "build_tat_barrier_profile": "ncmemsim.transport.tat.build_tat_barrier_profile",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash",
+        "linear_wkb_transmission": "ncmemsim.transport.tat.linear_wkb_transmission"
+      },
+      "public_source_definitions": [
+        {
+          "name": "BarrierCorrectionStatus",
+          "kind": "class",
+          "class_assignments": [
+            {
+              "names": [
+                "DISABLED"
+              ],
+              "expression": "'disabled'"
+            },
+            {
+              "names": [
+                "ZERO_FIELD"
+              ],
+              "expression": "'zero_field'"
+            },
+            {
+              "names": [
+                "APPLIED"
+              ],
+              "expression": "'applied'"
+            },
+            {
+              "names": [
+                "BARRIER_SUPPRESSED"
+              ],
+              "expression": "'barrier_suppressed'"
+            }
+          ],
+          "bases": [
+            "str",
+            "Enum"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "ImageForceBarrierSpec",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "enabled",
+              "annotation": "bool",
+              "default_expression": "False",
+              "required_in_source": false
+            },
+            {
+              "name": "relative_permittivity",
+              "annotation": "float",
+              "default_expression": "1.0",
+              "required_in_source": false
+            },
+            {
+              "name": "parameter_status",
+              "annotation": "TrapParameterStatus",
+              "default_expression": "TrapParameterStatus.ASSUMED",
+              "required_in_source": false
+            },
+            {
+              "name": "source",
+              "annotation": "str",
+              "default_expression": "''",
+              "required_in_source": false
+            },
+            {
+              "name": "applicability",
+              "annotation": "str",
+              "default_expression": "''",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "configuration_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "BarrierHeightCorrection",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "unmodified_barrier_J",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "lowering_J",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "corrected_barrier_J",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "status",
+              "annotation": "BarrierCorrectionStatus",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "CorrectedTATBarrierProfile",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "unmodified_profile",
+              "annotation": "TATBarrierProfile",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "correction_configuration_hash",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "source_interface",
+              "annotation": "BarrierHeightCorrection",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "destination_interface",
+              "annotation": "BarrierHeightCorrection",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "corrected_profile",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "TATBarrierProfile",
+              "source_signature": "(self) -> TATBarrierProfile",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "CorrectedTATRateComponent",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "species_name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "species_hash",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "barrier_diagnostics",
+              "annotation": "CorrectedTATBarrierProfile",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "entry_wkb_exponent",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "exit_wkb_exponent",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "entry_transmission",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "exit_transmission",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "entry_rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "exit_rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "active_probability",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "status",
+              "annotation": "TATRateStatus",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "result_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CorrectedTATRateEvaluation",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "enabled",
+              "annotation": "bool",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "tat_configuration_hash",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "correction_configuration_hash",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "components",
+              "annotation": "tuple[CorrectedTATRateComponent, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "total_rate_Hz",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "status",
+              "annotation": "TATRateStatus",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "result_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "image_force_barrier_lowering_J",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "electric_field_V_m",
+              "kind": "positional_or_keyword",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "relative_permittivity",
+              "kind": "positional_or_keyword",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "float",
+          "source_signature": "(electric_field_V_m: float, relative_permittivity: float) -> float",
+          "decorators": []
+        },
+        {
+          "name": "apply_image_force_barrier_correction",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "unmodified_barrier_J",
+              "kind": "positional_or_keyword",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "electric_field_V_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "specification",
+              "kind": "keyword_only",
+              "annotation": "ImageForceBarrierSpec",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "BarrierHeightCorrection",
+          "source_signature": "(unmodified_barrier_J: float, *, electric_field_V_m: float, specification: ImageForceBarrierSpec) -> BarrierHeightCorrection",
+          "decorators": []
+        },
+        {
+          "name": "build_corrected_tat_barrier_profile",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "species",
+              "kind": "positional_or_keyword",
+              "annotation": "TrapSpecies",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "correction",
+              "kind": "positional_or_keyword",
+              "annotation": "ImageForceBarrierSpec",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "link_length_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "electric_field_V_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "effective_mass_m0",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "CorrectedTATBarrierProfile",
+          "source_signature": "(species: TrapSpecies, correction: ImageForceBarrierSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> CorrectedTATBarrierProfile",
+          "decorators": []
+        },
+        {
+          "name": "evaluate_tat_species_with_barrier_correction",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "species",
+              "kind": "positional_or_keyword",
+              "annotation": "TrapSpecies",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "correction",
+              "kind": "positional_or_keyword",
+              "annotation": "ImageForceBarrierSpec",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "link_length_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "electric_field_V_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "effective_mass_m0",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "CorrectedTATRateComponent",
+          "source_signature": "(species: TrapSpecies, correction: ImageForceBarrierSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> CorrectedTATRateComponent",
+          "decorators": []
+        },
+        {
+          "name": "evaluate_trap_assisted_transport_with_barrier_correction",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "specification",
+              "kind": "positional_or_keyword",
+              "annotation": "TrapAssistedTransportSpec",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "correction",
+              "kind": "positional_or_keyword",
+              "annotation": "ImageForceBarrierSpec",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "link_length_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "electric_field_V_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "effective_mass_m0",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "CorrectedTATRateEvaluation",
+          "source_signature": "(specification: TrapAssistedTransportSpec, correction: ImageForceBarrierSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> CorrectedTATRateEvaluation",
+          "decorators": []
+        }
+      ],
+      "public_assignments": [
+        {
+          "name": "VACUUM_PERMITTIVITY_F_M",
+          "expression": "8.8541878128e-12"
+        }
+      ]
     },
     {
       "module": "ncmemsim.transport.base",
@@ -22396,6 +23076,12 @@
     "ncmemsim.retention_fit.predict_retention_fraction",
     "ncmemsim.simulator.SimulationConfig",
     "ncmemsim.simulator.Simulator",
+    "ncmemsim.transport.BarrierCorrectionStatus",
+    "ncmemsim.transport.BarrierHeightCorrection",
+    "ncmemsim.transport.CorrectedTATBarrierProfile",
+    "ncmemsim.transport.CorrectedTATRateComponent",
+    "ncmemsim.transport.CorrectedTATRateEvaluation",
+    "ncmemsim.transport.ImageForceBarrierSpec",
     "ncmemsim.transport.TATBarrierProfile",
     "ncmemsim.transport.TATRateBatch",
     "ncmemsim.transport.TATRateComponent",
@@ -22407,10 +23093,15 @@
     "ncmemsim.transport.TrapEnergyReference",
     "ncmemsim.transport.TrapParameterStatus",
     "ncmemsim.transport.TrapSpecies",
+    "ncmemsim.transport.apply_image_force_barrier_correction",
+    "ncmemsim.transport.build_corrected_tat_barrier_profile",
     "ncmemsim.transport.build_tat_barrier_profile",
     "ncmemsim.transport.evaluate_tat_species",
+    "ncmemsim.transport.evaluate_tat_species_with_barrier_correction",
     "ncmemsim.transport.evaluate_trap_assisted_transport",
     "ncmemsim.transport.evaluate_trap_assisted_transport_array",
+    "ncmemsim.transport.evaluate_trap_assisted_transport_with_barrier_correction",
+    "ncmemsim.transport.image_force_barrier_lowering_J",
     "ncmemsim.transport.linear_wkb_transmission",
     "ncmemsim.validate_simulation",
     "ncmemsim.workflows.AppliedWorkflowEvidence",

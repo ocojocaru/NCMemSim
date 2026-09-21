@@ -42,8 +42,9 @@ installed distributions, and supported-runtime CI evidence.
 
 Version `1.1.0.dev0` develops Phase J. The
 [advanced transport](advanced_transport.md) J1 contract adds immutable,
-opt-in trap specifications, and J2 implements the selected compact TAT kernel
-with mechanism-resolved diagnostics. The kernel remains isolated from
+opt-in trap specifications, J2 implements the selected compact TAT kernel,
+and J3 adds explicit image-force interface corrections with preserved raw
+barriers. Both evaluators remain isolated from
 `TransportEngine`; the v1.0.0 WKB and retention baseline is unchanged.
 
 ## Start here

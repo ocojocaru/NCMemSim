@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 86 package source modules; 393 explicit export paths; 150 distinct documented Python import paths.
+Coverage: 87 package source modules; 415 explicit export paths; 161 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2769,8 +2769,104 @@ Decorators: `dataclass`.
 
 `ncmemsim/transport/__init__.py`
 
-Explicit exports: `base`, `NodeKind`, `TransportNode`, `link`, `TunnelLink`, `network`, `TunnelNetwork`, `rates`, `LinkTransportResult`, `TransportStepResult`, `engine`, `TransportConfig`, `TransportEngine`, `TrapAssistedModel`, `TrapAssistedTransportSpec`, `TrapCarrier`, `TrapEnergyReference`, `TrapParameterStatus`, `TrapSpecies`, `TATBarrierProfile`, `TATRateBatch`, `TATRateComponent`, `TATRateEvaluation`, `TATRateStatus`, `build_tat_barrier_profile`, `evaluate_tat_species`, `evaluate_trap_assisted_transport`, `evaluate_trap_assisted_transport_array`, `linear_wkb_transmission`
+Explicit exports: `base`, `NodeKind`, `TransportNode`, `link`, `TunnelLink`, `network`, `TunnelNetwork`, `rates`, `LinkTransportResult`, `TransportStepResult`, `engine`, `TransportConfig`, `TransportEngine`, `TrapAssistedModel`, `TrapAssistedTransportSpec`, `TrapCarrier`, `TrapEnergyReference`, `TrapParameterStatus`, `TrapSpecies`, `TATBarrierProfile`, `TATRateBatch`, `TATRateComponent`, `TATRateEvaluation`, `TATRateStatus`, `build_tat_barrier_profile`, `evaluate_tat_species`, `evaluate_trap_assisted_transport`, `evaluate_trap_assisted_transport_array`, `linear_wkb_transmission`, `BarrierCorrectionStatus`, `BarrierHeightCorrection`, `CorrectedTATBarrierProfile`, `CorrectedTATRateComponent`, `CorrectedTATRateEvaluation`, `ImageForceBarrierSpec`, `apply_image_force_barrier_correction`, `build_corrected_tat_barrier_profile`, `evaluate_tat_species_with_barrier_correction`, `evaluate_trap_assisted_transport_with_barrier_correction`, `image_force_barrier_lowering_J`
 
+
+## ncmemsim.transport.barrier_corrections
+
+`ncmemsim/transport/barrier_corrections.py`
+
+Explicit exports: `BarrierCorrectionStatus`, `ImageForceBarrierSpec`, `BarrierHeightCorrection`, `CorrectedTATBarrierProfile`, `CorrectedTATRateComponent`, `CorrectedTATRateEvaluation`, `image_force_barrier_lowering_J`, `apply_image_force_barrier_correction`, `build_corrected_tat_barrier_profile`, `evaluate_tat_species_with_barrier_correction`, `evaluate_trap_assisted_transport_with_barrier_correction`
+
+### BarrierCorrectionStatus
+
+Bases: `str`, `Enum`.
+
+- Assignment `DISABLED = 'disabled'`.
+- Assignment `ZERO_FIELD = 'zero_field'`.
+- Assignment `APPLIED = 'applied'`.
+- Assignment `BARRIER_SUPPRESSED = 'barrier_suppressed'`.
+
+### ImageForceBarrierSpec
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `enabled: bool`; default expression `False`.
+- Field `relative_permittivity: float`; default expression `1.0`.
+- Field `parameter_status: TrapParameterStatus`; default expression `TrapParameterStatus.ASSUMED`.
+- Field `source: str`; default expression `''`.
+- Field `applicability: str`; default expression `''`.
+- `to_dict(self) -> dict[str, Any]`.
+- `configuration_hash(self) -> str`; `property`.
+
+### BarrierHeightCorrection
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `unmodified_barrier_J: float`; required declaration.
+- Field `lowering_J: float`; required declaration.
+- Field `corrected_barrier_J: float`; required declaration.
+- Field `status: BarrierCorrectionStatus`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+
+### CorrectedTATBarrierProfile
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `unmodified_profile: TATBarrierProfile`; required declaration.
+- Field `correction_configuration_hash: str`; required declaration.
+- Field `source_interface: BarrierHeightCorrection`; required declaration.
+- Field `destination_interface: BarrierHeightCorrection`; required declaration.
+- `corrected_profile(self) -> TATBarrierProfile`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+
+### CorrectedTATRateComponent
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `species_name: str`; required declaration.
+- Field `species_hash: str`; required declaration.
+- Field `barrier_diagnostics: CorrectedTATBarrierProfile`; required declaration.
+- Field `entry_wkb_exponent: float`; required declaration.
+- Field `exit_wkb_exponent: float`; required declaration.
+- Field `entry_transmission: float`; required declaration.
+- Field `exit_transmission: float`; required declaration.
+- Field `entry_rate_Hz: float`; required declaration.
+- Field `exit_rate_Hz: float`; required declaration.
+- Field `active_probability: float`; required declaration.
+- Field `rate_Hz: float`; required declaration.
+- Field `status: TATRateStatus`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `result_hash(self) -> str`; `property`.
+
+### CorrectedTATRateEvaluation
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `enabled: bool`; required declaration.
+- Field `tat_configuration_hash: str`; required declaration.
+- Field `correction_configuration_hash: str`; required declaration.
+- Field `components: tuple[CorrectedTATRateComponent, ...]`; required declaration.
+- Field `total_rate_Hz: float`; required declaration.
+- Field `status: TATRateStatus`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `result_hash(self) -> str`; `property`.
+
+- `image_force_barrier_lowering_J(electric_field_V_m: float, relative_permittivity: float) -> float`
+- `apply_image_force_barrier_correction(unmodified_barrier_J: float, *, electric_field_V_m: float, specification: ImageForceBarrierSpec) -> BarrierHeightCorrection`
+- `build_corrected_tat_barrier_profile(species: TrapSpecies, correction: ImageForceBarrierSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> CorrectedTATBarrierProfile`
+- `evaluate_tat_species_with_barrier_correction(species: TrapSpecies, correction: ImageForceBarrierSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> CorrectedTATRateComponent`
+- `evaluate_trap_assisted_transport_with_barrier_correction(specification: TrapAssistedTransportSpec, correction: ImageForceBarrierSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> CorrectedTATRateEvaluation`
 
 ## ncmemsim.transport.base
 

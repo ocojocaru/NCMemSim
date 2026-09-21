@@ -20,7 +20,7 @@ def test_j0_uses_development_version_and_retains_stable_citation():
 def test_phase_j_scope_freezes_v1_behavior_and_has_no_engine_integration_claim():
     page = (ROOT / "docs/advanced_transport.md").read_text(encoding="utf-8")
     for required in (
-        "completed **J2**",
+        "completed **J3**",
         "New mechanisms are disabled by default",
         "reproduce that baseline exactly when disabled",
         "attach it to the transport engine",

@@ -4,6 +4,19 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### J3 - opt-in image-force barrier corrections
+
+- Add a provenance-bearing, disabled-by-default image-force correction using
+  the classical Schottky peak-lowering energy with an explicit effective
+  relative permittivity.
+- Apply the compact correction symmetrically to the source and destination
+  interface heights of the isolated J2 profile while retaining every
+  unmodified barrier value in immutable diagnostics.
+- Preserve exact disabled and zero-field no-op behavior, field-sign symmetry,
+  deterministic hashes and explicit barrier-suppression status.
+- Keep the correction-aware evaluator isolated from `TransportEngine`; link
+  attachment, current conversion and state evolution remain J4 work.
+
 ### J2 - compact trap-assisted transport kernel
 
 - Implement the J1-selected sequential two-step WKB kernel as isolated scalar
