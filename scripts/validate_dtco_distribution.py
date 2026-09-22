@@ -48,6 +48,8 @@ SOURCE_REQUIRED = {
     'docs/stable_api_proposal.md',
     'docs/stable_api_proposal.json',
     'scripts/validate_stable_api_proposal.py',
+    'docs/v1_1_api_review.json',
+    'scripts/validate_v1_1_api_review.py',
     'scripts/validate_release_readiness.py',
     'scripts/validate_archival_citation.py',
     'scripts/validate_remote_candidate_gates.py',
