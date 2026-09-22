@@ -20,7 +20,7 @@ def test_j0_uses_development_version_and_retains_stable_citation():
 def test_phase_j_scope_freezes_v1_behavior_and_documents_explicit_j4_integration():
     page = (ROOT / "docs/advanced_transport.md").read_text(encoding="utf-8")
     for required in (
-        "completed **J5**",
+        "Phase J must preserve the approved v1 public API and archive readers.",
         "New mechanisms are disabled by default",
         "reproduce that baseline exactly when disabled",
         "adds `AdvancedTransportEngine` as an explicit wrapper",
