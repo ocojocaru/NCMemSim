@@ -1,0 +1,3136 @@
+{
+  "schema_version": 1,
+  "status": "reviewed_candidate_surface_not_release_approval",
+  "baseline_release": "v1.0.0",
+  "baseline_release_commit": "943d294f69336b089f5613d185988b8a15f729e3",
+  "review_source_commit": "9e168da88d974184b5cee42d13afdfb669b97170",
+  "candidate_version": "1.1.0",
+  "development_version": "1.1.0.dev0",
+  "stable_v1_exact_path_count": 204,
+  "legacy_transport_package_exports": [
+    "base",
+    "NodeKind",
+    "TransportNode",
+    "link",
+    "TunnelLink",
+    "network",
+    "TunnelNetwork",
+    "rates",
+    "LinkTransportResult",
+    "TransportStepResult",
+    "engine",
+    "TransportConfig",
+    "TransportEngine"
+  ],
+  "transport_addition_export_order": [
+    "TrapAssistedModel",
+    "TrapAssistedTransportSpec",
+    "TrapCarrier",
+    "TrapEnergyReference",
+    "TrapParameterStatus",
+    "TrapSpecies",
+    "TATBarrierProfile",
+    "TATRateBatch",
+    "TATRateComponent",
+    "TATRateEvaluation",
+    "TATRateStatus",
+    "build_tat_barrier_profile",
+    "evaluate_tat_species",
+    "evaluate_trap_assisted_transport",
+    "evaluate_trap_assisted_transport_array",
+    "linear_wkb_transmission",
+    "BarrierCorrectionStatus",
+    "BarrierHeightCorrection",
+    "CorrectedTATBarrierProfile",
+    "CorrectedTATRateComponent",
+    "CorrectedTATRateEvaluation",
+    "ImageForceBarrierSpec",
+    "apply_image_force_barrier_correction",
+    "build_corrected_tat_barrier_profile",
+    "evaluate_tat_species_with_barrier_correction",
+    "evaluate_trap_assisted_transport_with_barrier_correction",
+    "image_force_barrier_lowering_J",
+    "AdvancedTransportEngine",
+    "AdvancedTransportSpec",
+    "IntegratedLinkTransportResult",
+    "IntegratedTransportStepResult",
+    "MechanismContribution",
+    "MechanismEvaluationStatus",
+    "MechanismFailure",
+    "TATLinkAttachment",
+    "TransportMechanism",
+    "TransportIdentifiabilityStatus",
+    "TransportSensitivityEntry",
+    "TransportSensitivityParameter",
+    "TransportSensitivityResult",
+    "analyze_tat_local_sensitivity",
+    "AdvancedTransportReport",
+    "build_advanced_transport_report",
+    "write_advanced_transport_report"
+  ],
+  "proposed_stable_additions": [
+    {
+      "import_path": "ncmemsim.transport.AdvancedTransportEngine",
+      "definition_path": "ncmemsim.transport.integration.AdvancedTransportEngine",
+      "kind": "class",
+      "runtime_call_signature": "(baseline: 'TransportEngine', specification: 'AdvancedTransportSpec | None' = None)",
+      "source_contract": {
+        "name": "AdvancedTransportEngine",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": {
+          "parameters": [
+            {
+              "name": "self",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "baseline",
+              "kind": "positional_or_keyword",
+              "annotation": "TransportEngine",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "specification",
+              "kind": "positional_or_keyword",
+              "annotation": "AdvancedTransportSpec | None",
+              "required": false,
+              "default_expression": "None"
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(self, baseline: TransportEngine, specification: AdvancedTransportSpec | None=None)",
+          "decorators": []
+        },
+        "methods": [
+          {
+            "name": "tunneling",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self)",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "config",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self)",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "build_network",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "device",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self, device)",
+            "decorators": []
+          },
+          {
+            "name": "evaluate",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "device",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "state",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "field_profile",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "occupancy_engine",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "IntegratedTransportStepResult",
+            "source_signature": "(self, device, state, field_profile, occupancy_engine) -> IntegratedTransportStepResult",
+            "decorators": []
+          },
+          {
+            "name": "step",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "device",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "state",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "field_profile",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "occupancy_engine",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "dt_s",
+                "kind": "positional_or_keyword",
+                "annotation": "float",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self, device, state, field_profile, occupancy_engine, dt_s: float)",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.AdvancedTransportReport",
+      "definition_path": "ncmemsim.transport.reporting.AdvancedTransportReport",
+      "kind": "class",
+      "runtime_call_signature": "(payload_json: 'str') -> None",
+      "source_contract": {
+        "name": "AdvancedTransportReport",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "payload_json",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "report_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "to_json",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          },
+          {
+            "name": "from_json",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "value",
+                "kind": "positional_or_keyword",
+                "annotation": "str",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'AdvancedTransportReport'",
+            "source_signature": "(cls, value: str) -> 'AdvancedTransportReport'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "mechanisms_csv",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          },
+          {
+            "name": "provenance_csv",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          },
+          {
+            "name": "to_markdown",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.AdvancedTransportSpec",
+      "definition_path": "ncmemsim.transport.integration.AdvancedTransportSpec",
+      "kind": "class",
+      "runtime_call_signature": "(attachments: 'tuple[TATLinkAttachment, ...]' = ()) -> None",
+      "source_contract": {
+        "name": "AdvancedTransportSpec",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "attachments",
+            "annotation": "tuple[TATLinkAttachment, ...]",
+            "default_expression": "()",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "configuration_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.BarrierCorrectionStatus",
+      "definition_path": "ncmemsim.transport.barrier_corrections.BarrierCorrectionStatus",
+      "kind": "class",
+      "runtime_call_signature": "(*values)",
+      "source_contract": {
+        "name": "BarrierCorrectionStatus",
+        "kind": "class",
+        "class_assignments": [
+          {
+            "names": [
+              "DISABLED"
+            ],
+            "expression": "'disabled'"
+          },
+          {
+            "names": [
+              "ZERO_FIELD"
+            ],
+            "expression": "'zero_field'"
+          },
+          {
+            "names": [
+              "APPLIED"
+            ],
+            "expression": "'applied'"
+          },
+          {
+            "names": [
+              "BARRIER_SUPPRESSED"
+            ],
+            "expression": "'barrier_suppressed'"
+          }
+        ],
+        "bases": [
+          "str",
+          "Enum"
+        ],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": null,
+        "methods": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.CorrectedTATRateComponent",
+      "definition_path": "ncmemsim.transport.barrier_corrections.CorrectedTATRateComponent",
+      "kind": "class",
+      "runtime_call_signature": "(species_name: 'str', species_hash: 'str', barrier_diagnostics: 'CorrectedTATBarrierProfile', entry_wkb_exponent: 'float', exit_wkb_exponent: 'float', entry_transmission: 'float', exit_transmission: 'float', entry_rate_Hz: 'float', exit_rate_Hz: 'float', active_probability: 'float', rate_Hz: 'float', status: 'TATRateStatus') -> None",
+      "source_contract": {
+        "name": "CorrectedTATRateComponent",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "species_name",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "species_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "barrier_diagnostics",
+            "annotation": "CorrectedTATBarrierProfile",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "entry_wkb_exponent",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "exit_wkb_exponent",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "entry_transmission",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "exit_transmission",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "entry_rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "exit_rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "active_probability",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "status",
+            "annotation": "TATRateStatus",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.CorrectedTATRateEvaluation",
+      "definition_path": "ncmemsim.transport.barrier_corrections.CorrectedTATRateEvaluation",
+      "kind": "class",
+      "runtime_call_signature": "(enabled: 'bool', tat_configuration_hash: 'str', correction_configuration_hash: 'str', components: 'tuple[CorrectedTATRateComponent, ...]', total_rate_Hz: 'float', status: 'TATRateStatus') -> None",
+      "source_contract": {
+        "name": "CorrectedTATRateEvaluation",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "enabled",
+            "annotation": "bool",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "tat_configuration_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "correction_configuration_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "components",
+            "annotation": "tuple[CorrectedTATRateComponent, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "total_rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "status",
+            "annotation": "TATRateStatus",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.ImageForceBarrierSpec",
+      "definition_path": "ncmemsim.transport.barrier_corrections.ImageForceBarrierSpec",
+      "kind": "class",
+      "runtime_call_signature": "(enabled: 'bool' = False, relative_permittivity: 'float' = 1.0, parameter_status: 'TrapParameterStatus' = <TrapParameterStatus.ASSUMED: 'assumed'>, source: 'str' = '', applicability: 'str' = '') -> None",
+      "source_contract": {
+        "name": "ImageForceBarrierSpec",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "enabled",
+            "annotation": "bool",
+            "default_expression": "False",
+            "required_in_source": false
+          },
+          {
+            "name": "relative_permittivity",
+            "annotation": "float",
+            "default_expression": "1.0",
+            "required_in_source": false
+          },
+          {
+            "name": "parameter_status",
+            "annotation": "TrapParameterStatus",
+            "default_expression": "TrapParameterStatus.ASSUMED",
+            "required_in_source": false
+          },
+          {
+            "name": "source",
+            "annotation": "str",
+            "default_expression": "''",
+            "required_in_source": false
+          },
+          {
+            "name": "applicability",
+            "annotation": "str",
+            "default_expression": "''",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "configuration_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.IntegratedLinkTransportResult",
+      "definition_path": "ncmemsim.transport.integration.IntegratedLinkTransportResult",
+      "kind": "class",
+      "runtime_call_signature": "(baseline: 'LinkTransportResult', contributions: 'tuple[MechanismContribution, ...]', total_forward_rate_Hz: 'float', total_backward_rate_Hz: 'float', total_net_electron_flux_m2_s: 'float') -> None",
+      "source_contract": {
+        "name": "IntegratedLinkTransportResult",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "baseline",
+            "annotation": "LinkTransportResult",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "contributions",
+            "annotation": "tuple[MechanismContribution, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "total_forward_rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "total_backward_rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "total_net_electron_flux_m2_s",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "link_id",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "kind",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "field_V_m",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "float",
+            "source_signature": "(self) -> float",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "potential_difference_V",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "float",
+            "source_signature": "(self) -> float",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "transmission",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "float",
+            "source_signature": "(self) -> float",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "forward_rate_Hz",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "float",
+            "source_signature": "(self) -> float",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "backward_rate_Hz",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "float",
+            "source_signature": "(self) -> float",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "net_electron_flux_m2_s",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "float",
+            "source_signature": "(self) -> float",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "left_fg_index",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int | None",
+            "source_signature": "(self) -> int | None",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "right_fg_index",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int | None",
+            "source_signature": "(self) -> int | None",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "contribution",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "mechanism",
+                "kind": "positional_or_keyword",
+                "annotation": "TransportMechanism",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "MechanismContribution",
+            "source_signature": "(self, mechanism: TransportMechanism) -> MechanismContribution",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.IntegratedTransportStepResult",
+      "definition_path": "ncmemsim.transport.integration.IntegratedTransportStepResult",
+      "kind": "class",
+      "runtime_call_signature": "(baseline: 'TransportStepResult', links: 'tuple[IntegratedLinkTransportResult, ...]', net_electron_flux_by_fg_m2_s: 'np.ndarray') -> None",
+      "source_contract": {
+        "name": "IntegratedTransportStepResult",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "baseline",
+            "annotation": "TransportStepResult",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "links",
+            "annotation": "tuple[IntegratedLinkTransportResult, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "net_electron_flux_by_fg_m2_s",
+            "annotation": "np.ndarray",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "inter_fg_fluxes_m2_s",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "np.ndarray",
+            "source_signature": "(self) -> np.ndarray",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.MechanismContribution",
+      "definition_path": "ncmemsim.transport.integration.MechanismContribution",
+      "kind": "class",
+      "runtime_call_signature": "(mechanism: 'TransportMechanism', status: 'MechanismEvaluationStatus', forward_rate_Hz: 'float', backward_rate_Hz: 'float', net_electron_flux_m2_s: 'float', evaluation: 'CorrectedTATRateEvaluation | None' = None, failure: 'MechanismFailure | None' = None) -> None",
+      "source_contract": {
+        "name": "MechanismContribution",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "mechanism",
+            "annotation": "TransportMechanism",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "status",
+            "annotation": "MechanismEvaluationStatus",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "forward_rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "backward_rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "net_electron_flux_m2_s",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "evaluation",
+            "annotation": "CorrectedTATRateEvaluation | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "failure",
+            "annotation": "MechanismFailure | None",
+            "default_expression": "None",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.MechanismEvaluationStatus",
+      "definition_path": "ncmemsim.transport.integration.MechanismEvaluationStatus",
+      "kind": "class",
+      "runtime_call_signature": "(*values)",
+      "source_contract": {
+        "name": "MechanismEvaluationStatus",
+        "kind": "class",
+        "class_assignments": [
+          {
+            "names": [
+              "EVALUATED"
+            ],
+            "expression": "'evaluated'"
+          },
+          {
+            "names": [
+              "NOT_ATTACHED"
+            ],
+            "expression": "'not_attached'"
+          },
+          {
+            "names": [
+              "DISABLED"
+            ],
+            "expression": "'disabled'"
+          },
+          {
+            "names": [
+              "DIAGNOSTIC_ONLY"
+            ],
+            "expression": "'diagnostic_only'"
+          },
+          {
+            "names": [
+              "FAILED"
+            ],
+            "expression": "'failed'"
+          }
+        ],
+        "bases": [
+          "str",
+          "Enum"
+        ],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": null,
+        "methods": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.MechanismFailure",
+      "definition_path": "ncmemsim.transport.integration.MechanismFailure",
+      "kind": "class",
+      "runtime_call_signature": "(exception_type: 'str', message: 'str') -> None",
+      "source_contract": {
+        "name": "MechanismFailure",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "exception_type",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "message",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, str]",
+            "source_signature": "(self) -> dict[str, str]",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TATLinkAttachment",
+      "definition_path": "ncmemsim.transport.integration.TATLinkAttachment",
+      "kind": "class",
+      "runtime_call_signature": "(link_id: 'str', specification: 'TrapAssistedTransportSpec', barrier_correction: 'ImageForceBarrierSpec' = ImageForceBarrierSpec(enabled=False, relative_permittivity=1.0, parameter_status=<TrapParameterStatus.ASSUMED: 'assumed'>, source='', applicability='')) -> None",
+      "source_contract": {
+        "name": "TATLinkAttachment",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "link_id",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "specification",
+            "annotation": "TrapAssistedTransportSpec",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "barrier_correction",
+            "annotation": "ImageForceBarrierSpec",
+            "default_expression": "ImageForceBarrierSpec()",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TATRateBatch",
+      "definition_path": "ncmemsim.transport.tat.TATRateBatch",
+      "kind": "class",
+      "runtime_call_signature": "(shape: 'tuple[int, ...]', evaluations: 'tuple[TATRateEvaluation, ...]') -> None",
+      "source_contract": {
+        "name": "TATRateBatch",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "shape",
+            "annotation": "tuple[int, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "evaluations",
+            "annotation": "tuple[TATRateEvaluation, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "total_rates_Hz",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "np.ndarray",
+            "source_signature": "(self) -> np.ndarray",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TATRateComponent",
+      "definition_path": "ncmemsim.transport.tat.TATRateComponent",
+      "kind": "class",
+      "runtime_call_signature": "(species_name: 'str', species_hash: 'str', barrier_profile: 'TATBarrierProfile', entry_wkb_exponent: 'float', exit_wkb_exponent: 'float', entry_transmission: 'float', exit_transmission: 'float', entry_rate_Hz: 'float', exit_rate_Hz: 'float', active_probability: 'float', rate_Hz: 'float', status: 'TATRateStatus') -> None",
+      "source_contract": {
+        "name": "TATRateComponent",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "species_name",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "species_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "barrier_profile",
+            "annotation": "TATBarrierProfile",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "entry_wkb_exponent",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "exit_wkb_exponent",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "entry_transmission",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "exit_transmission",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "entry_rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "exit_rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "active_probability",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "status",
+            "annotation": "TATRateStatus",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TATRateEvaluation",
+      "definition_path": "ncmemsim.transport.tat.TATRateEvaluation",
+      "kind": "class",
+      "runtime_call_signature": "(enabled: 'bool', configuration_hash: 'str', components: 'tuple[TATRateComponent, ...]', total_rate_Hz: 'float', status: 'TATRateStatus') -> None",
+      "source_contract": {
+        "name": "TATRateEvaluation",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "enabled",
+            "annotation": "bool",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "configuration_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "components",
+            "annotation": "tuple[TATRateComponent, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "total_rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "status",
+            "annotation": "TATRateStatus",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TATRateStatus",
+      "definition_path": "ncmemsim.transport.tat.TATRateStatus",
+      "kind": "class",
+      "runtime_call_signature": "(*values)",
+      "source_contract": {
+        "name": "TATRateStatus",
+        "kind": "class",
+        "class_assignments": [
+          {
+            "names": [
+              "DISABLED"
+            ],
+            "expression": "'disabled'"
+          },
+          {
+            "names": [
+              "ZERO_DENSITY"
+            ],
+            "expression": "'zero_density'"
+          },
+          {
+            "names": [
+              "EVALUATED"
+            ],
+            "expression": "'evaluated'"
+          },
+          {
+            "names": [
+              "TRANSMISSION_UNDERFLOW"
+            ],
+            "expression": "'transmission_underflow'"
+          }
+        ],
+        "bases": [
+          "str",
+          "Enum"
+        ],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": null,
+        "methods": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TransportIdentifiabilityStatus",
+      "definition_path": "ncmemsim.transport.validation.TransportIdentifiabilityStatus",
+      "kind": "class",
+      "runtime_call_signature": "(*values)",
+      "source_contract": {
+        "name": "TransportIdentifiabilityStatus",
+        "kind": "class",
+        "class_assignments": [
+          {
+            "names": [
+              "LOCALLY_INFORMATIVE"
+            ],
+            "expression": "'locally_informative'"
+          },
+          {
+            "names": [
+              "STRUCTURALLY_CONFOUNDED"
+            ],
+            "expression": "'structurally_confounded'"
+          },
+          {
+            "names": [
+              "NONPOSITIVE_RESPONSE"
+            ],
+            "expression": "'nonpositive_response'"
+          }
+        ],
+        "bases": [
+          "str",
+          "Enum"
+        ],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": null,
+        "methods": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TransportMechanism",
+      "definition_path": "ncmemsim.transport.integration.TransportMechanism",
+      "kind": "class",
+      "runtime_call_signature": "(*values)",
+      "source_contract": {
+        "name": "TransportMechanism",
+        "kind": "class",
+        "class_assignments": [
+          {
+            "names": [
+              "DIRECT_TUNNELLING"
+            ],
+            "expression": "'direct_tunnelling'"
+          },
+          {
+            "names": [
+              "TRAP_ASSISTED"
+            ],
+            "expression": "'trap_assisted'"
+          }
+        ],
+        "bases": [
+          "str",
+          "Enum"
+        ],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": null,
+        "methods": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TransportSensitivityEntry",
+      "definition_path": "ncmemsim.transport.validation.TransportSensitivityEntry",
+      "kind": "class",
+      "runtime_call_signature": "(parameter: 'TransportSensitivityParameter', unit: 'str', lower_value: 'float', nominal_value: 'float', upper_value: 'float', lower_rate_Hz: 'float', nominal_rate_Hz: 'float', upper_rate_Hz: 'float', normalized_log_secant: 'float | None', identifiability_status: 'TransportIdentifiabilityStatus', confounded_group: 'str | None' = None) -> None",
+      "source_contract": {
+        "name": "TransportSensitivityEntry",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "parameter",
+            "annotation": "TransportSensitivityParameter",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "unit",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "lower_value",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "nominal_value",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "upper_value",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "lower_rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "nominal_rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "upper_rate_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "normalized_log_secant",
+            "annotation": "float | None",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "identifiability_status",
+            "annotation": "TransportIdentifiabilityStatus",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "confounded_group",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TransportSensitivityParameter",
+      "definition_path": "ncmemsim.transport.validation.TransportSensitivityParameter",
+      "kind": "class",
+      "runtime_call_signature": "(*values)",
+      "source_contract": {
+        "name": "TransportSensitivityParameter",
+        "kind": "class",
+        "class_assignments": [
+          {
+            "names": [
+              "ENERGY_DEPTH_J"
+            ],
+            "expression": "'energy_depth_J'"
+          },
+          {
+            "names": [
+              "DENSITY_M3"
+            ],
+            "expression": "'density_m3'"
+          },
+          {
+            "names": [
+              "CAPTURE_CROSS_SECTION_M2"
+            ],
+            "expression": "'capture_cross_section_m2'"
+          },
+          {
+            "names": [
+              "ATTEMPT_FREQUENCY_HZ"
+            ],
+            "expression": "'attempt_frequency_Hz'"
+          },
+          {
+            "names": [
+              "IMAGE_FORCE_RELATIVE_PERMITTIVITY"
+            ],
+            "expression": "'image_force_relative_permittivity'"
+          }
+        ],
+        "bases": [
+          "str",
+          "Enum"
+        ],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": null,
+        "methods": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TransportSensitivityResult",
+      "definition_path": "ncmemsim.transport.validation.TransportSensitivityResult",
+      "kind": "class",
+      "runtime_call_signature": "(tat_configuration_hash: 'str', correction_configuration_hash: 'str', link_length_m: 'float', electric_field_V_m: 'float', effective_mass_m0: 'float', relative_step: 'float', entries: 'tuple[TransportSensitivityEntry, ...]', limitations: 'tuple[str, ...]') -> None",
+      "source_contract": {
+        "name": "TransportSensitivityResult",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "tat_configuration_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "correction_configuration_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "link_length_m",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "electric_field_V_m",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "effective_mass_m0",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "relative_step",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "entries",
+            "annotation": "tuple[TransportSensitivityEntry, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "limitations",
+            "annotation": "tuple[str, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TrapAssistedModel",
+      "definition_path": "ncmemsim.transport.traps.TrapAssistedModel",
+      "kind": "class",
+      "runtime_call_signature": "(*values)",
+      "source_contract": {
+        "name": "TrapAssistedModel",
+        "kind": "class",
+        "class_assignments": [
+          {
+            "names": [
+              "SEQUENTIAL_TWO_STEP_WKB"
+            ],
+            "expression": "'sequential_two_step_wkb'"
+          }
+        ],
+        "bases": [
+          "str",
+          "Enum"
+        ],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": null,
+        "methods": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TrapAssistedTransportSpec",
+      "definition_path": "ncmemsim.transport.traps.TrapAssistedTransportSpec",
+      "kind": "class",
+      "runtime_call_signature": "(enabled: 'bool' = False, species: 'tuple[TrapSpecies, ...]' = (), model: 'TrapAssistedModel' = <TrapAssistedModel.SEQUENTIAL_TWO_STEP_WKB: 'sequential_two_step_wkb'>) -> None",
+      "source_contract": {
+        "name": "TrapAssistedTransportSpec",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "enabled",
+            "annotation": "bool",
+            "default_expression": "False",
+            "required_in_source": false
+          },
+          {
+            "name": "species",
+            "annotation": "tuple[TrapSpecies, ...]",
+            "default_expression": "()",
+            "required_in_source": false
+          },
+          {
+            "name": "model",
+            "annotation": "TrapAssistedModel",
+            "default_expression": "TrapAssistedModel.SEQUENTIAL_TWO_STEP_WKB",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "from_dict",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "value",
+                "kind": "positional_or_keyword",
+                "annotation": "dict[str, Any]",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'TrapAssistedTransportSpec'",
+            "source_signature": "(cls, value: dict[str, Any]) -> 'TrapAssistedTransportSpec'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "configuration_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_json",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          },
+          {
+            "name": "from_json",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "value",
+                "kind": "positional_or_keyword",
+                "annotation": "str",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'TrapAssistedTransportSpec'",
+            "source_signature": "(cls, value: str) -> 'TrapAssistedTransportSpec'",
+            "decorators": [
+              "classmethod"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TrapCarrier",
+      "definition_path": "ncmemsim.transport.traps.TrapCarrier",
+      "kind": "class",
+      "runtime_call_signature": "(*values)",
+      "source_contract": {
+        "name": "TrapCarrier",
+        "kind": "class",
+        "class_assignments": [
+          {
+            "names": [
+              "ELECTRON"
+            ],
+            "expression": "'electron'"
+          }
+        ],
+        "bases": [
+          "str",
+          "Enum"
+        ],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": null,
+        "methods": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TrapEnergyReference",
+      "definition_path": "ncmemsim.transport.traps.TrapEnergyReference",
+      "kind": "class",
+      "runtime_call_signature": "(*values)",
+      "source_contract": {
+        "name": "TrapEnergyReference",
+        "kind": "class",
+        "class_assignments": [
+          {
+            "names": [
+              "CONDUCTION_BAND_DEPTH"
+            ],
+            "expression": "'conduction_band_depth'"
+          }
+        ],
+        "bases": [
+          "str",
+          "Enum"
+        ],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": null,
+        "methods": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TrapParameterStatus",
+      "definition_path": "ncmemsim.transport.traps.TrapParameterStatus",
+      "kind": "class",
+      "runtime_call_signature": "(*values)",
+      "source_contract": {
+        "name": "TrapParameterStatus",
+        "kind": "class",
+        "class_assignments": [
+          {
+            "names": [
+              "ASSUMED"
+            ],
+            "expression": "'assumed'"
+          },
+          {
+            "names": [
+              "LITERATURE"
+            ],
+            "expression": "'literature'"
+          },
+          {
+            "names": [
+              "FITTED"
+            ],
+            "expression": "'fitted'"
+          },
+          {
+            "names": [
+              "CALIBRATED"
+            ],
+            "expression": "'calibrated'"
+          }
+        ],
+        "bases": [
+          "str",
+          "Enum"
+        ],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": null,
+        "methods": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TrapSpecies",
+      "definition_path": "ncmemsim.transport.traps.TrapSpecies",
+      "kind": "class",
+      "runtime_call_signature": "(name: 'str', energy_depth_J: 'float', position_fraction: 'float', density_m3: 'float', capture_cross_section_m2: 'float', attempt_frequency_Hz: 'float', parameter_status: 'TrapParameterStatus', source: 'str', applicability: 'str', carrier: 'TrapCarrier' = <TrapCarrier.ELECTRON: 'electron'>, energy_reference: 'TrapEnergyReference' = <TrapEnergyReference.CONDUCTION_BAND_DEPTH: 'conduction_band_depth'>) -> None",
+      "source_contract": {
+        "name": "TrapSpecies",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "name",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "energy_depth_J",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "position_fraction",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "density_m3",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "capture_cross_section_m2",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "attempt_frequency_Hz",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "parameter_status",
+            "annotation": "TrapParameterStatus",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "source",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "applicability",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "carrier",
+            "annotation": "TrapCarrier",
+            "default_expression": "TrapCarrier.ELECTRON",
+            "required_in_source": false
+          },
+          {
+            "name": "energy_reference",
+            "annotation": "TrapEnergyReference",
+            "default_expression": "TrapEnergyReference.CONDUCTION_BAND_DEPTH",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "from_dict",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "value",
+                "kind": "positional_or_keyword",
+                "annotation": "dict[str, Any]",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'TrapSpecies'",
+            "source_signature": "(cls, value: dict[str, Any]) -> 'TrapSpecies'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "species_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.analyze_tat_local_sensitivity",
+      "definition_path": "ncmemsim.transport.validation.analyze_tat_local_sensitivity",
+      "kind": "function",
+      "runtime_call_signature": "(specification: 'TrapAssistedTransportSpec', correction: 'ImageForceBarrierSpec', *, link_length_m: 'float', electric_field_V_m: 'float', effective_mass_m0: 'float', relative_step: 'float' = 0.1) -> 'TransportSensitivityResult'",
+      "source_contract": {
+        "name": "analyze_tat_local_sensitivity",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "specification",
+            "kind": "positional_or_keyword",
+            "annotation": "TrapAssistedTransportSpec",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "correction",
+            "kind": "positional_or_keyword",
+            "annotation": "ImageForceBarrierSpec",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "link_length_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "electric_field_V_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "effective_mass_m0",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "relative_step",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": false,
+            "default_expression": "0.1"
+          }
+        ],
+        "return_annotation": "TransportSensitivityResult",
+        "source_signature": "(specification: TrapAssistedTransportSpec, correction: ImageForceBarrierSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float, relative_step: float=0.1) -> TransportSensitivityResult",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.build_advanced_transport_report",
+      "definition_path": "ncmemsim.transport.reporting.build_advanced_transport_report",
+      "kind": "function",
+      "runtime_call_signature": "(result: 'IntegratedTransportStepResult', specification: 'AdvancedTransportSpec', *, name: 'str' = 'Advanced transport report', metadata: 'dict[str, Any] | None' = None) -> 'AdvancedTransportReport'",
+      "source_contract": {
+        "name": "build_advanced_transport_report",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "result",
+            "kind": "positional_or_keyword",
+            "annotation": "IntegratedTransportStepResult",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "specification",
+            "kind": "positional_or_keyword",
+            "annotation": "AdvancedTransportSpec",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "name",
+            "kind": "keyword_only",
+            "annotation": "str",
+            "required": false,
+            "default_expression": "'Advanced transport report'"
+          },
+          {
+            "name": "metadata",
+            "kind": "keyword_only",
+            "annotation": "dict[str, Any] | None",
+            "required": false,
+            "default_expression": "None"
+          }
+        ],
+        "return_annotation": "AdvancedTransportReport",
+        "source_signature": "(result: IntegratedTransportStepResult, specification: AdvancedTransportSpec, *, name: str='Advanced transport report', metadata: dict[str, Any] | None=None) -> AdvancedTransportReport",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.evaluate_trap_assisted_transport",
+      "definition_path": "ncmemsim.transport.tat.evaluate_trap_assisted_transport",
+      "kind": "function",
+      "runtime_call_signature": "(specification: 'TrapAssistedTransportSpec', *, link_length_m: 'float', electric_field_V_m: 'float', effective_mass_m0: 'float') -> 'TATRateEvaluation'",
+      "source_contract": {
+        "name": "evaluate_trap_assisted_transport",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "specification",
+            "kind": "positional_or_keyword",
+            "annotation": "TrapAssistedTransportSpec",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "link_length_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "electric_field_V_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "effective_mass_m0",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "TATRateEvaluation",
+        "source_signature": "(specification: TrapAssistedTransportSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> TATRateEvaluation",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.evaluate_trap_assisted_transport_array",
+      "definition_path": "ncmemsim.transport.tat.evaluate_trap_assisted_transport_array",
+      "kind": "function",
+      "runtime_call_signature": "(specification: 'TrapAssistedTransportSpec', *, link_length_m, electric_field_V_m, effective_mass_m0) -> 'TATRateBatch'",
+      "source_contract": {
+        "name": "evaluate_trap_assisted_transport_array",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "specification",
+            "kind": "positional_or_keyword",
+            "annotation": "TrapAssistedTransportSpec",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "link_length_m",
+            "kind": "keyword_only",
+            "annotation": null,
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "electric_field_V_m",
+            "kind": "keyword_only",
+            "annotation": null,
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "effective_mass_m0",
+            "kind": "keyword_only",
+            "annotation": null,
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "TATRateBatch",
+        "source_signature": "(specification: TrapAssistedTransportSpec, *, link_length_m, electric_field_V_m, effective_mass_m0) -> TATRateBatch",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.evaluate_trap_assisted_transport_with_barrier_correction",
+      "definition_path": "ncmemsim.transport.barrier_corrections.evaluate_trap_assisted_transport_with_barrier_correction",
+      "kind": "function",
+      "runtime_call_signature": "(specification: 'TrapAssistedTransportSpec', correction: 'ImageForceBarrierSpec', *, link_length_m: 'float', electric_field_V_m: 'float', effective_mass_m0: 'float') -> 'CorrectedTATRateEvaluation'",
+      "source_contract": {
+        "name": "evaluate_trap_assisted_transport_with_barrier_correction",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "specification",
+            "kind": "positional_or_keyword",
+            "annotation": "TrapAssistedTransportSpec",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "correction",
+            "kind": "positional_or_keyword",
+            "annotation": "ImageForceBarrierSpec",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "link_length_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "electric_field_V_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "effective_mass_m0",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "CorrectedTATRateEvaluation",
+        "source_signature": "(specification: TrapAssistedTransportSpec, correction: ImageForceBarrierSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> CorrectedTATRateEvaluation",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.write_advanced_transport_report",
+      "definition_path": "ncmemsim.transport.reporting.write_advanced_transport_report",
+      "kind": "function",
+      "runtime_call_signature": "(report: 'AdvancedTransportReport', output_dir: 'str | Path') -> 'tuple[Path, ...]'",
+      "source_contract": {
+        "name": "write_advanced_transport_report",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "report",
+            "kind": "positional_or_keyword",
+            "annotation": "AdvancedTransportReport",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "output_dir",
+            "kind": "positional_or_keyword",
+            "annotation": "str | Path",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "tuple[Path, ...]",
+        "source_signature": "(report: AdvancedTransportReport, output_dir: str | Path) -> tuple[Path, ...]",
+        "decorators": []
+      }
+    }
+  ],
+  "public_importable_not_separately_stable_modules": [
+    "ncmemsim.transport.traps",
+    "ncmemsim.transport.tat",
+    "ncmemsim.transport.barrier_corrections",
+    "ncmemsim.transport.integration",
+    "ncmemsim.transport.validation",
+    "ncmemsim.transport.reporting"
+  ],
+  "internal_policy": "Names that are not re-exported through ncmemsim.transport.__all__, including underscore-prefixed implementation helpers, remain internal unless they are already protected by the frozen v1.0 contract.",
+  "selection_rationale": "The 44 explicit Phase J ncmemsim.transport package exports remain public. Thirty-four configuration, aggregate evaluator/result, integration, sensitivity and reporting paths are proposed for v1.1 stabilization because they form the documented construction and interpretation surface. Ten lower-level barrier, single-species and numerical helper paths remain public provisional so later minor releases may refine their detailed diagnostic/numerical contracts without expanding the stable compatibility promise.",
+  "result_semantics_review": {
+    "configuration_and_provenance": "TrapSpecies, TrapAssistedTransportSpec, ImageForceBarrierSpec and AdvancedTransportSpec retain explicit SI units, provenance/status fields and deterministic configuration/evidence hashes; hashes prove internal consistency, not source authenticity or calibration.",
+    "conditional_rate_results": "TAT result objects report conditional pathway frequencies in Hz with explicit component/status diagnostics. They are not device leakage current density and do not establish a calibrated defect population.",
+    "integrated_transport_results": "Integrated results retain the direct baseline plus ordered mechanism contributions. `DISABLED`/`NOT_ATTACHED` zero contribution is distinct from `FAILED`; optional failures are link-local and preserve finite direct/net state accounting.",
+    "sensitivity_results": "Transport sensitivity is local one-at-a-time compact-model evidence. Density and capture cross section remain structurally confounded in the active-path factor; the result is not probabilistic global sensitivity or manufacturing variation evidence.",
+    "report_results": "AdvancedTransportReport is a portable integrity-checked snapshot with mechanism and parameter provenance exports. Report hashes establish consistency, not experimental calibration, fabricated-device prediction or manufacturing yield."
+  },
+  "public_provisional_additions": [
+    {
+      "import_path": "ncmemsim.transport.BarrierHeightCorrection",
+      "definition_path": "ncmemsim.transport.barrier_corrections.BarrierHeightCorrection",
+      "kind": "class",
+      "runtime_call_signature": "(unmodified_barrier_J: 'float', lowering_J: 'float', corrected_barrier_J: 'float', status: 'BarrierCorrectionStatus') -> None",
+      "source_contract": {
+        "name": "BarrierHeightCorrection",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "unmodified_barrier_J",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "lowering_J",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "corrected_barrier_J",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "status",
+            "annotation": "BarrierCorrectionStatus",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.CorrectedTATBarrierProfile",
+      "definition_path": "ncmemsim.transport.barrier_corrections.CorrectedTATBarrierProfile",
+      "kind": "class",
+      "runtime_call_signature": "(unmodified_profile: 'TATBarrierProfile', correction_configuration_hash: 'str', source_interface: 'BarrierHeightCorrection', destination_interface: 'BarrierHeightCorrection') -> None",
+      "source_contract": {
+        "name": "CorrectedTATBarrierProfile",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "unmodified_profile",
+            "annotation": "TATBarrierProfile",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "correction_configuration_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "source_interface",
+            "annotation": "BarrierHeightCorrection",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "destination_interface",
+            "annotation": "BarrierHeightCorrection",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "corrected_profile",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "TATBarrierProfile",
+            "source_signature": "(self) -> TATBarrierProfile",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.TATBarrierProfile",
+      "definition_path": "ncmemsim.transport.tat.TATBarrierProfile",
+      "kind": "class",
+      "runtime_call_signature": "(link_length_m: 'float', trap_position_m: 'float', electric_field_V_m: 'float', effective_mass_m0: 'float', entry_start_barrier_J: 'float', trap_barrier_J: 'float', exit_end_barrier_J: 'float') -> None",
+      "source_contract": {
+        "name": "TATBarrierProfile",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "link_length_m",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "trap_position_m",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "electric_field_V_m",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "effective_mass_m0",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "entry_start_barrier_J",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "trap_barrier_J",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "exit_end_barrier_J",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.apply_image_force_barrier_correction",
+      "definition_path": "ncmemsim.transport.barrier_corrections.apply_image_force_barrier_correction",
+      "kind": "function",
+      "runtime_call_signature": "(unmodified_barrier_J: 'float', *, electric_field_V_m: 'float', specification: 'ImageForceBarrierSpec') -> 'BarrierHeightCorrection'",
+      "source_contract": {
+        "name": "apply_image_force_barrier_correction",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "unmodified_barrier_J",
+            "kind": "positional_or_keyword",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "electric_field_V_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "specification",
+            "kind": "keyword_only",
+            "annotation": "ImageForceBarrierSpec",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "BarrierHeightCorrection",
+        "source_signature": "(unmodified_barrier_J: float, *, electric_field_V_m: float, specification: ImageForceBarrierSpec) -> BarrierHeightCorrection",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.build_corrected_tat_barrier_profile",
+      "definition_path": "ncmemsim.transport.barrier_corrections.build_corrected_tat_barrier_profile",
+      "kind": "function",
+      "runtime_call_signature": "(species: 'TrapSpecies', correction: 'ImageForceBarrierSpec', *, link_length_m: 'float', electric_field_V_m: 'float', effective_mass_m0: 'float') -> 'CorrectedTATBarrierProfile'",
+      "source_contract": {
+        "name": "build_corrected_tat_barrier_profile",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "species",
+            "kind": "positional_or_keyword",
+            "annotation": "TrapSpecies",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "correction",
+            "kind": "positional_or_keyword",
+            "annotation": "ImageForceBarrierSpec",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "link_length_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "electric_field_V_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "effective_mass_m0",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "CorrectedTATBarrierProfile",
+        "source_signature": "(species: TrapSpecies, correction: ImageForceBarrierSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> CorrectedTATBarrierProfile",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.build_tat_barrier_profile",
+      "definition_path": "ncmemsim.transport.tat.build_tat_barrier_profile",
+      "kind": "function",
+      "runtime_call_signature": "(species: 'TrapSpecies', *, link_length_m: 'float', electric_field_V_m: 'float', effective_mass_m0: 'float') -> 'TATBarrierProfile'",
+      "source_contract": {
+        "name": "build_tat_barrier_profile",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "species",
+            "kind": "positional_or_keyword",
+            "annotation": "TrapSpecies",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "link_length_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "electric_field_V_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "effective_mass_m0",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "TATBarrierProfile",
+        "source_signature": "(species: TrapSpecies, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> TATBarrierProfile",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.evaluate_tat_species",
+      "definition_path": "ncmemsim.transport.tat.evaluate_tat_species",
+      "kind": "function",
+      "runtime_call_signature": "(species: 'TrapSpecies', *, link_length_m: 'float', electric_field_V_m: 'float', effective_mass_m0: 'float') -> 'TATRateComponent'",
+      "source_contract": {
+        "name": "evaluate_tat_species",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "species",
+            "kind": "positional_or_keyword",
+            "annotation": "TrapSpecies",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "link_length_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "electric_field_V_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "effective_mass_m0",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "TATRateComponent",
+        "source_signature": "(species: TrapSpecies, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> TATRateComponent",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.evaluate_tat_species_with_barrier_correction",
+      "definition_path": "ncmemsim.transport.barrier_corrections.evaluate_tat_species_with_barrier_correction",
+      "kind": "function",
+      "runtime_call_signature": "(species: 'TrapSpecies', correction: 'ImageForceBarrierSpec', *, link_length_m: 'float', electric_field_V_m: 'float', effective_mass_m0: 'float') -> 'CorrectedTATRateComponent'",
+      "source_contract": {
+        "name": "evaluate_tat_species_with_barrier_correction",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "species",
+            "kind": "positional_or_keyword",
+            "annotation": "TrapSpecies",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "correction",
+            "kind": "positional_or_keyword",
+            "annotation": "ImageForceBarrierSpec",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "link_length_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "electric_field_V_m",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "effective_mass_m0",
+            "kind": "keyword_only",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "CorrectedTATRateComponent",
+        "source_signature": "(species: TrapSpecies, correction: ImageForceBarrierSpec, *, link_length_m: float, electric_field_V_m: float, effective_mass_m0: float) -> CorrectedTATRateComponent",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.image_force_barrier_lowering_J",
+      "definition_path": "ncmemsim.transport.barrier_corrections.image_force_barrier_lowering_J",
+      "kind": "function",
+      "runtime_call_signature": "(electric_field_V_m: 'float', relative_permittivity: 'float') -> 'float'",
+      "source_contract": {
+        "name": "image_force_barrier_lowering_J",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "electric_field_V_m",
+            "kind": "positional_or_keyword",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "relative_permittivity",
+            "kind": "positional_or_keyword",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "float",
+        "source_signature": "(electric_field_V_m: float, relative_permittivity: float) -> float",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.transport.linear_wkb_transmission",
+      "definition_path": "ncmemsim.transport.tat.linear_wkb_transmission",
+      "kind": "function",
+      "runtime_call_signature": "(length_m: 'float', start_barrier_J: 'float', end_barrier_J: 'float', effective_mass_m0: 'float') -> 'tuple[float, float]'",
+      "source_contract": {
+        "name": "linear_wkb_transmission",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "length_m",
+            "kind": "positional_or_keyword",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "start_barrier_J",
+            "kind": "positional_or_keyword",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "end_barrier_J",
+            "kind": "positional_or_keyword",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "effective_mass_m0",
+            "kind": "positional_or_keyword",
+            "annotation": "float",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "tuple[float, float]",
+        "source_signature": "(length_m: float, start_barrier_J: float, end_barrier_J: float, effective_mass_m0: float) -> tuple[float, float]",
+        "decorators": []
+      }
+    }
+  ],
+  "public_provisional_rationale": "Public provisional paths are intentionally importable and tested, but are not part of the proposed stable v1.1 compatibility set. They are low-level numerical or diagnostic primitives: raw barrier-profile construction, single-species evaluation, direct image-force/barrier manipulation and the scalar WKB helper. High-level stable candidates may return diagnostics derived from them, but their direct import paths and callable signatures are not separately frozen by J7a."
+}

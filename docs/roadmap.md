@@ -243,7 +243,7 @@ The release includes:
 
 ### v1.1.0: Advanced transport physics
 
-**Status: J6 reproducible reports and references complete; package version `1.1.0.dev0`; J7 release gates next.**
+**Status: J7a API/result compatibility review prepared; package version `1.1.0.dev0`; final release gates remain open.**
 
 Phase J begins from the immutable v1.0.0 tag and preserves the approved v1
 public API and scientific baseline. J1 adds inert trap contracts and selects
@@ -275,8 +275,9 @@ The planned sequence is:
   parameter sensitivity, identifiability limits and DTCO integration;
 - **J6 - reproducible examples and reports (complete):** normal/failure
   references, mechanism-resolved exports, provenance and interpretation limits;
-- **J7 - v1.1.0 release gates:** full regression, strict documentation, clean
-  distributions and supported-runtime remote validation.
+- **J7 - v1.1.0 release gates:** J7a additive API/result compatibility review,
+  followed by full regression, strict documentation, clean distributions,
+  final-version preparation and supported-runtime remote validation.
 
 See [Advanced transport physics](advanced_transport.md) for the governing J0
 contracts. New mechanisms remain disabled by default and synthetic examples do

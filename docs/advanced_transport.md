@@ -3,7 +3,7 @@
 ## Status and purpose
 
 This page defines the Phase J development contract for NCMemSim v1.1.0.
-The current `1.1.0.dev0` work has completed **J6**. J0 introduced scope,
+The current `1.1.0.dev0` work has completed **J6** and entered **J7a** API/result review. J0 introduced scope,
 interfaces, invariants, validation requirements, and a delivery sequence. J1
 added inert trap/TAT specifications and selected the first compact equation.
 J2 evaluates that conditional compact path with explicit diagnostics, but does
@@ -576,6 +576,14 @@ transport equation or modify the J4/J5 scientific contracts.
 - provide normal and deliberate-failure references;
 - export mechanism-resolved results and provenance;
 - document interpretation and limitations.
+
+## J7a API and result compatibility review
+
+J7a keeps the approved v1.0 contract immutable and reviews only the additive Phase J surface. The published v1.0.0 `ncmemsim.transport.__all__` contained 13 names; the completed J1-J6 package surface contains those same 13 names plus 44 explicit additions. The exact review snapshot is stored in `docs/v1_1_api_review.json` and checked by `scripts/validate_v1_1_api_review.py`.
+
+The 44 explicit Phase J package exports remain public, but J7a deliberately does not freeze all of them. Thirty-four configuration, aggregate evaluator/result, integration, sensitivity and reporting paths are proposed for v1.1 stabilization at canonical `ncmemsim.transport.<name>` paths. Ten lower-level barrier-profile, single-species and numerical helper paths remain public provisional. This is not release approval: the final v1.1 contract remains subject to J7 local and remote candidate gates. Direct implementation modules (`traps`, `tat`, `barrier_corrections`, `integration`, `validation`, and `reporting`) remain importable source interfaces but are not separately selected as stable aliases. Underscore-prefixed and non-exported helpers remain internal unless already protected by the frozen v1.0 contract.
+
+The result review retains the scientific boundaries already established in J1-J6: TAT evaluator outputs are conditional pathway frequencies rather than device leakage current density; integrated results distinguish disabled/not-attached zero contribution from failed mechanisms; local sensitivity retains density/capture-cross-section structural confounding; and report hashes establish consistency rather than calibration, device prediction or manufacturing yield.
 
 ### J7 - final release gates
 

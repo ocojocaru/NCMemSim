@@ -4,6 +4,24 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### J7a - v1.1 API/result compatibility review
+
+- Retain the frozen v1.0 stable proposal unchanged at 204 exact import paths.
+- Compare the published v1.0.0 `ncmemsim.transport` package surface with the
+  completed J1-J6 surface: 13 retained package exports plus 44 explicit
+  additive exports.
+- Classify the 44 explicit Phase J package exports into 34 proposed stable
+  additions and 10 public provisional low-level numerical/diagnostic paths;
+  direct implementation-module paths remain importable but are not separately
+  proposed as stable aliases.
+- Snapshot callable/class source contracts for the proposed additions and
+  validate them against the observed source API inventory.
+- Review advanced-transport configuration, rate, integration, sensitivity and
+  reporting result semantics without treating software stability as
+  experimental calibration, device-current validation or manufacturing yield.
+- This review is candidate evidence only and does not bump the package version
+  or approve/publish v1.1.0.
+
 ### J6c - documentation and inventory closure
 
 - Mark Phase J6 reproducible reporting and runnable normal/failure references
