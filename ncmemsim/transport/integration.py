@@ -317,13 +317,35 @@ class AdvancedTransportEngine:
                     )
                     kf = evaluation.total_rate_Hz * forward_bias
                     kb = evaluation.total_rate_Hz * (1.0 - forward_bias)
+                    if not math.isfinite(kf) or not math.isfinite(kb):
+                        raise ArithmeticError(
+                            "non-finite optional mechanism directional rate"
+                        )
                     if base.kind == "inter_fg":
                         li, ri = base.left_fg_index, base.right_fg_index
-                        forward_flux = kf * min(electron_sheet[li], capacity_sheet[ri] - electron_sheet[ri])
-                        backward_flux = kb * min(electron_sheet[ri], capacity_sheet[li] - electron_sheet[li])
+                        available_left = float(electron_sheet[li])
+                        empty_right = float(capacity_sheet[ri] - electron_sheet[ri])
+                        available_right = float(electron_sheet[ri])
+                        empty_left = float(capacity_sheet[li] - electron_sheet[li])
+                        forward_flux = kf * min(available_left, empty_right)
+                        backward_flux = kb * min(available_right, empty_left)
                         flux = forward_flux - backward_flux
-                        net[li] -= flux
-                        net[ri] += flux
+                        if not all(
+                            math.isfinite(value)
+                            for value in (forward_flux, backward_flux, flux)
+                        ):
+                            raise ArithmeticError(
+                                "non-finite optional mechanism flux"
+                            )
+                        next_left = float(net[li]) - flux
+                        next_right = float(net[ri]) + flux
+                        if not math.isfinite(next_left) or not math.isfinite(next_right):
+                            raise ArithmeticError(
+                                "non-finite optional mechanism net flux"
+                            )
+                        # Mutate only after the optional contribution is finite.
+                        net[li] = next_left
+                        net[ri] = next_right
                         status = MechanismEvaluationStatus.EVALUATED
                     else:
                         flux = 0.0

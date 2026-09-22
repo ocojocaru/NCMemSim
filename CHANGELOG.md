@@ -4,6 +4,24 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### J6b - runnable normal and deliberate-failure references
+
+- Add standalone normal and deliberate-failure advanced-transport report
+  examples built only from public NCMemSim APIs.
+- Make the normal reference export deterministic direct/TAT accounting and
+  explicit assumed-parameter provenance through the J6a report bundle.
+- Make the failure reference trigger an actual link-local optional-mechanism
+  failure with a deliberately extreme finite input while preserving the direct
+  baseline and sanitized failure diagnostics.
+- Harden the J4 integration boundary so non-finite optional directional rates,
+  reservoir-limited fluxes or aggregate updates become explicit `FAILED`
+  contributions before the shared net-flux vector is mutated.
+- Exercise both references, round trips and four-file exports in source tests
+  and the clean installed-distribution probe.
+- Keep all numerical inputs explicitly synthetic or failure-injection values;
+  neither reference is an experimental calibration or manufacturing-yield
+  claim.
+
 ### J6a - mechanism-resolved portable reporting
 
 - Add an immutable, integrity-checked `AdvancedTransportReport` for one

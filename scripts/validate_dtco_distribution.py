@@ -94,6 +94,8 @@ SOURCE_REQUIRED = {
     'examples/phase_i4_electro_optical_workflow_reference.py',
     'examples/phase_i6_linked_workflow_report.py',
     'examples/phase_j5_advanced_transport_validation.py',
+    'examples/phase_j6_advanced_transport_report.py',
+    'examples/phase_j6_advanced_transport_failure_report.py',
     'scripts/validate_documentation.py',
     'mkdocs.yml',
     'scripts/validate_dtco_distribution.py',
@@ -196,6 +198,10 @@ def main() -> None:
                 shutil.copyfile(root / 'examples' / filename, work / filename)
             shutil.copyfile(root / 'examples/phase_j5_advanced_transport_validation.py',
                             work / 'phase_j5_advanced_transport_validation.py')
+            shutil.copyfile(root / 'examples/phase_j6_advanced_transport_report.py',
+                            work / 'phase_j6_advanced_transport_report.py')
+            shutil.copyfile(root / 'examples/phase_j6_advanced_transport_failure_report.py',
+                            work / 'phase_j6_advanced_transport_failure_report.py')
             shutil.copytree(root / "tests/fixtures/archives/v0_14_0",
                             work / "archive_fixtures", dirs_exist_ok=True)
             probe = work / "probe.py"
@@ -355,6 +361,24 @@ assert advanced['robust_dtco']['analysis']['counts']['failed'] == 0
 assert 'no yield estimate' in advanced['robust_dtco']['interpretation']
 assert len(advanced['electrical']['sensitivity_result_hash']) == 64
 print('Installed J5 electrical/retention/sensitivity/DTCO references: PASS')
+from ncmemsim.transport import AdvancedTransportReport, write_advanced_transport_report
+for module_name, filename, expected_failed in (
+    ('j6_normal', 'phase_j6_advanced_transport_report.py', 0),
+    ('j6_failure', 'phase_j6_advanced_transport_failure_report.py', 1),
+):
+    spec = importlib.util.spec_from_file_location(module_name, work / filename)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    first = module.build_reference_report()
+    second = module.build_reference_report()
+    assert first.to_json() == second.to_json()
+    assert first.to_dict()['summary']['failed_contribution_count'] == expected_failed
+    assert AdvancedTransportReport.from_json(first.to_json()).report_hash == first.report_hash
+    destination = environment / ('j6-failure-report' if expected_failed else 'j6-normal-report')
+    paths = write_advanced_transport_report(first, destination)
+    assert {p.name for p in paths} == {'manifest.json', 'mechanisms.csv', 'provenance.csv', 'report.md'}
+    assert AdvancedTransportReport.from_json((destination / 'manifest.json').read_text(encoding='utf-8')).report_hash == first.report_hash
+print('Installed J6 normal/failure mechanism-resolved reports: PASS')
 # Frozen published-code archives must be readable by the installed package.
 import hashlib
 from ncmemsim.dtco import SampleManifest

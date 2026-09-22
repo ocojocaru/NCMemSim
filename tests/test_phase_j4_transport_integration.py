@@ -205,6 +205,68 @@ def test_optional_failure_is_local_and_preserves_direct_and_neighbor(monkeypatch
     assert neighbor.failure is None
 
 
+def test_nonfinite_optional_flux_is_isolated_before_net_vector_mutation():
+    device, physics, baseline, state, profile = context(2)
+    link_id = next(
+        item.link_id
+        for item in baseline.build_network(device).links
+        if item.kind == "inter_fg"
+    )
+    extreme = TrapSpecies(
+        name="j4-nonfinite-flux-injection",
+        energy_depth_J=1.0e-30,
+        position_fraction=0.5,
+        density_m3=8.0e22,
+        capture_cross_section_m2=2.0e-20,
+        attempt_frequency_Hz=1.0e308,
+        parameter_status=TrapParameterStatus.ASSUMED,
+        source="deliberate finite overflow-injection regression fixture",
+        applicability="optional-mechanism failure isolation only; not physical",
+    )
+    specification = TrapAssistedTransportSpec(
+        enabled=True,
+        species=(extreme,),
+    )
+    result = AdvancedTransportEngine(
+        baseline,
+        AdvancedTransportSpec(
+            (
+                TATLinkAttachment(
+                    link_id,
+                    specification,
+                    ImageForceBarrierSpec(
+                        enabled=True,
+                        relative_permittivity=3.9,
+                        parameter_status=TrapParameterStatus.ASSUMED,
+                        source="synthetic J4 overflow-isolation fixture",
+                        applicability="failure-isolation regression only",
+                    ),
+                ),
+            )
+        ),
+    ).evaluate(device, state, profile, physics.occupancy)
+
+    link = next(item for item in result.links if item.link_id == link_id)
+    direct = link.contribution(TransportMechanism.DIRECT_TUNNELLING)
+    tat = link.contribution(TransportMechanism.TRAP_ASSISTED)
+
+    assert tat.status is MechanismEvaluationStatus.FAILED
+    assert tat.failure is not None
+    assert tat.failure.exception_type == "ArithmeticError"
+    assert "non-finite optional mechanism flux" in tat.failure.message
+    assert tat.forward_rate_Hz == 0.0
+    assert tat.backward_rate_Hz == 0.0
+    assert tat.net_electron_flux_m2_s == 0.0
+    assert link.total_forward_rate_Hz == direct.forward_rate_Hz
+    assert link.total_backward_rate_Hz == direct.backward_rate_Hz
+    assert link.total_net_electron_flux_m2_s == direct.net_electron_flux_m2_s
+    assert np.all(np.isfinite(result.net_electron_flux_by_fg_m2_s))
+    np.testing.assert_array_equal(
+        result.net_electron_flux_by_fg_m2_s,
+        result.baseline.net_electron_flux_by_fg_m2_s,
+    )
+
+
 def test_substrate_attachment_is_diagnostic_only_and_never_changes_state_flux():
     device, physics, baseline, state, profile = context(2)
     substrate = next(item for item in baseline.build_network(device).links if item.kind == "substrate")

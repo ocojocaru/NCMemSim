@@ -504,8 +504,26 @@ report.
 The report interpretation remains deliberately limited: the compact TAT path
 is not an experimentally calibrated leakage-current law, density and capture
 cross section retain the J5 structural-confounding limitation, and no report
-field is a manufacturing-yield claim. J6b adds runnable normal and deliberate
-failure examples around this report contract.
+field is a manufacturing-yield claim.
+
+J6b supplies two standalone runnable references:
+`examples/phase_j6_advanced_transport_report.py` produces a normal evaluated
+direct-plus-TAT report, while
+`examples/phase_j6_advanced_transport_failure_report.py` uses a deliberately
+extreme but finite trap attempt frequency solely to exercise the existing
+link-local failure isolation. The latter is intentionally nonphysical
+software-verification input: the optional TAT contribution is reported as
+`failed`, its sanitized failure details are exported, and the direct baseline
+remains separately visible and unchanged. The composite integration boundary
+also validates optional directional rates and reservoir-limited fluxes before
+mutating the shared net-flux vector, so floating-point overflow is classified
+as a link-local mechanism failure rather than leaking a non-finite state.
+
+Both examples build deterministically from public package APIs and can write
+the same four-file bundle used by J6a. Source tests and the installed
+wheel/source-distribution probe execute both references, restore the manifests,
+and verify the normal/failure distinction. The examples do not add a new
+transport equation or modify the J4/J5 scientific contracts.
 
 
 ## Delivery sequence
