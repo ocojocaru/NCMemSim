@@ -49,7 +49,10 @@ attachments, direct/TAT accounting and link-local failures. The default
 `TransportEngine` and the v1.0.0 WKB/retention baseline remain unchanged. J5
 adds controlled electrical/retention references, local sensitivity with
 explicit density/capture-cross-section confounding, and DTCO/Robust DTCO
-execution without calibration or yield claims.
+execution without calibration or yield claims. J6 adds integrity-checked,
+mechanism-resolved report bundles with explicit parameter provenance plus
+standalone normal and deliberate-failure references. J6 is complete; J7 final
+release validation is next.
 
 ## Start here
 

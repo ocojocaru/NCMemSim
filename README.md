@@ -8,11 +8,12 @@
 
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
-> **Current development version:** `1.1.0.dev0` — Phase J advanced transport bootstrap
+> **Current development version:** `1.1.0.dev0` — Phase J advanced transport development
 > **Latest stable release:** `1.0.0` — stable API, compatibility contracts and all release gates passed
-> **Development status:** J5 adds controlled electrical/retention references,
-> local sensitivity and DTCO/Robust DTCO validation without calibration or
-> manufacturing-yield claims.
+> **Development status:** J6 is complete. Advanced transport now includes
+> controlled validation, portable mechanism-resolved reports, provenance
+> exports, and runnable normal/deliberate-failure references. J7 release gates
+> are next; no experimental-calibration or manufacturing-yield claim is made.
 > **Scientific status:** Phases G/H/I add deterministic and Robust DTCO, immutable workflow evidence and linked reports to the retained simulation/calibration baseline. References remain synthetic/FITTED; device-specific experimental calibration remains study-dependent.
 
 ## Why NCMemSim?
@@ -71,7 +72,7 @@ Existing APIs and physics are preserved.
 | DTCO reports | Integrity-checked JSON manifests, CSV exports and Markdown summaries |
 | Robust DTCO | Bounded independent variations, exact sample manifests, isolated propagation, response statistics, nominal comparisons, explicit robust fronts and linked reports |
 | Scientific workflows | Immutable source evidence, fitted evaluator contexts, electrical/optical integration references and linked portable reports |
-| Advanced transport | J1 trap contracts, J2 compact TAT kernel, J3 barrier corrections, J4 link integration and J5 controlled sensitivity/DTCO validation |
+| Advanced transport | J1 trap contracts, J2 compact TAT kernel, J3 barrier corrections, J4 link integration, J5 controlled validation/sensitivity, and J6 reproducible reports with normal/failure references |
 
 Experimental-data handling, deterministic parameter fitting, local uncertainty/identifiability diagnostics, and calibration qualification are implemented in v0.11.0. Deterministic design-space exploration and DTCO are implemented in v0.12.0; advanced quantum corrections remain roadmap items. The compact optical model introduced in v0.10.0 is retained; absolute absorption amplitudes and device-specific photo-capture efficiencies remain provisional unless supported by appropriate independent experimental calibration.
 

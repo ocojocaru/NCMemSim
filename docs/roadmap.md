@@ -243,7 +243,7 @@ The release includes:
 
 ### v1.1.0: Advanced transport physics
 
-**Status: J5 scientific validation and sensitivity complete; package version `1.1.0.dev0`.**
+**Status: J6 reproducible reports and references complete; package version `1.1.0.dev0`; J7 release gates next.**
 
 Phase J begins from the immutable v1.0.0 tag and preserves the approved v1
 public API and scientific baseline. J1 adds inert trap contracts and selects
@@ -252,7 +252,10 @@ J3 adds an explicitly enabled classical image-force correction with preserved
 unmodified barriers. J4 attaches that pathway only to named links through an
 additive composite engine and preserves the stable direct engine and defaults.
 J5 adds controlled electrical/retention references, local identifiability
-diagnostics and DTCO/Robust DTCO execution without yield claims.
+diagnostics and DTCO/Robust DTCO execution without yield claims. J6 adds
+integrity-checked mechanism-resolved reports, provenance exports, and standalone
+normal/deliberate-failure references while preserving direct-transport
+visibility and link-local optional-mechanism failure isolation.
 
 The planned sequence is:
 
@@ -270,8 +273,8 @@ The planned sequence is:
   link-local failure propagation;
 - **J5 - scientific validation and sensitivity (complete):** controlled references,
   parameter sensitivity, identifiability limits and DTCO integration;
-- **J6 - reproducible examples and reports:** normal/failure references,
-  mechanism-resolved exports and interpretation limits;
+- **J6 - reproducible examples and reports (complete):** normal/failure
+  references, mechanism-resolved exports, provenance and interpretation limits;
 - **J7 - v1.1.0 release gates:** full regression, strict documentation, clean
   distributions and supported-runtime remote validation.
 

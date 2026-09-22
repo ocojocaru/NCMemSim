@@ -3,7 +3,7 @@
 ## Status and purpose
 
 This page defines the Phase J development contract for NCMemSim v1.1.0.
-The current `1.1.0.dev0` work has completed **J5**. J0 introduced scope,
+The current `1.1.0.dev0` work has completed **J6**. J0 introduced scope,
 interfaces, invariants, validation requirements, and a delivery sequence. J1
 added inert trap/TAT specifications and selected the first compact equation.
 J2 evaluates that conditional compact path with explicit diagnostics, but does
@@ -13,8 +13,10 @@ the complete unmodified barrier profile. J4 adds explicit link attachment,
 mechanism-resolved rates/fluxes, conservative copied-state evolution and
 link-local failure results. J5 adds controlled electrical/retention references,
 local sensitivity and explicit identifiability limits, then executes the same
-response through DTCO and Robust DTCO. It does not introduce calibrated
-material parameters or a manufacturing-yield claim.
+response through DTCO and Robust DTCO. J6 adds portable integrity-checked
+mechanism/provenance reports and standalone normal/deliberate-failure
+references. None of J5/J6 introduces calibrated material parameters or a
+manufacturing-yield claim.
 
 The published v1.0.0 direct-tunnelling and retention behavior remains the
 reference baseline. All future Phase J mechanisms must be opt-in and must
@@ -569,7 +571,7 @@ transport equation or modify the J4/J5 scientific contracts.
 - record parameter sensitivity and identifiability limits;
 - verify DTCO and Robust DTCO integration without yield claims.
 
-### J6 - reproducible examples and reports (in progress)
+### J6 - reproducible examples and reports (complete)
 
 - provide normal and deliberate-failure references;
 - export mechanism-resolved results and provenance;

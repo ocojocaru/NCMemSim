@@ -4,6 +4,19 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### J6c - documentation and inventory closure
+
+- Mark Phase J6 reproducible reporting and runnable normal/failure references
+  complete across the README, documentation index, roadmap and advanced
+  transport contract.
+- Record that J6 adds no further public API beyond J6a reporting; the observed
+  source API inventory remains 90 modules / 176 documented import paths and
+  the approved v1.0 stable proposal remains 204 exact import paths.
+- Retain the compact-model interpretation limits: hashes establish internal
+  consistency, synthetic/failure-injection references are not experimental
+  calibration, and Robust DTCO evidence is not a manufacturing-yield claim.
+- Hand the development sequence to J7 final release gates.
+
 ### J6b - runnable normal and deliberate-failure references
 
 - Add standalone normal and deliberate-failure advanced-transport report
