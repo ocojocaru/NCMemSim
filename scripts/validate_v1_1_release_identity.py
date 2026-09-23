@@ -1,4 +1,4 @@
-"""Validate the v1.1.0 final-version candidate identity without rewriting v1.0 evidence."""
+"""Validate the published v1.1.0 release identity without rewriting v1.0 evidence."""
 from __future__ import annotations
 
 import ast
@@ -51,9 +51,9 @@ def validate(root: Path) -> dict:
     if "doi:" in citation.lower():
         raise ValueError("CITATION.cff must not claim an unassigned DOI")
     if _citation_field(citation, "version") != EXPECTED_RELEASE:
-        raise ValueError("CITATION.cff version must match the v1.1.0 candidate")
-    if re.search(r"(?m)^date-released:", citation):
-        raise ValueError("unpublished candidate must not claim a release date")
+        raise ValueError("CITATION.cff version must match the v1.1.0 release")
+    if _citation_field(citation, "date-released") != "2026-09-23":
+        raise ValueError("CITATION.cff date-released must be 2026-09-23")
 
     for name, expected in HISTORICAL_JSON_SHA256.items():
         data = json.loads((root / name).read_text(encoding="utf-8"))
@@ -82,23 +82,23 @@ def validate(root: Path) -> dict:
         raise ValueError("unexpected v1.1 provisional API count")
 
     readme = (root / "README.md").read_text(encoding="utf-8")
-    if "**Current release candidate version:** `1.1.0`" not in readme:
-        raise ValueError("README does not identify the v1.1.0 release candidate")
-    if "**Latest published stable release:** `1.0.0`" not in readme:
-        raise ValueError("README must retain v1.0.0 as the latest published release before tagging")
+    if "**Current stable release:** `1.1.0`" not in readme:
+        raise ValueError("README does not identify v1.1.0 as the current stable release")
+    if "**Latest published stable release:** `1.0.0`" in readme:
+        raise ValueError("README still identifies v1.0.0 as the latest stable release")
 
     advanced = (root / "docs/advanced_transport.md").read_text(encoding="utf-8")
-    if "The current `1.1.0` final-version candidate" not in advanced:
-        raise ValueError("advanced-transport status is not at J7c")
+    if "Version `1.1.0` completes Phase J" not in advanced:
+        raise ValueError("advanced-transport status does not identify the completed v1.1.0 release")
 
     roadmap = (root / "docs/roadmap.md").read_text(encoding="utf-8")
-    if "J7c final-version candidate prepared" not in roadmap:
-        raise ValueError("roadmap is not at J7c")
+    if "released as `v1.1.0`" not in roadmap:
+        raise ValueError("roadmap does not identify v1.1.0 as released")
 
     return {
         "release_version": EXPECTED_RELEASE,
         "previous_stable_release": PREVIOUS_STABLE,
-        "citation_date": None,
+        "citation_date": "2026-09-23",
         "stable_v1_paths_retained": 204,
         "v1_1_proposed_stable_additions": 34,
         "v1_1_public_provisional_additions": 10,
@@ -114,11 +114,11 @@ def main() -> int:
         return 1
     print(
         "v1.1 release identity PASS: "
-        f"{result['release_version']} candidate; "
+        f"{result['release_version']} release ({result['citation_date']}); "
         f"{result['stable_v1_paths_retained']} retained v1 paths; "
         f"{result['v1_1_proposed_stable_additions']} proposed stable + "
         f"{result['v1_1_public_provisional_additions']} public provisional additions; "
-        "historical v1.0 release evidence retained; v1.1 release approval not implied."
+        "historical v1.0 release evidence retained."
     )
     return 0
 

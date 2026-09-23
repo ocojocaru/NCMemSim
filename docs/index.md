@@ -40,7 +40,7 @@ reviewed public API and result/archive contracts, retains explicit scientific
 scope limits, and is backed by full regression, strict documentation, clean
 installed distributions, and supported-runtime CI evidence.
 
-Version `1.1.0` is in Phase J final release validation. The
+Version `1.1.0` completes Phase J and is the current stable release. The
 [advanced transport](advanced_transport.md) J1 contract adds immutable,
 opt-in trap specifications, J2 implements the selected compact TAT kernel,
 and J3 adds explicit image-force interface corrections with preserved raw
@@ -52,8 +52,8 @@ explicit density/capture-cross-section confounding, and DTCO/Robust DTCO
 execution without calibration or yield claims. J6 adds integrity-checked,
 mechanism-resolved report bundles with explicit parameter provenance plus
 standalone normal and deliberate-failure references. J7a API/result review and
-J7b local preflight are complete; J7c aligns final release identity before the
-exact-candidate local and remote gates.
+J7b local preflight, J7c release-identity alignment, and the exact-candidate
+local and remote gates all passed before release tagging.
 
 ## Start here
 

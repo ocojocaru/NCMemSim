@@ -4,6 +4,21 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+## v1.1.0 - 2026-09-23
+
+### J7d - v1.1.0 publication metadata and release gate closure
+
+- Finalize `CITATION.cff`, README and documentation status for the `v1.1.0`
+  release with release date `2026-09-23`.
+- Record that the exact J7c candidate
+  `bd76be27aa831802a244b5d8fa5a4771905ed093` passed the local final-candidate
+  gates, branch CI/Documentation, and `main` CI/Documentation before this
+  metadata-only publication commit.
+- Preserve the v1.0 and J7a/J7b/J7c records as historical provenance; J7d
+  changes no scientific model, public API, or numerical behavior.
+- Require CI and Documentation to pass on this final metadata commit before
+  creating tag `v1.1.0`.
+
 ### J7c - v1.1.0 final-version candidate preparation
 
 - Align the package and `CITATION.cff` identity at `1.1.0` while keeping the

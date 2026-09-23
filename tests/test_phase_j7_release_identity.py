@@ -14,6 +14,7 @@ def test_v1_1_final_version_identity_is_aligned():
     result = validate(ROOT)
     assert result["release_version"] == "1.1.0"
     assert result["previous_stable_release"] == "1.0.0"
+    assert result["citation_date"] == "2026-09-23"
     assert result["stable_v1_paths_retained"] == 204
     assert result["v1_1_proposed_stable_additions"] == 34
     assert result["v1_1_public_provisional_additions"] == 10
@@ -63,7 +64,7 @@ def test_identity_accepts_historical_json_formatting_changes(candidate_copy):
         path = candidate_copy / name
         data = json.loads(path.read_text(encoding="utf-8"))
         path.write_text(json.dumps(data, indent=4, sort_keys=True), encoding="utf-8")
-    assert validate(candidate_copy)["citation_date"] is None
+    assert validate(candidate_copy)["citation_date"] == "2026-09-23"
 
 
 @pytest.mark.parametrize("fault", ["package", "citation", "release_date", "doi"])
@@ -75,7 +76,7 @@ def test_identity_rejects_inconsistent_or_premature_identity(candidate_copy, fau
     elif fault == "citation":
         text = text.replace("version: 1.1.0", "version: 1.0.0")
     elif fault == "release_date":
-        text += "\ndate-released: 2026-09-23\n"
+        text = text.replace("date-released: 2026-09-23", "date-released: 2026-09-22")
     else:
         text += "\ndoi: 10.0000/unassigned\n"
     path.write_text(text, encoding="utf-8")

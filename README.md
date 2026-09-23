@@ -8,9 +8,8 @@
 
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
-> **Current release candidate version:** `1.1.0` — Phase J final release validation
-> **Latest published stable release:** `1.0.0` — stable API, compatibility contracts and all release gates passed
-> **Release-candidate status:** J7a API/result review and J7b local preflight are complete. J7c aligns package/citation identity at `1.1.0`; exact-candidate local and remote gates remain before tagging. No experimental-calibration or manufacturing-yield claim is made.
+> **Current stable release:** `1.1.0` — Advanced transport physics
+> **Release status:** Phase J is complete. J7a/J7b/J7c preparation and the exact-candidate local, branch-remote and `main` CI/Documentation gates passed before release tagging. No experimental-calibration or manufacturing-yield claim is made.
 > **Scientific status:** Phases G/H/I add deterministic and Robust DTCO, immutable workflow evidence and linked reports to the retained simulation/calibration baseline. References remain synthetic/FITTED; device-specific experimental calibration remains study-dependent.
 
 ## Why NCMemSim?
@@ -100,14 +99,13 @@ Verify the installation with:
 python -c "import ncmemsim; print(ncmemsim.__version__)"
 ```
 
-For the `v1.0.0` stable release checkout, the expected version is:
+For the `v1.1.0` stable release checkout, the expected version is:
 
 ```text
-1.0.0
+1.1.0
 ```
 
-On `dev/v1.1.0-advanced-transport`, the final-version candidate reports
-`1.1.0`. It is not a published release until the exact validated commit is tagged.
+The previous stable tag `v1.0.0` reports package version `1.0.0`.
 
 Published tags and assets are listed on the [GitHub releases page](https://github.com/ocojocaru/NCMemSim/releases).
 
