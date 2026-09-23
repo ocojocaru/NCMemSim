@@ -285,7 +285,7 @@ not establish experimental defect calibration.
 
 ### v1.2.0: Stochastic nanocrystal ensembles and device variability
 
-**Status: K0 scope and architecture freeze complete; implementation not yet started.**
+**Status: K0 scope and architecture freeze complete; K1 stochastic variable and distribution contracts complete; K2 next.**
 
 Phase K begins from the immutable `v1.1.0` release and adds reproducible
 stochastic nanocrystal ensembles and device-level variability analysis while
@@ -305,11 +305,12 @@ Phase K is organized as:
   units, stochastic ownership, reproducibility, correlations, sample-domain
   handling, realization semantics, statistics, failures, provenance, DTCO
   integration and validation contracts;
-- **K1 — stochastic variable and distribution contracts:** immutable,
+- **K1 — stochastic variable and distribution contracts (complete):** immutable,
   serializable stochastic-variable definitions with explicit physical domains,
-  provenance and deterministic hashes; initial normal, truncated-normal,
-  uniform, log-normal and finite-discrete distributions;
-- **K2 — reproducible ensemble generation and correlations:** deterministic
+  provenance and deterministic hashes; constant, normal, truncated-normal,
+  uniform, log-normal and finite-discrete distributions, plus strict
+  round-trip deserialization and ensemble-specification identity;
+- **K2 — reproducible ensemble generation and correlations (next):** deterministic
   seeded sampling, stable sample identities, authoritative sample manifests
   and hashes, plus the first explicit matrix-based correlation contract;
 - **K3 — ensemble realization and simulation execution:** application of

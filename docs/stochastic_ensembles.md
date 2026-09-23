@@ -184,8 +184,9 @@ A variable specification must eventually define at least:
 - provenance/status;
 - applicability statement.
 
-The initial distribution family planned for K1 is:
+The initial serializable distribution family implemented in K1 is:
 
+- constant;
 - normal;
 - truncated normal;
 - uniform;
@@ -602,21 +603,27 @@ Define scientific scope, compatibility boundary, terminology, units, stochastic 
 
 No stochastic simulator execution is introduced in K0.
 
-### K1 — Stochastic variable and distribution contracts
+### K1 — Stochastic variable and distribution contracts (complete)
 
-Implement immutable serializable variable and distribution specifications with canonical units, physical domains, provenance and deterministic hashes.
+Implemented immutable serializable variable and distribution specifications with canonical units, physical domains, provenance and deterministic hashes.
 
-Planned initial distributions:
+Implemented initial distributions:
 
+- constant;
 - normal;
 - truncated normal;
 - uniform;
 - log-normal;
 - finite discrete.
 
-K1 does not yet execute simulator ensembles.
+K1 also establishes strict round-trip deserialization for distribution,
+physical-domain, stochastic-variable and ensemble-specification contracts,
+including reconstruction of existing parameter-binding and provenance
+identities without modifying the v1 contracts.
 
-### K2 — Reproducible ensemble generation and correlations
+K1 does not execute simulator ensembles.
+
+### K2 — Reproducible ensemble generation and correlations (next)
 
 Implement deterministic ensemble sampling, stable sample identities, authoritative sample manifests/hashes and the first explicit correlation contract.
 
