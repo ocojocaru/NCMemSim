@@ -11,6 +11,7 @@ from .distributions import (
 )
 
 from .spec import PhysicalDomain, StochasticVariable
+from .specification import EnsembleSpec
 
 __all__ = [
     "ConstantDistribution",
@@ -22,4 +23,5 @@ __all__ = [
     "UniformDistribution",
     "PhysicalDomain",
     "StochasticVariable",
+    "EnsembleSpec",
 ]
