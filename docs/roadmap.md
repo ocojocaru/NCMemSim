@@ -283,6 +283,66 @@ See [Advanced transport physics](advanced_transport.md) for the governing J0
 contracts. New mechanisms remain disabled by default and synthetic examples do
 not establish experimental defect calibration.
 
+### v1.2.0: Stochastic nanocrystal ensembles and device variability
+
+**Status: K0 scope and architecture freeze complete; implementation not yet started.**
+
+Phase K begins from the immutable `v1.1.0` release and adds reproducible
+stochastic nanocrystal ensembles and device-level variability analysis while
+preserving the approved v1 public API, deterministic simulator behavior,
+existing archive readers, DTCO, Robust DTCO, calibration semantics and the
+v1.1.0 transport baseline.
+
+The governing Phase K invariant is that a zero-variation ensemble must
+reproduce the corresponding nominal v1.1.0 workflow within its existing exact
+or declared numerical tolerance. Stochastic behavior remains explicitly
+opt-in and must never alter an existing deterministic call.
+
+Phase K is organized as:
+
+- **K0 — scope and architecture freeze (complete):** scientific scope,
+  compatibility boundary, ensemble/sample/realization terminology, canonical
+  units, stochastic ownership, reproducibility, correlations, sample-domain
+  handling, realization semantics, statistics, failures, provenance, DTCO
+  integration and validation contracts;
+- **K1 — stochastic variable and distribution contracts:** immutable,
+  serializable stochastic-variable definitions with explicit physical domains,
+  provenance and deterministic hashes; initial normal, truncated-normal,
+  uniform, log-normal and finite-discrete distributions;
+- **K2 — reproducible ensemble generation and correlations:** deterministic
+  seeded sampling, stable sample identities, authoritative sample manifests
+  and hashes, plus the first explicit matrix-based correlation contract;
+- **K3 — ensemble realization and simulation execution:** application of
+  samples through reviewed bindings to existing nominal NCMemSim workflows,
+  with realization-local validation and failure isolation;
+- **K4 — statistical device and reliability metrics:** explicit population
+  counts, denominators, percentiles, nominal comparison, feasibility accounting
+  and simulated pass fractions;
+- **K5 — variability-aware DTCO:** ensemble-derived objectives and constraints
+  integrated with the existing transparent Pareto/DTCO framework without
+  redefining deterministic DTCO or Robust-DTCO semantics;
+- **K6 — scientific reference studies and reproducible reports:** controlled
+  nanocrystal-diameter variability, trap/disorder variability and
+  multi-parameter ensemble-DTCO references with integrity-checked manifests,
+  failure accounting and interpretation limits;
+- **K7 — v1.2.0 compatibility review and release gates:** additive API/result
+  review, complete regression, strict documentation, reproducibility checks,
+  clean distributions, supported-Python CI, exact-commit remote validation,
+  tag CI and automated GitHub Release validation.
+
+The first v1.2.0 implementation intentionally excludes kinetic Monte Carlo,
+atomistic defects, three-dimensional stochastic percolation, wafer/process
+simulation, Bayesian or evolutionary optimization, machine-learned surrogates,
+TCAD co-simulation and neuromorphic learning rules.
+
+Phase K may report `simulated_pass_fraction` or
+`ensemble_feasibility_fraction`. Synthetic ensemble statistics must not be
+described as manufacturing or process yield without an independent
+experimental/process-calibration contract.
+
+See [Stochastic nanocrystal ensembles and device variability](stochastic_ensembles.md)
+for the governing K0 architecture and scientific contracts.
+
 ## Post-v0.10 optical extensions
 
 Several optical effects are intentionally outside the current compact model and may be introduced in later revisions:
