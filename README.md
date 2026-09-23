@@ -8,12 +8,9 @@
 
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
-> **Current development version:** `1.1.0.dev0` — Phase J advanced transport development
-> **Latest stable release:** `1.0.0` — stable API, compatibility contracts and all release gates passed
-> **Development status:** J6 is complete. Advanced transport now includes
-> controlled validation, portable mechanism-resolved reports, provenance
-> exports, and runnable normal/deliberate-failure references. J7 release gates
-> are next; no experimental-calibration or manufacturing-yield claim is made.
+> **Current release candidate version:** `1.1.0` — Phase J final release validation
+> **Latest published stable release:** `1.0.0` — stable API, compatibility contracts and all release gates passed
+> **Release-candidate status:** J7a API/result review and J7b local preflight are complete. J7c aligns package/citation identity at `1.1.0`; exact-candidate local and remote gates remain before tagging. No experimental-calibration or manufacturing-yield claim is made.
 > **Scientific status:** Phases G/H/I add deterministic and Robust DTCO, immutable workflow evidence and linked reports to the retained simulation/calibration baseline. References remain synthetic/FITTED; device-specific experimental calibration remains study-dependent.
 
 ## Why NCMemSim?
@@ -42,7 +39,7 @@ Existing APIs and physics are preserved.
 
 ## Implemented capabilities
 
-| Area | Available in v1.0.0 / v1.1.0.dev0 |
+| Area | Available in v1.0.0 / v1.1.0 |
 |---|---|
 | Device construction | V1 and V2 architectures, 1–3 floating gates |
 | Materials | Si, SiO2, HfO2, Ge, composition-dependent GeSn |
@@ -109,8 +106,8 @@ For the `v1.0.0` stable release checkout, the expected version is:
 1.0.0
 ```
 
-On `dev/v1.1.0-advanced-transport`, the expected development version is
-`1.1.0.dev0`. Development identifiers are not release tags.
+On `dev/v1.1.0-advanced-transport`, the final-version candidate reports
+`1.1.0`. It is not a published release until the exact validated commit is tagged.
 
 Published tags and assets are listed on the [GitHub releases page](https://github.com/ocojocaru/NCMemSim/releases).
 

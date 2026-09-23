@@ -37,6 +37,17 @@ def _compatible_development_version(version: str, baseline: str) -> bool:
     )
 
 
+def _released_successor_or_same(version: str, baseline: str) -> bool:
+    current = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)", version)
+    released = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)", baseline)
+    return bool(
+        current
+        and released
+        and current.group(1) == released.group(1)
+        and tuple(map(int, current.groups())) >= tuple(map(int, released.groups()))
+    )
+
+
 LOCAL_FINAL_CHECKS = {"full_local_regression", "strict_documentation_audit", "clean_installed_distributions"}
 UNRESOLVED_LOCAL_FINAL_CHECKS = {"clean_installed_distributions"}
 RECORDED_FINAL_CHECKS = {"full_local_regression", "strict_documentation_audit", "supported_runtime_ci", "remote_documentation"}
@@ -71,17 +82,24 @@ def validate(root: Path) -> dict:
     if plan["final_release_version"] != "1.0.0":
         raise ValueError("final release version must be 1.0.0")
 
+    if plan["current_citation_version"] != plan["final_release_version"]:
+        raise ValueError("historical citation version must retain the v1.0 baseline")
+
     package_version = _package_version(root)
     citation_text = (root / "CITATION.cff").read_text(encoding="utf-8")
     if "doi:" in citation_text.lower():
         raise ValueError("CITATION.cff must not claim a DOI before deposit verification")
     citation_version = _citation_version(citation_text)
-    if citation_version != plan["current_citation_version"]:
-        raise ValueError("plan citation version must match current citation file")
+    if citation_version != plan["current_citation_version"] and not _released_successor_or_same(
+        citation_version, plan["current_citation_version"]
+    ):
+        raise ValueError("live citation must not predate the historical archival plan")
     if plan["preparation_version"] != plan["final_release_version"]:
         raise ValueError("archival plan must retain its published release baseline")
-    if citation_version != plan["final_release_version"]:
-        raise ValueError("citation must identify the latest published release")
+    if citation_version != plan["final_release_version"] and not _released_successor_or_same(
+        citation_version, plan["final_release_version"]
+    ):
+        raise ValueError("live citation must retain or advance the historical release line")
     if package_version != citation_version and not _compatible_development_version(
         package_version, citation_version
     ):

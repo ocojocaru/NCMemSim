@@ -1,7 +1,7 @@
 # Developer guide
 
 This guide describes the development conventions for the stable NCMemSim v1
-line and the `1.1.0.dev0` Phase J cycle. It records the
+line and the `1.1.0` Phase J release-candidate cycle. It records the
 requirements for extending the simulator without losing physical traceability,
 numerical reproducibility, or regression stability.
 

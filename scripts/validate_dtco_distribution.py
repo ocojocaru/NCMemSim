@@ -50,6 +50,7 @@ SOURCE_REQUIRED = {
     'scripts/validate_stable_api_proposal.py',
     'docs/v1_1_api_review.json',
     'scripts/validate_v1_1_api_review.py',
+    'scripts/validate_v1_1_release_identity.py',
     'scripts/validate_release_readiness.py',
     'scripts/validate_archival_citation.py',
     'scripts/validate_remote_candidate_gates.py',

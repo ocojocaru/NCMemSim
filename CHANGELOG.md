@@ -4,6 +4,30 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### J7c - v1.1.0 final-version candidate preparation
+
+- Align the package and `CITATION.cff` identity at `1.1.0` while keeping the
+  latest published GitHub tag at v1.0.0 until final remote validation and tagging.
+- Retain the v1.0 readiness, archival/citation and final-gate records unchanged as
+  historical evidence rather than silently reinterpreting them as v1.1 evidence.
+- Retain the J7a API review as a `1.1.0.dev0` review snapshot: 204 frozen v1 paths,
+  34 proposed stable v1.1 additions and 10 public provisional additions.
+- Add a v1.1 release-identity validator and focused tests; no tag, GitHub release,
+  DOI or external archival deposit is created by this preparation step.
+- Require candidate-critical local checks and Python 3.11-3.13/Documentation
+  remote validation again on the exact final-version commit before tagging.
+
+### J7b - local release preflight
+
+- Record a clean pre-final-version local preflight on commit
+  `2ed1164c4afbeb84f755c0bf14892e3e0248d75b`: 2335 pytest tests passed.
+- Validate strict documentation with 44 rendered pages, 7539 local references,
+  120/120 syntax-complete Python blocks and 396 checked public imports.
+- Build and clean-install both `1.1.0.dev0` wheel and source distribution with
+  installed J5/J6 references, frozen v0.14.0 archive readers and DTCO workflows passing.
+- Treat this as preflight evidence only; changing the version identity in J7c means
+  candidate-critical local checks must be rerun on the exact final-version commit.
+
 ### J7a - v1.1 API/result compatibility review
 
 - Retain the frozen v1.0 stable proposal unchanged at 204 exact import paths.

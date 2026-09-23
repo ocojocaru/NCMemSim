@@ -3,7 +3,7 @@ from pathlib import Path
 import ast,json,re,sys
 
 def _compatible_development_version(version,baseline):
-    current=re.fullmatch(r'(\d+)\.(\d+)\.(\d+)\.dev\d+',version)
+    current=re.fullmatch(r'(\d+)\.(\d+)\.(\d+)(?:\.dev\d+)?',version)
     released=re.fullmatch(r'(\d+)\.(\d+)\.(\d+)',baseline)
     return bool(current and released and current.group(1)==released.group(1)
                 and tuple(map(int,current.groups()[:3]))>=tuple(map(int,released.groups())))

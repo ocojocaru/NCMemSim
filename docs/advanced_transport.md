@@ -3,7 +3,7 @@
 ## Status and purpose
 
 This page defines the Phase J development contract for NCMemSim v1.1.0.
-The current `1.1.0.dev0` work has completed **J6** and entered **J7a** API/result review. J0 introduced scope,
+The current `1.1.0` final-version candidate has completed J7a API/result review and J7b local preflight; J7c aligns release identity while exact-candidate local and remote validation remain open. J0 introduced scope,
 interfaces, invariants, validation requirements, and a delivery sequence. J1
 added inert trap/TAT specifications and selected the first compact equation.
 J2 evaluates that conditional compact path with explicit diagnostics, but does

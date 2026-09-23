@@ -10,11 +10,11 @@ import ncmemsim
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_j0_uses_development_version_and_retains_stable_citation():
-    assert ncmemsim.__version__ == "1.1.0.dev0"
+def test_j7c_uses_final_candidate_version_and_citation():
+    assert ncmemsim.__version__ == "1.1.0"
     citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
     match = re.search(r"(?m)^version:\s*['\"]?([^'\"\s]+)", citation)
-    assert match and match.group(1) == "1.0.0"
+    assert match and match.group(1) == "1.1.0"
 
 
 def test_phase_j_scope_freezes_v1_behavior_and_documents_explicit_j4_integration():

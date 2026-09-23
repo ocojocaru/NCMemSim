@@ -243,7 +243,7 @@ The release includes:
 
 ### v1.1.0: Advanced transport physics
 
-**Status: J7a API/result compatibility review prepared; package version `1.1.0.dev0`; final release gates remain open.**
+**Status: J7c final-version candidate prepared at package/citation version `1.1.0`; exact-candidate local and remote release gates remain open.**
 
 Phase J begins from the immutable v1.0.0 tag and preserves the approved v1
 public API and scientific baseline. J1 adds inert trap contracts and selects
