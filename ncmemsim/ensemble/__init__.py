@@ -8,6 +8,7 @@ from .distributions import (
     NormalDistribution,
     TruncatedNormalDistribution,
     UniformDistribution,
+    distribution_from_dict,
 )
 
 from .spec import PhysicalDomain, StochasticVariable
@@ -24,4 +25,5 @@ __all__ = [
     "PhysicalDomain",
     "StochasticVariable",
     "EnsembleSpec",
+    "distribution_from_dict",
 ]

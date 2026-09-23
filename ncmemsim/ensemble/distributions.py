@@ -234,6 +234,141 @@ class FiniteDiscreteDistribution:
     def definition_hash(self) -> str:
         return canonical_hash(self.to_dict())
 
+def _strict_fields(
+    data: dict[str, Any],
+    required: set[str],
+) -> None:
+    actual = set(data)
+
+    missing = required - actual
+    if missing:
+        raise ValueError(
+            "missing distribution fields: "
+            + ", ".join(sorted(missing))
+        )
+
+    unknown = actual - required
+    if unknown:
+        raise ValueError(
+            "unknown distribution fields: "
+            + ", ".join(sorted(unknown))
+        )
+
+
+def distribution_from_dict(
+    data: dict[str, Any],
+) -> "DistributionSpec":
+    """Restore one distribution from its exact serialized representation."""
+
+    if not isinstance(data, dict):
+        raise TypeError("distribution data must be a dict")
+
+    if "family" not in data:
+        raise ValueError("missing distribution fields: family")
+
+    family = data["family"]
+    if not isinstance(family, str):
+        raise TypeError("distribution family must be text")
+
+    if family == "constant":
+        _strict_fields(
+            data,
+            {"family", "value"},
+        )
+        return ConstantDistribution(
+            value=data["value"],
+        )
+
+    if family == "normal":
+        _strict_fields(
+            data,
+            {
+                "family",
+                "mean",
+                "standard_deviation",
+            },
+        )
+        return NormalDistribution(
+            mean=data["mean"],
+            standard_deviation=data["standard_deviation"],
+        )
+
+    if family == "truncated_normal":
+        _strict_fields(
+            data,
+            {
+                "family",
+                "mean",
+                "standard_deviation",
+                "lower",
+                "upper",
+            },
+        )
+        return TruncatedNormalDistribution(
+            mean=data["mean"],
+            standard_deviation=data["standard_deviation"],
+            lower=data["lower"],
+            upper=data["upper"],
+        )
+
+    if family == "uniform":
+        _strict_fields(
+            data,
+            {
+                "family",
+                "lower",
+                "upper",
+            },
+        )
+        return UniformDistribution(
+            lower=data["lower"],
+            upper=data["upper"],
+        )
+
+    if family == "log_normal":
+        _strict_fields(
+            data,
+            {
+                "family",
+                "median",
+                "geometric_standard_deviation",
+            },
+        )
+        return LogNormalDistribution(
+            median=data["median"],
+            geometric_standard_deviation=(
+                data["geometric_standard_deviation"]
+            ),
+        )
+
+    if family == "finite_discrete":
+        _strict_fields(
+            data,
+            {
+                "family",
+                "values",
+                "probabilities",
+            },
+        )
+
+        if not isinstance(data["values"], list):
+            raise TypeError(
+                "finite-discrete values must be a list"
+            )
+
+        if not isinstance(data["probabilities"], list):
+            raise TypeError(
+                "finite-discrete probabilities must be a list"
+            )
+
+        return FiniteDiscreteDistribution(
+            values=tuple(data["values"]),
+            probabilities=tuple(data["probabilities"]),
+        )
+
+    raise ValueError(
+        f"unsupported distribution family {family!r}"
+    )
 
 DistributionSpec = (
     ConstantDistribution
@@ -253,4 +388,5 @@ __all__ = [
     "NormalDistribution",
     "TruncatedNormalDistribution",
     "UniformDistribution",
+    "distribution_from_dict",
 ]

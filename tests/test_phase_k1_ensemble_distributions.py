@@ -10,6 +10,7 @@ from ncmemsim.ensemble import (
     NormalDistribution,
     TruncatedNormalDistribution,
     UniformDistribution,
+    distribution_from_dict,
 )
 from ncmemsim.hashing import canonical_hash
 
@@ -151,3 +152,156 @@ def test_distribution_objects_are_frozen():
 
     with pytest.raises(FrozenInstanceError):
         item.lower = 0.0
+
+ROUND_TRIP_DISTRIBUTIONS = (
+    ConstantDistribution(5.0),
+    NormalDistribution(5.0, 0.5),
+    TruncatedNormalDistribution(
+        mean=5.0,
+        standard_deviation=0.5,
+        lower=3.0,
+        upper=7.0,
+    ),
+    UniformDistribution(3.0, 7.0),
+    LogNormalDistribution(
+        median=5.0,
+        geometric_standard_deviation=1.2,
+    ),
+    FiniteDiscreteDistribution(
+        values=(4.0, 5.0, 6.0),
+        probabilities=(0.2, 0.5, 0.3),
+    ),
+)
+
+
+@pytest.mark.parametrize(
+    "distribution",
+    ROUND_TRIP_DISTRIBUTIONS,
+)
+def test_distribution_round_trip(distribution):
+    restored = distribution_from_dict(
+        distribution.to_dict()
+    )
+
+    assert type(restored) is type(distribution)
+    assert restored.to_dict() == distribution.to_dict()
+    assert restored.definition_hash == distribution.definition_hash
+
+
+@pytest.mark.parametrize(
+    "data",
+    [
+        {},
+        {
+            "family": "constant",
+        },
+        {
+            "family": "normal",
+            "mean": 5.0,
+        },
+        {
+            "family": "uniform",
+            "lower": 1.0,
+        },
+    ],
+)
+def test_distribution_from_dict_rejects_missing_fields(data):
+    with pytest.raises(ValueError):
+        distribution_from_dict(data)
+
+
+@pytest.mark.parametrize(
+    "data",
+    [
+        {
+            "family": "constant",
+            "value": 5.0,
+            "extra": 1,
+        },
+        {
+            "family": "normal",
+            "mean": 5.0,
+            "standard_deviation": 0.5,
+            "unknown": "field",
+        },
+    ],
+)
+def test_distribution_from_dict_rejects_unknown_fields(data):
+    with pytest.raises(ValueError):
+        distribution_from_dict(data)
+
+
+def test_distribution_from_dict_rejects_unknown_family():
+    with pytest.raises(ValueError):
+        distribution_from_dict(
+            {
+                "family": "gaussian_magic",
+                "mean": 0.0,
+                "standard_deviation": 1.0,
+            }
+        )
+
+
+@pytest.mark.parametrize(
+    "data",
+    [
+        None,
+        [],
+        (),
+        "distribution",
+    ],
+)
+def test_distribution_from_dict_requires_dict(data):
+    with pytest.raises(TypeError):
+        distribution_from_dict(data)
+
+
+@pytest.mark.parametrize(
+    "family",
+    [
+        None,
+        1,
+        True,
+        [],
+    ],
+)
+def test_distribution_family_must_be_text(family):
+    with pytest.raises(TypeError):
+        distribution_from_dict(
+            {
+                "family": family,
+            }
+        )
+
+
+@pytest.mark.parametrize(
+    "field",
+    [
+        "values",
+        "probabilities",
+    ],
+)
+def test_finite_discrete_round_trip_requires_json_lists(field):
+    data = {
+        "family": "finite_discrete",
+        "values": [1.0, 2.0],
+        "probabilities": [0.5, 0.5],
+    }
+    data[field] = tuple(data[field])
+
+    with pytest.raises(TypeError):
+        distribution_from_dict(data)
+
+
+def test_distribution_from_dict_does_not_mutate_input():
+    original = NormalDistribution(
+        mean=5.0,
+        standard_deviation=0.5,
+    ).to_dict()
+
+    snapshot = dict(original)
+
+    restored = distribution_from_dict(original)
+
+    assert original == snapshot
+    assert restored.to_dict() == snapshot
