@@ -223,34 +223,50 @@ sample-domain-validation failure.
 
 ## K0.5 Canonical units
 
-All stochastic values use the canonical unit of the parameter being varied.
+Phase K inherits the canonical unit of an existing stable NCMemSim binding
+whenever that binding is reused.
 
-Examples include:
+The stochastic layer must not redefine an existing binding's unit merely to
+enforce a separate SI convention. This preserves the v1 compatibility
+boundary and prevents a second incompatible parameter-binding system.
 
-| Quantity | Canonical unit |
+For the existing executable DTCO bindings, the Phase K units therefore include:
+
+| Quantity | Stable binding unit |
 |---|---:|
-| nanocrystal diameter | m |
-| layer thickness | m |
-| nanocrystal volume fraction | dimensionless |
-| electrically active fraction | dimensionless |
-| GeSn Sn fraction | dimensionless |
-| trap density | m^-3 or the dimensionality explicitly required by the trap model |
-| trap energy | J |
-| capture cross section | m^2 |
-| attempt frequency | s^-1 |
-| barrier energy | J |
+| gate work function | eV |
+| substrate doping | m^-3 |
 | temperature | K |
-| voltage | V |
+| layer thickness | nm |
+| nanocrystal diameter | nm |
+| nanocrystal volume fraction | 1 |
+| electrically active fraction | 1 |
+| GeSn Sn fraction | 1 |
+| program/read voltage | V |
 | programming time | s |
-| optical wavelength | m |
-| optical power density | W m^-2 |
-| photo-capture efficiency | dimensionless |
+| internal timestep | s |
+| optical wavelength | nm |
+| optical power density | W/m^2 |
+
+For a parameter that does not yet have a stable executable binding, its unit
+must be fixed explicitly when that binding is introduced. Such new bindings
+should follow the unit contract of the underlying NCMemSim physics model; for
+example, the existing advanced-transport contracts use joules for trap and
+barrier energies.
+
+A stochastic distribution and its physical-domain bounds use the same unit as
+the variable's binding.
 
 Convenience units may only be introduced through named conversion helpers.
 
-There shall be no implicit nm/m, eV/J, cm^-3/m^-3, percentage/fraction, or wavelength-unit conversion in low-level stochastic contracts.
+There shall be no implicit nm/m, eV/J, cm^-3/m^-3, percentage/fraction, or
+wavelength-unit conversion in a low-level stochastic contract. A value is
+interpreted only in the explicit unit recorded by its binding and stochastic
+variable definition.
 
-A distribution parameter such as standard deviation has the same physical unit as its corresponding variable unless its mathematical definition explicitly makes it dimensionless.
+A distribution parameter such as arithmetic standard deviation has the same
+physical unit as its corresponding variable unless its mathematical definition
+explicitly makes it dimensionless.
 
 ---
 
