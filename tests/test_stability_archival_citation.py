@@ -1,6 +1,7 @@
 """Archival planning approves a plan, not a final deposit."""
 import json
 from pathlib import Path
+import re
 
 import pytest
 
@@ -55,7 +56,7 @@ def test_archival_plan_rejects_premature_release_claims(tmp_path, fault):
     elif fault == "citation_doi":
         citation += "\ndoi: 10.0000/not-real\n"
     elif fault == "citation_version":
-        citation = citation.replace("version: 1.0.0", "version: 0.0.0")
+        citation = re.sub(r"(?m)^version:\s*.*$", "version: 0.0.0", citation, count=1)
     elif fault == "unapproved_gate":
         next(g for g in readiness["gates"] if g["id"] == "archival_citation")["state"] = "pending"
     elif fault == "premature_ready":
