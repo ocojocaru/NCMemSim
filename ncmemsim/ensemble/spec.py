@@ -21,6 +21,12 @@ from .distributions import (
     NormalDistribution,
     TruncatedNormalDistribution,
     UniformDistribution,
+    distribution_from_dict,
+)
+from ._serialization import (
+    parameter_binding_from_dict,
+    parameter_provenance_from_dict,
+    strict_fields,
 )
 
 
@@ -90,6 +96,29 @@ class PhysicalDomain:
 
         object.__setattr__(self, "lower", lower)
         object.__setattr__(self, "upper", upper)
+
+    @classmethod
+    def from_dict(
+        cls,
+        data: dict[str, Any],
+    ) -> "PhysicalDomain":
+        strict_fields(
+            data,
+            label="physical-domain",
+            required={
+                "lower",
+                "upper",
+                "lower_inclusive",
+                "upper_inclusive",
+            },
+        )
+
+        return cls(
+            lower=data["lower"],
+            upper=data["upper"],
+            lower_inclusive=data["lower_inclusive"],
+            upper_inclusive=data["upper_inclusive"],
+        )
 
     def contains(self, value: float) -> bool:
         candidate = _number(value, "value")
@@ -242,6 +271,49 @@ class StochasticVariable:
                 )
 
             object.__setattr__(self, "nominal_value", nominal)
+
+    @classmethod
+    def from_dict(
+        cls,
+        data: dict[str, Any],
+    ) -> "StochasticVariable":
+        strict_fields(
+            data,
+            label="stochastic-variable",
+            required={
+                "schema_version",
+                "name",
+                "binding",
+                "distribution",
+                "unit",
+                "physical_domain",
+                "provenance",
+                "applicability",
+                "nominal_value",
+                "nominal_value_source",
+            },
+        )
+
+        return cls(
+            name=data["name"],
+            binding=parameter_binding_from_dict(
+                data["binding"]
+            ),
+            distribution=distribution_from_dict(
+                data["distribution"]
+            ),
+            unit=data["unit"],
+            physical_domain=PhysicalDomain.from_dict(
+                data["physical_domain"]
+            ),
+            provenance=parameter_provenance_from_dict(
+                data["provenance"]
+            ),
+            applicability=data["applicability"],
+            nominal_value=data["nominal_value"],
+            nominal_value_source=data["nominal_value_source"],
+            schema_version=data["schema_version"],
+        )
 
     def to_dict(self) -> dict[str, Any]:
         return {

@@ -14,6 +14,7 @@ from ..dtco.spec import (
 )
 from ..hashing import canonical_hash
 from .spec import StochasticVariable
+from ._serialization import strict_fields
 
 
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
@@ -153,6 +154,52 @@ class EnsembleSpec:
             description=description,
             base_operating_hash=base_operating_hash,
             base_operating_kind=base_operating_kind,
+        )
+
+    @classmethod
+    def from_dict(
+        cls,
+        data: dict[str, Any],
+    ) -> "EnsembleSpec":
+        strict_fields(
+            data,
+            label="ensemble-specification",
+            required={
+                "schema_version",
+                "name",
+                "base_device_hash",
+                "base_device_name",
+                "variables",
+            },
+            optional={
+                "description",
+                "base_operating_hash",
+                "base_operating_kind",
+            },
+        )
+
+        variables = data["variables"]
+        if not isinstance(variables, list):
+            raise TypeError(
+                "ensemble-specification variables must be a list"
+            )
+
+        return cls(
+            name=data["name"],
+            base_device_hash=data["base_device_hash"],
+            variables=tuple(
+                StochasticVariable.from_dict(variable)
+                for variable in variables
+            ),
+            base_device_name=data["base_device_name"],
+            description=data.get("description"),
+            base_operating_hash=data.get(
+                "base_operating_hash"
+            ),
+            base_operating_kind=data.get(
+                "base_operating_kind"
+            ),
+            schema_version=data["schema_version"],
         )
 
     def to_dict(self) -> dict[str, Any]:
