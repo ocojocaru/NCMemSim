@@ -10,6 +10,8 @@ from .distributions import (
     UniformDistribution,
 )
 
+from .spec import PhysicalDomain, StochasticVariable
+
 __all__ = [
     "ConstantDistribution",
     "DistributionSpec",
@@ -18,4 +20,6 @@ __all__ = [
     "NormalDistribution",
     "TruncatedNormalDistribution",
     "UniformDistribution",
+    "PhysicalDomain",
+    "StochasticVariable",
 ]
