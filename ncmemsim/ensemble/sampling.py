@@ -26,6 +26,7 @@ from .distributions import (
 from .correlation import (
     DependenceSpec,
     IndependentDependence,
+    MatrixCorrelation,
     dependence_from_dict,
 )
 from .rng import RNGSpec
@@ -55,6 +56,13 @@ _RUNTIME_KEYS = (
     "python_implementation",
     "numpy",
     "ncmemsim",
+)
+
+_GAUSSIAN_COPULA_CONTINUOUS_MARGINALS = (
+    NormalDistribution,
+    TruncatedNormalDistribution,
+    UniformDistribution,
+    LogNormalDistribution,
 )
 
 
@@ -350,6 +358,76 @@ def _sample_id_from_identity(
     )
 
 
+def _validate_dependence_against_ensemble(
+    ensemble_spec: EnsembleSpec,
+    dependence: DependenceSpec,
+) -> None:
+    """Validate dependence ownership and marginal compatibility."""
+
+    if isinstance(
+        dependence,
+        IndependentDependence,
+    ):
+        return
+
+    if not isinstance(
+        dependence,
+        MatrixCorrelation,
+    ):
+        raise TypeError(
+            "dependence must be a supported DependenceSpec"
+        )
+
+    ensemble_names = (
+        ensemble_spec.variable_names
+    )
+
+    positions = {
+        name: index
+        for index, name in enumerate(
+            ensemble_names
+        )
+    }
+
+    for name in dependence.variable_names:
+        if name not in positions:
+            raise ValueError(
+                f"correlation variable {name!r} "
+                "is not declared by EnsembleSpec"
+            )
+
+    correlation_positions = tuple(
+        positions[name]
+        for name in dependence.variable_names
+    )
+
+    if correlation_positions != tuple(
+        sorted(correlation_positions)
+    ):
+        raise ValueError(
+            "correlation variable_names must preserve "
+            "EnsembleSpec declared variable order"
+        )
+
+    variables_by_name = {
+        variable.name: variable
+        for variable in ensemble_spec.variables
+    }
+
+    for name in dependence.variable_names:
+        variable = variables_by_name[name]
+
+        if not isinstance(
+            variable.distribution,
+            _GAUSSIAN_COPULA_CONTINUOUS_MARGINALS,
+        ):
+            raise ValueError(
+                f"correlation variable {name!r} uses "
+                "a marginal unsupported by the initial "
+                "Gaussian-copula contract"
+            )
+
+
 @dataclass(frozen=True)
 class SamplingSpec:
     """Immutable identity of one Phase K sampling operation."""
@@ -382,11 +460,19 @@ class SamplingSpec:
 
         if not isinstance(
             self.dependence,
-            IndependentDependence,
+            (
+                IndependentDependence,
+                MatrixCorrelation,
+            ),
         ):
             raise TypeError(
                 "dependence must be a supported DependenceSpec"
             )
+
+        _validate_dependence_against_ensemble(
+            self.ensemble_spec,
+            self.dependence,
+        )
 
         _integer(
             self.sample_count,
