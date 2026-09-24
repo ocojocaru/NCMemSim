@@ -23,7 +23,10 @@ from .sampling import (
     SampleManifest,
     generate_sample_manifest,
 )
-from .correlation import IndependentDependence
+from .correlation import (
+    IndependentDependence,
+    MatrixCorrelation,
+)
 
 __all__ = [
     "ConstantDistribution",
@@ -46,4 +49,5 @@ __all__ = [
     "SampleGenerationError",
     "SampleManifest",
     "generate_sample_manifest",
+    "MatrixCorrelation",
 ]
