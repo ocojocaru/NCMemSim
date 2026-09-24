@@ -319,6 +319,152 @@ def _sample_correlated_standard_normals(
     return tuple(correlated)
 
 
+def _standard_normal_cdf_open(
+    z: float,
+) -> float:
+    """Map one finite standard-normal value to an open unit interval."""
+
+    if not math.isfinite(z):
+        raise SamplingError(
+            "gaussian_copula",
+            "non-finite latent standard-normal value",
+        )
+
+    sqrt_two = math.sqrt(2.0)
+
+    if z < 0.0:
+        probability = (
+            0.5
+            * math.erfc(
+                -z / sqrt_two
+            )
+        )
+    else:
+        upper_tail = (
+            0.5
+            * math.erfc(
+                z / sqrt_two
+            )
+        )
+
+        probability = (
+            1.0 - upper_tail
+        )
+
+    if probability <= 0.0:
+        probability = math.nextafter(
+            0.0,
+            1.0,
+        )
+    elif probability >= 1.0:
+        probability = math.nextafter(
+            1.0,
+            0.0,
+        )
+
+    return float(probability)
+
+
+def _correlated_marginal_value(
+    distribution: DistributionSpec,
+    z: float,
+) -> float:
+    """Map one Gaussian-copula latent value to a supported marginal."""
+
+    if not math.isfinite(z):
+        raise SamplingError(
+            "gaussian_copula",
+            "non-finite latent standard-normal value",
+        )
+
+    if isinstance(
+        distribution,
+        NormalDistribution,
+    ):
+        value = (
+            distribution.mean
+            + distribution.standard_deviation
+            * z
+        )
+
+        if not math.isfinite(value):
+            raise SamplingError(
+                "normal",
+                "non-finite numerical result",
+            )
+
+        return float(value)
+
+    if isinstance(
+        distribution,
+        UniformDistribution,
+    ):
+        probability = _standard_normal_cdf_open(
+            z
+        )
+
+        value = (
+            (1.0 - probability)
+            * distribution.lower
+            + probability
+            * distribution.upper
+        )
+
+        if not math.isfinite(value):
+            raise SamplingError(
+                "uniform",
+                "non-finite numerical result",
+            )
+
+        return float(value)
+
+    if isinstance(
+        distribution,
+        LogNormalDistribution,
+    ):
+        try:
+            value = (
+                distribution.median
+                * math.exp(
+                    math.log(
+                        distribution.geometric_standard_deviation
+                    )
+                    * z
+                )
+            )
+        except OverflowError as exc:
+            raise SamplingError(
+                "log_normal",
+                "floating-point overflow",
+            ) from exc
+
+        if (
+            not math.isfinite(value)
+            or value <= 0.0
+        ):
+            raise SamplingError(
+                "log_normal",
+                "non-representable positive finite result",
+            )
+
+        return float(value)
+
+    if isinstance(
+        distribution,
+        TruncatedNormalDistribution,
+    ):
+        raise SamplingError(
+            "truncated_normal",
+            "Gaussian-copula inverse-CDF transform "
+            "is not implemented yet",
+        )
+
+    raise TypeError(
+        "distribution is unsupported by the "
+        "Gaussian-copula marginal transform"
+    )
+
+
 def sample_distribution(
     distribution: DistributionSpec,
     rng: np.random.Generator,
