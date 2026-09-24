@@ -19,6 +19,9 @@ from .sampling import (
     SamplingError,
     SamplingSpec,
     sample_distribution,
+    SampleGenerationError,
+    SampleManifest,
+    generate_sample_manifest,
 )
 from .correlation import IndependentDependence
 
@@ -40,4 +43,7 @@ __all__ = [
     "EnsembleSample",
     "IndependentDependence",
     "SamplingSpec",
+    "SampleGenerationError",
+    "SampleManifest",
+    "generate_sample_manifest",
 ]

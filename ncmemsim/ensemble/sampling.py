@@ -28,6 +28,10 @@ from .correlation import (
 from .rng import RNGSpec
 from .specification import EnsembleSpec
 
+import platform
+
+from .._version import __version__
+
 
 SCALAR_SAMPLING_ALGORITHM = (
     "phase-k-pcg64-raw53-box-muller-v1"
@@ -43,6 +47,16 @@ SAMPLING_PRECISION = "float64-derived-python-float"
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
 _TWO_POW_53 = float(2**53)
+
+MANIFEST_SCHEMA_VERSION = "ensemble-sample-manifest-v1"
+SAMPLE_TABLE_SCHEMA_VERSION = "ensemble-sample-table-v1"
+
+_RUNTIME_KEYS = (
+    "python",
+    "python_implementation",
+    "numpy",
+    "ncmemsim",
+)
 
 
 class SamplingError(ValueError):
@@ -324,6 +338,19 @@ def _integer(
         )
 
 
+def _sample_id_from_identity(
+    sampling_spec_hash: str,
+    sample_index: int,
+) -> str:
+    return canonical_hash(
+        {
+            "schema_version": SAMPLE_ID_SCHEMA_VERSION,
+            "sampling_spec_hash": sampling_spec_hash,
+            "sample_index": sample_index,
+        }
+    )
+
+
 @dataclass(frozen=True)
 class SamplingSpec:
     """Immutable identity of one Phase K sampling operation."""
@@ -592,17 +619,11 @@ class EnsembleSample:
             values=tuple(values),
         )
 
-    def _id_payload(self) -> dict[str, Any]:
-        return {
-            "schema_version": SAMPLE_ID_SCHEMA_VERSION,
-            "sampling_spec_hash": self.sampling_spec_hash,
-            "sample_index": self.sample_index,
-        }
-
     @property
     def sample_id(self) -> str:
-        return canonical_hash(
-            self._id_payload()
+        return _sample_id_from_identity(
+            self.sampling_spec_hash,
+            self.sample_index,
         )
 
     def _content_payload(self) -> dict[str, Any]:
@@ -719,6 +740,264 @@ class EnsembleSample:
                 "sample index is outside sampling specification"
             )
 
+
+class SampleGenerationError(ValueError):
+    """Failure while generating one declared ensemble sample value."""
+
+    def __init__(
+        self,
+        sampling_spec_hash: str,
+        sample_index: int,
+        variable_name: str,
+        cause: SamplingError,
+    ) -> None:
+        self.sampling_spec_hash = sampling_spec_hash
+        self.sample_index = sample_index
+        self.variable_name = variable_name
+        self.cause = cause
+        self.sample_id = _sample_id_from_identity(
+            sampling_spec_hash,
+            sample_index,
+        )
+
+        super().__init__(
+            "sample generation failed for "
+            f"sample {sample_index} "
+            f"({self.sample_id}), "
+            f"variable {variable_name!r}: {cause}"
+        )
+
+
+@dataclass(frozen=True)
+class SampleManifest:
+    """Canonical ordered Phase K sample table and provenance."""
+
+    sampling_spec: SamplingSpec
+    samples: tuple[EnsembleSample, ...]
+    runtime: tuple[tuple[str, str], ...]
+    schema_version: str = MANIFEST_SCHEMA_VERSION
+
+    def __post_init__(self) -> None:
+        if not isinstance(
+            self.sampling_spec,
+            SamplingSpec,
+        ):
+            raise TypeError(
+                "sampling_spec must be SamplingSpec"
+            )
+
+        samples = tuple(self.samples)
+        runtime = tuple(
+            tuple(pair)
+            for pair in self.runtime
+        )
+
+        if len(samples) != self.sampling_spec.sample_count:
+            raise ValueError(
+                "manifest sample count does not match "
+                "sampling specification"
+            )
+
+        for expected_index, sample in enumerate(samples):
+            if not isinstance(
+                sample,
+                EnsembleSample,
+            ):
+                raise TypeError(
+                    "manifest samples must be EnsembleSample instances"
+                )
+
+            sample.require_matches_spec(
+                self.sampling_spec
+            )
+
+            if sample.sample_index != expected_index:
+                raise ValueError(
+                    "manifest samples must be ordered by "
+                    "contiguous sample_index"
+                )
+
+            for pair in runtime:
+                if len(pair) != 2:
+                    raise ValueError(
+                        "runtime metadata entries must be key/value pairs"
+                    )
+
+            if tuple(
+                pair[0]
+                for pair in runtime
+            ) != _RUNTIME_KEYS:
+                raise ValueError(
+                    "runtime metadata fields/order mismatch"
+                )
+
+            for pair in runtime:
+                key, value = pair
+
+            if (
+                not isinstance(key, str)
+                or not isinstance(value, str)
+                or not key
+                or not value
+                or key != key.strip()
+                or value != value.strip()
+            ):
+                raise ValueError(
+                    "runtime metadata must contain "
+                    "nonempty normalized text"
+                )
+
+        if self.schema_version != MANIFEST_SCHEMA_VERSION:
+            raise ValueError(
+                "unsupported sample-manifest schema_version"
+            )
+
+        object.__setattr__(
+            self,
+            "samples",
+            samples,
+        )
+        object.__setattr__(
+            self,
+            "runtime",
+            runtime,
+        )
+
+    def _sample_table_payload(self) -> dict[str, Any]:
+        return {
+            "schema_version": SAMPLE_TABLE_SCHEMA_VERSION,
+            "sampling_spec_hash": (
+                self.sampling_spec.definition_hash
+            ),
+            "samples": [
+                sample.to_dict()
+                for sample in self.samples
+            ],
+        }
+
+    @property
+    def sample_table_hash(self) -> str:
+        return canonical_hash(
+            self._sample_table_payload()
+        )
+
+    def _payload(self) -> dict[str, Any]:
+        return {
+            "schema_version": self.schema_version,
+            "sampling_spec": (
+                self.sampling_spec.to_dict()
+            ),
+            "sampling_spec_hash": (
+                self.sampling_spec.definition_hash
+            ),
+            "runtime": dict(self.runtime),
+            "sample_table_hash": (
+                self.sample_table_hash
+            ),
+            "samples": [
+                sample.to_dict()
+                for sample in self.samples
+            ],
+        }
+
+    @property
+    def manifest_hash(self) -> str:
+        return canonical_hash(
+            self._payload()
+        )
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            **self._payload(),
+            "manifest_hash": self.manifest_hash,
+        }
+
+
+def generate_sample_manifest(
+    sampling_spec: SamplingSpec,
+) -> SampleManifest:
+    """Generate one deterministic ordered independent sample manifest."""
+
+    if not isinstance(
+        sampling_spec,
+        SamplingSpec,
+    ):
+        raise TypeError(
+            "sampling_spec must be SamplingSpec"
+        )
+
+    if not isinstance(
+        sampling_spec.dependence,
+        IndependentDependence,
+    ):
+        raise ValueError(
+            "current Phase K generation supports "
+            "independent dependence only"
+        )
+
+    rng = sampling_spec.rng.create_generator()
+    samples: list[EnsembleSample] = []
+
+    for sample_index in range(
+        sampling_spec.sample_count
+    ):
+        values: list[float] = []
+
+        for variable in (
+            sampling_spec.ensemble_spec.variables
+        ):
+            try:
+                value = sample_distribution(
+                    variable.distribution,
+                    rng,
+                    max_draws_per_value=(
+                        sampling_spec.max_draws_per_value
+                    ),
+                )
+            except SamplingError as exc:
+                raise SampleGenerationError(
+                    sampling_spec.definition_hash,
+                    sample_index,
+                    variable.name,
+                    exc,
+                ) from exc
+
+            values.append(value)
+
+        samples.append(
+            EnsembleSample.from_values(
+                sampling_spec,
+                sample_index,
+                tuple(values),
+            )
+        )
+
+    runtime = (
+        (
+            "python",
+            platform.python_version(),
+        ),
+        (
+            "python_implementation",
+            platform.python_implementation(),
+        ),
+        (
+            "numpy",
+            np.__version__,
+        ),
+        (
+            "ncmemsim",
+            __version__,
+        ),
+    )
+
+    return SampleManifest(
+        sampling_spec=sampling_spec,
+        samples=tuple(samples),
+        runtime=runtime,
+    )
+
+
 __all__ = [
     "EnsembleSample",
     "SAMPLING_ORDER",
@@ -730,4 +1009,9 @@ __all__ = [
     "SamplingError",
     "SamplingSpec",
     "sample_distribution",
+    "MANIFEST_SCHEMA_VERSION",
+    "SAMPLE_TABLE_SCHEMA_VERSION",
+    "SampleGenerationError",
+    "SampleManifest",
+    "generate_sample_manifest",
 ]
