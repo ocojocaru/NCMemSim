@@ -13,6 +13,7 @@ from ncmemsim.ensemble.sampling import (
     SamplingError,
     _correlated_marginal_value,
     _standard_normal_cdf_open,
+    _inverse_standard_normal_cdf_open,
 )
 
 
@@ -158,7 +159,86 @@ def test_lognormal_transform_matches_declared_formula():
     )
 
 
-def test_truncated_normal_transform_fails_closed_for_now():
+@pytest.mark.parametrize(
+    ("probability", "expected"),
+    [
+        (
+            0.5,
+            0.0,
+        ),
+        (
+            0.025,
+            -1.959963984540054,
+        ),
+        (
+            0.975,
+            1.959963984540054,
+        ),
+    ],
+)
+def test_inverse_standard_normal_known_quantiles(
+    probability,
+    expected,
+):
+    assert _inverse_standard_normal_cdf_open(
+        probability
+    ) == pytest.approx(
+        expected,
+        abs=5.0e-12,
+    )
+
+
+@pytest.mark.parametrize(
+    "probability",
+    [
+        1.0e-9,
+        1.0e-6,
+        1.0e-3,
+        0.1,
+        0.5,
+        0.9,
+        0.999,
+        1.0 - 1.0e-6,
+        1.0 - 1.0e-9,
+    ],
+)
+def test_inverse_standard_normal_round_trip(
+    probability,
+):
+    z = _inverse_standard_normal_cdf_open(
+        probability
+    )
+
+    restored = _standard_normal_cdf_open(
+        z
+    )
+
+    assert restored == pytest.approx(
+        probability,
+        abs=1.0e-14,
+    )
+
+
+@pytest.mark.parametrize(
+    "probability",
+    [
+        0.0,
+        1.0,
+        math.nan,
+        math.inf,
+        -math.inf,
+    ],
+)
+def test_inverse_standard_normal_rejects_invalid_probability(
+    probability,
+):
+    with pytest.raises(SamplingError):
+        _inverse_standard_normal_cdf_open(
+            probability
+        )
+
+
+def test_truncated_normal_latent_zero_maps_to_symmetric_center():
     distribution = TruncatedNormalDistribution(
         mean=5.0,
         standard_deviation=0.5,
@@ -166,9 +246,88 @@ def test_truncated_normal_transform_fails_closed_for_now():
         upper=6.0,
     )
 
+    value = _correlated_marginal_value(
+        distribution,
+        0.0,
+    )
+
+    assert value == pytest.approx(
+        5.0,
+        abs=1.0e-14,
+    )
+
+
+def test_truncated_normal_extreme_latents_remain_in_support():
+    distribution = TruncatedNormalDistribution(
+        mean=5.0,
+        standard_deviation=0.5,
+        lower=4.0,
+        upper=6.0,
+    )
+
+    lower_value = _correlated_marginal_value(
+        distribution,
+        -100.0,
+    )
+
+    upper_value = _correlated_marginal_value(
+        distribution,
+        100.0,
+    )
+
+    assert (
+        distribution.lower
+        <= lower_value
+        <= distribution.upper
+    )
+
+    assert (
+        distribution.lower
+        <= upper_value
+        <= distribution.upper
+    )
+
+
+def test_truncated_normal_mapping_is_monotonic():
+    distribution = TruncatedNormalDistribution(
+        mean=5.0,
+        standard_deviation=0.5,
+        lower=4.0,
+        upper=6.0,
+    )
+
+    values = tuple(
+        _correlated_marginal_value(
+            distribution,
+            z,
+        )
+        for z in (
+            -2.0,
+            -1.0,
+            0.0,
+            1.0,
+            2.0,
+        )
+    )
+
+    assert values == tuple(
+        sorted(values)
+    )
+
+    assert len(set(values)) == len(values)
+
+
+def test_unrepresentable_truncation_probability_interval_fails_closed():
+    distribution = TruncatedNormalDistribution(
+        mean=0.0,
+        standard_deviation=1.0,
+        lower=20.0,
+        upper=21.0,
+    )
+
     with pytest.raises(
         SamplingError,
-        match="inverse-CDF",
+        match="not representable",
     ):
         _correlated_marginal_value(
             distribution,
@@ -209,3 +368,22 @@ def test_nonfinite_latent_is_rejected(
             distribution,
             value,
         )
+
+
+def test_truncated_normal_asymmetric_reference_quantile():
+    distribution = TruncatedNormalDistribution(
+        mean=0.0,
+        standard_deviation=1.0,
+        lower=0.0,
+        upper=2.0,
+    )
+
+    value = _correlated_marginal_value(
+        distribution,
+        0.0,
+    )
+
+    assert value == pytest.approx(
+        0.6391119108712726,
+        abs=5.0e-12,
+    )

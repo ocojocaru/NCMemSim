@@ -424,14 +424,14 @@ def test_gaussian_copula_sampling_algorithm_is_recorded():
     )
 
     assert spec.dependence_sampling_algorithm == (
-        "gaussian-copula-sequential-psd-cholesky-v1"
+        "gaussian-copula-sequential-psd-cholesky-inverse-cdf-v1"
     )
 
     assert (
         spec.to_dict()[
             "dependence_sampling_algorithm"
         ]
-        == "gaussian-copula-sequential-psd-cholesky-v1"
+        == "gaussian-copula-sequential-psd-cholesky-inverse-cdf-v1"
     )
 
 

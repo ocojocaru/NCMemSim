@@ -42,7 +42,7 @@ INDEPENDENT_DEPENDENCE_SAMPLING_ALGORITHM = (
 )
 
 GAUSSIAN_COPULA_DEPENDENCE_SAMPLING_ALGORITHM = (
-    "gaussian-copula-sequential-psd-cholesky-v1"
+    "gaussian-copula-sequential-psd-cholesky-inverse-cdf-v1"
 )
 
 SAMPLING_SCHEMA_VERSION = "ensemble-sampling-spec-v1"
@@ -365,6 +365,219 @@ def _standard_normal_cdf_open(
     return float(probability)
 
 
+def _inverse_standard_normal_cdf_open(
+    probability: float,
+) -> float:
+    """Invert one probability strictly inside the unit interval."""
+
+    if (
+        not math.isfinite(probability)
+        or probability <= 0.0
+        or probability >= 1.0
+    ):
+        raise SamplingError(
+            "gaussian_copula",
+            "inverse normal probability must lie strictly within (0, 1)",
+        )
+
+    a = (
+        -3.969683028665376e01,
+        2.209460984245205e02,
+        -2.759285104469687e02,
+        1.383577518672690e02,
+        -3.066479806614716e01,
+        2.506628277459239e00,
+    )
+
+    b = (
+        -5.447609879822406e01,
+        1.615858368580409e02,
+        -1.556989798598866e02,
+        6.680131188771972e01,
+        -1.328068155288572e01,
+    )
+
+    c = (
+        -7.784894002430293e-03,
+        -3.223964580411365e-01,
+        -2.400758277161838e00,
+        -2.549732539343734e00,
+        4.374664141464968e00,
+        2.938163982698783e00,
+    )
+
+    d = (
+        7.784695709041462e-03,
+        3.224671290700398e-01,
+        2.445134137142996e00,
+        3.754408661907416e00,
+    )
+
+    lower_region = 0.02425
+    upper_region = 1.0 - lower_region
+
+    if probability < lower_region:
+        q = math.sqrt(
+            -2.0 * math.log(probability)
+        )
+
+        value = (
+            (
+                (
+                    (
+                        (
+                            c[0] * q
+                            + c[1]
+                        )
+                        * q
+                        + c[2]
+                    )
+                    * q
+                    + c[3]
+                )
+                * q
+                + c[4]
+            )
+            * q
+            + c[5]
+        ) / (
+            (
+                (
+                    (
+                        d[0] * q
+                        + d[1]
+                    )
+                    * q
+                    + d[2]
+                )
+                * q
+                + d[3]
+            )
+            * q
+            + 1.0
+        )
+
+    elif probability > upper_region:
+        q = math.sqrt(
+            -2.0
+            * math.log1p(
+                -probability
+            )
+        )
+
+        value = -(
+            (
+                (
+                    (
+                        (
+                            c[0] * q
+                            + c[1]
+                        )
+                        * q
+                        + c[2]
+                    )
+                    * q
+                    + c[3]
+                )
+                * q
+                + c[4]
+            )
+            * q
+            + c[5]
+        ) / (
+            (
+                (
+                    (
+                        d[0] * q
+                        + d[1]
+                    )
+                    * q
+                    + d[2]
+                )
+                * q
+                + d[3]
+            )
+            * q
+            + 1.0
+        )
+
+    else:
+        q = probability - 0.5
+        r = q * q
+
+        value = (
+            (
+                (
+                    (
+                        (
+                            (
+                                a[0] * r
+                                + a[1]
+                            )
+                            * r
+                            + a[2]
+                        )
+                        * r
+                        + a[3]
+                    )
+                    * r
+                    + a[4]
+                )
+                * r
+                + a[5]
+            )
+            * q
+        ) / (
+            (
+                (
+                    (
+                        (
+                            b[0] * r
+                            + b[1]
+                        )
+                        * r
+                        + b[2]
+                    )
+                    * r
+                    + b[3]
+                )
+                * r
+                + b[4]
+            )
+            * r
+            + 1.0
+        )
+
+    if abs(value) < 8.0:
+        reconstructed_probability = (
+            _standard_normal_cdf_open(
+                value
+            )
+        )
+
+        density = (
+            math.exp(
+                -0.5 * value * value
+            )
+            / math.sqrt(
+                2.0 * math.pi
+            )
+        )
+
+        value -= (
+            reconstructed_probability
+            - probability
+        ) / density
+
+    if not math.isfinite(value):
+        raise SamplingError(
+            "gaussian_copula",
+            "non-finite inverse normal result",
+        )
+
+    return float(value)
+
+
 def _correlated_marginal_value(
     distribution: DistributionSpec,
     z: float,
@@ -453,11 +666,110 @@ def _correlated_marginal_value(
         distribution,
         TruncatedNormalDistribution,
     ):
-        raise SamplingError(
-            "truncated_normal",
-            "Gaussian-copula inverse-CDF transform "
-            "is not implemented yet",
+        copula_probability = (
+            _standard_normal_cdf_open(
+                z
+            )
         )
+
+        standardized_lower = (
+            (
+                distribution.lower
+                - distribution.mean
+            )
+            / distribution.standard_deviation
+        )
+
+        standardized_upper = (
+            (
+                distribution.upper
+                - distribution.mean
+            )
+            / distribution.standard_deviation
+        )
+
+        lower_probability = (
+            _standard_normal_cdf_open(
+                standardized_lower
+            )
+        )
+
+        upper_probability = (
+            _standard_normal_cdf_open(
+                standardized_upper
+            )
+        )
+
+        if not (
+            upper_probability
+            > lower_probability
+        ):
+            raise SamplingError(
+                "truncated_normal",
+                "truncation probability interval "
+                "is not representable",
+            )
+
+        target_probability = (
+            lower_probability
+            + copula_probability
+            * (
+                upper_probability
+                - lower_probability
+            )
+        )
+
+        if (
+            target_probability
+            <= lower_probability
+        ):
+            target_probability = math.nextafter(
+                lower_probability,
+                upper_probability,
+            )
+
+        elif (
+            target_probability
+            >= upper_probability
+        ):
+            target_probability = math.nextafter(
+                upper_probability,
+                lower_probability,
+            )
+
+        if not (
+            lower_probability
+            < target_probability
+            < upper_probability
+        ):
+            raise SamplingError(
+                "truncated_normal",
+                "no representable interior truncation probability",
+            )
+
+        standardized_value = (
+            _inverse_standard_normal_cdf_open(
+                target_probability
+            )
+        )
+
+        value = (
+            distribution.mean
+            + distribution.standard_deviation
+            * standardized_value
+        )
+
+        if (
+            not math.isfinite(value)
+            or value < distribution.lower
+            or value > distribution.upper
+        ):
+            raise SamplingError(
+                "truncated_normal",
+                "inverse-CDF result lies outside truncation support",
+            )
+
+        return float(value)
 
     raise TypeError(
         "distribution is unsupported by the "
