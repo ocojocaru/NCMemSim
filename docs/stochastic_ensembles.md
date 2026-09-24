@@ -311,6 +311,23 @@ Correlation may only be introduced by an explicit correlation specification that
 
 The initial K2 target is a matrix-based correlation contract for compatible continuous variables.
 
+The initial matrix-based implementation uses a Gaussian-copula
+representation. Matrix entries therefore represent Pearson correlation
+coefficients between latent standard-normal variables, not necessarily
+Pearson correlations between the resulting physical-space stochastic
+parameters.
+
+For affine normal marginals, latent and physical-space Pearson correlation
+coincide. For non-normal marginals such as uniform, log-normal or truncated
+normal distributions, they generally do not. Reports must preserve this
+distinction and must not label the latent matrix as an experimentally measured
+physical-space correlation matrix unless independent evidence supports that
+interpretation.
+
+The initial executable correlated-sampling contract is limited to compatible
+continuous marginals. Constant and finite-discrete distributions are excluded
+from the first Gaussian-copula implementation.
+
 A correlation matrix must be:
 
 - square;
@@ -319,6 +336,11 @@ A correlation matrix must be:
 - unit diagonal;
 - dimensionally associated with the declared variable order;
 - valid for the selected transformation/sampling method.
+
+The initial K2 implementation additionally requires every matrix entry to lie
+within [-1, 1] and the matrix to be positive semidefinite within the declared
+numerical tolerance. Invalid matrices are rejected; they are never silently
+projected, clipped or repaired.
 
 Invalid correlation definitions must fail before ensemble execution.
 
