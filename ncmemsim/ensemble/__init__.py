@@ -13,6 +13,7 @@ from .distributions import (
 
 from .spec import PhysicalDomain, StochasticVariable
 from .specification import EnsembleSpec
+from .rng import RNGSpec
 
 __all__ = [
     "ConstantDistribution",
@@ -26,4 +27,5 @@ __all__ = [
     "StochasticVariable",
     "EnsembleSpec",
     "distribution_from_dict",
+    "RNGSpec",
 ]
