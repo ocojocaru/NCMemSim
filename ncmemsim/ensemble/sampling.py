@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import json
 import math
+import platform
 import re
 from typing import Any
 
 import numpy as np
 
+from .._version import __version__
 from ..hashing import canonical_hash
 from ._serialization import strict_fields
 from .distributions import (
@@ -27,10 +30,6 @@ from .correlation import (
 )
 from .rng import RNGSpec
 from .specification import EnsembleSpec
-
-import platform
-
-from .._version import __version__
 
 
 SCALAR_SAMPLING_ALGORITHM = (
@@ -911,6 +910,150 @@ class SampleManifest:
             **self._payload(),
             "manifest_hash": self.manifest_hash,
         }
+
+    @classmethod
+    def from_dict(
+        cls,
+        data: dict[str, Any],
+    ) -> "SampleManifest":
+        """Restore one manifest without drawing random values again."""
+
+        strict_fields(
+            data,
+            label="sample-manifest",
+            required={
+                "schema_version",
+                "sampling_spec",
+                "sampling_spec_hash",
+                "runtime",
+                "sample_table_hash",
+                "samples",
+                "manifest_hash",
+            },
+        )
+
+        sampling_spec = SamplingSpec.from_dict(
+            data["sampling_spec"]
+        )
+
+        if (
+            data["sampling_spec_hash"]
+            != sampling_spec.definition_hash
+        ):
+            raise ValueError(
+                "sampling_spec_hash integrity mismatch"
+            )
+
+        if not isinstance(data["runtime"], dict):
+            raise TypeError(
+                "sample-manifest runtime must be a dict"
+            )
+
+        strict_fields(
+            data["runtime"],
+            label="sample-manifest runtime",
+            required=set(_RUNTIME_KEYS),
+        )
+
+        runtime = tuple(
+            (
+                key,
+                data["runtime"][key],
+            )
+            for key in _RUNTIME_KEYS
+        )
+
+        if not isinstance(data["samples"], list):
+            raise TypeError(
+                "sample-manifest samples must be a list"
+            )
+
+        samples = tuple(
+            EnsembleSample.from_dict(item)
+            for item in data["samples"]
+        )
+
+        manifest = cls(
+            sampling_spec=sampling_spec,
+            samples=samples,
+            runtime=runtime,
+            schema_version=data["schema_version"],
+        )
+
+        if (
+            data["sample_table_hash"]
+            != manifest.sample_table_hash
+        ):
+            raise ValueError(
+                "sample_table_hash integrity mismatch"
+            )
+
+        if (
+            data["manifest_hash"]
+            != manifest.manifest_hash
+        ):
+            raise ValueError(
+                "manifest_hash integrity mismatch"
+            )
+
+        return manifest
+
+    def to_json(self) -> str:
+        """Return the deterministic JSON representation of this manifest."""
+
+        return json.dumps(
+            self.to_dict(),
+            sort_keys=True,
+            separators=(",", ":"),
+            allow_nan=False,
+        )
+
+    @classmethod
+    def from_json(
+        cls,
+        text: str,
+    ) -> "SampleManifest":
+        """Restore a manifest from strict JSON without resampling."""
+
+        if not isinstance(text, str):
+            raise TypeError(
+                "sample-manifest JSON must be text"
+            )
+
+        def reject_duplicate_keys(
+            pairs: list[tuple[str, Any]],
+        ) -> dict[str, Any]:
+            result: dict[str, Any] = {}
+
+            for key, value in pairs:
+                if key in result:
+                    raise ValueError(
+                        f"duplicate JSON key {key!r}"
+                    )
+
+                result[key] = value
+
+            return result
+
+        def reject_nonfinite(
+            value: str,
+        ) -> None:
+            raise ValueError(
+                f"non-finite JSON constant {value!r}"
+            )
+
+        raw = json.loads(
+            text,
+            object_pairs_hook=reject_duplicate_keys,
+            parse_constant=reject_nonfinite,
+        )
+
+        if not isinstance(raw, dict):
+            raise TypeError(
+                "sample-manifest JSON root must be an object"
+            )
+
+        return cls.from_dict(raw)
 
 
 def generate_sample_manifest(
