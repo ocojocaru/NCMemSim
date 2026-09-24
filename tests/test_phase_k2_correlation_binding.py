@@ -372,7 +372,7 @@ def test_correlation_changes_sampling_spec_identity():
     )
 
 
-def test_correlated_generation_is_not_enabled_yet():
+def test_correlated_generation_is_enabled():
     spec = sampling_spec(
         matrix_correlation(
             (
@@ -386,8 +386,17 @@ def test_correlated_generation_is_not_enabled_yet():
         )
     )
 
-    with pytest.raises(ValueError):
-        generate_sample_manifest(spec)
+    manifest = generate_sample_manifest(
+        spec
+    )
+
+    assert len(manifest.samples) == 4
+
+    assert all(
+        sample.variable_names
+        == spec.ensemble_spec.variable_names
+        for sample in manifest.samples
+    )
 
 
 def test_independent_sampling_algorithm_is_recorded():

@@ -1782,7 +1782,7 @@ class SampleManifest:
 def generate_sample_manifest(
     sampling_spec: SamplingSpec,
 ) -> SampleManifest:
-    """Generate one deterministic ordered independent sample manifest."""
+    """Generate one deterministic ordered Phase K sample manifest."""
 
     if not isinstance(
         sampling_spec,
@@ -1792,13 +1792,38 @@ def generate_sample_manifest(
             "sampling_spec must be SamplingSpec"
         )
 
-    if not isinstance(
-        sampling_spec.dependence,
+    dependence = sampling_spec.dependence
+
+    correlation_factor: (
+        tuple[tuple[float, ...], ...]
+        | None
+    ) = None
+
+    correlation_rows: dict[str, int] = {}
+
+    if isinstance(
+        dependence,
+        MatrixCorrelation,
+    ):
+        correlation_factor = (
+            _sequential_psd_cholesky(
+                dependence
+            )
+        )
+
+        correlation_rows = {
+            name: index
+            for index, name in enumerate(
+                dependence.variable_names
+            )
+        }
+
+    elif not isinstance(
+        dependence,
         IndependentDependence,
     ):
-        raise ValueError(
-            "current Phase K generation supports "
-            "independent dependence only"
+        raise TypeError(
+            "dependence must be a supported DependenceSpec"
         )
 
     rng = sampling_spec.rng.create_generator()
@@ -1809,17 +1834,81 @@ def generate_sample_manifest(
     ):
         values: list[float] = []
 
+        independent_latents: list[float] = []
+
         for variable in (
             sampling_spec.ensemble_spec.variables
         ):
             try:
-                value = sample_distribution(
-                    variable.distribution,
-                    rng,
-                    max_draws_per_value=(
-                        sampling_spec.max_draws_per_value
-                    ),
+                correlation_row = (
+                    correlation_rows.get(
+                        variable.name
+                    )
                 )
+
+                if correlation_row is None:
+                    value = sample_distribution(
+                        variable.distribution,
+                        rng,
+                        max_draws_per_value=(
+                            sampling_spec.max_draws_per_value
+                        ),
+                    )
+
+                else:
+                    if correlation_factor is None:
+                        raise SamplingError(
+                            "gaussian_copula",
+                            "missing correlation factor",
+                        )
+
+                    if (
+                        correlation_row
+                        != len(independent_latents)
+                    ):
+                        raise SamplingError(
+                            "gaussian_copula",
+                            "correlation variables are not "
+                            "traversed in declared order",
+                        )
+
+                    independent_latent = (
+                        _standard_normal(
+                            rng
+                        )
+                    )
+
+                    independent_latents.append(
+                        independent_latent
+                    )
+
+                    correlated_latent = 0.0
+
+                    for column in range(
+                        correlation_row + 1
+                    ):
+                        correlated_latent += (
+                            correlation_factor[
+                                correlation_row
+                            ][column]
+                            * independent_latents[column]
+                        )
+
+                    if not math.isfinite(
+                        correlated_latent
+                    ):
+                        raise SamplingError(
+                            "gaussian_copula",
+                            "non-finite correlated latent value",
+                        )
+
+                    value = (
+                        _correlated_marginal_value(
+                            variable.distribution,
+                            correlated_latent,
+                        )
+                    )
+
             except SamplingError as exc:
                 raise SampleGenerationError(
                     sampling_spec.definition_hash,
