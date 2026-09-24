@@ -388,3 +388,72 @@ def test_correlated_generation_is_not_enabled_yet():
 
     with pytest.raises(ValueError):
         generate_sample_manifest(spec)
+
+
+def test_independent_sampling_algorithm_is_recorded():
+    spec = SamplingSpec(
+        ensemble_spec=ensemble(),
+        rng=RNGSpec(seed=12345),
+        sample_count=4,
+    )
+
+    assert spec.dependence_sampling_algorithm == (
+        "independent-scalar-v1"
+    )
+
+    assert (
+        spec.to_dict()[
+            "dependence_sampling_algorithm"
+        ]
+        == "independent-scalar-v1"
+    )
+
+
+def test_gaussian_copula_sampling_algorithm_is_recorded():
+    spec = sampling_spec(
+        matrix_correlation(
+            (
+                "diameter",
+                "volume_fraction",
+            ),
+            (
+                (1.0, 0.3),
+                (0.3, 1.0),
+            ),
+        )
+    )
+
+    assert spec.dependence_sampling_algorithm == (
+        "gaussian-copula-sequential-psd-cholesky-v1"
+    )
+
+    assert (
+        spec.to_dict()[
+            "dependence_sampling_algorithm"
+        ]
+        == "gaussian-copula-sequential-psd-cholesky-v1"
+    )
+
+
+def test_dependence_sampling_algorithm_tampering_is_rejected():
+    spec = sampling_spec(
+        matrix_correlation(
+            (
+                "diameter",
+                "volume_fraction",
+            ),
+            (
+                (1.0, 0.3),
+                (0.3, 1.0),
+            ),
+        )
+    )
+
+    data = spec.to_dict()
+
+    data["dependence_sampling_algorithm"] = (
+        "different-algorithm"
+    )
+
+    with pytest.raises(ValueError):
+        SamplingSpec.from_dict(data)

@@ -37,6 +37,14 @@ SCALAR_SAMPLING_ALGORITHM = (
     "phase-k-pcg64-raw53-box-muller-v1"
 )
 
+INDEPENDENT_DEPENDENCE_SAMPLING_ALGORITHM = (
+    "independent-scalar-v1"
+)
+
+GAUSSIAN_COPULA_DEPENDENCE_SAMPLING_ALGORITHM = (
+    "gaussian-copula-sequential-psd-cholesky-v1"
+)
+
 SAMPLING_SCHEMA_VERSION = "ensemble-sampling-spec-v1"
 SAMPLE_SCHEMA_VERSION = "ensemble-sample-v1"
 SAMPLE_ID_SCHEMA_VERSION = "ensemble-sample-id-v1"
@@ -428,6 +436,30 @@ def _validate_dependence_against_ensemble(
             )
 
 
+def _dependence_sampling_algorithm(
+    dependence: DependenceSpec,
+) -> str:
+    if isinstance(
+        dependence,
+        IndependentDependence,
+    ):
+        return (
+            INDEPENDENT_DEPENDENCE_SAMPLING_ALGORITHM
+        )
+
+    if isinstance(
+        dependence,
+        MatrixCorrelation,
+    ):
+        return (
+            GAUSSIAN_COPULA_DEPENDENCE_SAMPLING_ALGORITHM
+        )
+
+    raise TypeError(
+        "dependence must be a supported DependenceSpec"
+    )
+
+
 @dataclass(frozen=True)
 class SamplingSpec:
     """Immutable identity of one Phase K sampling operation."""
@@ -508,6 +540,12 @@ class SamplingSpec:
                 "unsupported sampling schema_version"
             )
 
+    @property
+    def dependence_sampling_algorithm(self) -> str:
+        return _dependence_sampling_algorithm(
+            self.dependence
+        )
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "schema_version": self.schema_version,
@@ -518,6 +556,9 @@ class SamplingSpec:
             "rng": self.rng.to_dict(),
             "sample_count": self.sample_count,
             "dependence": self.dependence.to_dict(),
+            "dependence_sampling_algorithm": (
+                self.dependence_sampling_algorithm
+            ),
             "max_draws_per_value": self.max_draws_per_value,
             "scalar_sampling_algorithm": (
                 self.scalar_sampling_algorithm
@@ -541,6 +582,7 @@ class SamplingSpec:
                 "rng",
                 "sample_count",
                 "dependence",
+                "dependence_sampling_algorithm",
                 "max_draws_per_value",
                 "scalar_sampling_algorithm",
                 "order",
@@ -558,17 +600,19 @@ class SamplingSpec:
         ):
             raise ValueError(
                 "ensemble_spec_hash integrity mismatch"
-            )
+        )
 
-        return cls(
+        dependence = dependence_from_dict(
+            data["dependence"]
+        )
+
+        specification = cls(
             ensemble_spec=ensemble_spec,
             rng=RNGSpec.from_dict(
                 data["rng"]
             ),
             sample_count=data["sample_count"],
-            dependence=dependence_from_dict(
-                data["dependence"]
-            ),
+            dependence=dependence,
             max_draws_per_value=(
                 data["max_draws_per_value"]
             ),
@@ -579,6 +623,16 @@ class SamplingSpec:
             precision=data["precision"],
             schema_version=data["schema_version"],
         )
+
+        if (
+            data["dependence_sampling_algorithm"]
+            != specification.dependence_sampling_algorithm
+        ):
+            raise ValueError(
+                "unsupported dependence sampling algorithm"
+            )
+
+        return specification
 
     @property
     def definition_hash(self) -> str:
