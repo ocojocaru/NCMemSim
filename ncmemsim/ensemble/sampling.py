@@ -194,6 +194,131 @@ def _normal_value(
     return float(value)
 
 
+def _sequential_psd_cholesky(
+    correlation: MatrixCorrelation,
+) -> tuple[tuple[float, ...], ...]:
+    """Build a deterministic lower factor for a PSD correlation matrix."""
+
+    if not isinstance(
+        correlation,
+        MatrixCorrelation,
+    ):
+        raise TypeError(
+            "correlation must be MatrixCorrelation"
+        )
+
+    size = len(correlation.variable_names)
+    tolerance = correlation.numerical_tolerance
+    matrix = correlation.matrix
+
+    factor = [
+        [0.0 for _ in range(size)]
+        for _ in range(size)
+    ]
+
+    for row in range(size):
+        diagonal_sum = 0.0
+
+        for column in range(row):
+            value = factor[row][column]
+            diagonal_sum += value * value
+
+        diagonal_value = matrix[row][row]
+
+        residual = (
+            diagonal_value
+            - diagonal_sum
+        )
+
+        if residual < -tolerance:
+            raise SamplingError(
+                "correlation matrix is not numerically "
+                "positive semidefinite during sequential "
+                "factorization"
+            )
+
+        if residual < 0.0:
+            diagonal = 0.0
+        else:
+            diagonal = math.sqrt(residual)
+
+        factor[row][row] = diagonal
+
+        for target_row in range(
+            row + 1,
+            size,
+        ):
+            cross_sum = 0.0
+
+            for column in range(row):
+                cross_sum += (
+                    factor[target_row][column]
+                    * factor[row][column]
+                )
+
+            symmetric_entry = (
+                0.5
+                * (
+                    matrix[target_row][row]
+                    + matrix[row][target_row]
+                )
+            )
+
+            numerator = (
+                symmetric_entry
+                - cross_sum
+            )
+
+            if diagonal == 0.0:
+                if abs(numerator) > tolerance:
+                    raise SamplingError(
+                        "singular PSD correlation pivot is "
+                        "inconsistent within numerical_tolerance"
+                    )
+
+                factor[target_row][row] = 0.0
+            else:
+                factor[target_row][row] = (
+                    numerator / diagonal
+                )
+
+    return tuple(
+        tuple(row)
+        for row in factor
+    )
+
+
+def _sample_correlated_standard_normals(
+    rng: np.random.Generator,
+    factor: tuple[tuple[float, ...], ...],
+) -> tuple[float, ...]:
+    """Draw independent normals and apply a deterministic lower factor."""
+
+    size = len(factor)
+
+    independent = tuple(
+        _standard_normal(rng)
+        for _ in range(size)
+    )
+
+    correlated: list[float] = []
+
+    for row in range(size):
+        value = 0.0
+
+        for column in range(
+            row + 1
+        ):
+            value += (
+                factor[row][column]
+                * independent[column]
+            )
+
+        correlated.append(value)
+
+    return tuple(correlated)
+
+
 def sample_distribution(
     distribution: DistributionSpec,
     rng: np.random.Generator,
