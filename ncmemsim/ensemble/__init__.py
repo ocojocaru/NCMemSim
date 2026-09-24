@@ -14,7 +14,13 @@ from .distributions import (
 from .spec import PhysicalDomain, StochasticVariable
 from .specification import EnsembleSpec
 from .rng import RNGSpec
-from .sampling import SamplingError, sample_distribution
+from .sampling import (
+    EnsembleSample,
+    SamplingError,
+    SamplingSpec,
+    sample_distribution,
+)
+from .correlation import IndependentDependence
 
 __all__ = [
     "ConstantDistribution",
@@ -31,4 +37,7 @@ __all__ = [
     "RNGSpec",
     "SamplingError",
     "sample_distribution",
+    "EnsembleSample",
+    "IndependentDependence",
+    "SamplingSpec",
 ]
