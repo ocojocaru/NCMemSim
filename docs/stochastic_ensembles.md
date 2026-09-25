@@ -695,7 +695,9 @@ Add population summaries, percentiles, nominal comparisons, explicit denominator
 
 K4 is implemented in three ordered subphases:
 
-- **K4a - per-realization metric assessment:** extract declared scalar metrics from successful K3 outputs without rerunning physics, apply declared constraints, preserve complete-case semantics, propagate K3 failures unchanged, and distinguish metric-extraction failures explicitly;
+**Status: K4a complete; K4b next.**
+
+- **K4a - per-realization metric assessment (complete):** extract declared scalar metrics from successful K3 outputs without rerunning physics, apply declared constraints, preserve complete-case semantics, propagate K3 failures unchanged, and distinguish metric-extraction failures explicitly;
 - **K4b - population statistics:** report attempted, assessed, feasible, infeasible and failed counts with explicit denominators; compute complete-case population mean, variance, standard deviation, minimum, maximum, median and requested quantiles using population `ddof=0` and linear `(n - 1) q` interpolation; report coverage as assessed count divided by attempted count;
 - **K4c - nominal comparison and feasibility fractions:** compare ensemble metrics with declared nominal references and report explicit all-attempted and assessed-only feasibility fractions while keeping numerical/model failures distinct from physical pass/fail outcomes.
 
