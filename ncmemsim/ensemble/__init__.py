@@ -40,6 +40,11 @@ from .execution import (
     RealizationExecutionPoint,
     execute_sample_manifest,
 )
+from .metrics import (
+    EnsembleMetricAnalysisResult,
+    EnsembleMetricPointResult,
+    analyze_ensemble_execution,
+)
 
 __all__ = [
     "ConstantDistribution",
@@ -72,4 +77,7 @@ __all__ = [
     "EnsembleExecutionResult",
     "RealizationExecutionPoint",
     "execute_sample_manifest",
+    "EnsembleMetricAnalysisResult",
+    "EnsembleMetricPointResult",
+    "analyze_ensemble_execution",
 ]
