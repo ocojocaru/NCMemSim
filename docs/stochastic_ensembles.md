@@ -719,6 +719,22 @@ K4 is complete: per-realization assessment, complete-case population statistics,
 
 Expose ensemble-derived objectives and constraints to the existing transparent Pareto/DTCO framework while keeping deterministic DTCO and Robust DTCO semantics distinct.
 
+**Status: K5 architecture defined; K5a next.**
+
+K5 composes with the existing DTCO design-space architecture but defines a distinct Phase-K analysis layer. Each K5 study links one explicit existing DTCO design-point identity and assignments to one immutable `EnsembleFeasibilitySummary`; design identity must not be inferred from device hashes or ensemble names. K5 never resamples, reruns K3/K4 physics, mutates source results, or converts a Phase-K ensemble result into a Robust-DTCO result.
+
+K5 is implemented in three ordered subphases:
+
+- **K5a - ensemble-derived scalar definitions and DTCO study linkage:** define typed scalar selectors over immutable K4 results and explicit links to existing DTCO design points;
+- **K5b - population-level constraints and eligibility:** evaluate declared ensemble-derived constraints with explicit units and distinguish constraint infeasibility from undefined or unavailable source quantities;
+- **K5c - transparent Pareto analysis:** rank only eligible K5 studies using the existing `ObjectiveDirection` semantics and exact no-worse-all/strictly-better-one dominance rule, retaining ties and source order without weights, tolerances or hidden scalarization.
+
+Initial K5 scalar selectors may expose complete-case metric `mean`, `standard_deviation`, `minimum`, `maximum`, `median` and a quantile whose probability was explicitly computed by K4b, together with `coverage_fraction`, `simulated_pass_fraction`, `ensemble_feasibility_fraction` and `failure_fraction`. Metric-derived selectors inherit the declared metric unit; fraction selectors use unit `1`. K4b population variance remains reportable but is not initially eligible as a K5 objective or constraint because squared-unit semantics are not yet defined.
+
+K5 objective and constraint definitions must be explicit and typed. Objective direction reuses the existing DTCO `ObjectiveDirection`; constraint comparison reuses the existing `ConstraintOperator`. No Robust-DTCO failure policy is inherited. If a user wants numerical/model failure to affect design eligibility, `failure_fraction` must be declared explicitly as a K5 constraint. An undefined selected quantity, including an assessed-only fraction when `assessed_count == 0` or a population statistic with denominator zero, makes that K5 study unevaluable for the affected analysis rather than physically infeasible.
+
+Studies compared in one K5 analysis must use compatible declared metric and population-statistics definitions for every selected quantity. K5 preserves every source study and its source-result identity, records explicit exclusion reasons, and includes ordered source hashes and analysis definitions in deterministic result identity. Manufacturing-yield terminology remains prohibited for uncalibrated synthetic ensembles.
+
 ### K6 — Scientific reference studies and reproducible reports
 
 Provide controlled end-to-end examples, integrity-checked ensemble manifests, population summaries, failure accounting, plots/exports and interpretation limits.
