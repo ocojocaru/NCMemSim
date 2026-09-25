@@ -45,6 +45,12 @@ from .metrics import (
     EnsembleMetricPointResult,
     analyze_ensemble_execution,
 )
+from .statistics import (
+    EnsemblePopulationStatistics,
+    EnsembleStatisticsSpec,
+    MetricPopulationSummary,
+    summarize_ensemble_metrics,
+)
 
 __all__ = [
     "ConstantDistribution",
@@ -80,4 +86,8 @@ __all__ = [
     "EnsembleMetricAnalysisResult",
     "EnsembleMetricPointResult",
     "analyze_ensemble_execution",
+    "EnsemblePopulationStatistics",
+    "EnsembleStatisticsSpec",
+    "MetricPopulationSummary",
+    "summarize_ensemble_metrics",
 ]
