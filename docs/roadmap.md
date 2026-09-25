@@ -285,7 +285,7 @@ not establish experimental defect calibration.
 
 ### v1.2.0: Stochastic nanocrystal ensembles and device variability
 
-**Status: K0 scope and architecture freeze complete; K1 stochastic variable and distribution contracts complete; K2 reproducible ensemble generation and correlations complete; K3 next.**
+**Status: K0 scope and architecture freeze complete; K1 stochastic variable and distribution contracts complete; K2 reproducible ensemble generation and correlations complete; K3 ensemble realization and simulation execution complete; K4 next.**
 
 Phase K begins from the immutable `v1.1.0` release and adds reproducible
 stochastic nanocrystal ensembles and device-level variability analysis while
@@ -315,7 +315,7 @@ Phase K is organized as:
   authoritative sample manifests and hashes, strict archival serialization,
   and explicit Gaussian-copula correlations for compatible continuous
   marginals with deterministic PSD handling and statistical validation;
-- **K3 — ensemble realization and simulation execution:** application of
+- **K3 — ensemble realization and simulation execution (complete):** application of
   samples through reviewed bindings to existing nominal NCMemSim workflows,
   with realization-local validation and failure isolation;
 - **K4 — statistical device and reliability metrics:** explicit population

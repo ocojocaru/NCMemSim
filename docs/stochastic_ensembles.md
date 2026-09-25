@@ -672,11 +672,22 @@ The generated canonical sample table and its integrity hash remain the
 authoritative archival evidence; seed-only regeneration is not treated as
 sufficient long-term evidence.
 
-### K3 — Ensemble realization and simulation execution
+### K3 — Ensemble realization and simulation execution (complete)
 
 Apply samples through reviewed bindings to nominal contexts and execute existing NCMemSim workflows with realization-local failure isolation.
 
 No duplicate simulator physics is introduced.
+
+K3 is complete. The implemented contracts provide:
+
+- sample-domain validation and stable realization identity before application;
+- realization construction through the existing reviewed device and operating binding helpers;
+- exact manifest-order serial execution without resampling;
+- realized device and operating context snapshots with integrity hashes;
+- isolated failures for sample-domain validation, binding application, realization construction, workflow execution and output serialization;
+- stable failure stage/category pairs while preserving realization identity and attempted-sample membership.
+
+Aggregate population statistics, feasibility accounting, nominal comparisons, percentiles and simulated pass fractions begin in K4 rather than K3.
 
 ### K4 — Statistical device and reliability metrics
 
