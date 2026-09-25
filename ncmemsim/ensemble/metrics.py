@@ -456,7 +456,128 @@ class EnsembleMetricAnalysisResult:
         )
 
 
+def analyze_ensemble_execution(
+    execution: EnsembleExecutionResult,
+    spec: MetricAnalysisSpec,
+) -> EnsembleMetricAnalysisResult:
+    """Assess every K3 realization without rerunning simulator physics."""
+
+    if not isinstance(
+        execution,
+        EnsembleExecutionResult,
+    ):
+        raise TypeError(
+            "execution must be EnsembleExecutionResult"
+        )
+
+    if not isinstance(
+        spec,
+        MetricAnalysisSpec,
+    ):
+        raise TypeError(
+            "spec must be MetricAnalysisSpec"
+        )
+
+    points = []
+
+    for source in execution.points:
+        if source.status == "failed":
+            points.append(
+                EnsembleMetricPointResult(
+                    source=source,
+                    status="failed",
+                    failure_stage=source.failure_stage,
+                    failure_category=(
+                        source.failure_category
+                    ),
+                    error_type=source.error_type,
+                    error_message=source.error_message,
+                )
+            )
+            continue
+
+        try:
+            output = source.output
+
+            if output is None:
+                raise ValueError(
+                    "successful execution has no output"
+                )
+
+            values = tuple(
+                (
+                    metric.name,
+                    _finite_float(
+                        metric.extract(output),
+                        f"metric {metric.name!r}",
+                    ),
+                )
+                for metric in spec.metrics
+            )
+
+            metrics = dict(values)
+
+            constraints = tuple(
+                ConstraintEvaluation(
+                    constraint,
+                    metrics[
+                        constraint.metric_name
+                    ],
+                )
+                for constraint in spec.constraints
+            )
+
+        except (
+            TypeError,
+            ValueError,
+            OverflowError,
+        ) as exc:
+            points.append(
+                EnsembleMetricPointResult(
+                    source=source,
+                    status="failed",
+                    failure_stage=(
+                        _METRIC_FAILURE_STAGE
+                    ),
+                    failure_category=(
+                        _METRIC_FAILURE_CATEGORY
+                    ),
+                    error_type=(
+                        f"{type(exc).__module__}."
+                        f"{type(exc).__qualname__}"
+                    ),
+                    error_message=str(exc),
+                )
+            )
+            continue
+
+        status = (
+            "feasible"
+            if all(
+                constraint.satisfied
+                for constraint in constraints
+            )
+            else "infeasible"
+        )
+
+        points.append(
+            EnsembleMetricPointResult(
+                source=source,
+                status=status,
+                metric_values=values,
+                constraints=constraints,
+            )
+        )
+
+    return EnsembleMetricAnalysisResult(
+        spec=spec,
+        source=execution,
+        points=tuple(points),
+    )
+
+
 __all__ = [
     "EnsembleMetricAnalysisResult",
     "EnsembleMetricPointResult",
+    "analyze_ensemble_execution",
 ]
