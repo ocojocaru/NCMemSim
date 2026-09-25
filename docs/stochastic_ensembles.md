@@ -645,11 +645,32 @@ identities without modifying the v1 contracts.
 
 K1 does not execute simulator ensembles.
 
-### K2 — Reproducible ensemble generation and correlations (next)
+### K2 — Reproducible ensemble generation and correlations (complete)
 
-Implement deterministic ensemble sampling, stable sample identities, authoritative sample manifests/hashes and the first explicit correlation contract.
+K2 implements deterministic seeded ensemble sampling with an explicit local
+NumPy `Generator`/PCG64 contract, stable sample identities, authoritative
+sample manifests and sample-table hashes, strict archival serialization, and
+deterministic sample-major/declared-variable-order generation.
 
-K2 must establish the exact random-number-generation algorithm used by v1.2.0.
+Independent scalar sampling uses an explicitly versioned algorithm rather than
+NumPy distribution helpers. Correlated sampling uses the Gaussian-copula
+contract defined above, with latent standard-normal Pearson correlations,
+deterministic sequential PSD factorization, explicit marginal transforms, and
+no silent matrix repair.
+
+The executable Gaussian-copula path supports compatible normal, truncated
+normal, uniform and log-normal marginals. Constant and finite-discrete
+variables may remain in the same ensemble when they are outside the correlated
+subset.
+
+Deterministic statistical validation confirms the expected physical-space
+Pearson behavior for affine normal marginals and the Gaussian-copula Spearman
+relation for nonlinear monotonic marginals. The latent correlation matrix is
+not reinterpreted as a physical-space Pearson matrix for nonlinear marginals.
+
+The generated canonical sample table and its integrity hash remain the
+authoritative archival evidence; seed-only regeneration is not treated as
+sufficient long-term evidence.
 
 ### K3 — Ensemble realization and simulation execution
 
