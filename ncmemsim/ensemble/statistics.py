@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 import json
 import math
 import platform
+import statistics
 from typing import Any
 
 from .._version import __version__
@@ -764,6 +765,206 @@ class EnsemblePopulationStatistics:
         return canonical_hash(
             self.to_dict()
         )
+
+
+def _linear_quantile(
+    ordered: list[float],
+    probability: float,
+) -> float:
+    position = (
+        (len(ordered) - 1)
+        * probability
+    )
+
+    lower = math.floor(
+        position
+    )
+
+    upper = math.ceil(
+        position
+    )
+
+    weight = (
+        position - lower
+    )
+
+    return float(
+        (1.0 - weight)
+        * ordered[lower]
+        + weight
+        * ordered[upper]
+    )
+
+
+def _metric_population_summary(
+    *,
+    metric_name: str,
+    unit: str,
+    values: list[float],
+    sample_indices: tuple[int, ...],
+    realization_ids: tuple[str, ...],
+    probabilities: tuple[float, ...],
+) -> MetricPopulationSummary:
+    if not values:
+        return MetricPopulationSummary(
+            metric_name=metric_name,
+            unit=unit,
+            denominator=0,
+            sample_indices=(),
+            realization_ids=(),
+            minimum=None,
+            maximum=None,
+            mean=None,
+            variance=None,
+            standard_deviation=None,
+            median=None,
+            quantiles=tuple(
+                (
+                    probability,
+                    None,
+                )
+                for probability
+                in probabilities
+            ),
+        )
+
+    ordered = sorted(
+        values
+    )
+
+    mean = float(
+        statistics.mean(values)
+    )
+
+    variance = float(
+        statistics.pvariance(
+            values,
+            mu=mean,
+        )
+    )
+
+    standard_deviation = float(
+        math.sqrt(
+            variance
+        )
+    )
+
+    middle = (
+        len(ordered) // 2
+    )
+
+    if len(ordered) % 2:
+        median = float(
+            ordered[middle]
+        )
+    else:
+        median = float(
+            ordered[middle - 1] / 2.0
+            + ordered[middle] / 2.0
+        )
+
+    quantiles = tuple(
+        (
+            probability,
+            _linear_quantile(
+                ordered,
+                probability,
+            ),
+        )
+        for probability
+        in probabilities
+    )
+
+    return MetricPopulationSummary(
+        metric_name=metric_name,
+        unit=unit,
+        denominator=len(values),
+        sample_indices=sample_indices,
+        realization_ids=realization_ids,
+        minimum=float(
+            ordered[0]
+        ),
+        maximum=float(
+            ordered[-1]
+        ),
+        mean=mean,
+        variance=variance,
+        standard_deviation=(
+            standard_deviation
+        ),
+        median=median,
+        quantiles=quantiles,
+    )
+
+
+def summarize_ensemble_metrics(
+    source: EnsembleMetricAnalysisResult,
+    spec: EnsembleStatisticsSpec,
+) -> EnsemblePopulationStatistics:
+    """Compute K4b population statistics without rerunning physics."""
+
+    if not isinstance(
+        source,
+        EnsembleMetricAnalysisResult,
+    ):
+        raise TypeError(
+            "source must be "
+            "EnsembleMetricAnalysisResult"
+        )
+
+    if not isinstance(
+        spec,
+        EnsembleStatisticsSpec,
+    ):
+        raise TypeError(
+            "spec must be EnsembleStatisticsSpec"
+        )
+
+    assessed = tuple(
+        point
+        for point in source.points
+        if point.status != "failed"
+    )
+
+    sample_indices = tuple(
+        point.source.identity.sample_index
+        for point in assessed
+    )
+
+    realization_ids = tuple(
+        point.source.identity.realization_id
+        for point in assessed
+    )
+
+    summaries = tuple(
+        _metric_population_summary(
+            metric_name=metric.name,
+            unit=metric.unit,
+            values=[
+                point.metrics[
+                    metric.name
+                ]
+                for point in assessed
+            ],
+            sample_indices=(
+                sample_indices
+            ),
+            realization_ids=(
+                realization_ids
+            ),
+            probabilities=(
+                spec.quantiles
+            ),
+        )
+        for metric
+        in source.spec.metrics
+    )
+
+    return EnsemblePopulationStatistics(
+        spec=spec,
+        source=source,
+        metric_statistics=summaries,
+    )
 
 
 __all__ = [
