@@ -27,6 +27,11 @@ from .correlation import (
     IndependentDependence,
     MatrixCorrelation,
 )
+from .realization import (
+    RealizationIdentity,
+    SampleDomainValidationError,
+    validate_sample_domain,
+)
 
 __all__ = [
     "ConstantDistribution",
@@ -50,4 +55,7 @@ __all__ = [
     "SampleManifest",
     "generate_sample_manifest",
     "MatrixCorrelation",
+    "RealizationIdentity",
+    "SampleDomainValidationError",
+    "validate_sample_domain",
 ]
