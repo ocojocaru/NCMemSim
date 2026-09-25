@@ -30,6 +30,7 @@ from ncmemsim.ensemble.feasibility import (
     EnsembleFeasibilitySummary,
     NominalMetricComparison,
     NominalMetricReference,
+    summarize_ensemble_feasibility,
 )
 from ncmemsim.materials.provenance import (
     ParameterProvenance,
@@ -839,5 +840,311 @@ def test_feasibility_summary_requires_source_median():
             ),
             comparisons=(
                 wrong,
+            ),
+        )
+
+
+def test_summarize_feasibility_without_nominal_references():
+    source = population_statistics()
+
+    result = summarize_ensemble_feasibility(
+        source,
+    )
+
+    assert result.source is source
+    assert result.nominal_references == ()
+    assert result.comparisons == ()
+
+    assert result.attempted_count == 3
+    assert result.assessed_count == 3
+    assert result.feasible_count == 1
+    assert result.infeasible_count == 2
+    assert result.failed_count == 0
+
+    assert (
+        result.simulated_pass_fraction
+        == 1 / 3
+    )
+
+    assert (
+        result.ensemble_feasibility_fraction
+        == 1 / 3
+    )
+
+    assert result.failure_fraction == 0.0
+
+
+def test_summarize_feasibility_builds_nominal_comparisons():
+    source = population_statistics()
+
+    refs = (
+        reference(
+            "response",
+            "V",
+            1.5,
+        ),
+        reference(
+            "nested_value",
+            "1",
+            3.0,
+        ),
+    )
+
+    result = summarize_ensemble_feasibility(
+        source,
+        refs,
+    )
+
+    assert result.nominal_references == refs
+    assert len(result.comparisons) == 2
+
+    response = result.comparisons[0]
+
+    assert response.reference == refs[0]
+    assert response.denominator == 3
+    assert response.population_mean == 2.0
+    assert response.population_median == 2.0
+    assert response.mean_delta == 0.5
+    assert response.median_delta == 0.5
+
+    nested = result.comparisons[1]
+
+    assert nested.reference == refs[1]
+    assert nested.denominator == 3
+    assert nested.population_mean == 4.0
+    assert nested.population_median == 4.0
+    assert nested.mean_delta == 1.0
+    assert nested.median_delta == 1.0
+
+
+def test_summarize_feasibility_all_failed_has_empty_comparison_values():
+    source = population_statistics(
+        (
+            1.0,
+            2.0,
+        ),
+        fail_indices=(
+            0,
+            1,
+        ),
+    )
+
+    ref = reference(
+        "response",
+        "V",
+        1.5,
+    )
+
+    result = summarize_ensemble_feasibility(
+        source,
+        (
+            ref,
+        ),
+    )
+
+    item = result.comparisons[0]
+
+    assert item.denominator == 0
+    assert item.population_mean is None
+    assert item.population_median is None
+    assert item.mean_delta is None
+    assert item.median_delta is None
+
+    assert result.simulated_pass_fraction == 0.0
+    assert (
+        result.ensemble_feasibility_fraction
+        is None
+    )
+    assert result.failure_fraction == 1.0
+
+
+def test_summarize_feasibility_rejects_unknown_metric():
+    source = population_statistics()
+
+    ref = reference(
+        "unknown",
+        "V",
+        1.0,
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="absent from source",
+    ):
+        summarize_ensemble_feasibility(
+            source,
+            (
+                ref,
+            ),
+        )
+
+
+def test_summarize_feasibility_rejects_unit_mismatch():
+    source = population_statistics()
+
+    ref = reference(
+        "response",
+        "A",
+        1.5,
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="unit differs",
+    ):
+        summarize_ensemble_feasibility(
+            source,
+            (
+                ref,
+            ),
+        )
+
+
+def test_summarize_feasibility_rejects_duplicate_references():
+    source = population_statistics()
+
+    ref = reference()
+
+    with pytest.raises(
+        ValueError,
+        match="must be unique",
+    ):
+        summarize_ensemble_feasibility(
+            source,
+            (
+                ref,
+                ref,
+            ),
+        )
+
+
+def test_summarize_feasibility_rejects_invalid_source():
+    with pytest.raises(
+        TypeError,
+        match="source must be",
+    ):
+        summarize_ensemble_feasibility(
+            object(),
+        )
+
+
+@pytest.mark.parametrize(
+    "refs",
+    [
+        "response",
+        b"response",
+        (
+            object(),
+        ),
+    ],
+)
+def test_summarize_feasibility_rejects_invalid_references(
+    refs,
+):
+    source = population_statistics()
+
+    with pytest.raises(
+        TypeError,
+        match="nominal_references",
+    ):
+        summarize_ensemble_feasibility(
+            source,
+            refs,
+        )
+
+
+def test_summarize_feasibility_does_not_mutate_source():
+    source = population_statistics()
+
+    before_payload = source.to_dict()
+    before_hash = source.result_hash
+
+    summarize_ensemble_feasibility(
+        source,
+        (
+            reference(),
+        ),
+    )
+
+    assert source.to_dict() == before_payload
+    assert source.result_hash == before_hash
+
+
+def test_summarize_feasibility_is_deterministic():
+    source = population_statistics()
+
+    refs = (
+        reference(
+            "response",
+            "V",
+            1.5,
+        ),
+        reference(
+            "nested_value",
+            "1",
+            3.0,
+        ),
+    )
+
+    first = summarize_ensemble_feasibility(
+        source,
+        refs,
+    )
+
+    second = summarize_ensemble_feasibility(
+        source,
+        refs,
+    )
+
+    assert first.to_dict() == second.to_dict()
+    assert first.analysis_hash == second.analysis_hash
+    assert first.result_hash == second.result_hash
+
+
+def test_summarize_feasibility_fails_closed_on_nonfinite_delta():
+    source = population_statistics()
+
+    response = source.metric_statistics[0]
+
+    extreme = replace(
+        response,
+        minimum=1e308,
+        maximum=1e308,
+        mean=1e308,
+        variance=0.0,
+        standard_deviation=0.0,
+        median=1e308,
+        quantiles=tuple(
+            (
+                probability,
+                1e308,
+            )
+            for probability, _
+            in response.quantiles
+        ),
+    )
+
+    altered_source = replace(
+        source,
+        metric_statistics=(
+            extreme,
+            source.metric_statistics[1],
+        ),
+    )
+
+    ref = reference(
+        "response",
+        "V",
+        -1e308,
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="mean_delta is not finitely representable",
+    ):
+        summarize_ensemble_feasibility(
+            altered_source,
+            (
+                ref,
             ),
         )

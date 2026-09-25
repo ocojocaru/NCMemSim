@@ -677,8 +677,146 @@ class EnsembleFeasibilitySummary:
         )
 
 
+def _nominal_comparison(
+    source: EnsemblePopulationStatistics,
+    reference: NominalMetricReference,
+) -> NominalMetricComparison:
+    summary = next(
+        (
+            item
+            for item
+            in source.metric_statistics
+            if item.metric_name
+            == reference.metric_name
+        ),
+        None,
+    )
+
+    if summary is None:
+        raise ValueError(
+            "nominal reference metric is absent "
+            "from source statistics"
+        )
+
+    if reference.unit != summary.unit:
+        raise ValueError(
+            "nominal reference unit differs "
+            "from source metric unit"
+        )
+
+    if summary.denominator == 0:
+        return NominalMetricComparison(
+            reference=reference,
+            denominator=0,
+            population_mean=None,
+            population_median=None,
+            mean_delta=None,
+            median_delta=None,
+        )
+
+    mean_delta = (
+        summary.mean
+        - reference.nominal_value
+    )
+
+    median_delta = (
+        summary.median
+        - reference.nominal_value
+    )
+
+    if not math.isfinite(
+        mean_delta
+    ):
+        raise ValueError(
+            "mean_delta is not finitely "
+            "representable"
+        )
+
+    if not math.isfinite(
+        median_delta
+    ):
+        raise ValueError(
+            "median_delta is not finitely "
+            "representable"
+        )
+
+    return NominalMetricComparison(
+        reference=reference,
+        denominator=summary.denominator,
+        population_mean=summary.mean,
+        population_median=summary.median,
+        mean_delta=float(
+            mean_delta
+        ),
+        median_delta=float(
+            median_delta
+        ),
+    )
+
+
+def summarize_ensemble_feasibility(
+    source: EnsemblePopulationStatistics,
+    nominal_references: tuple[
+        NominalMetricReference,
+        ...
+    ] = (),
+) -> EnsembleFeasibilitySummary:
+    """Build K4c feasibility fractions and nominal comparisons."""
+
+    if not isinstance(
+        source,
+        EnsemblePopulationStatistics,
+    ):
+        raise TypeError(
+            "source must be "
+            "EnsemblePopulationStatistics"
+        )
+
+    if isinstance(
+        nominal_references,
+        (str, bytes),
+    ):
+        raise TypeError(
+            "nominal_references must be a "
+            "sequence of NominalMetricReference"
+        )
+
+    references = tuple(
+        nominal_references
+    )
+
+    if any(
+        not isinstance(
+            reference,
+            NominalMetricReference,
+        )
+        for reference
+        in references
+    ):
+        raise TypeError(
+            "nominal_references must contain "
+            "NominalMetricReference instances"
+        )
+
+    comparisons = tuple(
+        _nominal_comparison(
+            source,
+            reference,
+        )
+        for reference
+        in references
+    )
+
+    return EnsembleFeasibilitySummary(
+        source=source,
+        nominal_references=references,
+        comparisons=comparisons,
+    )
+
+
 __all__ = [
     "EnsembleFeasibilitySummary",
     "NominalMetricComparison",
     "NominalMetricReference",
+    "summarize_ensemble_feasibility",
 ]
