@@ -843,3 +843,47 @@ def test_population_summary_rejects_inconsistent_statistics(
             summary,
             **change,
         )
+
+
+def test_population_statistics_records_runtime_provenance():
+    source = analysis_result()
+
+    summaries = (
+        valid_summary(
+            source,
+        ),
+        valid_summary(
+            source,
+            metric_name="nested_value",
+            unit="1",
+        ),
+    )
+
+    result = EnsemblePopulationStatistics(
+        EnsembleStatisticsSpec(),
+        source,
+        summaries,
+    )
+
+    runtime = result.runtime
+
+    assert set(runtime) == {
+        "python",
+        "python_implementation",
+        "ncmemsim",
+        "algorithm",
+    }
+
+    assert runtime["python"]
+    assert runtime["python_implementation"]
+    assert runtime["ncmemsim"]
+
+    assert (
+        runtime["algorithm"]
+        == "phase-k-population-statistics-v1"
+    )
+
+    assert (
+        result.to_dict()["runtime"]
+        == runtime
+    )

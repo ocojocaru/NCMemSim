@@ -2,12 +2,31 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+import json
 import math
+import platform
 from typing import Any
 
+from .._version import __version__
 from ..hashing import canonical_hash
 from .metrics import EnsembleMetricAnalysisResult
+
+
+_STATISTICS_ALGORITHM = (
+    "phase-k-population-statistics-v1"
+)
+
+
+def _json_snapshot(
+    value: dict[str, Any],
+) -> str:
+    return json.dumps(
+        value,
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    )
 
 
 def _label(
@@ -476,6 +495,10 @@ class EnsemblePopulationStatistics:
         MetricPopulationSummary,
         ...
     ]
+    runtime_json: str = field(
+        init=False,
+        repr=False,
+    )
 
     def __post_init__(self) -> None:
         if not isinstance(
@@ -603,6 +626,33 @@ class EnsemblePopulationStatistics:
             metric_statistics,
         )
 
+        runtime = {
+            "python": (
+                platform.python_version()
+            ),
+            "python_implementation": (
+                platform.python_implementation()
+            ),
+            "ncmemsim": __version__,
+            "algorithm": (
+                _STATISTICS_ALGORITHM
+            ),
+        }
+
+        object.__setattr__(
+            self,
+            "runtime_json",
+            _json_snapshot(runtime),
+        )
+
+
+    @property
+    def runtime(self) -> dict[str, str]:
+        return json.loads(
+            self.runtime_json
+        )
+
+
     @property
     def attempted_count(self) -> int:
         return len(
@@ -655,6 +705,7 @@ class EnsemblePopulationStatistics:
                 "source_result_hash": (
                     self.source.result_hash
                 ),
+                "runtime": self.runtime,
             }
         )
 
@@ -669,6 +720,7 @@ class EnsemblePopulationStatistics:
             "definition_hash": (
                 self.spec.definition_hash
             ),
+            "runtime": self.runtime,
             "source_result_hash": (
                 self.source.result_hash
             ),
