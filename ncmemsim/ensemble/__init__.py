@@ -31,6 +31,9 @@ from .realization import (
     RealizationIdentity,
     SampleDomainValidationError,
     validate_sample_domain,
+    AppliedRealization,
+    RealizationAssignment,
+    apply_sample_to_context,
 )
 
 __all__ = [
@@ -58,4 +61,7 @@ __all__ = [
     "RealizationIdentity",
     "SampleDomainValidationError",
     "validate_sample_domain",
+    "AppliedRealization",
+    "RealizationAssignment",
+    "apply_sample_to_context",
 ]
