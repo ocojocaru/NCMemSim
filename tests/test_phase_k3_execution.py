@@ -8,7 +8,10 @@ from ncmemsim import DeviceBuilder
 from ncmemsim.dtco import (
     BindingScope,
     ParameterBinding,
+    BindingApplicationError,
+    OperatingBindingError,
 )
+import ncmemsim.ensemble.execution as execution_module
 from ncmemsim.ensemble import (
     EnsembleSample,
     EnsembleSpec,
@@ -260,6 +263,20 @@ def test_domain_failure_is_isolated_and_execution_continues():
     assert failed.assignments == ()
     assert failed.realized_context is None
 
+    assert (
+        failed.failure_category
+        == "sample-domain-invalid"
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="failure category",
+    ):
+        replace(
+            failed,
+            failure_category="wrong-category",
+        )
+
 
 def test_realization_construction_failure_is_isolated(
     monkeypatch,
@@ -268,25 +285,33 @@ def test_realization_construction_failure_is_isolated(
         values=(5.5, 6.5, 5.8),
     )
 
-    original = type(base).validate
+    original = (
+        execution_module
+        .apply_sample_to_context
+    )
 
-    def validate(candidate):
-        original(candidate)
-
-        if (
-            candidate
-            .floating_gates()[0]
-            .nc_diameter_nm
-            > 6.0
-        ):
-            raise ValueError(
-                "joint realization validation failed"
+    def fail_second(
+        sampling_spec,
+        sample,
+        base_device,
+        base_operating_protocol=None,
+    ):
+        if sample.sample_index == 1:
+            raise RuntimeError(
+                "realization construction failed"
             )
 
+        return original(
+            sampling_spec,
+            sample,
+            base_device,
+            base_operating_protocol,
+        )
+
     monkeypatch.setattr(
-        type(base),
-        "validate",
-        validate,
+        execution_module,
+        "apply_sample_to_context",
+        fail_second,
     )
 
     result = execute_sample_manifest(
@@ -306,8 +331,18 @@ def test_realization_construction_failure_is_isolated(
         == "realization-construction"
     )
 
+    assert (
+        failed.failure_category
+        == "realization-invalid"
+    )
+
     assert failed.assignments == ()
     assert failed.realized_context is None
+
+    assert (
+        result.points[0].status
+        == "success"
+    )
 
     assert (
         result.points[2].status
@@ -369,6 +404,11 @@ def test_workflow_failure_is_isolated():
         == "success"
     )
 
+    assert (
+        failed.failure_category
+        == "workflow-execution"
+    )
+
 
 @pytest.mark.parametrize(
     "value",
@@ -405,6 +445,11 @@ def test_invalid_outputs_are_serialization_failures(
     assert (
         point.realized_context
         is not None
+    )
+
+    assert (
+        point.failure_category
+        == "output-serialization"
     )
 
 
@@ -823,3 +868,98 @@ def test_protocol_mutation_is_isolated_between_samples():
         ["protocol"]["programming_time_s"]
         == pytest.approx(3.0e-6)
     )
+
+
+@pytest.mark.parametrize(
+    "exception_type",
+    [
+        BindingApplicationError,
+        OperatingBindingError,
+    ],
+)
+def test_binding_failure_has_distinct_stage_and_category(
+    monkeypatch,
+    exception_type,
+):
+    base, samples = manifest(
+        values=(5.5, 6.0),
+    )
+
+    original = (
+        execution_module
+        .apply_sample_to_context
+    )
+
+    calls = []
+
+    def fail_first(
+        sampling_spec,
+        sample,
+        base_device,
+        base_operating_protocol=None,
+    ):
+        calls.append(
+            sample.sample_index
+        )
+
+        if sample.sample_index == 0:
+            raise exception_type(
+                "controlled binding failure"
+            )
+
+        return original(
+            sampling_spec,
+            sample,
+            base_device,
+            base_operating_protocol,
+        )
+
+    monkeypatch.setattr(
+        execution_module,
+        "apply_sample_to_context",
+        fail_first,
+    )
+
+    result = execute_sample_manifest(
+        samples,
+        base,
+        evaluator,
+        evaluation_id="binding-failure",
+    )
+
+    assert (
+        result.success_count,
+        result.failure_count,
+    ) == (1, 1)
+
+    failed = result.points[0]
+
+    assert failed.status == "failed"
+
+    assert (
+        failed.failure_stage
+        == "binding"
+    )
+
+    assert (
+        failed.failure_category
+        == "binding-application"
+    )
+
+    assert (
+        failed.error_type
+        == (
+            f"{exception_type.__module__}."
+            f"{exception_type.__qualname__}"
+        )
+    )
+
+    assert failed.assignments == ()
+    assert failed.realized_context is None
+
+    assert (
+        result.points[1].status
+        == "success"
+    )
+
+    assert calls == [0, 1]

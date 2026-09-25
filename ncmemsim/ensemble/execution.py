@@ -12,7 +12,11 @@ import numpy as np
 
 from .._version import __version__
 from ..device import Device
-from ..dtco.operating import OperatingProtocol
+from ..dtco.binding import BindingApplicationError
+from ..dtco.operating import (
+    OperatingBindingError,
+    OperatingProtocol,
+)
 from ..dtco.spec import (
     _device_definition_payload,
     _operating_definition_payload,
@@ -33,9 +37,18 @@ EXECUTION_SCHEMA_VERSION = "ensemble-execution-v1"
 
 _FAILURE_STAGES = {
     "sample-domain-validation",
+    "binding",
     "realization-construction",
     "workflow",
     "serialization",
+}
+
+_FAILURE_CATEGORY_BY_STAGE = {
+    "sample-domain-validation": "sample-domain-invalid",
+    "binding": "binding-application",
+    "realization-construction": "realization-invalid",
+    "workflow": "workflow-execution",
+    "serialization": "output-serialization",
 }
 
 
@@ -80,6 +93,7 @@ class RealizationExecutionPoint:
     realized_context_json: str | None = None
     output_json: str | None = None
     failure_stage: str | None = None
+    failure_category: str | None = None
     error_type: str | None = None
     error_message: str | None = None
 
@@ -212,6 +226,7 @@ class RealizationExecutionPoint:
                 value is not None
                 for value in (
                     self.failure_stage,
+                    self.failure_category,
                     self.error_type,
                     self.error_message,
                 )
@@ -253,6 +268,21 @@ class RealizationExecutionPoint:
             ):
                 raise ValueError(
                     "invalid execution failure stage"
+                )
+
+            expected_category = (
+                _FAILURE_CATEGORY_BY_STAGE[
+                    self.failure_stage
+                ]
+            )
+
+            if (
+                self.failure_category
+                != expected_category
+            ):
+                raise ValueError(
+                    "failure category does not match "
+                    "failure stage"
                 )
 
             _label(
@@ -350,6 +380,7 @@ class RealizationExecutionPoint:
                 if self.status == "success"
                 else {
                     "stage": self.failure_stage,
+                    "category": self.failure_category,
                     "type": self.error_type,
                     "message": self.error_message,
                 }
@@ -849,12 +880,19 @@ def execute_sample_manifest(
 
             stage = "realization-construction"
 
-            realization = apply_sample_to_context(
-                manifest.sampling_spec,
-                sample,
-                nominal_device,
-                nominal_protocol,
-            )
+            try:
+                realization = apply_sample_to_context(
+                    manifest.sampling_spec,
+                    sample,
+                    nominal_device,
+                    nominal_protocol,
+                )
+            except (
+                BindingApplicationError,
+                OperatingBindingError,
+            ):
+                stage = "binding"
+                raise
 
             realized_context_json = (
                 _json_snapshot(
@@ -950,6 +988,11 @@ def execute_sample_manifest(
                 identity=identity,
                 status="failed",
                 failure_stage=stage,
+                failure_category=(
+                    _FAILURE_CATEGORY_BY_STAGE[
+                        stage
+                    ]
+                ),
                 error_type=_error_type(exc),
                 error_message=str(exc),
                 **kwargs,
