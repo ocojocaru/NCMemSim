@@ -695,12 +695,14 @@ Add population summaries, percentiles, nominal comparisons, explicit denominator
 
 K4 is implemented in three ordered subphases:
 
-**Status: K4a complete; K4b next.**
+**Status: K4a and K4b complete; K4c next.**
 
 - **K4a - per-realization metric assessment (complete):** extract declared scalar metrics from successful K3 outputs without rerunning physics, apply declared constraints, preserve complete-case semantics, propagate K3 failures unchanged, and distinguish metric-extraction failures explicitly;
-- **K4b - population statistics:** report attempted, assessed, feasible, infeasible and failed counts with explicit denominators; compute complete-case population mean, variance, standard deviation, minimum, maximum, median and requested quantiles using population `ddof=0` and linear `(n - 1) q` interpolation; report coverage as assessed count divided by attempted count;
+- **K4b - population statistics (complete):** report attempted, assessed, feasible, infeasible and failed counts with explicit denominators; compute complete-case population mean, variance, standard deviation, minimum, maximum, median and requested quantiles using population `ddof=0` and linear `(n - 1) q` interpolation; report coverage as assessed count divided by attempted count;
 
 K4b uses an ensemble-specific statistics contract over the immutable K4a result. Requested quantiles are finite unique probabilities in `[0, 1]`. Metric summaries use all assessed complete cases only and record their denominator, sample indices and realization identities. Population variance and standard deviation use `ddof=0`; quantiles use linear `(n - 1) q` interpolation. When no realization is assessed, scalar summary values and quantile values are `None` with denominator zero. Failed realizations remain in attempted and failed counts and are never silently removed from coverage accounting. K4b does not compute nominal comparisons or feasibility/pass fractions; those remain K4c.
+
+The implemented K4b API provides `EnsembleStatisticsSpec`, `MetricPopulationSummary`, `EnsemblePopulationStatistics` and `summarize_ensemble_metrics()`. Statistics are derived from the immutable K4a result without rerunning physics, include runtime/algorithm provenance, preserve declared metric and realization ordering, fail closed on non-finite derived statistics, and treat both propagated K3 failures and K4a metric-extraction failures as failed attempted realizations rather than assessed complete cases.
 - **K4c - nominal comparison and feasibility fractions:** compare ensemble metrics with declared nominal references and report explicit all-attempted and assessed-only feasibility fractions while keeping numerical/model failures distinct from physical pass/fail outcomes.
 
 For K4, `attempted_count` is the number of K3 realization execution points. `assessed_count` is the number of realizations with complete successfully extracted metric sets and therefore equals `feasible_count + infeasible_count`. `failed_count` includes both propagated K3 execution failures and K4 metric-extraction failures. No failed realization is silently removed from denominator accounting.
