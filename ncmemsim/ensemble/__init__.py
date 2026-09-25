@@ -35,6 +35,11 @@ from .realization import (
     RealizationAssignment,
     apply_sample_to_context,
 )
+from .execution import (
+    EnsembleExecutionResult,
+    RealizationExecutionPoint,
+    execute_sample_manifest,
+)
 
 __all__ = [
     "ConstantDistribution",
@@ -64,4 +69,7 @@ __all__ = [
     "AppliedRealization",
     "RealizationAssignment",
     "apply_sample_to_context",
+    "EnsembleExecutionResult",
+    "RealizationExecutionPoint",
+    "execute_sample_manifest",
 ]
