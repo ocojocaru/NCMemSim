@@ -51,6 +51,12 @@ from .statistics import (
     MetricPopulationSummary,
     summarize_ensemble_metrics,
 )
+from .feasibility import (
+    EnsembleFeasibilitySummary,
+    NominalMetricComparison,
+    NominalMetricReference,
+    summarize_ensemble_feasibility,
+)
 
 __all__ = [
     "ConstantDistribution",
@@ -90,4 +96,8 @@ __all__ = [
     "EnsembleStatisticsSpec",
     "MetricPopulationSummary",
     "summarize_ensemble_metrics",
+    "EnsembleFeasibilitySummary",
+    "NominalMetricComparison",
+    "NominalMetricReference",
+    "summarize_ensemble_feasibility",
 ]
