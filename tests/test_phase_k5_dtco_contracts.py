@@ -3,14 +3,23 @@ from unittest.mock import Mock
 import pytest
 
 from ncmemsim.dtco import ConstraintOperator, SweepPoint
+from ncmemsim.dtco.metrics import (
+    MetricAnalysisSpec,
+    MetricDefinition,
+    ObjectiveDirection,
+)
 from ncmemsim.ensemble.dtco import (
     EnsembleConstraint,
     EnsembleConstraintEvaluation,
     EnsembleDTCOStudy,
     EnsembleEligibilityResult,
+    EnsembleObjective,
+    EnsembleParetoAnalysisResult,
+    EnsembleParetoPointResult,
     EnsembleScalarDefinition,
     EnsembleScalarEvaluation,
     EnsembleScalarKind,
+    analyze_ensemble_pareto,
     evaluate_ensemble_constraint,
     evaluate_ensemble_eligibility,
     evaluate_ensemble_scalar,
@@ -20,6 +29,7 @@ from ncmemsim.ensemble.feasibility import (
 )
 from ncmemsim.ensemble.statistics import (
     EnsemblePopulationStatistics,
+    EnsembleStatisticsSpec,
     MetricPopulationSummary,
 )
 
@@ -954,4 +964,621 @@ def test_eligibility_result_rejects_invalid_status():
             study=evaluation_study(),
             evaluations=(),
             status="invalid",
+        )
+
+
+
+def pareto_study(
+    *,
+    index=0,
+    mean=2.0,
+    denominator=3,
+    metric_path=("response",),
+    metric_direction=None,
+    statistics_quantiles=(0.05, 0.5, 0.95),
+    coverage_fraction=0.75,
+    simulated_pass_fraction=0.5,
+    ensemble_feasibility_fraction=2.0 / 3.0,
+    failure_fraction=0.25,
+):
+    empty = denominator == 0
+    quantiles = tuple(
+        (
+            probability,
+            None if empty else float(mean),
+        )
+        for probability in statistics_quantiles
+    )
+    summary = MetricPopulationSummary(
+        metric_name="response",
+        unit="V",
+        denominator=denominator,
+        sample_indices=() if empty else (0, 1, 2),
+        realization_ids=() if empty else ("r0", "r1", "r2"),
+        minimum=None if empty else float(mean - 1.0),
+        maximum=None if empty else float(mean + 1.0),
+        mean=None if empty else float(mean),
+        variance=None if empty else 1.0,
+        standard_deviation=None if empty else 1.0,
+        median=None if empty else float(mean),
+        quantiles=quantiles,
+    )
+
+    metric = MetricDefinition(
+        name="response",
+        path=metric_path,
+        unit="V",
+        direction=metric_direction,
+    )
+    metric_analysis = Mock()
+    metric_analysis.spec = MetricAnalysisSpec(
+        name="pareto-source",
+        metrics=(metric,),
+    )
+
+    statistics = Mock(spec=EnsemblePopulationStatistics)
+    statistics.spec = EnsembleStatisticsSpec(
+        quantiles=statistics_quantiles,
+    )
+    statistics.source = metric_analysis
+    statistics.metric_statistics = (summary,)
+    statistics.coverage_fraction = coverage_fraction
+
+    source = Mock(spec=EnsembleFeasibilitySummary)
+    source.source = statistics
+    source.simulated_pass_fraction = simulated_pass_fraction
+    source.ensemble_feasibility_fraction = (
+        ensemble_feasibility_fraction
+    )
+    source.failure_fraction = failure_fraction
+    source.result_hash = f"{index + 1:064x}"
+
+    return EnsembleDTCOStudy(
+        point(
+            index=index,
+            value=float(index + 1),
+        ),
+        source,
+    )
+
+
+def pareto_objective(
+    kind=EnsembleScalarKind.MEAN,
+    *,
+    name="response_mean",
+    direction=ObjectiveDirection.MINIMIZE,
+    quantile=None,
+):
+    if kind in (
+        EnsembleScalarKind.COVERAGE_FRACTION,
+        EnsembleScalarKind.SIMULATED_PASS_FRACTION,
+        EnsembleScalarKind.ENSEMBLE_FEASIBILITY_FRACTION,
+        EnsembleScalarKind.FAILURE_FRACTION,
+    ):
+        scalar = EnsembleScalarDefinition(
+            name=f"test_{kind.value}",
+            kind=kind,
+            unit="1",
+        )
+    else:
+        scalar = metric_definition(
+            kind,
+            quantile=quantile,
+        )
+    return EnsembleObjective(
+        name=name,
+        scalar=scalar,
+        direction=direction,
+    )
+
+
+def eligible_result(study):
+    return evaluate_ensemble_eligibility(
+        study,
+        (),
+    )
+
+
+def ineligible_result(study):
+    return evaluate_ensemble_eligibility(
+        study,
+        (
+            EnsembleConstraint(
+                name="mean_too_high",
+                scalar=metric_definition(
+                    EnsembleScalarKind.MEAN,
+                ),
+                operator=ConstraintOperator.LE,
+                threshold=-1.0,
+                unit="V",
+            ),
+        ),
+    )
+
+
+def unevaluable_result(study):
+    scalar = EnsembleScalarDefinition(
+        name="assessed_feasibility",
+        kind=(
+            EnsembleScalarKind
+            .ENSEMBLE_FEASIBILITY_FRACTION
+        ),
+        unit="1",
+    )
+    return evaluate_ensemble_eligibility(
+        study,
+        (
+            EnsembleConstraint(
+                name="assessed_feasibility_min",
+                scalar=scalar,
+                operator=ConstraintOperator.GE,
+                threshold=0.5,
+                unit="1",
+            ),
+        ),
+    )
+
+
+@pytest.mark.parametrize(
+    "kwargs,error",
+    [
+        ({"name": ""}, ValueError),
+        ({"scalar": object()}, TypeError),
+        ({"direction": "minimize"}, TypeError),
+    ],
+)
+def test_pareto_objective_rejects_invalid_contract(kwargs, error):
+    base = {
+        "name": "response_mean",
+        "scalar": metric_definition(
+            EnsembleScalarKind.MEAN,
+        ),
+        "direction": ObjectiveDirection.MINIMIZE,
+    }
+    base.update(kwargs)
+    with pytest.raises(error):
+        EnsembleObjective(**base)
+
+
+def test_pareto_objective_serialization_and_hash_are_deterministic():
+    first = pareto_objective()
+    same = pareto_objective()
+    changed = pareto_objective(
+        direction=ObjectiveDirection.MAXIMIZE,
+    )
+    payload = first.to_dict()
+
+    assert payload["schema_version"] == "ensemble-objective-v1"
+    assert payload["name"] == "response_mean"
+    assert payload["scalar"] == first.scalar.to_dict()
+    assert payload["scalar_definition_hash"] == (
+        first.scalar.definition_hash
+    )
+    assert payload["direction"] == "minimize"
+    assert first.definition_hash == same.definition_hash
+    assert first.definition_hash != changed.definition_hash
+
+
+def test_pareto_minimize_builds_all_fronts_from_rank_zero():
+    sources = tuple(
+        eligible_result(
+            pareto_study(
+                index=index,
+                mean=mean,
+            )
+        )
+        for index, mean in enumerate((1.0, 2.0, 3.0))
+    )
+    result = analyze_ensemble_pareto(
+        sources,
+        (pareto_objective(),),
+    )
+
+    assert result.fronts == ((0,), (1,), (2,))
+    assert tuple(
+        point.rank for point in result.points
+    ) == (0, 1, 2)
+    assert result.pareto_indices == (0,)
+    assert result.ranked_count == 3
+    assert result.excluded_count == 0
+
+
+def test_pareto_maximize_reverses_exact_dominance_direction():
+    sources = tuple(
+        eligible_result(
+            pareto_study(
+                index=index,
+                mean=mean,
+            )
+        )
+        for index, mean in enumerate((1.0, 2.0, 3.0))
+    )
+    result = analyze_ensemble_pareto(
+        sources,
+        (
+            pareto_objective(
+                direction=ObjectiveDirection.MAXIMIZE,
+            ),
+        ),
+    )
+
+    assert result.fronts == ((2,), (1,), (0,))
+    assert tuple(
+        point.rank for point in result.points
+    ) == (2, 1, 0)
+
+
+def test_pareto_retains_equal_objective_vectors_as_ties():
+    sources = tuple(
+        eligible_result(
+            pareto_study(
+                index=index,
+                mean=mean,
+            )
+        )
+        for index, mean in enumerate((1.0, 1.0, 2.0))
+    )
+    result = analyze_ensemble_pareto(
+        sources,
+        (pareto_objective(),),
+    )
+
+    assert result.fronts == ((0, 1), (2,))
+    assert result.pareto_indices == (0, 1)
+    assert tuple(
+        point.rank for point in result.points
+    ) == (0, 0, 1)
+
+
+def test_pareto_exact_multiobjective_tradeoff_retains_nondominated_points():
+    studies = (
+        pareto_study(
+            index=0,
+            mean=1.0,
+            failure_fraction=0.4,
+        ),
+        pareto_study(
+            index=1,
+            mean=2.0,
+            failure_fraction=0.1,
+        ),
+        pareto_study(
+            index=2,
+            mean=3.0,
+            failure_fraction=0.5,
+        ),
+    )
+    sources = tuple(
+        eligible_result(study)
+        for study in studies
+    )
+    result = analyze_ensemble_pareto(
+        sources,
+        (
+            pareto_objective(),
+            pareto_objective(
+                EnsembleScalarKind.FAILURE_FRACTION,
+                name="failure_fraction",
+                direction=ObjectiveDirection.MINIMIZE,
+            ),
+        ),
+    )
+
+    assert result.fronts == ((0, 1), (2,))
+    assert result.pareto_indices == (0, 1)
+
+
+def test_pareto_preserves_distinct_exclusion_reasons():
+    ranked = eligible_result(
+        pareto_study(
+            index=0,
+            mean=1.0,
+        )
+    )
+    constraint_ineligible = ineligible_result(
+        pareto_study(
+            index=1,
+            mean=2.0,
+        )
+    )
+    constraint_unevaluable = unevaluable_result(
+        pareto_study(
+            index=2,
+            denominator=0,
+            ensemble_feasibility_fraction=None,
+        )
+    )
+    objective_unevaluable = eligible_result(
+        pareto_study(
+            index=3,
+            denominator=0,
+            ensemble_feasibility_fraction=None,
+        )
+    )
+
+    result = analyze_ensemble_pareto(
+        (
+            ranked,
+            constraint_ineligible,
+            constraint_unevaluable,
+            objective_unevaluable,
+        ),
+        (pareto_objective(),),
+    )
+
+    assert tuple(
+        point.exclusion_reason
+        for point in result.points
+    ) == (
+        None,
+        "constraint-ineligible",
+        "constraint-unevaluable",
+        "objective-unevaluable",
+    )
+    assert tuple(
+        point.rank for point in result.points
+    ) == (0, None, None, None)
+    assert result.fronts == ((0,),)
+    assert result.ranked_count == 1
+    assert result.excluded_count == 3
+
+
+def test_pareto_rejects_incompatible_selected_metric_definitions():
+    sources = (
+        eligible_result(
+            pareto_study(
+                index=0,
+                metric_path=("response",),
+            )
+        ),
+        eligible_result(
+            pareto_study(
+                index=1,
+                metric_path=("other_response",),
+            )
+        ),
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="incompatible source definitions",
+    ):
+        analyze_ensemble_pareto(
+            sources,
+            (pareto_objective(),),
+        )
+
+
+def test_pareto_ignores_unselected_extra_quantiles_when_selected_one_matches():
+    sources = (
+        eligible_result(
+            pareto_study(
+                index=0,
+                mean=1.0,
+                statistics_quantiles=(0.05, 0.5, 0.95),
+            )
+        ),
+        eligible_result(
+            pareto_study(
+                index=1,
+                mean=2.0,
+                statistics_quantiles=(0.5,),
+            )
+        ),
+    )
+
+    result = analyze_ensemble_pareto(
+        sources,
+        (
+            pareto_objective(
+                EnsembleScalarKind.QUANTILE,
+                name="response_q50",
+                quantile=0.5,
+            ),
+        ),
+    )
+
+    assert result.fronts == ((0,), (1,))
+
+
+def test_pareto_rejects_quantile_not_computed_by_one_eligible_source():
+    sources = (
+        eligible_result(
+            pareto_study(
+                index=0,
+                statistics_quantiles=(0.05, 0.5, 0.95),
+            )
+        ),
+        eligible_result(
+            pareto_study(
+                index=1,
+                statistics_quantiles=(0.05, 0.95),
+            )
+        ),
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="quantile was not computed",
+    ):
+        analyze_ensemble_pareto(
+            sources,
+            (
+                pareto_objective(
+                    EnsembleScalarKind.QUANTILE,
+                    name="response_q50",
+                    quantile=0.5,
+                ),
+            ),
+        )
+
+
+def test_pareto_incompatible_excluded_source_does_not_block_comparison():
+    eligible = eligible_result(
+        pareto_study(
+            index=0,
+            metric_path=("response",),
+        )
+    )
+    excluded = ineligible_result(
+        pareto_study(
+            index=1,
+            metric_path=("other_response",),
+        )
+    )
+
+    result = analyze_ensemble_pareto(
+        (eligible, excluded),
+        (pareto_objective(),),
+    )
+
+    assert result.fronts == ((0,),)
+    assert result.points[1].exclusion_reason == (
+        "constraint-ineligible"
+    )
+
+
+def test_pareto_result_serialization_and_hash_are_deterministic():
+    sources = (
+        eligible_result(
+            pareto_study(
+                index=0,
+                mean=1.0,
+            )
+        ),
+        eligible_result(
+            pareto_study(
+                index=1,
+                mean=2.0,
+            )
+        ),
+    )
+    objectives = (pareto_objective(),)
+    first = analyze_ensemble_pareto(
+        sources,
+        objectives,
+        name="variability-pareto",
+    )
+    same = analyze_ensemble_pareto(
+        sources,
+        objectives,
+        name="variability-pareto",
+    )
+    payload = first.to_dict()
+
+    assert payload["schema_version"] == (
+        "ensemble-pareto-result-v1"
+    )
+    assert payload["analysis_hash"] == first.analysis_hash
+    assert payload["definition_hash"] == first.definition_hash
+    assert payload["source_result_hashes"] == [
+        source.result_hash for source in sources
+    ]
+    assert payload["fronts"] == [[0], [1]]
+    assert payload["pareto_indices"] == [0]
+    assert payload["ranked_count"] == 2
+    assert payload["excluded_count"] == 0
+    assert first.analysis_hash == same.analysis_hash
+    assert first.result_hash == same.result_hash
+
+
+def test_pareto_result_rejects_objective_values_inconsistent_with_source():
+    source = eligible_result(
+        pareto_study(
+            index=0,
+            mean=1.0,
+        )
+    )
+    objective = pareto_objective()
+    valid = analyze_ensemble_pareto(
+        (source,),
+        (objective,),
+    )
+    bad_point = EnsembleParetoPointResult(
+        source=source,
+        rank=0,
+        objective_values=(
+            ("response_mean", 999.0),
+        ),
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="point objectives differ",
+    ):
+        EnsembleParetoAnalysisResult(
+            name="pareto",
+            objectives=(objective,),
+            source_results=(source,),
+            points=(bad_point,),
+            fronts=valid.fronts,
+        )
+
+
+def test_pareto_result_rejects_rank_inconsistent_with_front():
+    source = eligible_result(
+        pareto_study(
+            index=0,
+            mean=1.0,
+        )
+    )
+    objective = pareto_objective()
+    valid = analyze_ensemble_pareto(
+        (source,),
+        (objective,),
+    )
+    bad_point = EnsembleParetoPointResult(
+        source=source,
+        rank=1,
+        objective_values=valid.points[0].objective_values,
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="front membership or point rank differs",
+    ):
+        EnsembleParetoAnalysisResult(
+            name="pareto",
+            objectives=(objective,),
+            source_results=(source,),
+            points=(bad_point,),
+            fronts=((0,),),
+        )
+
+
+def test_pareto_analysis_rejects_invalid_source_before_compatibility_access():
+    with pytest.raises(
+        TypeError,
+        match="source_results must contain",
+    ):
+        analyze_ensemble_pareto(
+            (object(),),
+            (pareto_objective(),),
+        )
+
+
+def test_pareto_analysis_requires_unique_nonempty_objectives():
+    source = eligible_result(
+        pareto_study(
+            index=0,
+        )
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="at least one objective",
+    ):
+        analyze_ensemble_pareto(
+            (source,),
+            (),
+        )
+
+    duplicate = pareto_objective()
+    with pytest.raises(
+        ValueError,
+        match="objective names must be unique",
+    ):
+        analyze_ensemble_pareto(
+            (source,),
+            (duplicate, duplicate),
         )
