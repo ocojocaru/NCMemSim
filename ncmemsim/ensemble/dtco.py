@@ -249,9 +249,256 @@ class EnsembleScalarDefinition:
             self.to_dict()
         )
 
+@dataclass(frozen=True)
+class EnsembleScalarEvaluation:
+    """One typed scalar projection from an immutable Phase K study."""
+
+    study: EnsembleDTCOStudy
+    definition: EnsembleScalarDefinition
+    status: str
+    value: float | None
+
+    def __post_init__(self) -> None:
+        if not isinstance(
+            self.study,
+            EnsembleDTCOStudy,
+        ):
+            raise TypeError(
+                "study must be an EnsembleDTCOStudy"
+            )
+
+        if not isinstance(
+            self.definition,
+            EnsembleScalarDefinition,
+        ):
+            raise TypeError(
+                "definition must be an "
+                "EnsembleScalarDefinition"
+            )
+
+        if self.status not in (
+            "defined",
+            "undefined",
+        ):
+            raise ValueError(
+                "status must be defined or undefined"
+            )
+
+        if self.status == "defined":
+            if (
+                type(self.value) is not float
+                or not math.isfinite(self.value)
+            ):
+                raise ValueError(
+                    "defined scalar requires a "
+                    "finite Python float"
+                )
+        elif self.value is not None:
+            raise ValueError(
+                "undefined scalar requires value=None"
+            )
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": (
+                "ensemble-scalar-evaluation-v1"
+            ),
+            "study_hash": self.study.study_hash,
+            "definition": (
+                self.definition.to_dict()
+            ),
+            "definition_hash": (
+                self.definition.definition_hash
+            ),
+            "status": self.status,
+            "value": self.value,
+        }
+
+    @property
+    def evaluation_hash(self) -> str:
+        return canonical_hash(
+            self.to_dict()
+        )
+
+
+def _metric_summary(
+    study: EnsembleDTCOStudy,
+    definition: EnsembleScalarDefinition,
+):
+    summaries = tuple(
+        summary
+        for summary
+        in study.source.source.metric_statistics
+        if (
+            summary.metric_name
+            == definition.metric_name
+        )
+    )
+
+    if not summaries:
+        raise ValueError(
+            f"metric {definition.metric_name!r} "
+            "is absent from source statistics"
+        )
+
+    if len(summaries) != 1:
+        raise ValueError(
+            f"metric {definition.metric_name!r} "
+            "is not unique in source statistics"
+        )
+
+    summary = summaries[0]
+
+    if summary.unit != definition.unit:
+        raise ValueError(
+            f"metric {definition.metric_name!r} "
+            f"uses unit {summary.unit!r}, "
+            f"not declared unit {definition.unit!r}"
+        )
+
+    return summary
+
+
+def _metric_scalar_value(
+    study: EnsembleDTCOStudy,
+    definition: EnsembleScalarDefinition,
+) -> float | None:
+    summary = _metric_summary(
+        study,
+        definition,
+    )
+
+    fields = {
+        EnsembleScalarKind.MEAN: "mean",
+        EnsembleScalarKind.STANDARD_DEVIATION: (
+            "standard_deviation"
+        ),
+        EnsembleScalarKind.MINIMUM: "minimum",
+        EnsembleScalarKind.MAXIMUM: "maximum",
+        EnsembleScalarKind.MEDIAN: "median",
+    }
+
+    if definition.kind in fields:
+        return getattr(
+            summary,
+            fields[definition.kind],
+        )
+
+    if (
+        definition.kind
+        is EnsembleScalarKind.QUANTILE
+    ):
+        for probability, value in summary.quantiles:
+            if (
+                probability
+                == definition.quantile
+            ):
+                return value
+
+        raise ValueError(
+            f"quantile {definition.quantile!r} "
+            f"for metric {definition.metric_name!r} "
+            "was not declared in source statistics"
+        )
+
+    raise ValueError(
+        "definition is not a metric scalar"
+    )
+
+
+def _fraction_scalar_value(
+    study: EnsembleDTCOStudy,
+    definition: EnsembleScalarDefinition,
+) -> float | None:
+    if (
+        definition.kind
+        is EnsembleScalarKind.COVERAGE_FRACTION
+    ):
+        return (
+            study.source.source.coverage_fraction
+        )
+
+    if (
+        definition.kind
+        is EnsembleScalarKind.SIMULATED_PASS_FRACTION
+    ):
+        return (
+            study.source.simulated_pass_fraction
+        )
+
+    if (
+        definition.kind
+        is EnsembleScalarKind.ENSEMBLE_FEASIBILITY_FRACTION
+    ):
+        return (
+            study.source.ensemble_feasibility_fraction
+        )
+
+    if (
+        definition.kind
+        is EnsembleScalarKind.FAILURE_FRACTION
+    ):
+        return study.source.failure_fraction
+
+    raise ValueError(
+        "definition is not a fraction scalar"
+    )
+
+
+def evaluate_ensemble_scalar(
+    study: EnsembleDTCOStudy,
+    definition: EnsembleScalarDefinition,
+) -> EnsembleScalarEvaluation:
+    """Project one declared K5 scalar without recomputing Phase K4."""
+
+    if not isinstance(
+        study,
+        EnsembleDTCOStudy,
+    ):
+        raise TypeError(
+            "study must be an EnsembleDTCOStudy"
+        )
+
+    if not isinstance(
+        definition,
+        EnsembleScalarDefinition,
+    ):
+        raise TypeError(
+            "definition must be an "
+            "EnsembleScalarDefinition"
+        )
+
+    if definition.kind in _METRIC_SCALAR_KINDS:
+        value = _metric_scalar_value(
+            study,
+            definition,
+        )
+    elif definition.kind in _FRACTION_SCALAR_KINDS:
+        value = _fraction_scalar_value(
+            study,
+            definition,
+        )
+    else:
+        raise ValueError(
+            "unsupported ensemble scalar kind"
+        )
+
+    return EnsembleScalarEvaluation(
+        study=study,
+        definition=definition,
+        status=(
+            "undefined"
+            if value is None
+            else "defined"
+        ),
+        value=value,
+    )
+
 
 __all__ = [
     "EnsembleDTCOStudy",
     "EnsembleScalarDefinition",
+    "EnsembleScalarEvaluation",
     "EnsembleScalarKind",
+    "evaluate_ensemble_scalar",
 ]

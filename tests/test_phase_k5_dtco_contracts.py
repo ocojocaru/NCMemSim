@@ -6,10 +6,16 @@ from ncmemsim.dtco import SweepPoint
 from ncmemsim.ensemble.dtco import (
     EnsembleDTCOStudy,
     EnsembleScalarDefinition,
+    EnsembleScalarEvaluation,
     EnsembleScalarKind,
+    evaluate_ensemble_scalar,
 )
 from ncmemsim.ensemble.feasibility import (
     EnsembleFeasibilitySummary,
+)
+from ncmemsim.ensemble.statistics import (
+    EnsemblePopulationStatistics,
+    MetricPopulationSummary,
 )
 
 
@@ -406,3 +412,229 @@ def test_scalar_definition_serialization_and_hash_are_deterministic():
     }
     assert first.definition_hash == same.definition_hash
     assert first.definition_hash != changed.definition_hash
+
+def evaluation_study(
+    *,
+    denominator=3,
+    ensemble_feasibility_fraction=2.0 / 3.0,
+):
+    empty = denominator == 0
+    summary = MetricPopulationSummary(
+        metric_name="response",
+        unit="V",
+        denominator=denominator,
+        sample_indices=() if empty else (0, 1, 2),
+        realization_ids=() if empty else ("r0", "r1", "r2"),
+        minimum=None if empty else 1.0,
+        maximum=None if empty else 3.0,
+        mean=None if empty else 2.0,
+        variance=None if empty else 1.0,
+        standard_deviation=None if empty else 1.0,
+        median=None if empty else 2.0,
+        quantiles=(
+            (0.05, None if empty else 1.1),
+            (0.5, None if empty else 2.0),
+            (0.95, None if empty else 2.9),
+        ),
+    )
+
+    statistics = Mock(spec=EnsemblePopulationStatistics)
+    statistics.metric_statistics = (summary,)
+    statistics.coverage_fraction = 0.0 if empty else 0.75
+
+    source = Mock(spec=EnsembleFeasibilitySummary)
+    source.source = statistics
+    source.simulated_pass_fraction = 0.0 if empty else 0.5
+    source.ensemble_feasibility_fraction = ensemble_feasibility_fraction
+    source.failure_fraction = 1.0 if empty else 0.25
+    source.result_hash = "d" * 64
+
+    return EnsembleDTCOStudy(point(), source)
+
+
+def metric_definition(kind, *, quantile=None, unit="V", metric_name="response"):
+    return EnsembleScalarDefinition(
+        name=f"test_{kind.value}",
+        kind=kind,
+        unit=unit,
+        metric_name=metric_name,
+        quantile=quantile,
+    )
+
+
+@pytest.mark.parametrize(
+    "kind,expected",
+    [
+        (EnsembleScalarKind.MEAN, 2.0),
+        (EnsembleScalarKind.STANDARD_DEVIATION, 1.0),
+        (EnsembleScalarKind.MINIMUM, 1.0),
+        (EnsembleScalarKind.MAXIMUM, 3.0),
+        (EnsembleScalarKind.MEDIAN, 2.0),
+    ],
+)
+def test_evaluate_metric_scalar_reads_k4_summary(kind, expected):
+    result = evaluate_ensemble_scalar(
+        evaluation_study(),
+        metric_definition(kind),
+    )
+    assert result.status == "defined"
+    assert result.value == expected
+    assert type(result.value) is float
+
+
+def test_evaluate_quantile_requires_existing_k4_probability():
+    study = evaluation_study()
+    result = evaluate_ensemble_scalar(
+        study,
+        metric_definition(
+            EnsembleScalarKind.QUANTILE,
+            quantile=0.95,
+        ),
+    )
+    assert result.value == 2.9
+
+    with pytest.raises(ValueError, match="not declared"):
+        evaluate_ensemble_scalar(
+            study,
+            metric_definition(
+                EnsembleScalarKind.QUANTILE,
+                quantile=0.25,
+            ),
+        )
+
+
+def test_evaluate_metric_rejects_absent_metric_and_unit_mismatch():
+    study = evaluation_study()
+
+    with pytest.raises(ValueError, match="absent from source statistics"):
+        evaluate_ensemble_scalar(
+            study,
+            metric_definition(
+                EnsembleScalarKind.MEAN,
+                metric_name="missing",
+            ),
+        )
+
+    with pytest.raises(ValueError, match="uses unit"):
+        evaluate_ensemble_scalar(
+            study,
+            metric_definition(
+                EnsembleScalarKind.MEAN,
+                unit="mV",
+            ),
+        )
+
+
+@pytest.mark.parametrize(
+    "kind,expected",
+    [
+        (EnsembleScalarKind.COVERAGE_FRACTION, 0.75),
+        (EnsembleScalarKind.SIMULATED_PASS_FRACTION, 0.5),
+        (EnsembleScalarKind.ENSEMBLE_FEASIBILITY_FRACTION, 2.0 / 3.0),
+        (EnsembleScalarKind.FAILURE_FRACTION, 0.25),
+    ],
+)
+def test_evaluate_fraction_scalar_reads_k4_value(kind, expected):
+    result = evaluate_ensemble_scalar(
+        evaluation_study(),
+        EnsembleScalarDefinition(
+            name=kind.value,
+            kind=kind,
+            unit="1",
+        ),
+    )
+    assert result.status == "defined"
+    assert result.value == expected
+    assert type(result.value) is float
+
+
+@pytest.mark.parametrize(
+    "definition",
+    [
+        metric_definition(EnsembleScalarKind.MEAN),
+        metric_definition(
+            EnsembleScalarKind.QUANTILE,
+            quantile=0.95,
+        ),
+    ],
+)
+def test_empty_metric_population_is_undefined(definition):
+    result = evaluate_ensemble_scalar(
+        evaluation_study(
+            denominator=0,
+            ensemble_feasibility_fraction=None,
+        ),
+        definition,
+    )
+    assert result.status == "undefined"
+    assert result.value is None
+
+
+def test_zero_assessed_feasibility_is_undefined_but_other_fractions_are_defined():
+    study = evaluation_study(
+        denominator=0,
+        ensemble_feasibility_fraction=None,
+    )
+
+    feasibility = evaluate_ensemble_scalar(
+        study,
+        EnsembleScalarDefinition(
+            name="ensemble_feasibility_fraction",
+            kind=EnsembleScalarKind.ENSEMBLE_FEASIBILITY_FRACTION,
+            unit="1",
+        ),
+    )
+    assert feasibility.status == "undefined"
+    assert feasibility.value is None
+
+    for kind, expected in (
+        (EnsembleScalarKind.COVERAGE_FRACTION, 0.0),
+        (EnsembleScalarKind.SIMULATED_PASS_FRACTION, 0.0),
+        (EnsembleScalarKind.FAILURE_FRACTION, 1.0),
+    ):
+        result = evaluate_ensemble_scalar(
+            study,
+            EnsembleScalarDefinition(
+                name=kind.value,
+                kind=kind,
+                unit="1",
+            ),
+        )
+        assert result.status == "defined"
+        assert result.value == expected
+
+
+@pytest.mark.parametrize(
+    "status,value",
+    [
+        ("invalid", None),
+        ("defined", None),
+        ("defined", 1),
+        ("defined", float("nan")),
+        ("undefined", 1.0),
+    ],
+)
+def test_scalar_evaluation_rejects_invalid_state(status, value):
+    with pytest.raises((TypeError, ValueError)):
+        EnsembleScalarEvaluation(
+            study=evaluation_study(),
+            definition=metric_definition(EnsembleScalarKind.MEAN),
+            status=status,
+            value=value,
+        )
+
+
+def test_scalar_evaluation_serialization_and_hash_are_deterministic():
+    study = evaluation_study()
+    definition = metric_definition(EnsembleScalarKind.MEAN)
+    first = evaluate_ensemble_scalar(study, definition)
+    same = evaluate_ensemble_scalar(study, definition)
+    payload = first.to_dict()
+
+    assert payload["schema_version"] == "ensemble-scalar-evaluation-v1"
+    assert payload["study_hash"] == study.study_hash
+    assert payload["definition"] == definition.to_dict()
+    assert payload["definition_hash"] == definition.definition_hash
+    assert payload["status"] == "defined"
+    assert payload["value"] == 2.0
+    assert first.evaluation_hash == same.evaluation_hash
