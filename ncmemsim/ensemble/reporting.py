@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import csv
 from dataclasses import dataclass
+from io import StringIO
 import json
+from pathlib import Path
 from typing import Any, Iterable
 
 from .._version import __version__
@@ -619,6 +622,24 @@ class EnsembleReport:
     def to_json(self) -> str:
         return _json_snapshot(self.to_dict())
 
+    def samples_csv(self) -> str:
+        return _samples_csv(self)
+
+    def statistics_csv(self) -> str:
+        return _statistics_csv(self)
+
+    def feasibility_csv(self) -> str:
+        return _feasibility_csv(self)
+
+    def eligibility_csv(self) -> str:
+        return _eligibility_csv(self)
+
+    def pareto_csv(self) -> str:
+        return _pareto_csv(self)
+
+    def to_markdown(self) -> str:
+        return _to_markdown(self)
+
     @classmethod
     def from_json(cls, value: str) -> "EnsembleReport":
         def unique_keys(pairs):
@@ -714,8 +735,451 @@ def build_ensemble_report(
     return EnsembleReport(_json_snapshot(payload))
 
 
+def _csv(headers, rows) -> str:
+    stream = StringIO(newline="")
+    writer = csv.writer(stream, lineterminator="\n")
+    writer.writerow(headers)
+    writer.writerows(rows)
+    return stream.getvalue()
+
+
+def _text(value: Any) -> str:
+    if value is None:
+        return "—"
+    return (
+        str(value)
+        .replace("\\", "\\\\")
+        .replace("|", "\\|")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace("\r", "")
+        .replace("\n", "<br>")
+    )
+
+
+def _table(headers, rows) -> list[str]:
+    return [
+        "| " + " | ".join(_text(value) for value in headers) + " |",
+        "| " + " | ".join("---" for _ in headers) + " |",
+        *(
+            "| " + " | ".join(_text(value) for value in row) + " |"
+            for row in rows
+        ),
+    ]
+
+
+def _point_sample_index(point: dict[str, Any]) -> Any:
+    identity = point.get("identity")
+    if type(identity) is dict:
+        return identity.get("sample_index")
+    return point.get("sample_index")
+
+
+def _point_assignments(point: dict[str, Any]) -> Any:
+    assignments = point.get("assignments")
+    if assignments is not None:
+        return assignments
+    realization = point.get("realization")
+    if type(realization) is dict:
+        return realization.get("assignments")
+    return None
+
+
+def _json_field(value: Any) -> str:
+    return _json_snapshot(value)
+
+
+def _samples_csv(report: EnsembleReport) -> str:
+    payload = json.loads(report.payload_json)
+    rows = []
+
+    for study_index, wrapped in enumerate(payload["studies"]):
+        study = wrapped["data"]
+        execution = study["execution"]["data"]
+        analysis = study["metric_analysis"]["data"]
+        design = study["study"]["data"]["design_point"]
+        execution_points = execution["points"]
+        metric_points = analysis["points"]
+
+        if len(execution_points) != len(metric_points):
+            raise ValueError(
+                "samples CSV requires one metric point per execution point"
+            )
+
+        for execution_point, metric_point in zip(
+            execution_points,
+            metric_points,
+            strict=True,
+        ):
+            rows.append(
+                (
+                    study_index,
+                    design["index"],
+                    study["study"]["data"]["point_hash"],
+                    _point_sample_index(execution_point),
+                    execution_point.get("status"),
+                    metric_point.get("status"),
+                    _json_field(_point_assignments(execution_point)),
+                    _json_field(execution_point.get("output")),
+                    _json_field(metric_point.get("metrics")),
+                    _json_field(metric_point.get("constraints")),
+                    _json_field(execution_point.get("failure")),
+                    _json_field(metric_point.get("failure")),
+                )
+            )
+
+    return _csv(
+        (
+            "study_index",
+            "design_point_index",
+            "design_point_hash",
+            "sample_index",
+            "execution_status",
+            "metric_status",
+            "assignments_json",
+            "output_json",
+            "metrics_json",
+            "constraints_json",
+            "execution_failure_json",
+            "metric_failure_json",
+        ),
+        rows,
+    )
+
+
+def _statistics_csv(report: EnsembleReport) -> str:
+    payload = json.loads(report.payload_json)
+    rows = []
+
+    for study_index, wrapped in enumerate(payload["studies"]):
+        study = wrapped["data"]
+        design = study["study"]["data"]["design_point"]
+        statistics = study["population_statistics"]["data"]
+
+        for summary in statistics["metric_statistics"]:
+            rows.append(
+                (
+                    study_index,
+                    design["index"],
+                    summary.get("metric_name"),
+                    summary.get("unit"),
+                    summary.get("denominator"),
+                    _json_field(summary.get("sample_indices")),
+                    _json_field(summary.get("realization_ids")),
+                    _json_field(summary.get("minimum")),
+                    _json_field(summary.get("maximum")),
+                    _json_field(summary.get("mean")),
+                    _json_field(summary.get("variance")),
+                    _json_field(summary.get("standard_deviation")),
+                    _json_field(summary.get("median")),
+                    _json_field(summary.get("quantiles")),
+                )
+            )
+
+    return _csv(
+        (
+            "study_index",
+            "design_point_index",
+            "metric_name",
+            "unit",
+            "denominator",
+            "sample_indices_json",
+            "realization_ids_json",
+            "minimum",
+            "maximum",
+            "mean",
+            "population_variance",
+            "population_std",
+            "median",
+            "quantiles_json",
+        ),
+        rows,
+    )
+
+
+def _feasibility_csv(report: EnsembleReport) -> str:
+    payload = json.loads(report.payload_json)
+    rows = []
+
+    for study_index, wrapped in enumerate(payload["studies"]):
+        study = wrapped["data"]
+        design = study["study"]["data"]["design_point"]
+        feasibility = study["feasibility"]["data"]
+        counts = feasibility["counts"]
+
+        rows.append(
+            (
+                study_index,
+                design["index"],
+                counts["attempted"],
+                counts["assessed"],
+                counts["feasible"],
+                counts["infeasible"],
+                counts["failed"],
+                _json_field(feasibility["simulated_pass_fraction"]),
+                _json_field(feasibility["ensemble_feasibility_fraction"]),
+                _json_field(feasibility["failure_fraction"]),
+                _json_field(feasibility["nominal_references"]),
+                _json_field(feasibility["comparisons"]),
+            )
+        )
+
+    return _csv(
+        (
+            "study_index",
+            "design_point_index",
+            "attempted",
+            "assessed",
+            "feasible",
+            "infeasible",
+            "failed",
+            "simulated_pass_fraction_json",
+            "ensemble_feasibility_fraction_json",
+            "failure_fraction_json",
+            "nominal_references_json",
+            "nominal_comparisons_json",
+        ),
+        rows,
+    )
+
+
+def _eligibility_csv(report: EnsembleReport) -> str:
+    payload = json.loads(report.payload_json)
+    rows = []
+
+    for study_index, wrapped in enumerate(payload["studies"]):
+        study = wrapped["data"]
+        study_section = study["study"]
+        design = study_section["data"]["design_point"]
+        eligibility = study["eligibility"]["data"]
+
+        rows.append(
+            (
+                study_index,
+                design["index"],
+                study_section["data"]["point_hash"],
+                study_section["study_hash"],
+                _json_field(design["assignments"]),
+                eligibility["status"],
+                _json_field(eligibility["evaluations"]),
+            )
+        )
+
+    return _csv(
+        (
+            "study_index",
+            "design_point_index",
+            "design_point_hash",
+            "study_hash",
+            "assignments_json",
+            "eligibility_status",
+            "constraint_evaluations_json",
+        ),
+        rows,
+    )
+
+
+def _pareto_csv(report: EnsembleReport) -> str:
+    payload = json.loads(report.payload_json)
+    rows = []
+    section = payload["pareto"]
+
+    if section is not None:
+        pareto = section["data"]
+        for study_index, (wrapped, point) in enumerate(
+            zip(payload["studies"], pareto["points"], strict=True)
+        ):
+            study = wrapped["data"]
+            study_section = study["study"]
+            design = study_section["data"]["design_point"]
+            rows.append(
+                (
+                    study_index,
+                    design["index"],
+                    study_section["study_hash"],
+                    study_section["data"]["point_hash"],
+                    study["eligibility"]["data"]["status"],
+                    _json_field(point.get("rank")),
+                    _json_field(point.get("objectives")),
+                    point.get("exclusion_reason"),
+                )
+            )
+
+    return _csv(
+        (
+            "study_index",
+            "design_point_index",
+            "study_hash",
+            "design_point_hash",
+            "eligibility_status",
+            "pareto_rank",
+            "objectives_json",
+            "exclusion_reason",
+        ),
+        rows,
+    )
+
+
+def _to_markdown(report: EnsembleReport) -> str:
+    payload = json.loads(report.payload_json)
+    lines = [
+        f"# {_text(payload['name'])}",
+        "",
+        f"Report hash: {report.report_hash}",
+        "",
+        f"NCMemSim version: {_text(payload['ncmemsim_version'])}",
+        "",
+        "## Study summary",
+        "",
+    ]
+
+    rows = []
+    for study_index, wrapped in enumerate(payload["studies"]):
+        study = wrapped["data"]
+        design = study["study"]["data"]["design_point"]
+        feasibility = study["feasibility"]["data"]
+        counts = feasibility["counts"]
+        rows.append(
+            (
+                study_index,
+                design["index"],
+                counts["attempted"],
+                counts["assessed"],
+                counts["feasible"],
+                counts["infeasible"],
+                counts["failed"],
+                feasibility["simulated_pass_fraction"]["value"],
+                feasibility["ensemble_feasibility_fraction"]["value"],
+                feasibility["failure_fraction"]["value"],
+                study["eligibility"]["data"]["status"],
+            )
+        )
+
+    lines += _table(
+        (
+            "Study",
+            "Design point",
+            "Attempted",
+            "Assessed",
+            "Feasible",
+            "Infeasible",
+            "Failed",
+            "Simulated pass/all",
+            "Feasible/assessed",
+            "Failure/all",
+            "Eligibility",
+        ),
+        rows,
+    )
+
+    if payload["pareto"] is not None:
+        pareto = payload["pareto"]["data"]
+        lines += [
+            "",
+            "## Pareto analysis",
+            "",
+            f"Name: {_text(pareto['name'])}",
+            "",
+            f"Fronts: {_text(_json_field(pareto['fronts']))}",
+            "",
+            (
+                "Order within a front expresses no preference. "
+                "Excluded studies retain their explicit exclusion reason."
+            ),
+        ]
+
+    lines += [
+        "",
+        "## Interpretation limits",
+        "",
+        (
+            "Population statistics use assessed complete cases. "
+            "Failed realizations remain explicit and are not treated as "
+            "physical infeasibility."
+        ),
+        "",
+        (
+            "The simulated pass fraction and ensemble feasibility fraction "
+            "describe this declared synthetic ensemble; they are not "
+            "manufacturing yield or an experimentally calibrated yield claim."
+        ),
+        "",
+        (
+            "The integrity-checked manifest retains the complete K3-K5b "
+            "identity chain and optional K5c Pareto linkage. Derived plot "
+            "files are presentation artifacts outside the report hash."
+        ),
+        "",
+        "## Metadata",
+        "",
+        _text(_json_field(payload["metadata"])),
+        "",
+        (
+            "Exact assignments, source outputs, units, denominators, "
+            "constraints, runtime provenance and failure records are "
+            "preserved in manifest.json and the CSV artifacts."
+        ),
+        "",
+    ]
+
+    return "\n".join(lines)
+
+
+
+def write_ensemble_report(
+    report: EnsembleReport,
+    output_dir: str | Path,
+) -> tuple[Path, ...]:
+    """Write the canonical seven-file K6a bundle without overwriting targets."""
+
+    if not isinstance(report, EnsembleReport):
+        raise TypeError("report must be an EnsembleReport")
+
+    contents = (
+        ("manifest.json", report.to_json() + "\n"),
+        ("samples.csv", report.samples_csv()),
+        ("statistics.csv", report.statistics_csv()),
+        ("feasibility.csv", report.feasibility_csv()),
+        ("eligibility.csv", report.eligibility_csv()),
+        ("pareto.csv", report.pareto_csv()),
+        ("report.md", report.to_markdown()),
+    )
+
+    directory = Path(output_dir).resolve()
+    targets = tuple(
+        directory / name
+        for name, _ in contents
+    )
+
+    for target in targets:
+        if target.exists():
+            raise FileExistsError(
+                f"report target already exists: {target}"
+            )
+
+    directory.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    for target, (_, text) in zip(
+        targets,
+        contents,
+        strict=True,
+    ):
+        with target.open(
+            "x",
+            encoding="utf-8",
+            newline="\n",
+        ) as stream:
+            stream.write(text)
+
+    return targets
+
+
 __all__ = [
     "EnsembleReport",
     "EnsembleReportStudy",
     "build_ensemble_report",
+    "write_ensemble_report",
 ]
