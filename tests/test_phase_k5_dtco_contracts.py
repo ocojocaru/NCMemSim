@@ -2,12 +2,17 @@ from unittest.mock import Mock
 
 import pytest
 
-from ncmemsim.dtco import SweepPoint
+from ncmemsim.dtco import ConstraintOperator, SweepPoint
 from ncmemsim.ensemble.dtco import (
+    EnsembleConstraint,
+    EnsembleConstraintEvaluation,
     EnsembleDTCOStudy,
+    EnsembleEligibilityResult,
     EnsembleScalarDefinition,
     EnsembleScalarEvaluation,
     EnsembleScalarKind,
+    evaluate_ensemble_constraint,
+    evaluate_ensemble_eligibility,
     evaluate_ensemble_scalar,
 )
 from ncmemsim.ensemble.feasibility import (
@@ -638,3 +643,315 @@ def test_scalar_evaluation_serialization_and_hash_are_deterministic():
     assert payload["status"] == "defined"
     assert payload["value"] == 2.0
     assert first.evaluation_hash == same.evaluation_hash
+
+
+def constraint_definition(
+    *,
+    name="response_max",
+    scalar=None,
+    operator=ConstraintOperator.LE,
+    threshold=2.0,
+    unit="V",
+):
+    if scalar is None:
+        scalar = metric_definition(
+            EnsembleScalarKind.MEAN,
+        )
+    return EnsembleConstraint(
+        name=name,
+        scalar=scalar,
+        operator=operator,
+        threshold=threshold,
+        unit=unit,
+    )
+
+
+@pytest.mark.parametrize(
+    "operator,threshold,expected",
+    [
+        (ConstraintOperator.LE, 2.0, "satisfied"),
+        (ConstraintOperator.LE, 1.999, "violated"),
+        (ConstraintOperator.GE, 2.0, "satisfied"),
+        (ConstraintOperator.GE, 2.001, "violated"),
+    ],
+)
+def test_constraint_evaluation_uses_inclusive_dtco_operator(
+    operator,
+    threshold,
+    expected,
+):
+    result = evaluate_ensemble_constraint(
+        evaluation_study(),
+        constraint_definition(
+            operator=operator,
+            threshold=threshold,
+        ),
+    )
+    assert result.status == expected
+    assert result.scalar_evaluation.status == "defined"
+    assert result.scalar_evaluation.value == 2.0
+
+
+def test_constraint_evaluation_preserves_undefined_as_unevaluable():
+    result = evaluate_ensemble_constraint(
+        evaluation_study(
+            denominator=0,
+            ensemble_feasibility_fraction=None,
+        ),
+        constraint_definition(),
+    )
+    assert result.status == "unevaluable"
+    assert result.scalar_evaluation.status == "undefined"
+    assert result.scalar_evaluation.value is None
+
+
+@pytest.mark.parametrize(
+    "kwargs,error",
+    [
+        ({"name": ""}, ValueError),
+        ({"scalar": object()}, TypeError),
+        ({"operator": "<="}, TypeError),
+        ({"threshold": True}, TypeError),
+        ({"threshold": float("nan")}, ValueError),
+        ({"unit": "mV"}, ValueError),
+    ],
+)
+def test_constraint_definition_rejects_invalid_contract(kwargs, error):
+    base = {
+        "name": "response_max",
+        "scalar": metric_definition(
+            EnsembleScalarKind.MEAN,
+        ),
+        "operator": ConstraintOperator.LE,
+        "threshold": 2.0,
+        "unit": "V",
+    }
+    base.update(kwargs)
+    with pytest.raises(error):
+        EnsembleConstraint(**base)
+
+
+def test_constraint_definition_serialization_and_hash_are_deterministic():
+    first = constraint_definition()
+    same = constraint_definition()
+    changed = constraint_definition(
+        threshold=2.5,
+    )
+    payload = first.to_dict()
+
+    assert payload["schema_version"] == "ensemble-constraint-v1"
+    assert payload["name"] == "response_max"
+    assert payload["scalar"] == first.scalar.to_dict()
+    assert payload["scalar_definition_hash"] == (
+        first.scalar.definition_hash
+    )
+    assert payload["operator"] == "<="
+    assert payload["threshold"] == 2.0
+    assert payload["unit"] == "V"
+    assert first.definition_hash == same.definition_hash
+    assert first.definition_hash != changed.definition_hash
+
+
+def test_constraint_evaluation_rejects_status_inconsistent_with_scalar():
+    study = evaluation_study()
+    constraint = constraint_definition()
+    scalar = evaluate_ensemble_scalar(
+        study,
+        constraint.scalar,
+    )
+    with pytest.raises(
+        ValueError,
+        match="status differs",
+    ):
+        EnsembleConstraintEvaluation(
+            constraint=constraint,
+            scalar_evaluation=scalar,
+            status="violated",
+        )
+
+
+def test_constraint_evaluation_serialization_and_hash_are_deterministic():
+    study = evaluation_study()
+    constraint = constraint_definition()
+    first = evaluate_ensemble_constraint(
+        study,
+        constraint,
+    )
+    same = evaluate_ensemble_constraint(
+        study,
+        constraint,
+    )
+    payload = first.to_dict()
+
+    assert payload["schema_version"] == (
+        "ensemble-constraint-evaluation-v1"
+    )
+    assert payload["study_hash"] == study.study_hash
+    assert payload["constraint"] == constraint.to_dict()
+    assert payload["constraint_hash"] == (
+        constraint.definition_hash
+    )
+    assert payload["scalar_evaluation_hash"] == (
+        first.scalar_evaluation.evaluation_hash
+    )
+    assert payload["status"] == "satisfied"
+    assert payload["value"] == 2.0
+    assert first.evaluation_hash == same.evaluation_hash
+
+
+def test_eligibility_is_eligible_when_all_constraints_are_satisfied():
+    study = evaluation_study()
+    constraints = (
+        constraint_definition(
+            name="mean_max",
+            operator=ConstraintOperator.LE,
+            threshold=2.0,
+        ),
+        constraint_definition(
+            name="mean_min",
+            operator=ConstraintOperator.GE,
+            threshold=1.5,
+        ),
+    )
+    result = evaluate_ensemble_eligibility(
+        study,
+        constraints,
+    )
+
+    assert result.status == "eligible"
+    assert tuple(
+        evaluation.status
+        for evaluation in result.evaluations
+    ) == ("satisfied", "satisfied")
+
+
+def test_eligibility_is_ineligible_when_any_constraint_is_violated():
+    study = evaluation_study()
+    result = evaluate_ensemble_eligibility(
+        study,
+        (
+            constraint_definition(
+                name="mean_ok",
+                threshold=2.0,
+            ),
+            constraint_definition(
+                name="mean_too_low_max",
+                threshold=1.5,
+            ),
+        ),
+    )
+
+    assert result.status == "ineligible"
+    assert tuple(
+        evaluation.status
+        for evaluation in result.evaluations
+    ) == ("satisfied", "violated")
+
+
+def test_unevaluable_precedes_violated_at_study_level():
+    study = evaluation_study(
+        denominator=0,
+        ensemble_feasibility_fraction=None,
+    )
+    undefined_scalar = EnsembleScalarDefinition(
+        name="assessed_feasibility",
+        kind=(
+            EnsembleScalarKind
+            .ENSEMBLE_FEASIBILITY_FRACTION
+        ),
+        unit="1",
+    )
+    coverage_scalar = EnsembleScalarDefinition(
+        name="coverage",
+        kind=EnsembleScalarKind.COVERAGE_FRACTION,
+        unit="1",
+    )
+    result = evaluate_ensemble_eligibility(
+        study,
+        (
+            EnsembleConstraint(
+                name="coverage_min",
+                scalar=coverage_scalar,
+                operator=ConstraintOperator.GE,
+                threshold=0.5,
+                unit="1",
+            ),
+            EnsembleConstraint(
+                name="assessed_feasibility_min",
+                scalar=undefined_scalar,
+                operator=ConstraintOperator.GE,
+                threshold=0.5,
+                unit="1",
+            ),
+        ),
+    )
+
+    assert tuple(
+        evaluation.status
+        for evaluation in result.evaluations
+    ) == ("violated", "unevaluable")
+    assert result.status == "unevaluable"
+
+
+def test_eligibility_rejects_duplicate_constraint_names():
+    study = evaluation_study()
+    first = constraint_definition(
+        name="duplicate",
+        threshold=2.0,
+    )
+    second = constraint_definition(
+        name="duplicate",
+        threshold=2.5,
+    )
+    with pytest.raises(
+        ValueError,
+        match="constraint names must be unique",
+    ):
+        evaluate_ensemble_eligibility(
+            study,
+            (first, second),
+        )
+
+
+def test_eligibility_serialization_and_hash_are_deterministic():
+    study = evaluation_study()
+    constraints = (
+        constraint_definition(
+            name="mean_max",
+            threshold=2.0,
+        ),
+        constraint_definition(
+            name="mean_min",
+            operator=ConstraintOperator.GE,
+            threshold=1.0,
+        ),
+    )
+    first = evaluate_ensemble_eligibility(
+        study,
+        constraints,
+    )
+    same = evaluate_ensemble_eligibility(
+        study,
+        constraints,
+    )
+    payload = first.to_dict()
+
+    assert payload["schema_version"] == (
+        "ensemble-eligibility-result-v1"
+    )
+    assert payload["study_hash"] == study.study_hash
+    assert payload["status"] == "eligible"
+    assert len(payload["evaluations"]) == 2
+    assert first.result_hash == same.result_hash
+
+
+def test_eligibility_result_rejects_invalid_status():
+    with pytest.raises(
+        ValueError,
+        match="status must be eligible",
+    ):
+        EnsembleEligibilityResult(
+            study=evaluation_study(),
+            evaluations=(),
+            status="invalid",
+        )

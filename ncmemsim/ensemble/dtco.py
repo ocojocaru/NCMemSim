@@ -7,6 +7,7 @@ from enum import Enum
 import math
 from typing import Any
 
+from ..dtco.metrics import ConstraintOperator
 from ..dtco.spec import ScalarValue
 from ..dtco.sweep import SweepPoint
 from ..hashing import canonical_hash
@@ -494,11 +495,442 @@ def evaluate_ensemble_scalar(
         value=value,
     )
 
+@dataclass(frozen=True)
+class EnsembleConstraint:
+    """One inclusive K5b bound over a declared ensemble scalar."""
+
+    name: str
+    scalar: EnsembleScalarDefinition
+    operator: ConstraintOperator
+    threshold: int | float
+    unit: str
+
+    def __post_init__(self) -> None:
+        _label(
+            self.name,
+            "constraint name",
+        )
+
+        if not isinstance(
+            self.scalar,
+            EnsembleScalarDefinition,
+        ):
+            raise TypeError(
+                "scalar must be an "
+                "EnsembleScalarDefinition"
+            )
+
+        if not isinstance(
+            self.operator,
+            ConstraintOperator,
+        ):
+            raise TypeError(
+                "operator must be a ConstraintOperator"
+            )
+
+        if type(self.threshold) not in (
+            int,
+            float,
+        ):
+            raise TypeError(
+                "constraint threshold must be a "
+                "numeric scalar, not a boolean"
+            )
+
+        if (
+            type(self.threshold) is float
+            and not math.isfinite(
+                self.threshold
+            )
+        ):
+            raise ValueError(
+                "constraint threshold must be finite"
+            )
+
+        _label(
+            self.unit,
+            "constraint unit",
+        )
+
+        if self.unit != self.scalar.unit:
+            raise ValueError(
+                "constraint unit differs from "
+                "selected scalar unit"
+            )
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": (
+                "ensemble-constraint-v1"
+            ),
+            "name": self.name,
+            "scalar": self.scalar.to_dict(),
+            "scalar_definition_hash": (
+                self.scalar.definition_hash
+            ),
+            "operator": self.operator.value,
+            "threshold": self.threshold,
+            "unit": self.unit,
+        }
+
+    @property
+    def definition_hash(self) -> str:
+        return canonical_hash(
+            self.to_dict()
+        )
+
+
+@dataclass(frozen=True)
+class EnsembleConstraintEvaluation:
+    """K5b constraint outcome with explicit unevaluable state."""
+
+    constraint: EnsembleConstraint
+    scalar_evaluation: EnsembleScalarEvaluation
+    status: str
+
+    def __post_init__(self) -> None:
+        if not isinstance(
+            self.constraint,
+            EnsembleConstraint,
+        ):
+            raise TypeError(
+                "constraint must be an EnsembleConstraint"
+            )
+
+        if not isinstance(
+            self.scalar_evaluation,
+            EnsembleScalarEvaluation,
+        ):
+            raise TypeError(
+                "scalar_evaluation must be an "
+                "EnsembleScalarEvaluation"
+            )
+
+        if (
+            self.scalar_evaluation.definition
+            != self.constraint.scalar
+        ):
+            raise ValueError(
+                "scalar evaluation definition differs "
+                "from constraint scalar"
+            )
+
+        if self.status not in (
+            "satisfied",
+            "violated",
+            "unevaluable",
+        ):
+            raise ValueError(
+                "status must be satisfied, violated, "
+                "or unevaluable"
+            )
+
+        if (
+            self.scalar_evaluation.status
+            == "undefined"
+        ):
+            expected = "unevaluable"
+        elif (
+            self.constraint.operator
+            is ConstraintOperator.LE
+        ):
+            expected = (
+                "satisfied"
+                if self.scalar_evaluation.value
+                <= self.constraint.threshold
+                else "violated"
+            )
+        else:
+            expected = (
+                "satisfied"
+                if self.scalar_evaluation.value
+                >= self.constraint.threshold
+                else "violated"
+            )
+
+        if self.status != expected:
+            raise ValueError(
+                "constraint status differs from "
+                "scalar evaluation"
+            )
+
+    @property
+    def study(self) -> EnsembleDTCOStudy:
+        return self.scalar_evaluation.study
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": (
+                "ensemble-constraint-evaluation-v1"
+            ),
+            "study_hash": self.study.study_hash,
+            "constraint": self.constraint.to_dict(),
+            "constraint_hash": (
+                self.constraint.definition_hash
+            ),
+            "scalar_evaluation_hash": (
+                self.scalar_evaluation.evaluation_hash
+            ),
+            "status": self.status,
+            "value": self.scalar_evaluation.value,
+        }
+
+    @property
+    def evaluation_hash(self) -> str:
+        return canonical_hash(
+            self.to_dict()
+        )
+
+
+def evaluate_ensemble_constraint(
+    study: EnsembleDTCOStudy,
+    constraint: EnsembleConstraint,
+) -> EnsembleConstraintEvaluation:
+    """Evaluate one K5b constraint without recomputing upstream data."""
+
+    if not isinstance(
+        study,
+        EnsembleDTCOStudy,
+    ):
+        raise TypeError(
+            "study must be an EnsembleDTCOStudy"
+        )
+
+    if not isinstance(
+        constraint,
+        EnsembleConstraint,
+    ):
+        raise TypeError(
+            "constraint must be an EnsembleConstraint"
+        )
+
+    scalar_evaluation = evaluate_ensemble_scalar(
+        study,
+        constraint.scalar,
+    )
+
+    if scalar_evaluation.status == "undefined":
+        status = "unevaluable"
+    elif (
+        constraint.operator
+        is ConstraintOperator.LE
+    ):
+        status = (
+            "satisfied"
+            if scalar_evaluation.value
+            <= constraint.threshold
+            else "violated"
+        )
+    else:
+        status = (
+            "satisfied"
+            if scalar_evaluation.value
+            >= constraint.threshold
+            else "violated"
+        )
+
+    return EnsembleConstraintEvaluation(
+        constraint=constraint,
+        scalar_evaluation=scalar_evaluation,
+        status=status,
+    )
+
+
+@dataclass(frozen=True)
+class EnsembleEligibilityResult:
+    """Aggregate K5b eligibility for one variability-aware DTCO study."""
+
+    study: EnsembleDTCOStudy
+    evaluations: tuple[
+        EnsembleConstraintEvaluation,
+        ...
+    ]
+    status: str
+
+    def __post_init__(self) -> None:
+        if not isinstance(
+            self.study,
+            EnsembleDTCOStudy,
+        ):
+            raise TypeError(
+                "study must be an EnsembleDTCOStudy"
+            )
+
+        evaluations = tuple(
+            self.evaluations
+        )
+
+        if any(
+            not isinstance(
+                evaluation,
+                EnsembleConstraintEvaluation,
+            )
+            for evaluation in evaluations
+        ):
+            raise TypeError(
+                "evaluations must contain "
+                "EnsembleConstraintEvaluation instances"
+            )
+
+        names = tuple(
+            evaluation.constraint.name
+            for evaluation in evaluations
+        )
+        if len(set(names)) != len(names):
+            raise ValueError(
+                "constraint names must be unique"
+            )
+
+        if any(
+            evaluation.study.study_hash
+            != self.study.study_hash
+            for evaluation in evaluations
+        ):
+            raise ValueError(
+                "constraint evaluations must belong "
+                "to the eligibility study"
+            )
+
+        if self.status not in (
+            "eligible",
+            "ineligible",
+            "unevaluable",
+        ):
+            raise ValueError(
+                "status must be eligible, ineligible, "
+                "or unevaluable"
+            )
+
+        if any(
+            evaluation.status == "unevaluable"
+            for evaluation in evaluations
+        ):
+            expected = "unevaluable"
+        elif any(
+            evaluation.status == "violated"
+            for evaluation in evaluations
+       ):
+            expected = "ineligible"
+        else:
+            expected = "eligible"
+
+        if self.status != expected:
+            raise ValueError(
+                "eligibility status differs from "
+                "constraint evaluations"
+            )
+
+        object.__setattr__(
+            self,
+            "evaluations",
+            evaluations,
+        )
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": (
+                "ensemble-eligibility-result-v1"
+            ),
+            "study_hash": self.study.study_hash,
+            "evaluations": [
+                evaluation.to_dict()
+                for evaluation in self.evaluations
+            ],
+            "status": self.status,
+        }
+
+    @property
+    def result_hash(self) -> str:
+        return canonical_hash(
+            self.to_dict()
+        )
+
+
+def evaluate_ensemble_eligibility(
+    study: EnsembleDTCOStudy,
+    constraints,
+) -> EnsembleEligibilityResult:
+    """Evaluate ordered K5b constraints with explicit unevaluable precedence."""
+
+    if not isinstance(
+        study,
+        EnsembleDTCOStudy,
+    ):
+        raise TypeError(
+            "study must be an EnsembleDTCOStudy"
+        )
+
+    if isinstance(
+        constraints,
+        (str, bytes),
+    ):
+        raise TypeError(
+            "constraints must be a sequence of "
+            "EnsembleConstraint instances"
+        )
+
+    constraints = tuple(
+        constraints
+    )
+
+    if any(
+        not isinstance(
+            constraint,
+            EnsembleConstraint,
+        )
+        for constraint in constraints
+    ):
+        raise TypeError(
+            "constraints must contain "
+            "EnsembleConstraint instances"
+        )
+
+    names = tuple(
+        constraint.name
+        for constraint in constraints
+    )
+    if len(set(names)) != len(names):
+        raise ValueError(
+            "constraint names must be unique"
+        )
+
+    evaluations = tuple(
+        evaluate_ensemble_constraint(
+            study,
+            constraint,
+        )
+        for constraint in constraints
+    )
+
+    if any(
+        evaluation.status == "unevaluable"
+        for evaluation in evaluations
+    ):
+        status = "unevaluable"
+    elif any(
+        evaluation.status == "violated"
+        for evaluation in evaluations
+    ):
+        status = "ineligible"
+    else:
+        status = "eligible"
+
+    return EnsembleEligibilityResult(
+        study=study,
+        evaluations=evaluations,
+        status=status,
+    )
+
 
 __all__ = [
+    "EnsembleConstraint",
+    "EnsembleConstraintEvaluation",
     "EnsembleDTCOStudy",
+    "EnsembleEligibilityResult",
     "EnsembleScalarDefinition",
     "EnsembleScalarEvaluation",
     "EnsembleScalarKind",
+    "evaluate_ensemble_constraint",
+    "evaluate_ensemble_eligibility",
     "evaluate_ensemble_scalar",
 ]
