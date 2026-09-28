@@ -58,10 +58,15 @@ from .feasibility import (
     summarize_ensemble_feasibility,
 )
 from .dtco import (
+    EnsembleConstraint,
+    EnsembleConstraintEvaluation,
     EnsembleDTCOStudy,
+    EnsembleEligibilityResult,
     EnsembleScalarDefinition,
     EnsembleScalarEvaluation,
     EnsembleScalarKind,
+    evaluate_ensemble_constraint,
+    evaluate_ensemble_eligibility,
     evaluate_ensemble_scalar,
 )
 
@@ -107,9 +112,14 @@ __all__ = [
     "NominalMetricComparison",
     "NominalMetricReference",
     "summarize_ensemble_feasibility",
+    "EnsembleConstraint",
+    "EnsembleConstraintEvaluation",
     "EnsembleDTCOStudy",
+    "EnsembleEligibilityResult",
     "EnsembleScalarDefinition",
     "EnsembleScalarEvaluation",
     "EnsembleScalarKind",
+    "evaluate_ensemble_constraint",
+    "evaluate_ensemble_eligibility",
     "evaluate_ensemble_scalar",
 ]
