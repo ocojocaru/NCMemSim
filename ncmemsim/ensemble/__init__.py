@@ -73,6 +73,12 @@ from .dtco import (
     evaluate_ensemble_eligibility,
     evaluate_ensemble_scalar,
 )
+from .reporting import (
+    EnsembleReport,
+    EnsembleReportStudy,
+    build_ensemble_report,
+    write_ensemble_report,
+)
 
 __all__ = [
     "ConstantDistribution",
@@ -130,4 +136,8 @@ __all__ = [
     "evaluate_ensemble_constraint",
     "evaluate_ensemble_eligibility",
     "evaluate_ensemble_scalar",
+    "EnsembleReport",
+    "EnsembleReportStudy",
+    "build_ensemble_report",
+    "write_ensemble_report",
 ]
