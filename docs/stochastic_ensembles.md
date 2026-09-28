@@ -726,6 +726,12 @@ K5 composes with the existing DTCO design-space architecture but defines a disti
 K5 is implemented in three ordered subphases:
 
 - **K5a - ensemble-derived scalar definitions and DTCO study linkage:** define typed scalar selectors over immutable K4 results and explicit links to existing DTCO design points;
+
+K5a scalar evaluation is a read-only projection of one immutable `EnsembleFeasibilitySummary`; it does not resample, rerun physics, recompute K4 statistics, or infer a different DTCO identity. A scalar evaluation is either `defined`, with one finite Python-float value, or `undefined`, with `value=None`. Undefined is an evaluability state and must not be interpreted as physical infeasibility.
+
+For metric-derived selectors, the declared metric name and unit must match the K4 population summary exactly. Mean, standard deviation, minimum, maximum, and median are read directly from the corresponding `MetricPopulationSummary`. Quantiles may only select probabilities already declared and computed by the source `EnsembleStatisticsSpec`; K5 must not interpolate or otherwise synthesize undeclared quantiles. A present metric summary with zero denominator therefore evaluates as undefined, while an absent metric, unit mismatch, or undeclared quantile is a contract error rather than an undefined value.
+
+The population-level fractions are read directly from K4: `coverage_fraction` from K4b, and `simulated_pass_fraction`, `ensemble_feasibility_fraction`, and `failure_fraction` from K4c. `ensemble_feasibility_fraction` is undefined when no realizations were assessed; the other declared fractions remain defined according to their K4 denominators. K5a does not introduce objective direction, constraints, Pareto eligibility, Robust-DTCO failure policy, or manufacturing-yield semantics.
 - **K5b - population-level constraints and eligibility:** evaluate declared ensemble-derived constraints with explicit units and distinguish constraint infeasibility from undefined or unavailable source quantities;
 - **K5c - transparent Pareto analysis:** rank only eligible K5 studies using the existing `ObjectiveDirection` semantics and exact no-worse-all/strictly-better-one dominance rule, retaining ties and source order without weights, tolerances or hidden scalarization.
 
