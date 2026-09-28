@@ -57,6 +57,13 @@ from .feasibility import (
     NominalMetricReference,
     summarize_ensemble_feasibility,
 )
+from .dtco import (
+    EnsembleDTCOStudy,
+    EnsembleScalarDefinition,
+    EnsembleScalarEvaluation,
+    EnsembleScalarKind,
+    evaluate_ensemble_scalar,
+)
 
 __all__ = [
     "ConstantDistribution",
@@ -100,4 +107,9 @@ __all__ = [
     "NominalMetricComparison",
     "NominalMetricReference",
     "summarize_ensemble_feasibility",
+    "EnsembleDTCOStudy",
+    "EnsembleScalarDefinition",
+    "EnsembleScalarEvaluation",
+    "EnsembleScalarKind",
+    "evaluate_ensemble_scalar",
 ]
