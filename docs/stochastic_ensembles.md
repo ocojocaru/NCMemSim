@@ -763,9 +763,19 @@ Studies compared in one K5 analysis must use compatible declared metric and popu
 
 ### K6 — Scientific reference studies and reproducible reports
 
+**Status: K6 architecture defined; K6a next.**
+
 Provide controlled end-to-end examples, integrity-checked ensemble manifests, population summaries, failure accounting, plots/exports and interpretation limits.
 
-The planned references are:
+K6 is divided into three ordered subphases:
+
+- **K6a - ensemble reporting and integrity bundle:** define an immutable Phase-K report snapshot with canonical JSON identity, exact source-result linkage, integrity validation, portable CSV/Markdown artifacts, round-trip reconstruction and tamper detection. Writers must refuse existing target files before writing. Optional plots remain outside the report hash.
+- **K6b - controlled single-parameter reference studies:** provide reproducible nanocrystal-diameter and trap/disorder variability studies using explicit stochastic specifications, fixed local RNG identity, preserved sample manifests, complete failure accounting and explicit scientific interpretation limits.
+- **K6c - multi-parameter ensemble DTCO reference:** provide an end-to-end variability-aware DTCO study linking explicit DTCO design points to immutable ensemble results, reusing the same exact manifest where cross-design comparison requires common stochastic draws, applying K5 eligibility and transparent Pareto analysis, and exporting the complete integrity-checked report bundle.
+
+K6 reporting follows the established deterministic and Robust-DTCO reference conventions: repeated construction from identical inputs must reproduce the same report identity; every attempted realization and failure stage must remain represented; nested source identities must be validated rather than trusted from the outer hash alone; CSV artifacts must preserve units, denominators and exact JSON payloads; report snapshots are immutable; and report writers never overwrite existing targets. Plot files, when requested, are derived presentation artifacts and are not included in the canonical report hash.
+
+The planned scientific references are:
 
 - nanocrystal-diameter variability;
 - trap/disorder variability;
