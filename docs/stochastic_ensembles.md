@@ -719,7 +719,7 @@ K4 is complete: per-realization assessment, complete-case population statistics,
 
 Expose ensemble-derived objectives and constraints to the existing transparent Pareto/DTCO framework while keeping deterministic DTCO and Robust DTCO semantics distinct.
 
-**Status: K5 architecture defined; K5a complete; K5b complete; K5c next.**
+**Status: K5 complete; K6 next.**
 
 K5 composes with the existing DTCO design-space architecture but defines a distinct Phase-K analysis layer. Each K5 study links one explicit existing DTCO design-point identity and assignments to one immutable `EnsembleFeasibilitySummary`; design identity must not be inferred from device hashes or ensemble names. K5 never resamples, reruns K3/K4 physics, mutates source results, or converts a Phase-K ensemble result into a Robust-DTCO result.
 
@@ -743,7 +743,7 @@ Each K5 constraint evaluation has exactly one status: `satisfied`, `violated`, o
 Study-level K5b eligibility has exactly three states: `eligible`, `ineligible`, or `unevaluable`. If any selected constraint is unevaluable, the study is unevaluable for that eligibility analysis. Otherwise, any violated constraint makes the study ineligible, and only a complete set of satisfied constraints makes it eligible. This precedence preserves incomplete evaluability instead of silently collapsing it into constraint infeasibility. K5b performs no resampling, physics execution, K4 recomputation, objective ranking, Pareto dominance, or Robust-DTCO failure-policy inference.
 
 K5b is implemented by `EnsembleConstraint`, `EnsembleConstraintEvaluation`, `EnsembleEligibilityResult`, `evaluate_ensemble_constraint` and `evaluate_ensemble_eligibility`. Constraint definitions reuse the existing inclusive DTCO `ConstraintOperator`, preserve ordered evaluations and explicit source-study identity, and serialize deterministic definition, evaluation and result hashes. The implementation was completed in commits `e3dc2ce` and `6fe433b`, following the K5b contract freeze in `0fff53b`; the extended Phase K2-K5 gate completed with 452 passing tests.
-- **K5c - transparent Pareto analysis:** rank only eligible K5 studies using the existing `ObjectiveDirection` semantics and exact no-worse-all/strictly-better-one dominance rule, retaining ties and source order without weights, tolerances or hidden scalarization.
+- **K5c - transparent Pareto analysis - COMPLETE:** rank only eligible K5 studies using the existing `ObjectiveDirection` semantics and exact no-worse-all/strictly-better-one dominance rule, retaining ties and source order without weights, tolerances or hidden scalarization.
 
 K5c objectives are explicit and typed. Each objective declares a unique name, one existing `EnsembleScalarDefinition`, and one existing DTCO `ObjectiveDirection`; objective direction is never inferred from the scalar kind. At least one objective is required. K5c introduces no weights, tolerances, normalization, utility function or hidden scalarization, and it does not inherit Robust-DTCO objective or failure-policy contracts.
 
@@ -752,6 +752,8 @@ K5c consumes an ordered collection of K5b eligibility results and retains every 
 Dominance follows the existing deterministic DTCO rule exactly: one study dominates another only when it is no worse on every selected objective and strictly better on at least one, using exact comparisons and the declared `ObjectiveDirection`. Equal objective vectors do not dominate one another. All non-dominated ties are retained. Pareto fronts and point records preserve input study order, ranks start at zero, and excluded studies carry no rank or objective vector used for dominance.
 
 K5c result identity is deterministic from the ordered source eligibility-result identities and the explicit ordered objective definitions. The result preserves every source study and its K5b result identity, records explicit exclusion reasons, exposes all Pareto fronts and the rank-zero Pareto set, and never reruns sampling, physics, K4 statistics or K5b eligibility.
+
+K5c is implemented by `EnsembleObjective`, `EnsembleParetoPointResult`, `EnsembleParetoAnalysisResult` and `analyze_ensemble_pareto`. The implementation reuses the existing DTCO `ObjectiveDirection`, preserves exact no-worse-all/strictly-better-one dominance and source ordering, retains equal objective vectors as ties, distinguishes `constraint-ineligible`, `constraint-unevaluable` and `objective-unevaluable` exclusions, and validates compatibility of the selected metric and population-statistics definitions before comparison. K5c was frozen in commit `9e67aad`, implemented and tested in `9154171`, and exported through the public `ncmemsim.ensemble` API in `7ca8e69`; the extended Phase K2-K5 gate completed with 470 passing tests.
 
 Initial K5 scalar selectors may expose complete-case metric `mean`, `standard_deviation`, `minimum`, `maximum`, `median` and a quantile whose probability was explicitly computed by K4b, together with `coverage_fraction`, `simulated_pass_fraction`, `ensemble_feasibility_fraction` and `failure_fraction`. Metric-derived selectors inherit the declared metric unit; fraction selectors use unit `1`. K4b population variance remains reportable but is not initially eligible as a K5 objective or constraint because squared-unit semantics are not yet defined.
 
