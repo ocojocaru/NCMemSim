@@ -2,19 +2,15 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-import re
 
-import ncmemsim
+from scripts.validate_v1_1_release_identity import EXPECTED_RELEASE
 
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_j7c_uses_final_candidate_version_and_citation():
-    assert ncmemsim.__version__ == "1.1.0"
-    citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
-    match = re.search(r"(?m)^version:\s*['\"]?([^'\"\s]+)", citation)
-    assert match and match.group(1) == "1.1.0"
+def test_j7c_published_release_validator_remains_pinned_to_v1_1():
+    assert EXPECTED_RELEASE == "1.1.0"
 
 
 def test_phase_j_scope_freezes_v1_behavior_and_documents_explicit_j4_integration():

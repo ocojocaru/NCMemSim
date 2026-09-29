@@ -10,8 +10,37 @@ from scripts.validate_v1_1_release_identity import HISTORICAL_JSON_SHA256, valid
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_v1_1_final_version_identity_is_aligned():
-    result = validate(ROOT)
+@pytest.fixture
+def published_v1_1_copy(tmp_path):
+    for name in HISTORICAL_JSON_SHA256:
+        target = tmp_path / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / name, target)
+
+    files = {
+        "ncmemsim/_version.py": '__version__ = "1.1.0"\n',
+        "CITATION.cff": (
+            "cff-version: 1.2.0\n"
+            'message: "Historical v1.1 release identity fixture."\n'
+            'title: "NCMemSim"\n'
+            "type: software\n"
+            "version: 1.1.0\n"
+            "date-released: 2026-09-23\n"
+        ),
+        "README.md": "> **Current stable release:** `1.1.0`\n",
+        "docs/advanced_transport.md": "Version `1.1.0` completes Phase J\n",
+        "docs/roadmap.md": "Phase J released as `v1.1.0`\n",
+    }
+    for name, text in files.items():
+        target = tmp_path / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(text, encoding="utf-8")
+
+    return tmp_path
+
+
+def test_v1_1_final_version_identity_is_aligned(published_v1_1_copy):
+    result = validate(published_v1_1_copy)
     assert result["release_version"] == "1.1.0"
     assert result["previous_stable_release"] == "1.0.0"
     assert result["citation_date"] == "2026-09-23"
@@ -37,16 +66,10 @@ def test_j7a_review_retains_development_provenance():
 
 
 @pytest.fixture
-def candidate_copy(tmp_path):
-    files = list(HISTORICAL_JSON_SHA256) + [
-        "CITATION.cff", "ncmemsim/_version.py", "README.md",
-        "docs/advanced_transport.md", "docs/roadmap.md",
-    ]
-    for name in files:
-        target = tmp_path / name
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(ROOT / name, target)
-    return tmp_path
+def candidate_copy(published_v1_1_copy, tmp_path):
+    # Use the synthetic published-v1.1 identity fixture so these historical
+    # validator tests remain independent of the current development version.
+    return published_v1_1_copy
 
 
 @pytest.mark.parametrize("name", sorted(HISTORICAL_JSON_SHA256))
