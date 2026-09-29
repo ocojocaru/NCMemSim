@@ -1,4 +1,4 @@
-"""Tests for Phase K6c design, K3 execution and K4 population analysis."""
+"""Tests for Phase K6c design, K3/K4 analysis and K5 eligibility/Pareto."""
 
 import math
 
@@ -11,6 +11,7 @@ from examples.phase_k6c_ensemble_dtco_reference import (
     REFERENCE_SAMPLE_COUNT,
     TUNNEL_THICKNESS_VALUES_NM,
     build_reference_analyses,
+    build_reference_optimization,
     build_reference_design_space,
     build_reference_ensemble_cases,
     build_reference_executions,
@@ -379,22 +380,97 @@ def test_k6c_k4_nominal_references_are_point_specific_and_complete(
         )
 
 
-def test_k6c_main_runs_complete_k4_reference(monkeypatch, capsys):
+@pytest.fixture(scope="module")
+def optimization():
+    return build_reference_optimization()
+
+
+def test_k6c_k5_eligibility_contract_is_exact(optimization):
+    assert len(optimization.eligibility_cases) == 9
+    for case in optimization.eligibility_cases:
+        eligibility = case.eligibility
+        assert eligibility.status == "eligible"
+        assert tuple(
+            evaluation.constraint.name
+            for evaluation in eligibility.evaluations
+        ) == (
+            "failure_fraction_max",
+            "simulated_pass_fraction_min",
+        )
+        assert tuple(
+            evaluation.status
+            for evaluation in eligibility.evaluations
+        ) == ("satisfied", "satisfied")
+        feasibility = case.analysis_case.feasibility
+        assert feasibility.failure_fraction == 0.0
+        assert feasibility.simulated_pass_fraction == 1.0
+
+
+def test_k6c_k5_pareto_objectives_match_frozen_contract(optimization):
+    objectives = optimization.pareto.objectives
+    assert tuple(objective.name for objective in objectives) == (
+        "maximize_shift_q05",
+        "minimize_program_voltage_mean",
+    )
+    first, second = objectives
+    assert first.scalar.kind.value == "quantile"
+    assert first.scalar.metric_name == "shift_magnitude"
+    assert first.scalar.quantile == 0.05
+    assert first.scalar.unit == "V"
+    assert first.direction.value == "maximize"
+    assert second.scalar.kind.value == "mean"
+    assert second.scalar.metric_name == "program_voltage"
+    assert second.scalar.quantile is None
+    assert second.scalar.unit == "V"
+    assert second.direction.value == "minimize"
+
+
+def test_k6c_k5_pareto_ranks_all_eligible_points(optimization):
+    pareto = optimization.pareto
+    assert pareto.ranked_count == 9
+    assert pareto.excluded_count == 0
+    assert len(pareto.points) == 9
+    assert pareto.fronts
+    assert set(index for front in pareto.fronts for index in front) == set(range(9))
+    for index, point in enumerate(pareto.points):
+        assert point.source is pareto.source_results[index]
+        assert point.rank is not None
+        assert point.exclusion_reason is None
+        assert tuple(name for name, _ in point.objective_values) == (
+            "maximize_shift_q05",
+            "minimize_program_voltage_mean",
+        )
+        values = dict(point.objective_values)
+        assert math.isfinite(values["maximize_shift_q05"])
+        assert values["maximize_shift_q05"] >= 0.0
+        assert values["minimize_program_voltage_mean"] in (4.0, 5.0, 6.0)
+
+
+def test_k6c_k5_pareto_program_voltage_projection_matches_design(optimization):
+    for case, point in zip(
+        optimization.eligibility_cases,
+        optimization.pareto.points,
+        strict=True,
+    ):
+        assert dict(point.objective_values)[
+            "minimize_program_voltage_mean"
+        ] == case.study.assignments["program_voltage_V"]
+
+
+def test_k6c_main_runs_complete_k5_reference(monkeypatch, capsys):
     monkeypatch.setattr(
         "sys.argv",
         ["phase_k6c_ensemble_dtco_reference"],
     )
-
     from examples.phase_k6c_ensemble_dtco_reference import main
-
     main()
     output = capsys.readouterr().out
-
     assert "design_point_count: 9" in output
     assert "sample_count: 6" in output
     assert "seed: 2028" in output
-    assert "attempted: 54" in output
-    assert "assessed: 54" in output
-    assert "feasible: 54" in output
-    assert "infeasible: 0" in output
-    assert "failed: 0" in output
+    assert "eligible: 9" in output
+    assert "ineligible: 0" in output
+    assert "unevaluable: 0" in output
+    assert "pareto_ranked_count: 9" in output
+    assert "pareto_excluded_count: 0" in output
+    assert "pareto_indices:" in output

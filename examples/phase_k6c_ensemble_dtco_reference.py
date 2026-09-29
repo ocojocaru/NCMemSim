@@ -36,10 +36,17 @@ from ncmemsim.dtco import (
     iter_cartesian_points,
 )
 from ncmemsim.ensemble import (
+    EnsembleConstraint,
+    EnsembleDTCOStudy,
+    EnsembleEligibilityResult,
     EnsembleExecutionResult,
     EnsembleFeasibilitySummary,
     EnsembleMetricAnalysisResult,
+    EnsembleObjective,
+    EnsembleParetoAnalysisResult,
     EnsemblePopulationStatistics,
+    EnsembleScalarDefinition,
+    EnsembleScalarKind,
     EnsembleSpec,
     EnsembleStatisticsSpec,
     NominalMetricReference,
@@ -50,6 +57,8 @@ from ncmemsim.ensemble import (
     SamplingSpec,
     StochasticVariable,
     analyze_ensemble_execution,
+    analyze_ensemble_pareto,
+    evaluate_ensemble_eligibility,
     execute_sample_manifest,
     generate_sample_manifest,
     summarize_ensemble_feasibility,
@@ -110,6 +119,23 @@ class ReferenceAnalysisCase:
     metric_analysis: EnsembleMetricAnalysisResult
     population_statistics: EnsemblePopulationStatistics
     feasibility: EnsembleFeasibilitySummary
+
+
+@dataclass(frozen=True)
+class ReferenceEligibilityCase:
+    """One K6c K4 study with its K5b eligibility result."""
+
+    analysis_case: ReferenceAnalysisCase
+    study: EnsembleDTCOStudy
+    eligibility: EnsembleEligibilityResult
+
+
+@dataclass(frozen=True)
+class ReferenceOptimizationResult:
+    """Complete K6c K5 eligibility and Pareto result."""
+
+    eligibility_cases: tuple[ReferenceEligibilityCase, ...]
+    pareto: EnsembleParetoAnalysisResult
 
 
 def _diameter_provenance() -> ParameterProvenance:
@@ -561,7 +587,6 @@ def build_reference_analyses(
             metric_analysis,
             statistics_spec,
         )
-
         nominal = _nominal_payload(
             execution_case,
             config,
@@ -614,8 +639,110 @@ def build_reference_analyses(
 
     return tuple(analyses)
 
+
+def _eligibility_constraints() -> tuple[EnsembleConstraint, EnsembleConstraint]:
+    """Return the frozen K6c K5b eligibility constraints."""
+
+    failure_fraction = EnsembleScalarDefinition(
+        name="failure_fraction",
+        kind=EnsembleScalarKind.FAILURE_FRACTION,
+        unit="1",
+    )
+    simulated_pass_fraction = EnsembleScalarDefinition(
+        name="simulated_pass_fraction",
+        kind=EnsembleScalarKind.SIMULATED_PASS_FRACTION,
+        unit="1",
+    )
+    return (
+        EnsembleConstraint(
+            name="failure_fraction_max",
+            scalar=failure_fraction,
+            operator=ConstraintOperator.LE,
+            threshold=0.0,
+            unit="1",
+        ),
+        EnsembleConstraint(
+            name="simulated_pass_fraction_min",
+            scalar=simulated_pass_fraction,
+            operator=ConstraintOperator.GE,
+            threshold=1.0,
+            unit="1",
+        ),
+    )
+
+
+def _pareto_objectives() -> tuple[EnsembleObjective, EnsembleObjective]:
+    """Return the frozen K6c K5c variability-aware Pareto objectives."""
+
+    shift_q05 = EnsembleScalarDefinition(
+        name="shift_magnitude_q05",
+        kind=EnsembleScalarKind.QUANTILE,
+        unit="V",
+        metric_name="shift_magnitude",
+        quantile=0.05,
+    )
+    program_voltage_mean = EnsembleScalarDefinition(
+        name="program_voltage_mean",
+        kind=EnsembleScalarKind.MEAN,
+        unit="V",
+        metric_name="program_voltage",
+    )
+    return (
+        EnsembleObjective(
+            name="maximize_shift_q05",
+            scalar=shift_q05,
+            direction=ObjectiveDirection.MAXIMIZE,
+        ),
+        EnsembleObjective(
+            name="minimize_program_voltage_mean",
+            scalar=program_voltage_mean,
+            direction=ObjectiveDirection.MINIMIZE,
+        ),
+    )
+
+
+def build_reference_optimization(
+    *,
+    sample_count: int = REFERENCE_SAMPLE_COUNT,
+    seed: int = REFERENCE_SEED,
+) -> ReferenceOptimizationResult:
+    """Build K5b eligibility and K5c Pareto analysis for all K6c points."""
+
+    analysis_cases = build_reference_analyses(
+        sample_count=sample_count,
+        seed=seed,
+    )
+    constraints = _eligibility_constraints()
+    eligibility_cases: list[ReferenceEligibilityCase] = []
+
+    for analysis_case in analysis_cases:
+        design_point = analysis_case.execution_case.ensemble_case.point
+        study = EnsembleDTCOStudy(
+            design_point=design_point,
+            source=analysis_case.feasibility,
+        )
+        eligibility = evaluate_ensemble_eligibility(study, constraints)
+        eligibility_cases.append(
+            ReferenceEligibilityCase(
+                analysis_case=analysis_case,
+                study=study,
+                eligibility=eligibility,
+            )
+        )
+
+    pareto = analyze_ensemble_pareto(
+        tuple(case.eligibility for case in eligibility_cases),
+        _pareto_objectives(),
+        name="phase-k6c-ensemble-dtco-pareto",
+    )
+    return ReferenceOptimizationResult(
+        eligibility_cases=tuple(eligibility_cases),
+        pareto=pareto,
+    )
+
+
 def main() -> None:
-    """Run the complete K6c K4 reference and print point/population summaries."""
+    """Run the complete K6c K5 reference and print eligibility/Pareto summaries."""
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -631,60 +758,46 @@ def main() -> None:
     args = parser.parse_args()
 
     _, _, experiment, _ = build_reference_design_space()
-    analysis_cases = build_reference_analyses(
+    optimization = build_reference_optimization(
         sample_count=args.sample_count,
         seed=args.seed,
     )
-
-    attempted = sum(
-        item.feasibility.attempted_count
-        for item in analysis_cases
+    eligible = sum(
+        case.eligibility.status == "eligible"
+        for case in optimization.eligibility_cases
     )
-    assessed = sum(
-        item.feasibility.assessed_count
-        for item in analysis_cases
+    ineligible = sum(
+        case.eligibility.status == "ineligible"
+        for case in optimization.eligibility_cases
     )
-    feasible = sum(
-        item.feasibility.feasible_count
-        for item in analysis_cases
-    )
-    infeasible = sum(
-        item.feasibility.infeasible_count
-        for item in analysis_cases
-    )
-    failed = sum(
-        item.feasibility.failed_count
-        for item in analysis_cases
+    unevaluable = sum(
+        case.eligibility.status == "unevaluable"
+        for case in optimization.eligibility_cases
     )
 
     print("experiment_hash:", experiment.experiment_hash)
     print("design_point_count:", experiment.design_point_count)
     print("sample_count:", args.sample_count)
     print("seed:", args.seed)
-
-    for item in analysis_cases:
-        case = item.execution_case.ensemble_case
-        feasibility = item.feasibility
+    for case in optimization.eligibility_cases:
+        point = case.study.design_point
+        feasibility = case.analysis_case.feasibility
         print(
-            case.point.index,
-            case.point.assignments,
-            "manifest_hash=",
-            case.manifest.manifest_hash,
-            "assessed=",
-            feasibility.assessed_count,
-            "feasible=",
-            feasibility.feasible_count,
-            "failed=",
-            feasibility.failed_count,
+            point.index,
+            point.assignments,
+            "eligibility=",
+            case.eligibility.status,
+            "failure_fraction=",
+            feasibility.failure_fraction,
             "simulated_pass_fraction=",
             feasibility.simulated_pass_fraction,
         )
-
-    print("attempted:", attempted)
-    print("assessed:", assessed)
-    print("feasible:", feasible)
-    print("infeasible:", infeasible)
-    print("failed:", failed)
+    print("eligible:", eligible)
+    print("ineligible:", ineligible)
+    print("unevaluable:", unevaluable)
+    print("pareto_ranked_count:", optimization.pareto.ranked_count)
+    print("pareto_excluded_count:", optimization.pareto.excluded_count)
+    print("pareto_indices:", optimization.pareto.pareto_indices)
 
 
 if __name__ == "__main__":
