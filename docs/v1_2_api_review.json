@@ -1,0 +1,5359 @@
+{
+  "schema_version": 1,
+  "status": "reviewed_candidate_surface_not_release_approval",
+  "baseline_release": "v1.1.0",
+  "baseline_release_commit": "3e926fccb3a02a1d0682941e52f48439d87a3733",
+  "review_source_commit": "b762dc10debabafcfc0aeb9e5b3788745773c14b",
+  "candidate_version": "1.2.0",
+  "development_version": "1.2.0.dev0",
+  "stable_v1_1_exact_path_count": 238,
+  "ensemble_addition_export_order": [
+    "ConstantDistribution",
+    "DistributionSpec",
+    "FiniteDiscreteDistribution",
+    "LogNormalDistribution",
+    "NormalDistribution",
+    "TruncatedNormalDistribution",
+    "UniformDistribution",
+    "PhysicalDomain",
+    "StochasticVariable",
+    "EnsembleSpec",
+    "distribution_from_dict",
+    "RNGSpec",
+    "SamplingError",
+    "sample_distribution",
+    "EnsembleSample",
+    "IndependentDependence",
+    "SamplingSpec",
+    "SampleGenerationError",
+    "SampleManifest",
+    "generate_sample_manifest",
+    "MatrixCorrelation",
+    "RealizationIdentity",
+    "SampleDomainValidationError",
+    "validate_sample_domain",
+    "AppliedRealization",
+    "RealizationAssignment",
+    "apply_sample_to_context",
+    "EnsembleExecutionResult",
+    "RealizationExecutionPoint",
+    "execute_sample_manifest",
+    "EnsembleMetricAnalysisResult",
+    "EnsembleMetricPointResult",
+    "analyze_ensemble_execution",
+    "EnsemblePopulationStatistics",
+    "EnsembleStatisticsSpec",
+    "MetricPopulationSummary",
+    "summarize_ensemble_metrics",
+    "EnsembleFeasibilitySummary",
+    "NominalMetricComparison",
+    "NominalMetricReference",
+    "summarize_ensemble_feasibility",
+    "EnsembleConstraint",
+    "EnsembleConstraintEvaluation",
+    "EnsembleDTCOStudy",
+    "EnsembleEligibilityResult",
+    "EnsembleObjective",
+    "EnsembleParetoAnalysisResult",
+    "EnsembleParetoPointResult",
+    "EnsembleScalarDefinition",
+    "EnsembleScalarEvaluation",
+    "EnsembleScalarKind",
+    "analyze_ensemble_pareto",
+    "evaluate_ensemble_constraint",
+    "evaluate_ensemble_eligibility",
+    "evaluate_ensemble_scalar",
+    "EnsembleReport",
+    "EnsembleReportStudy",
+    "build_ensemble_report",
+    "write_ensemble_report"
+  ],
+  "proposed_stable_additions": [
+    {
+      "import_path": "ncmemsim.ensemble.ConstantDistribution",
+      "definition_path": "ncmemsim.ensemble.distributions.ConstantDistribution",
+      "kind": "class",
+      "runtime_call_signature": "(value: 'float') -> None",
+      "source_contract": {
+        "name": "ConstantDistribution",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "value",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.DistributionSpec",
+      "definition_path": "ncmemsim.ensemble.distributions.DistributionSpec",
+      "kind": "declared_value",
+      "runtime_call_signature": null,
+      "source_contract": {
+        "kind": "declared_value",
+        "source_assignment": {
+          "name": "DistributionSpec",
+          "expression": "ConstantDistribution | NormalDistribution | TruncatedNormalDistribution | UniformDistribution | LogNormalDistribution | FiniteDiscreteDistribution"
+        }
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.FiniteDiscreteDistribution",
+      "definition_path": "ncmemsim.ensemble.distributions.FiniteDiscreteDistribution",
+      "kind": "class",
+      "runtime_call_signature": "(values: 'tuple[float, ...]', probabilities: 'tuple[float, ...]') -> None",
+      "source_contract": {
+        "name": "FiniteDiscreteDistribution",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "values",
+            "annotation": "tuple[float, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "probabilities",
+            "annotation": "tuple[float, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.LogNormalDistribution",
+      "definition_path": "ncmemsim.ensemble.distributions.LogNormalDistribution",
+      "kind": "class",
+      "runtime_call_signature": "(median: 'float', geometric_standard_deviation: 'float') -> None",
+      "source_contract": {
+        "name": "LogNormalDistribution",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "median",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "geometric_standard_deviation",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.NormalDistribution",
+      "definition_path": "ncmemsim.ensemble.distributions.NormalDistribution",
+      "kind": "class",
+      "runtime_call_signature": "(mean: 'float', standard_deviation: 'float') -> None",
+      "source_contract": {
+        "name": "NormalDistribution",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "mean",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "standard_deviation",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.TruncatedNormalDistribution",
+      "definition_path": "ncmemsim.ensemble.distributions.TruncatedNormalDistribution",
+      "kind": "class",
+      "runtime_call_signature": "(mean: 'float', standard_deviation: 'float', lower: 'float', upper: 'float') -> None",
+      "source_contract": {
+        "name": "TruncatedNormalDistribution",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "mean",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "standard_deviation",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "lower",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "upper",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.UniformDistribution",
+      "definition_path": "ncmemsim.ensemble.distributions.UniformDistribution",
+      "kind": "class",
+      "runtime_call_signature": "(lower: 'float', upper: 'float') -> None",
+      "source_contract": {
+        "name": "UniformDistribution",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "lower",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "upper",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.PhysicalDomain",
+      "definition_path": "ncmemsim.ensemble.spec.PhysicalDomain",
+      "kind": "class",
+      "runtime_call_signature": "(lower: 'float | None' = None, upper: 'float | None' = None, lower_inclusive: 'bool' = True, upper_inclusive: 'bool' = True) -> None",
+      "source_contract": {
+        "name": "PhysicalDomain",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "lower",
+            "annotation": "float | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "upper",
+            "annotation": "float | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "lower_inclusive",
+            "annotation": "bool",
+            "default_expression": "True",
+            "required_in_source": false
+          },
+          {
+            "name": "upper_inclusive",
+            "annotation": "bool",
+            "default_expression": "True",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "from_dict",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "data",
+                "kind": "positional_or_keyword",
+                "annotation": "dict[str, Any]",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'PhysicalDomain'",
+            "source_signature": "(cls, data: dict[str, Any]) -> 'PhysicalDomain'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "contains",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "value",
+                "kind": "positional_or_keyword",
+                "annotation": "float",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "bool",
+            "source_signature": "(self, value: float) -> bool",
+            "decorators": []
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.StochasticVariable",
+      "definition_path": "ncmemsim.ensemble.spec.StochasticVariable",
+      "kind": "class",
+      "runtime_call_signature": "(name: 'str', binding: 'ParameterBinding', distribution: 'DistributionSpec', unit: 'str', physical_domain: 'PhysicalDomain', provenance: 'ParameterProvenance', applicability: 'str', nominal_value: 'float | None' = None, nominal_value_source: 'str' = 'binding_context', schema_version: 'str' = 'ensemble-variable-v1') -> None",
+      "source_contract": {
+        "name": "StochasticVariable",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "name",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "binding",
+            "annotation": "ParameterBinding",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "distribution",
+            "annotation": "DistributionSpec",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "unit",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "physical_domain",
+            "annotation": "PhysicalDomain",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "provenance",
+            "annotation": "ParameterProvenance",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "applicability",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "nominal_value",
+            "annotation": "float | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "nominal_value_source",
+            "annotation": "str",
+            "default_expression": "'binding_context'",
+            "required_in_source": false
+          },
+          {
+            "name": "schema_version",
+            "annotation": "str",
+            "default_expression": "'ensemble-variable-v1'",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "from_dict",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "data",
+                "kind": "positional_or_keyword",
+                "annotation": "dict[str, Any]",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'StochasticVariable'",
+            "source_signature": "(cls, data: dict[str, Any]) -> 'StochasticVariable'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleSpec",
+      "definition_path": "ncmemsim.ensemble.specification.EnsembleSpec",
+      "kind": "class",
+      "runtime_call_signature": "(name: 'str', base_device_hash: 'str', variables: 'tuple[StochasticVariable, ...]', base_device_name: 'str | None' = None, description: 'str | None' = None, base_operating_hash: 'str | None' = None, base_operating_kind: 'str | None' = None, schema_version: 'str' = 'ensemble-spec-v1') -> None",
+      "source_contract": {
+        "name": "EnsembleSpec",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "name",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "base_device_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "variables",
+            "annotation": "tuple[StochasticVariable, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "base_device_name",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "description",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "base_operating_hash",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "base_operating_kind",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "schema_version",
+            "annotation": "str",
+            "default_expression": "'ensemble-spec-v1'",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "from_device",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "name",
+                "kind": "keyword_only",
+                "annotation": "str",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "device",
+                "kind": "keyword_only",
+                "annotation": "Device",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "variables",
+                "kind": "keyword_only",
+                "annotation": "Iterable[StochasticVariable]",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "description",
+                "kind": "keyword_only",
+                "annotation": "str | None",
+                "required": false,
+                "default_expression": "None"
+              },
+              {
+                "name": "operating_protocol",
+                "kind": "keyword_only",
+                "annotation": "Any | None",
+                "required": false,
+                "default_expression": "None"
+              }
+            ],
+            "return_annotation": "'EnsembleSpec'",
+            "source_signature": "(cls, *, name: str, device: Device, variables: Iterable[StochasticVariable], description: str | None=None, operating_protocol: Any | None=None) -> 'EnsembleSpec'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "from_dict",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "data",
+                "kind": "positional_or_keyword",
+                "annotation": "dict[str, Any]",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'EnsembleSpec'",
+            "source_signature": "(cls, data: dict[str, Any]) -> 'EnsembleSpec'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "variable_names",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "tuple[str, ...]",
+            "source_signature": "(self) -> tuple[str, ...]",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "matches_device",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "device",
+                "kind": "positional_or_keyword",
+                "annotation": "Device",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "bool",
+            "source_signature": "(self, device: Device) -> bool",
+            "decorators": []
+          },
+          {
+            "name": "require_matching_device",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "device",
+                "kind": "positional_or_keyword",
+                "annotation": "Device",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "None",
+            "source_signature": "(self, device: Device) -> None",
+            "decorators": []
+          },
+          {
+            "name": "matches_operating",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "operating_protocol",
+                "kind": "positional_or_keyword",
+                "annotation": "Any",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "bool",
+            "source_signature": "(self, operating_protocol: Any) -> bool",
+            "decorators": []
+          },
+          {
+            "name": "require_matching_operating",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "operating_protocol",
+                "kind": "positional_or_keyword",
+                "annotation": "Any",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "None",
+            "source_signature": "(self, operating_protocol: Any) -> None",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.distribution_from_dict",
+      "definition_path": "ncmemsim.ensemble.distributions.distribution_from_dict",
+      "kind": "function",
+      "runtime_call_signature": "(data: 'dict[str, Any]') -> \"'DistributionSpec'\"",
+      "source_contract": {
+        "name": "distribution_from_dict",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "data",
+            "kind": "positional_or_keyword",
+            "annotation": "dict[str, Any]",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "'DistributionSpec'",
+        "source_signature": "(data: dict[str, Any]) -> 'DistributionSpec'",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.RNGSpec",
+      "definition_path": "ncmemsim.ensemble.rng.RNGSpec",
+      "kind": "class",
+      "runtime_call_signature": "(seed: 'int', family: 'str' = 'numpy.random.Generator', bit_generator: 'str' = 'PCG64', algorithm: 'str' = 'numpy-pcg64-v1', schema_version: 'str' = 'ensemble-rng-v1') -> None",
+      "source_contract": {
+        "name": "RNGSpec",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "seed",
+            "annotation": "int",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "family",
+            "annotation": "str",
+            "default_expression": "RNG_FAMILY",
+            "required_in_source": false
+          },
+          {
+            "name": "bit_generator",
+            "annotation": "str",
+            "default_expression": "BIT_GENERATOR",
+            "required_in_source": false
+          },
+          {
+            "name": "algorithm",
+            "annotation": "str",
+            "default_expression": "RNG_ALGORITHM",
+            "required_in_source": false
+          },
+          {
+            "name": "schema_version",
+            "annotation": "str",
+            "default_expression": "RNG_SCHEMA_VERSION",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "from_dict",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "data",
+                "kind": "positional_or_keyword",
+                "annotation": "dict[str, Any]",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'RNGSpec'",
+            "source_signature": "(cls, data: dict[str, Any]) -> 'RNGSpec'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "create_generator",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "np.random.Generator",
+            "source_signature": "(self) -> np.random.Generator",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.SamplingError",
+      "definition_path": "ncmemsim.ensemble.sampling.SamplingError",
+      "kind": "class",
+      "runtime_call_signature": "(family: 'str', reason: 'str', *, attempts: 'int | None' = None) -> 'None'",
+      "source_contract": {
+        "name": "SamplingError",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [
+          "ValueError"
+        ],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": {
+          "parameters": [
+            {
+              "name": "self",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "family",
+              "kind": "positional_or_keyword",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "reason",
+              "kind": "positional_or_keyword",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "attempts",
+              "kind": "keyword_only",
+              "annotation": "int | None",
+              "required": false,
+              "default_expression": "None"
+            }
+          ],
+          "return_annotation": "None",
+          "source_signature": "(self, family: str, reason: str, *, attempts: int | None=None) -> None",
+          "decorators": []
+        },
+        "methods": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.sample_distribution",
+      "definition_path": "ncmemsim.ensemble.sampling.sample_distribution",
+      "kind": "function",
+      "runtime_call_signature": "(distribution: 'DistributionSpec', rng: 'np.random.Generator', *, max_draws_per_value: 'int' = 10000) -> 'float'",
+      "source_contract": {
+        "name": "sample_distribution",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "distribution",
+            "kind": "positional_or_keyword",
+            "annotation": "DistributionSpec",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "rng",
+            "kind": "positional_or_keyword",
+            "annotation": "np.random.Generator",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "max_draws_per_value",
+            "kind": "keyword_only",
+            "annotation": "int",
+            "required": false,
+            "default_expression": "10000"
+          }
+        ],
+        "return_annotation": "float",
+        "source_signature": "(distribution: DistributionSpec, rng: np.random.Generator, *, max_draws_per_value: int=10000) -> float",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleSample",
+      "definition_path": "ncmemsim.ensemble.sampling.EnsembleSample",
+      "kind": "class",
+      "runtime_call_signature": "(sampling_spec_hash: 'str', sample_index: 'int', variable_names: 'tuple[str, ...]', values: 'tuple[float, ...]', schema_version: 'str' = 'ensemble-sample-v1') -> None",
+      "source_contract": {
+        "name": "EnsembleSample",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "sampling_spec_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "sample_index",
+            "annotation": "int",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "variable_names",
+            "annotation": "tuple[str, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "values",
+            "annotation": "tuple[float, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "schema_version",
+            "annotation": "str",
+            "default_expression": "SAMPLE_SCHEMA_VERSION",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "from_values",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "sampling_spec",
+                "kind": "positional_or_keyword",
+                "annotation": "SamplingSpec",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "sample_index",
+                "kind": "positional_or_keyword",
+                "annotation": "int",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "values",
+                "kind": "positional_or_keyword",
+                "annotation": "tuple[float, ...] | list[float]",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'EnsembleSample'",
+            "source_signature": "(cls, sampling_spec: SamplingSpec, sample_index: int, values: tuple[float, ...] | list[float]) -> 'EnsembleSample'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "sample_id",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "sample_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "from_dict",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "data",
+                "kind": "positional_or_keyword",
+                "annotation": "dict[str, Any]",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'EnsembleSample'",
+            "source_signature": "(cls, data: dict[str, Any]) -> 'EnsembleSample'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "require_matches_spec",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "sampling_spec",
+                "kind": "positional_or_keyword",
+                "annotation": "SamplingSpec",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "None",
+            "source_signature": "(self, sampling_spec: SamplingSpec) -> None",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.IndependentDependence",
+      "definition_path": "ncmemsim.ensemble.correlation.IndependentDependence",
+      "kind": "class",
+      "runtime_call_signature": "(kind: 'str' = 'independent', schema_version: 'str' = 'ensemble-dependence-v1') -> None",
+      "source_contract": {
+        "name": "IndependentDependence",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "kind",
+            "annotation": "str",
+            "default_expression": "'independent'",
+            "required_in_source": false
+          },
+          {
+            "name": "schema_version",
+            "annotation": "str",
+            "default_expression": "DEPENDENCE_SCHEMA_VERSION",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "from_dict",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "data",
+                "kind": "positional_or_keyword",
+                "annotation": "dict[str, Any]",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'IndependentDependence'",
+            "source_signature": "(cls, data: dict[str, Any]) -> 'IndependentDependence'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.SamplingSpec",
+      "definition_path": "ncmemsim.ensemble.sampling.SamplingSpec",
+      "kind": "class",
+      "runtime_call_signature": "(ensemble_spec: 'EnsembleSpec', rng: 'RNGSpec', sample_count: 'int', dependence: 'DependenceSpec' = <factory>, max_draws_per_value: 'int' = 10000, scalar_sampling_algorithm: 'str' = 'phase-k-pcg64-raw53-box-muller-v1', order: 'str' = 'sample-major,declared-variable-order', precision: 'str' = 'float64-derived-python-float', schema_version: 'str' = 'ensemble-sampling-spec-v1') -> None",
+      "source_contract": {
+        "name": "SamplingSpec",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "ensemble_spec",
+            "annotation": "EnsembleSpec",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "rng",
+            "annotation": "RNGSpec",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "sample_count",
+            "annotation": "int",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "dependence",
+            "annotation": "DependenceSpec",
+            "default_expression": "field(default_factory=IndependentDependence)",
+            "required_in_source": false
+          },
+          {
+            "name": "max_draws_per_value",
+            "annotation": "int",
+            "default_expression": "10000",
+            "required_in_source": false
+          },
+          {
+            "name": "scalar_sampling_algorithm",
+            "annotation": "str",
+            "default_expression": "SCALAR_SAMPLING_ALGORITHM",
+            "required_in_source": false
+          },
+          {
+            "name": "order",
+            "annotation": "str",
+            "default_expression": "SAMPLING_ORDER",
+            "required_in_source": false
+          },
+          {
+            "name": "precision",
+            "annotation": "str",
+            "default_expression": "SAMPLING_PRECISION",
+            "required_in_source": false
+          },
+          {
+            "name": "schema_version",
+            "annotation": "str",
+            "default_expression": "SAMPLING_SCHEMA_VERSION",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "dependence_sampling_algorithm",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "from_dict",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "data",
+                "kind": "positional_or_keyword",
+                "annotation": "dict[str, Any]",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'SamplingSpec'",
+            "source_signature": "(cls, data: dict[str, Any]) -> 'SamplingSpec'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.SampleGenerationError",
+      "definition_path": "ncmemsim.ensemble.sampling.SampleGenerationError",
+      "kind": "class",
+      "runtime_call_signature": "(sampling_spec_hash: 'str', sample_index: 'int', variable_name: 'str', cause: 'SamplingError') -> 'None'",
+      "source_contract": {
+        "name": "SampleGenerationError",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [
+          "ValueError"
+        ],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": {
+          "parameters": [
+            {
+              "name": "self",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "sampling_spec_hash",
+              "kind": "positional_or_keyword",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "sample_index",
+              "kind": "positional_or_keyword",
+              "annotation": "int",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "variable_name",
+              "kind": "positional_or_keyword",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "cause",
+              "kind": "positional_or_keyword",
+              "annotation": "SamplingError",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "None",
+          "source_signature": "(self, sampling_spec_hash: str, sample_index: int, variable_name: str, cause: SamplingError) -> None",
+          "decorators": []
+        },
+        "methods": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.SampleManifest",
+      "definition_path": "ncmemsim.ensemble.sampling.SampleManifest",
+      "kind": "class",
+      "runtime_call_signature": "(sampling_spec: 'SamplingSpec', samples: 'tuple[EnsembleSample, ...]', runtime: 'tuple[tuple[str, str], ...]', schema_version: 'str' = 'ensemble-sample-manifest-v1') -> None",
+      "source_contract": {
+        "name": "SampleManifest",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "sampling_spec",
+            "annotation": "SamplingSpec",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "samples",
+            "annotation": "tuple[EnsembleSample, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "runtime",
+            "annotation": "tuple[tuple[str, str], ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "schema_version",
+            "annotation": "str",
+            "default_expression": "MANIFEST_SCHEMA_VERSION",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "sample_table_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "manifest_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "from_dict",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "data",
+                "kind": "positional_or_keyword",
+                "annotation": "dict[str, Any]",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'SampleManifest'",
+            "source_signature": "(cls, data: dict[str, Any]) -> 'SampleManifest'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "to_json",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          },
+          {
+            "name": "from_json",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "text",
+                "kind": "positional_or_keyword",
+                "annotation": "str",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'SampleManifest'",
+            "source_signature": "(cls, text: str) -> 'SampleManifest'",
+            "decorators": [
+              "classmethod"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.generate_sample_manifest",
+      "definition_path": "ncmemsim.ensemble.sampling.generate_sample_manifest",
+      "kind": "function",
+      "runtime_call_signature": "(sampling_spec: 'SamplingSpec') -> 'SampleManifest'",
+      "source_contract": {
+        "name": "generate_sample_manifest",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "sampling_spec",
+            "kind": "positional_or_keyword",
+            "annotation": "SamplingSpec",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "SampleManifest",
+        "source_signature": "(sampling_spec: SamplingSpec) -> SampleManifest",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.MatrixCorrelation",
+      "definition_path": "ncmemsim.ensemble.correlation.MatrixCorrelation",
+      "kind": "class",
+      "runtime_call_signature": "(variable_names: 'tuple[str, ...]', matrix: 'tuple[tuple[float, ...], ...]', provenance: 'ParameterProvenance', applicability: 'str', numerical_tolerance: 'float' = 1e-12, kind: 'str' = 'gaussian_copula', representation: 'str' = 'latent_gaussian_pearson', schema_version: 'str' = 'ensemble-dependence-v1') -> None",
+      "source_contract": {
+        "name": "MatrixCorrelation",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "variable_names",
+            "annotation": "tuple[str, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "matrix",
+            "annotation": "tuple[tuple[float, ...], ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "provenance",
+            "annotation": "ParameterProvenance",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "applicability",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "numerical_tolerance",
+            "annotation": "float",
+            "default_expression": "DEFAULT_CORRELATION_TOLERANCE",
+            "required_in_source": false
+          },
+          {
+            "name": "kind",
+            "annotation": "str",
+            "default_expression": "GAUSSIAN_COPULA_KIND",
+            "required_in_source": false
+          },
+          {
+            "name": "representation",
+            "annotation": "str",
+            "default_expression": "GAUSSIAN_COPULA_REPRESENTATION",
+            "required_in_source": false
+          },
+          {
+            "name": "schema_version",
+            "annotation": "str",
+            "default_expression": "DEPENDENCE_SCHEMA_VERSION",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "from_dict",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "data",
+                "kind": "positional_or_keyword",
+                "annotation": "dict[str, Any]",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'MatrixCorrelation'",
+            "source_signature": "(cls, data: dict[str, Any]) -> 'MatrixCorrelation'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.RealizationIdentity",
+      "definition_path": "ncmemsim.ensemble.realization.RealizationIdentity",
+      "kind": "class",
+      "runtime_call_signature": "(sampling_spec_hash: 'str', ensemble_spec_hash: 'str', sample_id: 'str', sample_hash: 'str', sample_index: 'int', base_device_hash: 'str', base_operating_hash: 'str | None', schema_version: 'str' = 'ensemble-realization-id-v1') -> None",
+      "source_contract": {
+        "name": "RealizationIdentity",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "sampling_spec_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "ensemble_spec_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "sample_id",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "sample_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "sample_index",
+            "annotation": "int",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "base_device_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "base_operating_hash",
+            "annotation": "str | None",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "schema_version",
+            "annotation": "str",
+            "default_expression": "REALIZATION_ID_SCHEMA_VERSION",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "from_sample",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "sampling_spec",
+                "kind": "positional_or_keyword",
+                "annotation": "SamplingSpec",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "sample",
+                "kind": "positional_or_keyword",
+                "annotation": "EnsembleSample",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'RealizationIdentity'",
+            "source_signature": "(cls, sampling_spec: SamplingSpec, sample: EnsembleSample) -> 'RealizationIdentity'",
+            "decorators": [
+              "classmethod"
+            ]
+          },
+          {
+            "name": "realization_id",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "from_dict",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "data",
+                "kind": "positional_or_keyword",
+                "annotation": "dict[str, Any]",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'RealizationIdentity'",
+            "source_signature": "(cls, data: dict[str, Any]) -> 'RealizationIdentity'",
+            "decorators": [
+              "classmethod"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.SampleDomainValidationError",
+      "definition_path": "ncmemsim.ensemble.realization.SampleDomainValidationError",
+      "kind": "class",
+      "runtime_call_signature": "(*, sampling_spec_hash: 'str', sample_id: 'str', sample_index: 'int', variable_name: 'str', value: 'float', physical_domain: 'PhysicalDomain') -> 'None'",
+      "source_contract": {
+        "name": "SampleDomainValidationError",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [
+          "ValueError"
+        ],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": {
+          "parameters": [
+            {
+              "name": "self",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "sampling_spec_hash",
+              "kind": "keyword_only",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "sample_id",
+              "kind": "keyword_only",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "sample_index",
+              "kind": "keyword_only",
+              "annotation": "int",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "variable_name",
+              "kind": "keyword_only",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "value",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "physical_domain",
+              "kind": "keyword_only",
+              "annotation": "PhysicalDomain",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "None",
+          "source_signature": "(self, *, sampling_spec_hash: str, sample_id: str, sample_index: int, variable_name: str, value: float, physical_domain: PhysicalDomain) -> None",
+          "decorators": []
+        },
+        "methods": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.validate_sample_domain",
+      "definition_path": "ncmemsim.ensemble.realization.validate_sample_domain",
+      "kind": "function",
+      "runtime_call_signature": "(sample: 'EnsembleSample', sampling_spec: 'SamplingSpec') -> 'None'",
+      "source_contract": {
+        "name": "validate_sample_domain",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "sample",
+            "kind": "positional_or_keyword",
+            "annotation": "EnsembleSample",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "sampling_spec",
+            "kind": "positional_or_keyword",
+            "annotation": "SamplingSpec",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "None",
+        "source_signature": "(sample: EnsembleSample, sampling_spec: SamplingSpec) -> None",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.AppliedRealization",
+      "definition_path": "ncmemsim.ensemble.realization.AppliedRealization",
+      "kind": "class",
+      "runtime_call_signature": "(identity: 'RealizationIdentity', device: 'Device', operating_protocol: 'OperatingProtocol | None', assignments: 'tuple[RealizationAssignment, ...]', realized_device_hash: 'str', realized_operating_hash: 'str | None') -> None",
+      "source_contract": {
+        "name": "AppliedRealization",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "identity",
+            "annotation": "RealizationIdentity",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "device",
+            "annotation": "Device",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "operating_protocol",
+            "annotation": "OperatingProtocol | None",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "assignments",
+            "annotation": "tuple[RealizationAssignment, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "realized_device_hash",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "realized_operating_hash",
+            "annotation": "str | None",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "require_integrity",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "None",
+            "source_signature": "(self) -> None",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.RealizationAssignment",
+      "definition_path": "ncmemsim.ensemble.realization.RealizationAssignment",
+      "kind": "class",
+      "runtime_call_signature": "(variable_name: 'str', binding: 'ParameterBinding', unit: 'str', value: 'float') -> None",
+      "source_contract": {
+        "name": "RealizationAssignment",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "variable_name",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "binding",
+            "annotation": "ParameterBinding",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "unit",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "value",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.apply_sample_to_context",
+      "definition_path": "ncmemsim.ensemble.realization.apply_sample_to_context",
+      "kind": "function",
+      "runtime_call_signature": "(sampling_spec: 'SamplingSpec', sample: 'EnsembleSample', base_device: 'Device', base_operating_protocol: 'OperatingProtocol | None' = None) -> 'AppliedRealization'",
+      "source_contract": {
+        "name": "apply_sample_to_context",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "sampling_spec",
+            "kind": "positional_or_keyword",
+            "annotation": "SamplingSpec",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "sample",
+            "kind": "positional_or_keyword",
+            "annotation": "EnsembleSample",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "base_device",
+            "kind": "positional_or_keyword",
+            "annotation": "Device",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "base_operating_protocol",
+            "kind": "positional_or_keyword",
+            "annotation": "OperatingProtocol | None",
+            "required": false,
+            "default_expression": "None"
+          }
+        ],
+        "return_annotation": "AppliedRealization",
+        "source_signature": "(sampling_spec: SamplingSpec, sample: EnsembleSample, base_device: Device, base_operating_protocol: OperatingProtocol | None=None) -> AppliedRealization",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleExecutionResult",
+      "definition_path": "ncmemsim.ensemble.execution.EnsembleExecutionResult",
+      "kind": "class",
+      "runtime_call_signature": "(manifest: 'SampleManifest', execution_json: 'str', points: 'tuple[RealizationExecutionPoint, ...]') -> None",
+      "source_contract": {
+        "name": "EnsembleExecutionResult",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "manifest",
+            "annotation": "SampleManifest",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "execution_json",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "points",
+            "annotation": "tuple[RealizationExecutionPoint, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "success_count",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "failure_count",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "execution_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "nominal_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "to_json",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          },
+          {
+            "name": "result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.RealizationExecutionPoint",
+      "definition_path": "ncmemsim.ensemble.execution.RealizationExecutionPoint",
+      "kind": "class",
+      "runtime_call_signature": "(identity: 'RealizationIdentity', status: 'str', assignments: 'tuple[RealizationAssignment, ...]' = (), realized_device_hash: 'str | None' = None, realized_operating_hash: 'str | None' = None, realized_context_json: 'str | None' = None, output_json: 'str | None' = None, failure_stage: 'str | None' = None, failure_category: 'str | None' = None, error_type: 'str | None' = None, error_message: 'str | None' = None) -> None",
+      "source_contract": {
+        "name": "RealizationExecutionPoint",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "identity",
+            "annotation": "RealizationIdentity",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "status",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "assignments",
+            "annotation": "tuple[RealizationAssignment, ...]",
+            "default_expression": "()",
+            "required_in_source": false
+          },
+          {
+            "name": "realized_device_hash",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "realized_operating_hash",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "realized_context_json",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "output_json",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "failure_stage",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "failure_category",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "error_type",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "error_message",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "output",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any] | None",
+            "source_signature": "(self) -> dict[str, Any] | None",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "realized_context",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any] | None",
+            "source_signature": "(self) -> dict[str, Any] | None",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.execute_sample_manifest",
+      "definition_path": "ncmemsim.ensemble.execution.execute_sample_manifest",
+      "kind": "function",
+      "runtime_call_signature": "(manifest: 'SampleManifest', base_device: 'Device', evaluator: 'EnsembleEvaluator', *, evaluation_id: 'str', evaluation_parameters: 'dict[str, Any] | None' = None, base_operating_protocol: 'OperatingProtocol | None' = None) -> 'EnsembleExecutionResult'",
+      "source_contract": {
+        "name": "execute_sample_manifest",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "manifest",
+            "kind": "positional_or_keyword",
+            "annotation": "SampleManifest",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "base_device",
+            "kind": "positional_or_keyword",
+            "annotation": "Device",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "evaluator",
+            "kind": "positional_or_keyword",
+            "annotation": "EnsembleEvaluator",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "evaluation_id",
+            "kind": "keyword_only",
+            "annotation": "str",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "evaluation_parameters",
+            "kind": "keyword_only",
+            "annotation": "dict[str, Any] | None",
+            "required": false,
+            "default_expression": "None"
+          },
+          {
+            "name": "base_operating_protocol",
+            "kind": "keyword_only",
+            "annotation": "OperatingProtocol | None",
+            "required": false,
+            "default_expression": "None"
+          }
+        ],
+        "return_annotation": "EnsembleExecutionResult",
+        "source_signature": "(manifest: SampleManifest, base_device: Device, evaluator: EnsembleEvaluator, *, evaluation_id: str, evaluation_parameters: dict[str, Any] | None=None, base_operating_protocol: OperatingProtocol | None=None) -> EnsembleExecutionResult",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleMetricAnalysisResult",
+      "definition_path": "ncmemsim.ensemble.metrics.EnsembleMetricAnalysisResult",
+      "kind": "class",
+      "runtime_call_signature": "(spec: 'MetricAnalysisSpec', source: 'EnsembleExecutionResult', points: 'tuple[EnsembleMetricPointResult, ...]') -> None",
+      "source_contract": {
+        "name": "EnsembleMetricAnalysisResult",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "spec",
+            "annotation": "MetricAnalysisSpec",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "source",
+            "annotation": "EnsembleExecutionResult",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "points",
+            "annotation": "tuple[EnsembleMetricPointResult, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "analysis_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleMetricPointResult",
+      "definition_path": "ncmemsim.ensemble.metrics.EnsembleMetricPointResult",
+      "kind": "class",
+      "runtime_call_signature": "(source: 'RealizationExecutionPoint', status: 'str', metric_values: 'tuple[tuple[str, float], ...]' = (), constraints: 'tuple[ConstraintEvaluation, ...]' = (), failure_stage: 'str | None' = None, failure_category: 'str | None' = None, error_type: 'str | None' = None, error_message: 'str | None' = None) -> None",
+      "source_contract": {
+        "name": "EnsembleMetricPointResult",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "source",
+            "annotation": "RealizationExecutionPoint",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "status",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "metric_values",
+            "annotation": "tuple[tuple[str, float], ...]",
+            "default_expression": "()",
+            "required_in_source": false
+          },
+          {
+            "name": "constraints",
+            "annotation": "tuple[ConstraintEvaluation, ...]",
+            "default_expression": "()",
+            "required_in_source": false
+          },
+          {
+            "name": "failure_stage",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "failure_category",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "error_type",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "error_message",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "metrics",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, float]",
+            "source_signature": "(self) -> dict[str, float]",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.analyze_ensemble_execution",
+      "definition_path": "ncmemsim.ensemble.metrics.analyze_ensemble_execution",
+      "kind": "function",
+      "runtime_call_signature": "(execution: 'EnsembleExecutionResult', spec: 'MetricAnalysisSpec') -> 'EnsembleMetricAnalysisResult'",
+      "source_contract": {
+        "name": "analyze_ensemble_execution",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "execution",
+            "kind": "positional_or_keyword",
+            "annotation": "EnsembleExecutionResult",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "spec",
+            "kind": "positional_or_keyword",
+            "annotation": "MetricAnalysisSpec",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "EnsembleMetricAnalysisResult",
+        "source_signature": "(execution: EnsembleExecutionResult, spec: MetricAnalysisSpec) -> EnsembleMetricAnalysisResult",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsemblePopulationStatistics",
+      "definition_path": "ncmemsim.ensemble.statistics.EnsemblePopulationStatistics",
+      "kind": "class",
+      "runtime_call_signature": "(spec: 'EnsembleStatisticsSpec', source: 'EnsembleMetricAnalysisResult', metric_statistics: 'tuple[MetricPopulationSummary, ...]') -> None",
+      "source_contract": {
+        "name": "EnsemblePopulationStatistics",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "spec",
+            "annotation": "EnsembleStatisticsSpec",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "source",
+            "annotation": "EnsembleMetricAnalysisResult",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "metric_statistics",
+            "annotation": "tuple[MetricPopulationSummary, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "runtime_json",
+            "annotation": "str",
+            "default_expression": "field(init=False, repr=False)",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "runtime",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, str]",
+            "source_signature": "(self) -> dict[str, str]",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "attempted_count",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "assessed_count",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "feasible_count",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "infeasible_count",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "failed_count",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "coverage_fraction",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "float",
+            "source_signature": "(self) -> float",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "analysis_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleStatisticsSpec",
+      "definition_path": "ncmemsim.ensemble.statistics.EnsembleStatisticsSpec",
+      "kind": "class",
+      "runtime_call_signature": "(quantiles: 'tuple[float, ...]' = (0.05, 0.5, 0.95)) -> None",
+      "source_contract": {
+        "name": "EnsembleStatisticsSpec",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "quantiles",
+            "annotation": "tuple[float, ...]",
+            "default_expression": "(0.05, 0.5, 0.95)",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.MetricPopulationSummary",
+      "definition_path": "ncmemsim.ensemble.statistics.MetricPopulationSummary",
+      "kind": "class",
+      "runtime_call_signature": "(metric_name: 'str', unit: 'str', denominator: 'int', sample_indices: 'tuple[int, ...]', realization_ids: 'tuple[str, ...]', minimum: 'float | None', maximum: 'float | None', mean: 'float | None', variance: 'float | None', standard_deviation: 'float | None', median: 'float | None', quantiles: 'tuple[tuple[float, float | None], ...]') -> None",
+      "source_contract": {
+        "name": "MetricPopulationSummary",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "metric_name",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "unit",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "denominator",
+            "annotation": "int",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "sample_indices",
+            "annotation": "tuple[int, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "realization_ids",
+            "annotation": "tuple[str, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "minimum",
+            "annotation": "float | None",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "maximum",
+            "annotation": "float | None",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "mean",
+            "annotation": "float | None",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "variance",
+            "annotation": "float | None",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "standard_deviation",
+            "annotation": "float | None",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "median",
+            "annotation": "float | None",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "quantiles",
+            "annotation": "tuple[tuple[float, float | None], ...]",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "summary_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.summarize_ensemble_metrics",
+      "definition_path": "ncmemsim.ensemble.statistics.summarize_ensemble_metrics",
+      "kind": "function",
+      "runtime_call_signature": "(source: 'EnsembleMetricAnalysisResult', spec: 'EnsembleStatisticsSpec') -> 'EnsemblePopulationStatistics'",
+      "source_contract": {
+        "name": "summarize_ensemble_metrics",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "source",
+            "kind": "positional_or_keyword",
+            "annotation": "EnsembleMetricAnalysisResult",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "spec",
+            "kind": "positional_or_keyword",
+            "annotation": "EnsembleStatisticsSpec",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "EnsemblePopulationStatistics",
+        "source_signature": "(source: EnsembleMetricAnalysisResult, spec: EnsembleStatisticsSpec) -> EnsemblePopulationStatistics",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleFeasibilitySummary",
+      "definition_path": "ncmemsim.ensemble.feasibility.EnsembleFeasibilitySummary",
+      "kind": "class",
+      "runtime_call_signature": "(source: 'EnsemblePopulationStatistics', nominal_references: 'tuple[NominalMetricReference, ...]', comparisons: 'tuple[NominalMetricComparison, ...]') -> None",
+      "source_contract": {
+        "name": "EnsembleFeasibilitySummary",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "source",
+            "annotation": "EnsemblePopulationStatistics",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "nominal_references",
+            "annotation": "tuple[NominalMetricReference, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "comparisons",
+            "annotation": "tuple[NominalMetricComparison, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "runtime_json",
+            "annotation": "str",
+            "default_expression": "field(init=False, repr=False)",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "attempted_count",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "assessed_count",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "feasible_count",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "infeasible_count",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "failed_count",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "simulated_pass_fraction",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "float",
+            "source_signature": "(self) -> float",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "ensemble_feasibility_fraction",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "float | None",
+            "source_signature": "(self) -> float | None",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "failure_fraction",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "float",
+            "source_signature": "(self) -> float",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "runtime",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, str]",
+            "source_signature": "(self) -> dict[str, str]",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "analysis_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.NominalMetricComparison",
+      "definition_path": "ncmemsim.ensemble.feasibility.NominalMetricComparison",
+      "kind": "class",
+      "runtime_call_signature": "(reference: 'NominalMetricReference', denominator: 'int', population_mean: 'float | None', population_median: 'float | None', mean_delta: 'float | None', median_delta: 'float | None') -> None",
+      "source_contract": {
+        "name": "NominalMetricComparison",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "reference",
+            "annotation": "NominalMetricReference",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "denominator",
+            "annotation": "int",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "population_mean",
+            "annotation": "float | None",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "population_median",
+            "annotation": "float | None",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "mean_delta",
+            "annotation": "float | None",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "median_delta",
+            "annotation": "float | None",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "comparison_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.NominalMetricReference",
+      "definition_path": "ncmemsim.ensemble.feasibility.NominalMetricReference",
+      "kind": "class",
+      "runtime_call_signature": "(metric_name: 'str', unit: 'str', nominal_value: 'float') -> None",
+      "source_contract": {
+        "name": "NominalMetricReference",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "metric_name",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "unit",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "nominal_value",
+            "annotation": "float",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "reference_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.summarize_ensemble_feasibility",
+      "definition_path": "ncmemsim.ensemble.feasibility.summarize_ensemble_feasibility",
+      "kind": "function",
+      "runtime_call_signature": "(source: 'EnsemblePopulationStatistics', nominal_references: 'tuple[NominalMetricReference, ...]' = ()) -> 'EnsembleFeasibilitySummary'",
+      "source_contract": {
+        "name": "summarize_ensemble_feasibility",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "source",
+            "kind": "positional_or_keyword",
+            "annotation": "EnsemblePopulationStatistics",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "nominal_references",
+            "kind": "positional_or_keyword",
+            "annotation": "tuple[NominalMetricReference, ...]",
+            "required": false,
+            "default_expression": "()"
+          }
+        ],
+        "return_annotation": "EnsembleFeasibilitySummary",
+        "source_signature": "(source: EnsemblePopulationStatistics, nominal_references: tuple[NominalMetricReference, ...]=()) -> EnsembleFeasibilitySummary",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleConstraint",
+      "definition_path": "ncmemsim.ensemble.dtco.EnsembleConstraint",
+      "kind": "class",
+      "runtime_call_signature": "(name: 'str', scalar: 'EnsembleScalarDefinition', operator: 'ConstraintOperator', threshold: 'int | float', unit: 'str') -> None",
+      "source_contract": {
+        "name": "EnsembleConstraint",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "name",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "scalar",
+            "annotation": "EnsembleScalarDefinition",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "operator",
+            "annotation": "ConstraintOperator",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "threshold",
+            "annotation": "int | float",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "unit",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleConstraintEvaluation",
+      "definition_path": "ncmemsim.ensemble.dtco.EnsembleConstraintEvaluation",
+      "kind": "class",
+      "runtime_call_signature": "(constraint: 'EnsembleConstraint', scalar_evaluation: 'EnsembleScalarEvaluation', status: 'str') -> None",
+      "source_contract": {
+        "name": "EnsembleConstraintEvaluation",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "constraint",
+            "annotation": "EnsembleConstraint",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "scalar_evaluation",
+            "annotation": "EnsembleScalarEvaluation",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "status",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "study",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "EnsembleDTCOStudy",
+            "source_signature": "(self) -> EnsembleDTCOStudy",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "evaluation_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleDTCOStudy",
+      "definition_path": "ncmemsim.ensemble.dtco.EnsembleDTCOStudy",
+      "kind": "class",
+      "runtime_call_signature": "(design_point: 'SweepPoint', source: 'EnsembleFeasibilitySummary') -> None",
+      "source_contract": {
+        "name": "EnsembleDTCOStudy",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "design_point",
+            "annotation": "SweepPoint",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "source",
+            "annotation": "EnsembleFeasibilitySummary",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "experiment_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "point_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "index",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "assignments",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, ScalarValue]",
+            "source_signature": "(self) -> dict[str, ScalarValue]",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "source_result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "study_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleEligibilityResult",
+      "definition_path": "ncmemsim.ensemble.dtco.EnsembleEligibilityResult",
+      "kind": "class",
+      "runtime_call_signature": "(study: 'EnsembleDTCOStudy', evaluations: 'tuple[EnsembleConstraintEvaluation, ...]', status: 'str') -> None",
+      "source_contract": {
+        "name": "EnsembleEligibilityResult",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "study",
+            "annotation": "EnsembleDTCOStudy",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "evaluations",
+            "annotation": "tuple[EnsembleConstraintEvaluation, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "status",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleObjective",
+      "definition_path": "ncmemsim.ensemble.dtco.EnsembleObjective",
+      "kind": "class",
+      "runtime_call_signature": "(name: 'str', scalar: 'EnsembleScalarDefinition', direction: 'ObjectiveDirection') -> None",
+      "source_contract": {
+        "name": "EnsembleObjective",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "name",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "scalar",
+            "annotation": "EnsembleScalarDefinition",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "direction",
+            "annotation": "ObjectiveDirection",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleParetoAnalysisResult",
+      "definition_path": "ncmemsim.ensemble.dtco.EnsembleParetoAnalysisResult",
+      "kind": "class",
+      "runtime_call_signature": "(name: 'str', objectives: 'tuple[EnsembleObjective, ...]', source_results: 'tuple[EnsembleEligibilityResult, ...]', points: 'tuple[EnsembleParetoPointResult, ...]', fronts: 'tuple[tuple[int, ...], ...]') -> None",
+      "source_contract": {
+        "name": "EnsembleParetoAnalysisResult",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "name",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "objectives",
+            "annotation": "tuple[EnsembleObjective, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "source_results",
+            "annotation": "tuple[EnsembleEligibilityResult, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "points",
+            "annotation": "tuple[EnsembleParetoPointResult, ...]",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "fronts",
+            "annotation": "tuple[tuple[int, ...], ...]",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "pareto_indices",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "tuple[int, ...]",
+            "source_signature": "(self) -> tuple[int, ...]",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "ranked_count",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "excluded_count",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "int",
+            "source_signature": "(self) -> int",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "analysis_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleParetoPointResult",
+      "definition_path": "ncmemsim.ensemble.dtco.EnsembleParetoPointResult",
+      "kind": "class",
+      "runtime_call_signature": "(source: 'EnsembleEligibilityResult', rank: 'int | None', objective_values: 'tuple[tuple[str, float], ...]' = (), exclusion_reason: 'str | None' = None) -> None",
+      "source_contract": {
+        "name": "EnsembleParetoPointResult",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "source",
+            "annotation": "EnsembleEligibilityResult",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "rank",
+            "annotation": "int | None",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "objective_values",
+            "annotation": "tuple[tuple[str, float], ...]",
+            "default_expression": "()",
+            "required_in_source": false
+          },
+          {
+            "name": "exclusion_reason",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "study",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "EnsembleDTCOStudy",
+            "source_signature": "(self) -> EnsembleDTCOStudy",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "objectives",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, float]",
+            "source_signature": "(self) -> dict[str, float]",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleScalarDefinition",
+      "definition_path": "ncmemsim.ensemble.dtco.EnsembleScalarDefinition",
+      "kind": "class",
+      "runtime_call_signature": "(name: 'str', kind: 'EnsembleScalarKind', unit: 'str', metric_name: 'str | None' = None, quantile: 'float | None' = None) -> None",
+      "source_contract": {
+        "name": "EnsembleScalarDefinition",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "name",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "kind",
+            "annotation": "EnsembleScalarKind",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "unit",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "metric_name",
+            "annotation": "str | None",
+            "default_expression": "None",
+            "required_in_source": false
+          },
+          {
+            "name": "quantile",
+            "annotation": "float | None",
+            "default_expression": "None",
+            "required_in_source": false
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "definition_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleScalarEvaluation",
+      "definition_path": "ncmemsim.ensemble.dtco.EnsembleScalarEvaluation",
+      "kind": "class",
+      "runtime_call_signature": "(study: 'EnsembleDTCOStudy', definition: 'EnsembleScalarDefinition', status: 'str', value: 'float | None') -> None",
+      "source_contract": {
+        "name": "EnsembleScalarEvaluation",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "study",
+            "annotation": "EnsembleDTCOStudy",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "definition",
+            "annotation": "EnsembleScalarDefinition",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "status",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "value",
+            "annotation": "float | None",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "evaluation_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleScalarKind",
+      "definition_path": "ncmemsim.ensemble.dtco.EnsembleScalarKind",
+      "kind": "class",
+      "runtime_call_signature": "(*values)",
+      "source_contract": {
+        "name": "EnsembleScalarKind",
+        "kind": "class",
+        "class_assignments": [
+          {
+            "names": [
+              "MEAN"
+            ],
+            "expression": "'mean'"
+          },
+          {
+            "names": [
+              "STANDARD_DEVIATION"
+            ],
+            "expression": "'standard_deviation'"
+          },
+          {
+            "names": [
+              "MINIMUM"
+            ],
+            "expression": "'minimum'"
+          },
+          {
+            "names": [
+              "MAXIMUM"
+            ],
+            "expression": "'maximum'"
+          },
+          {
+            "names": [
+              "MEDIAN"
+            ],
+            "expression": "'median'"
+          },
+          {
+            "names": [
+              "QUANTILE"
+            ],
+            "expression": "'quantile'"
+          },
+          {
+            "names": [
+              "COVERAGE_FRACTION"
+            ],
+            "expression": "'coverage_fraction'"
+          },
+          {
+            "names": [
+              "SIMULATED_PASS_FRACTION"
+            ],
+            "expression": "'simulated_pass_fraction'"
+          },
+          {
+            "names": [
+              "ENSEMBLE_FEASIBILITY_FRACTION"
+            ],
+            "expression": "'ensemble_feasibility_fraction'"
+          },
+          {
+            "names": [
+              "FAILURE_FRACTION"
+            ],
+            "expression": "'failure_fraction'"
+          }
+        ],
+        "bases": [
+          "str",
+          "Enum"
+        ],
+        "decorators": [],
+        "declared_fields": [],
+        "constructor": null,
+        "methods": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.analyze_ensemble_pareto",
+      "definition_path": "ncmemsim.ensemble.dtco.analyze_ensemble_pareto",
+      "kind": "function",
+      "runtime_call_signature": "(source_results, objectives, *, name: 'str' = 'pareto') -> 'EnsembleParetoAnalysisResult'",
+      "source_contract": {
+        "name": "analyze_ensemble_pareto",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "source_results",
+            "kind": "positional_or_keyword",
+            "annotation": null,
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "objectives",
+            "kind": "positional_or_keyword",
+            "annotation": null,
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "name",
+            "kind": "keyword_only",
+            "annotation": "str",
+            "required": false,
+            "default_expression": "'pareto'"
+          }
+        ],
+        "return_annotation": "EnsembleParetoAnalysisResult",
+        "source_signature": "(source_results, objectives, *, name: str='pareto') -> EnsembleParetoAnalysisResult",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.evaluate_ensemble_constraint",
+      "definition_path": "ncmemsim.ensemble.dtco.evaluate_ensemble_constraint",
+      "kind": "function",
+      "runtime_call_signature": "(study: 'EnsembleDTCOStudy', constraint: 'EnsembleConstraint') -> 'EnsembleConstraintEvaluation'",
+      "source_contract": {
+        "name": "evaluate_ensemble_constraint",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "study",
+            "kind": "positional_or_keyword",
+            "annotation": "EnsembleDTCOStudy",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "constraint",
+            "kind": "positional_or_keyword",
+            "annotation": "EnsembleConstraint",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "EnsembleConstraintEvaluation",
+        "source_signature": "(study: EnsembleDTCOStudy, constraint: EnsembleConstraint) -> EnsembleConstraintEvaluation",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.evaluate_ensemble_eligibility",
+      "definition_path": "ncmemsim.ensemble.dtco.evaluate_ensemble_eligibility",
+      "kind": "function",
+      "runtime_call_signature": "(study: 'EnsembleDTCOStudy', constraints) -> 'EnsembleEligibilityResult'",
+      "source_contract": {
+        "name": "evaluate_ensemble_eligibility",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "study",
+            "kind": "positional_or_keyword",
+            "annotation": "EnsembleDTCOStudy",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "constraints",
+            "kind": "positional_or_keyword",
+            "annotation": null,
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "EnsembleEligibilityResult",
+        "source_signature": "(study: EnsembleDTCOStudy, constraints) -> EnsembleEligibilityResult",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.evaluate_ensemble_scalar",
+      "definition_path": "ncmemsim.ensemble.dtco.evaluate_ensemble_scalar",
+      "kind": "function",
+      "runtime_call_signature": "(study: 'EnsembleDTCOStudy', definition: 'EnsembleScalarDefinition') -> 'EnsembleScalarEvaluation'",
+      "source_contract": {
+        "name": "evaluate_ensemble_scalar",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "study",
+            "kind": "positional_or_keyword",
+            "annotation": "EnsembleDTCOStudy",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "definition",
+            "kind": "positional_or_keyword",
+            "annotation": "EnsembleScalarDefinition",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "EnsembleScalarEvaluation",
+        "source_signature": "(study: EnsembleDTCOStudy, definition: EnsembleScalarDefinition) -> EnsembleScalarEvaluation",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleReport",
+      "definition_path": "ncmemsim.ensemble.reporting.EnsembleReport",
+      "kind": "class",
+      "runtime_call_signature": "(payload_json: 'str') -> None",
+      "source_contract": {
+        "name": "EnsembleReport",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "payload_json",
+            "annotation": "str",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "report_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          },
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "to_json",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          },
+          {
+            "name": "samples_csv",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          },
+          {
+            "name": "statistics_csv",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          },
+          {
+            "name": "feasibility_csv",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          },
+          {
+            "name": "eligibility_csv",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          },
+          {
+            "name": "pareto_csv",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          },
+          {
+            "name": "to_markdown",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": []
+          },
+          {
+            "name": "from_json",
+            "parameters": [
+              {
+                "name": "cls",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "value",
+                "kind": "positional_or_keyword",
+                "annotation": "str",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "'EnsembleReport'",
+            "source_signature": "(cls, value: str) -> 'EnsembleReport'",
+            "decorators": [
+              "classmethod"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.EnsembleReportStudy",
+      "definition_path": "ncmemsim.ensemble.reporting.EnsembleReportStudy",
+      "kind": "class",
+      "runtime_call_signature": "(execution: 'EnsembleExecutionResult', metric_analysis: 'EnsembleMetricAnalysisResult', population_statistics: 'EnsemblePopulationStatistics', feasibility: 'EnsembleFeasibilitySummary', study: 'EnsembleDTCOStudy', eligibility: 'EnsembleEligibilityResult') -> None",
+      "source_contract": {
+        "name": "EnsembleReportStudy",
+        "kind": "class",
+        "class_assignments": [],
+        "bases": [],
+        "decorators": [
+          "dataclass(frozen=True)"
+        ],
+        "declared_fields": [
+          {
+            "name": "execution",
+            "annotation": "EnsembleExecutionResult",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "metric_analysis",
+            "annotation": "EnsembleMetricAnalysisResult",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "population_statistics",
+            "annotation": "EnsemblePopulationStatistics",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "feasibility",
+            "annotation": "EnsembleFeasibilitySummary",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "study",
+            "annotation": "EnsembleDTCOStudy",
+            "default_expression": null,
+            "required_in_source": true
+          },
+          {
+            "name": "eligibility",
+            "annotation": "EnsembleEligibilityResult",
+            "default_expression": null,
+            "required_in_source": true
+          }
+        ],
+        "constructor": null,
+        "methods": [
+          {
+            "name": "to_dict",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "dict[str, Any]",
+            "source_signature": "(self) -> dict[str, Any]",
+            "decorators": []
+          },
+          {
+            "name": "result_hash",
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "str",
+            "source_signature": "(self) -> str",
+            "decorators": [
+              "property"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.build_ensemble_report",
+      "definition_path": "ncmemsim.ensemble.reporting.build_ensemble_report",
+      "kind": "function",
+      "runtime_call_signature": "(studies: 'Iterable[EnsembleReportStudy]', *, name: 'str' = 'Phase K ensemble report', pareto: 'EnsembleParetoAnalysisResult | None' = None, metadata: 'dict[str, Any] | None' = None) -> 'EnsembleReport'",
+      "source_contract": {
+        "name": "build_ensemble_report",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "studies",
+            "kind": "positional_or_keyword",
+            "annotation": "Iterable[EnsembleReportStudy]",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "name",
+            "kind": "keyword_only",
+            "annotation": "str",
+            "required": false,
+            "default_expression": "'Phase K ensemble report'"
+          },
+          {
+            "name": "pareto",
+            "kind": "keyword_only",
+            "annotation": "EnsembleParetoAnalysisResult | None",
+            "required": false,
+            "default_expression": "None"
+          },
+          {
+            "name": "metadata",
+            "kind": "keyword_only",
+            "annotation": "dict[str, Any] | None",
+            "required": false,
+            "default_expression": "None"
+          }
+        ],
+        "return_annotation": "EnsembleReport",
+        "source_signature": "(studies: Iterable[EnsembleReportStudy], *, name: str='Phase K ensemble report', pareto: EnsembleParetoAnalysisResult | None=None, metadata: dict[str, Any] | None=None) -> EnsembleReport",
+        "decorators": []
+      }
+    },
+    {
+      "import_path": "ncmemsim.ensemble.write_ensemble_report",
+      "definition_path": "ncmemsim.ensemble.reporting.write_ensemble_report",
+      "kind": "function",
+      "runtime_call_signature": "(report: 'EnsembleReport', output_dir: 'str | Path') -> 'tuple[Path, ...]'",
+      "source_contract": {
+        "name": "write_ensemble_report",
+        "kind": "function",
+        "parameters": [
+          {
+            "name": "report",
+            "kind": "positional_or_keyword",
+            "annotation": "EnsembleReport",
+            "required": true,
+            "default_expression": null
+          },
+          {
+            "name": "output_dir",
+            "kind": "positional_or_keyword",
+            "annotation": "str | Path",
+            "required": true,
+            "default_expression": null
+          }
+        ],
+        "return_annotation": "tuple[Path, ...]",
+        "source_signature": "(report: EnsembleReport, output_dir: str | Path) -> tuple[Path, ...]",
+        "decorators": []
+      }
+    }
+  ],
+  "public_provisional_additions": [],
+  "public_importable_not_separately_stable_modules": [
+    "ncmemsim.ensemble.correlation",
+    "ncmemsim.ensemble.distributions",
+    "ncmemsim.ensemble.dtco",
+    "ncmemsim.ensemble.execution",
+    "ncmemsim.ensemble.feasibility",
+    "ncmemsim.ensemble.metrics",
+    "ncmemsim.ensemble.realization",
+    "ncmemsim.ensemble.reporting",
+    "ncmemsim.ensemble.rng",
+    "ncmemsim.ensemble.sampling",
+    "ncmemsim.ensemble.spec",
+    "ncmemsim.ensemble.specification",
+    "ncmemsim.ensemble.statistics"
+  ],
+  "internal_policy": "Private implementation helpers, including ncmemsim.ensemble._serialization, are not public API. Direct imports from implementation modules remain outside the separately frozen stable-alias proposal unless represented by an explicit package-level ncmemsim.ensemble export.",
+  "selection_rationale": "All 59 explicit ncmemsim.ensemble package exports are proposed as stable additive v1.2 API. Phase K introduced them through the package __all__ surface, froze their scientific contracts incrementally, uses immutable result/specification objects where applicable, and completed deterministic identity, failure-accounting and reporting gates without modifying the published v1.1 stable API.",
+  "public_provisional_rationale": "No explicit ncmemsim.ensemble package export is classified as public provisional in the K7a candidate review. Lower-level implementation-module paths are importable but are not separately proposed as stable aliases.",
+  "result_semantics_review": {
+    "stochastic_specification_and_sampling": "Phase K samples explicitly declared mathematical distributions and dependence definitions with deterministic RNG/sample identities; these definitions are not claims that the selected distributions or correlations are true fabrication-process distributions.",
+    "realization_and_execution": "Realization identity, domain validation, binding application and execution failure provenance preserve every attempted sample. Simulation failure is not silently reclassified as physical infeasibility.",
+    "population_metrics_and_statistics": "Population summaries are computed over the declared assessed membership and retain denominators, units and sample membership. Small synthetic ensembles are deterministic comparison evidence rather than statistically converged fabrication-population estimates.",
+    "feasibility_and_eligibility": "simulated_pass_fraction and ensemble_feasibility_fraction are simulation-defined quantities. They are not manufacturing-yield estimates without an independently calibrated fabrication-population model.",
+    "pareto_analysis": "Pareto ranks express exact trade-offs under the explicitly declared objectives and eligibility constraints. A non-dominated point is not an intrinsically best device and q05 from the six-sample K6c reference is not a statistically converged fabrication-tail estimate.",
+    "reporting_and_interpretation": "Immutable hashes and report bundles establish internal identity, linkage and reproducibility. They do not establish experimental calibration, model validity outside the declared scope, or manufacturing yield."
+  }
+}

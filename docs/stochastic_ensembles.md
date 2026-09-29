@@ -809,7 +809,15 @@ The scientific references are:
 
 ### K7 — v1.2.0 compatibility review and release gates
 
+**Status: K7a complete; K7b next.**
+
 Review additive public APIs and result contracts, run the full local and remote release-validation ladder, finalize release identity, validate the exact final commit, create tag `v1.2.0`, and publish validated distributions.
+
+#### K7a — v1.2.0 API/result compatibility review
+
+K7a is complete. The published `v1.1.0` compatibility baseline retains 238 exact stable import paths with no source-contract drift. Phase K adds 59 explicit package-level exports through `ncmemsim.ensemble`; all 59 are proposed as stable v1.2 additions and none are classified as public provisional. Thirteen implementation modules remain importable but are not proposed separately as stable aliases, while `ncmemsim.ensemble._serialization` remains private.
+
+The review is recorded in `docs/v1_2_api_review.json`, built reproducibly by `scripts/build_v1_2_api_review.py` and validated by `scripts/validate_v1_2_api_review.py`. The focused K7a gate completed with 6 passing tests in `tests/test_phase_k7_api_review.py`. This review is candidate evidence only and does not bump the package version or approve/publish `v1.2.0`.
 
 ---
 

@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 90 package source modules; 449 explicit export paths; 176 distinct documented Python import paths.
+Coverage: 105 package source modules; 590 explicit export paths; 176 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -1208,6 +1208,770 @@ Constructor: `__init__(self, semiconductor: SemiconductorConfig | None=None, cou
 - `field_profile(self, device, applied_voltage_V: float, qfg_by_fg_C_m2=None) -> FieldProfile`.
 - `local_fields_at_fgs_V_m(self, device, applied_voltage_V: float, qfg_by_fg_C_m2=None) -> np.ndarray`.
 
+
+## ncmemsim.ensemble
+
+`ncmemsim/ensemble/__init__.py`
+
+Explicit exports: `ConstantDistribution`, `DistributionSpec`, `FiniteDiscreteDistribution`, `LogNormalDistribution`, `NormalDistribution`, `TruncatedNormalDistribution`, `UniformDistribution`, `PhysicalDomain`, `StochasticVariable`, `EnsembleSpec`, `distribution_from_dict`, `RNGSpec`, `SamplingError`, `sample_distribution`, `EnsembleSample`, `IndependentDependence`, `SamplingSpec`, `SampleGenerationError`, `SampleManifest`, `generate_sample_manifest`, `MatrixCorrelation`, `RealizationIdentity`, `SampleDomainValidationError`, `validate_sample_domain`, `AppliedRealization`, `RealizationAssignment`, `apply_sample_to_context`, `EnsembleExecutionResult`, `RealizationExecutionPoint`, `execute_sample_manifest`, `EnsembleMetricAnalysisResult`, `EnsembleMetricPointResult`, `analyze_ensemble_execution`, `EnsemblePopulationStatistics`, `EnsembleStatisticsSpec`, `MetricPopulationSummary`, `summarize_ensemble_metrics`, `EnsembleFeasibilitySummary`, `NominalMetricComparison`, `NominalMetricReference`, `summarize_ensemble_feasibility`, `EnsembleConstraint`, `EnsembleConstraintEvaluation`, `EnsembleDTCOStudy`, `EnsembleEligibilityResult`, `EnsembleObjective`, `EnsembleParetoAnalysisResult`, `EnsembleParetoPointResult`, `EnsembleScalarDefinition`, `EnsembleScalarEvaluation`, `EnsembleScalarKind`, `analyze_ensemble_pareto`, `evaluate_ensemble_constraint`, `evaluate_ensemble_eligibility`, `evaluate_ensemble_scalar`, `EnsembleReport`, `EnsembleReportStudy`, `build_ensemble_report`, `write_ensemble_report`
+
+
+## ncmemsim.ensemble._serialization
+
+`ncmemsim/ensemble/_serialization.py`
+
+Explicit exports: `parameter_binding_from_dict`, `parameter_provenance_from_dict`, `strict_fields`
+
+- `strict_fields(data: dict[str, Any], *, label: str, required: set[str], optional: set[str] | None=None) -> None`
+- `parameter_binding_from_dict(data: dict[str, Any]) -> ParameterBinding`
+- `parameter_provenance_from_dict(data: dict[str, Any]) -> ParameterProvenance`
+
+## ncmemsim.ensemble.correlation
+
+`ncmemsim/ensemble/correlation.py`
+
+Explicit exports: `DEFAULT_CORRELATION_TOLERANCE`, `DEPENDENCE_SCHEMA_VERSION`, `DependenceSpec`, `GAUSSIAN_COPULA_KIND`, `GAUSSIAN_COPULA_REPRESENTATION`, `IndependentDependence`, `MatrixCorrelation`, `dependence_from_dict`
+
+### IndependentDependence
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `kind: str`; default expression `'independent'`.
+- Field `schema_version: str`; default expression `DEPENDENCE_SCHEMA_VERSION`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> 'IndependentDependence'`; `classmethod`.
+- `definition_hash(self) -> str`; `property`.
+
+### MatrixCorrelation
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `variable_names: tuple[str, ...]`; required declaration.
+- Field `matrix: tuple[tuple[float, ...], ...]`; required declaration.
+- Field `provenance: ParameterProvenance`; required declaration.
+- Field `applicability: str`; required declaration.
+- Field `numerical_tolerance: float`; default expression `DEFAULT_CORRELATION_TOLERANCE`.
+- Field `kind: str`; default expression `GAUSSIAN_COPULA_KIND`.
+- Field `representation: str`; default expression `GAUSSIAN_COPULA_REPRESENTATION`.
+- Field `schema_version: str`; default expression `DEPENDENCE_SCHEMA_VERSION`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> 'MatrixCorrelation'`; `classmethod`.
+- `definition_hash(self) -> str`; `property`.
+
+- `dependence_from_dict(data: dict[str, Any]) -> DependenceSpec`
+
+## ncmemsim.ensemble.distributions
+
+`ncmemsim/ensemble/distributions.py`
+
+Explicit exports: `ConstantDistribution`, `DistributionSpec`, `FiniteDiscreteDistribution`, `LogNormalDistribution`, `NormalDistribution`, `TruncatedNormalDistribution`, `UniformDistribution`, `distribution_from_dict`
+
+### ConstantDistribution
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `value: float`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `definition_hash(self) -> str`; `property`.
+
+### NormalDistribution
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `mean: float`; required declaration.
+- Field `standard_deviation: float`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `definition_hash(self) -> str`; `property`.
+
+### TruncatedNormalDistribution
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `mean: float`; required declaration.
+- Field `standard_deviation: float`; required declaration.
+- Field `lower: float`; required declaration.
+- Field `upper: float`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `definition_hash(self) -> str`; `property`.
+
+### UniformDistribution
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `lower: float`; required declaration.
+- Field `upper: float`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `definition_hash(self) -> str`; `property`.
+
+### LogNormalDistribution
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `median: float`; required declaration.
+- Field `geometric_standard_deviation: float`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `definition_hash(self) -> str`; `property`.
+
+### FiniteDiscreteDistribution
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `values: tuple[float, ...]`; required declaration.
+- Field `probabilities: tuple[float, ...]`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `definition_hash(self) -> str`; `property`.
+
+- `distribution_from_dict(data: dict[str, Any]) -> 'DistributionSpec'`
+
+## ncmemsim.ensemble.dtco
+
+`ncmemsim/ensemble/dtco.py`
+
+Explicit exports: `EnsembleConstraint`, `EnsembleConstraintEvaluation`, `EnsembleDTCOStudy`, `EnsembleEligibilityResult`, `EnsembleObjective`, `EnsembleParetoAnalysisResult`, `EnsembleParetoPointResult`, `EnsembleScalarDefinition`, `EnsembleScalarEvaluation`, `EnsembleScalarKind`, `analyze_ensemble_pareto`, `evaluate_ensemble_constraint`, `evaluate_ensemble_eligibility`, `evaluate_ensemble_scalar`
+
+### EnsembleScalarKind
+
+Bases: `str`, `Enum`.
+
+- Assignment `MEAN = 'mean'`.
+- Assignment `STANDARD_DEVIATION = 'standard_deviation'`.
+- Assignment `MINIMUM = 'minimum'`.
+- Assignment `MAXIMUM = 'maximum'`.
+- Assignment `MEDIAN = 'median'`.
+- Assignment `QUANTILE = 'quantile'`.
+- Assignment `COVERAGE_FRACTION = 'coverage_fraction'`.
+- Assignment `SIMULATED_PASS_FRACTION = 'simulated_pass_fraction'`.
+- Assignment `ENSEMBLE_FEASIBILITY_FRACTION = 'ensemble_feasibility_fraction'`.
+- Assignment `FAILURE_FRACTION = 'failure_fraction'`.
+
+### EnsembleDTCOStudy
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `design_point: SweepPoint`; required declaration.
+- Field `source: EnsembleFeasibilitySummary`; required declaration.
+- `experiment_hash(self) -> str`; `property`.
+- `point_hash(self) -> str`; `property`.
+- `index(self) -> int`; `property`.
+- `assignments(self) -> dict[str, ScalarValue]`; `property`.
+- `source_result_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `study_hash(self) -> str`; `property`.
+
+### EnsembleScalarDefinition
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `kind: EnsembleScalarKind`; required declaration.
+- Field `unit: str`; required declaration.
+- Field `metric_name: str | None`; default expression `None`.
+- Field `quantile: float | None`; default expression `None`.
+- `to_dict(self) -> dict[str, Any]`.
+- `definition_hash(self) -> str`; `property`.
+
+### EnsembleScalarEvaluation
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `study: EnsembleDTCOStudy`; required declaration.
+- Field `definition: EnsembleScalarDefinition`; required declaration.
+- Field `status: str`; required declaration.
+- Field `value: float | None`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `evaluation_hash(self) -> str`; `property`.
+
+- `evaluate_ensemble_scalar(study: EnsembleDTCOStudy, definition: EnsembleScalarDefinition) -> EnsembleScalarEvaluation`
+### EnsembleConstraint
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `scalar: EnsembleScalarDefinition`; required declaration.
+- Field `operator: ConstraintOperator`; required declaration.
+- Field `threshold: int | float`; required declaration.
+- Field `unit: str`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `definition_hash(self) -> str`; `property`.
+
+### EnsembleConstraintEvaluation
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `constraint: EnsembleConstraint`; required declaration.
+- Field `scalar_evaluation: EnsembleScalarEvaluation`; required declaration.
+- Field `status: str`; required declaration.
+- `study(self) -> EnsembleDTCOStudy`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `evaluation_hash(self) -> str`; `property`.
+
+- `evaluate_ensemble_constraint(study: EnsembleDTCOStudy, constraint: EnsembleConstraint) -> EnsembleConstraintEvaluation`
+### EnsembleEligibilityResult
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `study: EnsembleDTCOStudy`; required declaration.
+- Field `evaluations: tuple[EnsembleConstraintEvaluation, ...]`; required declaration.
+- Field `status: str`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `result_hash(self) -> str`; `property`.
+
+- `evaluate_ensemble_eligibility(study: EnsembleDTCOStudy, constraints) -> EnsembleEligibilityResult`
+### EnsembleObjective
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `scalar: EnsembleScalarDefinition`; required declaration.
+- Field `direction: ObjectiveDirection`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `definition_hash(self) -> str`; `property`.
+
+### EnsembleParetoPointResult
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: EnsembleEligibilityResult`; required declaration.
+- Field `rank: int | None`; required declaration.
+- Field `objective_values: tuple[tuple[str, float], ...]`; default expression `()`.
+- Field `exclusion_reason: str | None`; default expression `None`.
+- `study(self) -> EnsembleDTCOStudy`; `property`.
+- `objectives(self) -> dict[str, float]`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+
+### EnsembleParetoAnalysisResult
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `objectives: tuple[EnsembleObjective, ...]`; required declaration.
+- Field `source_results: tuple[EnsembleEligibilityResult, ...]`; required declaration.
+- Field `points: tuple[EnsembleParetoPointResult, ...]`; required declaration.
+- Field `fronts: tuple[tuple[int, ...], ...]`; required declaration.
+- `pareto_indices(self) -> tuple[int, ...]`; `property`.
+- `ranked_count(self) -> int`; `property`.
+- `excluded_count(self) -> int`; `property`.
+- `definition_hash(self) -> str`; `property`.
+- `analysis_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `result_hash(self) -> str`; `property`.
+
+- `analyze_ensemble_pareto(source_results, objectives, *, name: str='pareto') -> EnsembleParetoAnalysisResult`
+
+## ncmemsim.ensemble.execution
+
+`ncmemsim/ensemble/execution.py`
+
+Explicit exports: `EXECUTION_SCHEMA_VERSION`, `EnsembleEvaluator`, `EnsembleExecutionResult`, `RealizationExecutionPoint`, `execute_sample_manifest`
+
+### RealizationExecutionPoint
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `identity: RealizationIdentity`; required declaration.
+- Field `status: str`; required declaration.
+- Field `assignments: tuple[RealizationAssignment, ...]`; default expression `()`.
+- Field `realized_device_hash: str | None`; default expression `None`.
+- Field `realized_operating_hash: str | None`; default expression `None`.
+- Field `realized_context_json: str | None`; default expression `None`.
+- Field `output_json: str | None`; default expression `None`.
+- Field `failure_stage: str | None`; default expression `None`.
+- Field `failure_category: str | None`; default expression `None`.
+- Field `error_type: str | None`; default expression `None`.
+- Field `error_message: str | None`; default expression `None`.
+- `output(self) -> dict[str, Any] | None`; `property`.
+- `realized_context(self) -> dict[str, Any] | None`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `result_hash(self) -> str`; `property`.
+
+### EnsembleExecutionResult
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `manifest: SampleManifest`; required declaration.
+- Field `execution_json: str`; required declaration.
+- Field `points: tuple[RealizationExecutionPoint, ...]`; required declaration.
+- `success_count(self) -> int`; `property`.
+- `failure_count(self) -> int`; `property`.
+- `execution_hash(self) -> str`; `property`.
+- `nominal_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `to_json(self) -> str`.
+- `result_hash(self) -> str`; `property`.
+
+- `execute_sample_manifest(manifest: SampleManifest, base_device: Device, evaluator: EnsembleEvaluator, *, evaluation_id: str, evaluation_parameters: dict[str, Any] | None=None, base_operating_protocol: OperatingProtocol | None=None) -> EnsembleExecutionResult`
+
+## ncmemsim.ensemble.feasibility
+
+`ncmemsim/ensemble/feasibility.py`
+
+Explicit exports: `EnsembleFeasibilitySummary`, `NominalMetricComparison`, `NominalMetricReference`, `summarize_ensemble_feasibility`
+
+### NominalMetricReference
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `metric_name: str`; required declaration.
+- Field `unit: str`; required declaration.
+- Field `nominal_value: float`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `reference_hash(self) -> str`; `property`.
+
+### NominalMetricComparison
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `reference: NominalMetricReference`; required declaration.
+- Field `denominator: int`; required declaration.
+- Field `population_mean: float | None`; required declaration.
+- Field `population_median: float | None`; required declaration.
+- Field `mean_delta: float | None`; required declaration.
+- Field `median_delta: float | None`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `comparison_hash(self) -> str`; `property`.
+
+### EnsembleFeasibilitySummary
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: EnsemblePopulationStatistics`; required declaration.
+- Field `nominal_references: tuple[NominalMetricReference, ...]`; required declaration.
+- Field `comparisons: tuple[NominalMetricComparison, ...]`; required declaration.
+- Field `runtime_json: str`; default expression `field(init=False, repr=False)`.
+- `attempted_count(self) -> int`; `property`.
+- `assessed_count(self) -> int`; `property`.
+- `feasible_count(self) -> int`; `property`.
+- `infeasible_count(self) -> int`; `property`.
+- `failed_count(self) -> int`; `property`.
+- `simulated_pass_fraction(self) -> float`; `property`.
+- `ensemble_feasibility_fraction(self) -> float | None`; `property`.
+- `failure_fraction(self) -> float`; `property`.
+- `runtime(self) -> dict[str, str]`; `property`.
+- `analysis_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `result_hash(self) -> str`; `property`.
+
+- `summarize_ensemble_feasibility(source: EnsemblePopulationStatistics, nominal_references: tuple[NominalMetricReference, ...]=()) -> EnsembleFeasibilitySummary`
+
+## ncmemsim.ensemble.metrics
+
+`ncmemsim/ensemble/metrics.py`
+
+Explicit exports: `EnsembleMetricAnalysisResult`, `EnsembleMetricPointResult`, `analyze_ensemble_execution`
+
+### EnsembleMetricPointResult
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: RealizationExecutionPoint`; required declaration.
+- Field `status: str`; required declaration.
+- Field `metric_values: tuple[tuple[str, float], ...]`; default expression `()`.
+- Field `constraints: tuple[ConstraintEvaluation, ...]`; default expression `()`.
+- Field `failure_stage: str | None`; default expression `None`.
+- Field `failure_category: str | None`; default expression `None`.
+- Field `error_type: str | None`; default expression `None`.
+- Field `error_message: str | None`; default expression `None`.
+- `metrics(self) -> dict[str, float]`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `result_hash(self) -> str`; `property`.
+
+### EnsembleMetricAnalysisResult
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `spec: MetricAnalysisSpec`; required declaration.
+- Field `source: EnsembleExecutionResult`; required declaration.
+- Field `points: tuple[EnsembleMetricPointResult, ...]`; required declaration.
+- `analysis_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `result_hash(self) -> str`; `property`.
+
+- `analyze_ensemble_execution(execution: EnsembleExecutionResult, spec: MetricAnalysisSpec) -> EnsembleMetricAnalysisResult`
+
+## ncmemsim.ensemble.realization
+
+`ncmemsim/ensemble/realization.py`
+
+Explicit exports: `REALIZATION_ID_SCHEMA_VERSION`, `RealizationIdentity`, `SampleDomainValidationError`, `validate_sample_domain`, `AppliedRealization`, `RealizationAssignment`, `apply_sample_to_context`
+
+### SampleDomainValidationError
+
+Bases: `ValueError`.
+
+Constructor: `__init__(self, *, sampling_spec_hash: str, sample_id: str, sample_index: int, variable_name: str, value: float, physical_domain: PhysicalDomain) -> None`.
+
+
+- `validate_sample_domain(sample: EnsembleSample, sampling_spec: SamplingSpec) -> None`
+### RealizationIdentity
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `sampling_spec_hash: str`; required declaration.
+- Field `ensemble_spec_hash: str`; required declaration.
+- Field `sample_id: str`; required declaration.
+- Field `sample_hash: str`; required declaration.
+- Field `sample_index: int`; required declaration.
+- Field `base_device_hash: str`; required declaration.
+- Field `base_operating_hash: str | None`; required declaration.
+- Field `schema_version: str`; default expression `REALIZATION_ID_SCHEMA_VERSION`.
+- `from_sample(cls, sampling_spec: SamplingSpec, sample: EnsembleSample) -> 'RealizationIdentity'`; `classmethod`.
+- `realization_id(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> 'RealizationIdentity'`; `classmethod`.
+
+### RealizationAssignment
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `variable_name: str`; required declaration.
+- Field `binding: ParameterBinding`; required declaration.
+- Field `unit: str`; required declaration.
+- Field `value: float`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+
+### AppliedRealization
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `identity: RealizationIdentity`; required declaration.
+- Field `device: Device`; required declaration.
+- Field `operating_protocol: OperatingProtocol | None`; required declaration.
+- Field `assignments: tuple[RealizationAssignment, ...]`; required declaration.
+- Field `realized_device_hash: str`; required declaration.
+- Field `realized_operating_hash: str | None`; required declaration.
+- `require_integrity(self) -> None`.
+
+- `apply_sample_to_context(sampling_spec: SamplingSpec, sample: EnsembleSample, base_device: Device, base_operating_protocol: OperatingProtocol | None=None) -> AppliedRealization`
+
+## ncmemsim.ensemble.reporting
+
+`ncmemsim/ensemble/reporting.py`
+
+Explicit exports: `EnsembleReport`, `EnsembleReportStudy`, `build_ensemble_report`, `write_ensemble_report`
+
+### EnsembleReportStudy
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `execution: EnsembleExecutionResult`; required declaration.
+- Field `metric_analysis: EnsembleMetricAnalysisResult`; required declaration.
+- Field `population_statistics: EnsemblePopulationStatistics`; required declaration.
+- Field `feasibility: EnsembleFeasibilitySummary`; required declaration.
+- Field `study: EnsembleDTCOStudy`; required declaration.
+- Field `eligibility: EnsembleEligibilityResult`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `result_hash(self) -> str`; `property`.
+
+### EnsembleReport
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `payload_json: str`; required declaration.
+- `report_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `to_json(self) -> str`.
+- `samples_csv(self) -> str`.
+- `statistics_csv(self) -> str`.
+- `feasibility_csv(self) -> str`.
+- `eligibility_csv(self) -> str`.
+- `pareto_csv(self) -> str`.
+- `to_markdown(self) -> str`.
+- `from_json(cls, value: str) -> 'EnsembleReport'`; `classmethod`.
+
+- `build_ensemble_report(studies: Iterable[EnsembleReportStudy], *, name: str='Phase K ensemble report', pareto: EnsembleParetoAnalysisResult | None=None, metadata: dict[str, Any] | None=None) -> EnsembleReport`
+- `write_ensemble_report(report: EnsembleReport, output_dir: str | Path) -> tuple[Path, ...]`
+
+## ncmemsim.ensemble.rng
+
+`ncmemsim/ensemble/rng.py`
+
+Explicit exports: `BIT_GENERATOR`, `RNG_ALGORITHM`, `RNG_FAMILY`, `RNG_SCHEMA_VERSION`, `RNGSpec`
+
+### RNGSpec
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `seed: int`; required declaration.
+- Field `family: str`; default expression `RNG_FAMILY`.
+- Field `bit_generator: str`; default expression `BIT_GENERATOR`.
+- Field `algorithm: str`; default expression `RNG_ALGORITHM`.
+- Field `schema_version: str`; default expression `RNG_SCHEMA_VERSION`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> 'RNGSpec'`; `classmethod`.
+- `definition_hash(self) -> str`; `property`.
+- `create_generator(self) -> np.random.Generator`.
+
+
+## ncmemsim.ensemble.sampling
+
+`ncmemsim/ensemble/sampling.py`
+
+Explicit exports: `EnsembleSample`, `SAMPLING_ORDER`, `SAMPLING_PRECISION`, `SAMPLING_SCHEMA_VERSION`, `SAMPLE_ID_SCHEMA_VERSION`, `SAMPLE_SCHEMA_VERSION`, `SCALAR_SAMPLING_ALGORITHM`, `SamplingError`, `SamplingSpec`, `sample_distribution`, `MANIFEST_SCHEMA_VERSION`, `SAMPLE_TABLE_SCHEMA_VERSION`, `SampleGenerationError`, `SampleManifest`, `generate_sample_manifest`
+
+### SamplingError
+
+Bases: `ValueError`.
+
+Constructor: `__init__(self, family: str, reason: str, *, attempts: int | None=None) -> None`.
+
+
+- `sample_distribution(distribution: DistributionSpec, rng: np.random.Generator, *, max_draws_per_value: int=10000) -> float`
+### SamplingSpec
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `ensemble_spec: EnsembleSpec`; required declaration.
+- Field `rng: RNGSpec`; required declaration.
+- Field `sample_count: int`; required declaration.
+- Field `dependence: DependenceSpec`; default expression `field(default_factory=IndependentDependence)`.
+- Field `max_draws_per_value: int`; default expression `10000`.
+- Field `scalar_sampling_algorithm: str`; default expression `SCALAR_SAMPLING_ALGORITHM`.
+- Field `order: str`; default expression `SAMPLING_ORDER`.
+- Field `precision: str`; default expression `SAMPLING_PRECISION`.
+- Field `schema_version: str`; default expression `SAMPLING_SCHEMA_VERSION`.
+- `dependence_sampling_algorithm(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> 'SamplingSpec'`; `classmethod`.
+- `definition_hash(self) -> str`; `property`.
+
+### EnsembleSample
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `sampling_spec_hash: str`; required declaration.
+- Field `sample_index: int`; required declaration.
+- Field `variable_names: tuple[str, ...]`; required declaration.
+- Field `values: tuple[float, ...]`; required declaration.
+- Field `schema_version: str`; default expression `SAMPLE_SCHEMA_VERSION`.
+- `from_values(cls, sampling_spec: SamplingSpec, sample_index: int, values: tuple[float, ...] | list[float]) -> 'EnsembleSample'`; `classmethod`.
+- `sample_id(self) -> str`; `property`.
+- `sample_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> 'EnsembleSample'`; `classmethod`.
+- `require_matches_spec(self, sampling_spec: SamplingSpec) -> None`.
+
+### SampleGenerationError
+
+Bases: `ValueError`.
+
+Constructor: `__init__(self, sampling_spec_hash: str, sample_index: int, variable_name: str, cause: SamplingError) -> None`.
+
+
+### SampleManifest
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `sampling_spec: SamplingSpec`; required declaration.
+- Field `samples: tuple[EnsembleSample, ...]`; required declaration.
+- Field `runtime: tuple[tuple[str, str], ...]`; required declaration.
+- Field `schema_version: str`; default expression `MANIFEST_SCHEMA_VERSION`.
+- `sample_table_hash(self) -> str`; `property`.
+- `manifest_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> 'SampleManifest'`; `classmethod`.
+- `to_json(self) -> str`.
+- `from_json(cls, text: str) -> 'SampleManifest'`; `classmethod`.
+
+- `generate_sample_manifest(sampling_spec: SamplingSpec) -> SampleManifest`
+
+## ncmemsim.ensemble.spec
+
+`ncmemsim/ensemble/spec.py`
+
+Explicit exports: `PhysicalDomain`, `StochasticVariable`
+
+### PhysicalDomain
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `lower: float | None`; default expression `None`.
+- Field `upper: float | None`; default expression `None`.
+- Field `lower_inclusive: bool`; default expression `True`.
+- Field `upper_inclusive: bool`; default expression `True`.
+- `from_dict(cls, data: dict[str, Any]) -> 'PhysicalDomain'`; `classmethod`.
+- `contains(self, value: float) -> bool`.
+- `to_dict(self) -> dict[str, Any]`.
+- `definition_hash(self) -> str`; `property`.
+
+### StochasticVariable
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `binding: ParameterBinding`; required declaration.
+- Field `distribution: DistributionSpec`; required declaration.
+- Field `unit: str`; required declaration.
+- Field `physical_domain: PhysicalDomain`; required declaration.
+- Field `provenance: ParameterProvenance`; required declaration.
+- Field `applicability: str`; required declaration.
+- Field `nominal_value: float | None`; default expression `None`.
+- Field `nominal_value_source: str`; default expression `'binding_context'`.
+- Field `schema_version: str`; default expression `'ensemble-variable-v1'`.
+- `from_dict(cls, data: dict[str, Any]) -> 'StochasticVariable'`; `classmethod`.
+- `to_dict(self) -> dict[str, Any]`.
+- `definition_hash(self) -> str`; `property`.
+
+
+## ncmemsim.ensemble.specification
+
+`ncmemsim/ensemble/specification.py`
+
+Explicit exports: `EnsembleSpec`
+
+### EnsembleSpec
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `base_device_hash: str`; required declaration.
+- Field `variables: tuple[StochasticVariable, ...]`; required declaration.
+- Field `base_device_name: str | None`; default expression `None`.
+- Field `description: str | None`; default expression `None`.
+- Field `base_operating_hash: str | None`; default expression `None`.
+- Field `base_operating_kind: str | None`; default expression `None`.
+- Field `schema_version: str`; default expression `'ensemble-spec-v1'`.
+- `from_device(cls, *, name: str, device: Device, variables: Iterable[StochasticVariable], description: str | None=None, operating_protocol: Any | None=None) -> 'EnsembleSpec'`; `classmethod`.
+- `from_dict(cls, data: dict[str, Any]) -> 'EnsembleSpec'`; `classmethod`.
+- `to_dict(self) -> dict[str, Any]`.
+- `definition_hash(self) -> str`; `property`.
+- `variable_names(self) -> tuple[str, ...]`; `property`.
+- `matches_device(self, device: Device) -> bool`.
+- `require_matching_device(self, device: Device) -> None`.
+- `matches_operating(self, operating_protocol: Any) -> bool`.
+- `require_matching_operating(self, operating_protocol: Any) -> None`.
+
+
+## ncmemsim.ensemble.statistics
+
+`ncmemsim/ensemble/statistics.py`
+
+Explicit exports: `EnsemblePopulationStatistics`, `EnsembleStatisticsSpec`, `MetricPopulationSummary`
+
+### EnsembleStatisticsSpec
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `quantiles: tuple[float, ...]`; default expression `(0.05, 0.5, 0.95)`.
+- `to_dict(self) -> dict[str, Any]`.
+- `definition_hash(self) -> str`; `property`.
+
+### MetricPopulationSummary
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `metric_name: str`; required declaration.
+- Field `unit: str`; required declaration.
+- Field `denominator: int`; required declaration.
+- Field `sample_indices: tuple[int, ...]`; required declaration.
+- Field `realization_ids: tuple[str, ...]`; required declaration.
+- Field `minimum: float | None`; required declaration.
+- Field `maximum: float | None`; required declaration.
+- Field `mean: float | None`; required declaration.
+- Field `variance: float | None`; required declaration.
+- Field `standard_deviation: float | None`; required declaration.
+- Field `median: float | None`; required declaration.
+- Field `quantiles: tuple[tuple[float, float | None], ...]`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `summary_hash(self) -> str`; `property`.
+
+### EnsemblePopulationStatistics
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `spec: EnsembleStatisticsSpec`; required declaration.
+- Field `source: EnsembleMetricAnalysisResult`; required declaration.
+- Field `metric_statistics: tuple[MetricPopulationSummary, ...]`; required declaration.
+- Field `runtime_json: str`; default expression `field(init=False, repr=False)`.
+- `runtime(self) -> dict[str, str]`; `property`.
+- `attempted_count(self) -> int`; `property`.
+- `assessed_count(self) -> int`; `property`.
+- `feasible_count(self) -> int`; `property`.
+- `infeasible_count(self) -> int`; `property`.
+- `failed_count(self) -> int`; `property`.
+- `coverage_fraction(self) -> float`; `property`.
+- `analysis_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `result_hash(self) -> str`; `property`.
+
+- `summarize_ensemble_metrics(source: EnsembleMetricAnalysisResult, spec: EnsembleStatisticsSpec) -> EnsemblePopulationStatistics`
 
 ## ncmemsim.experimental
 
