@@ -22,9 +22,14 @@ from ncmemsim._version import __version__
 from ncmemsim.dtco import (
     AppliedExperimentPoint,
     BindingScope,
+    ConstraintOperator,
     DesignVariable,
     DesignVariableRole,
     ExperimentSpec,
+    MetricAnalysisSpec,
+    MetricConstraint,
+    MetricDefinition,
+    ObjectiveDirection,
     ParameterBinding,
     SweepPoint,
     apply_experiment_point,
@@ -32,15 +37,23 @@ from ncmemsim.dtco import (
 )
 from ncmemsim.ensemble import (
     EnsembleExecutionResult,
+    EnsembleFeasibilitySummary,
+    EnsembleMetricAnalysisResult,
+    EnsemblePopulationStatistics,
     EnsembleSpec,
+    EnsembleStatisticsSpec,
+    NominalMetricReference,
     NormalDistribution,
     PhysicalDomain,
     RNGSpec,
     SampleManifest,
     SamplingSpec,
     StochasticVariable,
+    analyze_ensemble_execution,
     execute_sample_manifest,
     generate_sample_manifest,
+    summarize_ensemble_feasibility,
+    summarize_ensemble_metrics,
 )
 from ncmemsim.materials.provenance import (
     ParameterProvenance,
@@ -87,6 +100,16 @@ class ReferenceExecutionCase:
 
     ensemble_case: ReferenceEnsembleCase
     execution: EnsembleExecutionResult
+
+
+@dataclass(frozen=True)
+class ReferenceAnalysisCase:
+    """One K6c design point with its immutable K4a-K4c analysis chain."""
+
+    execution_case: ReferenceExecutionCase
+    metric_analysis: EnsembleMetricAnalysisResult
+    population_statistics: EnsemblePopulationStatistics
+    feasibility: EnsembleFeasibilitySummary
 
 
 def _diameter_provenance() -> ParameterProvenance:
@@ -404,8 +427,195 @@ def build_reference_executions(
 
     return tuple(executions)
 
+
+def _metric_analysis_spec() -> MetricAnalysisSpec:
+    """Return the frozen six-metric K6c K4 analysis contract."""
+
+    return MetricAnalysisSpec(
+        name="phase-k6c-ensemble-dtco-reference-metrics",
+        metrics=(
+            MetricDefinition(
+                "shift_magnitude",
+                ("shift_magnitude_V",),
+                "V",
+                ObjectiveDirection.MAXIMIZE,
+            ),
+            MetricDefinition(
+                "occupation",
+                ("mean_occupation",),
+                "1",
+            ),
+            MetricDefinition(
+                "nc_diameter",
+                ("nc_diameter_nm",),
+                "nm",
+            ),
+            MetricDefinition(
+                "active_fraction",
+                ("electrically_active_fraction",),
+                "1",
+            ),
+            MetricDefinition(
+                "program_voltage",
+                ("program_voltage_V",),
+                "V",
+            ),
+            MetricDefinition(
+                "tunnel_thickness",
+                ("tunnel_thickness_nm",),
+                "nm",
+            ),
+        ),
+        constraints=(
+            MetricConstraint(
+                "occupation_min",
+                "occupation",
+                ConstraintOperator.GE,
+                0.0,
+                "1",
+            ),
+            MetricConstraint(
+                "occupation_max",
+                "occupation",
+                ConstraintOperator.LE,
+                1.0,
+                "1",
+            ),
+            MetricConstraint(
+                "active_fraction_min",
+                "active_fraction",
+                ConstraintOperator.GE,
+                0.0,
+                "1",
+            ),
+            MetricConstraint(
+                "active_fraction_max",
+                "active_fraction",
+                ConstraintOperator.LE,
+                1.0,
+                "1",
+            ),
+        ),
+    )
+
+
+def _nominal_payload(
+    execution_case: ReferenceExecutionCase,
+    config: SimulationConfig,
+) -> dict[str, object]:
+    """Evaluate the point-specific nominal device without stochastic variation."""
+
+    case = execution_case.ensemble_case
+    candidate = case.applied.device
+    candidate_protocol = case.applied.operating_protocol
+
+    pulse = run_program_pulse_read(
+        Simulator(
+            candidate,
+            config=config,
+        ),
+        candidate_protocol,
+    )
+    payload = pulse.to_dict()
+    payload["shift_magnitude_V"] = abs(
+        pulse.delta_vfb_V
+    )
+    payload["nc_diameter_nm"] = float(
+        candidate.floating_gates()[0].nc_diameter_nm
+    )
+    payload["electrically_active_fraction"] = float(
+        candidate.floating_gates()[0].electrically_active_fraction
+    )
+    payload["program_voltage_V"] = float(
+        candidate_protocol.program_voltage_V
+    )
+    payload["tunnel_thickness_nm"] = float(
+        candidate.get_layer("tunnel_sio2").thickness_nm
+    )
+    return payload
+
+
+def build_reference_analyses(
+    *,
+    sample_count: int = REFERENCE_SAMPLE_COUNT,
+    seed: int = REFERENCE_SEED,
+) -> tuple[ReferenceAnalysisCase, ...]:
+    """Build the complete K4a-K4c chain for all nine K6c design points."""
+
+    execution_cases = build_reference_executions(
+        sample_count=sample_count,
+        seed=seed,
+    )
+    metric_spec = _metric_analysis_spec()
+    statistics_spec = EnsembleStatisticsSpec()
+    config = SimulationConfig()
+
+    analyses: list[ReferenceAnalysisCase] = []
+
+    for execution_case in execution_cases:
+        metric_analysis = analyze_ensemble_execution(
+            execution_case.execution,
+            metric_spec,
+        )
+        statistics = summarize_ensemble_metrics(
+            metric_analysis,
+            statistics_spec,
+        )
+
+        nominal = _nominal_payload(
+            execution_case,
+            config,
+        )
+        nominal_references = (
+            NominalMetricReference(
+                "shift_magnitude",
+                "V",
+                float(nominal["shift_magnitude_V"]),
+            ),
+            NominalMetricReference(
+                "occupation",
+                "1",
+                float(nominal["mean_occupation"]),
+            ),
+            NominalMetricReference(
+                "nc_diameter",
+                "nm",
+                NOMINAL_DIAMETER_NM,
+            ),
+            NominalMetricReference(
+                "active_fraction",
+                "1",
+                NOMINAL_ACTIVE_FRACTION,
+            ),
+            NominalMetricReference(
+                "program_voltage",
+                "V",
+                float(nominal["program_voltage_V"]),
+            ),
+            NominalMetricReference(
+                "tunnel_thickness",
+                "nm",
+                float(nominal["tunnel_thickness_nm"]),
+            ),
+        )
+        feasibility = summarize_ensemble_feasibility(
+            statistics,
+            nominal_references=nominal_references,
+        )
+
+        analyses.append(
+            ReferenceAnalysisCase(
+                execution_case=execution_case,
+                metric_analysis=metric_analysis,
+                population_statistics=statistics,
+                feasibility=feasibility,
+            )
+        )
+
+    return tuple(analyses)
+
 def main() -> None:
-    """Run the complete K6c K3 reference and print execution summaries."""
+    """Run the complete K6c K4 reference and print point/population summaries."""
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -421,22 +631,30 @@ def main() -> None:
     args = parser.parse_args()
 
     _, _, experiment, _ = build_reference_design_space()
-    execution_cases = build_reference_executions(
+    analysis_cases = build_reference_analyses(
         sample_count=args.sample_count,
         seed=args.seed,
     )
 
     attempted = sum(
-        len(item.execution.points)
-        for item in execution_cases
+        item.feasibility.attempted_count
+        for item in analysis_cases
     )
-    success = sum(
-        item.execution.success_count
-        for item in execution_cases
+    assessed = sum(
+        item.feasibility.assessed_count
+        for item in analysis_cases
+    )
+    feasible = sum(
+        item.feasibility.feasible_count
+        for item in analysis_cases
+    )
+    infeasible = sum(
+        item.feasibility.infeasible_count
+        for item in analysis_cases
     )
     failed = sum(
-        item.execution.failure_count
-        for item in execution_cases
+        item.feasibility.failed_count
+        for item in analysis_cases
     )
 
     print("experiment_hash:", experiment.experiment_hash)
@@ -444,21 +662,28 @@ def main() -> None:
     print("sample_count:", args.sample_count)
     print("seed:", args.seed)
 
-    for item in execution_cases:
-        case = item.ensemble_case
+    for item in analysis_cases:
+        case = item.execution_case.ensemble_case
+        feasibility = item.feasibility
         print(
             case.point.index,
             case.point.assignments,
             "manifest_hash=",
             case.manifest.manifest_hash,
-            "success=",
-            item.execution.success_count,
+            "assessed=",
+            feasibility.assessed_count,
+            "feasible=",
+            feasibility.feasible_count,
             "failed=",
-            item.execution.failure_count,
+            feasibility.failed_count,
+            "simulated_pass_fraction=",
+            feasibility.simulated_pass_fraction,
         )
 
     print("attempted:", attempted)
-    print("success:", success)
+    print("assessed:", assessed)
+    print("feasible:", feasible)
+    print("infeasible:", infeasible)
     print("failed:", failed)
 
 

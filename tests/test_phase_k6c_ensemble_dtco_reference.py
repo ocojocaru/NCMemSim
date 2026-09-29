@@ -1,4 +1,4 @@
-"""Tests for Phase K6c design, paired manifests and real K3 execution."""
+"""Tests for Phase K6c design, K3 execution and K4 population analysis."""
 
 import math
 
@@ -10,6 +10,7 @@ from examples.phase_k6c_ensemble_dtco_reference import (
     PROGRAM_VOLTAGE_VALUES_V,
     REFERENCE_SAMPLE_COUNT,
     TUNNEL_THICKNESS_VALUES_NM,
+    build_reference_analyses,
     build_reference_design_space,
     build_reference_ensemble_cases,
     build_reference_executions,
@@ -258,7 +259,127 @@ def test_k6c_k3_execution_metadata_identifies_each_design_point(
 
 
 
-def test_k6c_main_runs_complete_k3_reference(monkeypatch, capsys):
+@pytest.fixture(scope="module")
+def analysis_cases():
+    return build_reference_analyses()
+
+
+def test_k6c_k4_metric_contract_is_complete_and_ordered(analysis_cases):
+    assert len(analysis_cases) == 9
+
+    expected_metrics = (
+        ("shift_magnitude", "V"),
+        ("occupation", "1"),
+        ("nc_diameter", "nm"),
+        ("active_fraction", "1"),
+        ("program_voltage", "V"),
+        ("tunnel_thickness", "nm"),
+    )
+    expected_constraints = (
+        "occupation_min",
+        "occupation_max",
+        "active_fraction_min",
+        "active_fraction_max",
+    )
+
+    for item in analysis_cases:
+        spec = item.metric_analysis.spec
+        assert tuple(
+            (metric.name, metric.unit)
+            for metric in spec.metrics
+        ) == expected_metrics
+        assert tuple(
+            constraint.name
+            for constraint in spec.constraints
+        ) == expected_constraints
+
+
+def test_k6c_k4_population_counts_and_feasibility_are_complete(
+    analysis_cases,
+):
+    for item in analysis_cases:
+        statistics = item.population_statistics
+        feasibility = item.feasibility
+
+        assert statistics.attempted_count == REFERENCE_SAMPLE_COUNT
+        assert statistics.assessed_count == REFERENCE_SAMPLE_COUNT
+        assert statistics.feasible_count == REFERENCE_SAMPLE_COUNT
+        assert statistics.infeasible_count == 0
+        assert statistics.failed_count == 0
+        assert statistics.coverage_fraction == 1.0
+
+        assert feasibility.attempted_count == REFERENCE_SAMPLE_COUNT
+        assert feasibility.assessed_count == REFERENCE_SAMPLE_COUNT
+        assert feasibility.feasible_count == REFERENCE_SAMPLE_COUNT
+        assert feasibility.infeasible_count == 0
+        assert feasibility.failed_count == 0
+        assert feasibility.simulated_pass_fraction == 1.0
+        assert feasibility.ensemble_feasibility_fraction == 1.0
+        assert feasibility.failure_fraction == 0.0
+
+
+def test_k6c_k4_statistics_include_q05_and_constant_design_metrics(
+    analysis_cases,
+):
+    for item in analysis_cases:
+        point = item.execution_case.ensemble_case.point
+        summaries = {
+            summary.metric_name: summary
+            for summary in item.population_statistics.metric_statistics
+        }
+
+        assert tuple(summaries) == (
+            "shift_magnitude",
+            "occupation",
+            "nc_diameter",
+            "active_fraction",
+            "program_voltage",
+            "tunnel_thickness",
+        )
+
+        shift = summaries["shift_magnitude"]
+        assert shift.denominator == REFERENCE_SAMPLE_COUNT
+        q05 = dict(shift.quantiles)[0.05]
+        assert math.isfinite(q05)
+        assert q05 >= 0.0
+
+        assert summaries["program_voltage"].mean == (
+            point.assignments["program_voltage_V"]
+        )
+        assert summaries["tunnel_thickness"].mean == (
+            point.assignments["tunnel_thickness_nm"]
+        )
+
+
+def test_k6c_k4_nominal_references_are_point_specific_and_complete(
+    analysis_cases,
+):
+    for item in analysis_cases:
+        point = item.execution_case.ensemble_case.point
+        refs = {
+            reference.metric_name: reference
+            for reference in item.feasibility.nominal_references
+        }
+
+        assert tuple(refs) == (
+            "shift_magnitude",
+            "occupation",
+            "nc_diameter",
+            "active_fraction",
+            "program_voltage",
+            "tunnel_thickness",
+        )
+        assert refs["nc_diameter"].nominal_value == 5.0
+        assert refs["active_fraction"].nominal_value == 0.22
+        assert refs["program_voltage"].nominal_value == (
+            point.assignments["program_voltage_V"]
+        )
+        assert refs["tunnel_thickness"].nominal_value == (
+            point.assignments["tunnel_thickness_nm"]
+        )
+
+
+def test_k6c_main_runs_complete_k4_reference(monkeypatch, capsys):
     monkeypatch.setattr(
         "sys.argv",
         ["phase_k6c_ensemble_dtco_reference"],
@@ -273,5 +394,7 @@ def test_k6c_main_runs_complete_k3_reference(monkeypatch, capsys):
     assert "sample_count: 6" in output
     assert "seed: 2028" in output
     assert "attempted: 54" in output
-    assert "success: 54" in output
+    assert "assessed: 54" in output
+    assert "feasible: 54" in output
+    assert "infeasible: 0" in output
     assert "failed: 0" in output
