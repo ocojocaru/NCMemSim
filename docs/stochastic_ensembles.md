@@ -763,15 +763,14 @@ Studies compared in one K5 analysis must use compatible declared metric and popu
 
 ### K6 — Scientific reference studies and reproducible reports
 
-**Status: K6a complete; K6b next.**
+**Status: K6b complete; K6c next.**
 
 Provide controlled end-to-end examples, integrity-checked ensemble manifests, population summaries, failure accounting, plots/exports and interpretation limits.
 
 K6 is divided into three ordered subphases:
 
 - **K6a - ensemble reporting and integrity bundle - COMPLETE:** immutable Phase-K report snapshots with canonical JSON identity, exact K3-K5b source linkage, optional K5c Pareto linkage, nested integrity validation, exact JSON round-trip reconstruction, deterministic CSV/Markdown artifacts, and no-overwrite bundle writing.
-
-- **K6b - controlled single-parameter reference studies:** provide reproducible nanocrystal-diameter and trap/disorder variability studies using explicit stochastic specifications, fixed local RNG identity, preserved sample manifests, complete failure accounting and explicit scientific interpretation limits.
+- **K6b - controlled single-parameter reference studies - COMPLETE:** provide reproducible nanocrystal-diameter and electrically-active-fraction variability studies using explicit stochastic specifications, fixed local RNG identity, preserved sample manifests, complete failure accounting, real program/read solver execution and explicit scientific interpretation limits.
 - **K6c - multi-parameter ensemble DTCO reference:** provide an end-to-end variability-aware DTCO study linking explicit DTCO design points to immutable ensemble results, reusing the same exact manifest where cross-design comparison requires common stochastic draws, applying K5 eligibility and transparent Pareto analysis, and exporting the complete integrity-checked report bundle.
 
 K6a defines one canonical integrity-checked report bundle over an ordered collection of Phase-K studies. For each study the report retains the complete K3 `EnsembleExecutionResult` (which already embeds the exact K2 `SampleManifest`), the complete K4a `EnsembleMetricAnalysisResult`, the complete K4b `EnsemblePopulationStatistics`, the complete K4c `EnsembleFeasibilitySummary`, the explicit K5 `EnsembleDTCOStudy`, and the corresponding K5b `EnsembleEligibilityResult`. An optional K5c `EnsembleParetoAnalysisResult` may be attached only when its ordered source eligibility-result identities exactly match the report studies.
@@ -784,13 +783,17 @@ The immutable report snapshot has a deterministic report hash over its canonical
 
 K6a is implemented by `EnsembleReportStudy`, `EnsembleReport`, `build_ensemble_report` and `write_ensemble_report` in `ncmemsim.ensemble.reporting`, with the reporting API exported through `ncmemsim.ensemble`. The implementation retains the complete K3 execution result with its embedded K2 sample manifest, K4a metric analysis, K4b population statistics, K4c feasibility summary, explicit K5 DTCO study and K5b eligibility result, with optional K5c Pareto analysis linked by exact ordered source identities. Integrity validation checks nested hashes, adjacent source identities, counts, denominators, ordering and Pareto membership rather than trusting the outer report hash alone. The canonical artifact bundle is `manifest.json`, `samples.csv`, `statistics.csv`, `feasibility.csv`, `eligibility.csv`, `pareto.csv` and `report.md`; writers refuse any existing target before writing. K6a was frozen in commit `7592b89`, implemented incrementally in `3c4eca4`, `b5c2c84` and `438c1e8`, and exported through the public API in `f23c822`. The focused K6a gate completed with 45 passing tests.
 
+K6b is implemented by two controlled single-parameter scientific reference studies. `examples/phase_k6b_nc_diameter_variability.py` varies `FG1.nc_diameter_nm` around a 5.0 nm nominal value using an explicitly assumed normal distribution, a fixed local RNG seed and preserved sample manifest, while executing the real electrical program/read workflow and retaining the complete K3-K6a evidence chain. `examples/phase_k6b_active_fraction_variability.py` applies the same reference discipline to `FG1.electrically_active_fraction`, with an explicit physical domain of `[0, 1]`. Both studies are synthetic controlled references rather than experimentally calibrated process distributions, and their simulated pass fractions are not manufacturing-yield estimates. Each focused reference-study gate completed with 10 passing tests. The NC-diameter study was added in commit `fe9becc`, and the electrically-active-fraction study in `0bd102e`.
+
+A dedicated K6b audit also examined trap-assisted-transport variability. `TrapSpecies.density_m3` belongs to the MODEL/TAT configuration rather than the Device or operating protocol. Because the frozen K3 realization contract applies stochastic bindings to DEVICE and OPERATING scopes while MODEL bindings remain explicitly unsupported, K6b does not introduce a special trap-density binding merely for the reference study. Electrically-active-fraction variability is therefore used as the second controlled disorder reference without changing the frozen K3 architecture. Stochastic TAT/model-parameter variation would require an explicit future extension of the MODEL-binding contract.
+
 K6 reporting follows the established deterministic and Robust-DTCO reference conventions: repeated construction from identical inputs must reproduce the same report identity; every attempted realization and failure stage must remain represented; nested source identities must be validated rather than trusted from the outer hash alone; CSV artifacts must preserve units, denominators and exact JSON payloads; report snapshots are immutable; and report writers never overwrite existing targets. Plot files, when requested, are derived presentation artifacts and are not included in the canonical report hash.
 
-The planned scientific references are:
+The scientific references are:
 
-- nanocrystal-diameter variability;
-- trap/disorder variability;
-- multi-parameter ensemble DTCO.
+- nanocrystal-diameter variability - implemented in K6b;
+- electrically-active-fraction variability/disorder - implemented in K6b;
+- multi-parameter ensemble DTCO - planned for K6c.
 
 ### K7 — v1.2.0 compatibility review and release gates
 
