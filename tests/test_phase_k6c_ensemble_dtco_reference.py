@@ -1,8 +1,10 @@
-"""Tests for Phase K6c design, K3/K4 analysis and K5 eligibility/Pareto."""
+"""Tests for Phase K6c design, K3-K5 DTCO analysis and K6a reporting."""
 
 import math
 
 import pytest
+
+from ncmemsim.ensemble import write_ensemble_report
 
 from examples.phase_k6c_ensemble_dtco_reference import (
     NOMINAL_PROGRAM_VOLTAGE_V,
@@ -12,6 +14,8 @@ from examples.phase_k6c_ensemble_dtco_reference import (
     TUNNEL_THICKNESS_VALUES_NM,
     build_reference_analyses,
     build_reference_optimization,
+    build_reference_report_from_optimization,
+    build_reference_report_studies,
     build_reference_design_space,
     build_reference_ensemble_cases,
     build_reference_executions,
@@ -457,7 +461,69 @@ def test_k6c_k5_pareto_program_voltage_projection_matches_design(optimization):
         ] == case.study.assignments["program_voltage_V"]
 
 
-def test_k6c_main_runs_complete_k5_reference(monkeypatch, capsys):
+
+@pytest.fixture(scope="module")
+def report_studies(optimization):
+    return build_reference_report_studies(
+        optimization
+    )
+
+
+@pytest.fixture(scope="module")
+def report(optimization):
+    return build_reference_report_from_optimization(
+        optimization
+    )
+
+
+def test_k6c_k6a_report_studies_retain_ordered_k3_k5_chain(
+    optimization,
+    report_studies,
+):
+    assert len(report_studies) == 9
+
+    for case, study in zip(
+        optimization.eligibility_cases,
+        report_studies,
+        strict=True,
+    ):
+        analysis = case.analysis_case
+        assert study.execution is analysis.execution_case.execution
+        assert study.metric_analysis is analysis.metric_analysis
+        assert study.population_statistics is analysis.population_statistics
+        assert study.feasibility is analysis.feasibility
+        assert study.study is case.study
+        assert study.eligibility is case.eligibility
+
+
+def test_k6c_k6a_report_has_stable_hash_and_pareto_artifact(
+    report,
+    tmp_path,
+):
+    assert isinstance(report.report_hash, str)
+    assert len(report.report_hash) == 64
+
+    paths = write_ensemble_report(
+        report,
+        tmp_path / "k6c-report",
+    )
+    names = tuple(path.name for path in paths)
+
+    assert names == (
+        "manifest.json",
+        "samples.csv",
+        "statistics.csv",
+        "feasibility.csv",
+        "eligibility.csv",
+        "pareto.csv",
+        "report.md",
+    )
+    assert all(
+        path.exists() and path.stat().st_size > 0
+        for path in paths
+    )
+
+def test_k6c_main_runs_complete_k6a_reference(monkeypatch, capsys):
     monkeypatch.setattr(
         "sys.argv",
         ["phase_k6c_ensemble_dtco_reference"],
@@ -474,3 +540,4 @@ def test_k6c_main_runs_complete_k5_reference(monkeypatch, capsys):
     assert "pareto_ranked_count: 9" in output
     assert "pareto_excluded_count: 0" in output
     assert "pareto_indices:" in output
+    assert "report_hash:" in output

@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import asdict, dataclass
+from pathlib import Path
 import platform
 
 import numpy as np
@@ -45,6 +46,8 @@ from ncmemsim.ensemble import (
     EnsembleObjective,
     EnsembleParetoAnalysisResult,
     EnsemblePopulationStatistics,
+    EnsembleReport,
+    EnsembleReportStudy,
     EnsembleScalarDefinition,
     EnsembleScalarKind,
     EnsembleSpec,
@@ -58,11 +61,13 @@ from ncmemsim.ensemble import (
     StochasticVariable,
     analyze_ensemble_execution,
     analyze_ensemble_pareto,
+    build_ensemble_report,
     evaluate_ensemble_eligibility,
     execute_sample_manifest,
     generate_sample_manifest,
     summarize_ensemble_feasibility,
     summarize_ensemble_metrics,
+    write_ensemble_report,
 )
 from ncmemsim.materials.provenance import (
     ParameterProvenance,
@@ -741,8 +746,142 @@ def build_reference_optimization(
     )
 
 
+
+def build_reference_report_studies(
+    optimization: ReferenceOptimizationResult,
+) -> tuple[EnsembleReportStudy, ...]:
+    """Convert the complete K6c K3-K5 chain into ordered K6a report studies."""
+
+    if not isinstance(
+        optimization,
+        ReferenceOptimizationResult,
+    ):
+        raise TypeError(
+            "optimization must be a ReferenceOptimizationResult"
+        )
+
+    studies: list[EnsembleReportStudy] = []
+
+    for case in optimization.eligibility_cases:
+        analysis = case.analysis_case
+        studies.append(
+            EnsembleReportStudy(
+                execution=analysis.execution_case.execution,
+                metric_analysis=analysis.metric_analysis,
+                population_statistics=analysis.population_statistics,
+                feasibility=analysis.feasibility,
+                study=case.study,
+                eligibility=case.eligibility,
+            )
+        )
+
+    return tuple(studies)
+
+
+def build_reference_report_from_optimization(
+    optimization: ReferenceOptimizationResult,
+    *,
+    sample_count: int = REFERENCE_SAMPLE_COUNT,
+    seed: int = REFERENCE_SEED,
+) -> EnsembleReport:
+    """Build the canonical K6a report without re-running the K6c solver chain."""
+
+    studies = build_reference_report_studies(
+        optimization
+    )
+    return build_ensemble_report(
+        studies,
+        name="Phase K6c ensemble DTCO reference",
+        pareto=optimization.pareto,
+        metadata={
+            "workflow": (
+                "phase-k6c-ensemble-dtco-reference-v1"
+            ),
+            "reference_type": (
+                "controlled-multi-parameter-ensemble-dtco"
+            ),
+            "design_variables": {
+                "tunnel_thickness_nm": list(
+                    TUNNEL_THICKNESS_VALUES_NM
+                ),
+                "program_voltage_V": list(
+                    PROGRAM_VOLTAGE_VALUES_V
+                ),
+            },
+            "stochastic_variables": {
+                "FG1.nc_diameter_nm": {
+                    "distribution": "normal",
+                    "mean_nm": NOMINAL_DIAMETER_NM,
+                    "standard_deviation_nm": (
+                        DIAMETER_STANDARD_DEVIATION_NM
+                    ),
+                    "status": "assumed",
+                },
+                "FG1.electrically_active_fraction": {
+                    "distribution": "normal",
+                    "mean": NOMINAL_ACTIVE_FRACTION,
+                    "standard_deviation": (
+                        ACTIVE_FRACTION_STANDARD_DEVIATION
+                    ),
+                    "status": "assumed",
+                },
+            },
+            "stochastic_dependence": "independent",
+            "seed": seed,
+            "sample_count_per_design_point": (
+                sample_count
+            ),
+            "design_point_count": len(
+                optimization.eligibility_cases
+            ),
+            "solver_run_count": (
+                sample_count
+                * len(optimization.eligibility_cases)
+            ),
+            "common_random_numbers": (
+                "distinct point-bound manifests with identical "
+                "physical stochastic values at equal sample_index"
+            ),
+            "eligibility_definition": {
+                "failure_fraction_max": 0.0,
+                "simulated_pass_fraction_min": 1.0,
+            },
+            "pareto_objectives": (
+                "maximize q05(shift_magnitude); "
+                "minimize mean(program_voltage)"
+            ),
+            "interpretation": (
+                "synthetic assumed variability reference; "
+                "simulated pass fraction is not manufacturing yield"
+            ),
+            "q05_caveat": (
+                "q05 with the six-sample reference is a deterministic "
+                "comparison quantity, not a statistically converged "
+                "fabrication-tail estimate"
+            ),
+        },
+    )
+
+
+def build_reference_report(
+    *,
+    sample_count: int = REFERENCE_SAMPLE_COUNT,
+    seed: int = REFERENCE_SEED,
+) -> EnsembleReport:
+    """Build the complete K6c K3-K6a report from one solver execution chain."""
+
+    optimization = build_reference_optimization(
+        sample_count=sample_count,
+        seed=seed,
+    )
+    return build_reference_report_from_optimization(
+        optimization,
+        sample_count=sample_count,
+        seed=seed,
+    )
+
 def main() -> None:
-    """Run the complete K6c K5 reference and print eligibility/Pareto summaries."""
+    """Run the complete K6c K6a reference and optionally write canonical report artifacts."""
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -754,6 +893,10 @@ def main() -> None:
         "--seed",
         type=int,
         default=REFERENCE_SEED,
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
     )
     args = parser.parse_args()
 
@@ -798,6 +941,21 @@ def main() -> None:
     print("pareto_ranked_count:", optimization.pareto.ranked_count)
     print("pareto_excluded_count:", optimization.pareto.excluded_count)
     print("pareto_indices:", optimization.pareto.pareto_indices)
+
+    report = build_reference_report_from_optimization(
+        optimization,
+        sample_count=args.sample_count,
+        seed=args.seed,
+    )
+    print("report_hash:", report.report_hash)
+
+    if args.output_dir is not None:
+        paths = write_ensemble_report(
+            report,
+            args.output_dir,
+        )
+        for path in paths:
+            print(path)
 
 
 if __name__ == "__main__":
