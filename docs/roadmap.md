@@ -355,7 +355,7 @@ in L and can advance P when suitable independent data become available.
 
 ### v1.3.0: Phase L - MODEL/TAT variability
 
-Status: L0 planning contract established; L1 contracts and L2 isolated realization/execution implemented; L3-L7 pending. Extend Phase K to
+Status: L0 planning contract established; L1 contracts, L2 isolated execution and L3 controlled density reference implemented; L4-L7 pending. Extend Phase K to
 explicit model bindings, beginning with link/species-scoped trap density.
 See [Model and TAT variability](model_variability.md) for L0-L7, ownership,
 compatibility, validation, failure accounting and scientific limits.

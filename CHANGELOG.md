@@ -4,6 +4,20 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### Phase L3 - controlled TAT-density variability reference
+
+- Add a seeded 16-member assumed lognormal density study using the J5 trap,
+  geometry and image-force baseline through real Phase L execution.
+- Retain independent nominal, zero-variation and paired disabled-TAT controls,
+  mechanism-resolved rates/fluxes and closed fixed-field redistribution evidence.
+- Audit 4/8/16/32-step integration at nominal and sampled density extremes,
+  with explicit conservation, transfer-cap and occupation-difference gates.
+- Preserve the negative numerical interpretation: occupation variability is
+  below the observed refinement difference; initial TAT rate is the primary
+  observable, without calibration, process-yield or converged-tail claims.
+- Export complete reference evidence without overwriting existing targets;
+  generic population analysis/report bundles remain L4/L6.
+
 ### Phase L2 - isolated MODEL sampling, realization and execution
 
 - Reuse Phase K scalar and Gaussian-copula kernels in separately versioned

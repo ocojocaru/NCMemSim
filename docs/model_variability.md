@@ -4,7 +4,7 @@
 
 Planning baseline: published v1.2.0, commit b9d2ff77136217af5b3b5a4b5a4780af5d75d6d5.
 Target release: v1.3.0. This document establishes the L0 planning contract;
-L1 contracts and L2 isolated realization/execution are implemented; L3-L7 are pending. No MODEL binding or new runtime API is implemented by L0.
+L1 contracts, L2 isolated execution and the L3 controlled density reference are implemented; L4-L7 are pending. No MODEL binding or new runtime API is implemented by L0.
 The package remains 1.2.0 until a separate development-cycle bootstrap.
 
 ## Scientific objective and first executable scope
@@ -206,3 +206,70 @@ These are integration checks, not the completed scientific L3 reference or a
 claim of statistical tail convergence. Package version stays 1.2.0 until an
 explicit development-identity bootstrap, and frozen v1 release evidence stays
 unchanged.
+
+## L3 controlled TAT-density reference
+
+`examples/phase_l3_tat_density_variability.py` implements the first density-only
+scientific reference. It reuses the J5 two-FG stack with 1 nm inter-FG SiO2 and
+the J5 assumed trap parameters: 0.18 eV conduction-band depth, midpoint position,
+8e22 m^-3 nominal volume density, 2e-20 m^2 capture cross section and 2e11 Hz
+attempt frequency. The explicit image-force correction uses relative
+permittivity 3.9. The direct transport configuration uses attempt frequency
+1e13 Hz, 0.25 eV barrier and a 0.05 per-step transfer cap. These are controlled
+reference numbers, not calibrated defect properties or process statistics.
+
+The stochastic density distribution is lognormal with **median** 8e22 m^-3
+and geometric standard deviation 1.25; the median is not the arithmetic mean.
+Sixteen realizations use PCG64 seed 2029 and physical domain density >= 0.
+Capture cross section, trap energy, position, attempt frequency, device,
+image-force configuration and electrical settings remain fixed.
+
+The primary observable is the initial forward TAT rate in Hz. Initial direct
+and total forward rates and signed inter-FG fluxes are also retained. The
+secondary numerical exercise is closed inter-FG redistribution at fixed gate
+voltage 4 V: FG1 starts in P1=1 and FG2 in P0=1, and a FieldSolver1D profile
+constructed with zero supplied sheet charges is held fixed. This does not run
+substrate injection/emission kinetics or refresh electrostatics self-consistently,
+and must not be described as a full device-retention prediction.
+
+Total redistribution time is 4e-14 s. The declared practical grid has 16 steps
+(dt=2.5e-15 s). A refinement audit uses 4, 8, 16 and 32 steps at the nominal,
+minimum sampled and maximum sampled density, comparing final occupations to
+the 32-step reference. Predeclared acceptance is maximum absolute occupation
+delta <= 1e-3 for the selected grid, no selected-grid transfer-cap activation,
+and maximum relative electron-conservation error <= 1e-12. The finite refined
+grid is a comparison reference, not an exact-solution error bound.
+
+Controls retain an independently constructed nominal solve, a one-member
+constant-density ensemble and sixteen disabled-TAT realizations with exactly
+paired physical density values. All solver attempts must succeed; an optional
+mechanism FAILED diagnostic is explicitly raised as a workflow failure rather
+than silently accepting an incomplete mechanism result. Zero variation matches
+the nominal output exactly, direct transport remains unchanged, and disabled
+TAT produces zero TAT rates. Sampled density changes the initial TAT rate
+monotonically; the dilute reference is approximately linear in density.
+
+In the validated reference, the nominal forward direct rate is about
+8.545e12 Hz and the forward TAT rate is about 1.033e5 Hz. The selected-grid
+occupation difference from the finer grid is about 6.61e-4. The observed
+sampled occupation span is smaller than this refinement difference; no
+numerically resolved dynamic population spread is claimed. Density variability
+is demonstrated through the mechanism-resolved initial rate, while the dynamic
+run verifies integration and conservation. Sixteen samples do not establish
+converged tails, and density/capture-cross-section confounding prevents this
+density-only study from establishing independent experimental identifiability.
+
+Run the reference from an environment with the package available:
+
+```shell
+python examples/phase_l3_tat_density_variability.py --output results/l3-density
+```
+
+The new directory contains `reference.json`, including full manifest/execution
+evidence, controls, refinement outputs, units, settings, interpretation limits
+and a derived reference hash. Existing targets are never overwritten. This is
+a reference evidence file, not the complete L6 report bundle; generic population
+statistics and failure/feasibility analysis remain L4. Focused tests check the
+J5 parameter baseline, repeatability, strict nested L2 restoration, nominal and
+disabled limits, monotonic rate response, conservation, numerical acceptance,
+deliberate workflow failure and no-overwrite export behavior.
