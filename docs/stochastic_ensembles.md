@@ -809,7 +809,7 @@ The scientific references are:
 
 ### K7 — v1.2.0 compatibility review and release gates
 
-**Status: K7a complete; K7b next.**
+**Status: K7b complete; K7c next.**
 
 Review additive public APIs and result contracts, run the full local and remote release-validation ladder, finalize release identity, validate the exact final commit, create tag `v1.2.0`, and publish validated distributions.
 
@@ -818,6 +818,16 @@ Review additive public APIs and result contracts, run the full local and remote 
 K7a is complete. The published `v1.1.0` compatibility baseline retains 238 exact stable import paths with no source-contract drift. Phase K adds 59 explicit package-level exports through `ncmemsim.ensemble`; all 59 are proposed as stable v1.2 additions and none are classified as public provisional. Thirteen implementation modules remain importable but are not proposed separately as stable aliases, while `ncmemsim.ensemble._serialization` remains private.
 
 The review is recorded in `docs/v1_2_api_review.json`, built reproducibly by `scripts/build_v1_2_api_review.py` and validated by `scripts/validate_v1_2_api_review.py`. The focused K7a gate completed with 6 passing tests in `tests/test_phase_k7_api_review.py`. This review is candidate evidence only and does not bump the package version or approve/publish `v1.2.0`.
+
+#### K7b — local release preflight
+
+K7b is complete. The local release preflight was executed on commit `d051845af52181b2ffdaa6c0e08bf7d474efd272` with package identity `1.2.0.dev0`.
+
+The full local regression completed with 3087 passing tests in 437.03 s. The strict documentation audit built 45 rendered pages, checked 7952 local references with zero errors, verified 120/120 syntax-complete Python blocks and 396 public imports, and executed the DTCO, Robust DTCO, and Scientific Workflow documentation examples successfully.
+
+Clean-distribution validation built `ncmemsim-1.2.0.dev0-py3-none-any.whl` and `ncmemsim-1.2.0.dev0.tar.gz`, audited 242 source files, installed the wheel and source distribution into separate temporary environments outside the source checkout, and passed both installed-distribution probes. The working tree remained clean after validation.
+
+K7b validates the development-version release preflight only. It does not finalize or publish `v1.2.0`; K7c prepares the final release identity and exact final-version candidate.
 
 ---
 
