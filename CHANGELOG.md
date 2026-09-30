@@ -4,6 +4,19 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### Phase L2 - isolated MODEL sampling, realization and execution
+
+- Reuse Phase K scalar and Gaussian-copula kernels in separately versioned
+  MODEL manifests, with authoritative stored samples and strict restoration.
+- Apply mixed DEVICE/OPERATING and density bindings to independent candidates;
+  reconstruct complete TAT configurations before enabled-spec validation.
+- Preserve unchanged nominal provenance; mark changed sampled densities ASSUMED
+  rather than inheriting nominal experimental-calibration status.
+- Add ordered execution snapshots, explicit workflow identity, isolated failure
+  stages and strict result integrity checks without altering Phase K archives.
+- Verify zero-variation real-transport equality, preserved direct contribution
+  and density-sensitive TAT integration; scientific references remain L3.
+
 ### Phase L1 - inert MODEL/TAT variability contracts
 
 - Add explicit link/species density bindings and provenance-aware density variables.

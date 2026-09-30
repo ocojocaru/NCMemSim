@@ -4,7 +4,7 @@
 
 Planning baseline: published v1.2.0, commit b9d2ff77136217af5b3b5a4b5a4780af5d75d6d5.
 Target release: v1.3.0. This document establishes the L0 planning contract;
-L1 contracts are implemented; L2-L7 are pending. No MODEL binding or new runtime API is implemented by L0.
+L1 contracts and L2 isolated realization/execution are implemented; L3-L7 are pending. No MODEL binding or new runtime API is implemented by L0.
 The package remains 1.2.0 until a separate development-cycle bootstrap.
 
 ## Scientific objective and first executable scope
@@ -132,3 +132,77 @@ resolution, identity sensitivity, immutable source ownership, disabled/zero-dens
 rules and preserved Phase K rejection/archival boundaries. The current source API
 inventory is regenerated for the additive module; historical stable proposals,
 release reviews, release evidence and package version remain unchanged.
+
+## L2 isolated realization and execution
+
+The provisional `ncmemsim.ensemble.model_sampling` module adds
+`ModelSamplingSpec`, `ModelSampleManifest` and `generate_model_sample_manifest`.
+It reuses the unchanged Phase K PCG64 scalar kernels and Gaussian-copula
+transforms, including declaration order and draw budgets. New envelopes have
+the schemas `model-sampling-spec-v1` and `model-sample-manifest-v1`. Individual
+samples retain the existing EnsembleSample scalar format but are bound to the
+new sampling-specification hash; they cannot be executed by Phase K APIs.
+Stored manifest values are authoritative. Strict dictionary/JSON restoration
+validates nested identities and never resamples. Sampling-kernel failures abort
+generation with sample index and variable identity; out-of-physical-domain
+draws remain stored values and are classified during realization, without
+clipping, rejection-resampling or silently dropping attempts.
+
+The provisional `ncmemsim.ensemble.model_execution` module adds
+`AppliedModelRealization`, `apply_model_sample_to_context`,
+`ModelExecutionPoint`, `ModelExecutionResult` and
+`execute_model_sample_manifest`. Every sample receives its own device and
+operating-protocol copies and a reconstructed immutable advanced-transport
+configuration. All density assignments are applied before enabled-specification
+validation, avoiding invalid intermediate states in simultaneous updates.
+Device/operating bindings reuse the established application contracts.
+
+Changed densities are recorded as ASSUMED assigned values in the realized trap
+species, retaining the original source plus a realization marker; distribution
+provenance remains in the full study. They do not inherit nominal CALIBRATED
+status. An unchanged density preserves nominal provenance and configuration
+identity, including the zero-variation invariant. Disabled TAT remains disabled;
+an enabled configuration without any positive-density species fails existing
+validation instead of silently disabling the mechanism.
+
+Execution requires a named evaluator and a nonempty JSON `workflow_context`
+declaring the physics, engine configuration, solver settings, initial-state and
+protocol inputs used by that evaluator. The callback receives the realized
+inputs and an independent copy of those settings for every attempt, and must
+construct its solver using the realized transport configuration. Arbitrary
+callback closure state cannot be inferred or certified by the orchestrator;
+reference studies must make their complete settings explicit. The execution
+identity includes these settings, the nominal device/protocol/model, manifest
+identity and runtime. Per-realization identities include execution and exact
+sample/content identities. Input context is snapshotted before callback execution,
+so callback mutation cannot rewrite the recorded input or affect another sample.
+
+Every attempted sample has one ordered point with declared assignments, status
+and either output or failure details. Stages are sample-domain-validation,
+binding, realization-construction, workflow and serialization, retaining the
+established categories. Baseline mismatch and malformed execution definitions
+are study-level errors before callbacks run; realized enabled-specification
+errors are isolated realization-construction failures. Optional-mechanism
+failures returned by the existing transport engine remain mechanism diagnostics;
+L2 does not reinterpret them as physical infeasibility or process yield.
+
+The new schemas `model-execution-v1`, `model-realization-id-v1`,
+`model-execution-point-v1` and `model-execution-result-v1` preserve nominal and
+realized model evidence separately. Strict readers verify manifest/point linkage,
+ordered assignments, realized model reconstruction, context hashes, counts and
+result identity; JSON readers reject duplicate keys and non-finite constants.
+Hashes detect content inconsistency and are not signatures or authentication.
+The archives preserve device/protocol input snapshots; full result reporting
+and Phase K statistics integration remain L4/L6 rather than an implicit
+conversion into an existing K result type.
+
+Focused validation covers deterministic scalar/copula equivalence to Phase K,
+authoritative restoration, mixed bindings, simultaneous updates, nominal and
+callback isolation, invalid domains, all-failed populations, configuration/
+binding/workflow/serialization failures, archive tampering and calibration
+boundaries. A real two-FG transport test checks nominal equality with TAT enabled
+and disabled, unchanged direct contribution and density-sensitive TAT rates.
+These are integration checks, not the completed scientific L3 reference or a
+claim of statistical tail convergence. Package version stays 1.2.0 until an
+explicit development-identity bootstrap, and frozen v1 release evidence stays
+unchanged.

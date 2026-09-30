@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 106 package source modules; 594 explicit export paths; 177 distinct documented Python import paths.
+Coverage: 108 package source modules; 602 explicit export paths; 177 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -1690,6 +1690,96 @@ Decorators: `dataclass(frozen=True)`.
 - `from_dict(cls, data: dict[str, Any]) -> ModelVariabilitySpec`; `classmethod`.
 - `definition_hash(self) -> str`; `property`.
 
+
+## ncmemsim.ensemble.model_execution
+
+`ncmemsim/ensemble/model_execution.py`
+
+Explicit exports: `AppliedModelRealization`, `apply_model_sample_to_context`, `ModelExecutionPoint`, `ModelExecutionResult`, `execute_model_sample_manifest`
+
+### AppliedModelRealization
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `sample: EnsembleSample`; required declaration.
+- Field `device: Device`; required declaration.
+- Field `operating_protocol: Any`; required declaration.
+- Field `model_context: TransportModelContext`; required declaration.
+- Field `assignments: tuple[RealizationAssignment, ...]`; required declaration.
+- `context_payload(self) -> dict[str, Any]`.
+
+- `apply_model_sample_to_context(spec: ModelSamplingSpec, sample: EnsembleSample, base_device: Device, base_operating_protocol: Any=None) -> AppliedModelRealization`
+### ModelExecutionPoint
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `status(self) -> str`; `property`.
+- `failure_stage(self) -> str | None`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelExecutionPoint`; `classmethod`.
+
+### ModelExecutionResult
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `manifest: ModelSampleManifest`; required declaration.
+- Field `execution_json: str`; required declaration.
+- Field `points: tuple[ModelExecutionPoint, ...]`; required declaration.
+- `success_count(self) -> int`; `property`.
+- `failure_count(self) -> int`; `property`.
+- `result_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelExecutionResult`; `classmethod`.
+- `to_json(self) -> str`.
+- `from_json(cls, text: str) -> ModelExecutionResult`; `classmethod`.
+
+- `execute_model_sample_manifest(manifest: ModelSampleManifest, base_device: Device, evaluator: Callable[[AppliedModelRealization, dict[str, Any]], dict[str, Any]], *, evaluation_id: str, workflow_context: dict[str, Any], base_operating_protocol: Any=None) -> ModelExecutionResult`
+
+## ncmemsim.ensemble.model_sampling
+
+`ncmemsim/ensemble/model_sampling.py`
+
+Explicit exports: `ModelSamplingSpec`, `ModelSampleManifest`, `generate_model_sample_manifest`
+
+### ModelSamplingSpec
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `study: ModelVariabilitySpec`; required declaration.
+- Field `rng: RNGSpec`; required declaration.
+- Field `sample_count: int`; required declaration.
+- Field `dependence: IndependentDependence | MatrixCorrelation`; default expression `field(default_factory=IndependentDependence)`.
+- Field `max_draws_per_value: int`; default expression `10000`.
+- `variable_names(self) -> tuple[str, ...]`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelSamplingSpec`; `classmethod`.
+- `definition_hash(self) -> str`; `property`.
+
+### ModelSampleManifest
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `sampling_spec: ModelSamplingSpec`; required declaration.
+- Field `samples: tuple[EnsembleSample, ...]`; required declaration.
+- Field `runtime: tuple[tuple[str, str], ...]`; required declaration.
+- `manifest_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelSampleManifest`; `classmethod`.
+- `to_json(self) -> str`.
+- `from_json(cls, text: str) -> ModelSampleManifest`; `classmethod`.
+
+- `generate_model_sample_manifest(spec: ModelSamplingSpec) -> ModelSampleManifest`
 
 ## ncmemsim.ensemble.realization
 

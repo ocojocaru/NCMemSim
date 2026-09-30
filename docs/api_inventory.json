@@ -11889,6 +11889,743 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.ensemble.model_execution",
+      "source": "ncmemsim/ensemble/model_execution.py",
+      "explicit_exports": [
+        "AppliedModelRealization",
+        "apply_model_sample_to_context",
+        "ModelExecutionPoint",
+        "ModelExecutionResult",
+        "execute_model_sample_manifest"
+      ],
+      "package_import_aliases": {
+        "AdvancedTransportSpec": "ncmemsim.transport.integration.AdvancedTransportSpec",
+        "BindingApplicationError": "ncmemsim.dtco.binding.BindingApplicationError",
+        "BindingScope": "ncmemsim.dtco.spec.BindingScope",
+        "Device": "ncmemsim.device.Device",
+        "EnsembleSample": "ncmemsim.ensemble.sampling.EnsembleSample",
+        "ModelSampleManifest": "ncmemsim.ensemble.model_sampling.ModelSampleManifest",
+        "ModelSamplingSpec": "ncmemsim.ensemble.model_sampling.ModelSamplingSpec",
+        "OperatingBindingError": "ncmemsim.dtco.operating.OperatingBindingError",
+        "RealizationAssignment": "ncmemsim.ensemble.realization.RealizationAssignment",
+        "TransportModelContext": "ncmemsim.ensemble.model_contracts.TransportModelContext",
+        "TrapDensityVariable": "ncmemsim.ensemble.model_contracts.TrapDensityVariable",
+        "TrapParameterStatus": "ncmemsim.transport.traps.TrapParameterStatus",
+        "_FAILURE_CATEGORY_BY_STAGE": "ncmemsim.ensemble.execution._FAILURE_CATEGORY_BY_STAGE",
+        "_density_target": "ncmemsim.ensemble.model_contracts._density_target",
+        "_device_definition_payload": "ncmemsim.dtco.spec._device_definition_payload",
+        "_error_type": "ncmemsim.ensemble.execution._error_type",
+        "_operating_definition_payload": "ncmemsim.dtco.spec._operating_definition_payload",
+        "_runtime": "ncmemsim.ensemble.execution._runtime",
+        "_snapshot": "ncmemsim.ensemble.model_sampling._snapshot",
+        "_strict_json": "ncmemsim.ensemble.model_sampling._strict_json",
+        "apply_device_bindings": "ncmemsim.dtco.binding.apply_device_bindings",
+        "apply_operating_bindings": "ncmemsim.dtco.operating.apply_operating_bindings",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash",
+        "parameter_binding_from_dict": "ncmemsim.ensemble._serialization.parameter_binding_from_dict",
+        "strict_fields": "ncmemsim.ensemble._serialization.strict_fields"
+      },
+      "public_source_definitions": [
+        {
+          "name": "AppliedModelRealization",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "sample",
+              "annotation": "EnsembleSample",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "device",
+              "annotation": "Device",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "operating_protocol",
+              "annotation": "Any",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "model_context",
+              "annotation": "TransportModelContext",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "assignments",
+              "annotation": "tuple[RealizationAssignment, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "context_payload",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "apply_model_sample_to_context",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "spec",
+              "kind": "positional_or_keyword",
+              "annotation": "ModelSamplingSpec",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "sample",
+              "kind": "positional_or_keyword",
+              "annotation": "EnsembleSample",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "base_device",
+              "kind": "positional_or_keyword",
+              "annotation": "Device",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "base_operating_protocol",
+              "kind": "positional_or_keyword",
+              "annotation": "Any",
+              "required": false,
+              "default_expression": "None"
+            }
+          ],
+          "return_annotation": "AppliedModelRealization",
+          "source_signature": "(spec: ModelSamplingSpec, sample: EnsembleSample, base_device: Device, base_operating_protocol: Any=None) -> AppliedModelRealization",
+          "decorators": []
+        },
+        {
+          "name": "ModelExecutionPoint",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "status",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "failure_stage",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str | None",
+              "source_signature": "(self) -> str | None",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelExecutionPoint",
+              "source_signature": "(cls, data: dict[str, Any]) -> ModelExecutionPoint",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ModelExecutionResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "manifest",
+              "annotation": "ModelSampleManifest",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "execution_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "points",
+              "annotation": "tuple[ModelExecutionPoint, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "success_count",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "int",
+              "source_signature": "(self) -> int",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "failure_count",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "int",
+              "source_signature": "(self) -> int",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "result_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelExecutionResult",
+              "source_signature": "(cls, data: dict[str, Any]) -> ModelExecutionResult",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "to_json",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": []
+            },
+            {
+              "name": "from_json",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "text",
+                  "kind": "positional_or_keyword",
+                  "annotation": "str",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelExecutionResult",
+              "source_signature": "(cls, text: str) -> ModelExecutionResult",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "execute_model_sample_manifest",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "manifest",
+              "kind": "positional_or_keyword",
+              "annotation": "ModelSampleManifest",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "base_device",
+              "kind": "positional_or_keyword",
+              "annotation": "Device",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "evaluator",
+              "kind": "positional_or_keyword",
+              "annotation": "Callable[[AppliedModelRealization, dict[str, Any]], dict[str, Any]]",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "evaluation_id",
+              "kind": "keyword_only",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "workflow_context",
+              "kind": "keyword_only",
+              "annotation": "dict[str, Any]",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "base_operating_protocol",
+              "kind": "keyword_only",
+              "annotation": "Any",
+              "required": false,
+              "default_expression": "None"
+            }
+          ],
+          "return_annotation": "ModelExecutionResult",
+          "source_signature": "(manifest: ModelSampleManifest, base_device: Device, evaluator: Callable[[AppliedModelRealization, dict[str, Any]], dict[str, Any]], *, evaluation_id: str, workflow_context: dict[str, Any], base_operating_protocol: Any=None) -> ModelExecutionResult",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.ensemble.model_sampling",
+      "source": "ncmemsim/ensemble/model_sampling.py",
+      "explicit_exports": [
+        "ModelSamplingSpec",
+        "ModelSampleManifest",
+        "generate_model_sample_manifest"
+      ],
+      "package_import_aliases": {
+        "EnsembleSample": "ncmemsim.ensemble.sampling.EnsembleSample",
+        "IndependentDependence": "ncmemsim.ensemble.correlation.IndependentDependence",
+        "MatrixCorrelation": "ncmemsim.ensemble.correlation.MatrixCorrelation",
+        "ModelVariabilitySpec": "ncmemsim.ensemble.model_contracts.ModelVariabilitySpec",
+        "RNGSpec": "ncmemsim.ensemble.rng.RNGSpec",
+        "SAMPLING_ORDER": "ncmemsim.ensemble.sampling.SAMPLING_ORDER",
+        "SAMPLING_PRECISION": "ncmemsim.ensemble.sampling.SAMPLING_PRECISION",
+        "SCALAR_SAMPLING_ALGORITHM": "ncmemsim.ensemble.sampling.SCALAR_SAMPLING_ALGORITHM",
+        "SampleGenerationError": "ncmemsim.ensemble.sampling.SampleGenerationError",
+        "SamplingError": "ncmemsim.ensemble.sampling.SamplingError",
+        "_correlated_marginal_value": "ncmemsim.ensemble.sampling._correlated_marginal_value",
+        "_dependence_sampling_algorithm": "ncmemsim.ensemble.sampling._dependence_sampling_algorithm",
+        "_integer": "ncmemsim.ensemble.sampling._integer",
+        "_runtime": "ncmemsim.ensemble.execution._runtime",
+        "_sequential_psd_cholesky": "ncmemsim.ensemble.sampling._sequential_psd_cholesky",
+        "_standard_normal": "ncmemsim.ensemble.sampling._standard_normal",
+        "_validate_dependence_against_ensemble": "ncmemsim.ensemble.sampling._validate_dependence_against_ensemble",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash",
+        "dependence_from_dict": "ncmemsim.ensemble.correlation.dependence_from_dict",
+        "sample_distribution": "ncmemsim.ensemble.sampling.sample_distribution",
+        "strict_fields": "ncmemsim.ensemble._serialization.strict_fields"
+      },
+      "public_source_definitions": [
+        {
+          "name": "ModelSamplingSpec",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "study",
+              "annotation": "ModelVariabilitySpec",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "rng",
+              "annotation": "RNGSpec",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "sample_count",
+              "annotation": "int",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "dependence",
+              "annotation": "IndependentDependence | MatrixCorrelation",
+              "default_expression": "field(default_factory=IndependentDependence)",
+              "required_in_source": false
+            },
+            {
+              "name": "max_draws_per_value",
+              "annotation": "int",
+              "default_expression": "10000",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "variable_names",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "tuple[str, ...]",
+              "source_signature": "(self) -> tuple[str, ...]",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelSamplingSpec",
+              "source_signature": "(cls, data: dict[str, Any]) -> ModelSamplingSpec",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "definition_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ModelSampleManifest",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "sampling_spec",
+              "annotation": "ModelSamplingSpec",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "samples",
+              "annotation": "tuple[EnsembleSample, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "runtime",
+              "annotation": "tuple[tuple[str, str], ...]",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "manifest_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelSampleManifest",
+              "source_signature": "(cls, data: dict[str, Any]) -> ModelSampleManifest",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "to_json",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": []
+            },
+            {
+              "name": "from_json",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "text",
+                  "kind": "positional_or_keyword",
+                  "annotation": "str",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelSampleManifest",
+              "source_signature": "(cls, text: str) -> ModelSampleManifest",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "generate_model_sample_manifest",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "spec",
+              "kind": "positional_or_keyword",
+              "annotation": "ModelSamplingSpec",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "ModelSampleManifest",
+          "source_signature": "(spec: ModelSamplingSpec) -> ModelSampleManifest",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.ensemble.realization",
       "source": "ncmemsim/ensemble/realization.py",
       "explicit_exports": [
