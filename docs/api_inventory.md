@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 105 package source modules; 590 explicit export paths; 176 distinct documented Python import paths.
+Coverage: 106 package source modules; 594 explicit export paths; 177 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -1635,6 +1635,61 @@ Decorators: `dataclass(frozen=True)`.
 - `result_hash(self) -> str`; `property`.
 
 - `analyze_ensemble_execution(execution: EnsembleExecutionResult, spec: MetricAnalysisSpec) -> EnsembleMetricAnalysisResult`
+
+## ncmemsim.ensemble.model_contracts
+
+`ncmemsim/ensemble/model_contracts.py`
+
+Explicit exports: `trap_density_binding`, `TransportModelContext`, `TrapDensityVariable`, `ModelVariabilitySpec`
+
+- `trap_density_binding(link_id: str, species_name: str) -> ParameterBinding`
+### TransportModelContext
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `advanced_transport: AdvancedTransportSpec`; required declaration.
+- `resolve_density(self, binding: ParameterBinding) -> float`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> TransportModelContext`; `classmethod`.
+- `context_hash(self) -> str`; `property`.
+
+### TrapDensityVariable
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `binding: ParameterBinding`; required declaration.
+- Field `distribution: Any`; required declaration.
+- Field `physical_domain: PhysicalDomain`; required declaration.
+- Field `provenance: ParameterProvenance`; required declaration.
+- Field `applicability: str`; required declaration.
+- Field `nominal_value: float | None`; default expression `None`.
+- Field `unit: str`; default expression `'m^-3'`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> TrapDensityVariable`; `classmethod`.
+- `definition_hash(self) -> str`; `property`.
+
+### ModelVariabilitySpec
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `base_device_hash: str`; required declaration.
+- Field `model_context: TransportModelContext`; required declaration.
+- Field `variables: tuple[TrapDensityVariable | StochasticVariable, ...]`; required declaration.
+- Field `base_operating_hash: str | None`; default expression `None`.
+- Field `base_operating_kind: str | None`; default expression `None`.
+- `from_device(cls, *, name: str, device: Device, model_context: TransportModelContext, variables: tuple[TrapDensityVariable | StochasticVariable, ...], operating_protocol: Any | None=None) -> ModelVariabilitySpec`; `classmethod`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelVariabilitySpec`; `classmethod`.
+- `definition_hash(self) -> str`; `property`.
+
 
 ## ncmemsim.ensemble.realization
 

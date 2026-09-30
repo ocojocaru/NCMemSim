@@ -4,6 +4,24 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### Phase L1 - inert MODEL/TAT variability contracts
+
+- Add explicit link/species density bindings and provenance-aware density variables.
+- Add strict transport-model context and device/protocol-linked study definitions
+  with new schema identities; preserve Phase K v1 archives and MODEL rejection.
+- Reuse existing trap/image-force configuration validation without sampling,
+  model mutation or execution; L2 integrates realization separately.
+- Regenerate the current source API inventory for the provisional additive module;
+  keep historical stable proposals/reviews and package version unchanged.
+
+### Post-v1.2 planning and Phase L0
+
+- Establish the density-first MODEL/TAT variability planning contract for v1.3.0.
+- Define M/N acceptance targets and indicative O-R milestones.
+- Consolidate completed Phase K status and the software trajectory.
+- Keep package identity 1.2.0 and all historical release evidence unchanged;
+  this documentation step adds no runtime capability.
+
 ## v1.2.0 - 2026-09-30
 
 ### K7d - v1.2.0 publication metadata and release gate closure

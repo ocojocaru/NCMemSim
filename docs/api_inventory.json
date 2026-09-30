@@ -11455,6 +11455,440 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.ensemble.model_contracts",
+      "source": "ncmemsim/ensemble/model_contracts.py",
+      "explicit_exports": [
+        "trap_density_binding",
+        "TransportModelContext",
+        "TrapDensityVariable",
+        "ModelVariabilitySpec"
+      ],
+      "package_import_aliases": {
+        "AdvancedTransportSpec": "ncmemsim.transport.integration.AdvancedTransportSpec",
+        "BindingScope": "ncmemsim.dtco.spec.BindingScope",
+        "Device": "ncmemsim.device.Device",
+        "ImageForceBarrierSpec": "ncmemsim.transport.barrier_corrections.ImageForceBarrierSpec",
+        "ParameterBinding": "ncmemsim.dtco.spec.ParameterBinding",
+        "ParameterProvenance": "ncmemsim.materials.provenance.ParameterProvenance",
+        "ParameterStatus": "ncmemsim.materials.provenance.ParameterStatus",
+        "PhysicalDomain": "ncmemsim.ensemble.spec.PhysicalDomain",
+        "StochasticVariable": "ncmemsim.ensemble.spec.StochasticVariable",
+        "TATLinkAttachment": "ncmemsim.transport.integration.TATLinkAttachment",
+        "TrapAssistedTransportSpec": "ncmemsim.transport.traps.TrapAssistedTransportSpec",
+        "TrapParameterStatus": "ncmemsim.transport.traps.TrapParameterStatus",
+        "_DISTRIBUTION_TYPES": "ncmemsim.ensemble.spec._DISTRIBUTION_TYPES",
+        "_device_definition_payload": "ncmemsim.dtco.spec._device_definition_payload",
+        "_number": "ncmemsim.ensemble.spec._number",
+        "_operating_definition_payload": "ncmemsim.dtco.spec._operating_definition_payload",
+        "_text": "ncmemsim.ensemble.spec._text",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash",
+        "distribution_from_dict": "ncmemsim.ensemble.distributions.distribution_from_dict",
+        "parameter_binding_from_dict": "ncmemsim.ensemble._serialization.parameter_binding_from_dict",
+        "parameter_provenance_from_dict": "ncmemsim.ensemble._serialization.parameter_provenance_from_dict",
+        "strict_fields": "ncmemsim.ensemble._serialization.strict_fields"
+      },
+      "public_source_definitions": [
+        {
+          "name": "trap_density_binding",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "link_id",
+              "kind": "positional_or_keyword",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "species_name",
+              "kind": "positional_or_keyword",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "ParameterBinding",
+          "source_signature": "(link_id: str, species_name: str) -> ParameterBinding",
+          "decorators": []
+        },
+        {
+          "name": "TransportModelContext",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "advanced_transport",
+              "annotation": "AdvancedTransportSpec",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "resolve_density",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "binding",
+                  "kind": "positional_or_keyword",
+                  "annotation": "ParameterBinding",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "float",
+              "source_signature": "(self, binding: ParameterBinding) -> float",
+              "decorators": []
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "TransportModelContext",
+              "source_signature": "(cls, data: dict[str, Any]) -> TransportModelContext",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "context_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TrapDensityVariable",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "binding",
+              "annotation": "ParameterBinding",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "distribution",
+              "annotation": "Any",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "physical_domain",
+              "annotation": "PhysicalDomain",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "provenance",
+              "annotation": "ParameterProvenance",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "applicability",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "nominal_value",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "unit",
+              "annotation": "str",
+              "default_expression": "'m^-3'",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "TrapDensityVariable",
+              "source_signature": "(cls, data: dict[str, Any]) -> TrapDensityVariable",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "definition_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ModelVariabilitySpec",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "base_device_hash",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "model_context",
+              "annotation": "TransportModelContext",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "variables",
+              "annotation": "tuple[TrapDensityVariable | StochasticVariable, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "base_operating_hash",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "base_operating_kind",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "from_device",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "name",
+                  "kind": "keyword_only",
+                  "annotation": "str",
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "device",
+                  "kind": "keyword_only",
+                  "annotation": "Device",
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "model_context",
+                  "kind": "keyword_only",
+                  "annotation": "TransportModelContext",
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "variables",
+                  "kind": "keyword_only",
+                  "annotation": "tuple[TrapDensityVariable | StochasticVariable, ...]",
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "operating_protocol",
+                  "kind": "keyword_only",
+                  "annotation": "Any | None",
+                  "required": false,
+                  "default_expression": "None"
+                }
+              ],
+              "return_annotation": "ModelVariabilitySpec",
+              "source_signature": "(cls, *, name: str, device: Device, model_context: TransportModelContext, variables: tuple[TrapDensityVariable | StochasticVariable, ...], operating_protocol: Any | None=None) -> ModelVariabilitySpec",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelVariabilitySpec",
+              "source_signature": "(cls, data: dict[str, Any]) -> ModelVariabilitySpec",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "definition_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.ensemble.realization",
       "source": "ncmemsim/ensemble/realization.py",
       "explicit_exports": [
@@ -29932,6 +30366,7 @@
     "ncmemsim.dtco.sample_variations",
     "ncmemsim.dtco.write_dtco_report",
     "ncmemsim.dtco.write_robust_dtco_report",
+    "ncmemsim.ensemble.model_contracts.trap_density_binding",
     "ncmemsim.experimental.DeviceObservableDataset",
     "ncmemsim.experimental.ExperimentalCondition",
     "ncmemsim.experimental.ExperimentalDatasetMetadata",
