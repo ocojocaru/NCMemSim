@@ -15,11 +15,11 @@ from scripts.validate_v1_2_release_identity import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_v1_2_final_version_candidate_identity_is_aligned():
+def test_v1_2_final_version_identity_is_aligned():
     result = validate(ROOT)
     assert result["release_version"] == "1.2.0"
     assert result["previous_stable_release"] == "1.1.0"
-    assert result["citation_date"] is None
+    assert result["citation_date"] == "2026-09-30"
     assert result["stable_v1_1_paths_retained"] == 238
     assert result["v1_2_proposed_stable_additions"] == 59
     assert result["v1_2_public_provisional_additions"] == 0
@@ -83,7 +83,7 @@ def test_identity_accepts_historical_json_formatting_changes(candidate_copy):
             json.dumps(data, indent=4, sort_keys=True),
             encoding="utf-8",
         )
-    assert validate(candidate_copy)["citation_date"] is None
+    assert validate(candidate_copy)["citation_date"] == "2026-09-30"
 
 
 @pytest.mark.parametrize(
@@ -104,7 +104,10 @@ def test_identity_rejects_inconsistent_or_premature_identity(
     elif fault == "citation":
         text = text.replace("version: 1.2.0", "version: 1.1.0")
     elif fault == "release_date":
-        text += "\ndate-released: 2026-09-30\n"
+        text = text.replace(
+            "date-released: 2026-09-30",
+            "date-released: 2026-09-29",
+        )
     else:
         text += "\ndoi: 10.0000/unassigned\n"
     citation_path.write_text(text, encoding="utf-8")
@@ -144,7 +147,7 @@ def test_identity_rejects_changed_v1_2_api_counts(candidate_copy):
 
 
 @pytest.mark.parametrize("surface", ["readme", "index", "roadmap", "phase_k"])
-def test_identity_rejects_stale_candidate_status(candidate_copy, surface):
+def test_identity_rejects_stale_release_status(candidate_copy, surface):
     paths = {
         "readme": candidate_copy / "README.md",
         "index": candidate_copy / "docs/index.md",
@@ -154,17 +157,17 @@ def test_identity_rejects_stale_candidate_status(candidate_copy, surface):
     path = paths[surface]
     text = path.read_text(encoding="utf-8")
     replacements = {
-        "readme": ("**Current release candidate version:** `1.2.0`", "stale"),
+        "readme": ("**Current stable release:** `1.2.0`", "stale"),
         "index": (
-            "Version `1.2.0` is the current final-version candidate for Phase K.",
+            "Version `1.2.0` completes Phase K and is the current stable release.",
             "stale",
         ),
         "roadmap": (
-            "K7c final-version candidate prepared at package/citation version `1.2.0`",
+            "released as `v1.2.0`",
             "stale",
         ),
         "phase_k": (
-            "**Status: K7c final-version candidate prepared; exact-candidate local and remote gates next.**",
+            "**Status: released as `v1.2.0`; all required exact-candidate local and remote release gates passed.**",
             "stale",
         ),
     }

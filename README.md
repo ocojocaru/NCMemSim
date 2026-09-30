@@ -8,9 +8,8 @@
 
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
-> **Current release candidate version:** `1.2.0` — Stochastic nanocrystal ensembles and device variability
-> **Latest published stable release:** `1.1.0` — Advanced transport physics
-> **Release-candidate status:** K7a API/result review and K7b local preflight are complete. K7c aligns package/citation identity at `1.2.0`; exact-candidate local and remote gates remain before tagging. No experimental-calibration or manufacturing-yield claim is made.
+> **Current stable release:** `1.2.0` — Stochastic nanocrystal ensembles and device variability
+> **Release status:** Phase K is complete. K7a/K7b/K7c preparation and the exact-candidate local, branch-remote and `main` CI/Documentation gates passed before release tagging. No experimental-calibration or manufacturing-yield claim is made.
 > **Scientific status:** Phases G/H/I add deterministic and Robust DTCO, immutable workflow evidence and linked reports to the retained simulation/calibration baseline. References remain synthetic/FITTED; device-specific experimental calibration remains study-dependent.
 
 ## Why NCMemSim?
@@ -39,7 +38,7 @@ Existing APIs and physics are preserved.
 
 ## Implemented capabilities
 
-| Area | Available through v1.2.0 candidate |
+| Area | Available through v1.2.0 |
 |---|---|
 | Device construction | V1 and V2 architectures, 1–3 floating gates |
 | Materials | Si, SiO2, HfO2, Ge, composition-dependent GeSn |
@@ -104,19 +103,13 @@ Verify the installation with:
 python -c "import ncmemsim; print(ncmemsim.__version__)"
 ```
 
-For the current `v1.2.0` final-version candidate checkout, the expected version is:
+For the `v1.2.0` stable release checkout, the expected version is:
 
 ```text
 1.2.0
 ```
 
-For the `v1.1.0` stable release checkout, the expected version is:
-
-```text
-1.1.0
-```
-
-The previous stable tag `v1.0.0` reports package version `1.0.0`.
+The previous stable tag `v1.1.0` reports package version `1.1.0`.
 
 Published tags and assets are listed on the [GitHub releases page](https://github.com/ocojocaru/NCMemSim/releases).
 

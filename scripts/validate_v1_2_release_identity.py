@@ -1,4 +1,4 @@
-"""Validate the v1.2.0 final-version candidate identity without rewriting published v1.0/v1.1 evidence."""
+"""Validate the published v1.2.0 release identity without rewriting published v1.0/v1.1 evidence."""
 from __future__ import annotations
 
 import ast
@@ -10,6 +10,7 @@ import sys
 
 
 EXPECTED_RELEASE = "1.2.0"
+RELEASE_DATE = "2026-09-30"
 PREVIOUS_STABLE = "1.1.0"
 PREVIOUS_STABLE_RELEASE_COMMIT = "3e926fccb3a02a1d0682941e52f48439d87a3733"
 K7A_REVIEW_SOURCE_COMMIT = "b762dc10debabafcfc0aeb9e5b3788745773c14b"
@@ -66,9 +67,9 @@ def validate(root: Path) -> dict:
     if "doi:" in citation.lower():
         raise ValueError("CITATION.cff must not claim an unassigned DOI")
     if _citation_field(citation, "version") != EXPECTED_RELEASE:
-        raise ValueError("CITATION.cff version must match the v1.2.0 candidate")
-    if re.search(r"(?m)^date-released:", citation):
-        raise ValueError("unpublished v1.2.0 candidate must not claim a release date")
+        raise ValueError("CITATION.cff version must match the v1.2.0 release")
+    if _citation_field(citation, "date-released") != RELEASE_DATE:
+        raise ValueError(f"CITATION.cff date-released must be {RELEASE_DATE}")
 
     for name, expected in HISTORICAL_JSON_SHA256.items():
         if _semantic_json_digest(root / name) != expected:
@@ -112,39 +113,41 @@ def validate(root: Path) -> dict:
         raise ValueError("v1.2 stable additions escaped the reviewed ensemble surface")
 
     readme = (root / "README.md").read_text(encoding="utf-8")
-    if "**Current release candidate version:** `1.2.0`" not in readme:
-        raise ValueError("README does not identify the v1.2.0 release candidate")
-    if "**Latest published stable release:** `1.1.0`" not in readme:
-        raise ValueError(
-            "README must retain v1.1.0 as the latest published release before tagging"
-        )
+    if "**Current stable release:** `1.2.0`" not in readme:
+        raise ValueError("README does not identify v1.2.0 as the current stable release")
+    if "**Latest published stable release:** `1.1.0`" in readme:
+        raise ValueError("README still identifies v1.1.0 as the latest stable release")
 
     index = (root / "docs/index.md").read_text(encoding="utf-8")
-    if "Version `1.2.0` is the current final-version candidate for Phase K." not in index:
-        raise ValueError("documentation index is not at K7c")
+    if (
+        "Version `1.2.0` completes Phase K and is the current stable release."
+        not in index
+    ):
+        raise ValueError(
+            "documentation index does not identify the completed v1.2.0 release"
+        )
 
     roadmap = (root / "docs/roadmap.md").read_text(encoding="utf-8")
-    if (
-        "K7c final-version candidate prepared at package/citation version `1.2.0`"
-        not in roadmap
-    ):
-        raise ValueError("roadmap is not at K7c")
+    if "released as `v1.2.0`" not in roadmap:
+        raise ValueError("roadmap does not identify v1.2.0 as released")
     if "released as `v1.1.0`" not in roadmap:
         raise ValueError("roadmap no longer retains the published v1.1.0 baseline")
 
     phase_k = (root / "docs/stochastic_ensembles.md").read_text(encoding="utf-8")
     if (
-        "**Status: K7c final-version candidate prepared; exact-candidate local and remote gates next.**"
+        "**Status: released as `v1.2.0`; all required exact-candidate local and remote release gates passed.**"
         not in phase_k
     ):
-        raise ValueError("Phase K status is not at K7c")
+        raise ValueError(
+            "Phase K status does not identify the completed v1.2.0 release"
+        )
     if "package identity `1.2.0.dev0`" not in phase_k:
         raise ValueError("K7b development-version provenance was not retained")
 
     return {
         "release_version": EXPECTED_RELEASE,
         "previous_stable_release": PREVIOUS_STABLE,
-        "citation_date": None,
+        "citation_date": RELEASE_DATE,
         "stable_v1_1_paths_retained": 238,
         "v1_2_proposed_stable_additions": 59,
         "v1_2_public_provisional_additions": 0,
@@ -160,11 +163,11 @@ def main() -> int:
         return 1
     print(
         "v1.2 release identity PASS: "
-        f"{result['release_version']} final-version candidate; "
+        f"{result['release_version']} release ({result['citation_date']}); "
         f"{result['stable_v1_1_paths_retained']} retained v1.1 stable paths; "
         f"{result['v1_2_proposed_stable_additions']} proposed stable + "
         f"{result['v1_2_public_provisional_additions']} public provisional additions; "
-        "published v1.0/v1.1 evidence retained; release approval not implied."
+        "published v1.0/v1.1 evidence retained."
     )
     return 0
 

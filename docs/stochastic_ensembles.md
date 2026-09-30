@@ -809,7 +809,7 @@ The scientific references are:
 
 ### K7 — v1.2.0 compatibility review and release gates
 
-**Status: K7c final-version candidate prepared; exact-candidate local and remote gates next.**
+**Status: released as `v1.2.0`; all required exact-candidate local and remote release gates passed.**
 
 Review additive public APIs and result contracts, run the full local and remote release-validation ladder, finalize release identity, validate the exact final commit, create tag `v1.2.0`, and publish validated distributions.
 

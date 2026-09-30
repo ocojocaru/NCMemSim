@@ -63,9 +63,9 @@ python -m pytest -q
 The published v1.0 release reports package and citation version `1.0.0`. The
 published v1.1.0 release reports package and citation version `1.1.0` and
 declares release date `2026-09-23`.
-The current v1.2.0 final-version candidate reports package and citation version
-`1.2.0` but intentionally does not declare `date-released` before publication.
-The latest published stable release remains `v1.1.0`.
+The published v1.2.0 release reports package and citation version `1.2.0` and
+declares release date `2026-09-30`.
+The current stable release is `v1.2.0`.
 For reproducible use, record the exact tag or commit
 used for installation together with the environment.
 Running pytest requires a source checkout and the `[dev]` dependencies; tests

@@ -4,6 +4,21 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+## v1.2.0 - 2026-09-30
+
+### K7d - v1.2.0 publication metadata and release gate closure
+
+- Finalize `CITATION.cff`, README and documentation status for the `v1.2.0`
+  release with release date `2026-09-30`.
+- Record that the exact K7c candidate
+  `62b1c4917bee57aa3120cd0e0fff32b0df10d221` passed the local final-candidate
+  gates, branch CI/Documentation, and `main` CI/Documentation before this
+  metadata-only publication commit.
+- Preserve the v1.0/v1.1 and K7a/K7b/K7c records as historical provenance; K7d
+  changes no scientific model, public API, or numerical behavior.
+- Require CI and Documentation to pass on this final metadata commit before
+  creating tag `v1.2.0`.
+
 ### Phase K - stochastic nanocrystal ensembles and device variability
 
 - Add immutable stochastic-variable and distribution contracts, deterministic
