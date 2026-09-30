@@ -4,6 +4,55 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### Phase K - stochastic nanocrystal ensembles and device variability
+
+- Add immutable stochastic-variable and distribution contracts, deterministic
+  PCG64-based sampling, authoritative sample manifests, and explicit independent
+  and Gaussian-copula dependence models.
+- Add sample-to-device realization, isolated ensemble execution, population
+  statistics, feasibility/failure accounting, nominal comparison, and explicit
+  simulated pass fractions.
+- Add variability-aware DTCO objectives, constraints, eligibility and Pareto
+  analysis without redefining deterministic DTCO or Robust-DTCO semantics.
+- Add reproducible ensemble reports and controlled nanocrystal-diameter,
+  electrically-active-fraction, and multi-parameter ensemble-DTCO references.
+- Keep synthetic ensemble statistics distinct from experimentally calibrated
+  fabrication populations or manufacturing-yield estimates.
+
+### K7c - v1.2.0 final-version candidate preparation
+
+- Align package and `CITATION.cff` identity at `1.2.0` while retaining `v1.1.0`
+  as the latest published stable release until exact-candidate validation and tagging.
+- Retain published v1.0/v1.1 evidence and the K7a `1.2.0.dev0` API-review snapshot
+  unchanged as historical provenance.
+- Add a v1.2 release-identity validator and focused tests, and include the K7a/K7c
+  validation scripts in the source-distribution contract.
+- Require candidate-critical local checks and Python 3.11-3.13/Documentation
+  remote validation again on the exact final-version commit before tagging.
+
+### K7b - local release preflight
+
+- Record the local preflight on commit
+  `d051845af52181b2ffdaa6c0e08bf7d474efd272` with package identity `1.2.0.dev0`.
+- Complete the full local regression with 3087 passing tests in 437.03 s.
+- Validate strict documentation with 45 rendered pages, 7952 local references,
+  120/120 syntax-complete Python blocks and 396 checked public imports.
+- Build and clean-install `ncmemsim-1.2.0.dev0-py3-none-any.whl` and
+  `ncmemsim-1.2.0.dev0.tar.gz`, auditing 242 source files and passing both
+  installed-distribution probes.
+- Treat K7b as development-version preflight evidence only; final-version
+  candidate checks must be rerun after the K7c identity transition.
+
+### K7a - v1.2 API/result compatibility review
+
+- Retain all 238 exact stable v1.1 import paths without source-contract drift.
+- Review 59 explicit `ncmemsim.ensemble` package exports as proposed stable
+  additions, with zero public provisional additions.
+- Keep 13 implementation modules importable without separately promoting their
+  module-qualified paths as stable aliases.
+- Preserve the K7a snapshot at development identity `1.2.0.dev0`; the review is
+  candidate evidence and does not itself approve or publish `v1.2.0`.
+
 ## v1.1.0 - 2026-09-23
 
 ### J7d - v1.1.0 publication metadata and release gate closure

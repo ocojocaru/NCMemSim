@@ -8,8 +8,9 @@
 
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
-> **Current stable release:** `1.1.0` — Advanced transport physics
-> **Release status:** Phase J is complete. J7a/J7b/J7c preparation and the exact-candidate local, branch-remote and `main` CI/Documentation gates passed before release tagging. No experimental-calibration or manufacturing-yield claim is made.
+> **Current release candidate version:** `1.2.0` — Stochastic nanocrystal ensembles and device variability
+> **Latest published stable release:** `1.1.0` — Advanced transport physics
+> **Release-candidate status:** K7a API/result review and K7b local preflight are complete. K7c aligns package/citation identity at `1.2.0`; exact-candidate local and remote gates remain before tagging. No experimental-calibration or manufacturing-yield claim is made.
 > **Scientific status:** Phases G/H/I add deterministic and Robust DTCO, immutable workflow evidence and linked reports to the retained simulation/calibration baseline. References remain synthetic/FITTED; device-specific experimental calibration remains study-dependent.
 
 ## Why NCMemSim?
@@ -38,7 +39,7 @@ Existing APIs and physics are preserved.
 
 ## Implemented capabilities
 
-| Area | Available in v1.0.0 / v1.1.0 |
+| Area | Available through v1.2.0 candidate |
 |---|---|
 | Device construction | V1 and V2 architectures, 1–3 floating gates |
 | Materials | Si, SiO2, HfO2, Ge, composition-dependent GeSn |
@@ -69,6 +70,10 @@ Existing APIs and physics are preserved.
 | Robust DTCO | Bounded independent variations, exact sample manifests, isolated propagation, response statistics, nominal comparisons, explicit robust fronts and linked reports |
 | Scientific workflows | Immutable source evidence, fitted evaluator contexts, electrical/optical integration references and linked portable reports |
 | Advanced transport | J1 trap contracts, J2 compact TAT kernel, J3 barrier corrections, J4 link integration, J5 controlled validation/sensitivity, and J6 reproducible reports with normal/failure references |
+| Stochastic ensembles | Immutable stochastic-variable/distribution contracts, deterministic seeded sampling, independent and Gaussian-copula dependence, sample manifests and realization |
+| Ensemble statistics | Population summaries, percentiles, nominal comparison, feasibility/failure accounting and simulated pass fractions |
+| Variability-aware DTCO | Ensemble-derived objectives and constraints, eligibility evaluation and Pareto analysis |
+| Ensemble reports | Integrity-checked manifests, CSV statistics/feasibility exports and Markdown summaries |
 
 Experimental-data handling, deterministic parameter fitting, local uncertainty/identifiability diagnostics, and calibration qualification are implemented in v0.11.0. Deterministic design-space exploration and DTCO are implemented in v0.12.0; advanced quantum corrections remain roadmap items. The compact optical model introduced in v0.10.0 is retained; absolute absorption amplitudes and device-specific photo-capture efficiencies remain provisional unless supported by appropriate independent experimental calibration.
 
@@ -97,6 +102,12 @@ Verify the installation with:
 
 ```bash
 python -c "import ncmemsim; print(ncmemsim.__version__)"
+```
+
+For the current `v1.2.0` final-version candidate checkout, the expected version is:
+
+```text
+1.2.0
 ```
 
 For the `v1.1.0` stable release checkout, the expected version is:

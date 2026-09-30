@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use NCMemSim in research, cite the exact software version and this repository."
 title: "NCMemSim: Nanocrystal Memory Simulation Platform"
 type: software
-version: 1.1.0
-date-released: 2026-09-23
+version: 1.2.0
+# Unpublished final-version candidate; set date-released at publication.
 license: Apache-2.0
 authors:
   - family-names: Cojocaru
@@ -19,9 +19,11 @@ abstract: >-
   qualification, deterministic design-space sweeps, Pareto and grid sensitivity
   analysis, bounded independent uncertainty propagation, explicit robust objectives,
   reproducible nominal and Robust DTCO reports, immutable scientific workflow
-  evidence, fitted evaluator contexts, linked workflow exports, opt-in
-  trap-assisted transport with image-force barrier corrections,
-  mechanism-resolved diagnostics and reports, validation, and reproducibility tools.
+  evidence, fitted evaluator contexts, linked workflow exports, opt-in trap-assisted
+  transport with image-force barrier corrections, mechanism-resolved diagnostics and reports,
+  reproducible stochastic nanocrystal ensembles, population statistics, feasibility and failure
+  accounting, variability-aware DTCO, ensemble Pareto analysis, and integrity-checked ensemble
+  reports, validation, and reproducibility tools.
 keywords:
   - nanocrystal memory
   - non-volatile memory

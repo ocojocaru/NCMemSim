@@ -55,6 +55,8 @@ standalone normal and deliberate-failure references. J7a API/result review and
 J7b local preflight, J7c release-identity alignment, and the exact-candidate
 local and remote gates all passed before release tagging.
 
+Version `1.2.0` is the current final-version candidate for Phase K. K7a API/result compatibility review and K7b local preflight are complete; K7c aligns final release identity while exact-candidate local and remote validation remain open.
+
 ## Start here
 
 - New users: [Installation](installation.md) and [Quick start](quickstart.md)
