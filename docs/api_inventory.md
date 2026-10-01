@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 110 package source modules; 610 explicit export paths; 180 distinct documented Python import paths.
+Coverage: 111 package source modules; 615 explicit export paths; 180 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -1733,6 +1733,7 @@ Decorators: `dataclass(frozen=True)`.
 - Field `design_point: SweepPoint`; required declaration.
 - Field `source: ModelPopulationAnalysis`; required declaration.
 - `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelDTCOStudy`; `classmethod`.
 - `study_hash(self) -> str`; `property`.
 
 - `evaluate_model_scalar(study: ModelDTCOStudy, definition: EnsembleScalarDefinition) -> dict[str, Any]`
@@ -1745,6 +1746,7 @@ Decorators: `dataclass(frozen=True)`.
 - Field `study: ModelDTCOStudy`; required declaration.
 - Field `constraints: tuple[EnsembleConstraint, ...]`; required declaration.
 - `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any], *, study: ModelDTCOStudy) -> ModelEligibilityResult`; `classmethod`.
 - `status(self) -> str`; `property`.
 
 - `evaluate_model_eligibility(study: ModelDTCOStudy, constraints=()) -> ModelEligibilityResult`
@@ -1758,6 +1760,9 @@ Decorators: `dataclass(frozen=True)`.
 - Field `objectives: tuple[EnsembleObjective, ...]`; required declaration.
 - Field `name: str`; default expression `'model-pareto'`.
 - `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelParetoAnalysis`; `classmethod`.
+- `to_json(self) -> str`.
+- `from_json(cls, text: str) -> ModelParetoAnalysis`; `classmethod`.
 
 - `analyze_model_pareto(sources, objectives, *, name='model-pareto') -> ModelParetoAnalysis`
 
@@ -1811,6 +1816,45 @@ Decorators: `dataclass(frozen=True)`.
 - `from_json(cls, text: str) -> ModelExecutionResult`; `classmethod`.
 
 - `execute_model_sample_manifest(manifest: ModelSampleManifest, base_device: Device, evaluator: Callable[[AppliedModelRealization, dict[str, Any]], dict[str, Any]], *, evaluation_id: str, workflow_context: dict[str, Any], base_operating_protocol: Any=None) -> ModelExecutionResult`
+
+## ncmemsim.ensemble.model_reporting
+
+`ncmemsim/ensemble/model_reporting.py`
+
+Explicit exports: `ModelReportStudy`, `ModelReport`, `build_model_report`, `write_model_report`, `load_model_report_bundle`
+
+### ModelReportStudy
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `population: ModelPopulationAnalysis`; required declaration.
+- Field `dtco: ModelEligibilityResult | None`; default expression `None`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelReportStudy`; `classmethod`.
+
+### ModelReport
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `studies: tuple[ModelReportStudy, ...]`; required declaration.
+- Field `pareto: ModelParetoAnalysis | None`; default expression `None`.
+- Field `limitations: tuple[str, ...]`; default expression `()`.
+- Field `evidence_json: str`; default expression `'{}'`.
+- `to_dict(self) -> dict[str, Any]`.
+- `report_hash(self) -> str`; `property`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelReport`; `classmethod`.
+- `to_json(self) -> str`.
+- `from_json(cls, text: str) -> ModelReport`; `classmethod`.
+
+- `build_model_report(name: str, studies, *, pareto: ModelParetoAnalysis | None=None, limitations=(), evidence=None) -> ModelReport`
+- `write_model_report(report: ModelReport, destination: str | Path) -> Path`
+- `load_model_report_bundle(destination: str | Path) -> ModelReport`
 
 ## ncmemsim.ensemble.model_sampling
 

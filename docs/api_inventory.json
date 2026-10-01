@@ -12150,7 +12150,8 @@
         "SweepPoint": "ncmemsim.dtco.sweep.SweepPoint",
         "_snapshot": "ncmemsim.ensemble.model_sampling._snapshot",
         "_strict_json": "ncmemsim.ensemble.model_sampling._strict_json",
-        "canonical_hash": "ncmemsim.hashing.canonical_hash"
+        "canonical_hash": "ncmemsim.hashing.canonical_hash",
+        "strict_fields": "ncmemsim.ensemble._serialization.strict_fields"
       },
       "public_source_definitions": [
         {
@@ -12191,6 +12192,30 @@
               "return_annotation": "dict[str, Any]",
               "source_signature": "(self) -> dict[str, Any]",
               "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelDTCOStudy",
+              "source_signature": "(cls, data: dict[str, Any]) -> ModelDTCOStudy",
+              "decorators": [
+                "classmethod"
+              ]
             },
             {
               "name": "study_hash",
@@ -12272,6 +12297,37 @@
               "return_annotation": "dict[str, Any]",
               "source_signature": "(self) -> dict[str, Any]",
               "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "study",
+                  "kind": "keyword_only",
+                  "annotation": "ModelDTCOStudy",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelEligibilityResult",
+              "source_signature": "(cls, data: dict[str, Any], *, study: ModelDTCOStudy) -> ModelEligibilityResult",
+              "decorators": [
+                "classmethod"
+              ]
             },
             {
               "name": "status",
@@ -12359,6 +12415,69 @@
               "return_annotation": "dict[str, Any]",
               "source_signature": "(self) -> dict[str, Any]",
               "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelParetoAnalysis",
+              "source_signature": "(cls, data: dict[str, Any]) -> ModelParetoAnalysis",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "to_json",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": []
+            },
+            {
+              "name": "from_json",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "text",
+                  "kind": "positional_or_keyword",
+                  "annotation": "str",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelParetoAnalysis",
+              "source_signature": "(cls, text: str) -> ModelParetoAnalysis",
+              "decorators": [
+                "classmethod"
+              ]
             }
           ]
         },
@@ -12832,6 +12951,323 @@
           ],
           "return_annotation": "ModelExecutionResult",
           "source_signature": "(manifest: ModelSampleManifest, base_device: Device, evaluator: Callable[[AppliedModelRealization, dict[str, Any]], dict[str, Any]], *, evaluation_id: str, workflow_context: dict[str, Any], base_operating_protocol: Any=None) -> ModelExecutionResult",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.ensemble.model_reporting",
+      "source": "ncmemsim/ensemble/model_reporting.py",
+      "explicit_exports": [
+        "ModelReportStudy",
+        "ModelReport",
+        "build_model_report",
+        "write_model_report",
+        "load_model_report_bundle"
+      ],
+      "package_import_aliases": {
+        "ModelDTCOStudy": "ncmemsim.ensemble.model_dtco.ModelDTCOStudy",
+        "ModelEligibilityResult": "ncmemsim.ensemble.model_dtco.ModelEligibilityResult",
+        "ModelParetoAnalysis": "ncmemsim.ensemble.model_dtco.ModelParetoAnalysis",
+        "ModelPopulationAnalysis": "ncmemsim.ensemble.model_analysis.ModelPopulationAnalysis",
+        "_snapshot": "ncmemsim.ensemble.model_sampling._snapshot",
+        "_strict_json": "ncmemsim.ensemble.model_sampling._strict_json",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash",
+        "strict_fields": "ncmemsim.ensemble._serialization.strict_fields"
+      },
+      "public_source_definitions": [
+        {
+          "name": "ModelReportStudy",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "population",
+              "annotation": "ModelPopulationAnalysis",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "dtco",
+              "annotation": "ModelEligibilityResult | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelReportStudy",
+              "source_signature": "(cls, data: dict[str, Any]) -> ModelReportStudy",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ModelReport",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "studies",
+              "annotation": "tuple[ModelReportStudy, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "pareto",
+              "annotation": "ModelParetoAnalysis | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "limitations",
+              "annotation": "tuple[str, ...]",
+              "default_expression": "()",
+              "required_in_source": false
+            },
+            {
+              "name": "evidence_json",
+              "annotation": "str",
+              "default_expression": "'{}'",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "report_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelReport",
+              "source_signature": "(cls, data: dict[str, Any]) -> ModelReport",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "to_json",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": []
+            },
+            {
+              "name": "from_json",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "text",
+                  "kind": "positional_or_keyword",
+                  "annotation": "str",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelReport",
+              "source_signature": "(cls, text: str) -> ModelReport",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build_model_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "name",
+              "kind": "positional_or_keyword",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "studies",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "pareto",
+              "kind": "keyword_only",
+              "annotation": "ModelParetoAnalysis | None",
+              "required": false,
+              "default_expression": "None"
+            },
+            {
+              "name": "limitations",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": false,
+              "default_expression": "()"
+            },
+            {
+              "name": "evidence",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": false,
+              "default_expression": "None"
+            }
+          ],
+          "return_annotation": "ModelReport",
+          "source_signature": "(name: str, studies, *, pareto: ModelParetoAnalysis | None=None, limitations=(), evidence=None) -> ModelReport",
+          "decorators": []
+        },
+        {
+          "name": "write_model_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "report",
+              "kind": "positional_or_keyword",
+              "annotation": "ModelReport",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": "str | Path",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "Path",
+          "source_signature": "(report: ModelReport, destination: str | Path) -> Path",
+          "decorators": []
+        },
+        {
+          "name": "load_model_report_bundle",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": "str | Path",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "ModelReport",
+          "source_signature": "(destination: str | Path) -> ModelReport",
           "decorators": []
         }
       ],

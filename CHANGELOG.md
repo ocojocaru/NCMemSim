@@ -4,6 +4,19 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### Phase L6 - authoritative MODEL reports and reproducibility bundles
+
+- Restore L5 study/eligibility/Pareto archives strictly and recompute all derived
+  projections, exclusions, denominators and fronts from validated nested sources.
+- Add immutable, separately versioned MODEL reports with complete attempted
+  populations, optional DTCO linkage, scientific limits and supplemental evidence.
+- Export authoritative JSON, Markdown and three CSV tables with a hash manifest;
+  refuse existing targets and verify deterministic regeneration on bundle loading.
+- Reject rehashed nested/projection tampering, malformed JSON and invalid bundle
+  structures without resampling or rerunning physics.
+- Add a stored-L5 report example retaining three designs, 48 attempts, numerical
+  audits and the original scientific limitations; L7 release gates remain pending.
+
 ### Phase L5 - explicitly linked MODEL variability DTCO
 
 - Link deterministic design points to declared MODEL executions and source

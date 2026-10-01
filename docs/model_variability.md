@@ -4,7 +4,7 @@
 
 Planning baseline: published v1.2.0, commit b9d2ff77136217af5b3b5a4b5a4780af5d75d6d5.
 Target release: v1.3.0. This document establishes the L0 planning contract;
-L1 contracts, L2 isolated execution, L3 controlled density reference, L4 population analysis and L5 variability-aware DTCO are implemented; L6-L7 are pending. No MODEL binding or new runtime API is implemented by L0.
+L1 contracts, L2 isolated execution, L3 controlled density reference, L4 population analysis, L5 variability-aware DTCO and L6 integrity-checked reports are implemented; L7 is pending. No MODEL binding or new runtime API is implemented by L0.
 The package remains 1.2.0 until a separate development-cycle bootstrap.
 
 ## Scientific objective and first executable scope
@@ -347,7 +347,7 @@ even if the outer hash is recomputed. Strict JSON rejects duplicate keys and
 nonfinite constants. This is an analysis archive; complete report bundles and
 export orchestration remain L6. The L3 finding that occupation spread is below
 the refinement difference is unchanged. L5 implements explicitly linked variability-aware DTCO objectives and eligibility
-below; L6 report bundles are the next milestone.
+below; L6 report bundles are implemented and L7 release gates are next.
 
 
 ## L5 explicitly linked MODEL DTCO
@@ -408,8 +408,8 @@ not a recommendation for a calibrated memory-device optimum.
 All three designs belong to the first front in the validated reference. The
 export retains experiment, complete MODEL populations, eligibility, objectives,
 fronts, source identities, numerical audit and scientific limitations; existing
-targets are never overwritten. This reference export is not the generic L6
-report bundle or its future strict reader. Sixteen paired realizations do not
+targets are never overwritten. The L6 reader and bundle builder below restore this reference export without
+rerunning the simulation. Sixteen paired realizations do not
 establish converged tails or sampling uncertainty. Dynamic occupation spread is
 not claimed resolved; fixed-field redistribution is not full device retention.
 
@@ -419,3 +419,77 @@ constant population without changing the quantile definition or archive schemas.
 Focused tests cover this correction, scalar units/denominators, undefined values,
 strict design linkage, inclusivity, eligibility precedence, exclusions, exact
 fronts and ties, actual candidate geometry, paired sampling and export safeguards.
+
+
+## L6 authoritative MODEL reports and reproducibility bundles
+
+`ModelDTCOStudy.from_dict`, `ModelEligibilityResult.from_dict` and
+`ModelParetoAnalysis.from_dict/from_json` restore L5 payloads strictly. They
+restore nested L4/L2 sources and rebuild scalar projections, constraint results,
+exclusion reasons, counts, ranks and front ordering. Unknown fields/versions,
+source/design mismatches and derived tampering are rejected even if the outer
+hash is recalculated. Existing L5 schemas are retained; existing Phase K readers
+and stable exports do not acquire MODEL data.
+
+The provisional `ncmemsim.ensemble.model_reporting` module provides
+`ModelReportStudy`, `ModelReport`, `build_model_report`, `write_model_report` and
+`load_model_report_bundle`. A study retains its complete population and optional
+DTCO eligibility. A report can contain standalone populations, all-failed or
+mixed populations, and a linked Pareto analysis. If present, Pareto sources must
+match the ordered DTCO report studies exactly; excluded designs remain present.
+Names are unique, source/population identities match, and JSON snapshots own
+supplemental evidence without mutable caller dictionaries.
+
+The authoritative `model-report-v1` JSON retains all attempted samples and
+assignments, nominal/realized contexts, model/distribution/dependence definitions,
+workflow settings, runtime, outputs, metrics, failure stages, exact denominators,
+nominal references and design/objective identities. Supplemental evidence can
+retain experiment definitions, numerical audits and interpretation limits.
+Supplemental declarations are archived under the report hash; their physical
+claims are not independently recomputed by the reader. Hashes and consistency
+checks do not replace provenance or experimental calibration.
+
+A new export directory contains six deterministic UTF-8 files:
+
+| File | Contents |
+| --- | --- |
+| `report.json` | Authoritative report and all nested source evidence |
+| `report.md` | Population counts, DTCO eligibility/exclusions/ranks, interpretation limits |
+| `attempts.csv` | Every attempt, assignments, metric values, constraints and failure details |
+| `statistics.csv` | Metric units, cohort IDs, denominators, population statistics, fractions and nominal comparisons |
+| `designs.csv` | Every Pareto design, assignments, eligibility, exclusions, ranks and objective projections |
+| `bundle.json` | Bundle schema, report identity and SHA-256 digests of the five content files |
+
+`write_model_report` validates before writing and refuses an existing target,
+including an empty directory or existing file. Exclusive creation protects
+individual output files. A failed write removes only files created by that
+export. No report creation timestamp or automatic runtime refresh is inserted;
+original execution provenance stays authoritative.
+
+`load_model_report_bundle` accepts only the exact ordinary-file set, verifies
+manifest identity and restores strict JSON, then regenerates every content file
+and compares its bytes. Rehashed altered CSV or Markdown projections are still
+rejected. Missing/extra files, symlinks and traversal-like manifest entries are
+rejected. Restoring and re-exporting a valid report yields identical content
+and bundle bytes without sample generation or workflow execution. Zero-assessed
+statistics retain zero denominators and null values; CSV leaves those undefined
+scalar cells empty rather than substituting zero.
+
+The runnable reference consumes an existing L5 archive:
+
+```shell
+python examples/phase_l6_model_report.py --input results/l5-model-dtco/reference.json --output results/l6-model-report
+```
+
+It verifies the L5 reference identity and experiment linkage, restores all three
+designs and 48 attempts, and carries the timestep audit and scientific limits
+into the bundle. It does not rerun L3/L5 physics. The assumed distribution,
+finite-sample tail limitations, unresolved dynamic occupation spread and
+fixed-field retention limitation remain unchanged.
+
+Focused tests cover nested restoration, rehashed derived tampering, exact
+report/Pareto linkage, duplicate/nonfinite JSON, all-failed and mixed accounting,
+deterministic exports, rehashed projection tampering, bundle structure,
+no-overwrite behavior, interrupted-write cleanup and restoration without physics
+or sampling. L7 remains the compatibility, clean-distribution, supported-Python
+CI and exact-commit release gate; L6 alone does not approve v1.3.0 release.
