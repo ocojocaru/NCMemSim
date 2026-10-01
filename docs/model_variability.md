@@ -4,7 +4,7 @@
 
 Planning baseline: published v1.2.0, commit b9d2ff77136217af5b3b5a4b5a4780af5d75d6d5.
 Target release: v1.3.0. This document establishes the L0 planning contract;
-L1 contracts, L2 isolated execution and the L3 controlled density reference are implemented; L4-L7 are pending. No MODEL binding or new runtime API is implemented by L0.
+L1 contracts, L2 isolated execution, L3 controlled density reference and L4 population analysis are implemented; L5-L7 are pending. No MODEL binding or new runtime API is implemented by L0.
 The package remains 1.2.0 until a separate development-cycle bootstrap.
 
 ## Scientific objective and first executable scope
@@ -193,7 +193,7 @@ ordered assignments, realized model reconstruction, context hashes, counts and
 result identity; JSON readers reject duplicate keys and non-finite constants.
 Hashes detect content inconsistency and are not signatures or authentication.
 The archives preserve device/protocol input snapshots; full result reporting
-and Phase K statistics integration remain L4/L6 rather than an implicit
+and reproducibility bundles remain L6; L4 reuses Phase K statistics rather than an implicit
 conversion into an existing K result type.
 
 Focused validation covers deterministic scalar/copula equivalence to Phase K,
@@ -269,7 +269,82 @@ The new directory contains `reference.json`, including full manifest/execution
 evidence, controls, refinement outputs, units, settings, interpretation limits
 and a derived reference hash. Existing targets are never overwritten. This is
 a reference evidence file, not the complete L6 report bundle; generic population
-statistics and failure/feasibility analysis remain L4. Focused tests check the
+statistics and failure/feasibility analysis are provided by L4 below. Focused tests check the
 J5 parameter baseline, repeatability, strict nested L2 restoration, nominal and
 disabled limits, monotonic rate response, conservation, numerical acceptance,
 deliberate workflow failure and no-overwrite export behavior.
+
+
+## L4 population analysis and failure accounting
+
+The provisional module `ncmemsim.ensemble.model_analysis` provides
+`analyze_model_execution` and `ModelPopulationAnalysis`. Analysis consumes a
+stored `ModelExecutionResult`; it does not draw samples or rerun physics.
+It reuses Phase K metric, constraint, statistics and nominal-reference contracts
+and the population-statistics kernel without converting MODEL archives into K
+archives. Existing package exports and historical release contracts stay intact.
+
+Every attempted realization retains its identity. Execution failures preserve
+the original stage, category and error. Missing, nonnumeric, nonfinite or inexact
+integer metrics become metric-extraction failures. A realization is assessed
+only when every requested metric is valid; partial metric sets are excluded
+from every summary. Assessed realizations are feasible or infeasible according
+to all declared constraints, including equality at the threshold. Without
+constraints, every assessed realization is feasible.
+
+Statistics include **all assessed complete cases**, including infeasible ones.
+Each metric retains its denominator and ordered source realization/sample IDs.
+Mean, minimum, maximum, median, population variance and standard deviation use
+Phase K semantics (ddof=0); quantiles use linear interpolation at (n-1)*p.
+A singleton has zero variance. An empty assessed population has denominator
+zero and null statistics, including quantiles. Aggregate overflow is rejected.
+
+Counts distinguish attempted, assessed, feasible, infeasible, execution failures
+and metric failures. Failure stages are counted explicitly. Each fraction stores
+its numerator and denominator:
+
+| Fraction | Numerator | Denominator |
+| --- | --- | --- |
+| Coverage | Assessed | Attempted |
+| Simulated pass | Feasible | Attempted |
+| Ensemble feasibility | Feasible | Assessed |
+| Failure | All failures | Attempted |
+
+A zero denominator produces null, never a fabricated success fraction.
+Nominal comparisons require explicit metric/unit-matched
+`NominalMetricReference` values; the first realization is never inferred as
+nominal. Mean and median deltas retain the assessed denominator. Neither these
+fractions nor descriptive population variance establishes measured process
+yield, sampling uncertainty, calibration or converged tails.
+
+```python
+from ncmemsim.dtco import MetricAnalysisSpec, MetricDefinition
+from ncmemsim.ensemble import NominalMetricReference
+from ncmemsim.ensemble.model_analysis import analyze_model_execution
+from ncmemsim.ensemble.model_execution import ModelExecutionResult
+from examples.phase_l3_tat_density_variability import run_reference
+
+evidence = run_reference()
+source = ModelExecutionResult.from_dict(evidence["execution"])
+metrics = MetricAnalysisSpec(
+    "L3 initial TAT rate", (MetricDefinition("tat_rate", ("initial_tat_rate_Hz",), "Hz"),)
+)
+analysis = analyze_model_execution(
+    source, metrics,
+    nominal_references=(NominalMetricReference(
+        "tat_rate", "Hz", evidence["nominal"]["initial_tat_rate_Hz"]
+    ),),
+)
+assert analysis.counts["assessed_count"] == 16
+assert analysis.to_dict()["statistics"][0]["denominator"] == 16
+```
+
+The separately versioned `model-population-analysis-v1` envelope includes the
+full execution source, definitions, runtime, identities and derived results.
+Restoration verifies the nested source and recomputes all analysis values;
+changing counts, denominators, statistics or assessment records is rejected
+even if the outer hash is recomputed. Strict JSON rejects duplicate keys and
+nonfinite constants. This is an analysis archive; complete report bundles and
+export orchestration remain L6. The L3 finding that occupation spread is below
+the refinement difference is unchanged. L5 is the next milestone: explicitly
+linked variability-aware DTCO objectives and eligibility.

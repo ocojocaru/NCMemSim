@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 108 package source modules; 602 explicit export paths; 177 distinct documented Python import paths.
+Coverage: 109 package source modules; 604 explicit export paths; 180 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -1635,6 +1635,33 @@ Decorators: `dataclass(frozen=True)`.
 - `result_hash(self) -> str`; `property`.
 
 - `analyze_ensemble_execution(execution: EnsembleExecutionResult, spec: MetricAnalysisSpec) -> EnsembleMetricAnalysisResult`
+
+## ncmemsim.ensemble.model_analysis
+
+`ncmemsim/ensemble/model_analysis.py`
+
+Explicit exports: `ModelPopulationAnalysis`, `analyze_model_execution`
+
+### ModelPopulationAnalysis
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: ModelExecutionResult`; required declaration.
+- Field `metric_spec: MetricAnalysisSpec`; required declaration.
+- Field `statistics_spec: EnsembleStatisticsSpec`; default expression `field(default_factory=EnsembleStatisticsSpec)`.
+- Field `nominal_references: tuple[NominalMetricReference, ...]`; default expression `()`.
+- Field `runtime: tuple[tuple[str, str], ...]`; default expression `field(default_factory=lambda: tuple(sorted(_runtime().items())))`.
+- `counts(self) -> dict[str, int]`; `property`.
+- `fractions(self) -> dict[str, dict[str, int | float | None]]`; `property`.
+- `analysis_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelPopulationAnalysis`; `classmethod`.
+- `to_json(self) -> str`.
+- `from_json(cls, text: str) -> ModelPopulationAnalysis`; `classmethod`.
+
+- `analyze_model_execution(source: ModelExecutionResult, metric_spec: MetricAnalysisSpec, *, statistics_spec: EnsembleStatisticsSpec | None=None, nominal_references: tuple[NominalMetricReference, ...]=()) -> ModelPopulationAnalysis`
 
 ## ncmemsim.ensemble.model_contracts
 

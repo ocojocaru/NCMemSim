@@ -4,6 +4,19 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### Phase L4 - MODEL population analysis and failure accounting
+
+- Reuse Phase K metric/constraint and complete-case population-statistics rules
+  for stored MODEL execution without rerunning physics or converting K archives.
+- Preserve every attempt, source identity and original failure stage; distinguish
+  metric failures from execution failures and assessed infeasible outcomes.
+- Retain explicit counts, fraction denominators, source cohorts and optional
+  nominal mean/median comparisons, including all-failed and singleton cases.
+- Add strict source-linked analysis restoration that recomputes derived values
+  and rejects tampering even with a recalculated outer hash.
+- Validate the real L3 reference without extending its scientific claims;
+  regenerate the current API inventory while keeping stable release evidence.
+
 ### Phase L3 - controlled TAT-density variability reference
 
 - Add a seeded 16-member assumed lognormal density study using the J5 trap,

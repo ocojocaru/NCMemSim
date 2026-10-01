@@ -11455,6 +11455,246 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.ensemble.model_analysis",
+      "source": "ncmemsim/ensemble/model_analysis.py",
+      "explicit_exports": [
+        "ModelPopulationAnalysis",
+        "analyze_model_execution"
+      ],
+      "package_import_aliases": {
+        "ConstraintEvaluation": "ncmemsim.dtco.metrics.ConstraintEvaluation",
+        "ConstraintOperator": "ncmemsim.dtco.metrics.ConstraintOperator",
+        "EnsembleStatisticsSpec": "ncmemsim.ensemble.statistics.EnsembleStatisticsSpec",
+        "MetricAnalysisSpec": "ncmemsim.dtco.metrics.MetricAnalysisSpec",
+        "MetricConstraint": "ncmemsim.dtco.metrics.MetricConstraint",
+        "MetricDefinition": "ncmemsim.dtco.metrics.MetricDefinition",
+        "ModelExecutionResult": "ncmemsim.ensemble.model_execution.ModelExecutionResult",
+        "NominalMetricReference": "ncmemsim.ensemble.feasibility.NominalMetricReference",
+        "ObjectiveDirection": "ncmemsim.dtco.metrics.ObjectiveDirection",
+        "_error_type": "ncmemsim.ensemble.execution._error_type",
+        "_finite_float": "ncmemsim.ensemble.metrics._finite_float",
+        "_metric_population_summary": "ncmemsim.ensemble.statistics._metric_population_summary",
+        "_runtime": "ncmemsim.ensemble.execution._runtime",
+        "_snapshot": "ncmemsim.ensemble.model_sampling._snapshot",
+        "_strict_json": "ncmemsim.ensemble.model_sampling._strict_json",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash",
+        "strict_fields": "ncmemsim.ensemble._serialization.strict_fields"
+      },
+      "public_source_definitions": [
+        {
+          "name": "ModelPopulationAnalysis",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "source",
+              "annotation": "ModelExecutionResult",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "metric_spec",
+              "annotation": "MetricAnalysisSpec",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "statistics_spec",
+              "annotation": "EnsembleStatisticsSpec",
+              "default_expression": "field(default_factory=EnsembleStatisticsSpec)",
+              "required_in_source": false
+            },
+            {
+              "name": "nominal_references",
+              "annotation": "tuple[NominalMetricReference, ...]",
+              "default_expression": "()",
+              "required_in_source": false
+            },
+            {
+              "name": "runtime",
+              "annotation": "tuple[tuple[str, str], ...]",
+              "default_expression": "field(default_factory=lambda: tuple(sorted(_runtime().items())))",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "counts",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, int]",
+              "source_signature": "(self) -> dict[str, int]",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "fractions",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, dict[str, int | float | None]]",
+              "source_signature": "(self) -> dict[str, dict[str, int | float | None]]",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "analysis_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict[str, Any]",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelPopulationAnalysis",
+              "source_signature": "(cls, data: dict[str, Any]) -> ModelPopulationAnalysis",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "to_json",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": []
+            },
+            {
+              "name": "from_json",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "text",
+                  "kind": "positional_or_keyword",
+                  "annotation": "str",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ModelPopulationAnalysis",
+              "source_signature": "(cls, text: str) -> ModelPopulationAnalysis",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "analyze_model_execution",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "source",
+              "kind": "positional_or_keyword",
+              "annotation": "ModelExecutionResult",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "metric_spec",
+              "kind": "positional_or_keyword",
+              "annotation": "MetricAnalysisSpec",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "statistics_spec",
+              "kind": "keyword_only",
+              "annotation": "EnsembleStatisticsSpec | None",
+              "required": false,
+              "default_expression": "None"
+            },
+            {
+              "name": "nominal_references",
+              "kind": "keyword_only",
+              "annotation": "tuple[NominalMetricReference, ...]",
+              "required": false,
+              "default_expression": "()"
+            }
+          ],
+          "return_annotation": "ModelPopulationAnalysis",
+          "source_signature": "(source: ModelExecutionResult, metric_spec: MetricAnalysisSpec, *, statistics_spec: EnsembleStatisticsSpec | None=None, nominal_references: tuple[NominalMetricReference, ...]=()) -> ModelPopulationAnalysis",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.ensemble.model_contracts",
       "source": "ncmemsim/ensemble/model_contracts.py",
       "explicit_exports": [
@@ -31103,7 +31343,10 @@
     "ncmemsim.dtco.sample_variations",
     "ncmemsim.dtco.write_dtco_report",
     "ncmemsim.dtco.write_robust_dtco_report",
+    "ncmemsim.ensemble.NominalMetricReference",
+    "ncmemsim.ensemble.model_analysis.analyze_model_execution",
     "ncmemsim.ensemble.model_contracts.trap_density_binding",
+    "ncmemsim.ensemble.model_execution.ModelExecutionResult",
     "ncmemsim.experimental.DeviceObservableDataset",
     "ncmemsim.experimental.ExperimentalCondition",
     "ncmemsim.experimental.ExperimentalDatasetMetadata",
