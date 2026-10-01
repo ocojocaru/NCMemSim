@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 112 package source modules; 625 explicit export paths; 186 distinct documented Python import paths.
+Coverage: 113 package source modules; 631 explicit export paths; 188 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3908,6 +3908,90 @@ Decorators: `dataclass`.
 - `validate(self, device=None) -> None`.
 - `for_layer(self, layer_name: str) -> FloatingGateState`.
 - `mean_normalized_occupations(self) -> np.ndarray`; `property`.
+
+
+## ncmemsim.temperature_context
+
+`ncmemsim/temperature_context.py`
+
+Explicit exports: `SemiconductorThermalMode`, `OpticalThermalMode`, `OpticalThermalBinding`, `ThermalContext`, `ResolvedThermalContext`, `ThermalSimulator`
+
+### SemiconductorThermalMode
+
+Bases: `str`, `Enum`.
+
+- Assignment `LEGACY = 'legacy'`.
+- Assignment `GAP_ONLY = 'gap_only'`.
+- Assignment `DENSITY_ONLY = 'density_only'`.
+- Assignment `COUPLED = 'coupled'`.
+
+### OpticalThermalMode
+
+Bases: `str`, `Enum`.
+
+- Assignment `LEGACY = 'legacy'`.
+- Assignment `GAPS_ONLY = 'gaps_only'`.
+- Assignment `PHONONS_ONLY = 'phonons_only'`.
+- Assignment `COUPLED = 'coupled'`.
+
+### OpticalThermalBinding
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `layer_name: str`; required declaration.
+- Field `mode: OpticalThermalMode`; required declaration.
+- Field `gamma_profile: AnchoredVarshniProfile | None`; default expression `None`.
+- Field `l_profile: AnchoredVarshniProfile | None`; default expression `None`.
+- Field `optical_parameters: GeSnOpticalParameterSet`; default expression `field(default_factory=GeSnOpticalParameterSet)`.
+- Field `absorption_parameters: GeSnAbsorptionParameterSet`; default expression `field(default_factory=GeSnAbsorptionParameterSet)`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> OpticalThermalBinding`; `classmethod`.
+
+### ThermalContext
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `nominal_device_json: str`; required declaration.
+- Field `nominal_physics_json: str`; required declaration.
+- Field `simulation_config_json: str`; required declaration.
+- Field `enabled: bool`; default expression `False`.
+- Field `semiconductor_mode: SemiconductorThermalMode`; default expression `SemiconductorThermalMode.LEGACY`.
+- Field `substrate_gap: AnchoredVarshniProfile | None`; default expression `None`.
+- Field `intrinsic_density: IntrinsicDensityProfile | None`; default expression `None`.
+- Field `optical_bindings: tuple[OpticalThermalBinding, ...]`; default expression `()`.
+- `from_nominal(cls, device: Device, physics: PhysicsModel | None=None, config: SimulationConfig | None=None, *, enabled: bool=False, semiconductor_mode: SemiconductorThermalMode=SemiconductorThermalMode.LEGACY, substrate_gap: AnchoredVarshniProfile | None=None, intrinsic_density: IntrinsicDensityProfile | None=None, optical_bindings: tuple[OpticalThermalBinding, ...]=()) -> ThermalContext`; `classmethod`.
+- `nominal_hash(self) -> str`; `property`.
+- `resolve(self, *, temperature_K: float | None=None) -> ResolvedThermalContext`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> ThermalContext`; `classmethod`.
+
+### ResolvedThermalContext
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `context: ThermalContext`; required declaration.
+- Field `temperature_K: float`; required declaration.
+- `device(self) -> Device`; `property`.
+- `physics(self) -> PhysicsModel`; `property`.
+- `simulation_config(self) -> SimulationConfig`; `property`.
+- `create_simulator(self) -> ThermalSimulator`.
+- `optical_model(self, layer_name: str)`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> ResolvedThermalContext`; `classmethod`.
+
+### ThermalSimulator
+
+Bases: `Simulator`.
+
+Constructor: `__init__(self, resolution: ResolvedThermalContext)`.
+
+- `relax_voltage(self, state, gate_voltage_V, dwell_time_s=None, internal_dt_s=None, light_source=None, photo_config=None, photo_weights=None, occupancy_integrator='explicit_euler')`.
 
 
 ## ncmemsim.transport

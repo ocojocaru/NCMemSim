@@ -27584,6 +27584,695 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.temperature_context",
+      "source": "ncmemsim/temperature_context.py",
+      "explicit_exports": [
+        "SemiconductorThermalMode",
+        "OpticalThermalMode",
+        "OpticalThermalBinding",
+        "ThermalContext",
+        "ResolvedThermalContext",
+        "ThermalSimulator"
+      ],
+      "package_import_aliases": {
+        "ABSORPTION_COEFFICIENT_PROVENANCE": "ncmemsim.materials.optics.models.ABSORPTION_COEFFICIENT_PROVENANCE",
+        "ABSORPTION_MODEL_PROVENANCE": "ncmemsim.materials.optics.models.ABSORPTION_MODEL_PROVENANCE",
+        "AnchoredVarshniProfile": "ncmemsim.materials.temperature.AnchoredVarshniProfile",
+        "CompositeGeSnAbsorptionModel": "ncmemsim.materials.optics.models.CompositeGeSnAbsorptionModel",
+        "Device": "ncmemsim.device.Device",
+        "GapKind": "ncmemsim.materials.temperature.GapKind",
+        "GeSnAbsorptionParameterSet": "ncmemsim.materials.optics.models.GeSnAbsorptionParameterSet",
+        "GeSnOpticalParameterSet": "ncmemsim.materials.optics.models.GeSnOpticalParameterSet",
+        "IntrinsicDensityProfile": "ncmemsim.materials.temperature.IntrinsicDensityProfile",
+        "OpticalPoint": "ncmemsim.materials.optics.models.OpticalPoint",
+        "PHONON_OCCUPATION_PROVENANCE": "ncmemsim.materials.optics.models.PHONON_OCCUPATION_PROVENANCE",
+        "PhysicsModel": "ncmemsim.physics.PhysicsModel",
+        "SimulationConfig": "ncmemsim.simulator.SimulationConfig",
+        "Simulator": "ncmemsim.simulator.Simulator",
+        "_device_payload": "ncmemsim.workflows.application._device_payload",
+        "_json_snapshot": "ncmemsim.dtco.sweep._json_snapshot",
+        "_keys": "ncmemsim.materials.temperature._keys",
+        "_number": "ncmemsim.materials.temperature._number",
+        "_physics_payload": "ncmemsim.workflows.application._physics_payload",
+        "_reject_constant": "ncmemsim.materials.temperature._reject_constant",
+        "_restore_device": "ncmemsim.workflows.application._restore_device",
+        "_restore_physics": "ncmemsim.workflows.application._restore_physics",
+        "_text": "ncmemsim.materials.temperature._text",
+        "_unique_object": "ncmemsim.materials.temperature._unique_object",
+        "direct_absorption_m_inv": "ncmemsim.materials.optics.models.direct_absorption_m_inv",
+        "direct_gap_gesn_eV": "ncmemsim.materials.optics.models.direct_gap_gesn_eV",
+        "evaluate_floating_gate_optical_absorption": "ncmemsim.optics.evaluate_floating_gate_optical_absorption",
+        "indirect_absorption_m_inv": "ncmemsim.materials.optics.models.indirect_absorption_m_inv",
+        "indirect_gap_gesn_eV": "ncmemsim.materials.optics.models.indirect_gap_gesn_eV",
+        "photon_energy_eV": "ncmemsim.materials.optics.models.photon_energy_eV",
+        "urbach_absorption_m_inv": "ncmemsim.materials.optics.models.urbach_absorption_m_inv"
+      },
+      "public_source_definitions": [
+        {
+          "name": "SemiconductorThermalMode",
+          "kind": "class",
+          "class_assignments": [
+            {
+              "names": [
+                "LEGACY"
+              ],
+              "expression": "'legacy'"
+            },
+            {
+              "names": [
+                "GAP_ONLY"
+              ],
+              "expression": "'gap_only'"
+            },
+            {
+              "names": [
+                "DENSITY_ONLY"
+              ],
+              "expression": "'density_only'"
+            },
+            {
+              "names": [
+                "COUPLED"
+              ],
+              "expression": "'coupled'"
+            }
+          ],
+          "bases": [
+            "str",
+            "Enum"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "OpticalThermalMode",
+          "kind": "class",
+          "class_assignments": [
+            {
+              "names": [
+                "LEGACY"
+              ],
+              "expression": "'legacy'"
+            },
+            {
+              "names": [
+                "GAPS_ONLY"
+              ],
+              "expression": "'gaps_only'"
+            },
+            {
+              "names": [
+                "PHONONS_ONLY"
+              ],
+              "expression": "'phonons_only'"
+            },
+            {
+              "names": [
+                "COUPLED"
+              ],
+              "expression": "'coupled'"
+            }
+          ],
+          "bases": [
+            "str",
+            "Enum"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "OpticalThermalBinding",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "layer_name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "mode",
+              "annotation": "OpticalThermalMode",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "gamma_profile",
+              "annotation": "AnchoredVarshniProfile | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "l_profile",
+              "annotation": "AnchoredVarshniProfile | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "optical_parameters",
+              "annotation": "GeSnOpticalParameterSet",
+              "default_expression": "field(default_factory=GeSnOpticalParameterSet)",
+              "required_in_source": false
+            },
+            {
+              "name": "absorption_parameters",
+              "annotation": "GeSnAbsorptionParameterSet",
+              "default_expression": "field(default_factory=GeSnAbsorptionParameterSet)",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict",
+              "source_signature": "(self) -> dict",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "OpticalThermalBinding",
+              "source_signature": "(cls, data: dict) -> OpticalThermalBinding",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ThermalContext",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "nominal_device_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "nominal_physics_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "simulation_config_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "enabled",
+              "annotation": "bool",
+              "default_expression": "False",
+              "required_in_source": false
+            },
+            {
+              "name": "semiconductor_mode",
+              "annotation": "SemiconductorThermalMode",
+              "default_expression": "SemiconductorThermalMode.LEGACY",
+              "required_in_source": false
+            },
+            {
+              "name": "substrate_gap",
+              "annotation": "AnchoredVarshniProfile | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "intrinsic_density",
+              "annotation": "IntrinsicDensityProfile | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "optical_bindings",
+              "annotation": "tuple[OpticalThermalBinding, ...]",
+              "default_expression": "()",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "from_nominal",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "device",
+                  "kind": "positional_or_keyword",
+                  "annotation": "Device",
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "physics",
+                  "kind": "positional_or_keyword",
+                  "annotation": "PhysicsModel | None",
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "config",
+                  "kind": "positional_or_keyword",
+                  "annotation": "SimulationConfig | None",
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "enabled",
+                  "kind": "keyword_only",
+                  "annotation": "bool",
+                  "required": false,
+                  "default_expression": "False"
+                },
+                {
+                  "name": "semiconductor_mode",
+                  "kind": "keyword_only",
+                  "annotation": "SemiconductorThermalMode",
+                  "required": false,
+                  "default_expression": "SemiconductorThermalMode.LEGACY"
+                },
+                {
+                  "name": "substrate_gap",
+                  "kind": "keyword_only",
+                  "annotation": "AnchoredVarshniProfile | None",
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "intrinsic_density",
+                  "kind": "keyword_only",
+                  "annotation": "IntrinsicDensityProfile | None",
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "optical_bindings",
+                  "kind": "keyword_only",
+                  "annotation": "tuple[OpticalThermalBinding, ...]",
+                  "required": false,
+                  "default_expression": "()"
+                }
+              ],
+              "return_annotation": "ThermalContext",
+              "source_signature": "(cls, device: Device, physics: PhysicsModel | None=None, config: SimulationConfig | None=None, *, enabled: bool=False, semiconductor_mode: SemiconductorThermalMode=SemiconductorThermalMode.LEGACY, substrate_gap: AnchoredVarshniProfile | None=None, intrinsic_density: IntrinsicDensityProfile | None=None, optical_bindings: tuple[OpticalThermalBinding, ...]=()) -> ThermalContext",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "nominal_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "resolve",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "temperature_K",
+                  "kind": "keyword_only",
+                  "annotation": "float | None",
+                  "required": false,
+                  "default_expression": "None"
+                }
+              ],
+              "return_annotation": "ResolvedThermalContext",
+              "source_signature": "(self, *, temperature_K: float | None=None) -> ResolvedThermalContext",
+              "decorators": []
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict",
+              "source_signature": "(self) -> dict",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ThermalContext",
+              "source_signature": "(cls, data: dict) -> ThermalContext",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ResolvedThermalContext",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "context",
+              "annotation": "ThermalContext",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "temperature_K",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "device",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "Device",
+              "source_signature": "(self) -> Device",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "physics",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "PhysicsModel",
+              "source_signature": "(self) -> PhysicsModel",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "simulation_config",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "SimulationConfig",
+              "source_signature": "(self) -> SimulationConfig",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "create_simulator",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ThermalSimulator",
+              "source_signature": "(self) -> ThermalSimulator",
+              "decorators": []
+            },
+            {
+              "name": "optical_model",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "layer_name",
+                  "kind": "positional_or_keyword",
+                  "annotation": "str",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, layer_name: str)",
+              "decorators": []
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict",
+              "source_signature": "(self) -> dict",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ResolvedThermalContext",
+              "source_signature": "(cls, data: dict) -> ResolvedThermalContext",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ThermalSimulator",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "Simulator"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": {
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "resolution",
+                "kind": "positional_or_keyword",
+                "annotation": "ResolvedThermalContext",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self, resolution: ResolvedThermalContext)",
+            "decorators": []
+          },
+          "methods": [
+            {
+              "name": "relax_voltage",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "state",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "gate_voltage_V",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "dwell_time_s",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "internal_dt_s",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "light_source",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "photo_config",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "photo_weights",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "occupancy_integrator",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "'explicit_euler'"
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, state, gate_voltage_V, dwell_time_s=None, internal_dt_s=None, light_source=None, photo_config=None, photo_weights=None, occupancy_integrator='explicit_euler')",
+              "decorators": []
+            }
+          ]
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.transport",
       "source": "ncmemsim/transport/__init__.py",
       "explicit_exports": [
@@ -32964,6 +33653,8 @@
     "ncmemsim.retention_fit.predict_retention_fraction",
     "ncmemsim.simulator.SimulationConfig",
     "ncmemsim.simulator.Simulator",
+    "ncmemsim.temperature_context.SemiconductorThermalMode",
+    "ncmemsim.temperature_context.ThermalContext",
     "ncmemsim.transport.AdvancedTransportEngine",
     "ncmemsim.transport.AdvancedTransportSpec",
     "ncmemsim.transport.BarrierCorrectionStatus",

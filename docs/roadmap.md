@@ -374,7 +374,9 @@ and applicability contracts. GeSn thermal profiles require independent compositi
 temperature evidence; material barriers and other coefficients stay unchanged.
 M1 is complete: module-qualified anchored gap/ni contracts, strict archives,
 explicit applicability and reviewed coefficient records. Simulator integration
-is reserved for M2. M2-M7 are planned; see [Temperature-dependent material properties](temperature_properties.md)
+is implemented in M2 through isolated thermal contexts, independent electrical/
+optical controls and an owned simulator with strict restoration and drift checks.
+M3-M7 are planned; see [Temperature-dependent material properties](temperature_properties.md)
 for the code audit, frozen scope, equations, references and acceptance sequence.
 
 ### v1.5.0: Phase N - Broadband spectra and multilayer optical propagation

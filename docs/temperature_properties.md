@@ -3,8 +3,9 @@
 ## M0 status and baseline
 
 M0 is complete: code-temperature audit, selected property families, ownership,
-scientific limits and staged acceptance contracts are frozen here. M2-M7 are
-planned. M1 adds opt-in property contracts and reviewed coefficients; M0 itself
+scientific limits and staged acceptance contracts are frozen here. M3-M7 are
+planned. M1 adds property contracts; M2 adds isolated thermal resolution and an
+explicit simulator route. M0 itself
 introduced no material law or runtime API.
 The provisional release target is v1.4.0. Package/citation identity remains 1.3.0
 at this planning checkpoint; v1.3.0 historical release evidence is retained.
@@ -158,9 +159,9 @@ accounting, not removed to improve feasible fractions.
 
 ## Next action
 
-M1 is implemented on `dev/v1.4-temperature-properties`. Proceed to M2:
-resolve isolated electrical/optical temperature contexts, demonstrate disabled
-and reference identity, and preserve candidate ownership. The package keeps its
+M1 and M2 are implemented on `dev/v1.4-temperature-properties`. Proceed to M3:
+add the controlled Si electrical/programming/retention reference, comparing
+legacy temperature-only, gap-only, density-only and coupled behavior. The package keeps its
 v1.3.0 release identity until a dedicated development/release identity change.
 
 
@@ -238,3 +239,101 @@ with the frozen profile. `contract_hash` hashes canonical JSON, including all
 coefficients, anchors and evidence; it identifies a declared contract and does not
 provide authenticity or prove experimental validity. M6 will add report-level
 reconstruction and derived-value verification.
+
+
+## M2 owned application contexts
+
+The additive API is module-qualified under `ncmemsim.temperature_context`.
+`ThermalContext.from_nominal` stores canonical JSON snapshots of the complete
+nominal device, material/layer metadata, core physics and simulation defaults.
+Optical attachments record parameter overrides and their reference conditions;
+when omitted, the factory records explicit legacy default attachments for all
+FGs. Supplying attachments requires exactly one per FG, including explicit legacy
+controls. Sources and profiles retain separate M1 evidence.
+
+The context is immutable. `resolve(temperature_K=...)` receives the single device
+and material evaluation temperature and returns a `ResolvedThermalContext`.
+It applies no profile when `enabled=False`; device temperature still enters
+existing electrical/charging expressions. With enabled laws, each profile checks
+its declared range, composition and statistics domain. Different component
+reference temperatures and mismatched nominal anchors are rejected. The resolver
+does not create a new MODEL axis or change existing DEVICE temperature bindings.
+
+Each device/physics property access returns an independent owned object. Physics
+reconstruction preserves the shared tunneling engine within that candidate,
+without sharing it across candidates. Only the selected Si bandgap/intrinsic
+density change; affinity, permittivity, masses, independent barriers, charge terms
+and other core configurations retain their nominal overrides. No material
+preset or caller dictionary is modified.
+
+| Control | Updated values | Held reference/legacy values |
+|---|---|---|
+| Semiconductor LEGACY | Existing device kT factors | Gap and ni |
+| GAP_ONLY | Si gap | ni |
+| DENSITY_ONLY | ni evaluated from its gap-coupled law | Semiconductor gap |
+| COUPLED | Si gap and coupled ni | Other semiconductor parameters |
+| Optical LEGACY | None | Existing composition gaps and phonon temperature |
+| GAPS_ONLY | Gamma/L gaps at device temperature | Phonon temperature |
+| PHONONS_ONLY | Phonon occupation at device temperature | Gamma/L gaps |
+| Optical COUPLED | Gamma/L gaps and phonon occupation | Prefactors, phonon energy, tail width/amplitude |
+
+Gaps-only, density-only and phonons-only are declared diagnostic controls; held
+values do not introduce an independently requested material temperature. Every
+active optical control requires both valley profiles and checks their domain,
+even when the profiles supply only the applicability limit for a phonons-only
+control. GeSn needs independently supplied composition-qualified profiles.
+Active optical attachments accept declared `GeModel`/`GeSnModel` materials;
+arbitrary chemical material identities cannot inherit Ge thermal laws.
+
+`resolution.create_simulator()` builds an owned `ThermalSimulator`. The original
+`Simulator` constructor and public methods retain their signatures. Its new
+private optical hook delegates to the same legacy function by default; the
+thermal adapter supplies each FG's explicit resolved model. Existing optical
+absorption components are reused, including one Bose-Einstein factor. At the
+reference point the complete optical point and transient numerical result recover
+the nominal model. Source-emitter temperature stays separate from device
+temperature. `resolution.optical_model("FG1")` exposes the same owned evaluator
+for low-level optical audits.
+
+The thermal simulator checks device, physics and simulation defaults before each
+relaxation; changing temperature, doping, composition, metadata or other inputs
+requires a new resolution. It can be passed directly to existing electrical,
+electro-optical and retention solvers. Operating arguments such as pulses,
+wavelengths, photo configurations and dwell-time overrides remain explicit run
+inputs; the M2 context archive does not by itself archive an operating protocol,
+photo configuration, fitted workflow, output history or scientific validation.
+
+M2 supports the exact core physics configurations already represented by the
+existing typed snapshot/reconstruction helpers. Runtime subclasses/callbacks,
+advanced transport engines and near-edge optical runtime models are rejected,
+rather than partially serialized. Their future combinations need explicit
+contracts; stored I/K/L workflow/report readers are unchanged. The Tran 300 K
+near-edge fit is not relabeled as a thermal fit.
+
+```python
+from ncmemsim import DeviceBuilder, DeviceState
+from ncmemsim.temperature_context import ThermalContext, SemiconductorThermalMode
+
+# si_gap is the explicitly qualified M1 profile constructed above.
+nominal = DeviceBuilder.v2(1)
+thermal = ThermalContext.from_nominal(
+    nominal, enabled=True,
+    semiconductor_mode=SemiconductorThermalMode.GAP_ONLY,
+    substrate_gap=si_gap,
+)
+resolved = thermal.resolve(temperature_K=350)
+simulator = resolved.create_simulator()
+state = DeviceState.empty_for_device(simulator.device)
+result = simulator.relax_voltage(state, 2.0, dwell_time_s=1e-6, internal_dt_s=1e-6)
+assert nominal.temperature_K == 300
+assert simulator.device.temperature_K == 350
+assert type(resolved).from_json(resolved.to_json()).context_hash == resolved.context_hash
+```
+
+`thermal-context-v1` records the nominal definitions and selected laws.
+`resolved-thermal-context-v1` additionally records nominal/source hashes and every
+resolved device, physics and optical projection. Readers validate nested source
+contracts and reconstruct the projection; tampered evaluated values, unchanged
+parameters, unknown/missing fields, duplicate JSON keys, nonfinite values and
+hash mismatches are rejected. A coherent new source is a new declared context;
+a content hash does not establish experimental validity or authenticity.

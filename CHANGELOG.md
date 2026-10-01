@@ -4,6 +4,17 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### Phase M2 - isolated thermal resolution and simulator contexts
+
+- Snapshot nominal device/material metadata, core physics overrides and explicit
+  optical configurations in separately versioned, immutable thermal contexts.
+- Resolve Si gap/ni and per-FG optical Gamma/L/phonon controls from one device
+  temperature; recover nominal reference values and preserve unrelated parameters.
+- Add an owned thermal simulator through a private optical evaluator hook;
+  retain existing Simulator signatures and reject drift from a resolved context.
+- Restore contexts strictly and recompute all resolved values and hashes;
+  retain legacy I/K/L archives and explicitly reject unsupported runtime engines.
+
 ### Phase M1 - anchored temperature contracts
 
 - Add opt-in typed Si gap/intrinsic-density and Ge Gamma/L gap profiles with
