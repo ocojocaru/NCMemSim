@@ -18,8 +18,8 @@ from scripts.validate_v1_2_release_identity import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_v1_2_final_version_identity_is_aligned():
-    result = validate(ROOT)
+def test_v1_2_final_version_identity_is_aligned(candidate_copy):
+    result = validate(candidate_copy)
     assert result["release_version"] == "1.2.0"
     assert result["previous_stable_release"] == "1.1.0"
     assert result["citation_date"] == "2026-09-30"
@@ -62,6 +62,10 @@ def candidate_copy(tmp_path):
         target = tmp_path / name
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / name, target)
+    # This fixture validates published v1.2 evidence, independently of a later development version.
+    (tmp_path / "ncmemsim/_version.py").write_text(
+        '__version__ = "1.2.0"\n', encoding="utf-8"
+    )
     return tmp_path
 
 

@@ -1,9 +1,11 @@
 name: Documentation
 
 on:
+  pull_request:
+    branches: ["main"]
   workflow_dispatch:
   push:
-    branches: ["main"]
+    branches: ["main", "dev/v1.3-model-variability"]
 
 permissions:
   contents: read

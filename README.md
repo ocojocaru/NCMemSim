@@ -398,6 +398,10 @@ Citation metadata is provided in [`CITATION.cff`](CITATION.cff). A DOI is not cu
 
 For reproducible scientific work, record the NCMemSim version together with the device definition, simulation configuration, material parameter provenance, and relevant calibration assumptions.
 
+## Development cycle
+
+The MODEL variability development cycle is `1.3.0.dev0`; the latest published stable release remains `1.2.0`. Phase L7 local/remote candidate gates are tracked in [the v1.3 release checklist](docs/v1_3_release_checklist.md).
+
 ## License
 
 Copyright 2026 Ovidiu Cojocaru.

@@ -29,3 +29,5 @@ include docs/final_candidate_strict_documentation.json
 include scripts/validate_clean_distribution_gate.py
 include docs/final_candidate_clean_distributions.md
 include docs/final_candidate_clean_distributions.json
+
+include scripts/validate_v1_3_api_review.py
