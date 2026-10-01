@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 111 package source modules; 615 explicit export paths; 180 distinct documented Python import paths.
+Coverage: 112 package source modules; 625 explicit export paths; 186 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3048,6 +3048,128 @@ Constructor: `__init__(self) -> None`.
 - `create(self, name: str, **kwargs: Any) -> Any`.
 - `available(self) -> tuple[str, ...]`.
 
+
+## ncmemsim.materials.temperature
+
+`ncmemsim/materials/temperature.py`
+
+Explicit exports: `ThermalMaterial`, `GapKind`, `ThermalEvidence`, `TemperatureDomain`, `CarrierStatisticsDomain`, `AnchoredVarshniProfile`, `IntrinsicDensityProfile`, `VarshniCoefficientRecord`, `reviewed_varshni_coefficients`, `profile_from_reviewed_record`
+
+### ThermalMaterial
+
+Bases: `str`, `Enum`.
+
+- Assignment `SILICON = 'Si'`.
+- Assignment `GERMANIUM = 'Ge'`.
+- Assignment `GERMANIUM_TIN = 'GeSn'`.
+
+### GapKind
+
+Bases: `str`, `Enum`.
+
+- Assignment `SUBSTRATE = 'substrate_electronic_gap'`.
+- Assignment `GAMMA = 'optical_gamma_gap'`.
+- Assignment `L = 'optical_l_gap'`.
+
+### ThermalEvidence
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: str`; required declaration.
+- Field `locator: str`; required declaration.
+- Field `status: ParameterStatus`; required declaration.
+- Field `notes: str`; required declaration.
+- Field `doi: str | None`; default expression `None`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> ThermalEvidence`; `classmethod`.
+
+### TemperatureDomain
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `material: ThermalMaterial`; required declaration.
+- Field `min_temperature_K: float`; required declaration.
+- Field `max_temperature_K: float`; required declaration.
+- Field `min_sn_fraction: float`; required declaration.
+- Field `max_sn_fraction: float`; required declaration.
+- Field `evidence: ThermalEvidence`; required declaration.
+- Field `strain_state: str`; default expression `'unstrained'`.
+- `check(self, temperature_K: float, sn_fraction: float) -> float`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> TemperatureDomain`; `classmethod`.
+
+### CarrierStatisticsDomain
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `min_doping_m3: float`; required declaration.
+- Field `max_doping_m3: float`; required declaration.
+- Field `minimum_doping_to_intrinsic_ratio: float`; required declaration.
+- Field `evidence: ThermalEvidence`; required declaration.
+- Field `assumption: str`; default expression `'constant_dos_mass_non_degenerate_fully_ionized'`.
+- `check(self, doping_m3: float, intrinsic_density_m3: float) -> None`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> CarrierStatisticsDomain`; `classmethod`.
+
+### AnchoredVarshniProfile
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `gap_kind: GapKind`; required declaration.
+- Field `domain: TemperatureDomain`; required declaration.
+- Field `sn_fraction: float`; required declaration.
+- Field `reference_temperature_K: float`; required declaration.
+- Field `reference_gap_eV: float`; required declaration.
+- Field `alpha_eV_K: float`; required declaration.
+- Field `beta_K: float`; required declaration.
+- Field `coefficient_evidence: ThermalEvidence`; required declaration.
+- Field `reference_evidence: ThermalEvidence`; required declaration.
+- `evaluate(self, temperature_K: float, *, sn_fraction: float | None=None) -> float`.
+- `evaluate_property(self, temperature_K: float, *, sn_fraction: float | None=None) -> MaterialProperty`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> AnchoredVarshniProfile`; `classmethod`.
+
+### IntrinsicDensityProfile
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `gap_profile: AnchoredVarshniProfile`; required declaration.
+- Field `reference_density_m3: float`; required declaration.
+- Field `reference_evidence: ThermalEvidence`; required declaration.
+- Field `statistics_domain: CarrierStatisticsDomain`; required declaration.
+- `evaluate(self, temperature_K: float, *, substrate_doping_m3: float) -> float`.
+- `evaluate_property(self, temperature_K: float, *, substrate_doping_m3: float) -> MaterialProperty`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> IntrinsicDensityProfile`; `classmethod`.
+
+### VarshniCoefficientRecord
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `material: ThermalMaterial`; required declaration.
+- Field `gap_kind: GapKind`; required declaration.
+- Field `zero_temperature_gap_eV: float`; required declaration.
+- Field `alpha_eV_K: float`; required declaration.
+- Field `beta_K: float`; required declaration.
+- Field `evidence: ThermalEvidence`; required declaration.
+
+- `reviewed_varshni_coefficients() -> tuple[VarshniCoefficientRecord, ...]`
+- `profile_from_reviewed_record(record: VarshniCoefficientRecord, *, name: str, domain: TemperatureDomain, reference_temperature_K: float, reference_gap_eV: float, reference_evidence: ThermalEvidence) -> AnchoredVarshniProfile`
 
 ## ncmemsim.optics
 

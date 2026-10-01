@@ -372,7 +372,9 @@ M0 is complete: select reference-anchored Si substrate gap/intrinsic density
 and bulk-Ge optical Gamma/L gaps, with explicit temperature ownership, provenance
 and applicability contracts. GeSn thermal profiles require independent composition/
 temperature evidence; material barriers and other coefficients stay unchanged.
-M1-M7 are planned; see [Temperature-dependent material properties](temperature_properties.md)
+M1 is complete: module-qualified anchored gap/ni contracts, strict archives,
+explicit applicability and reviewed coefficient records. Simulator integration
+is reserved for M2. M2-M7 are planned; see [Temperature-dependent material properties](temperature_properties.md)
 for the code audit, frozen scope, equations, references and acceptance sequence.
 
 ### v1.5.0: Phase N - Broadband spectra and multilayer optical propagation

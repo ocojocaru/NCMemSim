@@ -3,8 +3,9 @@
 ## M0 status and baseline
 
 M0 is complete: code-temperature audit, selected property families, ownership,
-scientific limits and staged acceptance contracts are frozen here. M1-M7 are
-planned; no new material law or runtime API is implemented by M0.
+scientific limits and staged acceptance contracts are frozen here. M2-M7 are
+planned. M1 adds opt-in property contracts and reviewed coefficients; M0 itself
+introduced no material law or runtime API.
 The provisional release target is v1.4.0. Package/citation identity remains 1.3.0
 at this planning checkpoint; v1.3.0 historical release evidence is retained.
 
@@ -157,7 +158,83 @@ accounting, not removed to improve feasible fractions.
 
 ## Next action
 
-Proceed to M1 on `dev/v1.4-temperature-properties`: define typed contracts and
-review the first coefficient/range records. Freeze schemas and baseline recovery
-before simulator integration. M0 itself changes documentation and audit evidence
-only; release artifacts and v1.3.0 citation remain untouched.
+M1 is implemented on `dev/v1.4-temperature-properties`. Proceed to M2:
+resolve isolated electrical/optical temperature contexts, demonstrate disabled
+and reference identity, and preserve candidate ownership. The package keeps its
+v1.3.0 release identity until a dedicated development/release identity change.
+
+
+## M1 contracts and coefficient review
+
+The additive API lives in `ncmemsim.materials.temperature`; existing material
+presets and public aliases retain their behavior. M1 evaluates property contracts
+only. It does not install profiles in `Device`, `Simulator` or optical models.
+
+`AnchoredVarshniProfile` owns one material, gap target, Sn composition and reference
+anchor. `IntrinsicDensityProfile` couples a Si substrate gap to its inherited ni
+anchor. Both preserve the reference value exactly and reject out-of-domain inputs,
+nonpositive gaps, nonfinite values and density underflow/overflow. A caller must
+supply doping for each ni evaluation. The carrier contract records an explicit
+nondegenerate, fully ionized, constant-DOS-mass approximation, doping bounds and a
+minimum doping/ni ratio greater than one; these are declared assumptions, not an
+automatic assessment of degeneracy or freeze-out. Construction checks the complete
+temperature/doping rectangle at its limiting endpoints.
+
+The reviewed rows below come from [Varshni (1967), Table I, p. 152](https://websrv.physik.uni-halle.de/F-Praktikum/PDF/Varshni_Temperature_dependence_of_the_energy_gap_in_semiconductors_1967.pdf),
+[DOI 10.1016/0031-8914(67)90062-6](https://doi.org/10.1016/0031-8914(67)90062-6).
+
+| Record | Table-I E0 (eV) | alpha (eV/K) | beta (K) |
+|---|---:|---:|---:|
+| Si substrate | 1.1557 | 7.021e-4 | 1108 |
+| Ge optical Gamma (direct) | 0.8893 | 6.042e-4 | 398 |
+| Ge optical L (indirect) | 0.7412 | 4.561e-4 | 210 |
+
+The Si row uses an exciton-subtracted gap convention. E0 is recorded for source
+traceability; the factory uses alpha/beta with the caller's explicit reference
+gap, rather than replacing that reference with Table-I E0. These coefficients
+are LITERATURE_FITTED; an anchored evaluation is DERIVED, and its inherited
+reference may remain ASSUMED. This is an offset model, not a refit or calibration.
+
+`profile_from_reviewed_record` accepts only these reviewed records and requires an
+ASSUMED operating domain. The proposed 250-350 K diagnostic window is not a
+certified range from Table I. GeSn requires a separately supplied composition-
+qualified profile and evidence; no reviewed GeSn coefficient record is supplied.
+A profile cannot be reused at a different Sn composition, even if both compositions
+lie inside its declared domain. Strained profiles are rejected.
+
+A complete source transcription and qualifications are stored in
+[temperature_coefficients_review.json](temperature_coefficients_review.json).
+The M0 audit remains historical evidence rather than being rewritten after M1.
+
+```python
+from ncmemsim.materials.provenance import ParameterStatus
+from ncmemsim.materials.temperature import (
+    ThermalEvidence, ThermalMaterial, TemperatureDomain,
+    reviewed_varshni_coefficients, profile_from_reviewed_record,
+)
+
+assumption = ThermalEvidence(
+    source="Inherited compact-model baseline",
+    locator="Explicit user-selected numerical domain and 300 K anchor",
+    status=ParameterStatus.ASSUMED,
+    notes="Conditional diagnostic profile; no independent thermal calibration",
+)
+si_gap = profile_from_reviewed_record(
+    reviewed_varshni_coefficients()[0], name="si-gap-diagnostic",
+    domain=TemperatureDomain(ThermalMaterial.SILICON, 250, 350, 0, 0, assumption),
+    reference_temperature_K=300, reference_gap_eV=1.12,
+    reference_evidence=assumption,
+)
+assert si_gap.evaluate(300) == 1.12
+assert si_gap.evaluate(350) < 1.12
+assert type(si_gap).from_json(si_gap.to_json()).contract_hash == si_gap.contract_hash
+```
+
+Profile archives use `anchored-varshni-v1` and `relative-intrinsic-density-v1`.
+Their units, schemas, nested applicability and evidence are validated on restore;
+unknown/missing fields, duplicate JSON keys, nonfinite numbers and unsupported
+calibration claims are rejected. Fresh dictionary projections do not share state
+with the frozen profile. `contract_hash` hashes canonical JSON, including all
+coefficients, anchors and evidence; it identifies a declared contract and does not
+provide authenticity or prove experimental validity. M6 will add report-level
+reconstruction and derived-value verification.

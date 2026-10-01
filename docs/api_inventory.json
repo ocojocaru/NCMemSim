@@ -21572,6 +21572,851 @@
       ]
     },
     {
+      "module": "ncmemsim.materials.temperature",
+      "source": "ncmemsim/materials/temperature.py",
+      "explicit_exports": [
+        "ThermalMaterial",
+        "GapKind",
+        "ThermalEvidence",
+        "TemperatureDomain",
+        "CarrierStatisticsDomain",
+        "AnchoredVarshniProfile",
+        "IntrinsicDensityProfile",
+        "VarshniCoefficientRecord",
+        "reviewed_varshni_coefficients",
+        "profile_from_reviewed_record"
+      ],
+      "package_import_aliases": {
+        "BOLTZMANN_J_K": "ncmemsim.constants.BOLTZMANN_J_K",
+        "ELEMENTARY_CHARGE_C": "ncmemsim.constants.ELEMENTARY_CHARGE_C",
+        "MaterialProperty": "ncmemsim.materials.provenance.MaterialProperty",
+        "ParameterProvenance": "ncmemsim.materials.provenance.ParameterProvenance",
+        "ParameterStatus": "ncmemsim.materials.provenance.ParameterStatus"
+      },
+      "public_source_definitions": [
+        {
+          "name": "ThermalMaterial",
+          "kind": "class",
+          "class_assignments": [
+            {
+              "names": [
+                "SILICON"
+              ],
+              "expression": "'Si'"
+            },
+            {
+              "names": [
+                "GERMANIUM"
+              ],
+              "expression": "'Ge'"
+            },
+            {
+              "names": [
+                "GERMANIUM_TIN"
+              ],
+              "expression": "'GeSn'"
+            }
+          ],
+          "bases": [
+            "str",
+            "Enum"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "GapKind",
+          "kind": "class",
+          "class_assignments": [
+            {
+              "names": [
+                "SUBSTRATE"
+              ],
+              "expression": "'substrate_electronic_gap'"
+            },
+            {
+              "names": [
+                "GAMMA"
+              ],
+              "expression": "'optical_gamma_gap'"
+            },
+            {
+              "names": [
+                "L"
+              ],
+              "expression": "'optical_l_gap'"
+            }
+          ],
+          "bases": [
+            "str",
+            "Enum"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "ThermalEvidence",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "source",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "locator",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "status",
+              "annotation": "ParameterStatus",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "notes",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "doi",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict",
+              "source_signature": "(self) -> dict",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ThermalEvidence",
+              "source_signature": "(cls, data: dict) -> ThermalEvidence",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TemperatureDomain",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "material",
+              "annotation": "ThermalMaterial",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "min_temperature_K",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "max_temperature_K",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "min_sn_fraction",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "max_sn_fraction",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "ThermalEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "strain_state",
+              "annotation": "str",
+              "default_expression": "'unstrained'",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "check",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "temperature_K",
+                  "kind": "positional_or_keyword",
+                  "annotation": "float",
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "sn_fraction",
+                  "kind": "positional_or_keyword",
+                  "annotation": "float",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "float",
+              "source_signature": "(self, temperature_K: float, sn_fraction: float) -> float",
+              "decorators": []
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict",
+              "source_signature": "(self) -> dict",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "TemperatureDomain",
+              "source_signature": "(cls, data: dict) -> TemperatureDomain",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CarrierStatisticsDomain",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "min_doping_m3",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "max_doping_m3",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "minimum_doping_to_intrinsic_ratio",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "ThermalEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "assumption",
+              "annotation": "str",
+              "default_expression": "'constant_dos_mass_non_degenerate_fully_ionized'",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "check",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "doping_m3",
+                  "kind": "positional_or_keyword",
+                  "annotation": "float",
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "intrinsic_density_m3",
+                  "kind": "positional_or_keyword",
+                  "annotation": "float",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "None",
+              "source_signature": "(self, doping_m3: float, intrinsic_density_m3: float) -> None",
+              "decorators": []
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict",
+              "source_signature": "(self) -> dict",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "CarrierStatisticsDomain",
+              "source_signature": "(cls, data: dict) -> CarrierStatisticsDomain",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "AnchoredVarshniProfile",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "gap_kind",
+              "annotation": "GapKind",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "domain",
+              "annotation": "TemperatureDomain",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "sn_fraction",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "reference_temperature_K",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "reference_gap_eV",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "alpha_eV_K",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "beta_K",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "coefficient_evidence",
+              "annotation": "ThermalEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "reference_evidence",
+              "annotation": "ThermalEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "evaluate",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "temperature_K",
+                  "kind": "positional_or_keyword",
+                  "annotation": "float",
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "sn_fraction",
+                  "kind": "keyword_only",
+                  "annotation": "float | None",
+                  "required": false,
+                  "default_expression": "None"
+                }
+              ],
+              "return_annotation": "float",
+              "source_signature": "(self, temperature_K: float, *, sn_fraction: float | None=None) -> float",
+              "decorators": []
+            },
+            {
+              "name": "evaluate_property",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "temperature_K",
+                  "kind": "positional_or_keyword",
+                  "annotation": "float",
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "sn_fraction",
+                  "kind": "keyword_only",
+                  "annotation": "float | None",
+                  "required": false,
+                  "default_expression": "None"
+                }
+              ],
+              "return_annotation": "MaterialProperty",
+              "source_signature": "(self, temperature_K: float, *, sn_fraction: float | None=None) -> MaterialProperty",
+              "decorators": []
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict",
+              "source_signature": "(self) -> dict",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "AnchoredVarshniProfile",
+              "source_signature": "(cls, data: dict) -> AnchoredVarshniProfile",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "IntrinsicDensityProfile",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "gap_profile",
+              "annotation": "AnchoredVarshniProfile",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "reference_density_m3",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "reference_evidence",
+              "annotation": "ThermalEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "statistics_domain",
+              "annotation": "CarrierStatisticsDomain",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "evaluate",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "temperature_K",
+                  "kind": "positional_or_keyword",
+                  "annotation": "float",
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "substrate_doping_m3",
+                  "kind": "keyword_only",
+                  "annotation": "float",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "float",
+              "source_signature": "(self, temperature_K: float, *, substrate_doping_m3: float) -> float",
+              "decorators": []
+            },
+            {
+              "name": "evaluate_property",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "temperature_K",
+                  "kind": "positional_or_keyword",
+                  "annotation": "float",
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "substrate_doping_m3",
+                  "kind": "keyword_only",
+                  "annotation": "float",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "MaterialProperty",
+              "source_signature": "(self, temperature_K: float, *, substrate_doping_m3: float) -> MaterialProperty",
+              "decorators": []
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict",
+              "source_signature": "(self) -> dict",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "IntrinsicDensityProfile",
+              "source_signature": "(cls, data: dict) -> IntrinsicDensityProfile",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "VarshniCoefficientRecord",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "material",
+              "annotation": "ThermalMaterial",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "gap_kind",
+              "annotation": "GapKind",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "zero_temperature_gap_eV",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "alpha_eV_K",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "beta_K",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "ThermalEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "reviewed_varshni_coefficients",
+          "kind": "function",
+          "parameters": [],
+          "return_annotation": "tuple[VarshniCoefficientRecord, ...]",
+          "source_signature": "() -> tuple[VarshniCoefficientRecord, ...]",
+          "decorators": []
+        },
+        {
+          "name": "profile_from_reviewed_record",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "record",
+              "kind": "positional_or_keyword",
+              "annotation": "VarshniCoefficientRecord",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "name",
+              "kind": "keyword_only",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "domain",
+              "kind": "keyword_only",
+              "annotation": "TemperatureDomain",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "reference_temperature_K",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "reference_gap_eV",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "reference_evidence",
+              "kind": "keyword_only",
+              "annotation": "ThermalEvidence",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "AnchoredVarshniProfile",
+          "source_signature": "(record: VarshniCoefficientRecord, *, name: str, domain: TemperatureDomain, reference_temperature_K: float, reference_gap_eV: float, reference_evidence: ThermalEvidence) -> AnchoredVarshniProfile",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.optics",
       "source": "ncmemsim/optics.py",
       "explicit_exports": null,
@@ -32078,6 +32923,12 @@
     "ncmemsim.materials.optics.fit_gesn_near_edge_absorption",
     "ncmemsim.materials.optics.predict_gesn_near_edge_absorption_m_inv",
     "ncmemsim.materials.optics.qualify_gesn_near_edge_fit",
+    "ncmemsim.materials.provenance.ParameterStatus",
+    "ncmemsim.materials.temperature.TemperatureDomain",
+    "ncmemsim.materials.temperature.ThermalEvidence",
+    "ncmemsim.materials.temperature.ThermalMaterial",
+    "ncmemsim.materials.temperature.profile_from_reviewed_record",
+    "ncmemsim.materials.temperature.reviewed_varshni_coefficients",
     "ncmemsim.optics.LightSource",
     "ncmemsim.paired_pulse_protocol.PairedPulseMemoryProtocol",
     "ncmemsim.paired_pulse_protocol.PairedPulseMemoryResult",

@@ -4,6 +4,16 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### Phase M1 - anchored temperature contracts
+
+- Add opt-in typed Si gap/intrinsic-density and Ge Gamma/L gap profiles with
+  exact reference recovery, mandatory applicability and separate source evidence.
+- Review Varshni Table I coefficients, preserving the Si exciton convention;
+  require explicit baseline anchors and ASSUMED operating ranges.
+- Reject invalid domains, unsupported carrier assumptions and nonfinite outputs;
+  restore owned profile archives strictly with deterministic content hashes.
+- Enable v1.4 development-branch CI/docs; defer simulator integration to M2.
+
 ### Phase M0 - temperature audit and scope
 
 - Audit existing electrical, charging and optical temperature behavior against
