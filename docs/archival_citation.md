@@ -10,9 +10,9 @@ The project author confirmed the GitHub/Zenodo archive identifiers:
   identifies v1.2.0 specifically and remains that version's identifier after later releases.
 
 For reproducible research, cite the version-specific DOI and software version.
-The current v1.3.0 candidate has not been deposited as a release; its CITATION.cff
-records the Concept DOI as an additional identifier, without assigning v1.2.0's
-DOI to v1.3.0. Confirm the new version DOI after release publication and deposit.
+The project author confirmed [v1.3.0 DOI: 10.5281/zenodo.23079171](https://doi.org/10.5281/zenodo.23079171).
+CITATION.cff records this version DOI and retains the Concept DOI as an additional identifier.
+This citation update follows publication and does not move the v1.3.0 tag or replace its assets.
 
 ## Historical v1.0.0 policy
 

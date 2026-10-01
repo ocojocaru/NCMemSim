@@ -29,7 +29,11 @@ def validate(root: Path) -> dict:
     if released != '2026-10-01':
         raise ValueError('candidate citation date differs from reviewed release date')
     date.fromisoformat(released)
-    if re.search(r'(?m)^doi\s*:', citation):
+    published = '**Current stable release:** `1.3.0`' in (root / 'README.md').read_text(encoding='utf-8')
+    dois = re.findall(r'(?m)^doi\s*:\s*(\S+)\s*$', citation)
+    if published and dois != ['10.5281/zenodo.23079171']:
+        raise ValueError('version-specific DOI must match the author-confirmed v1.3.0 deposit')
+    if not published and dois:
         raise ValueError('version-specific DOI requires verification of the v1.3.0 deposit; the Concept DOI belongs in identifiers')
     required = {
         'README.md': ('**Release candidate:** `1.3.0`', '**Latest published stable release:** `1.2.0`'),
@@ -38,12 +42,20 @@ def validate(root: Path) -> dict:
         'docs/model_variability.md': ('final candidate identity 1.3.0',),
         'docs/v1_3_release_checklist.md': ('Final candidate identity: `1.3.0`', 'final release approval is pending'),
     }
+    if published:
+        required = {
+            'README.md': ('**Current stable release:** `1.3.0`',),
+            'CHANGELOG.md': ('## 1.3.0 \u2014 2026-10-01',),
+            'docs/index.md': ('current stable release `1.3.0`',),
+            'docs/model_variability.md': ('L7 is complete',),
+            'docs/v1_3_release_checklist.md': ('Status: L7 complete', '4319cbc899191bd1cafbd79c4a7df20c1d490d10'),
+        }
     for name, markers in required.items():
         text = (root / name).read_text(encoding='utf-8')
         if any(marker not in text for marker in markers):
             raise ValueError('inconsistent final candidate declaration: ' + name)
     review = validate_api(root)
-    return {'status': 'final_candidate_identity_pass_not_release_approval',
+    return {'status': 'published_release_identity_pass' if published else 'final_candidate_identity_pass_not_release_approval',
             'release_version': '1.3.0', 'citation_date': released, 'api': review}
 
 

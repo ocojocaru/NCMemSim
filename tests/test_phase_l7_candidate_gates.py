@@ -47,6 +47,7 @@ def test_model_distribution_probe_and_fixture_are_packaged():
 
 def test_candidate_checklist_does_not_claim_release_approval():
     text=(ROOT/'docs/v1_3_release_checklist.md').read_text(encoding='utf-8')
-    assert 'final release approval is pending' in text
+    assert 'Status: L7 complete' in text
+    assert 'Historical preparation checklist' in text
     assert 'exact final release commit' in text
     assert 'No tag, merge or release publication' in text

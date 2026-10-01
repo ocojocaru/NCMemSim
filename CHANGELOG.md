@@ -4,7 +4,7 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
-## 1.3.0 — 2026-10-01 (release candidate; publication pending)
+## 1.3.0 — 2026-10-01
 
 ### Phase L7 - candidate compatibility and release preparation
 
@@ -14,7 +14,8 @@ All notable changes to NCMemSim are documented in this file.
 - Extend installed wheel/sdist probes with strict MODEL restoration, all-failed
   accounting and deterministic report bundles; constrain documentation to MkDocs <2.
 - Preparation commit 3054c8e passed all six Python 3.11-3.13 CI jobs and documentation.
-- Final 1.3.0 commit CI, main/tag alignment and publication gates remain pending.
+- Final candidate, main and tag CI passed; publish v1.3.0 wheel/sdist from commit 4319cbc899191bd1cafbd79c4a7df20c1d490d10.
+- Record Zenodo version DOI 10.5281/zenodo.23079171 in a subsequent citation/documentation commit without moving the release tag.
 
 ### Phase L6 - authoritative MODEL reports and reproducibility bundles
 

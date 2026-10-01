@@ -10,8 +10,8 @@
 
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
-> **Release candidate:** `1.3.0` — Explicit model/TAT variability and reproducible MODEL reports
-> **Latest published stable release:** `1.2.0` — final v1.3.0 CI, merge, tag and publication remain pending.
+> **Current stable release:** `1.3.0` — Explicit model/TAT variability and reproducible MODEL reports
+> **Release status:** Phase L is complete; final candidate, main and tag CI passed, and v1.3.0 is published with wheel and sdist.
 > **Previous release status (v1.2.0):** Phase K is complete. K7a/K7b/K7c preparation and the exact-candidate local, branch-remote and `main` CI/Documentation gates passed before release tagging. No experimental-calibration or manufacturing-yield claim is made.
 > **Scientific status:** Phases G/H/I add deterministic and Robust DTCO, immutable workflow evidence and linked reports to the retained simulation/calibration baseline. References remain synthetic/FITTED; device-specific experimental calibration remains study-dependent.
 
@@ -397,13 +397,13 @@ Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before submitting changes.
 
 ## Citation
 
-Citation metadata is provided in [`CITATION.cff`](CITATION.cff). The Zenodo [Concept DOI](https://doi.org/10.5281/zenodo.23078330) represents all published versions and resolves to the latest archived release. The version-specific DOI [10.5281/zenodo.23078331](https://doi.org/10.5281/zenodo.23078331) identifies **v1.2.0**. For reproducible research, cite the DOI of the exact archived version used. The v1.3.0 candidate has no version-specific DOI yet.
+Citation metadata is provided in [`CITATION.cff`](CITATION.cff). The Zenodo [Concept DOI](https://doi.org/10.5281/zenodo.23078330) represents all published versions and resolves to the latest archived release. The version-specific DOI [10.5281/zenodo.23078331](https://doi.org/10.5281/zenodo.23078331) identifies **v1.2.0**. For reproducible research, cite the DOI of the exact archived version used. The v1.3.0 version-specific DOI is [10.5281/zenodo.23079171](https://doi.org/10.5281/zenodo.23079171).
 
 For reproducible scientific work, record the NCMemSim version together with the device definition, simulation configuration, material parameter provenance, and relevant calibration assumptions.
 
 ## Development cycle
 
-The MODEL variability release candidate is `1.3.0`; the latest published stable release remains `1.2.0` until publication. Phase L7 local/remote candidate gates are tracked in [the v1.3 release checklist](docs/v1_3_release_checklist.md).
+The MODEL variability release `1.3.0` is published. Phase L7 local/remote candidate gates are tracked in [the v1.3 release checklist](docs/v1_3_release_checklist.md).
 
 ## License
 

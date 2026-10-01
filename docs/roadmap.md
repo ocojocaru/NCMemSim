@@ -355,7 +355,7 @@ in L and can advance P when suitable independent data become available.
 
 ### v1.3.0: Phase L - MODEL/TAT variability
 
-Status: L0 planning contract established; L1 contracts, L2 isolated execution, L3 controlled density reference, L4 population analysis, L5 variability-aware DTCO and L6 integrity-checked reports implemented; L7 preparation implemented; preparation commit 3054c8e passed remote CI and docs; final 1.3.0 candidate CI, merge/tag and publication gates pending. Extend Phase K to
+Status: L0 planning contract established; L1 contracts, L2 isolated execution, L3 controlled density reference, L4 population analysis, L5 variability-aware DTCO and L6 integrity-checked reports implemented; L7 complete: released as `v1.3.0` from commit 4319cbc899191bd1cafbd79c4a7df20c1d490d10; final candidate, main/tag CI, documentation and distribution gates passed. Extend Phase K to
 explicit model bindings, beginning with link/species-scoped trap density.
 See [Model and TAT variability](model_variability.md) for L0-L7, ownership,
 compatibility, validation, failure accounting and scientific limits.

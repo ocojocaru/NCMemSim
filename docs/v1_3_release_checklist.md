@@ -1,6 +1,24 @@
 # v1.3 Phase L7 candidate and release checklist
 
-Status: L7 preparation is implemented; final release approval is pending.
+## Published v1.3.0 evidence
+
+Status: L7 complete; v1.3.0 published on 2026-10-01.
+Release identity: `1.3.0`; tag/main release commit `4319cbc899191bd1cafbd79c4a7df20c1d490d10`.
+
+- Final candidate and PR head: `79b5efbe081068351e5376f9b06a706ae05721f9`.
+- [Main CI](https://github.com/ocojocaru/NCMemSim/actions/runs/36839999633): all six Python 3.11-3.13 test/distribution jobs passed.
+- [Main Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/36839999599): passed.
+- [Tag CI](https://github.com/ocojocaru/NCMemSim/actions/runs/36841294743): passed.
+- [Release workflow](https://github.com/ocojocaru/NCMemSim/actions/runs/36841294702): passed.
+- [GitHub Release](https://github.com/ocojocaru/NCMemSim/releases/tag/v1.3.0): public, non-prerelease, wheel and sdist attached.
+- Author-confirmed [v1.3.0 DOI](https://doi.org/10.5281/zenodo.23079171); [Concept DOI](https://doi.org/10.5281/zenodo.23078330) retained separately.
+
+This post-publication citation/documentation update does not move the tag or replace release assets.
+The historical checklist below records preparation decisions, not current pending gates.
+
+## Historical preparation checklist
+
+Status at preparation: L7 preparation is implemented; final release approval is pending.
 Final candidate identity: `1.3.0`, citation date `2026-10-01`. Latest published stable release: `v1.2.0`.
 Historical v1.0/v1.1/v1.2 JSON evidence retains its published meaning; CITATION.cff
 now describes the final candidate source and is not proof of publication.

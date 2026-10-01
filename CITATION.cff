@@ -3,12 +3,13 @@ message: "If you use NCMemSim in research, cite the exact software version and t
 title: "NCMemSim: Nanocrystal Memory Simulation Platform"
 type: software
 version: 1.3.0
+doi: 10.5281/zenodo.23079171
 date-released: 2026-10-01
 license: Apache-2.0
 identifiers:
   - type: doi
     value: 10.5281/zenodo.23078330
-    description: "Concept DOI representing all published versions; not a version-specific v1.3.0 DOI"
+    description: "Concept DOI representing all published versions"
 authors:
   - family-names: Cojocaru
     given-names: Ovidiu
