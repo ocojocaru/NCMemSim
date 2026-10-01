@@ -5,6 +5,7 @@
 import json
 from pathlib import Path
 import re
+import shutil
 
 import pytest
 
@@ -15,8 +16,18 @@ from scripts.validate_release_readiness import validate as validate_readiness
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_current_archival_plan_is_approved_without_candidate_readiness():
-    plan = validate(ROOT)
+@pytest.fixture
+def historical_archival_copy(tmp_path):
+    """The v1.0 archival plan must be checked against its original citation."""
+    shutil.copytree(ROOT / "docs", tmp_path / "docs")
+    (tmp_path / "ncmemsim").mkdir()
+    (tmp_path / "ncmemsim/_version.py").write_text('__version__ = "1.0.0"\n', encoding="utf-8")
+    shutil.copyfile(ROOT / "tests/fixtures/releases/v1_0_0/CITATION.cff", tmp_path / "CITATION.cff")
+    return tmp_path
+
+
+def test_historical_archival_plan_is_approved_without_candidate_readiness(historical_archival_copy):
+    plan = validate(historical_archival_copy)
     assert plan["status"] == "approved_repository_citation_no_doi"
     assert plan["doi"] is None
     assert plan["current_citation_version"] == "1.0.0"
@@ -50,7 +61,7 @@ def test_archival_plan_rejects_premature_release_claims(tmp_path, fault):
         (tmp_path / name).mkdir()
     plan = json.loads((ROOT / "docs/archival_citation.json").read_text(encoding="utf-8"))
     readiness = json.loads((ROOT / "docs/release_readiness.json").read_text(encoding="utf-8"))
-    citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
+    citation = (ROOT / "tests/fixtures/releases/v1_0_0/CITATION.cff").read_text(encoding="utf-8")
 
     if fault == "invented_doi":
         plan["doi"] = "10.0000/not-real"
