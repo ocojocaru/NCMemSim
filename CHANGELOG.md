@@ -4,6 +4,15 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### Phase M0 - temperature audit and scope
+
+- Audit existing electrical, charging and optical temperature behavior against
+  the v1.3 release baseline; store source hashes and numerical diagnostic controls.
+- Freeze opt-in Si substrate gap/intrinsic-density and bulk-Ge optical Gamma/L
+  gap families, anchored laws, applicability/provenance and context ownership.
+- Plan M1-M7 contracts, isolated resolution, references, DTCO, reports and gates;
+  defer unsupported GeSn profiles and preserve current defaults and archives.
+
 ## 1.3.0 — 2026-10-01
 
 ### Phase L7 - candidate compatibility and release preparation

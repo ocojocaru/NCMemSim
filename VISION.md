@@ -54,7 +54,8 @@ Coulomb charging, temperature-dependent properties and hierarchical uncertainty.
 - **v1.0:** stable scientific API, validated workflows and versioned releases;
   DOI/external deposit only when independently assigned;
 - **v1.1-v1.2:** released advanced transport and stochastic ensembles;
-- **v1.3-v1.5 (planned):** MODEL/TAT variability, temperature-dependent properties
+- **v1.3:** released explicit MODEL/TAT variability and strict reproducibility bundles;
+- **v1.4-v1.5 (planned):** temperature-dependent properties (M0 scope established)
   and broadband/multi-FG optics;
 - **Later (indicative):** strain/confinement, independent calibration, neuromorphic
   workflows, acceleration and higher-fidelity interoperability; see

@@ -349,7 +349,7 @@ for the governing K0 architecture and scientific contracts.
 ## Planned post-v1.2 releases
 
 Planning order approved for staged development; version targets are provisional.
-L is the immediate cycle. M and N have acceptance targets; O-R remain indicative
+L is released; M is the immediate cycle. M and N have acceptance targets; O-R remain indicative
 and are reassessed after each release. Experimental dataset discovery begins
 in L and can advance P when suitable independent data become available.
 
@@ -368,7 +368,12 @@ parameter provenance and applicability ranges can be justified. Deliver explicit
 material contracts, electrical/retention/optical references and DTCO integration.
 Acceptance: preserve current defaults, recover the reference-temperature baseline,
 validate selected limits and reject use outside declared applicability contracts.
-The exact property list is frozen in M0, not implied by this planning target.
+M0 is complete: select reference-anchored Si substrate gap/intrinsic density
+and bulk-Ge optical Gamma/L gaps, with explicit temperature ownership, provenance
+and applicability contracts. GeSn thermal profiles require independent composition/
+temperature evidence; material barriers and other coefficients stay unchanged.
+M1-M7 are planned; see [Temperature-dependent material properties](temperature_properties.md)
+for the code audit, frozen scope, equations, references and acceptance sequence.
 
 ### v1.5.0: Phase N - Broadband spectra and multilayer optical propagation
 

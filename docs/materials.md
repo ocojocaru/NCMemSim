@@ -315,3 +315,12 @@ For an optical material model, also document:
 - any phenomenological amplitudes;
 - whether quantum confinement, strain, field effects, or state filling are
   included.
+
+## Phase M temperature planning
+
+The existing material values and defaults remain unchanged.
+[Phase M0](temperature_properties.md) audits existing thermal behavior and fixes
+the opt-in v1.4 scope: Si substrate gap/intrinsic density and bulk-Ge optical
+Gamma/L gaps. Existing optical temperature metadata alone does not shift gaps,
+and device temperature does not automatically resolve optical material properties.
+New thermal laws and evaluator contexts begin in M1-M2.
