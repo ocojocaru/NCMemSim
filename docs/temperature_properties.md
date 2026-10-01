@@ -3,7 +3,7 @@
 ## M0 status and baseline
 
 M0 is complete: code-temperature audit, selected property families, ownership,
-scientific limits and staged acceptance contracts are frozen here. M3-M7 are
+scientific limits and staged acceptance contracts are frozen here. M4-M7 are
 planned. M1 adds property contracts; M2 adds isolated thermal resolution and an
 explicit simulator route. M0 itself
 introduced no material law or runtime API.
@@ -159,9 +159,9 @@ accounting, not removed to improve feasible fractions.
 
 ## Next action
 
-M1 and M2 are implemented on `dev/v1.4-temperature-properties`. Proceed to M3:
-add the controlled Si electrical/programming/retention reference, comparing
-legacy temperature-only, gap-only, density-only and coupled behavior. The package keeps its
+M1-M3 are implemented on `dev/v1.4-temperature-properties`. Proceed to M4:
+add bulk-Ge Gamma/L optical and electro-optical references, separating gap and
+phonon controls and checking wavelength/photon accounting. The package keeps its
 v1.3.0 release identity until a dedicated development/release identity change.
 
 
@@ -337,3 +337,74 @@ contracts and reconstruct the projection; tampered evaluated values, unchanged
 parameters, unknown/missing fields, duplicate JSON keys, nonfinite values and
 hash mismatches are rejected. A coherent new source is a new declared context;
 a content hash does not establish experimental validity or authenticity.
+
+
+## M3 controlled Si program/read and zero-bias retention
+
+The standalone reference `examples/phase_m3_si_temperature_reference.py` runs
+12 independently resolved cases: 250/300/350 K times LEGACY, GAP_ONLY,
+DENSITY_ONLY and COUPLED semiconductor modes. The device has a Si substrate and
+one Ge nanocrystal FG; the Ge material itself receives no thermal gap change in
+M3, and no optical source is used. The 250-350 K diagnostic domain and compact
+carrier assumptions remain ASSUMED. The Si coefficients retain their M1 source
+status and their exact inherited 300 K gap/ni anchors.
+
+The deliberately synthetic nominal device uses 3 nm tunnel SiO2, a 6 nm FG,
+7 spatial cells, 0.2 NC volume fraction, 0.1 active fraction and equal 0.65 eV
+program/erase barriers. Kinetic attempt frequencies are 1e7/5e7/3e7 Hz for
+nu0/nu1/nu2. These choices provide a measurable numerical response; they are not
+experimental device/process inputs. Every source context includes the complete
+nominal materials, physics configurations and unchanged parameters. Default WKB
+quadrature remains 160 points; spatial/quadrature convergence is not claimed by
+the timestep audit.
+
+Program/read uses a 3 V pulse lasting 5e-7 s followed by a zero-dwell 0 V read.
+The zero-dwell read preserves probabilities within floating-point roundoff.
+Retention uses the same owned thermal context and the programmed state, with
+0 V external gate bias for 1e-3 s, backward Euler and quasi-equilibrium stopping
+disabled. Zero external voltage does not eliminate built-in or charge-dependent
+fields. Both injection and emission remain active in the compact model. These
+results are conditional short-time model behavior, not a universal retention
+lifetime or an Arrhenius acceleration law.
+
+The exported `reference.json` records all 12 source/resolved contexts, protocols,
+thermal values, Fermi/flatband quantities, states and charge/occupation histories.
+Three disabled-profile controls and three original-Simulator controls provide an
+independent legacy comparison. At 300 K all four enabled modes recover the same
+observations. Content hashes are reproducible in the recorded Python/NumPy
+runtime; bitwise portability across arbitrary runtimes is not asserted.
+
+Numerical acceptance is checked separately from applicability:
+
+- Program and retention endpoint probabilities are compared for 64/128/256
+  steps. The finest pair must differ by at most 2e-3 per probability component.
+  Retention output grids depend on the first timestep, so this compares common
+  final endpoints rather than falsely aligning intermediate arrays.
+- Each thermal program shift is also compared against its same-temperature
+  legacy control at matching step counts. The finest-pair contrast variation
+  must be below 1e-5 V; this separates small thermal contrasts from common
+  discretization error.
+- Probability mass error is bounded by 1e-12. An independent per-step reservoir
+  budget integrates program pre-step Euler flux and retention post-step implicit
+  flux with frozen pre-step rates. Its relative charge residual is bounded by
+  1e-10. Uniform-step retention is independently compared with the existing
+  output-aligned RetentionSolver endpoint.
+
+The existing charge convention is explicitly preserved:
+`QFG = q * sum(n_eff * dx * 0.5 * (P1 + 2*P2))`.
+The budget uses the same half factor; it audits the stored compact-model charge
+rather than silently changing the meaning of microscopic electron counts.
+Charge in an open FG is not required to be constant. The audit also records the
+unclipped explicit-Euler trial probabilities: a deliberately unsafe step can
+produce normalized output while violating the reservoir budget, and is rejected.
+
+Run from the repository with the package available in the environment:
+
+```bash
+python examples/phase_m3_si_temperature_reference.py --output results/m3-si
+```
+
+The JSON is standalone numerical evidence with a content hash, not a new strict
+report reader or M6 reproducibility bundle. Validation aborts on failed numerical
+acceptance rather than exporting a partial successful subset. M6 will cover
+report-level restoration, export contracts and scientific evidence boundaries.

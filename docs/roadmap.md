@@ -376,7 +376,9 @@ M1 is complete: module-qualified anchored gap/ni contracts, strict archives,
 explicit applicability and reviewed coefficient records. Simulator integration
 is implemented in M2 through isolated thermal contexts, independent electrical/
 optical controls and an owned simulator with strict restoration and drift checks.
-M3-M7 are planned; see [Temperature-dependent material properties](temperature_properties.md)
+M3 is complete: controlled Si program/read and zero-bias retention comparisons,
+step refinement, paired thermal contrasts and open-substrate charge accounting.
+M4-M7 are planned; see [Temperature-dependent material properties](temperature_properties.md)
 for the code audit, frozen scope, equations, references and acceptance sequence.
 
 ### v1.5.0: Phase N - Broadband spectra and multilayer optical propagation

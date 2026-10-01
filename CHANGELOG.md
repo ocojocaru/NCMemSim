@@ -4,6 +4,17 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### Phase M3 - controlled Si electrical and retention reference
+
+- Add a reproducible 250/300/350 K Si-substrate reference comparing legacy,
+  gap-only, density-only and coupled modes from independently resolved contexts.
+- Run explicit electrical program/read and zero-bias retention protocols with
+  fully declared synthetic geometry, barrier and kinetic assumptions.
+- Audit 64/128/256-step convergence and paired thermal program contrasts;
+  verify probability mass and the open-substrate charge budget independently.
+- Preserve the existing normalized occupancy/charge convention and distinguish
+  numerical acceptance from temperature calibration or lifetime prediction.
+
 ### Phase M2 - isolated thermal resolution and simulator contexts
 
 - Snapshot nominal device/material metadata, core physics overrides and explicit
