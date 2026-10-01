@@ -4,6 +4,15 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### Phase M4 - controlled bulk-Ge thermal optical reference
+
+- Compare legacy, gap-only, phonon-only and coupled Gamma/L optical controls
+  on an explicit 250/300/350 K wavelength grid and illuminated program/read cases.
+- Audit Beer-Lambert photon accounting, capture-rate conversion, timestep
+  refinement, dark/zero-capture controls and reference-temperature compatibility.
+- Keep provisional absorption coefficients fixed and room-temperature GeSn
+  near-edge evidence separate from conditional bulk-Ge thermal predictions.
+
 ### Phase M3 - controlled Si electrical and retention reference
 
 - Add a reproducible 250/300/350 K Si-substrate reference comparing legacy,

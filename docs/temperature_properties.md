@@ -3,7 +3,7 @@
 ## M0 status and baseline
 
 M0 is complete: code-temperature audit, selected property families, ownership,
-scientific limits and staged acceptance contracts are frozen here. M4-M7 are
+scientific limits and staged acceptance contracts are frozen here. M5-M7 are
 planned. M1 adds property contracts; M2 adds isolated thermal resolution and an
 explicit simulator route. M0 itself
 introduced no material law or runtime API.
@@ -159,9 +159,9 @@ accounting, not removed to improve feasible fractions.
 
 ## Next action
 
-M1-M3 are implemented on `dev/v1.4-temperature-properties`. Proceed to M4:
-add bulk-Ge Gamma/L optical and electro-optical references, separating gap and
-phonon controls and checking wavelength/photon accounting. The package keeps its
+M1-M4 are implemented on `dev/v1.4-temperature-properties`. Next is M5:
+connect thermal contexts to the existing DEVICE temperature axis and explicitly
+review compatibility with model variability and advanced transport engines. The package keeps its
 v1.3.0 release identity until a dedicated development/release identity change.
 
 
@@ -408,3 +408,55 @@ The JSON is standalone numerical evidence with a content hash, not a new strict
 report reader or M6 reproducibility bundle. Validation aborts on failed numerical
 acceptance rather than exporting a partial successful subset. M6 will cover
 report-level restoration, export contracts and scientific evidence boundaries.
+
+
+## M4 controlled bulk-Ge optical and electro-optical reference
+
+`examples/phase_m4_ge_temperature_reference.py` applies the reviewed M1 bulk-Ge
+Gamma/L gap coefficients to the inherited 300 K anchors (0.7985/0.664 eV).
+The 250/300/350 K window is an explicit numerical assumption. The material is
+unstrained bulk Ge used in a compact NC layer; confinement and strain are absent.
+The Si substrate stays in legacy mode, with its existing device-temperature kT.
+
+Four independently resolved controls hold gaps and phonon populations at the
+reference temperature, change gaps only, change phonons only, or change both.
+Direct/indirect amplitudes, Urbach energy/amplitude, phonon energy, geometry,
+barriers and capture efficiency remain constant. Thus the thermal absorption
+curves are conditional derived predictions, not experimentally calibrated spectra.
+The existing indirect absorption law includes the Bose population once.
+
+The monochromatic wavelength audit uses 1450, 1500, 1550, 1600, 1700, 1800,
+1850, 1900, 2000 and 2200 nm, covering both moving band edges. Each wavelength
+is evaluated independently; this is neither a spectrum integral nor sequential
+multilayer propagation. The effective absorption is volume fraction times NC
+absorption and the Beer-Lambert photon budget is incident = absorbed + transmitted.
+No reflection or scattering is introduced.
+
+Illuminated programming uses 1550 and 1850 nm, a 3 V pulse for 1 microsecond,
+1e6 W/m2 monochromatic power, an assumed capture efficiency of 0.1 and default
+loading weights. These are synthetic diagnostic conditions. The 0 V read is dark
+and has zero dwell. Each illuminated result is paired with a dark run at the same
+T and timestep; disabled thermal contexts and the original Simulator recover
+legacy results. Zero capture efficiency recovers the dark charge shift.
+
+The 32/64/128-step refinement bounds the finest endpoint probability difference
+by 2e-3 and the change in light-minus-dark flatband contrast by 1e-5 V. Probability
+mass and read changes are bounded by 1e-12; photon-budget relative error by 1e-12.
+Absorbed photon generation is converted to rate per physical NC and multiplied
+once by capture efficiency. Absorbed photons are not equated with stored charge:
+state-dependent transition weights, active fraction and the existing normalized
+charge convention remain distinct.
+
+A separate `GeSnNearEdgeReferenceModel` audit records its existing 300 K
+composition/wavelength classifications, including out-of-domain probes. It is
+not the thermal optical evaluator; bulk-Ge coefficients are not copied to GeSn
+and its room-temperature fit does not qualify any multi-temperature curve.
+
+```bash
+python examples/phase_m4_ge_temperature_reference.py --output results/m4-ge
+```
+
+The output records complete contexts, resolutions, protocols, assumptions,
+all twelve cases and numerical controls with a content hash. Numerical acceptance
+must pass before export. This is standalone evidence; strict report restoration
+and reproducibility bundles remain M6 work.
