@@ -4,7 +4,7 @@
 
 Planning baseline: published v1.2.0, commit b9d2ff77136217af5b3b5a4b5a4780af5d75d6d5.
 Target release: v1.3.0. This document establishes the L0 planning contract;
-L1 contracts, L2 isolated execution, L3 controlled density reference and L4 population analysis are implemented; L5-L7 are pending. No MODEL binding or new runtime API is implemented by L0.
+L1 contracts, L2 isolated execution, L3 controlled density reference, L4 population analysis and L5 variability-aware DTCO are implemented; L6-L7 are pending. No MODEL binding or new runtime API is implemented by L0.
 The package remains 1.2.0 until a separate development-cycle bootstrap.
 
 ## Scientific objective and first executable scope
@@ -346,5 +346,76 @@ changing counts, denominators, statistics or assessment records is rejected
 even if the outer hash is recomputed. Strict JSON rejects duplicate keys and
 nonfinite constants. This is an analysis archive; complete report bundles and
 export orchestration remain L6. The L3 finding that occupation spread is below
-the refinement difference is unchanged. L5 is the next milestone: explicitly
-linked variability-aware DTCO objectives and eligibility.
+the refinement difference is unchanged. L5 implements explicitly linked variability-aware DTCO objectives and eligibility
+below; L6 report bundles are the next milestone.
+
+
+## L5 explicitly linked MODEL DTCO
+
+The provisional `ncmemsim.ensemble.model_dtco` module links a `SweepPoint` to
+its `ModelPopulationAnalysis` through `ModelDTCOStudy`. The execution must
+already declare the exact point dictionary in `workflow_context["dtco_design_point"]`;
+a missing or different declaration is rejected. This is an explicit execution
+link, not an automatic design applier: evaluators remain responsible for applying
+the declared design. The real reference uses the existing device-binding applier
+and verifies candidate geometry and baseline hashes.
+
+`evaluate_model_scalar` reuses `EnsembleScalarDefinition` and
+`EnsembleScalarKind`: mean, population standard deviation, extrema, median,
+previously declared quantiles, coverage, simulated pass, ensemble feasibility
+and failure fractions. Every projection preserves its source denominator and
+analysis identity. Missing metric/unit or undeclared quantile is an error;
+zero-assessed statistics remain undefined, not zero.
+
+`evaluate_model_eligibility` reuses `EnsembleConstraint`. Inclusive bounds return
+eligible, ineligible or unevaluable, with unevaluable taking precedence over
+violations. No automatic coverage or failure policy is invented: callers must
+declare it. An unconstrained study is eligible, but undefined objectives still
+exclude it from ranking.
+
+`analyze_model_pareto` reuses `EnsembleObjective` with explicit minimization or
+maximization. Only eligible studies with defined objective values are ranked.
+Every supplied design is retained with objective projections, eligibility,
+exclusion reason and rank. Exact dominance requires no-worse values on every
+objective and a strict improvement on at least one; ties share a front in source
+order. No tolerances, weighting or hidden scalarization are introduced.
+Duplicate points/experiment-index identities, mixed experiments and inconsistent
+metric, statistics, evaluator or eligibility definitions are rejected. Full
+source/model/distribution/workflow provenance is retained; identical definitions
+do not themselves establish experimental comparability or measured uncertainty.
+Existing Phase K DTCO types and stable package exports remain unchanged.
+
+Run the real synthetic reference:
+
+```shell
+python examples/phase_l5_model_dtco_reference.py --output results/l5-model-dtco
+```
+
+It applies inter-FG SiO2 thickness designs 1.0, 1.1 and 1.2 nm to cloned J5/L3
+devices using the deterministic DTCO binding applier. Each design executes 16
+paired density values from the L3 assumed lognormal distribution, PCG64 seed
+2029. Device identity is rebuilt per candidate; trap energy, capture cross
+section, image-force correction and workflow settings remain as in L3.
+Independent nominal solves provide explicit TAT-rate references. A 16/32-step
+comparison at nominal and sampled density extremes requires occupation delta
+<= 1e-3 and no selected-grid transfer-cap activation for every candidate.
+Electron-conservation and no-clamp metrics use thresholds 1e-12 and zero;
+DTCO eligibility explicitly requires full coverage and simulated pass fraction
+one. The two illustrative objectives maximize mean initial TAT rate and minimize
+its population standard deviation. They describe a declared synthetic tradeoff,
+not a recommendation for a calibrated memory-device optimum.
+
+All three designs belong to the first front in the validated reference. The
+export retains experiment, complete MODEL populations, eligibility, objectives,
+fronts, source identities, numerical audit and scientific limitations; existing
+targets are never overwritten. This reference export is not the generic L6
+report bundle or its future strict reader. Sixteen paired realizations do not
+establish converged tails or sampling uncertainty. Dynamic occupation spread is
+not claimed resolved; fixed-field redistribution is not full device retention.
+
+The shared Phase K linear-quantile kernel also preserves equal interpolation
+endpoints exactly. This avoids floating-point roundoff outside the range of a
+constant population without changing the quantile definition or archive schemas.
+Focused tests cover this correction, scalar units/denominators, undefined values,
+strict design linkage, inclusivity, eligibility precedence, exclusions, exact
+fronts and ties, actual candidate geometry, paired sampling and export safeguards.

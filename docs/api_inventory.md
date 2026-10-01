@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 109 package source modules; 604 explicit export paths; 180 distinct documented Python import paths.
+Coverage: 110 package source modules; 610 explicit export paths; 180 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -1717,6 +1717,49 @@ Decorators: `dataclass(frozen=True)`.
 - `from_dict(cls, data: dict[str, Any]) -> ModelVariabilitySpec`; `classmethod`.
 - `definition_hash(self) -> str`; `property`.
 
+
+## ncmemsim.ensemble.model_dtco
+
+`ncmemsim/ensemble/model_dtco.py`
+
+Explicit exports: `ModelDTCOStudy`, `ModelEligibilityResult`, `ModelParetoAnalysis`, `evaluate_model_scalar`, `evaluate_model_eligibility`, `analyze_model_pareto`
+
+### ModelDTCOStudy
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `design_point: SweepPoint`; required declaration.
+- Field `source: ModelPopulationAnalysis`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `study_hash(self) -> str`; `property`.
+
+- `evaluate_model_scalar(study: ModelDTCOStudy, definition: EnsembleScalarDefinition) -> dict[str, Any]`
+### ModelEligibilityResult
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `study: ModelDTCOStudy`; required declaration.
+- Field `constraints: tuple[EnsembleConstraint, ...]`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `status(self) -> str`; `property`.
+
+- `evaluate_model_eligibility(study: ModelDTCOStudy, constraints=()) -> ModelEligibilityResult`
+### ModelParetoAnalysis
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `sources: tuple[ModelEligibilityResult, ...]`; required declaration.
+- Field `objectives: tuple[EnsembleObjective, ...]`; required declaration.
+- Field `name: str`; default expression `'model-pareto'`.
+- `to_dict(self) -> dict[str, Any]`.
+
+- `analyze_model_pareto(sources, objectives, *, name='model-pareto') -> ModelParetoAnalysis`
 
 ## ncmemsim.ensemble.model_execution
 

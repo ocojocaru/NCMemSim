@@ -12129,6 +12129,273 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.ensemble.model_dtco",
+      "source": "ncmemsim/ensemble/model_dtco.py",
+      "explicit_exports": [
+        "ModelDTCOStudy",
+        "ModelEligibilityResult",
+        "ModelParetoAnalysis",
+        "evaluate_model_scalar",
+        "evaluate_model_eligibility",
+        "analyze_model_pareto"
+      ],
+      "package_import_aliases": {
+        "ConstraintOperator": "ncmemsim.dtco.metrics.ConstraintOperator",
+        "EnsembleConstraint": "ncmemsim.ensemble.dtco.EnsembleConstraint",
+        "EnsembleObjective": "ncmemsim.ensemble.dtco.EnsembleObjective",
+        "EnsembleScalarDefinition": "ncmemsim.ensemble.dtco.EnsembleScalarDefinition",
+        "EnsembleScalarKind": "ncmemsim.ensemble.dtco.EnsembleScalarKind",
+        "ModelPopulationAnalysis": "ncmemsim.ensemble.model_analysis.ModelPopulationAnalysis",
+        "ObjectiveDirection": "ncmemsim.dtco.metrics.ObjectiveDirection",
+        "SweepPoint": "ncmemsim.dtco.sweep.SweepPoint",
+        "_snapshot": "ncmemsim.ensemble.model_sampling._snapshot",
+        "_strict_json": "ncmemsim.ensemble.model_sampling._strict_json",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash"
+      },
+      "public_source_definitions": [
+        {
+          "name": "ModelDTCOStudy",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "design_point",
+              "annotation": "SweepPoint",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "source",
+              "annotation": "ModelPopulationAnalysis",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "study_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "evaluate_model_scalar",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "study",
+              "kind": "positional_or_keyword",
+              "annotation": "ModelDTCOStudy",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "definition",
+              "kind": "positional_or_keyword",
+              "annotation": "EnsembleScalarDefinition",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "dict[str, Any]",
+          "source_signature": "(study: ModelDTCOStudy, definition: EnsembleScalarDefinition) -> dict[str, Any]",
+          "decorators": []
+        },
+        {
+          "name": "ModelEligibilityResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "study",
+              "annotation": "ModelDTCOStudy",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "constraints",
+              "annotation": "tuple[EnsembleConstraint, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            },
+            {
+              "name": "status",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "evaluate_model_eligibility",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "study",
+              "kind": "positional_or_keyword",
+              "annotation": "ModelDTCOStudy",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "constraints",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": false,
+              "default_expression": "()"
+            }
+          ],
+          "return_annotation": "ModelEligibilityResult",
+          "source_signature": "(study: ModelDTCOStudy, constraints=()) -> ModelEligibilityResult",
+          "decorators": []
+        },
+        {
+          "name": "ModelParetoAnalysis",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "sources",
+              "annotation": "tuple[ModelEligibilityResult, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "objectives",
+              "annotation": "tuple[EnsembleObjective, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": "'model-pareto'",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict[str, Any]",
+              "source_signature": "(self) -> dict[str, Any]",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "analyze_model_pareto",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "sources",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "objectives",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "name",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": false,
+              "default_expression": "'model-pareto'"
+            }
+          ],
+          "return_annotation": "ModelParetoAnalysis",
+          "source_signature": "(sources, objectives, *, name='model-pareto') -> ModelParetoAnalysis",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.ensemble.model_execution",
       "source": "ncmemsim/ensemble/model_execution.py",
       "explicit_exports": [

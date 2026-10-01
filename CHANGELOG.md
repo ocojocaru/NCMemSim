@@ -4,6 +4,20 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### Phase L5 - explicitly linked MODEL variability DTCO
+
+- Link deterministic design points to declared MODEL executions and source
+  population identities; reuse K scalar, constraint and objective contracts.
+- Preserve scalar denominators, explicit eligibility/undefined precedence,
+  exact Pareto fronts, tied designs and every excluded design with its reason.
+- Reject duplicate design identities and incompatible assessment/workflow/policy
+  definitions without changing stable K imports or archive schemas.
+- Add a real three-thickness, paired-density transport reference with candidate
+  baseline identities, independent nominal solves and timestep audits.
+- Preserve synthetic-distribution, finite-grid and unresolved-dynamic-spread
+  limits; generic report restoration/export remains L6.
+- Fix constant-population quantile roundoff by retaining equal endpoints exactly.
+
 ### Phase L4 - MODEL population analysis and failure accounting
 
 - Reuse Phase K metric/constraint and complete-case population-statistics rules
