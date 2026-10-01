@@ -134,8 +134,8 @@ Calibration procedures must distinguish fitted effective parameters from indepen
 **Status: released as `v0.12.0`, integrated in `main`.**
 
 The G7 baseline passed full regression tests and clean installed distribution
-workflows on Python 3.11–3.13, plus strict documentation. The package version at that release
-was `0.12.0`; stable-version/main CI, tag publication and documentation
+workflows on Python 3.11–3.13, plus strict documentation. The package version
+is `0.12.0`; stable-version/main CI, tag publication and documentation
 deployment have passed.
 
 Phase G is organized as:
@@ -318,17 +318,17 @@ Phase K is organized as:
 - **K3 — ensemble realization and simulation execution (complete):** application of
   samples through reviewed bindings to existing nominal NCMemSim workflows,
   with realization-local validation and failure isolation;
-- **K4 — statistical device and reliability metrics (complete):** explicit population
+- **K4 — statistical device and reliability metrics:** explicit population
   counts, denominators, percentiles, nominal comparison, feasibility accounting
   and simulated pass fractions;
-- **K5 — variability-aware DTCO (complete):** ensemble-derived objectives and constraints
+- **K5 — variability-aware DTCO:** ensemble-derived objectives and constraints
   integrated with the existing transparent Pareto/DTCO framework without
   redefining deterministic DTCO or Robust-DTCO semantics;
-- **K6 — scientific reference studies and reproducible reports (complete):** controlled
+- **K6 — scientific reference studies and reproducible reports:** controlled
   nanocrystal-diameter variability, trap/disorder variability and
   multi-parameter ensemble-DTCO references with integrity-checked manifests,
   failure accounting and interpretation limits;
-- **K7 — v1.2.0 compatibility review and release gates (complete):** additive API/result
+- **K7 — v1.2.0 compatibility review and release gates:** additive API/result
   review, complete regression, strict documentation, reproducibility checks,
   clean distributions, supported-Python CI, exact-commit remote validation,
   tag CI and automated GitHub Release validation.
@@ -345,72 +345,6 @@ experimental/process-calibration contract.
 
 See [Stochastic nanocrystal ensembles and device variability](stochastic_ensembles.md)
 for the governing K0 architecture and scientific contracts.
-
-## Planned post-v1.2 releases
-
-Planning order approved for staged development; version targets are provisional.
-L is the immediate cycle. M and N have acceptance targets; O-R remain indicative
-and are reassessed after each release. Experimental dataset discovery begins
-in L and can advance P when suitable independent data become available.
-
-### v1.3.0: Phase L - MODEL/TAT variability
-
-Status: L0 planning contract established; L1 contracts, L2 isolated execution, L3 controlled density reference, L4 population analysis, L5 variability-aware DTCO and L6 integrity-checked reports implemented; L7 preparation implemented; preparation commit 3054c8e passed remote CI and docs; final 1.3.0 candidate CI, merge/tag and publication gates pending. Extend Phase K to
-explicit model bindings, beginning with link/species-scoped trap density.
-See [Model and TAT variability](model_variability.md) for L0-L7, ownership,
-compatibility, validation, failure accounting and scientific limits.
-
-### v1.4.0: Phase M - Temperature-dependent material properties
-
-Audit existing temperature behavior first, including phonon occupation in optical
-absorption. Select missing electrical/optical properties only where equations,
-parameter provenance and applicability ranges can be justified. Deliver explicit
-material contracts, electrical/retention/optical references and DTCO integration.
-Acceptance: preserve current defaults, recover the reference-temperature baseline,
-validate selected limits and reject use outside declared applicability contracts.
-The exact property list is frozen in M0, not implied by this planning target.
-
-### v1.5.0: Phase N - Broadband spectra and multilayer optical propagation
-
-Deliver broadband/measured-spectrum source contracts, spectral units and power
-normalization, absorption integration, sequential multi-FG attenuation and
-electro-optical/multispectral references. Acceptance: recover monochromatic
-limits, verify spectral-grid convergence and power/photon accounting, retain
-per-layer provenance and avoid double-counting absorbed power. More complex
-effective-medium response requires a separately reviewed model contract.
-
-### v1.6.0: Phase O - Strain and nanocrystal confinement
-
-Indicative: separate strain and quantum-confinement submilestones with equations,
-units, applicability, provenance and independent validation before coupling.
-Franz-Keldysh effects, Stark shifts and state filling remain separate candidates.
-
-### v1.7.0: Phase P - Independent experimental calibration
-
-Indicative: independent absorption/device datasets, photo-capture qualification,
-multi-condition fitting, holdout validation and population-based distributions
-where measured data support them. Preserve FITTED/CALIBRATED distinctions and
-negative qualification outcomes. Delivery depends on dataset access and quality;
-it does not promise successful calibration and may be advanced ahead of O.
-
-### v1.8.0: Phase Q - Multilevel and neuromorphic/in-memory operation
-
-Indicative: explicit pulse sequences, state separation, gradual updates,
-nonlinearity/asymmetry, retention drift and ensemble variability, with electrical
-and electro-optical references. Endurance proxies must be named and bounded;
-physical degradation prediction requires its own model.
-
-### Phase R: Performance and interoperability (version to be determined)
-
-Indicative: profile real workflows, then choose justified parallel execution,
-vectorization or backend acceleration with reference numerical equivalence,
-reproducibility and failure provenance. Begin higher-fidelity/TCAD integration
-with explicit import/export and comparison contracts. Full co-simulation and
-larger device families require separate scopes. A v2.0 target requires a justified
-major contract/API change; acceleration alone does not require it.
-
-Each phase follows scope/contracts, implementation, integration, validation,
-applied reference, reproducible reports and exact-candidate release gates.
 
 ## Post-v0.10 optical extensions
 
@@ -432,12 +366,14 @@ These extensions should preserve the current high-level optical programming API 
 
 ## Longer-term research
 
-Completed extensions include Phase J trap-assisted transport and image-force
-corrections, and Phase K stochastic ensembles and continuous copula correlations.
-Remaining research candidates, subject to the staged plan above, include:
+Potential post-v1.0 extensions include:
 
+- trap-assisted transport;
+- defect-mediated transport;
+- image-force effects;
 - improved barrier models;
 - self-consistent carrier statistics;
+- stochastic nanocrystal ensembles;
 - temperature-dependent electrical and optical material properties;
 - correlated and hierarchical uncertainty propagation beyond Phase H;
 - neuromorphic and in-memory programming metrics;

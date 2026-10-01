@@ -30,6 +30,7 @@ SOURCE_REQUIRED = {
     'NOTICE',
     'tests/fixtures/archives/v1_3_0_dev/model_report.json',
     'scripts/validate_v1_3_api_review.py',
+    'scripts/validate_v1_3_release_identity.py',
     'docs/v1_3_api_review.json',
     'docs/v1_3_release_checklist.md',
     'pyproject.toml',

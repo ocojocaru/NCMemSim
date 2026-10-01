@@ -2,12 +2,6 @@
 
 # NCMemSim
 
-<a href="https://doi.org/10.5281/zenodo.23078330"><img src="https://zenodo.org/badge/1314843497.svg" alt="DOI"></a>
-
-The [Concept DOI](https://doi.org/10.5281/zenodo.23078330) represents all published
-versions. The [v1.2.0 DOI](https://doi.org/10.5281/zenodo.23078331) identifies that
-release specifically; the v1.3.0 candidate has no version-specific DOI yet.
-
 **NCMemSim** is a modular compact multiphysics platform for distributed
 floating-gate nanocrystal memories based on Ge, GeSn, and high-k dielectric
 stacks.
@@ -61,10 +55,7 @@ standalone normal and deliberate-failure references. J7a API/result review and
 J7b local preflight, J7c release-identity alignment, and the exact-candidate
 local and remote gates all passed before release tagging.
 
-Version `1.2.0` completes Phase K and remains the latest published stable release.
-The `1.3.0` release candidate adds explicit MODEL/TAT-density variability and
-strict reproducibility bundles. Final candidate CI and publication remain pending;
-see the [v1.3 release checklist](v1_3_release_checklist.md). K7a API/result compatibility review, K7b local preflight, K7c release-identity alignment, and the exact-candidate local and remote validation gates all passed before release tagging.
+Version `1.2.0` completes Phase K and is the current stable release. K7a API/result compatibility review, K7b local preflight, K7c release-identity alignment, and the exact-candidate local and remote validation gates all passed before release tagging.
 
 ## Start here
 

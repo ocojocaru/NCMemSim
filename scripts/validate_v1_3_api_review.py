@@ -48,7 +48,7 @@ def validate(root: Path) -> dict:
         if _citation_field(citation,'version')!='1.2.0':raise ValueError('development citation must retain published stable identity')
     elif __version__=='1.3.0':
         if _citation_field(citation,'version')!='1.3.0':raise ValueError('final release citation must match version')
-        if '**Current stable release:** `1.3.0`' not in (root/'README.md').read_text(encoding='utf-8'):
+        if '**Release candidate:** `1.3.0`' not in (root/'README.md').read_text(encoding='utf-8'):
             raise ValueError('final README identity must match release')
     else:raise ValueError('unexpected v1.3 candidate package identity')
     return {'status':'candidate_contracts_pass_not_release_approval','package_version':__version__,

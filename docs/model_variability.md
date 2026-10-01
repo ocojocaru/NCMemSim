@@ -5,7 +5,7 @@
 Planning baseline: published v1.2.0, commit b9d2ff77136217af5b3b5a4b5a4780af5d75d6d5.
 Target release: v1.3.0. This document establishes the L0 planning contract;
 L1 contracts, L2 isolated execution, L3 controlled density reference, L4 population analysis, L5 variability-aware DTCO and L6 integrity-checked reports are implemented; L7 is pending. No MODEL binding or new runtime API is implemented by L0.
-The package now uses 1.3.0.dev0 for L7 candidate validation; the latest published stable release remains 1.2.0.
+The package now uses final candidate identity 1.3.0; the latest published stable release remains 1.2.0 until publication. Final exact-commit release gates remain pending.
 
 ## Scientific objective and first executable scope
 
@@ -203,7 +203,7 @@ binding/workflow/serialization failures, archive tampering and calibration
 boundaries. A real two-FG transport test checks nominal equality with TAT enabled
 and disabled, unchanged direct contribution and density-sensitive TAT rates.
 These are integration checks, not the completed scientific L3 reference or a
-claim of statistical tail convergence. Package version stays 1.2.0 until an
+claim of statistical tail convergence. At the L3 implementation checkpoint, package version stayed 1.2.0 until an
 explicit development-identity bootstrap, and frozen v1 release evidence stays
 unchanged.
 
@@ -497,13 +497,12 @@ CI and exact-commit release gate; L6 alone does not approve v1.3.0 release.
 
 ## L7 candidate compatibility and release gates
 
-L7 preparation introduces `1.3.0.dev0`, a separately versioned additive MODEL
+L7 preparation introduced `1.3.0.dev0` and now prepares final candidate `1.3.0`, a separately versioned additive MODEL
 API review, development-branch/PR CI and strict documentation builds, and stored
 MODEL report probes in both installed distributions. The published v1.2 release
 identity tests use a dedicated historical fixture rather than asserting that a
 later development package is still v1.2. No historical evidence is rewritten.
-CITATION.cff keeps the latest published stable identity until final release
-preparation. See the [v1.3 release checklist](v1_3_release_checklist.md).
+CITATION.cff now describes the final 1.3.0 candidate; publication remains pending. See the [v1.3 release checklist](v1_3_release_checklist.md).
 
 Local results must be distinguished from remote evidence. L7 remains pending
 until the exact final candidate/release commit passes Python 3.11-3.13 CI,

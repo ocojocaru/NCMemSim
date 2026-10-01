@@ -31,3 +31,6 @@ include docs/final_candidate_clean_distributions.md
 include docs/final_candidate_clean_distributions.json
 
 include scripts/validate_v1_3_api_review.py
+
+include scripts/validate_v1_3_release_identity.py
+recursive-include tests/fixtures/releases *.md *.cff

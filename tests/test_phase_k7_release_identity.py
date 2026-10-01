@@ -61,7 +61,8 @@ def candidate_copy(tmp_path):
     for name in files:
         target = tmp_path / name
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(ROOT / name, target)
+        historical = ROOT / "tests/fixtures/releases/v1_2_0" / name
+        shutil.copyfile(historical if historical.exists() else ROOT / name, target)
     # This fixture validates published v1.2 evidence, independently of a later development version.
     (tmp_path / "ncmemsim/_version.py").write_text(
         '__version__ = "1.2.0"\n', encoding="utf-8"

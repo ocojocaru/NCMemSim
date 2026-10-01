@@ -1,8 +1,15 @@
 # v1.3 Phase L7 candidate and release checklist
 
 Status: L7 preparation is implemented; final release approval is pending.
-Development identity: `1.3.0.dev0`. Latest published stable release: `v1.2.0`.
-Historical v1.0/v1.1/v1.2 evidence and CITATION.cff retain their published meaning.
+Final candidate identity: `1.3.0`, citation date `2026-10-01`. Latest published stable release: `v1.2.0`.
+Historical v1.0/v1.1/v1.2 JSON evidence retains its published meaning; CITATION.cff
+now describes the final candidate source and is not proof of publication.
+
+Preparation commit `3054c8e65d5b046b180debbaffdc7b2d2b1e2138` passed
+[CI](https://github.com/ocojocaru/NCMemSim/actions/runs/36832977786)
+(all six test/distribution jobs on Python 3.11-3.13) and
+[Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/36832977839).
+These results do not approve the later final candidate commit.
 
 The additive MODEL API review is `v1_3_api_review.json`, validated by
 `python scripts/validate_v1_3_api_review.py`. It reviews six module-qualified

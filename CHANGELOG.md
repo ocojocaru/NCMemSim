@@ -4,14 +4,17 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+## 1.3.0 — 2026-10-01 (release candidate; publication pending)
+
 ### Phase L7 - candidate compatibility and release preparation
 
-- Bootstrap 1.3.0.dev0 while retaining v1.2 citation and historical release evidence.
+- Prepare final 1.3.0 package/citation identity; retain the reviewed development provenance and historical release evidence.
 - Review the additive module-qualified MODEL API and unchanged stable ensemble exports.
 - Enable development-branch/PR CI and docs checks; preserve main-only Pages deployment.
 - Extend installed wheel/sdist probes with strict MODEL restoration, all-failed
   accounting and deterministic report bundles; constrain documentation to MkDocs <2.
-- Keep exact-commit remote matrix, final identity and publication gates pending.
+- Preparation commit 3054c8e passed all six Python 3.11-3.13 CI jobs and documentation.
+- Final 1.3.0 commit CI, main/tag alignment and publication gates remain pending.
 
 ### Phase L6 - authoritative MODEL reports and reproducibility bundles
 

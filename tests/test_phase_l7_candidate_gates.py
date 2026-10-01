@@ -31,7 +31,7 @@ def test_candidate_rejects_identity_review_or_historical_mutation(tmp_path,monke
         p=tmp_path/'docs/v1_3_api_review.json';d=json.loads(p.read_text());d['additive_module_qualified_surface']=[];p.write_text(json.dumps(d))
     elif fault=='historical':
         p=tmp_path/next(iter(gate.HISTORICAL_JSON_SHA256));p.write_text('{}')
-    else:(tmp_path/'CITATION.cff').write_text('version: 1.3.0\n')
+    else:(tmp_path/'CITATION.cff').write_text('version: 0.0.0\n')
     with pytest.raises(ValueError):gate.validate(tmp_path)
 
 
