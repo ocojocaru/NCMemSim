@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 105 package source modules; 590 explicit export paths; 176 distinct documented Python import paths.
+Coverage: 111 package source modules; 615 explicit export paths; 180 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -1635,6 +1635,265 @@ Decorators: `dataclass(frozen=True)`.
 - `result_hash(self) -> str`; `property`.
 
 - `analyze_ensemble_execution(execution: EnsembleExecutionResult, spec: MetricAnalysisSpec) -> EnsembleMetricAnalysisResult`
+
+## ncmemsim.ensemble.model_analysis
+
+`ncmemsim/ensemble/model_analysis.py`
+
+Explicit exports: `ModelPopulationAnalysis`, `analyze_model_execution`
+
+### ModelPopulationAnalysis
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: ModelExecutionResult`; required declaration.
+- Field `metric_spec: MetricAnalysisSpec`; required declaration.
+- Field `statistics_spec: EnsembleStatisticsSpec`; default expression `field(default_factory=EnsembleStatisticsSpec)`.
+- Field `nominal_references: tuple[NominalMetricReference, ...]`; default expression `()`.
+- Field `runtime: tuple[tuple[str, str], ...]`; default expression `field(default_factory=lambda: tuple(sorted(_runtime().items())))`.
+- `counts(self) -> dict[str, int]`; `property`.
+- `fractions(self) -> dict[str, dict[str, int | float | None]]`; `property`.
+- `analysis_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelPopulationAnalysis`; `classmethod`.
+- `to_json(self) -> str`.
+- `from_json(cls, text: str) -> ModelPopulationAnalysis`; `classmethod`.
+
+- `analyze_model_execution(source: ModelExecutionResult, metric_spec: MetricAnalysisSpec, *, statistics_spec: EnsembleStatisticsSpec | None=None, nominal_references: tuple[NominalMetricReference, ...]=()) -> ModelPopulationAnalysis`
+
+## ncmemsim.ensemble.model_contracts
+
+`ncmemsim/ensemble/model_contracts.py`
+
+Explicit exports: `trap_density_binding`, `TransportModelContext`, `TrapDensityVariable`, `ModelVariabilitySpec`
+
+- `trap_density_binding(link_id: str, species_name: str) -> ParameterBinding`
+### TransportModelContext
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `advanced_transport: AdvancedTransportSpec`; required declaration.
+- `resolve_density(self, binding: ParameterBinding) -> float`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> TransportModelContext`; `classmethod`.
+- `context_hash(self) -> str`; `property`.
+
+### TrapDensityVariable
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `binding: ParameterBinding`; required declaration.
+- Field `distribution: Any`; required declaration.
+- Field `physical_domain: PhysicalDomain`; required declaration.
+- Field `provenance: ParameterProvenance`; required declaration.
+- Field `applicability: str`; required declaration.
+- Field `nominal_value: float | None`; default expression `None`.
+- Field `unit: str`; default expression `'m^-3'`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> TrapDensityVariable`; `classmethod`.
+- `definition_hash(self) -> str`; `property`.
+
+### ModelVariabilitySpec
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `base_device_hash: str`; required declaration.
+- Field `model_context: TransportModelContext`; required declaration.
+- Field `variables: tuple[TrapDensityVariable | StochasticVariable, ...]`; required declaration.
+- Field `base_operating_hash: str | None`; default expression `None`.
+- Field `base_operating_kind: str | None`; default expression `None`.
+- `from_device(cls, *, name: str, device: Device, model_context: TransportModelContext, variables: tuple[TrapDensityVariable | StochasticVariable, ...], operating_protocol: Any | None=None) -> ModelVariabilitySpec`; `classmethod`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelVariabilitySpec`; `classmethod`.
+- `definition_hash(self) -> str`; `property`.
+
+
+## ncmemsim.ensemble.model_dtco
+
+`ncmemsim/ensemble/model_dtco.py`
+
+Explicit exports: `ModelDTCOStudy`, `ModelEligibilityResult`, `ModelParetoAnalysis`, `evaluate_model_scalar`, `evaluate_model_eligibility`, `analyze_model_pareto`
+
+### ModelDTCOStudy
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `design_point: SweepPoint`; required declaration.
+- Field `source: ModelPopulationAnalysis`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelDTCOStudy`; `classmethod`.
+- `study_hash(self) -> str`; `property`.
+
+- `evaluate_model_scalar(study: ModelDTCOStudy, definition: EnsembleScalarDefinition) -> dict[str, Any]`
+### ModelEligibilityResult
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `study: ModelDTCOStudy`; required declaration.
+- Field `constraints: tuple[EnsembleConstraint, ...]`; required declaration.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any], *, study: ModelDTCOStudy) -> ModelEligibilityResult`; `classmethod`.
+- `status(self) -> str`; `property`.
+
+- `evaluate_model_eligibility(study: ModelDTCOStudy, constraints=()) -> ModelEligibilityResult`
+### ModelParetoAnalysis
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `sources: tuple[ModelEligibilityResult, ...]`; required declaration.
+- Field `objectives: tuple[EnsembleObjective, ...]`; required declaration.
+- Field `name: str`; default expression `'model-pareto'`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelParetoAnalysis`; `classmethod`.
+- `to_json(self) -> str`.
+- `from_json(cls, text: str) -> ModelParetoAnalysis`; `classmethod`.
+
+- `analyze_model_pareto(sources, objectives, *, name='model-pareto') -> ModelParetoAnalysis`
+
+## ncmemsim.ensemble.model_execution
+
+`ncmemsim/ensemble/model_execution.py`
+
+Explicit exports: `AppliedModelRealization`, `apply_model_sample_to_context`, `ModelExecutionPoint`, `ModelExecutionResult`, `execute_model_sample_manifest`
+
+### AppliedModelRealization
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `sample: EnsembleSample`; required declaration.
+- Field `device: Device`; required declaration.
+- Field `operating_protocol: Any`; required declaration.
+- Field `model_context: TransportModelContext`; required declaration.
+- Field `assignments: tuple[RealizationAssignment, ...]`; required declaration.
+- `context_payload(self) -> dict[str, Any]`.
+
+- `apply_model_sample_to_context(spec: ModelSamplingSpec, sample: EnsembleSample, base_device: Device, base_operating_protocol: Any=None) -> AppliedModelRealization`
+### ModelExecutionPoint
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `status(self) -> str`; `property`.
+- `failure_stage(self) -> str | None`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelExecutionPoint`; `classmethod`.
+
+### ModelExecutionResult
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `manifest: ModelSampleManifest`; required declaration.
+- Field `execution_json: str`; required declaration.
+- Field `points: tuple[ModelExecutionPoint, ...]`; required declaration.
+- `success_count(self) -> int`; `property`.
+- `failure_count(self) -> int`; `property`.
+- `result_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelExecutionResult`; `classmethod`.
+- `to_json(self) -> str`.
+- `from_json(cls, text: str) -> ModelExecutionResult`; `classmethod`.
+
+- `execute_model_sample_manifest(manifest: ModelSampleManifest, base_device: Device, evaluator: Callable[[AppliedModelRealization, dict[str, Any]], dict[str, Any]], *, evaluation_id: str, workflow_context: dict[str, Any], base_operating_protocol: Any=None) -> ModelExecutionResult`
+
+## ncmemsim.ensemble.model_reporting
+
+`ncmemsim/ensemble/model_reporting.py`
+
+Explicit exports: `ModelReportStudy`, `ModelReport`, `build_model_report`, `write_model_report`, `load_model_report_bundle`
+
+### ModelReportStudy
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `population: ModelPopulationAnalysis`; required declaration.
+- Field `dtco: ModelEligibilityResult | None`; default expression `None`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelReportStudy`; `classmethod`.
+
+### ModelReport
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `studies: tuple[ModelReportStudy, ...]`; required declaration.
+- Field `pareto: ModelParetoAnalysis | None`; default expression `None`.
+- Field `limitations: tuple[str, ...]`; default expression `()`.
+- Field `evidence_json: str`; default expression `'{}'`.
+- `to_dict(self) -> dict[str, Any]`.
+- `report_hash(self) -> str`; `property`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelReport`; `classmethod`.
+- `to_json(self) -> str`.
+- `from_json(cls, text: str) -> ModelReport`; `classmethod`.
+
+- `build_model_report(name: str, studies, *, pareto: ModelParetoAnalysis | None=None, limitations=(), evidence=None) -> ModelReport`
+- `write_model_report(report: ModelReport, destination: str | Path) -> Path`
+- `load_model_report_bundle(destination: str | Path) -> ModelReport`
+
+## ncmemsim.ensemble.model_sampling
+
+`ncmemsim/ensemble/model_sampling.py`
+
+Explicit exports: `ModelSamplingSpec`, `ModelSampleManifest`, `generate_model_sample_manifest`
+
+### ModelSamplingSpec
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `study: ModelVariabilitySpec`; required declaration.
+- Field `rng: RNGSpec`; required declaration.
+- Field `sample_count: int`; required declaration.
+- Field `dependence: IndependentDependence | MatrixCorrelation`; default expression `field(default_factory=IndependentDependence)`.
+- Field `max_draws_per_value: int`; default expression `10000`.
+- `variable_names(self) -> tuple[str, ...]`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelSamplingSpec`; `classmethod`.
+- `definition_hash(self) -> str`; `property`.
+
+### ModelSampleManifest
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `sampling_spec: ModelSamplingSpec`; required declaration.
+- Field `samples: tuple[EnsembleSample, ...]`; required declaration.
+- Field `runtime: tuple[tuple[str, str], ...]`; required declaration.
+- `manifest_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict[str, Any]`.
+- `from_dict(cls, data: dict[str, Any]) -> ModelSampleManifest`; `classmethod`.
+- `to_json(self) -> str`.
+- `from_json(cls, text: str) -> ModelSampleManifest`; `classmethod`.
+
+- `generate_model_sample_manifest(spec: ModelSamplingSpec) -> ModelSampleManifest`
 
 ## ncmemsim.ensemble.realization
 

@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Runnable J6 deliberate-failure advanced-transport reporting reference.
 
 The trap attempt frequency is intentionally extreme but finite so that the

@@ -103,3 +103,7 @@ Fix FG transfer clipping imbalance
 ## Code of conduct and licensing
 
 Participation is governed by `CODE_OF_CONDUCT.md`. By contributing, you agree that your contribution is licensed under Apache-2.0.
+
+## Copyright and license notices
+
+Project Python sources use copyright notices and `SPDX-License-Identifier: Apache-2.0` headers. Preserve existing attribution when editing a file. For newly authored files, identify the applicable copyright holder; do not attribute third-party code to the project author. Keep third-party notices and applicable license terms intact. The complete project license is in `LICENSE`, with project attribution in `NOTICE`.

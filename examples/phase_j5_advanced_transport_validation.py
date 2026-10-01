@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Controlled J5 electrical, retention, sensitivity and DTCO reference.
 
 The data and parameter intervals in this example are synthetic.  Results are

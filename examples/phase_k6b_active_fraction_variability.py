@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Phase K6b electrically-active-fraction variability reference study.
 
 This is a controlled synthetic ensemble reference for floating-gate

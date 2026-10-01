@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Read-only v1.0 readiness structure/evidence check, not a release approval."""
 from pathlib import Path
 import ast,json,re,sys

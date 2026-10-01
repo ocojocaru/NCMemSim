@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 from ncmemsim import DeviceBuilder, make_gesn
 from ncmemsim.optics import (
     LightSource,

@@ -4,6 +4,103 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+## 1.3.0 — 2026-10-01 (release candidate; publication pending)
+
+### Phase L7 - candidate compatibility and release preparation
+
+- Prepare final 1.3.0 package/citation identity; retain the reviewed development provenance and historical release evidence.
+- Review the additive module-qualified MODEL API and unchanged stable ensemble exports.
+- Enable development-branch/PR CI and docs checks; preserve main-only Pages deployment.
+- Extend installed wheel/sdist probes with strict MODEL restoration, all-failed
+  accounting and deterministic report bundles; constrain documentation to MkDocs <2.
+- Preparation commit 3054c8e passed all six Python 3.11-3.13 CI jobs and documentation.
+- Final 1.3.0 commit CI, main/tag alignment and publication gates remain pending.
+
+### Phase L6 - authoritative MODEL reports and reproducibility bundles
+
+- Restore L5 study/eligibility/Pareto archives strictly and recompute all derived
+  projections, exclusions, denominators and fronts from validated nested sources.
+- Add immutable, separately versioned MODEL reports with complete attempted
+  populations, optional DTCO linkage, scientific limits and supplemental evidence.
+- Export authoritative JSON, Markdown and three CSV tables with a hash manifest;
+  refuse existing targets and verify deterministic regeneration on bundle loading.
+- Reject rehashed nested/projection tampering, malformed JSON and invalid bundle
+  structures without resampling or rerunning physics.
+- Add a stored-L5 report example retaining three designs, 48 attempts, numerical
+  audits and the original scientific limitations; L7 release gates remain pending.
+
+### Phase L5 - explicitly linked MODEL variability DTCO
+
+- Link deterministic design points to declared MODEL executions and source
+  population identities; reuse K scalar, constraint and objective contracts.
+- Preserve scalar denominators, explicit eligibility/undefined precedence,
+  exact Pareto fronts, tied designs and every excluded design with its reason.
+- Reject duplicate design identities and incompatible assessment/workflow/policy
+  definitions without changing stable K imports or archive schemas.
+- Add a real three-thickness, paired-density transport reference with candidate
+  baseline identities, independent nominal solves and timestep audits.
+- Preserve synthetic-distribution, finite-grid and unresolved-dynamic-spread
+  limits; generic report restoration/export remains L6.
+- Fix constant-population quantile roundoff by retaining equal endpoints exactly.
+
+### Phase L4 - MODEL population analysis and failure accounting
+
+- Reuse Phase K metric/constraint and complete-case population-statistics rules
+  for stored MODEL execution without rerunning physics or converting K archives.
+- Preserve every attempt, source identity and original failure stage; distinguish
+  metric failures from execution failures and assessed infeasible outcomes.
+- Retain explicit counts, fraction denominators, source cohorts and optional
+  nominal mean/median comparisons, including all-failed and singleton cases.
+- Add strict source-linked analysis restoration that recomputes derived values
+  and rejects tampering even with a recalculated outer hash.
+- Validate the real L3 reference without extending its scientific claims;
+  regenerate the current API inventory while keeping stable release evidence.
+
+### Phase L3 - controlled TAT-density variability reference
+
+- Add a seeded 16-member assumed lognormal density study using the J5 trap,
+  geometry and image-force baseline through real Phase L execution.
+- Retain independent nominal, zero-variation and paired disabled-TAT controls,
+  mechanism-resolved rates/fluxes and closed fixed-field redistribution evidence.
+- Audit 4/8/16/32-step integration at nominal and sampled density extremes,
+  with explicit conservation, transfer-cap and occupation-difference gates.
+- Preserve the negative numerical interpretation: occupation variability is
+  below the observed refinement difference; initial TAT rate is the primary
+  observable, without calibration, process-yield or converged-tail claims.
+- Export complete reference evidence without overwriting existing targets;
+  generic population analysis/report bundles remain L4/L6.
+
+### Phase L2 - isolated MODEL sampling, realization and execution
+
+- Reuse Phase K scalar and Gaussian-copula kernels in separately versioned
+  MODEL manifests, with authoritative stored samples and strict restoration.
+- Apply mixed DEVICE/OPERATING and density bindings to independent candidates;
+  reconstruct complete TAT configurations before enabled-spec validation.
+- Preserve unchanged nominal provenance; mark changed sampled densities ASSUMED
+  rather than inheriting nominal experimental-calibration status.
+- Add ordered execution snapshots, explicit workflow identity, isolated failure
+  stages and strict result integrity checks without altering Phase K archives.
+- Verify zero-variation real-transport equality, preserved direct contribution
+  and density-sensitive TAT integration; scientific references remain L3.
+
+### Phase L1 - inert MODEL/TAT variability contracts
+
+- Add explicit link/species density bindings and provenance-aware density variables.
+- Add strict transport-model context and device/protocol-linked study definitions
+  with new schema identities; preserve Phase K v1 archives and MODEL rejection.
+- Reuse existing trap/image-force configuration validation without sampling,
+  model mutation or execution; L2 integrates realization separately.
+- Regenerate the current source API inventory for the provisional additive module;
+  keep historical stable proposals/reviews and package version unchanged.
+
+### Post-v1.2 planning and Phase L0
+
+- Establish the density-first MODEL/TAT variability planning contract for v1.3.0.
+- Define M/N acceptance targets and indicative O-R milestones.
+- Consolidate completed Phase K status and the software trajectory.
+- Keep package identity 1.2.0 and all historical release evidence unchanged;
+  this documentation step adds no runtime capability.
+
 ## v1.2.0 - 2026-09-30
 
 ### K7d - v1.2.0 publication metadata and release gate closure

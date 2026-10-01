@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Typed, independent bounded variation assumptions; no sampling in H1."""
 from __future__ import annotations
 from dataclasses import dataclass

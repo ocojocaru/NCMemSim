@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Local secants and coverage-aware global summaries of Cartesian grid edges."""
 
 from __future__ import annotations

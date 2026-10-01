@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 from __future__ import annotations
 from .materials import Material, NanocrystalMaterial
 from .layers import Layer,FloatingGateLayer

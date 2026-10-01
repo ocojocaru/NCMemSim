@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Controlled application of DTCO device bindings.
 
 Phase G1b applies only ``BindingScope.DEVICE`` bindings. The base device is

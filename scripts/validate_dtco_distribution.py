@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Build and exercise wheel/sdist installations outside the source checkout."""
 from __future__ import annotations
 import argparse
@@ -24,6 +27,12 @@ REQUIRED |= {p.relative_to(Path(__file__).resolve().parents[1]).as_posix()
 SOURCE_REQUIRED = {
     'CITATION.cff',
     'LICENSE',
+    'NOTICE',
+    'tests/fixtures/archives/v1_3_0_dev/model_report.json',
+    'scripts/validate_v1_3_api_review.py',
+    'scripts/validate_v1_3_release_identity.py',
+    'docs/v1_3_api_review.json',
+    'docs/v1_3_release_checklist.md',
     'pyproject.toml',
     'assets/banner.svg',
     'docs/NCMemSim_v6_Software_Design_Specification_Rev1.md',
@@ -214,6 +223,8 @@ def main() -> None:
             probe = work / "probe.py"
             probe.write_text(PROBE, encoding="utf-8")
             run(str(python), "-I", str(probe), str(root), str(environment), str(work), cwd=work)
+            shutil.copyfile(root / 'tests/fixtures/archives/v1_3_0_dev/model_report.json', work / 'model_report.json')
+            run(str(python), '-I', '-c', MODEL_PROBE, str(work), cwd=work)
             results.append({"artifact": artifact.name, "installed_workflow": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
@@ -401,6 +412,27 @@ for entry in fixture_inventory['files']:
     assert readers[path.stem].from_json(text).to_dict() == json.loads(text)
 print('Installed frozen published-v0.14.0 archive readers: PASS')
 print("Installed DTCO reference, failure handling, deterministic hashes and exports: PASS", origin)
+'''
+
+
+
+
+MODEL_PROBE = r'''import sys
+from pathlib import Path
+from ncmemsim.ensemble.model_reporting import ModelReport, write_model_report, load_model_report_bundle
+work=Path(sys.argv[1])
+report=ModelReport.from_json((work/'model_report.json').read_text(encoding='utf-8'))
+assert sum(s.population.counts['attempted_count'] for s in report.studies)==4
+assert sum(s.population.counts['failed_count'] for s in report.studies)==4
+# A fresh probe process is run for each independently installed artifact.
+first=work/('model-'+str(__import__('os').getpid()))
+write_model_report(report,first)
+restored=load_model_report_bundle(first)
+second=Path(str(first)+'-restored')
+write_model_report(restored,second)
+assert report.report_hash==restored.report_hash
+assert all(p.read_bytes()==(second/p.name).read_bytes() for p in first.iterdir())
+print('Installed MODEL report: all-failed accounting, nested restoration and deterministic bundles PASS')
 '''
 
 if __name__ == "__main__":

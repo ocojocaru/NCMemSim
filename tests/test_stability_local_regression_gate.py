@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Full local regression evidence must not close other local gates."""
 import json
 from pathlib import Path

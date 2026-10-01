@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Integrity-linked Robust DTCO snapshots and portable report artifacts."""
 from __future__ import annotations
 import csv

@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 from __future__ import annotations
 from ..base import NanocrystalMaterial
 from ..database import BASE_PROPERTIES, DEFAULT_ASSUMED

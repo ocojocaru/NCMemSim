@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Explicit fitted application and isolated, fully declared program evaluators."""
 from __future__ import annotations
 

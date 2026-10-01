@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Realization identity and sample-domain validation for Phase K."""
 
 from __future__ import annotations

@@ -2,7 +2,9 @@
 
 ## Status and purpose
 
-This page defines the Phase K development contract for NCMemSim v1.2.0.
+This page records the completed Phase K contract for NCMemSim v1.2.0.
+K0-K7 are complete; subsequent MODEL/TAT variability is planned in
+[Phase L](model_variability.md).
 
 Phase K begins from the immutable `v1.1.0` release and extends the stable NCMemSim scientific platform with reproducible stochastic nanocrystal ensembles and device-level variability analysis. The approved v1 public API, the v1.1.0 transport baseline, existing archive readers, deterministic DTCO, Robust DTCO, calibration workflows, and scientific provenance rules remain the compatibility baseline.
 
@@ -695,7 +697,7 @@ Add population summaries, percentiles, nominal comparisons, explicit denominator
 
 K4 is implemented in three ordered subphases:
 
-**Status: K4 complete; K5 next.**
+**Status: K4 complete; K5 completed in v1.2.0.**
 
 - **K4a - per-realization metric assessment (complete):** extract declared scalar metrics from successful K3 outputs without rerunning physics, apply declared constraints, preserve complete-case semantics, propagate K3 failures unchanged, and distinguish metric-extraction failures explicitly;
 - **K4b - population statistics (complete):** report attempted, assessed, feasible, infeasible and failed counts with explicit denominators; compute complete-case population mean, variance, standard deviation, minimum, maximum, median and requested quantiles using population `ddof=0` and linear `(n - 1) q` interpolation; report coverage as assessed count divided by attempted count;
@@ -719,7 +721,7 @@ K4 is complete: per-realization assessment, complete-case population statistics,
 
 Expose ensemble-derived objectives and constraints to the existing transparent Pareto/DTCO framework while keeping deterministic DTCO and Robust DTCO semantics distinct.
 
-**Status: K5 complete; K6 next.**
+**Status: K5 complete; K6 completed in v1.2.0.**
 
 K5 composes with the existing DTCO design-space architecture but defines a distinct Phase-K analysis layer. Each K5 study links one explicit existing DTCO design-point identity and assignments to one immutable `EnsembleFeasibilitySummary`; design identity must not be inferred from device hashes or ensemble names. K5 never resamples, reruns K3/K4 physics, mutates source results, or converts a Phase-K ensemble result into a Robust-DTCO result.
 
@@ -763,7 +765,7 @@ Studies compared in one K5 analysis must use compatible declared metric and popu
 
 ### K6 — Scientific reference studies and reproducible reports
 
-**Status: K6c complete; K7 next.**
+**Status: K6 complete; K7 completed and v1.2.0 released.**
 
 Provide controlled end-to-end examples, integrity-checked ensemble manifests, population summaries, failure accounting, plots/exports and interpretation limits.
 

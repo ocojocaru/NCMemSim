@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Check the source API baseline without importing optional fitting dependencies.
 
 Run without arguments to compare against the reviewed inventory. Regeneration is

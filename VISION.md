@@ -40,7 +40,10 @@ Multi-level charge states, gradual programming, retention, optical sensitivity, 
 
 ### Advanced physics
 
-Candidate extensions include improved barrier shapes, self-consistent carrier statistics, trap-assisted transport, image-force effects, quantum confinement, Coulomb charging, temperature-dependent material properties, stochastic NC distributions, and uncertainty propagation.
+Trap-assisted transport, an opt-in image-force correction and stochastic
+ensembles are delivered in v1.1-v1.2. Remaining candidates include improved
+barrier shapes, self-consistent carrier statistics, strain, quantum confinement,
+Coulomb charging, temperature-dependent properties and hierarchical uncertainty.
 
 ## Software trajectory
 
@@ -48,8 +51,14 @@ Candidate extensions include improved barrier shapes, self-consistent carrier st
 - **v0.10:** optical programming foundation;
 - **v0.11:** experimental fitting and uncertainty-aware calibration;
 - **v0.12:** automated design-space exploration and DTCO;
-- **v1.0:** stable scientific API, validated workflows, archived release, and DOI;
-- **v2.x:** advanced physics, larger device families, and optional high-performance backends.
+- **v1.0:** stable scientific API, validated workflows and versioned releases;
+  DOI/external deposit only when independently assigned;
+- **v1.1-v1.2:** released advanced transport and stochastic ensembles;
+- **v1.3-v1.5 (planned):** MODEL/TAT variability, temperature-dependent properties
+  and broadband/multi-FG optics;
+- **Later (indicative):** strain/confinement, independent calibration, neuromorphic
+  workflows, acceleration and higher-fidelity interoperability; see
+  [roadmap](docs/roadmap.md). Major-version changes require a compatibility rationale.
 
 ## Definition of success
 

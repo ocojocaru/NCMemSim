@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Cross-layer scientific result contracts, without altering numerical models."""
 import csv
 from io import StringIO

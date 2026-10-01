@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Reproducible independent bounded draws and exact immutable sample manifests."""
 from __future__ import annotations
 from dataclasses import dataclass

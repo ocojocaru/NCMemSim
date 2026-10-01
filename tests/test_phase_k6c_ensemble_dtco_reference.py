@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Tests for Phase K6c design, K3-K5 DTCO analysis and K6a reporting."""
 
 import math

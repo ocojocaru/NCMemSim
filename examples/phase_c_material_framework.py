@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 import json
 from ncmemsim import DeviceBuilder, make_ge, make_gesn
 from ncmemsim.materials import BarrierModel, CompactOpticalMaterialModel, HFO2, registry

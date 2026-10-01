@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Explicit Phase J4 attachment of opt-in mechanisms to transport links.
 
 The stable :class:`TransportEngine` remains the direct-tunnelling baseline.

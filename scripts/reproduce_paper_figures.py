@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Stable entry point for future publication figure reproduction.
 
 Phase D6 intentionally ships no manuscript-specific figures. Add figure recipes

@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Runnable J6 normal advanced-transport reporting reference.
 
 All numerical values are synthetic software-verification inputs. The example

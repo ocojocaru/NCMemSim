@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Population-statistics contracts for Phase K ensembles."""
 
 from __future__ import annotations
@@ -787,6 +790,11 @@ def _linear_quantile(
     weight = (
         position - lower
     )
+
+    # Equal interpolation endpoints must retain their exact constant value.
+    # Weighted arithmetic can otherwise round outside a constant population.
+    if ordered[lower] == ordered[upper]:
+        return float(ordered[lower])
 
     return float(
         (1.0 - weight)

@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Validate archival/citation planning without claiming a final deposit."""
 from __future__ import annotations
 

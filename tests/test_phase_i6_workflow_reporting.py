@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Authoritative source links, declared variants and reproducible portable exports."""
 from copy import deepcopy
 import csv

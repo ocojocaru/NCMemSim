@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Serial propagation of exact sample manifests through isolated candidates."""
 from __future__ import annotations
 from copy import deepcopy

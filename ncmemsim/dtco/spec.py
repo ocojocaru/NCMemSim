@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Deterministic design-variable and experiment specifications for DTCO.
 
 Phase G1 deliberately defines experiment semantics before implementing the

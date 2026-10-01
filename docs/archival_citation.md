@@ -1,5 +1,24 @@
 # Archival and Citation Policy
 
+## Current Zenodo archive
+
+The project author confirmed the GitHub/Zenodo archive identifiers:
+
+- [Concept DOI: 10.5281/zenodo.23078330](https://doi.org/10.5281/zenodo.23078330)
+  represents all published versions and resolves to the latest archived release.
+- [Version DOI: 10.5281/zenodo.23078331](https://doi.org/10.5281/zenodo.23078331)
+  identifies v1.2.0 specifically and remains that version's identifier after later releases.
+
+For reproducible research, cite the version-specific DOI and software version.
+The current v1.3.0 candidate has not been deposited as a release; its CITATION.cff
+records the Concept DOI as an additional identifier, without assigning v1.2.0's
+DOI to v1.3.0. Confirm the new version DOI after release publication and deposit.
+
+## Historical v1.0.0 policy
+
+The following text records the policy at v1.0.0; its statements about the absence
+of a DOI describe that historical checkpoint, not the current Zenodo archive.
+
 This page records the approved archival and citation policy for v1.0.0. The
 versioned GitHub release provides the exact source identity and distributable
 artifacts. No DOI or external archival deposit is currently claimed.

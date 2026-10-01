@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Complete-case sample metrics, observed feasibility and explicit statistics."""
 from __future__ import annotations
 from dataclasses import dataclass, field

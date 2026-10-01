@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Readiness tooling cannot silently omit gates or mark pending work ready."""
 from copy import deepcopy
 import json

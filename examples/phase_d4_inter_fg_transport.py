@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Phase D4 example: inspect the tunnelling network and inter-FG fluxes."""
 
 import numpy as np

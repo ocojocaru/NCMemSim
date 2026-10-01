@@ -2,9 +2,13 @@ cff-version: 1.2.0
 message: "If you use NCMemSim in research, cite the exact software version and this repository."
 title: "NCMemSim: Nanocrystal Memory Simulation Platform"
 type: software
-version: 1.2.0
-date-released: 2026-09-30
+version: 1.3.0
+date-released: 2026-10-01
 license: Apache-2.0
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23078330
+    description: "Concept DOI representing all published versions; not a version-specific v1.3.0 DOI"
 authors:
   - family-names: Cojocaru
     given-names: Ovidiu
@@ -23,7 +27,8 @@ abstract: >-
   transport with image-force barrier corrections, mechanism-resolved diagnostics and reports,
   reproducible stochastic nanocrystal ensembles, population statistics, feasibility and failure
   accounting, variability-aware DTCO, ensemble Pareto analysis, and integrity-checked ensemble
-  reports, validation, and reproducibility tools.
+  reports, explicit model/TAT-density variability, isolated model execution, source-linked
+  population and Pareto analysis, strict MODEL report bundles, validation, and reproducibility tools.
 keywords:
   - nanocrystal memory
   - non-volatile memory

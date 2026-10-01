@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """
 unified_nc_memory_model_v5p3_trapezoidal_wkb.py
 Distributed Ge-nanocrystal floating-gate memory model with trapezoidal WKB tunneling + dwell time.

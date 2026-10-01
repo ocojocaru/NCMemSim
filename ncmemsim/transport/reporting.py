@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Portable, integrity-checked reports for Phase J advanced transport results."""
 
 from __future__ import annotations

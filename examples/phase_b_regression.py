@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 from ncmemsim import make_v53_reference_device,Simulator,SimulationConfig
 
 device=make_v53_reference_device(grid_points=31)
