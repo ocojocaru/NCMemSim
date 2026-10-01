@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Scientific default/unit/provenance contracts, without new physics."""
 from dataclasses import asdict,replace
 import math

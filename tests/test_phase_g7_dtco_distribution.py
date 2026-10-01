@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Distribution validator rejects incomplete wheel and source archives."""
 import io
 import tarfile

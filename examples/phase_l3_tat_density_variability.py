@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Synthetic TAT-density reference using the Phase L stored execution path.
 
 Fixed-field inter-FG redistribution is a numerical reference, not a retention

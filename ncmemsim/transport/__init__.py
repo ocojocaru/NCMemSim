@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 from .base import NodeKind, TransportNode
 from .link import TunnelLink
 from .network import TunnelNetwork

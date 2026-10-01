@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Controlled local sensitivity contracts for Phase J5 transport validation.
 
 The analysis is deliberately local and one-at-a-time.  It records normalized

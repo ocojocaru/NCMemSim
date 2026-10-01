@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Inert Phase L1 MODEL contracts, separate from Phase K v1 archives.
 
 No sampler, realization or transport execution is introduced here.

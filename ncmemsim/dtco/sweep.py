@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Serial deterministic Cartesian exploration with isolated point evaluation."""
 
 from __future__ import annotations

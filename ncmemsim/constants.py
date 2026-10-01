@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 EPSILON_0_F_M = 8.854187817e-12
 ELEMENTARY_CHARGE_C = 1.602176634e-19
 BOLTZMANN_J_K = 1.380649e-23

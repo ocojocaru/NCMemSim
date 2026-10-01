@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Validate the additive v1.2 API/result review without rewriting v1.1 evidence."""
 from __future__ import annotations
 

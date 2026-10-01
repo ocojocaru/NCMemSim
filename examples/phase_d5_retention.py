@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Phase D5: adaptive retention and inter-FG charge redistribution."""
 import numpy as np
 

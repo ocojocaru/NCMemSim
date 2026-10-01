@@ -1,3 +1,5 @@
+include LICENSE
+include NOTICE
 include CITATION.cff
 include mkdocs.yml
 graft docs

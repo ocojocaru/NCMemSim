@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Electrical Robust DTCO reference; assumed uncertainty, not calibrated yield."""
 from __future__ import annotations
 import argparse

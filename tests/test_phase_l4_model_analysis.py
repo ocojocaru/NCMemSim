@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Numerical population semantics and recomputed MODEL archival integrity."""
 import pytest
 

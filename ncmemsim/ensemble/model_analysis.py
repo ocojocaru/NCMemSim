@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Complete-case analysis of stored MODEL execution, preserving Phase K rules."""
 from __future__ import annotations
 

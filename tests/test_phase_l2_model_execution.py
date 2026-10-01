@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Stored sampling, isolated application, execution and strict archive checks."""
 from copy import deepcopy
 from dataclasses import replace, asdict

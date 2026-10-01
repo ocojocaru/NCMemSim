@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Cross-workflow provenance and retained Phase F/G/H integration contracts."""
 from copy import deepcopy
 import json

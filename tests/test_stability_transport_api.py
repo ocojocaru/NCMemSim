@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Exercise legacy client imports and guard against incidental API expansion."""
 import importlib
 import types

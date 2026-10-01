@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Immutable trap contracts for the opt-in Phase J transport models.
 
 J1 defines configuration, units and provenance only.  It intentionally does

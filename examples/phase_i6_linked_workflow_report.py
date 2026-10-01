@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Linked electrical/electro-optical synthetic evidence reports; optional fit extra.
 
 No files are written unless --output-dir is explicitly supplied.

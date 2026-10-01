@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Compact trap-assisted-tunnelling kernel for Phase J2.
 
 The kernel evaluates the conditional sequential path selected in J1.  It is

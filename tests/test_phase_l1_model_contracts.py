@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Phase L1 addressing, archival identity and compatibility boundaries."""
 from copy import deepcopy
 from dataclasses import FrozenInstanceError, replace

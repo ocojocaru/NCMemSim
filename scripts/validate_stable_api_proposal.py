@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Compare the approved stable surface candidate against current source."""
 from pathlib import Path
 import enum,importlib,inspect,json,sys

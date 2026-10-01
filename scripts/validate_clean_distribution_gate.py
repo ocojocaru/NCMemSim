@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Validate the final clean installed distribution gate.
 
 The default mode reuses locally available dependency packages to keep the final

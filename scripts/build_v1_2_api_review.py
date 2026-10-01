@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Build the Phase K7a v1.2.0 API/result compatibility review snapshot.
 
 This builder preserves the published v1.1.0 compatibility baseline and records

@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Synthetic electro-optical fitting/qualification -> isolated nominal/Robust DTCO.
 
 Software verification, not experimental calibration or manufacturing yield.

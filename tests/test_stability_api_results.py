@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Client-observable result shapes, missing-value semantics and ownership."""
 from dataclasses import FrozenInstanceError
 import importlib

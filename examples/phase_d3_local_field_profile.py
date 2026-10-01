@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Phase-D3 local electric-field and potential-profile example."""
 
 from ncmemsim import DeviceBuilder, DeviceState, SimulationConfig, Simulator, make_ge, make_gesn

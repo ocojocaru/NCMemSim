@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Scientific workflow integration contracts (dedicated public surface)."""
 from .evidence import (DataOrigin, DatasetEvidence, WorkflowEvidence,
                        capture_dataset_evidence, build_workflow_evidence)

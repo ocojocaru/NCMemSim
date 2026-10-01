@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Immutable ensemble-study identity contracts for Phase K."""
 
 from __future__ import annotations

@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Build and exercise wheel/sdist installations outside the source checkout."""
 from __future__ import annotations
 import argparse

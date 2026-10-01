@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Strict documentation evidence must not close clean distribution validation."""
 import json
 from pathlib import Path

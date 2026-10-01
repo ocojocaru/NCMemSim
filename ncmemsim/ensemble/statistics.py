@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Population-statistics contracts for Phase K ensembles."""
 
 from __future__ import annotations

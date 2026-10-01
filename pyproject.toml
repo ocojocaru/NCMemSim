@@ -43,6 +43,9 @@ docs = [
 ]
 
 
+[tool.setuptools]
+license-files = ["LICENSE", "NOTICE"]
+
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["ncmemsim*"]

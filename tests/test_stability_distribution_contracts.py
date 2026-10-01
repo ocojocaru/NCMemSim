@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Local distribution inventory/byte gates; no build, pip or network."""
 import io,json,tarfile,zipfile
 from pathlib import Path

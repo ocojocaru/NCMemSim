@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Stochastic ensemble contracts and execution tools."""
 
 from .distributions import (

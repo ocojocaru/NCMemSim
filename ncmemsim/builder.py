@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 from collections.abc import Sequence
 from .device import Device
 from .layers import Layer,FloatingGateLayer

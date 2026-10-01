@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 import json
 from ncmemsim import DeviceBuilder,LightSource,make_ge,make_gesn
 v1=DeviceBuilder.v1(n_fgs=3,nc_material=[make_ge(),make_gesn(0.02),make_gesn(0.10)],fg_thickness_nm=[12,15,18],inter_fg_sio2_nm=[3,4],inter_fg_hfo2_nm=[4,5],nc_diameter_nm=[4,5,6])

@@ -400,4 +400,6 @@ For reproducible scientific work, record the NCMemSim version together with the 
 
 ## License
 
-NCMemSim is licensed under the [Apache License 2.0](LICENSE).
+Copyright 2026 Ovidiu Cojocaru.
+
+NCMemSim is licensed under the [Apache License 2.0](LICENSE). Attribution is also recorded in [NOTICE](NOTICE).

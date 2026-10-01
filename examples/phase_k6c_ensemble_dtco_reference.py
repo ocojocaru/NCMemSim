@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Phase K6c multi-parameter ensemble DTCO reference study.
 
 This reference combines a deterministic tunnel-thickness/program-voltage

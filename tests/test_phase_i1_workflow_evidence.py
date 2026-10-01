@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Source linkage, snapshot isolation and scientific claim separation."""
 from dataclasses import FrozenInstanceError, replace
 import json

@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Phase L sampling envelopes using the unchanged Phase K draw kernels."""
 from __future__ import annotations
 

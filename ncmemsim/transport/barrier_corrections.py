@@ -1,3 +1,6 @@
+# Copyright 2026 Ovidiu Cojocaru
+# SPDX-License-Identifier: Apache-2.0
+
 """Opt-in compact barrier corrections for Phase J3.
 
 The module applies the classical Schottky image-force peak lowering to the
