@@ -3,7 +3,7 @@
 ## M0 status and baseline
 
 M0 is complete: code-temperature audit, selected property families, ownership,
-scientific limits and staged acceptance contracts are frozen here. M5-M7 are
+scientific limits and staged acceptance contracts are frozen here. M6-M7 are
 planned. M1 adds property contracts; M2 adds isolated thermal resolution and an
 explicit simulator route. M0 itself
 introduced no material law or runtime API.
@@ -159,9 +159,9 @@ accounting, not removed to improve feasible fractions.
 
 ## Next action
 
-M1-M4 are implemented on `dev/v1.4-temperature-properties`. Next is M5:
-connect thermal contexts to the existing DEVICE temperature axis and explicitly
-review compatibility with model variability and advanced transport engines. The package keeps its
+M1-M5 are implemented on `dev/v1.4-temperature-properties`. Next is M6:
+add strict thermal reports, restoration and reproducibility bundles for declared
+protocols and deterministic/variability-aware evidence. The package keeps its
 v1.3.0 release identity until a dedicated development/release identity change.
 
 
@@ -307,7 +307,8 @@ M2 supports the exact core physics configurations already represented by the
 existing typed snapshot/reconstruction helpers. Runtime subclasses/callbacks,
 advanced transport engines and near-edge optical runtime models are rejected,
 rather than partially serialized. Their future combinations need explicit
-contracts; stored I/K/L workflow/report readers are unchanged. The Tran 300 K
+contracts; M5 now provides a separate explicit thermal/MODEL composition below.
+Stored I/K/L workflow/report readers are unchanged. The Tran 300 K
 near-edge fit is not relabeled as a thermal fit.
 
 ```python
@@ -460,3 +461,70 @@ The output records complete contexts, resolutions, protocols, assumptions,
 all twelve cases and numerical controls with a content hash. Numerical acceptance
 must pass before export. This is standalone evidence; strict report restoration
 and reproducibility bundles remain M6 work.
+
+
+## M5 thermal DTCO and MODEL integration
+
+The additive module `ncmemsim.thermal_dtco` resolves existing DEVICE candidates
+through `resolve_thermal_candidate(template, candidate_device, model_context=...)`.
+It rebuilds a nominal context using the candidate device and the template's
+reference physics, simulation defaults and fixed profiles, then evaluates the
+single candidate device temperature. Geometry and doping changes are retained;
+profile composition/domain incompatibility fails rather than being repaired.
+No MODEL temperature axis or independent material temperature is introduced.
+
+`ThermalCandidateResolution` is an immutable, separately versioned
+`thermal-dtco-candidate-v1` envelope containing the complete M2 thermal resolution
+and optional L transport context with both identities. Its strict reader restores
+and validates source/derived content; it neither converts nor changes older M2,
+K or L schemas. Operating protocols and full report restoration remain M6 work.
+`create_simulator()` returns the existing thermal simulator when MODEL is absent,
+or an owned `ThermalModelSimulator` when the explicit transport context is given.
+
+The MODEL path restores the declared TAT/image-force attachments, requires known
+inter-FG link targets and reconstructs the advanced engine over the exact owned
+core baseline. Core settings and shared tunneling identity remain validated.
+Each relaxation checks device, physics, defaults and attachment configuration
+for drift. Runtime engine callbacks/subclasses are not accepted as archived
+implementations. A failed optional mechanism raises an execution error; zeroing
+a failed contribution is never reported as a successful thermal MODEL run.
+This explicit fail-fast policy is limited to the new M5 composition.
+
+`ThermalCandidateError` denotes incompatible candidate/context/model inputs;
+`ThermalDomainError` denotes failure to evaluate the declared thermal domain.
+Existing sweep and MODEL executors retain ordinary execution failures and their
+error types. Metric extraction failures stay in the existing analysis category,
+and valid numerical samples that violate constraints remain infeasible. None
+are discarded or relabeled as calibrated evidence. Coverage/pass fractions keep
+attempted denominators; feasibility fractions and statistics keep assessed
+complete-case denominators, including undefined results for empty populations.
+
+`examples/phase_m5_thermal_dtco_reference.py` uses the existing DEVICE binding
+`("temperature_K",)` with 250/300/350/400 K. The last point deliberately falls
+outside the declared 250-350 K profile window. The deterministic path uses the
+nominal TAT density; the MODEL path stores eight paired, seeded lognormal draws
+per temperature. All densities and image-force assumptions remain those of the
+synthetic L3 reference. Their parameters have no added temperature law: the
+resolved Si properties affect the initial electrostatic field, while the optical
+Gamma/L/phonon controls determine the independent FG1 1550 nm absorption metric.
+
+The transport diagnostic is closed inter-FG redistribution for 4e-14 s with a
+fixed initial field at 4 V and zero sheet charge. It is not a self-consistent
+retention or illuminated programming experiment. Nominal/minimum/maximum density
+runs at each successful temperature audit 16 versus 32 steps, occupation error
+below 1e-3, charge conservation below 1e-12 and absence of transfer clamping.
+The illustrative absorption constraint is alpha >= 1e5 m^-1. Deterministic
+objectives maximize absorption and minimize nominal TAT rate; population
+objectives maximize mean absorption and minimize TAT-rate standard deviation.
+Only candidates with complete coverage and every sample passing are ranked.
+These objectives are diagnostic choices, not a calibrated technology optimum;
+eight draws do not demonstrate tail or sampling convergence or process yield.
+
+```bash
+python examples/phase_m5_thermal_dtco_reference.py --output results/m5-thermal-dtco
+```
+
+The evidence records the template, resolved candidates, explicit model inputs,
+stored draws, source-linked deterministic/population analyses, exact Pareto
+projection and numerical audits. A content hash identifies the standalone JSON;
+strict workflow/report restoration and full run bundles are deferred to M6.

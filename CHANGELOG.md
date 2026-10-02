@@ -4,6 +4,17 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### Phase M5 - thermal DTCO and MODEL transport integration
+
+- Resolve every candidate on the existing DEVICE temperature axis from explicit
+  thermal reference physics and profiles without mutating nominal inputs.
+- Add an owned thermal/MODEL envelope and simulator with complete transport
+  configuration identity, drift rejection and fail-fast optional mechanisms.
+- Compare deterministic and paired density-population DTCO references with
+  declared optical constraints, numeric audits and preserved K/L denominators.
+- Retain domain failures, metric failures and infeasible samples distinctly;
+  preserve original M2, K/L archives and fixed TAT parameter assumptions.
+
 ### Phase M4 - controlled bulk-Ge thermal optical reference
 
 - Compare legacy, gap-only, phonon-only and coupled Gamma/L optical controls

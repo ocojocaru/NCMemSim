@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 113 package source modules; 631 explicit export paths; 188 distinct documented Python import paths.
+Coverage: 114 package source modules; 636 explicit export paths; 188 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3993,6 +3993,46 @@ Constructor: `__init__(self, resolution: ResolvedThermalContext)`.
 
 - `relax_voltage(self, state, gate_voltage_V, dwell_time_s=None, internal_dt_s=None, light_source=None, photo_config=None, photo_weights=None, occupancy_integrator='explicit_euler')`.
 
+
+## ncmemsim.thermal_dtco
+
+`ncmemsim/thermal_dtco.py`
+
+Explicit exports: `ThermalCandidateError`, `ThermalDomainError`, `ThermalCandidateResolution`, `ThermalModelSimulator`, `resolve_thermal_candidate`
+
+### ThermalCandidateError
+
+Bases: `ValueError`.
+
+
+### ThermalDomainError
+
+Bases: `ThermalCandidateError`.
+
+
+### ThermalCandidateResolution
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `thermal: ResolvedThermalContext`; required declaration.
+- Field `model_context: TransportModelContext | None`; default expression `None`.
+- `candidate_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict`.
+- `to_json(self) -> str`.
+- `from_dict(cls, data: dict) -> ThermalCandidateResolution`; `classmethod`.
+- `from_json(cls, text: str) -> ThermalCandidateResolution`; `classmethod`.
+- `create_simulator(self) -> ThermalSimulator`.
+
+### ThermalModelSimulator
+
+Bases: `ThermalSimulator`.
+
+Constructor: `__init__(self, candidate: ThermalCandidateResolution)`.
+
+
+- `resolve_thermal_candidate(template: ThermalContext, device: Device, *, model_context: TransportModelContext | None=None) -> ThermalCandidateResolution`
 
 ## ncmemsim.transport
 

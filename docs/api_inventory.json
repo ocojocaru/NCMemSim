@@ -28273,6 +28273,267 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.thermal_dtco",
+      "source": "ncmemsim/thermal_dtco.py",
+      "explicit_exports": [
+        "ThermalCandidateError",
+        "ThermalDomainError",
+        "ThermalCandidateResolution",
+        "ThermalModelSimulator",
+        "resolve_thermal_candidate"
+      ],
+      "package_import_aliases": {
+        "AdvancedTransportEngine": "ncmemsim.transport.integration.AdvancedTransportEngine",
+        "AdvancedTransportSpec": "ncmemsim.transport.integration.AdvancedTransportSpec",
+        "Device": "ncmemsim.device.Device",
+        "ImageForceBarrierSpec": "ncmemsim.transport.barrier_corrections.ImageForceBarrierSpec",
+        "MechanismEvaluationStatus": "ncmemsim.transport.integration.MechanismEvaluationStatus",
+        "PhysicsModel": "ncmemsim.physics.PhysicsModel",
+        "ResolvedThermalContext": "ncmemsim.temperature_context.ResolvedThermalContext",
+        "SimulationConfig": "ncmemsim.simulator.SimulationConfig",
+        "Simulator": "ncmemsim.simulator.Simulator",
+        "TATLinkAttachment": "ncmemsim.transport.integration.TATLinkAttachment",
+        "ThermalContext": "ncmemsim.temperature_context.ThermalContext",
+        "ThermalSimulator": "ncmemsim.temperature_context.ThermalSimulator",
+        "TransportModelContext": "ncmemsim.ensemble.model_contracts.TransportModelContext",
+        "TrapAssistedTransportSpec": "ncmemsim.transport.traps.TrapAssistedTransportSpec",
+        "TrapSpecies": "ncmemsim.transport.traps.TrapSpecies",
+        "_config": "ncmemsim.temperature_context._config",
+        "_device_payload": "ncmemsim.workflows.application._device_payload",
+        "_dump": "ncmemsim.temperature_context._dump",
+        "_keys": "ncmemsim.temperature_context._keys",
+        "_load": "ncmemsim.temperature_context._load",
+        "_physics_payload": "ncmemsim.workflows.application._physics_payload",
+        "_restore_physics": "ncmemsim.workflows.application._restore_physics",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash"
+      },
+      "public_source_definitions": [
+        {
+          "name": "ThermalCandidateError",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "ValueError"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "ThermalDomainError",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "ThermalCandidateError"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": null,
+          "methods": []
+        },
+        {
+          "name": "ThermalCandidateResolution",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "thermal",
+              "annotation": "ResolvedThermalContext",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "model_context",
+              "annotation": "TransportModelContext | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "candidate_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "dict",
+              "source_signature": "(self) -> dict",
+              "decorators": []
+            },
+            {
+              "name": "to_json",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "str",
+              "source_signature": "(self) -> str",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": "dict",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ThermalCandidateResolution",
+              "source_signature": "(cls, data: dict) -> ThermalCandidateResolution",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "from_json",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "text",
+                  "kind": "positional_or_keyword",
+                  "annotation": "str",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ThermalCandidateResolution",
+              "source_signature": "(cls, text: str) -> ThermalCandidateResolution",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "create_simulator",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": "ThermalSimulator",
+              "source_signature": "(self) -> ThermalSimulator",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "ThermalModelSimulator",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "ThermalSimulator"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": {
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "candidate",
+                "kind": "positional_or_keyword",
+                "annotation": "ThermalCandidateResolution",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self, candidate: ThermalCandidateResolution)",
+            "decorators": []
+          },
+          "methods": []
+        },
+        {
+          "name": "resolve_thermal_candidate",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "template",
+              "kind": "positional_or_keyword",
+              "annotation": "ThermalContext",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "device",
+              "kind": "positional_or_keyword",
+              "annotation": "Device",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "model_context",
+              "kind": "keyword_only",
+              "annotation": "TransportModelContext | None",
+              "required": false,
+              "default_expression": "None"
+            }
+          ],
+          "return_annotation": "ThermalCandidateResolution",
+          "source_signature": "(template: ThermalContext, device: Device, *, model_context: TransportModelContext | None=None) -> ThermalCandidateResolution",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.transport",
       "source": "ncmemsim/transport/__init__.py",
       "explicit_exports": [
