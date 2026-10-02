@@ -122,7 +122,7 @@ SOURCE_REQUIRED |= {"tests/fixtures/archives/v0_14_0/" + name + ".json" for name
 
 
 SOURCE_REQUIRED |= {
-    'tests/conftest.py', 'scripts/validate_v1_4_api_review.py', 'docs/v1_4_api_review.json',
+    'tests/conftest.py', 'scripts/validate_v1_4_release_identity.py', 'scripts/validate_v1_4_api_review.py', 'docs/v1_4_api_review.json',
     'docs/v1_4_release_checklist.md', 'docs/temperature_properties.md',
     'docs/temperature_properties_audit.json', 'docs/temperature_coefficients_review.json',
     'tests/fixtures/archives/v1_4_0_dev/thermal_report.json',

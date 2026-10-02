@@ -109,25 +109,32 @@ def validate(root: Path) -> dict:
     if build_proposal(root, [e['import_path'] for e in entries])['entries'] != entries:
         raise ValueError('approved stable API changed')
     version = _version(root)
-    if version != DEVELOPMENT_VERSION:
-        raise ValueError('M7 preparation package version must be ' + DEVELOPMENT_VERSION)
-    citation = (root/'CITATION.cff').read_text(encoding='utf-8')
-    historical = (root/'tests/fixtures/releases/v1_3_0/CITATION.cff').read_text(encoding='utf-8')
-    if citation != historical or _citation_field(citation, 'version') != STABLE_VERSION or _citation_field(citation, 'doi') != STABLE_DOI or CONCEPT_DOI not in citation:
-        raise ValueError('development citation must retain the published v1.3.0 identity and DOI')
-    markers = {
-        'README.md': ('**Development version:** `1.4.0.dev0`', '**Current stable release:** `1.3.0`'),
-        'docs/temperature_properties.md': ('M7 preparation is implemented', 'release approval remains pending'),
-        'docs/roadmap.md': ('M7 preparation is implemented', 'release approval remains pending'),
-        'docs/v1_4_release_checklist.md': ('Status: M7 preparation implemented; release approval remains pending.', 'Python 3.11, 3.12 and 3.13', 'No tag, merge or release publication'),
-    }
-    for name, required in markers.items():
-        text = (root/name).read_text(encoding='utf-8')
-        if any(marker not in text for marker in required):
-            raise ValueError('inconsistent candidate declaration: ' + name)
+    if version == DEVELOPMENT_VERSION:
+        citation = (root/'CITATION.cff').read_text(encoding='utf-8')
+        historical = (root/'tests/fixtures/releases/v1_3_0/CITATION.cff').read_text(encoding='utf-8')
+        if citation != historical or _citation_field(citation, 'version') != STABLE_VERSION or _citation_field(citation, 'doi') != STABLE_DOI or CONCEPT_DOI not in citation:
+            raise ValueError('development citation must retain the published v1.3.0 identity and DOI')
+        markers = {
+            'README.md': ('**Development version:** `1.4.0.dev0`', '**Current stable release:** `1.3.0`'),
+            'docs/temperature_properties.md': ('M7 preparation is implemented', 'release approval remains pending'),
+            'docs/roadmap.md': ('M7 preparation is implemented', 'release approval remains pending'),
+            'docs/v1_4_release_checklist.md': ('Status: M7 preparation implemented; release approval remains pending.', 'Python 3.11, 3.12 and 3.13', 'No tag, merge or release publication'),
+        }
+        for name, required in markers.items():
+            text = (root/name).read_text(encoding='utf-8')
+            if any(marker not in text for marker in required):
+                raise ValueError('inconsistent candidate declaration: ' + name)
+        citation_version = STABLE_VERSION
+    elif version == '1.4.0':
+        from scripts.validate_v1_4_release_identity import validate_identity
+        validate_identity(root)
+        citation_version = version
+    else:
+        raise ValueError('unsupported v1.4 candidate package version')
     return {'status': 'candidate_contracts_pass_not_release_approval', 'package_version': version,
-            'published_citation_version': STABLE_VERSION, 'reviewed_modules': len(MODULES),
-            'stable_ensemble_exports': 59, 'retained_stable_paths': len(entries)}
+            'citation_version': citation_version, 'latest_published_stable': STABLE_VERSION,
+            'reviewed_modules': len(MODULES), 'stable_ensemble_exports': 59,
+            'retained_stable_paths': len(entries)}
 
 
 if __name__ == '__main__':

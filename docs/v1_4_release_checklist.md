@@ -1,9 +1,10 @@
 # v1.4 Phase M7 candidate and release checklist
 
 Status: M7 preparation implemented; release approval remains pending.
-Development package: `1.4.0.dev0`; candidate target: `1.4.0`.
-Latest published stable/citation identity: `1.3.0`, dated `2026-10-01`.
-Its specific DOI is `10.5281/zenodo.23079171`; Concept DOI is
+Final candidate identity: `1.4.0`; citation date: `2026-10-02`.
+Latest published stable release: `1.3.0`, dated `2026-10-01`.
+CITATION.cff now describes the v1.4.0 candidate and has no version-specific DOI.
+The published v1.3.0 specific DOI is `10.5281/zenodo.23079171`; Concept DOI is
 `10.5281/zenodo.23078330`. Neither is a v1.4 version-specific DOI.
 
 ## Contract and scientific review
@@ -26,11 +27,12 @@ Reports preserve authoritative observations, domains, failures and undefined
 empty-population fractions without workflow/transport/RNG replay. Hashes prove
 consistency, not authenticity or independent experimental qualification.
 
-## Preparation checks
+## Final candidate checks
 
 - Full regression suite: `python -m pytest -q`.
 - Source inventory: `python scripts/validate_api_contract.py`.
-- Candidate API/identity: `python scripts/validate_v1_4_api_review.py`.
+- Candidate API: `python scripts/validate_v1_4_api_review.py`.
+- Final identity: `python scripts/validate_v1_4_release_identity.py`.
 - Strict documentation: `python scripts/validate_documentation.py`.
 - Clean wheel/sdist: `python scripts/validate_dtco_distribution.py`.
 - Offline local distribution check may use `--reuse-dependencies`; this mode
@@ -39,11 +41,21 @@ consistency, not authenticity or independent experimental qualification.
 - Documentation on the preparation branch and PR; development builds do not
   deploy Pages. All source notices and LICENSE/NOTICE must be packaged.
 
+## Verified preparation evidence
+
+Preparation commit: `dc79dd625ead691c9c3c3512ed8eebbb4a641b53`.
+[CI](https://github.com/ocojocaru/NCMemSim/actions/runs/36993597402) passed all six
+Python 3.11-3.13 test/distribution jobs;
+[Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/36993597377) passed.
+These are verified preparation results, not approval of the final candidate.
+The final package/citation/date/changelog identity is prepared together; exact
+final-candidate branch/PR/main/tag checks and publication remain pending.
+
 ## Exact-commit evidence and pending publication
 
 Preparation checks do not approve a later commit. Record the full committed SHA
 and its CI/Documentation run URLs, with all matrix jobs green. A successful push
-alone is not remote evidence. Run status and publication are pending until verified.
+alone is not remote evidence. Final-candidate run status and publication are pending until verified.
 
 1. Commit/push preparation and check all six matrix jobs and Documentation on
    that exact SHA; review the complete branch diff.

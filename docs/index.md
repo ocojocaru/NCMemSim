@@ -2,13 +2,13 @@
 
 # NCMemSim
 
-Development version: `1.4.0.dev0`. Phase M7 candidate/release approval remains pending; the published stable release and citation remain v1.3.0.
+Final release candidate: `1.4.0`; publication remains pending. Latest published stable release: `1.3.0`. CITATION.cff describes the reviewed v1.4.0 candidate dated 2026-10-02; no v1.4-specific DOI is assigned.
 
 <a href="https://doi.org/10.5281/zenodo.23078330"><img src="https://zenodo.org/badge/1314843497.svg" alt="DOI"></a>
 
 The [Concept DOI](https://doi.org/10.5281/zenodo.23078330) represents all published
 versions. The [v1.2.0 DOI](https://doi.org/10.5281/zenodo.23078331) identifies that
-release specifically. The [v1.3.0 DOI](https://doi.org/10.5281/zenodo.23079171) identifies the current release.
+release specifically. The [v1.3.0 DOI](https://doi.org/10.5281/zenodo.23079171) identifies the published v1.3.0 release.
 
 **NCMemSim** is a modular compact multiphysics platform for distributed
 floating-gate nanocrystal memories based on Ge, GeSn, and high-k dielectric

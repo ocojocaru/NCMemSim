@@ -6,8 +6,8 @@ M0 is complete: code-temperature audit, selected property families, ownership,
 scientific limits and staged acceptance contracts are frozen here. M1-M6 are
 implemented. M7 preparation is implemented; release approval remains pending.
 M0 itself introduced no material law or runtime API.
-The release target is v1.4.0. The development package is 1.4.0.dev0; citation
-identity remains 1.3.0 and its historical release evidence is retained.
+Final candidate identity: `1.4.0`, citation date `2026-10-02`. Publication remains
+pending; the latest published stable release is v1.3.0. Historical evidence is retained.
 
 Audit baseline: main commit `79c5d579d4a735ccd71f7c8fe5d02b77bb6b2f11`,
 after the v1.3.0 release and DOI/test follow-up. The reproducible code audit is
@@ -160,9 +160,9 @@ accounting, not removed to improve feasible fractions.
 
 M1-M6 and M7 preparation are implemented on `dev/v1.4-temperature-properties`.
 M7 preparation is implemented with API/scope/compatibility and distribution gates;
-release approval remains pending. Next: commit/push the preparation, obtain green
-exact-commit CI, then prepare the final version/citation/date/changelog together.
-The development package is 1.4.0.dev0; CITATION.cff retains published v1.3.0.
+release approval remains pending. Next: commit/push the final candidate, obtain green
+exact-commit CI for the final identity, then review the release PR and resulting main commit.
+The package/citation candidate is 1.4.0; publication and version-specific DOI remain pending.
 
 
 ## M1 contracts and coefficient review
@@ -589,7 +589,8 @@ Stored observations are authoritative inputs to analysis, not independently
 verified solver trajectories or measurements. A consistently replaced source
 with its rebuilt analyses represents different evidence. Nothing in this report
 qualifies temperature coefficients, process yield or experimental calibration.
-The M7 development package is 1.4.0.dev0; citation identity remains v1.3.0.
+The M7 package and citation describe the final 1.4.0 candidate, dated 2026-10-02.
+This is not publication evidence; a v1.4-specific DOI remains pending.
 
 ## M7 candidate review and release gates
 
@@ -609,3 +610,7 @@ Windows checks do not substitute for the remote Python 3.11-3.13 matrix.
 See [v1.4 candidate and release checklist](v1_4_release_checklist.md) for pending
 exact-commit remote checks, final identity, PR/main/tag and publication gates.
 No v1.4-specific DOI is assigned before its actual Zenodo deposit exists.
+
+Final identity is checked by `python scripts/validate_v1_4_release_identity.py`.
+Preparation CI passed on `dc79dd625ead691c9c3c3512ed8eebbb4a641b53`; this evidence
+belongs to the development preparation and does not approve the later final candidate.

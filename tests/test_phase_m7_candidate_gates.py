@@ -18,21 +18,21 @@ ROOT = Path(__file__).resolve().parents[1]
 def candidate_copy(tmp_path):
     for folder in ('docs', 'ncmemsim', 'tests/fixtures'):
         shutil.copytree(ROOT/folder, tmp_path/folder)
-    for name in ('README.md', 'CITATION.cff'):
+    for name in ('README.md', 'CITATION.cff', 'CHANGELOG.md'):
         shutil.copyfile(ROOT/name, tmp_path/name)
     return tmp_path
 
 
-def test_m7_development_review_retains_published_citation():
+def test_m7_final_review_retains_published_history():
     result = gate.validate(ROOT)
-    assert result['package_version'] == '1.4.0.dev0'
-    assert result['published_citation_version'] == '1.3.0'
+    assert result['package_version'] == '1.4.0'
+    assert result['citation_version'] == '1.4.0'
     assert result['reviewed_modules'] == 4
     assert result['stable_ensemble_exports'] == 59
     assert result['retained_stable_paths'] == 297
     assert result['status'] == 'candidate_contracts_pass_not_release_approval'
     citation = (ROOT/'CITATION.cff').read_text(encoding='utf-8')
-    assert 'doi: 10.5281/zenodo.23079171' in citation
+    assert not any(line.startswith('doi:') for line in citation.splitlines())
     assert '10.5281/zenodo.23078330' in citation
 
 
@@ -41,13 +41,13 @@ def test_m7_development_review_retains_published_citation():
 def test_candidate_rejects_unreviewed_identity_scope_or_archival_changes(candidate_copy, fault):
     root = candidate_copy
     if fault == 'version':
-        p=root/'ncmemsim/_version.py';p.write_text('__version__="1.4.0"\n',encoding='utf-8')
+        p=root/'ncmemsim/_version.py';p.write_text('__version__="1.4.0.dev0"\n',encoding='utf-8')
     elif fault in ('citation', 'specific_doi'):
         p=root/'CITATION.cff';s=p.read_text(encoding='utf-8')
-        s=s.replace('version: 1.3.0','version: 1.4.0') if fault=='citation' else s.replace(gate.STABLE_DOI,'10.0000/unassigned')
+        s=s.replace('version: 1.4.0','version: 1.3.0') if fault=='citation' else s+'\ndoi: 10.0000/unassigned\n'
         p.write_text(s,encoding='utf-8')
     elif fault == 'readme':
-        p=root/'README.md';p.write_text(p.read_text(encoding='utf-8').replace('**Development version:** `1.4.0.dev0`','stale'),encoding='utf-8')
+        p=root/'README.md';p.write_text(p.read_text(encoding='utf-8').replace('**Release candidate:** `1.4.0`','stale'),encoding='utf-8')
     elif fault == 'snapshot':
         p=root/'tests/fixtures/releases/v1_3_0/README.md';p.write_text('modified historical identity\n',encoding='utf-8')
     elif fault == 'checklist':
@@ -75,7 +75,7 @@ def test_missing_runtime_export_rejected(monkeypatch):
 def test_historical_identity_hashes_tolerate_windows_line_endings(candidate_copy):
     for path in (candidate_copy/'tests/fixtures/releases/v1_3_0').rglob('*'):
         if path.is_file():path.write_bytes(path.read_bytes().replace(b'\r\n',b'\n').replace(b'\n',b'\r\n'))
-    assert gate.validate(candidate_copy)['published_citation_version']=='1.3.0'
+    assert gate.validate(candidate_copy)['citation_version']=='1.4.0'
 
 
 def test_frozen_thermal_archive_preserves_all_failed_attempts():
