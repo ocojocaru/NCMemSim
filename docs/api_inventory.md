@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 114 package source modules; 636 explicit export paths; 188 distinct documented Python import paths.
+Coverage: 115 package source modules; 643 explicit export paths; 188 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -4033,6 +4033,58 @@ Constructor: `__init__(self, candidate: ThermalCandidateResolution)`.
 
 
 - `resolve_thermal_candidate(template: ThermalContext, device: Device, *, model_context: TransportModelContext | None=None) -> ThermalCandidateResolution`
+
+## ncmemsim.thermal_reporting
+
+`ncmemsim/thermal_reporting.py`
+
+Explicit exports: `ThermalRunEvidence`, `build_thermal_run_evidence`, `ThermalReportStudy`, `ThermalReport`, `build_thermal_report`, `write_thermal_report`, `load_thermal_report_bundle`
+
+### ThermalRunEvidence
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self) -> dict`.
+- `source_hash(self) -> str`; `property`.
+- `to_json(self) -> str`.
+- `from_dict(cls, raw: dict) -> ThermalRunEvidence`; `classmethod`.
+- `from_json(cls, text: str) -> ThermalRunEvidence`; `classmethod`.
+
+- `build_thermal_run_evidence(template: ThermalContext, device: Device, *, workflow: dict, observations: dict | None=None, failure: dict | None=None, model_context: TransportModelContext | None=None, initial_state: DeviceState | None=None, runtime: dict | None=None) -> ThermalRunEvidence`
+### ThermalReportStudy
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `kind: str`; required declaration.
+- Field `source_json: str`; required declaration.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, raw: dict) -> ThermalReportStudy`; `classmethod`.
+
+### ThermalReport
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `studies: tuple[ThermalReportStudy, ...]`; required declaration.
+- Field `limitations: tuple[str, ...]`; required declaration.
+- Field `evidence_json: str`; default expression `'{}'`.
+- `to_dict(self) -> dict`.
+- `report_hash(self) -> str`; `property`.
+- `to_json(self) -> str`.
+- `from_dict(cls, raw: dict) -> ThermalReport`; `classmethod`.
+- `from_json(cls, text: str) -> ThermalReport`; `classmethod`.
+
+- `build_thermal_report(name: str, studies, *, limitations, evidence=None) -> ThermalReport`
+- `write_thermal_report(report: ThermalReport, destination: str | Path) -> Path`
+- `load_thermal_report_bundle(destination: str | Path) -> ThermalReport`
 
 ## ncmemsim.transport
 

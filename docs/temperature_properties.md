@@ -3,7 +3,7 @@
 ## M0 status and baseline
 
 M0 is complete: code-temperature audit, selected property families, ownership,
-scientific limits and staged acceptance contracts are frozen here. M6-M7 are
+scientific limits and staged acceptance contracts are frozen here. M6 is implemented; M7 remains
 planned. M1 adds property contracts; M2 adds isolated thermal resolution and an
 explicit simulator route. M0 itself
 introduced no material law or runtime API.
@@ -159,9 +159,9 @@ accounting, not removed to improve feasible fractions.
 
 ## Next action
 
-M1-M5 are implemented on `dev/v1.4-temperature-properties`. Next is M6:
-add strict thermal reports, restoration and reproducibility bundles for declared
-protocols and deterministic/variability-aware evidence. The package keeps its
+M1-M6 are implemented on `dev/v1.4-temperature-properties`. Next is M7:
+review the exact candidate API, scientific scope, archives and distribution,
+then prepare development/release identity and release gates. The package keeps its
 v1.3.0 release identity until a dedicated development/release identity change.
 
 
@@ -237,7 +237,7 @@ unknown/missing fields, duplicate JSON keys, nonfinite numbers and unsupported
 calibration claims are rejected. Fresh dictionary projections do not share state
 with the frozen profile. `contract_hash` hashes canonical JSON, including all
 coefficients, anchors and evidence; it identifies a declared contract and does not
-provide authenticity or prove experimental validity. M6 will add report-level
+provide authenticity or prove experimental validity. M6 adds report-level
 reconstruction and derived-value verification.
 
 
@@ -407,7 +407,7 @@ python examples/phase_m3_si_temperature_reference.py --output results/m3-si
 
 The JSON is standalone numerical evidence with a content hash, not a new strict
 report reader or M6 reproducibility bundle. Validation aborts on failed numerical
-acceptance rather than exporting a partial successful subset. M6 will cover
+acceptance rather than exporting a partial successful subset. M6 covers
 report-level restoration, export contracts and scientific evidence boundaries.
 
 
@@ -460,7 +460,7 @@ python examples/phase_m4_ge_temperature_reference.py --output results/m4-ge
 The output records complete contexts, resolutions, protocols, assumptions,
 all twelve cases and numerical controls with a content hash. Numerical acceptance
 must pass before export. This is standalone evidence; strict report restoration
-and reproducibility bundles remain M6 work.
+and reproducibility bundles are provided by the separate M6 contracts below.
 
 
 ## M5 thermal DTCO and MODEL integration
@@ -477,7 +477,7 @@ No MODEL temperature axis or independent material temperature is introduced.
 `thermal-dtco-candidate-v1` envelope containing the complete M2 thermal resolution
 and optional L transport context with both identities. Its strict reader restores
 and validates source/derived content; it neither converts nor changes older M2,
-K or L schemas. Operating protocols and full report restoration remain M6 work.
+K or L schemas. Operating protocols and full report restoration use the M6 contracts below.
 `create_simulator()` returns the existing thermal simulator when MODEL is absent,
 or an owned `ThermalModelSimulator` when the explicit transport context is given.
 
@@ -527,4 +527,66 @@ python examples/phase_m5_thermal_dtco_reference.py --output results/m5-thermal-d
 The evidence records the template, resolved candidates, explicit model inputs,
 stored draws, source-linked deterministic/population analyses, exact Pareto
 projection and numerical audits. A content hash identifies the standalone JSON;
-strict workflow/report restoration and full run bundles are deferred to M6.
+strict source-linked restoration and bundles are provided by M6 below.
+
+## M6 thermal reports and reproducibility bundles
+
+The additive module `ncmemsim.thermal_reporting` exports `ThermalRunEvidence`,
+`build_thermal_run_evidence`, `ThermalReportStudy`, `ThermalReport`,
+`build_thermal_report`, `write_thermal_report` and `load_thermal_report_bundle`.
+The new `thermal-run-evidence-v1`, `thermal-report-study-v1`, `thermal-report-v1`
+and `thermal-report-bundle-v1` contracts leave earlier I/K/L/M2 archives intact.
+
+A run source records the complete nominal template, candidate device, optional
+transport context, initial `DeviceState` (including all occupation arrays),
+explicit protocol/settings, runtime, resolved thermal candidate and stored
+observations or typed failure. Omitting the initial state explicitly archives
+an empty state; it does not infer an earlier state from results. Workflow kinds
+are `program_pulse_read`, `electro_optical_program_pulse_read`, `retention` and
+`fixed_field_redistribution`. Electrical/optical protocols and photo-capture
+configuration are restored through their existing contracts. Retention settings
+and initial probability mass are checked. The builder records evidence; it does
+not execute a workflow. Observations must be finite JSON objects.
+
+`ThermalReportStudy` supports `run`, `deterministic_dtco` and `model_dtco` sources.
+The DTCO adapter is restricted to the existing DEVICE design axes and requires
+explicit thermal template/model settings and candidate-linked outputs. Readers
+restore each stored MODEL realization from its stored sample values, compare
+candidate/model identities, reevaluate thermal inputs and rebuild metrics,
+constraints, population statistics and Pareto projections from stored outputs.
+They do not execute transport, program/read or retention, and do not draw new
+random samples. Each attempted candidate remains represented, including domain
+and extraction failures, infeasible results and entirely failed populations.
+Attempted/assessed denominators retain the K/L distinction; empty statistics
+and conditional fractions remain undefined rather than being assigned zero.
+
+A report requires explicit scientific limitations and always declares
+`conditional-unqualified-simulation`. Its JSON retains authoritative nested
+sources, temperatures, full profiles with provenance/domains, resolved values,
+protocols, runtime and failures. Markdown and CSV are derived projections.
+The bundle contains exactly `report.json`, `report.md`, `attempts.csv`,
+`statistics.csv`, `designs.csv` and `bundle.json`. The manifest hashes all five
+payload files. Loading checks complete membership, regular files, strict JSON,
+nested identities and rebuilt projections; coherently rehashing a changed CSV
+or Markdown file does not make it acceptable. Repeated exports are byte-identical
+for the same source. Writing requires a new destination and rolls back files
+created by an interrupted export.
+
+```bash
+python examples/phase_m6_thermal_report.py --input results/m5-thermal-dtco/reference.json --output results/m6-thermal-report
+```
+
+This example converts the stored M5 reference into deterministic and paired
+MODEL studies, retaining all four deterministic attempts and all 32 population
+attempts. The paired draws and timestep audits are retained as declared evidence;
+restoration does not independently reproduce the numerical refinement experiment.
+M3/M4-style program/read and retention runs can be recorded through the explicit
+run-source API; their earlier standalone reference JSON formats are not silently
+upgraded into this new source contract.
+
+Content hashes detect inconsistent edits, not authorship or authenticity.
+Stored observations are authoritative inputs to analysis, not independently
+verified solver trajectories or measurements. A consistently replaced source
+with its rebuilt analyses represents different evidence. Nothing in this report
+qualifies temperature coefficients, process yield or experimental calibration.
+The version and citation identity remain v1.3.0 pending the separate M7 review.

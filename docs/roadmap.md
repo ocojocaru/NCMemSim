@@ -384,7 +384,10 @@ separate room-temperature GeSn reference limits.
 M5 is complete: candidate resolution on the existing DEVICE temperature axis,
 explicit owned MODEL transport integration, paired density DTCO and preserved
 failure/metric/infeasibility accounting and Pareto denominators.
-M6-M7 are planned; see [Temperature-dependent material properties](temperature_properties.md)
+M6 is complete: strict source-linked thermal run/DTCO reports, deterministic
+bundles and restoration without workflow or RNG replay, including all-failed
+populations and tamper rejection. M7 is next: candidate review and release gates.
+See [Temperature-dependent material properties](temperature_properties.md)
 for the code audit, frozen scope, equations, references and acceptance sequence.
 
 ### v1.5.0: Phase N - Broadband spectra and multilayer optical propagation

@@ -4,6 +4,17 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+### Phase M6 - strict thermal reports and reproducibility bundles
+
+- Archive explicit thermal run requests, initial states, protocols, runtime,
+  resolved properties, observations and failures in immutable source contracts.
+- Rebuild deterministic and MODEL analysis projections from stored evidence;
+  preserve domain/metric failures, infeasibility and undefined empty statistics.
+- Export six deterministic JSON/Markdown/CSV bundle files with strict nested
+  restoration, complete membership checks and tamper rejection.
+- Restore without workflow execution or random sampling; distinguish stored
+  observations and declared numerical audits from independently verified physics.
+
 ### Phase M5 - thermal DTCO and MODEL transport integration
 
 - Resolve every candidate on the existing DEVICE temperature axis from explicit
