@@ -2,8 +2,6 @@
 
 # NCMemSim
 
-Development version: `1.4.0.dev0`. Phase M7 candidate/release approval remains pending; the published stable release and citation remain v1.3.0.
-
 <a href="https://doi.org/10.5281/zenodo.23078330"><img src="https://zenodo.org/badge/1314843497.svg" alt="DOI"></a>
 
 The [Concept DOI](https://doi.org/10.5281/zenodo.23078330) represents all published

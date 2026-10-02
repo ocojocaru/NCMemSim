@@ -4,6 +4,7 @@
 """Build and exercise wheel/sdist installations outside the source checkout."""
 from __future__ import annotations
 import argparse
+import ast
 import json
 from pathlib import Path
 import shutil
@@ -119,6 +120,17 @@ SOURCE_REQUIRED = {
 SOURCE_REQUIRED |= {"tests/fixtures/archives/v0_14_0/" + name + ".json" for name in
     ("dtco", "robust", "workflow", "dataset_evidence", "workflow_evidence", "applied_evidence", "sample_manifest", "inventory")}
 
+
+SOURCE_REQUIRED |= {
+    'tests/conftest.py', 'scripts/validate_v1_4_api_review.py', 'docs/v1_4_api_review.json',
+    'docs/v1_4_release_checklist.md', 'docs/temperature_properties.md',
+    'docs/temperature_properties_audit.json', 'docs/temperature_coefficients_review.json',
+    'tests/fixtures/archives/v1_4_0_dev/thermal_report.json',
+}
+SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_3_0/' + p for p in
+    ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py',
+     'docs/index.md', 'docs/model_variability.md', 'docs/roadmap.md')}
+
 def check_archive(path: Path) -> None:
     if path.suffix == ".whl":
         with zipfile.ZipFile(path) as archive:
@@ -225,7 +237,12 @@ def main() -> None:
             run(str(python), "-I", str(probe), str(root), str(environment), str(work), cwd=work)
             shutil.copyfile(root / 'tests/fixtures/archives/v1_3_0_dev/model_report.json', work / 'model_report.json')
             run(str(python), '-I', '-c', MODEL_PROBE, str(work), cwd=work)
-            results.append({"artifact": artifact.name, "installed_workflow": "PASS"})
+            shutil.copyfile(root / 'tests/fixtures/archives/v1_4_0_dev/thermal_report.json', work / 'thermal_report.json')
+            version_tree = ast.parse((root / 'ncmemsim/_version.py').read_text(encoding='utf-8'))
+            version = next(ast.literal_eval(n.value) for n in version_tree.body
+                           if isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id == '__version__' for t in n.targets))
+            run(str(python), '-I', '-c', THERMAL_PROBE, str(work), version, cwd=work)
+            results.append({"artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
 
@@ -433,6 +450,79 @@ write_model_report(restored,second)
 assert report.report_hash==restored.report_hash
 assert all(p.read_bytes()==(second/p.name).read_bytes() for p in first.iterdir())
 print('Installed MODEL report: all-failed accounting, nested restoration and deterministic bundles PASS')
+'''
+
+THERMAL_PROBE = r'''import sys
+from pathlib import Path
+import numpy as np
+import ncmemsim
+from ncmemsim.hashing import canonical_hash
+from ncmemsim.temperature_context import ThermalContext
+from ncmemsim.thermal_dtco import resolve_thermal_candidate, ThermalDomainError, ThermalCandidateResolution
+from ncmemsim.thermal_reporting import ThermalReport, write_thermal_report, load_thermal_report_bundle
+from ncmemsim.simulator import Simulator
+from ncmemsim.transport.integration import AdvancedTransportEngine
+import ncmemsim.ensemble.model_sampling as sampling
+work = Path(sys.argv[1])
+assert ncmemsim.__version__ == sys.argv[2]
+assert not (work/'ncmemsim').exists(), 'probe must use installed package'
+def forbidden(*args, **kwargs):
+    raise AssertionError('archive restoration must not run transport/workflows/RNG')
+Simulator.relax_voltage = forbidden
+AdvancedTransportEngine.step = forbidden
+sampling.generate_model_sample_manifest = forbidden
+np.random.default_rng = forbidden
+report = ThermalReport.from_json((work/'thermal_report.json').read_text(encoding='utf-8'))
+counts = [s.to_dict()['summary']['counts'] for s in report.studies]
+assert sum(c['attempted'] for c in counts) == 6
+assert sum(c['failed'] for c in counts) == 6
+assert all(c['completed'] == 0 for c in counts)
+assert all(r['summary']['mean'] is None for r in report.studies[1].to_dict()['summary']['statistics'])
+settings = report.studies[0].to_dict()['source']['source_analysis']['source_sweep']['evaluation']['parameters']
+context = ThermalContext.from_dict(settings['thermal_template'])
+resolved = context.resolve(temperature_K=300)
+semiconductor = resolved.physics.electrostatics.semiconductor
+assert semiconductor.bandgap_eV == 1.12
+assert semiconductor.intrinsic_density_m3 == 1e16
+candidate = resolve_thermal_candidate(context, resolved.device)
+assert ThermalCandidateResolution.from_dict(candidate.to_dict()).candidate_hash == candidate.candidate_hash
+outside = resolved.device
+outside.temperature_K = 400
+try:
+    resolve_thermal_candidate(context, outside)
+except ThermalDomainError:
+    pass
+else:
+    raise AssertionError('out-of-domain temperature must fail')
+first = work/('thermal-'+str(__import__('os').getpid()))
+write_thermal_report(report, first)
+restored = load_thermal_report_bundle(first)
+second = Path(str(first)+'-restored')
+write_thermal_report(restored, second)
+assert restored.report_hash == report.report_hash
+assert all(p.read_bytes() == (second/p.name).read_bytes() for p in first.iterdir())
+# A forged projection with a recomputed manifest is still inconsistent.
+import hashlib, json
+manifest = json.loads((second/'bundle.json').read_text(encoding='utf-8'))
+(second/'attempts.csv').write_text('forged', encoding='utf-8')
+manifest['files']['attempts.csv'] = hashlib.sha256((second/'attempts.csv').read_bytes()).hexdigest()
+(second/'bundle.json').write_text(json.dumps(manifest), encoding='utf-8')
+try:
+    load_thermal_report_bundle(second)
+except ValueError:
+    pass
+else:
+    raise AssertionError('coherently rehashed projection must fail')
+raw = report.to_dict()
+raw['studies'][0]['summary']['counts']['failed'] = 0
+raw['report_hash'] = canonical_hash({k:v for k,v in raw.items() if k != 'report_hash'})
+try:
+    ThermalReport.from_dict(raw)
+except ValueError:
+    pass
+else:
+    raise AssertionError('forged nested derived content must fail')
+print('Installed thermal anchors/domain, all-failed sources, no replay, tamper rejection and deterministic bundles PASS')
 '''
 
 if __name__ == "__main__":

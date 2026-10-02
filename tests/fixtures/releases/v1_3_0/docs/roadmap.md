@@ -386,8 +386,7 @@ explicit owned MODEL transport integration, paired density DTCO and preserved
 failure/metric/infeasibility accounting and Pareto denominators.
 M6 is complete: strict source-linked thermal run/DTCO reports, deterministic
 bundles and restoration without workflow or RNG replay, including all-failed
-populations and tamper rejection. M7 preparation is implemented: development identity `1.4.0.dev0`, additive API
-review, frozen thermal archive and installed-distribution/CI gates; release approval remains pending.
+populations and tamper rejection. M7 is next: candidate review and release gates.
 See [Temperature-dependent material properties](temperature_properties.md)
 for the code audit, frozen scope, equations, references and acceptance sequence.
 

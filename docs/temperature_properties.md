@@ -3,12 +3,11 @@
 ## M0 status and baseline
 
 M0 is complete: code-temperature audit, selected property families, ownership,
-scientific limits and staged acceptance contracts are frozen here. M6 is implemented; M7 remains
-planned. M1 adds property contracts; M2 adds isolated thermal resolution and an
-explicit simulator route. M0 itself
-introduced no material law or runtime API.
-The provisional release target is v1.4.0. Package/citation identity remains 1.3.0
-at this planning checkpoint; v1.3.0 historical release evidence is retained.
+scientific limits and staged acceptance contracts are frozen here. M1-M6 are
+implemented. M7 preparation is implemented; release approval remains pending.
+M0 itself introduced no material law or runtime API.
+The release target is v1.4.0. The development package is 1.4.0.dev0; citation
+identity remains 1.3.0 and its historical release evidence is retained.
 
 Audit baseline: main commit `79c5d579d4a735ccd71f7c8fe5d02b77bb6b2f11`,
 after the v1.3.0 release and DOI/test follow-up. The reproducible code audit is
@@ -159,10 +158,11 @@ accounting, not removed to improve feasible fractions.
 
 ## Next action
 
-M1-M6 are implemented on `dev/v1.4-temperature-properties`. Next is M7:
-review the exact candidate API, scientific scope, archives and distribution,
-then prepare development/release identity and release gates. The package keeps its
-v1.3.0 release identity until a dedicated development/release identity change.
+M1-M6 and M7 preparation are implemented on `dev/v1.4-temperature-properties`.
+M7 preparation is implemented with API/scope/compatibility and distribution gates;
+release approval remains pending. Next: commit/push the preparation, obtain green
+exact-commit CI, then prepare the final version/citation/date/changelog together.
+The development package is 1.4.0.dev0; CITATION.cff retains published v1.3.0.
 
 
 ## M1 contracts and coefficient review
@@ -589,4 +589,23 @@ Stored observations are authoritative inputs to analysis, not independently
 verified solver trajectories or measurements. A consistently replaced source
 with its rebuilt analyses represents different evidence. Nothing in this report
 qualifies temperature coefficients, process yield or experimental calibration.
-The version and citation identity remain v1.3.0 pending the separate M7 review.
+The M7 development package is 1.4.0.dev0; citation identity remains v1.3.0.
+
+## M7 candidate review and release gates
+
+The reviewed additive surface is `v1_4_api_review.json`, checked by
+`python scripts/validate_v1_4_api_review.py`. It records four thermal modules,
+the retained Simulator contract, stable paths/ensemble exports, coefficient and
+scope evidence, historical v1.3 identity snapshots and a frozen thermal report.
+Existing MODEL contracts and earlier historical JSON evidence remain pinned.
+The source API inventory and reviewed contracts must agree before CI proceeds.
+
+The distribution gate restores the frozen report with all-failed deterministic
+and MODEL populations, checks 300 K anchors and rejected out-of-domain requests,
+and re-exports byte-identical bundles from independently installed wheel/sdist.
+Its probe forbids solver execution and new RNG draws during restoration. Local
+Windows checks do not substitute for the remote Python 3.11-3.13 matrix.
+
+See [v1.4 candidate and release checklist](v1_4_release_checklist.md) for pending
+exact-commit remote checks, final identity, PR/main/tag and publication gates.
+No v1.4-specific DOI is assigned before its actual Zenodo deposit exists.
