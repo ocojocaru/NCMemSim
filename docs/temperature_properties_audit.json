@@ -1,0 +1,73 @@
+{
+  "schema_version": "phase-m0-temperature-audit-v1",
+  "status": "historical_code_audit_not_temperature_validation",
+  "baseline_release": "v1.3.0",
+  "audited_main_commit": "79c5d579d4a735ccd71f7c8fe5d02b77bb6b2f11",
+  "date": "2026-10-01",
+  "baseline_defaults": {
+    "device_temperature_K": 300.0,
+    "silicon_gap_eV": 1.12,
+    "silicon_intrinsic_density_m3": 1e+16,
+    "ge_optical_gamma_eV": 0.7985,
+    "ge_optical_l_eV": 0.664
+  },
+  "diagnostic_conditions": {
+    "material": "make_ge() default",
+    "sn_fraction": 0.0,
+    "wavelength_nm": 1550.0,
+    "phonon_energy_eV": 0.027,
+    "nc_diameter_nm": 3.0,
+    "temperature_grid_status": "ASSUMED numerical audit points, not a validated temperature domain"
+  },
+  "diagnostic_rows": [
+    {
+      "temperature_K": 250.0,
+      "optical_temperature_metadata_only_gamma_eV": 0.7985,
+      "optical_temperature_metadata_only_l_eV": 0.664,
+      "fermi_potential_V": 0.2519546029241321,
+      "flatband_zero_V": -0.06195460292413202,
+      "charging_gamma_3nm": 2.7850157803170457,
+      "phonon_occupation_0_027eV": 0.39970614521618525,
+      "explicit_absorption_temperature_indirect_m_inv": 27205.32878141102
+    },
+    {
+      "temperature_K": 300.0,
+      "optical_temperature_metadata_only_gamma_eV": 0.7985,
+      "optical_temperature_metadata_only_l_eV": 0.664,
+      "fermi_potential_V": 0.3023455235089585,
+      "flatband_zero_V": -0.11234552350895832,
+      "charging_gamma_3nm": 2.320846483597538,
+      "phonon_occupation_0_027eV": 0.5429731071955984,
+      "explicit_absorption_temperature_indirect_m_inv": 32706.001090641326
+    },
+    {
+      "temperature_K": 350.0,
+      "optical_temperature_metadata_only_gamma_eV": 0.7985,
+      "optical_temperature_metadata_only_l_eV": 0.664,
+      "fermi_potential_V": 0.35273644409378496,
+      "flatband_zero_V": -0.16273644409378463,
+      "charging_gamma_3nm": 1.9892969859407466,
+      "phonon_occupation_0_027eV": 0.6906844264294221,
+      "explicit_absorption_temperature_indirect_m_inv": 38377.312551731186
+    }
+  ],
+  "source_sha256": {
+    "ncmemsim/electrostatics.py": "2876774c0087705d5910291b358d68679e1570ce21a45bc7c1b1c24ed1c8a19d",
+    "ncmemsim/kinetics.py": "7e3bb57a966a1254123028ce70d4c5847d48e094a67caf0f78313369a2697d83",
+    "ncmemsim/materials/base.py": "f69e17894b58318d91bc4564b69b1e357fbdf8c80d3379f181c90cd31b7a91cb",
+    "ncmemsim/materials/models/gesn.py": "b74ad3281ec015e6d6d3013cd77887ba6a1894d65262164dac064f3473e76a73",
+    "ncmemsim/materials/optics/models.py": "16bc27aada0c39ca31d7b332ab176978f126ea3a65b9ec1b86b70ab430106c22",
+    "ncmemsim/materials/optics/domain.py": "91137fe1b844bb8ecdb364e7eea5b2d93197a7bf646e85f01be0d74842b8e65a",
+    "ncmemsim/materials/optics/near_edge.py": "3f5c2dadb2abeb96f696916bda9a10d2314d93dfa06bc3972ac5b95d9ba78d65",
+    "ncmemsim/optics.py": "8a13f2e278971a7890c6b37ca40b9dcdaa3c584191aef6d6de132fe0e2b3adcb",
+    "ncmemsim/simulator.py": "da4cadee322e6479c6a407f24b06a1d1a10a14a918ca05be8f524f458b3e0c00",
+    "ncmemsim/retention.py": "52d25be22d1b935f90c1d03650c41bc2038f59f5b8e82fad5a00be41a59d3580",
+    "ncmemsim/workflows/application.py": "da803cae81a0fa51107f05d74952080f8b329ed6384e6f335e60200e558dc1bd",
+    "ncmemsim/dtco/binding.py": "0440e42d8fe1798ba4ac7d45d3d32548ed98be80a12e078cd722932e71fc7d63"
+  },
+  "limitations": [
+    "Existing optical gap temperature fields do not apply a gap law.",
+    "Explicit absorption-parameter temperature changes existing phonon occupation only.",
+    "No literature-temperature profile, calibration, self-heating or new runtime API is implemented in M0."
+  ]
+}

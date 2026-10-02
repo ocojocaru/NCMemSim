@@ -12,8 +12,8 @@ from scripts.validate_dtco_distribution import MODEL_PROBE, SOURCE_REQUIRED
 ROOT=Path(__file__).resolve().parents[1]
 
 
-def test_v1_3_candidate_review_and_retained_stable_exports():
-    result=gate.validate(ROOT)
+def test_v1_3_candidate_review_and_retained_stable_exports(published_v1_3_copy):
+    result=gate.validate(published_v1_3_copy)
     assert result['package_version'] in ('1.3.0.dev0','1.3.0')
     assert result['reviewed_modules']==6
     assert result['stable_ensemble_exports']==59
@@ -21,11 +21,8 @@ def test_v1_3_candidate_review_and_retained_stable_exports():
 
 
 @pytest.mark.parametrize('fault',['version','surface','historical','citation'])
-def test_candidate_rejects_identity_review_or_historical_mutation(tmp_path,monkeypatch,fault):
-    shutil.copytree(ROOT/'docs',tmp_path/'docs')
-    shutil.copytree(ROOT/'ncmemsim',tmp_path/'ncmemsim')
-    shutil.copyfile(ROOT/'README.md',tmp_path/'README.md')
-    shutil.copyfile(ROOT/'CITATION.cff',tmp_path/'CITATION.cff')
+def test_candidate_rejects_identity_review_or_historical_mutation(published_v1_3_copy,monkeypatch,fault):
+    tmp_path=published_v1_3_copy
     if fault=='version':monkeypatch.setattr(gate,'__version__','1.2.0')
     elif fault=='surface':
         p=tmp_path/'docs/v1_3_api_review.json';d=json.loads(p.read_text());d['additive_module_qualified_surface']=[];p.write_text(json.dumps(d))

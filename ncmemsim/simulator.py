@@ -96,6 +96,9 @@ class Simulator:
         self.physics = physics or PhysicsModel.default()
         self.config = config or SimulationConfig()
 
+    def _evaluate_optical_absorption(self, source, layer):
+        return evaluate_floating_gate_optical_absorption(source, layer)
+
     def _tunnel_base_distance_m(self, fg_index: int = 0) -> float:
         fg = self.device.floating_gates()[fg_index]
         idx = self.device.layers.index(fg)
@@ -162,7 +165,7 @@ class Simulator:
 
         if light_source is not None:
             for fg_index, fg in enumerate(fgs):
-                optical_result = evaluate_floating_gate_optical_absorption(
+                optical_result = self._evaluate_optical_absorption(
                     light_source,
                     fg,
                 )

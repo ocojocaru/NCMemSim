@@ -4,32 +4,6 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
-No changes recorded after the v1.4.0 release candidate.
-
-## 1.4.0 — 2026-10-02 (release candidate; publication pending)
-
-- Opt-in, anchored Si gap/intrinsic-density and bulk-Ge Gamma/L/phonon profiles,
-  isolated thermal simulator contexts and controlled Si/Ge reference audits.
-- Thermal deterministic and paired MODEL DTCO with retained domain/metric
-  failures, explicit scientific limits and existing population denominators.
-- Source-linked thermal run/report contracts and deterministic strict bundles
-  restored without workflow, transport or RNG replay.
-- Reviewed additive API, retained stable contracts, frozen archives and
-  supported-Python installed-distribution release gates.
-
-Historical implementation milestones for this candidate follow.
-
-### Phase M7 - v1.4 candidate API review and release gates
-
-- Prepare development identity 1.4.0.dev0 while retaining the published v1.3.0
-  citation, specific DOI and separate Concept DOI.
-- Review the four additive thermal modules, Simulator integration, retained
-  stable API, coefficient scope and historical evidence without release approval.
-- Add a frozen thermal report archive and installed wheel/sdist probes for
-  profile anchors, domain failures, nested restoration and deterministic bundles.
-- Wire candidate review and supported-Python distribution checks into CI;
-  retain historical v1.3 identity tests against explicit published snapshots.
-
 ### Phase M6 - strict thermal reports and reproducibility bundles
 
 - Archive explicit thermal run requests, initial states, protocols, runtime,

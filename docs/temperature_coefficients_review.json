@@ -1,0 +1,45 @@
+{
+  "schema_version": "temperature-coefficients-review-v1",
+  "phase": "M1",
+  "source": {
+    "title": "Y. P. Varshni, Temperature dependence of the energy gap in semiconductors, Physica 34 (1967), 149-154",
+    "doi": "10.1016/0031-8914(67)90062-6",
+    "url": "https://websrv.physik.uni-halle.de/F-Praktikum/PDF/Varshni_Temperature_dependence_of_the_energy_gap_in_semiconductors_1967.pdf",
+    "locator": "Table I, page 152; equation (1), page 149"
+  },
+  "coefficient_status": "literature_fitted",
+  "evaluated_status": "derived",
+  "operating_range_status": "assumed",
+  "reviewed_on": "2026-10-01",
+  "qualifications": [
+    "Si Table-I E0 uses an exciton-subtracted gap convention; it is not silently installed as the electronic gap anchor.",
+    "The inherited reference anchor and the coefficient fit have separate evidence.",
+    "No operating range or GeSn temperature law is certified by this transcription."
+  ],
+  "records": [
+    {
+      "name": "varshni1967-si",
+      "material": "Si",
+      "gap_kind": "substrate_electronic_gap",
+      "zero_temperature_gap_eV": 1.1557,
+      "alpha_eV_K": 0.0007021,
+      "beta_K": 1108
+    },
+    {
+      "name": "varshni1967-ge-gamma",
+      "material": "Ge",
+      "gap_kind": "optical_gamma_gap",
+      "zero_temperature_gap_eV": 0.8893,
+      "alpha_eV_K": 0.0006042,
+      "beta_K": 398
+    },
+    {
+      "name": "varshni1967-ge-l",
+      "material": "Ge",
+      "gap_kind": "optical_l_gap",
+      "zero_temperature_gap_eV": 0.7412,
+      "alpha_eV_K": 0.0004561,
+      "beta_K": 210
+    }
+  ]
+}

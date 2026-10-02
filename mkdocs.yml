@@ -56,6 +56,7 @@ nav:
       - Stochastic ensembles and variability: stochastic_ensembles.md
       - Model and TAT variability planning: model_variability.md
       - Materials and provenance: materials.md
+      - Temperature-dependent material planning: temperature_properties.md
       - Optical programming: optics.md
       - GeSn near-edge reference: near_edge_reference.md
       - Glossary and notation: glossary.md

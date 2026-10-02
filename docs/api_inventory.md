@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 111 package source modules; 615 explicit export paths; 180 distinct documented Python import paths.
+Coverage: 115 package source modules; 643 explicit export paths; 188 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3049,6 +3049,128 @@ Constructor: `__init__(self) -> None`.
 - `available(self) -> tuple[str, ...]`.
 
 
+## ncmemsim.materials.temperature
+
+`ncmemsim/materials/temperature.py`
+
+Explicit exports: `ThermalMaterial`, `GapKind`, `ThermalEvidence`, `TemperatureDomain`, `CarrierStatisticsDomain`, `AnchoredVarshniProfile`, `IntrinsicDensityProfile`, `VarshniCoefficientRecord`, `reviewed_varshni_coefficients`, `profile_from_reviewed_record`
+
+### ThermalMaterial
+
+Bases: `str`, `Enum`.
+
+- Assignment `SILICON = 'Si'`.
+- Assignment `GERMANIUM = 'Ge'`.
+- Assignment `GERMANIUM_TIN = 'GeSn'`.
+
+### GapKind
+
+Bases: `str`, `Enum`.
+
+- Assignment `SUBSTRATE = 'substrate_electronic_gap'`.
+- Assignment `GAMMA = 'optical_gamma_gap'`.
+- Assignment `L = 'optical_l_gap'`.
+
+### ThermalEvidence
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: str`; required declaration.
+- Field `locator: str`; required declaration.
+- Field `status: ParameterStatus`; required declaration.
+- Field `notes: str`; required declaration.
+- Field `doi: str | None`; default expression `None`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> ThermalEvidence`; `classmethod`.
+
+### TemperatureDomain
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `material: ThermalMaterial`; required declaration.
+- Field `min_temperature_K: float`; required declaration.
+- Field `max_temperature_K: float`; required declaration.
+- Field `min_sn_fraction: float`; required declaration.
+- Field `max_sn_fraction: float`; required declaration.
+- Field `evidence: ThermalEvidence`; required declaration.
+- Field `strain_state: str`; default expression `'unstrained'`.
+- `check(self, temperature_K: float, sn_fraction: float) -> float`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> TemperatureDomain`; `classmethod`.
+
+### CarrierStatisticsDomain
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `min_doping_m3: float`; required declaration.
+- Field `max_doping_m3: float`; required declaration.
+- Field `minimum_doping_to_intrinsic_ratio: float`; required declaration.
+- Field `evidence: ThermalEvidence`; required declaration.
+- Field `assumption: str`; default expression `'constant_dos_mass_non_degenerate_fully_ionized'`.
+- `check(self, doping_m3: float, intrinsic_density_m3: float) -> None`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> CarrierStatisticsDomain`; `classmethod`.
+
+### AnchoredVarshniProfile
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `gap_kind: GapKind`; required declaration.
+- Field `domain: TemperatureDomain`; required declaration.
+- Field `sn_fraction: float`; required declaration.
+- Field `reference_temperature_K: float`; required declaration.
+- Field `reference_gap_eV: float`; required declaration.
+- Field `alpha_eV_K: float`; required declaration.
+- Field `beta_K: float`; required declaration.
+- Field `coefficient_evidence: ThermalEvidence`; required declaration.
+- Field `reference_evidence: ThermalEvidence`; required declaration.
+- `evaluate(self, temperature_K: float, *, sn_fraction: float | None=None) -> float`.
+- `evaluate_property(self, temperature_K: float, *, sn_fraction: float | None=None) -> MaterialProperty`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> AnchoredVarshniProfile`; `classmethod`.
+
+### IntrinsicDensityProfile
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `gap_profile: AnchoredVarshniProfile`; required declaration.
+- Field `reference_density_m3: float`; required declaration.
+- Field `reference_evidence: ThermalEvidence`; required declaration.
+- Field `statistics_domain: CarrierStatisticsDomain`; required declaration.
+- `evaluate(self, temperature_K: float, *, substrate_doping_m3: float) -> float`.
+- `evaluate_property(self, temperature_K: float, *, substrate_doping_m3: float) -> MaterialProperty`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> IntrinsicDensityProfile`; `classmethod`.
+
+### VarshniCoefficientRecord
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `material: ThermalMaterial`; required declaration.
+- Field `gap_kind: GapKind`; required declaration.
+- Field `zero_temperature_gap_eV: float`; required declaration.
+- Field `alpha_eV_K: float`; required declaration.
+- Field `beta_K: float`; required declaration.
+- Field `evidence: ThermalEvidence`; required declaration.
+
+- `reviewed_varshni_coefficients() -> tuple[VarshniCoefficientRecord, ...]`
+- `profile_from_reviewed_record(record: VarshniCoefficientRecord, *, name: str, domain: TemperatureDomain, reference_temperature_K: float, reference_gap_eV: float, reference_evidence: ThermalEvidence) -> AnchoredVarshniProfile`
+
 ## ncmemsim.optics
 
 `ncmemsim/optics.py`
@@ -3787,6 +3909,182 @@ Decorators: `dataclass`.
 - `for_layer(self, layer_name: str) -> FloatingGateState`.
 - `mean_normalized_occupations(self) -> np.ndarray`; `property`.
 
+
+## ncmemsim.temperature_context
+
+`ncmemsim/temperature_context.py`
+
+Explicit exports: `SemiconductorThermalMode`, `OpticalThermalMode`, `OpticalThermalBinding`, `ThermalContext`, `ResolvedThermalContext`, `ThermalSimulator`
+
+### SemiconductorThermalMode
+
+Bases: `str`, `Enum`.
+
+- Assignment `LEGACY = 'legacy'`.
+- Assignment `GAP_ONLY = 'gap_only'`.
+- Assignment `DENSITY_ONLY = 'density_only'`.
+- Assignment `COUPLED = 'coupled'`.
+
+### OpticalThermalMode
+
+Bases: `str`, `Enum`.
+
+- Assignment `LEGACY = 'legacy'`.
+- Assignment `GAPS_ONLY = 'gaps_only'`.
+- Assignment `PHONONS_ONLY = 'phonons_only'`.
+- Assignment `COUPLED = 'coupled'`.
+
+### OpticalThermalBinding
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `layer_name: str`; required declaration.
+- Field `mode: OpticalThermalMode`; required declaration.
+- Field `gamma_profile: AnchoredVarshniProfile | None`; default expression `None`.
+- Field `l_profile: AnchoredVarshniProfile | None`; default expression `None`.
+- Field `optical_parameters: GeSnOpticalParameterSet`; default expression `field(default_factory=GeSnOpticalParameterSet)`.
+- Field `absorption_parameters: GeSnAbsorptionParameterSet`; default expression `field(default_factory=GeSnAbsorptionParameterSet)`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> OpticalThermalBinding`; `classmethod`.
+
+### ThermalContext
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `nominal_device_json: str`; required declaration.
+- Field `nominal_physics_json: str`; required declaration.
+- Field `simulation_config_json: str`; required declaration.
+- Field `enabled: bool`; default expression `False`.
+- Field `semiconductor_mode: SemiconductorThermalMode`; default expression `SemiconductorThermalMode.LEGACY`.
+- Field `substrate_gap: AnchoredVarshniProfile | None`; default expression `None`.
+- Field `intrinsic_density: IntrinsicDensityProfile | None`; default expression `None`.
+- Field `optical_bindings: tuple[OpticalThermalBinding, ...]`; default expression `()`.
+- `from_nominal(cls, device: Device, physics: PhysicsModel | None=None, config: SimulationConfig | None=None, *, enabled: bool=False, semiconductor_mode: SemiconductorThermalMode=SemiconductorThermalMode.LEGACY, substrate_gap: AnchoredVarshniProfile | None=None, intrinsic_density: IntrinsicDensityProfile | None=None, optical_bindings: tuple[OpticalThermalBinding, ...]=()) -> ThermalContext`; `classmethod`.
+- `nominal_hash(self) -> str`; `property`.
+- `resolve(self, *, temperature_K: float | None=None) -> ResolvedThermalContext`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> ThermalContext`; `classmethod`.
+
+### ResolvedThermalContext
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `context: ThermalContext`; required declaration.
+- Field `temperature_K: float`; required declaration.
+- `device(self) -> Device`; `property`.
+- `physics(self) -> PhysicsModel`; `property`.
+- `simulation_config(self) -> SimulationConfig`; `property`.
+- `create_simulator(self) -> ThermalSimulator`.
+- `optical_model(self, layer_name: str)`.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, data: dict) -> ResolvedThermalContext`; `classmethod`.
+
+### ThermalSimulator
+
+Bases: `Simulator`.
+
+Constructor: `__init__(self, resolution: ResolvedThermalContext)`.
+
+- `relax_voltage(self, state, gate_voltage_V, dwell_time_s=None, internal_dt_s=None, light_source=None, photo_config=None, photo_weights=None, occupancy_integrator='explicit_euler')`.
+
+
+## ncmemsim.thermal_dtco
+
+`ncmemsim/thermal_dtco.py`
+
+Explicit exports: `ThermalCandidateError`, `ThermalDomainError`, `ThermalCandidateResolution`, `ThermalModelSimulator`, `resolve_thermal_candidate`
+
+### ThermalCandidateError
+
+Bases: `ValueError`.
+
+
+### ThermalDomainError
+
+Bases: `ThermalCandidateError`.
+
+
+### ThermalCandidateResolution
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `thermal: ResolvedThermalContext`; required declaration.
+- Field `model_context: TransportModelContext | None`; default expression `None`.
+- `candidate_hash(self) -> str`; `property`.
+- `to_dict(self) -> dict`.
+- `to_json(self) -> str`.
+- `from_dict(cls, data: dict) -> ThermalCandidateResolution`; `classmethod`.
+- `from_json(cls, text: str) -> ThermalCandidateResolution`; `classmethod`.
+- `create_simulator(self) -> ThermalSimulator`.
+
+### ThermalModelSimulator
+
+Bases: `ThermalSimulator`.
+
+Constructor: `__init__(self, candidate: ThermalCandidateResolution)`.
+
+
+- `resolve_thermal_candidate(template: ThermalContext, device: Device, *, model_context: TransportModelContext | None=None) -> ThermalCandidateResolution`
+
+## ncmemsim.thermal_reporting
+
+`ncmemsim/thermal_reporting.py`
+
+Explicit exports: `ThermalRunEvidence`, `build_thermal_run_evidence`, `ThermalReportStudy`, `ThermalReport`, `build_thermal_report`, `write_thermal_report`, `load_thermal_report_bundle`
+
+### ThermalRunEvidence
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self) -> dict`.
+- `source_hash(self) -> str`; `property`.
+- `to_json(self) -> str`.
+- `from_dict(cls, raw: dict) -> ThermalRunEvidence`; `classmethod`.
+- `from_json(cls, text: str) -> ThermalRunEvidence`; `classmethod`.
+
+- `build_thermal_run_evidence(template: ThermalContext, device: Device, *, workflow: dict, observations: dict | None=None, failure: dict | None=None, model_context: TransportModelContext | None=None, initial_state: DeviceState | None=None, runtime: dict | None=None) -> ThermalRunEvidence`
+### ThermalReportStudy
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `kind: str`; required declaration.
+- Field `source_json: str`; required declaration.
+- `to_dict(self) -> dict`.
+- `from_dict(cls, raw: dict) -> ThermalReportStudy`; `classmethod`.
+
+### ThermalReport
+
+Bases: none.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `studies: tuple[ThermalReportStudy, ...]`; required declaration.
+- Field `limitations: tuple[str, ...]`; required declaration.
+- Field `evidence_json: str`; default expression `'{}'`.
+- `to_dict(self) -> dict`.
+- `report_hash(self) -> str`; `property`.
+- `to_json(self) -> str`.
+- `from_dict(cls, raw: dict) -> ThermalReport`; `classmethod`.
+- `from_json(cls, text: str) -> ThermalReport`; `classmethod`.
+
+- `build_thermal_report(name: str, studies, *, limitations, evidence=None) -> ThermalReport`
+- `write_thermal_report(report: ThermalReport, destination: str | Path) -> Path`
+- `load_thermal_report_bundle(destination: str | Path) -> ThermalReport`
 
 ## ncmemsim.transport
 

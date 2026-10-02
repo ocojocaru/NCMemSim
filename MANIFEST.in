@@ -34,3 +34,8 @@ include scripts/validate_v1_3_api_review.py
 
 include scripts/validate_v1_3_release_identity.py
 recursive-include tests/fixtures/releases *.md *.cff
+
+include scripts/validate_v1_4_api_review.py
+recursive-include tests/fixtures/releases *.py
+include tests/conftest.py
+include scripts/validate_v1_4_release_identity.py
