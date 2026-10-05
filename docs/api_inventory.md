@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 115 package source modules; 643 explicit export paths; 188 distinct documented Python import paths.
+Coverage: 116 package source modules; 646 explicit export paths; 191 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3865,6 +3865,66 @@ Constructor: `__init__(self, device, physics: PhysicsModel | None=None, config: 
 - `simulate_retention(self, state: DeviceState | None=None, config=None)`.
 - `voltage_at_capacitance(voltage, capacitance, reference)`; `staticmethod`.
 - `simulate_cv(self, vmin_V=-3.0, vmax_V=3.0, points=241, light_source: LightSource | None=None, photo_config: PhotoTransitionConfig | None=None, photo_weights: PhotoTransitionWeights | None=None)`.
+
+
+## ncmemsim.spectral_sources
+
+`ncmemsim/spectral_sources.py`
+
+Explicit exports: `SpectralEvidence`, `TabulatedSpectrum`, `DiscreteLineSpectrum`
+
+### SpectralEvidence
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: str`; required declaration.
+- Field `locator: str`; required declaration.
+- Field `status: str`; required declaration.
+- Field `original_units: str`; required declaration.
+- Field `transformations: tuple[str, ...]`; required declaration.
+- Field `resolution: str`; required declaration.
+- Field `uncertainty: str`; required declaration.
+- Field `notes: str`; required declaration.
+- Field `source_sha256: str | None`; default expression `None`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### TabulatedSpectrum
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `wavelength_nm: tuple[float, ...]`; required declaration.
+- Field `values: tuple[float, ...]`; required declaration.
+- Field `evidence: SpectralEvidence`; required declaration.
+- Field `input_kind: str`; default expression `'absolute_irradiance'`.
+- Field `target_irradiance_W_m2: float | None`; default expression `None`.
+- Field `enabled: bool`; default expression `True`.
+- `shape_integral(self)`; `property`.
+- `normalization_factor(self)`; `property`.
+- `irradiance_density_W_m2_nm(self)`; `property`.
+- `in_band_irradiance_W_m2(self)`; `property`.
+- `photon_flux_m2_s(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### DiscreteLineSpectrum
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `wavelength_nm: tuple[float, ...]`; required declaration.
+- Field `line_irradiance_W_m2: tuple[float, ...]`; required declaration.
+- Field `evidence: SpectralEvidence`; required declaration.
+- Field `enabled: bool`; default expression `True`.
+- `in_band_irradiance_W_m2(self)`; `property`.
+- `photon_flux_m2_s(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
 
 
 ## ncmemsim.state

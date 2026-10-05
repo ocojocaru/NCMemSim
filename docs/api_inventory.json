@@ -27259,6 +27259,420 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.spectral_sources",
+      "source": "ncmemsim/spectral_sources.py",
+      "explicit_exports": [
+        "SpectralEvidence",
+        "TabulatedSpectrum",
+        "DiscreteLineSpectrum"
+      ],
+      "package_import_aliases": {
+        "LIGHT_SPEED_M_S": "ncmemsim.constants.LIGHT_SPEED_M_S",
+        "PLANCK_J_S": "ncmemsim.constants.PLANCK_J_S"
+      },
+      "public_source_definitions": [
+        {
+          "name": "SpectralEvidence",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "source",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "locator",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "status",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "original_units",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "transformations",
+              "annotation": "tuple[str, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "resolution",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "uncertainty",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "notes",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "source_sha256",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TabulatedSpectrum",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "wavelength_nm",
+              "annotation": "tuple[float, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "values",
+              "annotation": "tuple[float, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "SpectralEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "input_kind",
+              "annotation": "str",
+              "default_expression": "'absolute_irradiance'",
+              "required_in_source": false
+            },
+            {
+              "name": "target_irradiance_W_m2",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "enabled",
+              "annotation": "bool",
+              "default_expression": "True",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "shape_integral",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "normalization_factor",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "irradiance_density_W_m2_nm",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "in_band_irradiance_W_m2",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "photon_flux_m2_s",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "DiscreteLineSpectrum",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "wavelength_nm",
+              "annotation": "tuple[float, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "line_irradiance_W_m2",
+              "annotation": "tuple[float, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "SpectralEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "enabled",
+              "annotation": "bool",
+              "default_expression": "True",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "in_band_irradiance_W_m2",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "photon_flux_m2_s",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.state",
       "source": "ncmemsim/state.py",
       "explicit_exports": null,
@@ -34426,6 +34840,9 @@
     "ncmemsim.retention_fit.predict_retention_fraction",
     "ncmemsim.simulator.SimulationConfig",
     "ncmemsim.simulator.Simulator",
+    "ncmemsim.spectral_sources.DiscreteLineSpectrum",
+    "ncmemsim.spectral_sources.SpectralEvidence",
+    "ncmemsim.spectral_sources.TabulatedSpectrum",
     "ncmemsim.temperature_context.SemiconductorThermalMode",
     "ncmemsim.temperature_context.ThermalContext",
     "ncmemsim.transport.AdvancedTransportEngine",

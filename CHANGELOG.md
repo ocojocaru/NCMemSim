@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase N1 immutable spectral evidence, absolute/relative wavelength tables
+  and discrete optical lines, explicit normalization, exact source photon moments
+  and strict canonical archives; legacy optics and simulator behavior are retained.
+
 - Define Phase N0 broadband/ordered-stack audit and N1-N7 scope/acceptance
   sequence for v1.5.0; no runtime/default/API or citation identity change.
 

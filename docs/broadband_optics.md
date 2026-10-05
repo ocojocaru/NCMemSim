@@ -3,12 +3,13 @@
 ## N0 status and baseline
 
 N0 is complete: source/code audit, scope, units, integration boundaries and
-N1-N7 acceptance sequence are defined here. N1-N7 are planned, not implemented.
+N1-N7 acceptance sequence are defined here. N1 spectral contracts are implemented; N2-N7 are planned, not implemented.
 Target release: v1.5.0. Current published package/citation remain v1.4.0;
 the v1.4 DOI and immutable release identities are retained.
 Audit baseline: `7bf9096de2148201ab301376ce1baac786a06e08` (M7 DOI follow-up).
 The machine-readable audit is [broadband_optics_audit.json](broadband_optics_audit.json).
-This stage changes documentation only, without a runtime or public API addition.
+N0 changed planning only. N1 adds a separate opt-in source contract module;
+no existing source, simulator default or archive schema changes.
 
 ## Existing behavior and integration boundaries
 
@@ -61,7 +62,9 @@ Independent calibration belongs to P and requires qualified data/holdouts.
   acceptance; changing the horizontal axis alone is invalid. No implicit adapter.
 - Store support, quadrature/interpolation policy and units with source identity.
   Use piecewise-linear node density and trapezoidal wavelength integration as
-  the initial declared numerical policy. No extrapolation, silent sorting,
+  the initial declared power-integration policy. N1 computes the photon moment
+exactly for that same piecewise-linear density, rather than applying a second
+trapezoid approximation to wavelength times density. No extrapolation, silent sorting,
   duplicate coordinates, missing-value repair or hidden clipping.
 - Reject invalid dimensions, NaN/Inf, negative values, duplicate/nonordered
   wavelengths and unsupported coordinate units. Explicit dark spectra/disabled
@@ -129,7 +132,67 @@ Public names/schema identifiers will be reviewed during N1/N6, not promised here
 
 ## Next action
 
-Commit N0 on `dev/v1.5-broadband-optics`, push and verify documentation CI.
-Then implement N1 spectral contracts and their validation. Package version and
+N0 branch CI and Documentation passed on `e0d382d16f3f8bba3c2cfd8bd52509021312a157`.
+Commit/push N1 contracts on `dev/v1.5-broadband-optics`, verify exact-commit CI,
+then implement N2 single-layer spectral absorption. Package version and
 CITATION.cff remain v1.4.0 through planning; final candidate identity is a N7 task.
 The Phase M API review, release validators and historical fixtures remain intact.
+
+
+## N1 source contracts
+
+The additive `ncmemsim.spectral_sources` module exports `SpectralEvidence`,
+`TabulatedSpectrum` and `DiscreteLineSpectrum`. Frozen contracts require immutable
+tuples, finite positive ordered wavelengths and nonnegative finite input values.
+Evidence records source/locator, original units, transformations, resolution,
+uncertainty (including explicit unknown), notes and optional source SHA-256.
+ASSUMED, MEASURED, DERIVED and LITERATURE describe input provenance; they do not
+qualify an absorption model or device as CALIBRATED.
+
+`TabulatedSpectrum` accepts absolute W m^-2 nm^-1 node densities or a dimensionless
+relative shape with explicit target in-band W m^-2. The original values and target
+are archived; the normalization factor and resolved densities are derived.
+Absolute inputs reject renormalization targets. Zero absolute spectra, zero-target
+nonzero shapes and disabled sources return zero power/photons. Zero-integral
+relative shapes are rejected, including when disabled.
+
+The power integral is trapezoidal over wavelength in nm. For endpoints a,b and
+densities x,y, the exact wavelength-weighted moment of the linear interpolant is
+`(b-a) * (a*(x/3+y/6) + b*(x/6+y/3))`. Multiplication by `1e-9/(h*c)` gives photon
+flux. This policy is archived as `piecewise-linear-density-exact-moments-v1`.
+It integrates the supplied representation, not an unknown measured continuum.
+
+`DiscreteLineSpectrum` stores W m^-2 per ordered unique line; power is summed
+and photon flux is summed using each line's own photon energy. One line recovers
+the existing laser source's flux. Tables require at least two nodes; line lists
+require at least one line. Duplicate lines must be explicitly aggregated upstream
+with recorded provenance, never silently merged by the reader.
+
+Both source types provide strict `to_dict`/`from_dict`, canonical JSON and SHA-256
+`contract_hash`. Unknown fields, wrong schemas/units/policies, duplicate JSON keys
+and nonfinite values are rejected. No solver or random sampling is involved.
+Hashes identify content, not authenticity. Readers reconstruct sources only;
+spectral absorption and simulation integration remain N2/N4 work.
+
+```python
+from ncmemsim.spectral_sources import SpectralEvidence, TabulatedSpectrum, DiscreteLineSpectrum
+
+evidence = SpectralEvidence(
+    source="synthetic two-node reference", locator="documentation example",
+    status="ASSUMED", original_units="dimensionless", transformations=(),
+    resolution="two wavelength nodes", uncertainty="unknown", notes="not calibrated",
+)
+source = TabulatedSpectrum(
+    wavelength_nm=(1000.0, 2000.0), values=(1.0, 1.0), evidence=evidence,
+    input_kind="relative_shape", target_irradiance_W_m2=1000.0,
+)
+assert source.in_band_irradiance_W_m2 == 1000.0
+assert TabulatedSpectrum.from_json(source.to_json()) == source
+line = DiscreteLineSpectrum((1550.0,), (1000.0,), evidence)
+assert line.photon_flux_m2_s > 0
+```
+
+Frequency/energy-density conversions, bin-integrated measurement import and
+sampled Planck-shape generation are deferred; N1 accepts canonical tables and
+lines without inventing a spectrum from incandescent metadata. N2 must use the
+same stored integration semantics and declare material-domain coverage.
