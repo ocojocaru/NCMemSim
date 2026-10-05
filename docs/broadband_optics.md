@@ -3,7 +3,7 @@
 ## N0 status and baseline
 
 N0 is complete: source/code audit, scope, units, integration boundaries and
-N1-N7 acceptance sequence are defined here. N1 spectral contracts and N2 single-layer absorption are implemented; N3-N7 are planned.
+N1-N7 acceptance sequence are defined here. N1 spectral contracts, N2 single-layer absorption and N3 ordered propagation are implemented; N4-N7 are planned.
 Target release: v1.5.0. Current published package/citation remain v1.4.0;
 the v1.4 DOI and immutable release identities are retained.
 Audit baseline: `7bf9096de2148201ab301376ce1baac786a06e08` (M7 DOI follow-up).
@@ -134,8 +134,9 @@ Public names/schema identifiers will be reviewed during N1/N6, not promised here
 
 N0 branch CI and Documentation passed on `e0d382d16f3f8bba3c2cfd8bd52509021312a157`.
 N1 CI and Documentation passed on `14ae290cb91ce06a5f0556658fccb6804f809cbc`.
-Commit/push N2 single-layer absorption on `dev/v1.5-broadband-optics`, verify
-exact-commit CI, then implement N3 ordered stack attenuation. Package version and
+N2 CI and Documentation passed on `5c2fd6a756b349d7554b910c129fcf25cddcf956`.
+Commit/push N3 ordered propagation on `dev/v1.5-broadband-optics`, verify
+exact-commit CI, then implement N4 opt-in simulator/context integration. Package version and
 CITATION.cff remain v1.4.0 through planning; final candidate identity is a N7 task.
 The Phase M API review, release validators and historical fixtures remain intact.
 
@@ -272,5 +273,88 @@ successive power/photon changes decrease and the last relative change is below
 `1e-3`. This is numerical evidence for that diagnostic, not a universal validated
 spectral grid or independently calibrated absorption model.
 
-Sequential multi-layer attenuation is N3; full broadband programming/capture
-integration remains N4. N2 does not feed each FG with transmitted illumination.
+N3 provides sequential multi-layer attenuation below; full broadband programming/
+capture integration remains N4. N2 itself is a single-layer evaluator.
+
+
+## N3 ordered single-pass optical paths
+
+The additive `ncmemsim.spectral_stack` module exports `SpectralStackLayer`,
+`SpectralStackPath`, `SpectralStackResult`, `bind_spectral_stack_path` and
+`evaluate_spectral_stack`. A layer wraps an N2 profile with explicit
+`floating_gate` or `passive` role and `absorbing` or `assumed_transparent`
+treatment. Assumed-transparent treatment requires a passive layer, zero alpha
+and ASSUMED evidence. An absorbing passive profile requires explicit coefficients
+and applicability evidence; no material is automatically declared transparent.
+
+Layers are stored in physical substrate-to-gate order. Direction is explicitly
+`substrate_to_gate` or `gate_to_substrate`; the latter reverses traversal without
+changing the stored physical order. Layer identities must be unique and every
+profile must use the same spectral grid. Up to three FGs are supported; paths with
+only passive layers are allowed for diagnostics. Unsupported directions and
+implicit interpolation fail before any propagation.
+
+A standalone path describes exactly its listed layers, not a complete device.
+`bind_spectral_stack_path` takes owned device evidence and requires all device
+layers in their stored order, with matching roles and thicknesses. FG sampling
+records, when present, must match that device layer. Omitted/extra/relabelled
+layers or changed thicknesses fail. This does not qualify optical constants or
+infer missing material models.
+
+For each traversed layer, N2 evaluates the current incoming spectrum. Only its
+transmitted samples become the next layer's absolute density/line-power source.
+Relative input normalization occurs once at the incident boundary; no downstream
+renormalization is performed. The original source and path remain immutable.
+Per-layer evidence retains its actual source, absorption/transmission samples,
+power/photon integrals and provenance. Both integrated and nodewise whole-path
+balances are checked to relative tolerance `1e-12`; dark budgets are exactly zero.
+
+The stack projection reports total absorption, final transmission and separate
+FG/passive absorbed power and photon flux. Passive loss has no NC absorbed-photon
+capture source (`nc_absorbed_photon_flux_m2_s` is None); FG photon absorption is
+not automatically stored charge or unit-efficiency capture. N2 volumetric
+absorption diagnostics remain optical bookkeeping, not carrier qualification.
+
+Unequal layers change their allocated absorption when illumination direction is
+reversed. For this linear single-pass model, total transmission is the product of
+the same layer transmissions and is order-independent. Reflection/interference,
+scattering and nonlinear/state-dependent optics are outside this contract.
+
+Strict result archives restore source/path evidence and recompute the entire
+sequential projection without invoking optical models, simulator or RNG. They
+reject changed handoffs, node/integrated budgets, roles, directions and unknown
+schemas/fields. Coherently replaced sources/profiles describe different evidence;
+hashes prove internal content identity, not authenticity. N1/N2 schemas and older
+archives are unchanged. Continuous spectra inherit N2's sampled linear-density
+approximation and require grid convergence.
+
+```python
+from ncmemsim.spectral_sources import SpectralEvidence, DiscreteLineSpectrum
+from ncmemsim.spectral_absorption import SpectralAbsorptionProfile
+from ncmemsim.spectral_stack import SpectralStackLayer, SpectralStackPath, evaluate_spectral_stack, SpectralStackResult
+
+evidence = SpectralEvidence(
+    "N3 constant-alpha example", "documentation", "ASSUMED", "m^-1", (),
+    "one line", "unknown", "single-pass diagnostic, not calibrated",
+)
+source = DiscreteLineSpectrum((1550.0,), (1000.0,), evidence)
+def layer(name, alpha, role):
+    profile = SpectralAbsorptionProfile(name, (1550.0,), (alpha,), 1e-6,
+                                        1500.0, 2000.0, evidence)
+    return SpectralStackLayer(profile, role)
+path = SpectralStackPath(
+    (layer("passive filter", 1e6, "passive"), layer("FG1", 2e5, "floating_gate")),
+    "substrate_to_gate", evidence,
+)
+result = evaluate_spectral_stack(source, path)
+assert result.projection["summary"]["passive_absorbed_irradiance_W_m2"] > 0
+assert SpectralStackResult.from_json(result.to_json()) == result
+```
+
+N3 validates one/two/three-FG analytical transmission, relative-source handoff,
+transparent/zero-thickness/opaque/dark limits and direction-dependent per-layer
+absorption. A passive-plus-FG exponential-attenuation continuum reference uses
+33/65/129 nested grids: power/photon errors decrease and final relative errors
+are below `1e-5`. This is numerical evidence for the declared diagnostic only.
+The runtime simulator still uses its legacy optical path; N4 introduces the
+separate opt-in adapter that maps these optical inputs into photo-transition rates.

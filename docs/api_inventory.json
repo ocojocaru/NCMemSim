@@ -27968,6 +27968,344 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.spectral_stack",
+      "source": "ncmemsim/spectral_stack.py",
+      "explicit_exports": [
+        "SpectralStackLayer",
+        "SpectralStackPath",
+        "SpectralStackResult",
+        "bind_spectral_stack_path",
+        "evaluate_spectral_stack"
+      ],
+      "package_import_aliases": {
+        "DiscreteLineSpectrum": "ncmemsim.spectral_sources.DiscreteLineSpectrum",
+        "SpectralAbsorptionProfile": "ncmemsim.spectral_absorption.SpectralAbsorptionProfile",
+        "SpectralEvidence": "ncmemsim.spectral_sources.SpectralEvidence",
+        "TabulatedSpectrum": "ncmemsim.spectral_sources.TabulatedSpectrum",
+        "_Archive": "ncmemsim.spectral_sources._Archive",
+        "_canonical": "ncmemsim.spectral_sources._canonical",
+        "_json_object": "ncmemsim.spectral_absorption._json_object",
+        "_keys": "ncmemsim.spectral_sources._keys",
+        "evaluate_spectral_absorption": "ncmemsim.spectral_absorption.evaluate_spectral_absorption"
+      },
+      "public_source_definitions": [
+        {
+          "name": "SpectralStackLayer",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "profile",
+              "annotation": "SpectralAbsorptionProfile",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "role",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "treatment",
+              "annotation": "str",
+              "default_expression": "'absorbing'",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "SpectralStackPath",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "layers",
+              "annotation": "tuple[SpectralStackLayer, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "direction",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "SpectralEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "device_snapshot_json",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "traversal",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "bind_spectral_stack_path",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "device",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "layers",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "direction",
+              "kind": "keyword_only",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "evidence",
+              "kind": "keyword_only",
+              "annotation": "SpectralEvidence",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(device, layers, *, direction: str, evidence: SpectralEvidence)",
+          "decorators": []
+        },
+        {
+          "name": "SpectralStackResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "source",
+              "annotation": "TabulatedSpectrum | DiscreteLineSpectrum",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "path",
+              "annotation": "SpectralStackPath",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "projection",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "evaluate_spectral_stack",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "source",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "path",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(source, path)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.state",
       "source": "ncmemsim/state.py",
       "explicit_exports": null,
@@ -35141,6 +35479,10 @@
     "ncmemsim.spectral_sources.DiscreteLineSpectrum",
     "ncmemsim.spectral_sources.SpectralEvidence",
     "ncmemsim.spectral_sources.TabulatedSpectrum",
+    "ncmemsim.spectral_stack.SpectralStackLayer",
+    "ncmemsim.spectral_stack.SpectralStackPath",
+    "ncmemsim.spectral_stack.SpectralStackResult",
+    "ncmemsim.spectral_stack.evaluate_spectral_stack",
     "ncmemsim.temperature_context.SemiconductorThermalMode",
     "ncmemsim.temperature_context.ThermalContext",
     "ncmemsim.transport.AdvancedTransportEngine",

@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase N3 explicit ordered single-pass spectral paths, transmitted-source
+  handoff, complete device-layer binding, passive/FG loss accounting and strict
+  sequential result restoration; legacy simulator optics remain unchanged.
+
 - Add Phase N2 source-linked single-layer spectral absorption, explicit owned
   floating-gate model sampling and wavelength domains, power/photon balances,
   numerical convergence checks and strict restoration without optical replay.

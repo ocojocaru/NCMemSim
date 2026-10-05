@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 117 package source modules; 650 explicit export paths; 194 distinct documented Python import paths.
+Coverage: 118 package source modules; 655 explicit export paths; 198 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3964,6 +3964,53 @@ Decorators: `dataclass(frozen=True)`.
 - `to_dict(self)`.
 - `from_dict(cls, data)`; `classmethod`.
 
+
+## ncmemsim.spectral_stack
+
+`ncmemsim/spectral_stack.py`
+
+Explicit exports: `SpectralStackLayer`, `SpectralStackPath`, `SpectralStackResult`, `bind_spectral_stack_path`, `evaluate_spectral_stack`
+
+### SpectralStackLayer
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `profile: SpectralAbsorptionProfile`; required declaration.
+- Field `role: str`; required declaration.
+- Field `treatment: str`; default expression `'absorbing'`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### SpectralStackPath
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `layers: tuple[SpectralStackLayer, ...]`; required declaration.
+- Field `direction: str`; required declaration.
+- Field `evidence: SpectralEvidence`; required declaration.
+- Field `device_snapshot_json: str | None`; default expression `None`.
+- `traversal(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `bind_spectral_stack_path(device, layers, *, direction: str, evidence: SpectralEvidence)`
+### SpectralStackResult
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: TabulatedSpectrum | DiscreteLineSpectrum`; required declaration.
+- Field `path: SpectralStackPath`; required declaration.
+- `projection(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `evaluate_spectral_stack(source, path)`
 
 ## ncmemsim.state
 
