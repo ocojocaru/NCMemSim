@@ -5,7 +5,7 @@ on:
     branches: ["main"]
   workflow_dispatch:
   push:
-    branches: ["main", "dev/v1.3-model-variability", "dev/v1.4-temperature-properties"]
+    branches: ["main", "dev/v1.3-model-variability", "dev/v1.4-temperature-properties", "dev/v1.5-broadband-optics"]
     tags: ["v*"]
 
 permissions:

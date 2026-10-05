@@ -4,6 +4,9 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Define Phase N0 broadband/ordered-stack audit and N1-N7 scope/acceptance
+  sequence for v1.5.0; no runtime/default/API or citation identity change.
+
 - Record the author-confirmed v1.4.0 Zenodo DOI in citation/docs and close M7 after verified publication; adapt identity gates to the published state. Release tag and assets are unchanged.
 
 ## 1.4.0 — 2026-10-02
