@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 116 package source modules; 646 explicit export paths; 191 distinct documented Python import paths.
+Coverage: 117 package source modules; 650 explicit export paths; 194 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3866,6 +3866,44 @@ Constructor: `__init__(self, device, physics: PhysicsModel | None=None, config: 
 - `voltage_at_capacitance(voltage, capacitance, reference)`; `staticmethod`.
 - `simulate_cv(self, vmin_V=-3.0, vmax_V=3.0, points=241, light_source: LightSource | None=None, photo_config: PhotoTransitionConfig | None=None, photo_weights: PhotoTransitionWeights | None=None)`.
 
+
+## ncmemsim.spectral_absorption
+
+`ncmemsim/spectral_absorption.py`
+
+Explicit exports: `SpectralAbsorptionProfile`, `SpectralAbsorptionResult`, `evaluate_spectral_absorption`, `evaluate_floating_gate_spectrum`
+
+### SpectralAbsorptionProfile
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `layer_name: str`; required declaration.
+- Field `wavelength_nm: tuple[float, ...]`; required declaration.
+- Field `effective_alpha_m_inv: tuple[float, ...]`; required declaration.
+- Field `thickness_m: float`; required declaration.
+- Field `wavelength_min_nm: float`; required declaration.
+- Field `wavelength_max_nm: float`; required declaration.
+- Field `evidence: SpectralEvidence`; required declaration.
+- Field `node_details_json: tuple[str, ...]`; default expression `()`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### SpectralAbsorptionResult
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: TabulatedSpectrum | DiscreteLineSpectrum`; required declaration.
+- Field `profile: SpectralAbsorptionProfile`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `evaluate_spectral_absorption(source, profile)`
+- `evaluate_floating_gate_spectrum(source, layer, *, optical_model, model_identity: str, wavelength_min_nm: float, wavelength_max_nm: float, evidence: SpectralEvidence)`
 
 ## ncmemsim.spectral_sources
 

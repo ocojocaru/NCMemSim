@@ -3,7 +3,7 @@
 ## N0 status and baseline
 
 N0 is complete: source/code audit, scope, units, integration boundaries and
-N1-N7 acceptance sequence are defined here. N1 spectral contracts are implemented; N2-N7 are planned, not implemented.
+N1-N7 acceptance sequence are defined here. N1 spectral contracts and N2 single-layer absorption are implemented; N3-N7 are planned.
 Target release: v1.5.0. Current published package/citation remain v1.4.0;
 the v1.4 DOI and immutable release identities are retained.
 Audit baseline: `7bf9096de2148201ab301376ce1baac786a06e08` (M7 DOI follow-up).
@@ -133,8 +133,9 @@ Public names/schema identifiers will be reviewed during N1/N6, not promised here
 ## Next action
 
 N0 branch CI and Documentation passed on `e0d382d16f3f8bba3c2cfd8bd52509021312a157`.
-Commit/push N1 contracts on `dev/v1.5-broadband-optics`, verify exact-commit CI,
-then implement N2 single-layer spectral absorption. Package version and
+N1 CI and Documentation passed on `14ae290cb91ce06a5f0556658fccb6804f809cbc`.
+Commit/push N2 single-layer absorption on `dev/v1.5-broadband-optics`, verify
+exact-commit CI, then implement N3 ordered stack attenuation. Package version and
 CITATION.cff remain v1.4.0 through planning; final candidate identity is a N7 task.
 The Phase M API review, release validators and historical fixtures remain intact.
 
@@ -172,7 +173,7 @@ Both source types provide strict `to_dict`/`from_dict`, canonical JSON and SHA-2
 `contract_hash`. Unknown fields, wrong schemas/units/policies, duplicate JSON keys
 and nonfinite values are rejected. No solver or random sampling is involved.
 Hashes identify content, not authenticity. Readers reconstruct sources only;
-spectral absorption and simulation integration remain N2/N4 work.
+spectral absorption is provided by N2 below; simulator integration remains N4 work.
 
 ```python
 from ncmemsim.spectral_sources import SpectralEvidence, TabulatedSpectrum, DiscreteLineSpectrum
@@ -194,5 +195,82 @@ assert line.photon_flux_m2_s > 0
 
 Frequency/energy-density conversions, bin-integrated measurement import and
 sampled Planck-shape generation are deferred; N1 accepts canonical tables and
-lines without inventing a spectrum from incandescent metadata. N2 must use the
-same stored integration semantics and declare material-domain coverage.
+lines without inventing a spectrum from incandescent metadata. N2 uses the
+same stored integration semantics and declares material-domain coverage.
+
+
+## N2 single-layer spectral absorption
+
+`ncmemsim.spectral_absorption` exports `SpectralAbsorptionProfile`,
+`SpectralAbsorptionResult`, `evaluate_spectral_absorption` and
+`evaluate_floating_gate_spectrum`. A profile stores finite nonnegative effective
+alpha in m^-1 on exactly the source grid, a layer identity, thickness in metres,
+explicit wavelength applicability bounds and evidence. Bounds must cover the
+entire source support, including dark/disabled sources. Unknown applicability
+cannot be inferred from finite outputs; an ASSUMED diagnostic range is recorded
+as such, without claiming model qualification.
+
+The FG adapter requires an explicit optical model, identity and applicability
+evidence. It uses owned model/layer/material copies, retains the layer/material
+snapshot, channel decomposition, gaps and per-point parameter provenance, and
+scales NC alpha once by NC volume fraction. It rejects invalid coefficients,
+wrong returned wavelengths and inconsistent complete channel sums. The existing
+M resolved thermal models can be supplied explicitly; N2 creates no independent
+material-temperature owner or new material law.
+
+At each wavelength, absorbed and transmitted samples are `S*(-expm1(-alpha*d))`
+and `S*exp(-alpha*d)`. The exp expression preserves small transmitted signals
+near the opaque limit. Power and photon moments are integrated separately.
+For continuous tables, the resulting absorbed/transmitted **sample densities**
+are represented as piecewise-linear functions, using N1's exact moments. This is
+a sampled numerical approximation to the generally nonlinear product of source
+and transmission, not exact integration of the continuum absorption law.
+Grid refinement at fixed support is required; finite measured resolution and
+material-model uncertainty remain separate from quadrature error.
+
+The policy is `sampled-beer-lambert-linear-density-exact-moments-v1`. Discrete
+lines are integrated independently without a continuum interpolation. Incoming
+power equals absorbed plus transmitted power, and likewise photon flux, within
+relative floating-point tolerance `1e-12`; dark cases have exact zero budgets.
+Zero-alpha/zero-thickness profiles transmit all input. Absorbed photon flux per
+thickness is a volumetric generation diagnostic, not capture efficiency or stored
+charge. Zero thickness gives zero generation.
+
+Strict result readers reconstruct sources/profiles and recompute every stored
+derived projection without evaluating the optical model or running simulation.
+Unknown units/fields/schemas and inconsistent projections/node records fail.
+The stored alpha samples are authoritative observations: a coherently replaced
+profile and recomputed projection describe different evidence, not independent
+verification of the model. Content hashes are not authenticity signatures.
+N6 will add broader report/bundle contracts; N2 leaves older archives unchanged.
+
+```python
+from ncmemsim.spectral_sources import SpectralEvidence, DiscreteLineSpectrum
+from ncmemsim.spectral_absorption import SpectralAbsorptionProfile, evaluate_spectral_absorption, SpectralAbsorptionResult
+
+evidence = SpectralEvidence(
+    source="constant-alpha diagnostic", locator="N2 documentation example",
+    status="ASSUMED", original_units="m^-1", transformations=(),
+    resolution="one optical line", uncertainty="unknown", notes="not calibrated",
+)
+source = DiscreteLineSpectrum((1550.0,), (1000.0,), evidence)
+profile = SpectralAbsorptionProfile(
+    layer_name="diagnostic layer", wavelength_nm=(1550.0,),
+    effective_alpha_m_inv=(1e6,), thickness_m=1e-6,
+    wavelength_min_nm=1500.0, wavelength_max_nm=2000.0, evidence=evidence,
+)
+result = evaluate_spectral_absorption(source, profile)
+assert result.summary["absorbed_irradiance_W_m2"] > 0
+assert SpectralAbsorptionResult.from_json(result.to_json()) == result
+```
+
+N2 analytical acceptance uses three nested grids (33/65/129 nodes) and an
+independently integrated exponential-transmission reference: final relative power
+and photon errors below `1e-5`, decreasing on refinement. A compact Ge diagnostic
+uses 65/129/257 nodes plus explicit Gamma and phonon-assisted threshold nodes;
+successive power/photon changes decrease and the last relative change is below
+`1e-3`. This is numerical evidence for that diagnostic, not a universal validated
+spectral grid or independently calibrated absorption model.
+
+Sequential multi-layer attenuation is N3; full broadband programming/capture
+integration remains N4. N2 does not feed each FG with transmitted illumination.

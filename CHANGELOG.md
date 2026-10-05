@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase N2 source-linked single-layer spectral absorption, explicit owned
+  floating-gate model sampling and wavelength domains, power/photon balances,
+  numerical convergence checks and strict restoration without optical replay.
+
 - Add Phase N1 immutable spectral evidence, absolute/relative wavelength tables
   and discrete optical lines, explicit normalization, exact source photon moments
   and strict canonical archives; legacy optics and simulator behavior are retained.
