@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase N4 owned spectral/thermal contexts, explicit sequential photo-rate
+  simulator adapter and illuminated pulse/dark-read protocol, bounded capture
+  mapping, drift rejection and timestep/charge-photon audits.
+
 - Add Phase N3 explicit ordered single-pass spectral paths, transmitted-source
   handoff, complete device-layer binding, passive/FG loss accounting and strict
   sequential result restoration; legacy simulator optics remain unchanged.

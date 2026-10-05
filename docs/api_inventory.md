@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 118 package source modules; 655 explicit export paths; 198 distinct documented Python import paths.
+Coverage: 119 package source modules; 660 explicit export paths; 203 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3904,6 +3904,47 @@ Decorators: `dataclass(frozen=True)`.
 
 - `evaluate_spectral_absorption(source, profile)`
 - `evaluate_floating_gate_spectrum(source, layer, *, optical_model, model_identity: str, wavelength_min_nm: float, wavelength_max_nm: float, evidence: SpectralEvidence)`
+
+## ncmemsim.spectral_context
+
+`ncmemsim/spectral_context.py`
+
+Explicit exports: `SpectralSimulationContext`, `SpectralSimulator`, `SpectralPulseProtocol`, `build_spectral_simulation_context`, `run_spectral_program_pulse_read`
+
+### SpectralSimulationContext
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `resolution: ResolvedThermalContext`; required declaration.
+- Field `optical_result: SpectralStackResult`; required declaration.
+- `create_simulator(self)`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### SpectralSimulator
+
+Bases: `ThermalSimulator`.
+
+Constructor: `__init__(self, context: SpectralSimulationContext)`.
+
+- `relax_voltage(self, state, gate_voltage_V, dwell_time_s=None, internal_dt_s=None, light_source=None, photo_config=None, photo_weights=None, occupancy_integrator='explicit_euler')`.
+
+- `build_spectral_simulation_context(resolution, source, *, direction: str, passive_layers: tuple, wavelength_min_nm: float, wavelength_max_nm: float, evidence)`
+### SpectralPulseProtocol
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `electrical_protocol: ProgramPulseReadProtocol`; required declaration.
+- Field `photo_weights: PhotoTransitionWeights`; required declaration.
+- Field `occupancy_integrator: str`; default expression `'backward_euler'`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `run_spectral_program_pulse_read(context: SpectralSimulationContext, protocol: SpectralPulseProtocol, *, photo_config: PhotoTransitionConfig, initial_state: DeviceState | None=None)`
 
 ## ncmemsim.spectral_sources
 

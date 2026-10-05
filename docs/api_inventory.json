@@ -27554,6 +27554,389 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.spectral_context",
+      "source": "ncmemsim/spectral_context.py",
+      "explicit_exports": [
+        "SpectralSimulationContext",
+        "SpectralSimulator",
+        "SpectralPulseProtocol",
+        "build_spectral_simulation_context",
+        "run_spectral_program_pulse_read"
+      ],
+      "package_import_aliases": {
+        "DeviceState": "ncmemsim.state.DeviceState",
+        "DiscreteLineSpectrum": "ncmemsim.spectral_sources.DiscreteLineSpectrum",
+        "PhotoTransitionConfig": "ncmemsim.photo.PhotoTransitionConfig",
+        "PhotoTransitionWeights": "ncmemsim.photo.PhotoTransitionWeights",
+        "ProgramPulseReadProtocol": "ncmemsim.program_protocol.ProgramPulseReadProtocol",
+        "ResolvedThermalContext": "ncmemsim.temperature_context.ResolvedThermalContext",
+        "SpectralStackResult": "ncmemsim.spectral_stack.SpectralStackResult",
+        "TabulatedSpectrum": "ncmemsim.spectral_sources.TabulatedSpectrum",
+        "ThermalSimulator": "ncmemsim.temperature_context.ThermalSimulator",
+        "_Archive": "ncmemsim.spectral_sources._Archive",
+        "_canonical": "ncmemsim.spectral_sources._canonical",
+        "_keys": "ncmemsim.spectral_sources._keys",
+        "_number": "ncmemsim.spectral_sources._number"
+      },
+      "public_source_definitions": [
+        {
+          "name": "SpectralSimulationContext",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "resolution",
+              "annotation": "ResolvedThermalContext",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "optical_result",
+              "annotation": "SpectralStackResult",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "create_simulator",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "SpectralSimulator",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "ThermalSimulator"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": {
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "context",
+                "kind": "positional_or_keyword",
+                "annotation": "SpectralSimulationContext",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self, context: SpectralSimulationContext)",
+            "decorators": []
+          },
+          "methods": [
+            {
+              "name": "relax_voltage",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "state",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "gate_voltage_V",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "dwell_time_s",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "internal_dt_s",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "light_source",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "photo_config",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "photo_weights",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "occupancy_integrator",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "'explicit_euler'"
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, state, gate_voltage_V, dwell_time_s=None, internal_dt_s=None, light_source=None, photo_config=None, photo_weights=None, occupancy_integrator='explicit_euler')",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "build_spectral_simulation_context",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "resolution",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "source",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "direction",
+              "kind": "keyword_only",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "passive_layers",
+              "kind": "keyword_only",
+              "annotation": "tuple",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "wavelength_min_nm",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "wavelength_max_nm",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "evidence",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(resolution, source, *, direction: str, passive_layers: tuple, wavelength_min_nm: float, wavelength_max_nm: float, evidence)",
+          "decorators": []
+        },
+        {
+          "name": "SpectralPulseProtocol",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "electrical_protocol",
+              "annotation": "ProgramPulseReadProtocol",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "photo_weights",
+              "annotation": "PhotoTransitionWeights",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "occupancy_integrator",
+              "annotation": "str",
+              "default_expression": "'backward_euler'",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "run_spectral_program_pulse_read",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "context",
+              "kind": "positional_or_keyword",
+              "annotation": "SpectralSimulationContext",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "protocol",
+              "kind": "positional_or_keyword",
+              "annotation": "SpectralPulseProtocol",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "photo_config",
+              "kind": "keyword_only",
+              "annotation": "PhotoTransitionConfig",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "initial_state",
+              "kind": "keyword_only",
+              "annotation": "DeviceState | None",
+              "required": false,
+              "default_expression": "None"
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(context: SpectralSimulationContext, protocol: SpectralPulseProtocol, *, photo_config: PhotoTransitionConfig, initial_state: DeviceState | None=None)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.spectral_sources",
       "source": "ncmemsim/spectral_sources.py",
       "explicit_exports": [
@@ -35344,6 +35727,7 @@
     "ncmemsim",
     "ncmemsim.DeviceBuilder",
     "ncmemsim.DeviceState",
+    "ncmemsim.PhysicsModel",
     "ncmemsim.RetentionConfig",
     "ncmemsim.SimulationConfig",
     "ncmemsim.Simulator",
@@ -35417,6 +35801,7 @@
     "ncmemsim.make_gesn",
     "ncmemsim.materials.BarrierModel",
     "ncmemsim.materials.HFO2",
+    "ncmemsim.materials.make_ge",
     "ncmemsim.materials.optics.CompositeGeSnAbsorptionModel",
     "ncmemsim.materials.optics.EvaluationDomainStatus",
     "ncmemsim.materials.optics.GESN_NEAR_EDGE_FIT_PARAMETER_NAMES",
@@ -35476,6 +35861,9 @@
     "ncmemsim.spectral_absorption.SpectralAbsorptionProfile",
     "ncmemsim.spectral_absorption.SpectralAbsorptionResult",
     "ncmemsim.spectral_absorption.evaluate_spectral_absorption",
+    "ncmemsim.spectral_context.SpectralPulseProtocol",
+    "ncmemsim.spectral_context.build_spectral_simulation_context",
+    "ncmemsim.spectral_context.run_spectral_program_pulse_read",
     "ncmemsim.spectral_sources.DiscreteLineSpectrum",
     "ncmemsim.spectral_sources.SpectralEvidence",
     "ncmemsim.spectral_sources.TabulatedSpectrum",

@@ -3,7 +3,7 @@
 ## N0 status and baseline
 
 N0 is complete: source/code audit, scope, units, integration boundaries and
-N1-N7 acceptance sequence are defined here. N1 spectral contracts, N2 single-layer absorption and N3 ordered propagation are implemented; N4-N7 are planned.
+N1-N7 acceptance sequence are defined here. N1-N4 source, absorption, propagation and opt-in simulator/context integration are implemented; N5-N7 are planned.
 Target release: v1.5.0. Current published package/citation remain v1.4.0;
 the v1.4 DOI and immutable release identities are retained.
 Audit baseline: `7bf9096de2148201ab301376ce1baac786a06e08` (M7 DOI follow-up).
@@ -135,8 +135,9 @@ Public names/schema identifiers will be reviewed during N1/N6, not promised here
 N0 branch CI and Documentation passed on `e0d382d16f3f8bba3c2cfd8bd52509021312a157`.
 N1 CI and Documentation passed on `14ae290cb91ce06a5f0556658fccb6804f809cbc`.
 N2 CI and Documentation passed on `5c2fd6a756b349d7554b910c129fcf25cddcf956`.
-Commit/push N3 ordered propagation on `dev/v1.5-broadband-optics`, verify
-exact-commit CI, then implement N4 opt-in simulator/context integration. Package version and
+N3 CI and Documentation passed on `d9c7796b0fbd3e38a38c2c3e09fe5f17879589c8`.
+Commit/push N4 simulator/context integration on `dev/v1.5-broadband-optics`, verify
+exact-commit CI, then build N5 controlled broadband/multispectral references. Package version and
 CITATION.cff remain v1.4.0 through planning; final candidate identity is a N7 task.
 The Phase M API review, release validators and historical fixtures remain intact.
 
@@ -174,7 +175,7 @@ Both source types provide strict `to_dict`/`from_dict`, canonical JSON and SHA-2
 `contract_hash`. Unknown fields, wrong schemas/units/policies, duplicate JSON keys
 and nonfinite values are rejected. No solver or random sampling is involved.
 Hashes identify content, not authenticity. Readers reconstruct sources only;
-spectral absorption is provided by N2 below; simulator integration remains N4 work.
+spectral absorption is provided by N2 below; simulator integration is provided by N4 below.
 
 ```python
 from ncmemsim.spectral_sources import SpectralEvidence, TabulatedSpectrum, DiscreteLineSpectrum
@@ -273,8 +274,8 @@ successive power/photon changes decrease and the last relative change is below
 `1e-3`. This is numerical evidence for that diagnostic, not a universal validated
 spectral grid or independently calibrated absorption model.
 
-N3 provides sequential multi-layer attenuation below; full broadband programming/
-capture integration remains N4. N2 itself is a single-layer evaluator.
+N3 provides sequential multi-layer attenuation and N4 explicit broadband
+programming integration below. N2 itself is a single-layer evaluator.
 
 
 ## N3 ordered single-pass optical paths
@@ -356,5 +357,102 @@ transparent/zero-thickness/opaque/dark limits and direction-dependent per-layer
 absorption. A passive-plus-FG exponential-attenuation continuum reference uses
 33/65/129 nested grids: power/photon errors decrease and final relative errors
 are below `1e-5`. This is numerical evidence for the declared diagnostic only.
-The runtime simulator still uses its legacy optical path; N4 introduces the
-separate opt-in adapter that maps these optical inputs into photo-transition rates.
+The original Simulator retains its legacy optical path. N4 adds a separate
+opt-in adapter that maps these optical inputs into photo-transition rates.
+
+
+## N4 explicit spectral simulation context
+
+`ncmemsim.spectral_context` exports `SpectralSimulationContext`,
+`SpectralSimulator`, `build_spectral_simulation_context`, `SpectralPulseProtocol`
+and `run_spectral_program_pulse_read`. The context pairs an owned M resolved
+isothermal device/physics/configuration with an N3 optical result whose bound
+device snapshot must match exactly. Changing temperature, geometry or another
+device/configuration input requires a new resolution and optical context.
+
+The factory samples each resolution-owned FG model using N2 and then propagates
+the complete path using N3. Every passive optical layer must be supplied explicitly
+with its profile/treatment. Device temperature is owned by M; source evidence is
+separate. Applicability bounds/evidence are explicit diagnostic declarations,
+not inferred model qualification. The direct context constructor also supports
+explicit stored profile observations; it does not automatically reevaluate alpha.
+Only the factory establishes that FG samples came from the resolution's models.
+
+`SpectralSimulator` subclasses the owned thermal adapter without changing the
+original Simulator or ThermalSimulator. Illumination accepts only the source
+bound to the context; None means dark. Each FG's absorbed photon flux **after**
+sequential attenuation is divided by physical NC density and thickness, then
+mapped through the existing layer-average photo-transition law. Passive losses
+never become NC capture inputs. This is a constant capture-efficiency/weight model
+across the supplied spectrum; wavelength-dependent capture is outside N4.
+
+Illuminated calls require explicit PhotoTransitionConfig and PhotoTransitionWeights.
+Values must be finite, nonnegative and physically bounded. N4 additionally limits
+capture efficiency times the maximum outgoing photo weight (r01, r12+r10, r21)
+to one, so the compact mapping does not allocate more than one photo event per
+absorbed photon per active NC. This restriction applies to the new adapter only.
+It does not impose a bound on electrical injection or claim quantum-efficiency
+calibration. Active fractions and occupancy/transport stepping retain their
+existing definitions. Spatial photo generation remains layer-averaged.
+
+Inherited diagnostics report per-FG photo rates and absorbed photon flux. The
+absorption fraction is photon-weighted relative to that FG's incoming spectrum.
+For broadband/multiple lines, scalar alpha diagnostic arrays are NaN (undefined),
+while all actual alpha samples remain in the source-linked `spectral_stack`
+evidence. A single discrete line retains its scalar alpha interpretation. No
+average photon energy or averaged material coefficient substitutes for integration.
+The output also includes the spectral context hash; dark outputs have no applied
+spectral_stack evidence. Raw simulator dictionaries are not strict JSON reports.
+
+The new pulse protocol reuses ProgramPulseReadProtocol for electrical timing,
+stores photo weights and the occupancy integrator, and requires a dark zero-dwell
+read. The workflow owns/copies the initial state, executes the illuminated pulse,
+then evaluates the programmed state electrostatically without further evolution.
+Its delta_vfb observable is relative to the initial dark read, not a memory window.
+Returned run evidence contains raw program/read outputs, context/protocol identity,
+capture efficiency and per-FG absorbed photon fluence. N6 will introduce strict
+report/bundle serialization, including undefined diagnostic handling.
+
+Context/protocol readers restore contracts and optical projections without solver,
+optical-model or RNG replay; M resolution inputs are reconstructed using M's
+existing deterministic property evaluation. Previously published I/K/L/M schemas
+and protocols remain unchanged.
+
+```python
+from ncmemsim import DeviceBuilder, PhysicsModel, SimulationConfig
+from ncmemsim.materials import make_ge
+from ncmemsim.temperature_context import ThermalContext
+from ncmemsim.spectral_sources import SpectralEvidence, DiscreteLineSpectrum
+from ncmemsim.spectral_absorption import SpectralAbsorptionProfile
+from ncmemsim.spectral_stack import SpectralStackLayer
+from ncmemsim.spectral_context import build_spectral_simulation_context, SpectralPulseProtocol, run_spectral_program_pulse_read
+from ncmemsim.program_protocol import ProgramPulseReadProtocol
+from ncmemsim.photo import PhotoTransitionConfig, PhotoTransitionWeights
+
+device = DeviceBuilder.v2(1, nc_material=make_ge())
+device.floating_gates()[0].grid_points = 3
+resolution = ThermalContext.from_nominal(device, PhysicsModel.default(), SimulationConfig()).resolve(temperature_K=300)
+evidence = SpectralEvidence("N4 diagnostic", "documentation", "ASSUMED", "canonical inputs", (),
+                            "one line", "unknown", "transparent matrix/passive layers, not calibrated")
+source = DiscreteLineSpectrum((1550.0,), (1000.0,), evidence)
+passive = tuple(
+    SpectralStackLayer(SpectralAbsorptionProfile(layer.name, source.wavelength_nm, (0.0,),
+        layer.thickness_nm*1e-9, 1500.0, 2000.0, evidence), "passive", "assumed_transparent")
+    for layer in resolution.device.layers if layer.role != "floating_gate"
+)
+context = build_spectral_simulation_context(resolution, source, direction="gate_to_substrate",
+    passive_layers=passive, wavelength_min_nm=1500.0, wavelength_max_nm=2000.0, evidence=evidence)
+protocol = SpectralPulseProtocol(ProgramPulseReadProtocol(0.0, 1e-8, 0.0, 1e-9), PhotoTransitionWeights())
+run = run_spectral_program_pulse_read(context, protocol, photo_config=PhotoTransitionConfig(0.1))
+assert run["read"]["spectral_stack"] is None
+```
+
+N4 tests dark identity on one/two/three-FG devices, one-line legacy pulse/state
+equivalence, broadband sequential rates and passive losses, source/device drift,
+thermal model composition and strict context/protocol restoration. An isolated
+photo-only pulse (electrical rates explicitly set to zero in the test) converges
+on 32/64/128 time steps against analytical loading probabilities; final absolute
+error is below `2e-3`, probabilities remain normalized/nonnegative and stored
+electrons do not exceed captured photon fluence. This isolates mapping/numerics;
+it does not validate combined transport, device calibration or a universal step.
+N5 supplies the broader controlled broadband/electro-optical references.
