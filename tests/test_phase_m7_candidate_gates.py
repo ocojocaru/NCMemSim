@@ -32,7 +32,7 @@ def test_m7_final_review_retains_published_history():
     assert result['retained_stable_paths'] == 297
     assert result['status'] == 'candidate_contracts_pass_not_release_approval'
     citation = (ROOT/'CITATION.cff').read_text(encoding='utf-8')
-    assert not any(line.startswith('doi:') for line in citation.splitlines())
+    assert 'doi: 10.5281/zenodo.23102549' in citation
     assert '10.5281/zenodo.23078330' in citation
 
 
@@ -47,7 +47,7 @@ def test_candidate_rejects_unreviewed_identity_scope_or_archival_changes(candida
         s=s.replace('version: 1.4.0','version: 1.3.0') if fault=='citation' else s+'\ndoi: 10.0000/unassigned\n'
         p.write_text(s,encoding='utf-8')
     elif fault == 'readme':
-        p=root/'README.md';p.write_text(p.read_text(encoding='utf-8').replace('**Release candidate:** `1.4.0`','stale'),encoding='utf-8')
+        p=root/'README.md';p.write_text(p.read_text(encoding='utf-8').replace('**Current stable release:** `1.4.0`','stale'),encoding='utf-8')
     elif fault == 'snapshot':
         p=root/'tests/fixtures/releases/v1_3_0/README.md';p.write_text('modified historical identity\n',encoding='utf-8')
     elif fault == 'checklist':
@@ -109,9 +109,9 @@ def test_remote_gates_cover_exact_candidate_and_python_matrix():
     assert "github.ref == 'refs/heads/main'" in docs
 
 
-def test_checklist_keeps_publication_and_doi_assignment_pending():
+def test_checklist_records_verified_publication_and_confirmed_doi():
     text=(ROOT/'docs/v1_4_release_checklist.md').read_text(encoding='utf-8')
-    assert 'release approval remains pending' in text
-    assert 'No tag, merge or release publication' in text
-    assert 'Neither is a v1.4 version-specific DOI' in text
-    assert 'M7 is not complete' in text
+    assert 'Status: M7 complete; v1.4.0 published.' in text
+    assert '67e8791a6ec5c3a76fc8f92bcba4da614900f4f5' in text
+    assert '10.5281/zenodo.23102549' in text
+    assert 'M7 is complete' in text

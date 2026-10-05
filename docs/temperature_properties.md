@@ -4,10 +4,9 @@
 
 M0 is complete: code-temperature audit, selected property families, ownership,
 scientific limits and staged acceptance contracts are frozen here. M1-M6 are
-implemented. M7 preparation is implemented; release approval remains pending.
+implemented. M7 is complete; v1.4.0 is published.
 M0 itself introduced no material law or runtime API.
-Final candidate identity: `1.4.0`, citation date `2026-10-02`. Publication remains
-pending; the latest published stable release is v1.3.0. Historical evidence is retained.
+Published identity: `1.4.0`, citation date `2026-10-02`, DOI [10.5281/zenodo.23102549](https://doi.org/10.5281/zenodo.23102549). Historical evidence is retained.
 
 Audit baseline: main commit `79c5d579d4a735ccd71f7c8fe5d02b77bb6b2f11`,
 after the v1.3.0 release and DOI/test follow-up. The reproducible code audit is
@@ -158,11 +157,8 @@ accounting, not removed to improve feasible fractions.
 
 ## Next action
 
-M1-M6 and M7 preparation are implemented on `dev/v1.4-temperature-properties`.
-M7 preparation is implemented with API/scope/compatibility and distribution gates;
-release approval remains pending. Next: commit/push the final candidate, obtain green
-exact-commit CI for the final identity, then review the release PR and resulting main commit.
-The package/citation candidate is 1.4.0; publication and version-specific DOI remain pending.
+M0-M7 are complete in published v1.4.0. Next: plan Phase N / v1.5 broadband spectra
+and multilayer propagation against the roadmap; no Phase N runtime change is included here.
 
 
 ## M1 contracts and coefficient review
@@ -589,8 +585,8 @@ Stored observations are authoritative inputs to analysis, not independently
 verified solver trajectories or measurements. A consistently replaced source
 with its rebuilt analyses represents different evidence. Nothing in this report
 qualifies temperature coefficients, process yield or experimental calibration.
-The M7 package and citation describe the final 1.4.0 candidate, dated 2026-10-02.
-This is not publication evidence; a v1.4-specific DOI remains pending.
+The M7 package and citation describe published 1.4.0, dated 2026-10-02.
+Publication evidence is recorded in the release checklist; the DOI is [10.5281/zenodo.23102549](https://doi.org/10.5281/zenodo.23102549).
 
 ## M7 candidate review and release gates
 
@@ -607,9 +603,8 @@ and re-exports byte-identical bundles from independently installed wheel/sdist.
 Its probe forbids solver execution and new RNG draws during restoration. Local
 Windows checks do not substitute for the remote Python 3.11-3.13 matrix.
 
-See [v1.4 candidate and release checklist](v1_4_release_checklist.md) for pending
-exact-commit remote checks, final identity, PR/main/tag and publication gates.
-No v1.4-specific DOI is assigned before its actual Zenodo deposit exists.
+See [v1.4 release checklist](v1_4_release_checklist.md) for verified
+exact-commit PR/main/tag checks, release publication and the author-confirmed DOI.
 
 Final identity is checked by `python scripts/validate_v1_4_release_identity.py`.
 Preparation CI passed on `dc79dd625ead691c9c3c3512ed8eebbb4a641b53`; this evidence

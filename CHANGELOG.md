@@ -4,9 +4,9 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
-No changes recorded after the v1.4.0 release candidate.
+- Record the author-confirmed v1.4.0 Zenodo DOI in citation/docs and close M7 after verified publication; adapt identity gates to the published state. Release tag and assets are unchanged.
 
-## 1.4.0 — 2026-10-02 (release candidate; publication pending)
+## 1.4.0 — 2026-10-02
 
 - Opt-in, anchored Si gap/intrinsic-density and bulk-Ge Gamma/L/phonon profiles,
   isolated thermal simulator contexts and controlled Si/Ge reference audits.

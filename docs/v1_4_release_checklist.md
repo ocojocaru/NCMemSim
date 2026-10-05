@@ -1,11 +1,9 @@
 # v1.4 Phase M7 candidate and release checklist
 
-Status: M7 preparation implemented; release approval remains pending.
-Final candidate identity: `1.4.0`; citation date: `2026-10-02`.
-Latest published stable release: `1.3.0`, dated `2026-10-01`.
-CITATION.cff now describes the v1.4.0 candidate and has no version-specific DOI.
-The published v1.3.0 specific DOI is `10.5281/zenodo.23079171`; Concept DOI is
-`10.5281/zenodo.23078330`. Neither is a v1.4 version-specific DOI.
+Status: M7 complete; v1.4.0 published.
+Published identity: `1.4.0`; citation date: `2026-10-02`.
+Version-specific DOI: [10.5281/zenodo.23102549](https://doi.org/10.5281/zenodo.23102549) (confirmed by the project author).
+Concept DOI: `10.5281/zenodo.23078330`, retained separately.
 
 ## Contract and scientific review
 
@@ -48,28 +46,31 @@ Preparation commit: `dc79dd625ead691c9c3c3512ed8eebbb4a641b53`.
 Python 3.11-3.13 test/distribution jobs;
 [Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/36993597377) passed.
 These are verified preparation results, not approval of the final candidate.
-The final package/citation/date/changelog identity is prepared together; exact
-final-candidate branch/PR/main/tag checks and publication remain pending.
 
-## Exact-commit evidence and pending publication
+## Verified final publication evidence
 
-Preparation checks do not approve a later commit. Record the full committed SHA
-and its CI/Documentation run URLs, with all matrix jobs green. A successful push
-alone is not remote evidence. Final-candidate run status and publication are pending until verified.
+Final branch/PR head: `b5f308e822e6909df82bb6047047b1856d3f64d3`.
+PR [#7](https://github.com/ocojocaru/NCMemSim/pull/7) merged after
+[CI](https://github.com/ocojocaru/NCMemSim/actions/runs/37001550220) and
+[Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/37001550360) passed.
+Release commit: `67e8791a6ec5c3a76fc8f92bcba4da614900f4f5`.
+Main [CI](https://github.com/ocojocaru/NCMemSim/actions/runs/37002876523) and
+[Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/37002876274) passed.
+The annotated `v1.4.0` tag points to this release commit.
+Tag [CI](https://github.com/ocojocaru/NCMemSim/actions/runs/37004354378) passed all
+six Python 3.11, 3.12 and 3.13 test/distribution jobs.
+[Release](https://github.com/ocojocaru/NCMemSim/actions/runs/37004354221) passed.
+[GitHub Release](https://github.com/ocojocaru/NCMemSim/releases/tag/v1.4.0)
+was published on 2026-10-02 at 12:15:51 UTC, without draft/prerelease flags.
 
-1. Commit/push preparation and check all six matrix jobs and Documentation on
-   that exact SHA; review the complete branch diff.
-2. Prepare final package version `1.4.0`, CITATION.cff version/date, release
-   changelog and README/docs status together; retain Concept DOI separately and
-   remove the v1.3-specific DOI from the new citation until v1.4 is deposited.
-3. Adapt the candidate identity gate for the final state and rerun all local,
-   documentation, clean-distribution and remote matrix checks on that final SHA.
-4. Create/update the release PR, obtain green exact-head checks and merge using
-   the existing workflow; verify the resulting main commit before tagging.
-5. Tag `v1.4.0` only after identity and gates agree. Verify tag/main alignment,
-   release workflow, wheel/sdist assets, deployed documentation and published release.
-6. Record the actual v1.4 Zenodo DOI in citation/docs after deposit confirmation;
-   retain previous release identities and rerun checks on the metadata update.
+| Asset | SHA-256 |
+|---|---|
+| `ncmemsim-1.4.0-py3-none-any.whl` | `405be8418ea82e27eb147bb4df6fe5f8e4323b2fe926646db7049183f34ac997` |
+| `ncmemsim-1.4.0.tar.gz` | `094cf7f347ae3ec2bed956374f53c51524157593d247e77e461fe099418a54dd` |
 
-No tag, merge or release publication is performed by this preparation step.
-M7 is not complete until the final candidate and publication gates are fulfilled.
+The project author supplied the v1.4.0 DOI after publication. The Zenodo page
+could not be independently accessed by the automated verification session.
+The original tag and release assets remain unchanged. The subsequent citation
+metadata commit may put main ahead of the release tag; its CI is a separate check.
+M7 is complete. Metadata validation checks internal consistency; it does not
+query GitHub or independently prove archive authenticity.

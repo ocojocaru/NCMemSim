@@ -12,10 +12,10 @@ The project author confirmed the GitHub/Zenodo archive identifiers:
 For reproducible research, cite the version-specific DOI and software version.
 The project author confirmed [v1.3.0 DOI: 10.5281/zenodo.23079171](https://doi.org/10.5281/zenodo.23079171).
 The published v1.3.0 citation recorded this specific DOI and the separate Concept DOI.
-The current CITATION.cff describes the final v1.4.0 candidate dated 2026-10-02,
-whose publication and version-specific DOI remain pending. It retains the Concept DOI
-in identifiers; v1.3.0 remains independently citable through its published DOI.
-This citation update follows publication and does not move the v1.3.0 tag or replace its assets.
+The project author confirmed the v1.4.0 version-specific DOI [10.5281/zenodo.23102549](https://doi.org/10.5281/zenodo.23102549).
+The current CITATION.cff describes published v1.4.0 dated 2026-10-02 and records
+this DOI separately from the Concept DOI in identifiers. Earlier versions remain
+independently citable. This metadata update does not move release tags or replace assets.
 
 ## Historical v1.0.0 policy
 

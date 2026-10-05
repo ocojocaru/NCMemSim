@@ -132,7 +132,7 @@ def validate(root: Path) -> dict:
     else:
         raise ValueError('unsupported v1.4 candidate package version')
     return {'status': 'candidate_contracts_pass_not_release_approval', 'package_version': version,
-            'citation_version': citation_version, 'latest_published_stable': STABLE_VERSION,
+            'citation_version': citation_version, 'latest_published_stable': version if version == '1.4.0' else STABLE_VERSION,
             'reviewed_modules': len(MODULES), 'stable_ensemble_exports': 59,
             'retained_stable_paths': len(entries)}
 

@@ -2,7 +2,7 @@
 
 # NCMemSim
 
-Final release candidate: `1.4.0`; publication remains pending. Latest published stable release: `1.3.0`. CITATION.cff describes the reviewed v1.4.0 candidate dated 2026-10-02; no v1.4-specific DOI is assigned.
+Published stable release: `1.4.0`, dated 2026-10-02. Phase M7 is complete; CITATION.cff records the version-specific DOI [10.5281/zenodo.23102549](https://doi.org/10.5281/zenodo.23102549).
 
 <a href="https://doi.org/10.5281/zenodo.23078330"><img src="https://zenodo.org/badge/1314843497.svg" alt="DOI"></a>
 
@@ -64,7 +64,7 @@ J7b local preflight, J7c release-identity alignment, and the exact-candidate
 local and remote gates all passed before release tagging.
 
 Version `1.2.0` completes Phase K.
-The current stable release `1.3.0` adds explicit MODEL/TAT-density variability and
+Release `1.3.0` adds explicit MODEL/TAT-density variability and
 strict reproducibility bundles. Phase L7 release checks passed and v1.3.0 is published;
 see the [v1.3 release checklist](v1_3_release_checklist.md). K7a API/result compatibility review, K7b local preflight, K7c release-identity alignment, and the exact-candidate local and remote validation gates all passed before release tagging.
 

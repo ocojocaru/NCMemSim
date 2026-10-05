@@ -386,8 +386,10 @@ explicit owned MODEL transport integration, paired density DTCO and preserved
 failure/metric/infeasibility accounting and Pareto denominators.
 M6 is complete: strict source-linked thermal run/DTCO reports, deterministic
 bundles and restoration without workflow or RNG replay, including all-failed
-populations and tamper rejection. M7 preparation is implemented: final candidate identity `1.4.0`, additive API
-review, frozen thermal archive and installed-distribution/CI gates; release approval remains pending.
+populations and tamper rejection. M7 is complete: published stable release `1.4.0` from commit
+`67e8791a6ec5c3a76fc8f92bcba4da614900f4f5`; main/tag CI, Documentation and Release
+passed, wheel/sdist are published, and the author confirmed DOI [10.5281/zenodo.23102549](https://doi.org/10.5281/zenodo.23102549).
+The additive API review and frozen archive remain unchanged. Next is Phase N / v1.5 planning.
 See [Temperature-dependent material properties](temperature_properties.md)
 for the code audit, frozen scope, equations, references and acceptance sequence.
 
