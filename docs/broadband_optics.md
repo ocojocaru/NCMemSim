@@ -3,7 +3,7 @@
 ## N0 status and baseline
 
 N0 is complete: source/code audit, scope, units, integration boundaries and
-N1-N7 acceptance sequence are defined here. N1-N4 source, absorption, propagation and opt-in simulator/context integration are implemented; N5-N7 are planned.
+N1-N7 acceptance sequence are defined here. N1-N5 source, absorption, propagation, opt-in integration and controlled references are implemented; N6-N7 are planned.
 Target release: v1.5.0. Current published package/citation remain v1.4.0;
 the v1.4 DOI and immutable release identities are retained.
 Audit baseline: `7bf9096de2148201ab301376ce1baac786a06e08` (M7 DOI follow-up).
@@ -136,8 +136,9 @@ N0 branch CI and Documentation passed on `e0d382d16f3f8bba3c2cfd8bd52509021312a1
 N1 CI and Documentation passed on `14ae290cb91ce06a5f0556658fccb6804f809cbc`.
 N2 CI and Documentation passed on `5c2fd6a756b349d7554b910c129fcf25cddcf956`.
 N3 CI and Documentation passed on `d9c7796b0fbd3e38a38c2c3e09fe5f17879589c8`.
-Commit/push N4 simulator/context integration on `dev/v1.5-broadband-optics`, verify
-exact-commit CI, then build N5 controlled broadband/multispectral references. Package version and
+N4 CI and Documentation passed on `80c8327d9e6d8bf748c883b744b64fe682b5c7e8`.
+Commit/push N5 controlled references on `dev/v1.5-broadband-optics`, verify
+exact-commit CI, then implement N6 strict spectral reports and reproducibility bundles. Package version and
 CITATION.cff remain v1.4.0 through planning; final candidate identity is a N7 task.
 The Phase M API review, release validators and historical fixtures remain intact.
 
@@ -455,4 +456,66 @@ on 32/64/128 time steps against analytical loading probabilities; final absolute
 error is below `2e-3`, probabilities remain normalized/nonnegative and stored
 electrons do not exceed captured photon fluence. This isolates mapping/numerics;
 it does not validate combined transport, device calibration or a universal step.
-N5 supplies the broader controlled broadband/electro-optical references.
+N5 supplies the broader controlled broadband/electro-optical references below.
+
+
+## N5 controlled broadband and multispectral reference
+
+The standalone `examples/phase_n5_broadband_reference.py` runs a synthetic
+one/two/three-FG matrix with three equal-power incident sources:
+
+- one 1550 nm line;
+- two lines at 1550 and 1850 nm, with equal line powers;
+- a flat relative wavelength-density shape on 1500-2000 nm, explicitly normalized.
+
+Every source has in-band irradiance `1e6 W m^-2`. This is an equal-power comparison,
+not equal photon flux. All source/capture/passive-optics assumptions are labelled
+ASSUMED. No measured spectrum or experimental device qualification is claimed.
+Bulk-Ge compact amplitudes, NC volume fraction .2, active fraction .1, FG thickness
+6 nm, three spatial cells and capture efficiency .1 are synthetic choices. The
+baseline device temperature is 300 K. Passive layers are declared transparent in
+the main matrix; the NC matrix remains transparent under the inherited compact law.
+
+Broadband optical audits use 65/129/257 base nodes plus explicit nominal Gamma
+and phonon-assisted threshold wavelengths. The final successive relative changes
+in FG-absorbed power and photon flux must be below `1e-3`. Models are sampled on
+the stored grids and integrated with N1-N3 numerical policies. Refinement is not
+new measured information or a universal spectral-grid guarantee.
+
+Each main case programs at 2 V for `1e-7 s`, using backward Euler on 16/32/64
+internal steps, then performs the zero-dwell dark read. A matching dark pulse is
+run on each temporal grid. Photo contrast is illuminated minus dark read Vfb;
+it is not a memory window. Final successive probability change must be below
+`2e-3` and photo-contrast change below `1e-5 V`. Probability normalization,
+nonnegativity and unchanged read probabilities are audited independently.
+Combined electrical/optical charge is not attributed solely to photons; the
+isolated charge/photon mapping audit remains in N4.
+
+Auxiliary controls for each FG count compare dark, zero capture and disabled
+sources, and explicitly absorbing passive layers (alpha `1e6 m^-1`) against the
+transparent path. A separate one-FG thermal control uses the reviewed M coupled
+Ge model at 300/350 K with the **identical stored source**. It distinguishes device
+property changes from illumination changes; the nominal source grid is retained
+for this diagnostic and does not claim a thermally qualified wavelength grid.
+
+The attempted main population is 11: nine completed source/device cases and two
+deliberate ValueError failures (1499 nm outside the declared domain and an omitted
+passive layer). Auxiliary convergence/compatibility/thermal controls are audits,
+not additional members of that population. Failed attempts are not discarded.
+
+The JSON reference stores complete final contexts, source/model/layer provenance,
+coarse-grid optical summaries, pulse probabilities, photo rates, read/charge
+observables, controls and failure messages, plus a content hash. Its standalone
+validator checks finite JSON, population/refinement completeness, source-linked
+context restoration, probability/read limits and compatibility controls. It
+does not replay trajectories to certify observations; N6 will introduce report
+contracts and deterministic multi-file bundles. Hashes do not establish authenticity.
+
+```bash
+python examples/phase_n5_broadband_reference.py --output results/n5-broadband-reference.json
+```
+
+This reference does not qualify absorption amplitudes, capture efficiency,
+temperature laws, manufacturing yield or transfer-matrix propagation. Strain,
+confinement, scattering, reflection/interference, measured-spectrum import and
+wavelength-dependent capture remain outside this reference.

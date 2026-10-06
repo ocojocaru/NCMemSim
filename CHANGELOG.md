@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase N5 synthetic equal-power mono/multispectral/broadband reference for
+  one/two/three FGs, spectral and pulse refinement audits, dark/zero-capture/passive
+  and fixed-source thermal controls, and retained deliberate domain/path failures.
+
 - Add Phase N4 owned spectral/thermal contexts, explicit sequential photo-rate
   simulator adapter and illuminated pulse/dark-read protocol, bounded capture
   mapping, drift rejection and timestep/charge-photon audits.
