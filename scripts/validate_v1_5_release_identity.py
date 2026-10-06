@@ -11,18 +11,18 @@ def validate_identity(root):
     if _version(root)!='1.5.0':raise ValueError('final package version must be 1.5.0')
     citation=(root/'CITATION.cff').read_text(encoding='utf-8')
     if _citation_field(citation,'version')!='1.5.0' or _citation_field(citation,'date-released')!='2026-10-06':raise ValueError('final citation version/date mismatch')
-    if re.search(r'(?m)^doi\s*:',citation):raise ValueError('v1.5 DOI requires actual deposit confirmation')
+    if len(re.findall(r'(?m)^doi\s*:',citation))!=1 or _citation_field(citation,'doi')!='10.5281/zenodo.23189313':raise ValueError('v1.5 DOI must match the author-confirmed deposit')
     if _citation_field(citation,'license')!='Apache-2.0' or 'value: 10.5281/zenodo.23078330' not in citation:raise ValueError('Concept DOI/license mismatch')
-    markers={'README.md':('**Release candidate:** `1.5.0`','**Current stable release:** `1.4.0`'),
-        'CHANGELOG.md':('## 1.5.0 — 2026-10-06 (release candidate; publication pending)',),
-        'docs/index.md':('Final release candidate: `1.5.0`',),
-        'docs/broadband_optics.md':('Final candidate identity: `1.5.0`','release approval remains pending'),
-        'docs/roadmap.md':('final candidate identity `1.5.0`','release approval remains pending'),
-        'docs/v1_5_release_checklist.md':('Final candidate identity: `1.5.0`','N7 is not complete')}
+    markers={'README.md':('**Published v1.5.0 status:**','**Current stable release:** `1.5.0`'),
+        'CHANGELOG.md':('## 1.5.0 — 2026-10-06',),
+        'docs/index.md':('Published stable release: `1.5.0`',),
+        'docs/broadband_optics.md':('Published identity: `1.5.0`','N7 is complete','10.5281/zenodo.23189313'),
+        'docs/roadmap.md':('published stable release `1.5.0`','N7 is complete','10.5281/zenodo.23189313'),
+        'docs/v1_5_release_checklist.md':('Published identity: `1.5.0`','N7 is complete','10.5281/zenodo.23189313')}
     for name,required in markers.items():
         text=(root/name).read_text(encoding='utf-8')
         if any(x not in text for x in required):raise ValueError('inconsistent final candidate declaration: '+name)
-    return {'status':'final_candidate_identity_pass_not_release_approval','release_version':'1.5.0','citation_date':'2026-10-06','version_specific_doi':None}
+    return {'status':'published_identity_consistency_pass','release_version':'1.5.0','citation_date':'2026-10-06','version_specific_doi':'10.5281/zenodo.23189313'}
 
 def validate(root):
     from scripts.validate_v1_5_api_review import validate as review

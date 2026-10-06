@@ -91,7 +91,7 @@ def validate(root):
     archive=_json(root/'tests/fixtures/archives/v1_5_0_dev/spectral_report.json')
     if SpectralReport.from_dict(archive).to_dict()!=archive:raise ValueError('spectral archive roundtrip failed')
     return {'status':'candidate_contracts_pass_not_release_approval','package_version':version,
-        'citation_version':version if version=='1.5.0' else '1.4.0','latest_published_stable':'1.4.0','retained_stable_paths':297,
+        'citation_version':version if version=='1.5.0' else '1.4.0','latest_published_stable':version if version=='1.5.0' else '1.4.0','retained_stable_paths':297,
         'stable_ensemble_exports':59,'reviewed_modules':5,'spectral_exports':sum(len(x['exports']) for x in stored['additive_module_qualified_surface'])}
 
 

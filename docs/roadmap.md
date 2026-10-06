@@ -399,9 +399,9 @@ N0 is complete: code/source audit and frozen scope are documented in
 [Broadband optics planning](broadband_optics.md), with the
 [machine-readable audit](broadband_optics_audit.json). N1-N6 spectral sources, single-layer absorption, ordered stack attenuation,
 opt-in integration, controlled references and strict reports/bundles are
-implemented. N7 preparation is implemented; release approval remains pending.
-The final candidate identity `1.5.0` is prepared; citation date is 2026-10-06.
-Latest published stable release remains v1.4.0; v1.5 publication/DOI are pending. See
+implemented. N7 is complete: v1.5.0 published from commit `53d7c0b9bfa2be5e75aa3a6813c8e33be068843d`.
+The published stable release `1.5.0` is dated 2026-10-06; author-confirmed DOI [10.5281/zenodo.23189313](https://doi.org/10.5281/zenodo.23189313).
+Main/tag CI, Documentation and Release passed. Next is Phase O / v1.6 planning. See
 [v1.5 release checklist](v1_5_release_checklist.md).
 The first propagation model is opt-in, ordered single-pass Beer-Lambert; reflection,
 interference and complex effective-medium response require separate contracts.

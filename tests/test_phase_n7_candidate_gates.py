@@ -22,7 +22,7 @@ def candidate_copy(tmp_path):
 def test_preparation_identity_and_retained_contracts():
     result=gate.validate(ROOT)
     assert result=={'status':'candidate_contracts_pass_not_release_approval','package_version':'1.5.0',
-        'citation_version':'1.5.0','latest_published_stable':'1.4.0','retained_stable_paths':297,
+        'citation_version':'1.5.0','latest_published_stable':'1.5.0','retained_stable_paths':297,
         'stable_ensemble_exports':59,'reviewed_modules':5,'spectral_exports':24}
 
 
@@ -68,7 +68,7 @@ def test_frozen_development_archive_and_no_publication_claim():
     assert report.summary['pulse_delta_vfb_V']['mean'] is None
     assert report.to_dict()['evidence']['runtime']['ncmemsim']=='1.5.0.dev0'
     text=(ROOT/'docs/v1_5_release_checklist.md').read_text(encoding='utf-8')
-    assert 'N7 is not complete' in text and 'release approval remains pending' in text
+    assert 'N7 is complete' in text and '10.5281/zenodo.23189313' in text
     assert '23cf78cd8088658c9eb95a56f46fa30d04c83b14' in text
 
 

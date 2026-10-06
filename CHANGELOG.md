@@ -4,9 +4,9 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
-No changes recorded after the final v1.5.0 candidate.
+- Record the author-confirmed v1.5.0 Zenodo DOI and close N7 after verified publication; adapt identity gates without moving the release tag or changing assets.
 
-## 1.5.0 — 2026-10-06 (release candidate; publication pending)
+## 1.5.0 — 2026-10-06
 
 - Prepare Phase N7 v1.5.0.dev0 API/source review, retained stable/MODEL/thermal
   contracts, frozen spectral archive and installed distribution/CI gates.

@@ -3,8 +3,8 @@
 ## N0 status and baseline
 
 N0 is complete: source/code audit, scope, units, integration boundaries and
-N1-N7 acceptance sequence are defined here. N1-N6 source, absorption, propagation, opt-in integration, controlled references and strict reports are implemented; N7 preparation is implemented; release approval remains pending.
-Target release: v1.5.0. Final candidate identity: `1.5.0`, citation date 2026-10-06; publication remains pending;
+N1-N7 acceptance sequence are defined here. N1-N6 source, absorption, propagation, opt-in integration, controlled references and strict reports are implemented; N7 is complete; v1.5.0 is published.
+Target release: v1.5.0. Published identity: `1.5.0`, citation date 2026-10-06; DOI [10.5281/zenodo.23189313](https://doi.org/10.5281/zenodo.23189313);
 the v1.4 DOI and immutable release identities are retained.
 Audit baseline: `7bf9096de2148201ab301376ce1baac786a06e08` (M7 DOI follow-up).
 The machine-readable audit is [broadband_optics_audit.json](broadband_optics_audit.json).
@@ -139,10 +139,9 @@ N3 CI and Documentation passed on `d9c7796b0fbd3e38a38c2c3e09fe5f17879589c8`.
 N4 CI and Documentation passed on `80c8327d9e6d8bf748c883b744b64fe682b5c7e8`.
 N5 CI and Documentation passed on `f7673c597e799e093daea09c3d14d8c35ba2c723`.
 N6 CI and Documentation passed on `23cf78cd8088658c9eb95a56f46fa30d04c83b14`.
-N7 preparation is implemented; release approval remains pending. Commit/push preparation
-and verify exact-commit CI before preparing final v1.5.0 identity and publication.
-CITATION.cff describes final candidate 1.5.0; v1.4.0 remains the latest published
-release. Next: verify final candidate CI, review PR/main, then tag/publication.
+N7 is complete. Next: plan Phase O / v1.6 strain and confinement against the roadmap.
+CITATION.cff records the published v1.5.0 DOI; release tags/assets remain unchanged.
+
 The Phase M API review, release validators and historical fixtures remain intact.
 
 
@@ -585,6 +584,6 @@ python examples/phase_n6_spectral_report.py --input results/n6-spectral-bundle/r
 Tests forbid optical-model, solver and RNG replay during restoration, verify
 byte-identical exports, preserve all-failed/null statistics and reject altered
 observations, states, protocols, nested projections and coherently rehashed
-bundle views. Older I/K/L/M and N1-N4 contracts remain unchanged. N7 will review
-the additive surface, historical compatibility and installed distributions before
-any final v1.5 citation/tag/release change.
+bundle views. Older I/K/L/M and N1-N4 contracts remain unchanged. N7 reviewed
+the additive surface, historical compatibility and installed distributions;
+v1.5 publication evidence is recorded in the release checklist.

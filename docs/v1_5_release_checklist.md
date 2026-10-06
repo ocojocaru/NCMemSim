@@ -1,8 +1,8 @@
 # v1.5 Phase N7 candidate and release checklist
 
-Status: N7 preparation implemented; release approval remains pending.
-Final candidate identity: `1.5.0`; citation date: `2026-10-06`.
-CITATION.cff now describes the final candidate without a version-specific DOI.
+Status: N7 complete; v1.5.0 published.
+Published identity: `1.5.0`; citation date: `2026-10-06`.
+CITATION.cff records the author-confirmed v1.5.0 DOI [10.5281/zenodo.23189313](https://doi.org/10.5281/zenodo.23189313).
 Published v1.4.0 retains date 2026-10-02 and DOI
 `10.5281/zenodo.23102549`; Concept DOI `10.5281/zenodo.23078330` is separate.
 No v1.5 version-specific DOI is assigned before its actual deposit.
@@ -55,7 +55,7 @@ calibration, yield, coherent optics or independently verified solver trajectorie
 - Local distribution mode inherited dependencies; this is not the clean remote matrix.
 
 These local results precede the preparation commit. Exact-commit remote CI,
-final candidate identity, main/tag/release and deposit checks remain pending.
+final candidate identity, main/tag/release and deposit evidence is recorded below.
 
 ## Remote evidence and publication sequence
 
@@ -72,15 +72,15 @@ These results do not approve the later preparation/final candidate commit.
 5. Verify tag/main identity, Release, assets, deployed docs and actual publication.
 6. Record the author-confirmed v1.5 DOI after deposit and verify metadata-update CI.
 
-N7 is not complete until final candidate and publication gates are fulfilled.
+N7 is complete; final candidate and publication gates are fulfilled.
 No merge, tag or release publication is performed by this preparation step.
 
-Preparation CI passed on fdf491c7574dbb0470b36fcab050b90fe29dc697: CI 37441323800 and Documentation 37441323423. These results do not approve the later final candidate; its exact-commit checks remain pending.
+Preparation CI passed on fdf491c7574dbb0470b36fcab050b90fe29dc697: CI 37441323800 and Documentation 37441323423. These results do not approve the later final candidate; its exact-commit checks were verified separately below.
 
 
 ## Verified local final-candidate evidence
 
-Final package/citation: 1.5.0, candidate date 2026-10-06; specific DOI pending.
+Final package/citation: 1.5.0, date 2026-10-06; specific DOI recorded after publication.
 Full suite: 3972 passed in 948.42 seconds on Python 3.13.12.
 Final identity/API gates passed; retained paths 297, ensemble exports 59,
 five spectral modules and 24 exports unchanged.
@@ -88,5 +88,30 @@ Strict documentation: 51 pages, 8972 local references, zero errors; 128 Python
 blocks and 442 imports checked with executable examples passing.
 Wheel/sdist independently installed as 1.5.0; all legacy/MODEL/thermal/spectral
 probes passed, 309 source files audited. Local dependencies were inherited;
-clean supported-Python remote gates remain pending for the final committed SHA.
-These results do not assert PR/main/tag/publication approval. N7 is not complete.
+clean supported-Python remote gates subsequently passed on the final branch/PR/main/tag SHAs.
+These local results precede the verified remote publication evidence below.
+
+
+## Verified publication evidence
+
+PR #8 merged after exact-head CI/Documentation on 37459b89004113bdc8418bf9efbf4da0bfb87b0d:
+[CI](https://github.com/ocojocaru/NCMemSim/actions/runs/37457816676) and
+[Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/37457816654).
+Release commit: `53d7c0b9bfa2be5e75aa3a6813c8e33be068843d`.
+Main [CI](https://github.com/ocojocaru/NCMemSim/actions/runs/37461321834) and
+[Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/37461321849) passed.
+Annotated v1.5.0 points to this commit. Tag
+[CI](https://github.com/ocojocaru/NCMemSim/actions/runs/37469266618) passed all six jobs;
+[Release](https://github.com/ocojocaru/NCMemSim/actions/runs/37469266454) passed.
+[GitHub Release](https://github.com/ocojocaru/NCMemSim/releases/tag/v1.5.0)
+was published 2026-10-06 at 13:22:22 UTC, without draft/prerelease flags.
+
+| Asset | SHA-256 |
+|---|---|
+| ncmemsim-1.5.0-py3-none-any.whl | 961cc61f178a1fdba36ea72dc83d430aab9d8c705b5fd75acfa8bcfc83947f0a |
+| ncmemsim-1.5.0.tar.gz | ecb5de348150df2bccd31eb9b0c8706b525fc1830613b1c21fb61cbff8029761 |
+
+The v1.5 DOI was supplied by the project author after publication. The Zenodo
+page could not be accessed by automated browsing in this session. Tags/assets
+remain immutable; subsequent citation metadata puts main ahead of the tag.
+The metadata commit requires its own CI verification. N7 is complete.
