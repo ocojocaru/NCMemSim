@@ -27937,6 +27937,404 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.spectral_reporting",
+      "source": "ncmemsim/spectral_reporting.py",
+      "explicit_exports": [
+        "SpectralRunEvidence",
+        "build_spectral_run_evidence",
+        "SpectralReportStudy",
+        "SpectralReport",
+        "build_spectral_report",
+        "write_spectral_report",
+        "load_spectral_report_bundle"
+      ],
+      "package_import_aliases": {
+        "PhotoTransitionConfig": "ncmemsim.photo.PhotoTransitionConfig",
+        "SpectralPulseProtocol": "ncmemsim.spectral_context.SpectralPulseProtocol",
+        "SpectralSimulationContext": "ncmemsim.spectral_context.SpectralSimulationContext",
+        "SpectralStackResult": "ncmemsim.spectral_stack.SpectralStackResult",
+        "_Archive": "ncmemsim.spectral_sources._Archive",
+        "_canonical": "ncmemsim.spectral_sources._canonical",
+        "_capture": "ncmemsim.spectral_context._capture",
+        "_cell": "ncmemsim.thermal_reporting._cell",
+        "_keys": "ncmemsim.spectral_sources._keys",
+        "_label": "ncmemsim.thermal_reporting._label",
+        "_load": "ncmemsim.temperature_context._load",
+        "_number": "ncmemsim.spectral_sources._number",
+        "_restore_state": "ncmemsim.thermal_reporting._restore_state",
+        "_runtime": "ncmemsim.ensemble.execution._runtime",
+        "_state_payload": "ncmemsim.thermal_reporting._state_payload",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash",
+        "nanocrystal_number_density_m3": "ncmemsim.photo.nanocrystal_number_density_m3"
+      },
+      "public_source_definitions": [
+        {
+          "name": "SpectralRunEvidence",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build_spectral_run_evidence",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "run",
+              "kind": "positional_or_keyword",
+              "annotation": "dict",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "runtime",
+              "kind": "keyword_only",
+              "annotation": "dict | None",
+              "required": false,
+              "default_expression": "None"
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(run: dict, *, runtime: dict | None=None)",
+          "decorators": []
+        },
+        {
+          "name": "SpectralReportStudy",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "kind",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "source_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "SpectralReport",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "studies",
+              "annotation": "tuple[SpectralReportStudy, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "limitations",
+              "annotation": "tuple[str, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence_json",
+              "annotation": "str",
+              "default_expression": "'{}'",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "report_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build_spectral_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "name",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "studies",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "limitations",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "evidence",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": false,
+              "default_expression": "None"
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(name, studies, *, limitations, evidence=None)",
+          "decorators": []
+        },
+        {
+          "name": "write_spectral_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "report",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(report, destination)",
+          "decorators": []
+        },
+        {
+          "name": "load_spectral_report_bundle",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(destination)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.spectral_sources",
       "source": "ncmemsim/spectral_sources.py",
       "explicit_exports": [

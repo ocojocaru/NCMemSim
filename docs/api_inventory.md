@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 119 package source modules; 660 explicit export paths; 203 distinct documented Python import paths.
+Coverage: 120 package source modules; 667 explicit export paths; 203 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3945,6 +3945,55 @@ Decorators: `dataclass(frozen=True)`.
 - `from_dict(cls, data)`; `classmethod`.
 
 - `run_spectral_program_pulse_read(context: SpectralSimulationContext, protocol: SpectralPulseProtocol, *, photo_config: PhotoTransitionConfig, initial_state: DeviceState | None=None)`
+
+## ncmemsim.spectral_reporting
+
+`ncmemsim/spectral_reporting.py`
+
+Explicit exports: `SpectralRunEvidence`, `build_spectral_run_evidence`, `SpectralReportStudy`, `SpectralReport`, `build_spectral_report`, `write_spectral_report`, `load_spectral_report_bundle`
+
+### SpectralRunEvidence
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `build_spectral_run_evidence(run: dict, *, runtime: dict | None=None)`
+### SpectralReportStudy
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `kind: str`; required declaration.
+- Field `source_json: str`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### SpectralReport
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `studies: tuple[SpectralReportStudy, ...]`; required declaration.
+- Field `limitations: tuple[str, ...]`; required declaration.
+- Field `evidence_json: str`; default expression `'{}'`.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `report_hash(self)`; `property`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `build_spectral_report(name, studies, *, limitations, evidence=None)`
+- `write_spectral_report(report, destination)`
+- `load_spectral_report_bundle(destination)`
 
 ## ncmemsim.spectral_sources
 

@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase N6 source-linked spectral stack/pulse/failure reports, complete stored
+  states and input/runtime provenance, undefined-value accounting, strict restoration
+  without optical/workflow/RNG replay and deterministic six-file bundles.
+
 - Add Phase N5 synthetic equal-power mono/multispectral/broadband reference for
   one/two/three FGs, spectral and pulse refinement audits, dark/zero-capture/passive
   and fixed-source thermal controls, and retained deliberate domain/path failures.

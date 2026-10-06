@@ -3,7 +3,7 @@
 ## N0 status and baseline
 
 N0 is complete: source/code audit, scope, units, integration boundaries and
-N1-N7 acceptance sequence are defined here. N1-N5 source, absorption, propagation, opt-in integration and controlled references are implemented; N6-N7 are planned.
+N1-N7 acceptance sequence are defined here. N1-N6 source, absorption, propagation, opt-in integration, controlled references and strict reports are implemented; N7 release gates are planned.
 Target release: v1.5.0. Current published package/citation remain v1.4.0;
 the v1.4 DOI and immutable release identities are retained.
 Audit baseline: `7bf9096de2148201ab301376ce1baac786a06e08` (M7 DOI follow-up).
@@ -137,8 +137,9 @@ N1 CI and Documentation passed on `14ae290cb91ce06a5f0556658fccb6804f809cbc`.
 N2 CI and Documentation passed on `5c2fd6a756b349d7554b910c129fcf25cddcf956`.
 N3 CI and Documentation passed on `d9c7796b0fbd3e38a38c2c3e09fe5f17879589c8`.
 N4 CI and Documentation passed on `80c8327d9e6d8bf748c883b744b64fe682b5c7e8`.
-Commit/push N5 controlled references on `dev/v1.5-broadband-optics`, verify
-exact-commit CI, then implement N6 strict spectral reports and reproducibility bundles. Package version and
+N5 CI and Documentation passed on `f7673c597e799e093daea09c3d14d8c35ba2c723`.
+Commit/push N6 strict reports and bundles on `dev/v1.5-broadband-optics`, verify
+exact-commit CI, then prepare N7 v1.5 compatibility and release gates. Package version and
 CITATION.cff remain v1.4.0 through planning; final candidate identity is a N7 task.
 The Phase M API review, release validators and historical fixtures remain intact.
 
@@ -245,7 +246,7 @@ Unknown units/fields/schemas and inconsistent projections/node records fail.
 The stored alpha samples are authoritative observations: a coherently replaced
 profile and recomputed projection describe different evidence, not independent
 verification of the model. Content hashes are not authenticity signatures.
-N6 will add broader report/bundle contracts; N2 leaves older archives unchanged.
+N6 adds broader report/bundle contracts below; N2 leaves older archives unchanged.
 
 ```python
 from ncmemsim.spectral_sources import SpectralEvidence, DiscreteLineSpectrum
@@ -411,8 +412,8 @@ read. The workflow owns/copies the initial state, executes the illuminated pulse
 then evaluates the programmed state electrostatically without further evolution.
 Its delta_vfb observable is relative to the initial dark read, not a memory window.
 Returned run evidence contains raw program/read outputs, context/protocol identity,
-capture efficiency and per-FG absorbed photon fluence. N6 will introduce strict
-report/bundle serialization, including undefined diagnostic handling.
+capture efficiency and per-FG absorbed photon fluence. N6 provides strict
+report/bundle serialization below, including undefined diagnostic handling.
 
 Context/protocol readers restore contracts and optical projections without solver,
 optical-model or RNG replay; M resolution inputs are reconstructed using M's
@@ -508,8 +509,8 @@ coarse-grid optical summaries, pulse probabilities, photo rates, read/charge
 observables, controls and failure messages, plus a content hash. Its standalone
 validator checks finite JSON, population/refinement completeness, source-linked
 context restoration, probability/read limits and compatibility controls. It
-does not replay trajectories to certify observations; N6 will introduce report
-contracts and deterministic multi-file bundles. Hashes do not establish authenticity.
+does not replay trajectories to certify observations; N6 provides report
+contracts and deterministic multi-file bundles below. Hashes do not establish authenticity.
 
 ```bash
 python examples/phase_n5_broadband_reference.py --output results/n5-broadband-reference.json
@@ -519,3 +520,69 @@ This reference does not qualify absorption amplitudes, capture efficiency,
 temperature laws, manufacturing yield or transfer-matrix propagation. Strain,
 confinement, scattering, reflection/interference, measured-spectrum import and
 wavelength-dependent capture remain outside this reference.
+
+
+## N6 strict reports and deterministic bundles
+
+`ncmemsim.spectral_reporting` exports `SpectralRunEvidence`,
+`build_spectral_run_evidence`, `SpectralReportStudy`, `SpectralReport`,
+`build_spectral_report`, `write_spectral_report` and `load_spectral_report_bundle`.
+Study kinds are `stack`, `pulse` and `failure`; each study counts as one report
+attempt. These counts describe the selected report population, not manufacturing
+yield or the separate eleven-attempt N5 reference population.
+
+Stack studies retain complete N3 sources/paths/projections. Pulse studies retain
+the complete N4 context/protocol/capture settings, explicit initial state, stored
+programmed/read states, per-FG optical and charge observables and runtime versions.
+The builder takes a completed N4 workflow result; it neither runs that workflow nor
+infers its initial state. All occupation arrays and structural/state metadata are
+preserved. Failed-request studies retain finite JSON request evidence, stage,
+exception type and message without inventing a valid resolution or observations.
+Intentionally invalid requests remain authoritative failure descriptions; their
+validity is not asserted by the reader.
+
+Strict readers restore nested inputs, check state normalization/timing and
+unchanged dark-read probabilities, rebuild static charge/read observables and
+derive expected photo rates/fluence from stored optical evidence. They do not
+reevaluate the optical model, integrate a pulse, run transport or draw RNG samples.
+M's existing deterministic parameter resolution and static electrostatics are
+used for consistency checks, not independent trajectory validation. Stored states
+and alpha observations remain authoritative; a coherently replaced source and its
+rebuilt projection represent different evidence. Hashes are not authenticity or
+experimental qualification signatures.
+
+The report retains attempted/completed/failed denominators. Delta-Vfb statistics
+refer only to completed pulse studies; stack/failure studies have no such metric.
+An all-failed report has estimated_count zero and mean None, serialized as null.
+Broadband scalar alpha is also null in derived reporting; actual spectral alpha
+samples remain in nested optical sources. No NaN/Inf is allowed in report JSON.
+
+The bundle contains exactly six files: `report.json`, `report.md`, `attempts.csv`,
+`layers.csv`, `sources.csv` and `bundle.json`. CSV and Markdown are deterministic
+derived views; JSON retains full source/state evidence. The manifest stores member
+SHA-256 digests and report identity. Loading checks membership, ordinary files,
+all nested sources/projections and rebuilt member bytes, so rehashing inconsistent
+CSV/Markdown or nested report summaries does not make them acceptable. Existing
+destination directories are never overwritten.
+
+Use the standalone example to create a new controlled one-FG optical/pulse
+execution plus retained unsupported-domain and incomplete-path failures:
+
+```bash
+python examples/phase_n6_spectral_report.py --output results/n6-spectral-bundle
+```
+
+This is a new four-study N6 report: two completed studies (stack/pulse) and two
+failed requests, not a reconstruction of missing full states from the N5 JSON.
+To restore/export stored report evidence without execution, supply `--input`:
+
+```bash
+python examples/phase_n6_spectral_report.py --input results/n6-spectral-bundle/report.json --output results/n6-restored-bundle
+```
+
+Tests forbid optical-model, solver and RNG replay during restoration, verify
+byte-identical exports, preserve all-failed/null statistics and reject altered
+observations, states, protocols, nested projections and coherently rehashed
+bundle views. Older I/K/L/M and N1-N4 contracts remain unchanged. N7 will review
+the additive surface, historical compatibility and installed distributions before
+any final v1.5 citation/tag/release change.

@@ -397,9 +397,9 @@ for the code audit, frozen scope, equations, references and acceptance sequence.
 
 N0 is complete: code/source audit and frozen scope are documented in
 [Broadband optics planning](broadband_optics.md), with the
-[machine-readable audit](broadband_optics_audit.json). N1-N5 spectral sources, single-layer absorption, ordered stack attenuation,
-opt-in integration and controlled broadband/multispectral references are
-implemented; N6-N7 are planned.
+[machine-readable audit](broadband_optics_audit.json). N1-N6 spectral sources, single-layer absorption, ordered stack attenuation,
+opt-in integration, controlled references and strict reports/bundles are
+implemented; N7 release review and compatibility gates are planned.
 The first propagation model is opt-in, ordered single-pass Beer-Lambert; reflection,
 interference and complex effective-medium response require separate contracts.
 
