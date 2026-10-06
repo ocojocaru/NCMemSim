@@ -1,0 +1,1656 @@
+{
+  "schema_version": "spectral-report-v1",
+  "name": "N7 all-failed development archive",
+  "scientific_status": "conditional-unqualified-simulation",
+  "restoration_policy": "stored states/observations authoritative; rebuild projections; no optical/workflow/RNG replay",
+  "studies": [
+    {
+      "schema_version": "spectral-report-study-v1",
+      "name": "unsupported_domain",
+      "kind": "failure",
+      "source": {
+        "error_type": "builtins.ValueError",
+        "message": "source/profile lies outside the declared wavelength domain",
+        "request": {
+          "declared_domain_nm": [
+            1500,
+            2000
+          ],
+          "device_resolution": {
+            "context": {
+              "enabled": false,
+              "intrinsic_density": null,
+              "nominal_device": {
+                "device": {
+                  "architecture": "V2",
+                  "gate_work_function_eV": 4.8,
+                  "layers": [
+                    {
+                      "eps_r": 3.9,
+                      "material": "SiO2",
+                      "name": "control_sio2",
+                      "role": "control_dielectric",
+                      "thickness_nm": 20.0,
+                      "type": "layer"
+                    },
+                    {
+                      "electrically_active_fraction": 0.1,
+                      "grid_points": 3,
+                      "matrix_material": "SiO2",
+                      "name": "FG1",
+                      "nc_diameter_nm": 5.0,
+                      "nc_material": "Ge",
+                      "nc_volume_fraction": 0.2,
+                      "sn_fraction": 0.0,
+                      "spatial_profile": "uniform",
+                      "thickness_nm": 6.0,
+                      "type": "floating_gate"
+                    },
+                    {
+                      "eps_r": 3.9,
+                      "material": "SiO2",
+                      "name": "tunnel_sio2",
+                      "role": "tunnel_dielectric",
+                      "thickness_nm": 8.0,
+                      "type": "layer"
+                    }
+                  ],
+                  "metadata": {},
+                  "name": "n5-1fg",
+                  "number_of_fgs": 1,
+                  "substrate_doping_m3": 1e+21,
+                  "temperature_K": 300.0,
+                  "total_thickness_nm": 34.0
+                },
+                "layer_material_definitions": [
+                  {
+                    "layer_name": "control_sio2",
+                    "material": {
+                      "bandgap_eV": 8.9,
+                      "electron_affinity_eV": 0.95,
+                      "electron_effective_mass_m0": null,
+                      "eps_r": 3.9,
+                      "hole_effective_mass_m0": null,
+                      "metadata": {
+                        "parameter_set": "default-v1"
+                      },
+                      "name": "SiO2",
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 8.9
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 0.95
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 3.9
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "layer_name": "FG1",
+                    "matrix_material": {
+                      "bandgap_eV": 8.9,
+                      "electron_affinity_eV": 0.95,
+                      "electron_effective_mass_m0": null,
+                      "eps_r": 3.9,
+                      "hole_effective_mass_m0": null,
+                      "metadata": {
+                        "parameter_set": "default-v1"
+                      },
+                      "name": "SiO2",
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 8.9
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 0.95
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 3.9
+                        }
+                      }
+                    },
+                    "nc_material": {
+                      "bandgap_eV": 0.66,
+                      "effective_mass_m0": 0.12,
+                      "electron_affinity_eV": 4.0,
+                      "eps_r_nc": 16.0,
+                      "metadata": {
+                        "parameter_set": "default-v1",
+                        "parameter_status": "provisional/default"
+                      },
+                      "model_name": "GeModel",
+                      "model_version": "default-v1",
+                      "name": "Ge",
+                      "phi_barrier_erase_eV": 2.8,
+                      "phi_barrier_prog_eV": 2.8,
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 0.66
+                        },
+                        "effective_mass_m0": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "m_e^*",
+                          "unit": "m0",
+                          "value": 0.12
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 4.0
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 16.0
+                        },
+                        "phi_barrier_erase_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "Phi_erase",
+                          "unit": "eV",
+                          "value": 2.8
+                        },
+                        "phi_barrier_prog_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "Phi_prog",
+                          "unit": "eV",
+                          "value": 2.8
+                        }
+                      },
+                      "sn_fraction": 0.0
+                    }
+                  },
+                  {
+                    "layer_name": "tunnel_sio2",
+                    "material": {
+                      "bandgap_eV": 8.9,
+                      "electron_affinity_eV": 0.95,
+                      "electron_effective_mass_m0": null,
+                      "eps_r": 3.9,
+                      "hole_effective_mass_m0": null,
+                      "metadata": {
+                        "parameter_set": "default-v1"
+                      },
+                      "name": "SiO2",
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 8.9
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 0.95
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 3.9
+                        }
+                      }
+                    }
+                  }
+                ],
+                "layer_metadata": [
+                  {},
+                  {},
+                  {}
+                ]
+              },
+              "nominal_physics": {
+                "coupling": {
+                  "legacy_single_fg": true
+                },
+                "field_solver": "FieldSolver1D",
+                "implementation": "ncmemsim-core-physics-v1",
+                "kinetics": {
+                  "capacitance_eps_r": 8.0,
+                  "density_profile": "front_loaded",
+                  "nu0_Hz": 1000000000000.0,
+                  "nu1_Hz": 10000000000.0,
+                  "nu2_Hz": 3000000000.0
+                },
+                "semiconductor": {
+                  "accumulation_factor": 40.0,
+                  "bandgap_eV": 1.12,
+                  "electron_affinity_eV": 4.05,
+                  "intrinsic_density_m3": 1e+16,
+                  "psi_max_V": 0.9,
+                  "silicon_eps_r": 11.7,
+                  "transition_voltage_V": 0.65,
+                  "transition_width_V": 0.22
+                },
+                "shared_tunneling": true,
+                "transport": {
+                  "attempt_frequency_Hz": 1000000000.0,
+                  "default_barrier_eV": 1.78,
+                  "direction_beta_V_inv": 8.0,
+                  "effective_mass_m0": 0.15,
+                  "enabled": true,
+                  "include_substrate_diagnostics": true,
+                  "max_transfer_fraction_per_step": 0.1
+                },
+                "tunneling": {
+                  "activation_beta_V_inv": 0.8,
+                  "field_coupling_factor": 0.8,
+                  "injection_energy_eV": 0.1,
+                  "integration_points": 160,
+                  "oxide_effective_mass_m0": 0.15
+                }
+              },
+              "optical_bindings": [
+                {
+                  "absorption_parameters": {
+                    "direct_prefactor_A": 10000000.0,
+                    "indirect_prefactor_A": 1000000.0,
+                    "name": "gesn-absorption-compact-v1",
+                    "phonon_energy_eV": 0.027,
+                    "temperature_K": 300.0,
+                    "urbach_edge_alpha_m_inv": 100000.0,
+                    "urbach_energy_eV": 0.012
+                  },
+                  "gamma_profile": null,
+                  "l_profile": null,
+                  "layer_name": "FG1",
+                  "mode": "legacy",
+                  "optical_parameters": {
+                    "absorption_prefactor_m_inv_eV_sqrt": 10000000.0,
+                    "alpha_sn_direct_gap_eV": -0.413,
+                    "alpha_sn_indirect_gap_eV": 0.092,
+                    "broadening_eV": 0.0,
+                    "direct_gap_bowing_eV": 2.89,
+                    "ge_direct_gap_eV": 0.7985,
+                    "ge_indirect_gap_eV": 0.664,
+                    "indirect_gap_bowing_eV": 0.89,
+                    "name": "gesn-optical-300K-v1",
+                    "temperature_K": 300.0
+                  }
+                }
+              ],
+              "schema_version": "thermal-context-v1",
+              "semiconductor_mode": "legacy",
+              "simulation_config": {
+                "dwell_time_s": 0.005,
+                "internal_dt_s": 1e-05,
+                "qfix_C_m2": 0.0,
+                "qit_C_m2": 0.0
+              },
+              "substrate_gap": null
+            },
+            "nominal_hash": "624f089cbbfe2aec6402c4521385a7e9f598c7f9d7042969f433ef57eaf6006a",
+            "resolved": {
+              "device": {
+                "device": {
+                  "architecture": "V2",
+                  "gate_work_function_eV": 4.8,
+                  "layers": [
+                    {
+                      "eps_r": 3.9,
+                      "material": "SiO2",
+                      "name": "control_sio2",
+                      "role": "control_dielectric",
+                      "thickness_nm": 20.0,
+                      "type": "layer"
+                    },
+                    {
+                      "electrically_active_fraction": 0.1,
+                      "grid_points": 3,
+                      "matrix_material": "SiO2",
+                      "name": "FG1",
+                      "nc_diameter_nm": 5.0,
+                      "nc_material": "Ge",
+                      "nc_volume_fraction": 0.2,
+                      "sn_fraction": 0.0,
+                      "spatial_profile": "uniform",
+                      "thickness_nm": 6.0,
+                      "type": "floating_gate"
+                    },
+                    {
+                      "eps_r": 3.9,
+                      "material": "SiO2",
+                      "name": "tunnel_sio2",
+                      "role": "tunnel_dielectric",
+                      "thickness_nm": 8.0,
+                      "type": "layer"
+                    }
+                  ],
+                  "metadata": {},
+                  "name": "n5-1fg",
+                  "number_of_fgs": 1,
+                  "substrate_doping_m3": 1e+21,
+                  "temperature_K": 300.0,
+                  "total_thickness_nm": 34.0
+                },
+                "layer_material_definitions": [
+                  {
+                    "layer_name": "control_sio2",
+                    "material": {
+                      "bandgap_eV": 8.9,
+                      "electron_affinity_eV": 0.95,
+                      "electron_effective_mass_m0": null,
+                      "eps_r": 3.9,
+                      "hole_effective_mass_m0": null,
+                      "metadata": {
+                        "parameter_set": "default-v1"
+                      },
+                      "name": "SiO2",
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 8.9
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 0.95
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 3.9
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "layer_name": "FG1",
+                    "matrix_material": {
+                      "bandgap_eV": 8.9,
+                      "electron_affinity_eV": 0.95,
+                      "electron_effective_mass_m0": null,
+                      "eps_r": 3.9,
+                      "hole_effective_mass_m0": null,
+                      "metadata": {
+                        "parameter_set": "default-v1"
+                      },
+                      "name": "SiO2",
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 8.9
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 0.95
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 3.9
+                        }
+                      }
+                    },
+                    "nc_material": {
+                      "bandgap_eV": 0.66,
+                      "effective_mass_m0": 0.12,
+                      "electron_affinity_eV": 4.0,
+                      "eps_r_nc": 16.0,
+                      "metadata": {
+                        "parameter_set": "default-v1",
+                        "parameter_status": "provisional/default"
+                      },
+                      "model_name": "GeModel",
+                      "model_version": "default-v1",
+                      "name": "Ge",
+                      "phi_barrier_erase_eV": 2.8,
+                      "phi_barrier_prog_eV": 2.8,
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 0.66
+                        },
+                        "effective_mass_m0": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "m_e^*",
+                          "unit": "m0",
+                          "value": 0.12
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 4.0
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 16.0
+                        },
+                        "phi_barrier_erase_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "Phi_erase",
+                          "unit": "eV",
+                          "value": 2.8
+                        },
+                        "phi_barrier_prog_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "Phi_prog",
+                          "unit": "eV",
+                          "value": 2.8
+                        }
+                      },
+                      "sn_fraction": 0.0
+                    }
+                  },
+                  {
+                    "layer_name": "tunnel_sio2",
+                    "material": {
+                      "bandgap_eV": 8.9,
+                      "electron_affinity_eV": 0.95,
+                      "electron_effective_mass_m0": null,
+                      "eps_r": 3.9,
+                      "hole_effective_mass_m0": null,
+                      "metadata": {
+                        "parameter_set": "default-v1"
+                      },
+                      "name": "SiO2",
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 8.9
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 0.95
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 3.9
+                        }
+                      }
+                    }
+                  }
+                ],
+                "layer_metadata": [
+                  {},
+                  {},
+                  {}
+                ]
+              },
+              "optical": [
+                {
+                  "absorption_parameters": {
+                    "direct_prefactor_A": 10000000.0,
+                    "indirect_prefactor_A": 1000000.0,
+                    "name": "gesn-absorption-compact-v1",
+                    "phonon_energy_eV": 0.027,
+                    "temperature_K": 300.0,
+                    "urbach_edge_alpha_m_inv": 100000.0,
+                    "urbach_energy_eV": 0.012
+                  },
+                  "applied_mode": "legacy",
+                  "gamma_gap_eV": 0.7985,
+                  "l_gap_eV": 0.664,
+                  "layer_name": "FG1",
+                  "optical_parameters": {
+                    "absorption_prefactor_m_inv_eV_sqrt": 10000000.0,
+                    "alpha_sn_direct_gap_eV": -0.413,
+                    "alpha_sn_indirect_gap_eV": 0.092,
+                    "broadening_eV": 0.0,
+                    "direct_gap_bowing_eV": 2.89,
+                    "ge_direct_gap_eV": 0.7985,
+                    "ge_indirect_gap_eV": 0.664,
+                    "indirect_gap_bowing_eV": 0.89,
+                    "name": "gesn-optical-300K-v1",
+                    "temperature_K": 300.0
+                  },
+                  "phonon_temperature_K": 300.0,
+                  "sn_fraction": 0.0
+                }
+              ],
+              "physics": {
+                "coupling": {
+                  "legacy_single_fg": true
+                },
+                "field_solver": "FieldSolver1D",
+                "implementation": "ncmemsim-core-physics-v1",
+                "kinetics": {
+                  "capacitance_eps_r": 8.0,
+                  "density_profile": "front_loaded",
+                  "nu0_Hz": 1000000000000.0,
+                  "nu1_Hz": 10000000000.0,
+                  "nu2_Hz": 3000000000.0
+                },
+                "semiconductor": {
+                  "accumulation_factor": 40.0,
+                  "bandgap_eV": 1.12,
+                  "electron_affinity_eV": 4.05,
+                  "intrinsic_density_m3": 1e+16,
+                  "psi_max_V": 0.9,
+                  "silicon_eps_r": 11.7,
+                  "transition_voltage_V": 0.65,
+                  "transition_width_V": 0.22
+                },
+                "shared_tunneling": true,
+                "transport": {
+                  "attempt_frequency_Hz": 1000000000.0,
+                  "default_barrier_eV": 1.78,
+                  "direction_beta_V_inv": 8.0,
+                  "effective_mass_m0": 0.15,
+                  "enabled": true,
+                  "include_substrate_diagnostics": true,
+                  "max_transfer_fraction_per_step": 0.1
+                },
+                "tunneling": {
+                  "activation_beta_V_inv": 0.8,
+                  "field_coupling_factor": 0.8,
+                  "injection_energy_eV": 0.1,
+                  "integration_points": 160,
+                  "oxide_effective_mass_m0": 0.15
+                }
+              },
+              "simulation_config": {
+                "dwell_time_s": 0.005,
+                "internal_dt_s": 1e-05,
+                "qfix_C_m2": 0.0,
+                "qit_C_m2": 0.0
+              }
+            },
+            "schema_version": "resolved-thermal-context-v1",
+            "source_context_hash": "b5d3b0b04c67ec56f94e15c71977c666f4ebd4db6f75dcb9f5420c5eba74d4f3",
+            "temperature_K": 300.0
+          },
+          "omit_first_passive_layer": false,
+          "source": {
+            "enabled": true,
+            "evidence": {
+              "locator": "examples/phase_n5_broadband_reference.py",
+              "notes": "Synthetic equal in-band power sources, bulk-Ge compact absorption, assumed passive/matrix optics, constant capture efficiency .1 and isothermal devices. No measured spectrum, calibrated device, wavelength-dependent capture, reflection/interference, confinement or yield claim. Combined electrical/optical charge is not attributed wholly to photons.",
+              "original_units": "canonical source/profile units",
+              "resolution": "declared numerical grids",
+              "schema_version": "spectral-evidence-v1",
+              "source": "N5 synthetic diagnostic",
+              "source_sha256": null,
+              "status": "ASSUMED",
+              "transformations": [],
+              "uncertainty": "unknown"
+            },
+            "line_irradiance_W_m2": [
+              1000000.0
+            ],
+            "schema_version": "discrete-line-spectrum-v1",
+            "value_unit": "W m^-2",
+            "wavelength_nm": [
+              1499.0
+            ],
+            "wavelength_unit": "nm"
+          }
+        },
+        "schema_version": "spectral-failed-request-v1",
+        "stage": "input/path resolution"
+      },
+      "source_hash": "e0fd4d9c05eb96a9f2bc65a47d4fe2dfeaf0ad719faeb40f0581f0802b3e442a",
+      "summary": {
+        "status": "failed",
+        "stage": "input/path resolution",
+        "error_type": "builtins.ValueError",
+        "message": "source/profile lies outside the declared wavelength domain"
+      }
+    },
+    {
+      "schema_version": "spectral-report-study-v1",
+      "name": "incomplete_path",
+      "kind": "failure",
+      "source": {
+        "error_type": "builtins.ValueError",
+        "message": "every passive device layer must be supplied exactly once",
+        "request": {
+          "declared_domain_nm": [
+            1500,
+            2000
+          ],
+          "device_resolution": {
+            "context": {
+              "enabled": false,
+              "intrinsic_density": null,
+              "nominal_device": {
+                "device": {
+                  "architecture": "V2",
+                  "gate_work_function_eV": 4.8,
+                  "layers": [
+                    {
+                      "eps_r": 3.9,
+                      "material": "SiO2",
+                      "name": "control_sio2",
+                      "role": "control_dielectric",
+                      "thickness_nm": 20.0,
+                      "type": "layer"
+                    },
+                    {
+                      "electrically_active_fraction": 0.1,
+                      "grid_points": 3,
+                      "matrix_material": "SiO2",
+                      "name": "FG1",
+                      "nc_diameter_nm": 5.0,
+                      "nc_material": "Ge",
+                      "nc_volume_fraction": 0.2,
+                      "sn_fraction": 0.0,
+                      "spatial_profile": "uniform",
+                      "thickness_nm": 6.0,
+                      "type": "floating_gate"
+                    },
+                    {
+                      "eps_r": 3.9,
+                      "material": "SiO2",
+                      "name": "tunnel_sio2",
+                      "role": "tunnel_dielectric",
+                      "thickness_nm": 8.0,
+                      "type": "layer"
+                    }
+                  ],
+                  "metadata": {},
+                  "name": "n5-1fg",
+                  "number_of_fgs": 1,
+                  "substrate_doping_m3": 1e+21,
+                  "temperature_K": 300.0,
+                  "total_thickness_nm": 34.0
+                },
+                "layer_material_definitions": [
+                  {
+                    "layer_name": "control_sio2",
+                    "material": {
+                      "bandgap_eV": 8.9,
+                      "electron_affinity_eV": 0.95,
+                      "electron_effective_mass_m0": null,
+                      "eps_r": 3.9,
+                      "hole_effective_mass_m0": null,
+                      "metadata": {
+                        "parameter_set": "default-v1"
+                      },
+                      "name": "SiO2",
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 8.9
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 0.95
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 3.9
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "layer_name": "FG1",
+                    "matrix_material": {
+                      "bandgap_eV": 8.9,
+                      "electron_affinity_eV": 0.95,
+                      "electron_effective_mass_m0": null,
+                      "eps_r": 3.9,
+                      "hole_effective_mass_m0": null,
+                      "metadata": {
+                        "parameter_set": "default-v1"
+                      },
+                      "name": "SiO2",
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 8.9
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 0.95
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 3.9
+                        }
+                      }
+                    },
+                    "nc_material": {
+                      "bandgap_eV": 0.66,
+                      "effective_mass_m0": 0.12,
+                      "electron_affinity_eV": 4.0,
+                      "eps_r_nc": 16.0,
+                      "metadata": {
+                        "parameter_set": "default-v1",
+                        "parameter_status": "provisional/default"
+                      },
+                      "model_name": "GeModel",
+                      "model_version": "default-v1",
+                      "name": "Ge",
+                      "phi_barrier_erase_eV": 2.8,
+                      "phi_barrier_prog_eV": 2.8,
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 0.66
+                        },
+                        "effective_mass_m0": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "m_e^*",
+                          "unit": "m0",
+                          "value": 0.12
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 4.0
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 16.0
+                        },
+                        "phi_barrier_erase_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "Phi_erase",
+                          "unit": "eV",
+                          "value": 2.8
+                        },
+                        "phi_barrier_prog_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "Phi_prog",
+                          "unit": "eV",
+                          "value": 2.8
+                        }
+                      },
+                      "sn_fraction": 0.0
+                    }
+                  },
+                  {
+                    "layer_name": "tunnel_sio2",
+                    "material": {
+                      "bandgap_eV": 8.9,
+                      "electron_affinity_eV": 0.95,
+                      "electron_effective_mass_m0": null,
+                      "eps_r": 3.9,
+                      "hole_effective_mass_m0": null,
+                      "metadata": {
+                        "parameter_set": "default-v1"
+                      },
+                      "name": "SiO2",
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 8.9
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 0.95
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 3.9
+                        }
+                      }
+                    }
+                  }
+                ],
+                "layer_metadata": [
+                  {},
+                  {},
+                  {}
+                ]
+              },
+              "nominal_physics": {
+                "coupling": {
+                  "legacy_single_fg": true
+                },
+                "field_solver": "FieldSolver1D",
+                "implementation": "ncmemsim-core-physics-v1",
+                "kinetics": {
+                  "capacitance_eps_r": 8.0,
+                  "density_profile": "front_loaded",
+                  "nu0_Hz": 1000000000000.0,
+                  "nu1_Hz": 10000000000.0,
+                  "nu2_Hz": 3000000000.0
+                },
+                "semiconductor": {
+                  "accumulation_factor": 40.0,
+                  "bandgap_eV": 1.12,
+                  "electron_affinity_eV": 4.05,
+                  "intrinsic_density_m3": 1e+16,
+                  "psi_max_V": 0.9,
+                  "silicon_eps_r": 11.7,
+                  "transition_voltage_V": 0.65,
+                  "transition_width_V": 0.22
+                },
+                "shared_tunneling": true,
+                "transport": {
+                  "attempt_frequency_Hz": 1000000000.0,
+                  "default_barrier_eV": 1.78,
+                  "direction_beta_V_inv": 8.0,
+                  "effective_mass_m0": 0.15,
+                  "enabled": true,
+                  "include_substrate_diagnostics": true,
+                  "max_transfer_fraction_per_step": 0.1
+                },
+                "tunneling": {
+                  "activation_beta_V_inv": 0.8,
+                  "field_coupling_factor": 0.8,
+                  "injection_energy_eV": 0.1,
+                  "integration_points": 160,
+                  "oxide_effective_mass_m0": 0.15
+                }
+              },
+              "optical_bindings": [
+                {
+                  "absorption_parameters": {
+                    "direct_prefactor_A": 10000000.0,
+                    "indirect_prefactor_A": 1000000.0,
+                    "name": "gesn-absorption-compact-v1",
+                    "phonon_energy_eV": 0.027,
+                    "temperature_K": 300.0,
+                    "urbach_edge_alpha_m_inv": 100000.0,
+                    "urbach_energy_eV": 0.012
+                  },
+                  "gamma_profile": null,
+                  "l_profile": null,
+                  "layer_name": "FG1",
+                  "mode": "legacy",
+                  "optical_parameters": {
+                    "absorption_prefactor_m_inv_eV_sqrt": 10000000.0,
+                    "alpha_sn_direct_gap_eV": -0.413,
+                    "alpha_sn_indirect_gap_eV": 0.092,
+                    "broadening_eV": 0.0,
+                    "direct_gap_bowing_eV": 2.89,
+                    "ge_direct_gap_eV": 0.7985,
+                    "ge_indirect_gap_eV": 0.664,
+                    "indirect_gap_bowing_eV": 0.89,
+                    "name": "gesn-optical-300K-v1",
+                    "temperature_K": 300.0
+                  }
+                }
+              ],
+              "schema_version": "thermal-context-v1",
+              "semiconductor_mode": "legacy",
+              "simulation_config": {
+                "dwell_time_s": 0.005,
+                "internal_dt_s": 1e-05,
+                "qfix_C_m2": 0.0,
+                "qit_C_m2": 0.0
+              },
+              "substrate_gap": null
+            },
+            "nominal_hash": "624f089cbbfe2aec6402c4521385a7e9f598c7f9d7042969f433ef57eaf6006a",
+            "resolved": {
+              "device": {
+                "device": {
+                  "architecture": "V2",
+                  "gate_work_function_eV": 4.8,
+                  "layers": [
+                    {
+                      "eps_r": 3.9,
+                      "material": "SiO2",
+                      "name": "control_sio2",
+                      "role": "control_dielectric",
+                      "thickness_nm": 20.0,
+                      "type": "layer"
+                    },
+                    {
+                      "electrically_active_fraction": 0.1,
+                      "grid_points": 3,
+                      "matrix_material": "SiO2",
+                      "name": "FG1",
+                      "nc_diameter_nm": 5.0,
+                      "nc_material": "Ge",
+                      "nc_volume_fraction": 0.2,
+                      "sn_fraction": 0.0,
+                      "spatial_profile": "uniform",
+                      "thickness_nm": 6.0,
+                      "type": "floating_gate"
+                    },
+                    {
+                      "eps_r": 3.9,
+                      "material": "SiO2",
+                      "name": "tunnel_sio2",
+                      "role": "tunnel_dielectric",
+                      "thickness_nm": 8.0,
+                      "type": "layer"
+                    }
+                  ],
+                  "metadata": {},
+                  "name": "n5-1fg",
+                  "number_of_fgs": 1,
+                  "substrate_doping_m3": 1e+21,
+                  "temperature_K": 300.0,
+                  "total_thickness_nm": 34.0
+                },
+                "layer_material_definitions": [
+                  {
+                    "layer_name": "control_sio2",
+                    "material": {
+                      "bandgap_eV": 8.9,
+                      "electron_affinity_eV": 0.95,
+                      "electron_effective_mass_m0": null,
+                      "eps_r": 3.9,
+                      "hole_effective_mass_m0": null,
+                      "metadata": {
+                        "parameter_set": "default-v1"
+                      },
+                      "name": "SiO2",
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 8.9
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 0.95
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 3.9
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "layer_name": "FG1",
+                    "matrix_material": {
+                      "bandgap_eV": 8.9,
+                      "electron_affinity_eV": 0.95,
+                      "electron_effective_mass_m0": null,
+                      "eps_r": 3.9,
+                      "hole_effective_mass_m0": null,
+                      "metadata": {
+                        "parameter_set": "default-v1"
+                      },
+                      "name": "SiO2",
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 8.9
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 0.95
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 3.9
+                        }
+                      }
+                    },
+                    "nc_material": {
+                      "bandgap_eV": 0.66,
+                      "effective_mass_m0": 0.12,
+                      "electron_affinity_eV": 4.0,
+                      "eps_r_nc": 16.0,
+                      "metadata": {
+                        "parameter_set": "default-v1",
+                        "parameter_status": "provisional/default"
+                      },
+                      "model_name": "GeModel",
+                      "model_version": "default-v1",
+                      "name": "Ge",
+                      "phi_barrier_erase_eV": 2.8,
+                      "phi_barrier_prog_eV": 2.8,
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 0.66
+                        },
+                        "effective_mass_m0": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "m_e^*",
+                          "unit": "m0",
+                          "value": 0.12
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 4.0
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 16.0
+                        },
+                        "phi_barrier_erase_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "Phi_erase",
+                          "unit": "eV",
+                          "value": 2.8
+                        },
+                        "phi_barrier_prog_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "Phi_prog",
+                          "unit": "eV",
+                          "value": 2.8
+                        }
+                      },
+                      "sn_fraction": 0.0
+                    }
+                  },
+                  {
+                    "layer_name": "tunnel_sio2",
+                    "material": {
+                      "bandgap_eV": 8.9,
+                      "electron_affinity_eV": 0.95,
+                      "electron_effective_mass_m0": null,
+                      "eps_r": 3.9,
+                      "hole_effective_mass_m0": null,
+                      "metadata": {
+                        "parameter_set": "default-v1"
+                      },
+                      "name": "SiO2",
+                      "properties": {
+                        "bandgap_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "E_g",
+                          "unit": "eV",
+                          "value": 8.9
+                        },
+                        "electron_affinity_eV": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "chi",
+                          "unit": "eV",
+                          "value": 0.95
+                        },
+                        "eps_r": {
+                          "provenance": {
+                            "doi": null,
+                            "notes": "Replace or calibrate before quantitative publication.",
+                            "parameter_set": "default-v1",
+                            "source": "NCMemSim provisional parameter set",
+                            "status": "assumed"
+                          },
+                          "symbol": "epsilon_r",
+                          "unit": "1",
+                          "value": 3.9
+                        }
+                      }
+                    }
+                  }
+                ],
+                "layer_metadata": [
+                  {},
+                  {},
+                  {}
+                ]
+              },
+              "optical": [
+                {
+                  "absorption_parameters": {
+                    "direct_prefactor_A": 10000000.0,
+                    "indirect_prefactor_A": 1000000.0,
+                    "name": "gesn-absorption-compact-v1",
+                    "phonon_energy_eV": 0.027,
+                    "temperature_K": 300.0,
+                    "urbach_edge_alpha_m_inv": 100000.0,
+                    "urbach_energy_eV": 0.012
+                  },
+                  "applied_mode": "legacy",
+                  "gamma_gap_eV": 0.7985,
+                  "l_gap_eV": 0.664,
+                  "layer_name": "FG1",
+                  "optical_parameters": {
+                    "absorption_prefactor_m_inv_eV_sqrt": 10000000.0,
+                    "alpha_sn_direct_gap_eV": -0.413,
+                    "alpha_sn_indirect_gap_eV": 0.092,
+                    "broadening_eV": 0.0,
+                    "direct_gap_bowing_eV": 2.89,
+                    "ge_direct_gap_eV": 0.7985,
+                    "ge_indirect_gap_eV": 0.664,
+                    "indirect_gap_bowing_eV": 0.89,
+                    "name": "gesn-optical-300K-v1",
+                    "temperature_K": 300.0
+                  },
+                  "phonon_temperature_K": 300.0,
+                  "sn_fraction": 0.0
+                }
+              ],
+              "physics": {
+                "coupling": {
+                  "legacy_single_fg": true
+                },
+                "field_solver": "FieldSolver1D",
+                "implementation": "ncmemsim-core-physics-v1",
+                "kinetics": {
+                  "capacitance_eps_r": 8.0,
+                  "density_profile": "front_loaded",
+                  "nu0_Hz": 1000000000000.0,
+                  "nu1_Hz": 10000000000.0,
+                  "nu2_Hz": 3000000000.0
+                },
+                "semiconductor": {
+                  "accumulation_factor": 40.0,
+                  "bandgap_eV": 1.12,
+                  "electron_affinity_eV": 4.05,
+                  "intrinsic_density_m3": 1e+16,
+                  "psi_max_V": 0.9,
+                  "silicon_eps_r": 11.7,
+                  "transition_voltage_V": 0.65,
+                  "transition_width_V": 0.22
+                },
+                "shared_tunneling": true,
+                "transport": {
+                  "attempt_frequency_Hz": 1000000000.0,
+                  "default_barrier_eV": 1.78,
+                  "direction_beta_V_inv": 8.0,
+                  "effective_mass_m0": 0.15,
+                  "enabled": true,
+                  "include_substrate_diagnostics": true,
+                  "max_transfer_fraction_per_step": 0.1
+                },
+                "tunneling": {
+                  "activation_beta_V_inv": 0.8,
+                  "field_coupling_factor": 0.8,
+                  "injection_energy_eV": 0.1,
+                  "integration_points": 160,
+                  "oxide_effective_mass_m0": 0.15
+                }
+              },
+              "simulation_config": {
+                "dwell_time_s": 0.005,
+                "internal_dt_s": 1e-05,
+                "qfix_C_m2": 0.0,
+                "qit_C_m2": 0.0
+              }
+            },
+            "schema_version": "resolved-thermal-context-v1",
+            "source_context_hash": "b5d3b0b04c67ec56f94e15c71977c666f4ebd4db6f75dcb9f5420c5eba74d4f3",
+            "temperature_K": 300.0
+          },
+          "omit_first_passive_layer": true,
+          "source": {
+            "enabled": true,
+            "evidence": {
+              "locator": "examples/phase_n5_broadband_reference.py",
+              "notes": "Synthetic equal in-band power sources, bulk-Ge compact absorption, assumed passive/matrix optics, constant capture efficiency .1 and isothermal devices. No measured spectrum, calibrated device, wavelength-dependent capture, reflection/interference, confinement or yield claim. Combined electrical/optical charge is not attributed wholly to photons.",
+              "original_units": "canonical source/profile units",
+              "resolution": "declared numerical grids",
+              "schema_version": "spectral-evidence-v1",
+              "source": "N5 synthetic diagnostic",
+              "source_sha256": null,
+              "status": "ASSUMED",
+              "transformations": [],
+              "uncertainty": "unknown"
+            },
+            "line_irradiance_W_m2": [
+              1000000.0
+            ],
+            "schema_version": "discrete-line-spectrum-v1",
+            "value_unit": "W m^-2",
+            "wavelength_nm": [
+              1550.0
+            ],
+            "wavelength_unit": "nm"
+          }
+        },
+        "schema_version": "spectral-failed-request-v1",
+        "stage": "input/path resolution"
+      },
+      "source_hash": "dd3ed154e02d2b485f1e9ade8f6de1f233239c55a047982064e48c86b6b0f88f",
+      "summary": {
+        "status": "failed",
+        "stage": "input/path resolution",
+        "error_type": "builtins.ValueError",
+        "message": "every passive device layer must be supplied exactly once"
+      }
+    }
+  ],
+  "limitations": [
+    "Synthetic equal in-band power sources, bulk-Ge compact absorption, assumed passive/matrix optics, constant capture efficiency .1 and isothermal devices. No measured spectrum, calibrated device, wavelength-dependent capture, reflection/interference, confinement or yield claim. Combined electrical/optical charge is not attributed wholly to photons.",
+    "Stored states are authoritative; restoration is consistency checking, not solver replay or authenticity."
+  ],
+  "evidence": {
+    "archive_role": "stored failed requests; completed pulse/path exercised by installed probes",
+    "implementation_baseline": "23cf78cd8088658c9eb95a56f46fa30d04c83b14",
+    "runtime": {
+      "ncmemsim": "1.5.0.dev0",
+      "numpy": "2.4.3",
+      "python": "3.13.12",
+      "python_implementation": "CPython"
+    }
+  },
+  "summary": {
+    "counts": {
+      "attempted": 2,
+      "completed": 0,
+      "failed": 2
+    },
+    "completed_fraction": 0.0,
+    "pulse_delta_vfb_V": {
+      "estimated_count": 0,
+      "mean": null,
+      "denominator": "completed pulse studies"
+    }
+  },
+  "report_hash": "a74146667310b410afe773a726cca36c99dd49bba3189046447f287ccdf89fcd"
+}

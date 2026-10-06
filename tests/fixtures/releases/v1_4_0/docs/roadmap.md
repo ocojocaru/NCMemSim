@@ -395,32 +395,12 @@ for the code audit, frozen scope, equations, references and acceptance sequence.
 
 ### v1.5.0: Phase N - Broadband spectra and multilayer optical propagation
 
-N0 is complete: code/source audit and frozen scope are documented in
-[Broadband optics planning](broadband_optics.md), with the
-[machine-readable audit](broadband_optics_audit.json). N1-N6 spectral sources, single-layer absorption, ordered stack attenuation,
-opt-in integration, controlled references and strict reports/bundles are
-implemented. N7 preparation is implemented; release approval remains pending.
-Development package: `1.5.0.dev0`; published citation remains v1.4.0. See
-[v1.5 release checklist](v1_5_release_checklist.md).
-The first propagation model is opt-in, ordered single-pass Beer-Lambert; reflection,
-interference and complex effective-medium response require separate contracts.
-
 Deliver broadband/measured-spectrum source contracts, spectral units and power
 normalization, absorption integration, sequential multi-FG attenuation and
 electro-optical/multispectral references. Acceptance: recover monochromatic
 limits, verify spectral-grid convergence and power/photon accounting, retain
 per-layer provenance and avoid double-counting absorbed power. More complex
 effective-medium response requires a separately reviewed model contract.
-
-| Stage | Planned deliverable |
-|---|---|
-| N1 | Spectral source, units, normalization and provenance contracts |
-| N2 | Single-layer spectral absorption and power/photon integration |
-| N3 | Ordered multi-layer attenuation and per-layer bookkeeping |
-| N4 | Opt-in simulator, thermal-context and workflow integration |
-| N5 | Controlled broadband/electro-optical and multispectral references |
-| N6 | Strict spectral/stack reports and reproducibility bundles |
-| N7 | v1.5 compatibility and exact-commit release gates |
 
 ### v1.6.0: Phase O - Strain and nanocrystal confinement
 

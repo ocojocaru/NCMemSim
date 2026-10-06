@@ -4,37 +4,6 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
-- Prepare Phase N7 v1.5.0.dev0 API/source review, retained stable/MODEL/thermal
-  contracts, frozen spectral archive and installed distribution/CI gates.
-  Citation retains published v1.4.0; final release approval remains pending.
-
-- Add Phase N6 source-linked spectral stack/pulse/failure reports, complete stored
-  states and input/runtime provenance, undefined-value accounting, strict restoration
-  without optical/workflow/RNG replay and deterministic six-file bundles.
-
-- Add Phase N5 synthetic equal-power mono/multispectral/broadband reference for
-  one/two/three FGs, spectral and pulse refinement audits, dark/zero-capture/passive
-  and fixed-source thermal controls, and retained deliberate domain/path failures.
-
-- Add Phase N4 owned spectral/thermal contexts, explicit sequential photo-rate
-  simulator adapter and illuminated pulse/dark-read protocol, bounded capture
-  mapping, drift rejection and timestep/charge-photon audits.
-
-- Add Phase N3 explicit ordered single-pass spectral paths, transmitted-source
-  handoff, complete device-layer binding, passive/FG loss accounting and strict
-  sequential result restoration; legacy simulator optics remain unchanged.
-
-- Add Phase N2 source-linked single-layer spectral absorption, explicit owned
-  floating-gate model sampling and wavelength domains, power/photon balances,
-  numerical convergence checks and strict restoration without optical replay.
-
-- Add Phase N1 immutable spectral evidence, absolute/relative wavelength tables
-  and discrete optical lines, explicit normalization, exact source photon moments
-  and strict canonical archives; legacy optics and simulator behavior are retained.
-
-- Define Phase N0 broadband/ordered-stack audit and N1-N7 scope/acceptance
-  sequence for v1.5.0; no runtime/default/API or citation identity change.
-
 - Record the author-confirmed v1.4.0 Zenodo DOI in citation/docs and close M7 after verified publication; adapt identity gates to the published state. Release tag and assets are unchanged.
 
 ## 1.4.0 — 2026-10-02

@@ -11,6 +11,11 @@ from scripts import validate_v1_4_api_review as api
 ROOT = Path(__file__).resolve().parents[1]
 
 
+@pytest.fixture(autouse=True)
+def published_identity_boundary(published_v1_4_copy,monkeypatch):
+    monkeypatch.setattr(__import__(__name__,fromlist=['ROOT']),'ROOT',published_v1_4_copy)
+
+
 @pytest.fixture
 def final_copy(tmp_path):
     for folder in ('docs', 'ncmemsim', 'tests/fixtures'):

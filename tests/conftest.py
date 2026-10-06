@@ -24,3 +24,19 @@ def published_v1_3_copy(tmp_path, monkeypatch):
     from scripts import validate_v1_3_api_review as gate
     monkeypatch.setattr(gate, '__version__', '1.3.0')
     return tmp_path
+
+
+@pytest.fixture
+def published_v1_4_copy(tmp_path):
+    destination=tmp_path/'published-v1_4'
+    for folder in ('docs','ncmemsim','tests/fixtures','.github'):
+        shutil.copytree(ROOT/folder,destination/folder)
+    for name in ('README.md','CHANGELOG.md','CITATION.cff'):
+        shutil.copyfile(ROOT/name,destination/name)
+    snapshots=ROOT/'tests/fixtures/releases/v1_4_0'
+    for source in snapshots.rglob('*'):
+        if source.is_file():
+            target=destination/source.relative_to(snapshots)
+            target.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(source,target)
+    return destination
