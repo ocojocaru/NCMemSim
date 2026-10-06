@@ -21,8 +21,8 @@ def candidate_copy(tmp_path):
 
 def test_preparation_identity_and_retained_contracts():
     result=gate.validate(ROOT)
-    assert result=={'status':'candidate_contracts_pass_not_release_approval','package_version':'1.5.0.dev0',
-        'citation_version':'1.4.0','latest_published_stable':'1.4.0','retained_stable_paths':297,
+    assert result=={'status':'candidate_contracts_pass_not_release_approval','package_version':'1.5.0',
+        'citation_version':'1.5.0','latest_published_stable':'1.4.0','retained_stable_paths':297,
         'stable_ensemble_exports':59,'reviewed_modules':5,'spectral_exports':24}
 
 
@@ -30,9 +30,9 @@ def test_preparation_identity_and_retained_contracts():
 def test_unreviewed_or_partial_preparation_rejected(candidate_copy,fault):
     root=candidate_copy
     if fault=='version':
-        p=root/'ncmemsim/_version.py';p.write_text('__version__="1.5.0"\n',encoding='utf-8')
+        p=root/'ncmemsim/_version.py';p.write_text('__version__="1.4.0"\n',encoding='utf-8')
     elif fault=='citation':
-        p=root/'CITATION.cff';p.write_text(p.read_text(encoding='utf-8').replace('23102549','99999999'),encoding='utf-8')
+        p=root/'CITATION.cff';p.write_text(p.read_text(encoding='utf-8')+'\ndoi: 10.0000/unassigned\n',encoding='utf-8')
     elif fault=='readme':
         p=root/'README.md';p.write_text('release approved',encoding='utf-8')
     elif fault=='source':
@@ -92,4 +92,4 @@ def test_snapshot_hashes_tolerate_windows_line_endings(candidate_copy):
     for name in gate.SNAPSHOTS:
         p=candidate_copy/'tests/fixtures/releases/v1_4_0'/name
         p.write_bytes(p.read_bytes().replace(b'\r\n',b'\n').replace(b'\n',b'\r\n'))
-    assert gate.validate(candidate_copy)['citation_version']=='1.4.0'
+    assert gate.validate(candidate_copy)['citation_version']=='1.5.0'

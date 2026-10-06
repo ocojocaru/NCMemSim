@@ -71,22 +71,27 @@ def validate(root):
     if len(entries)!=297 or build_proposal(root,[x['import_path'] for x in entries])['entries']!=entries:
         raise ValueError('retained stable API changed')
     published_identity(root/'tests/fixtures/releases/v1_4_0')
-    if _version(root)!=DEVELOPMENT_VERSION:raise ValueError('N7 preparation requires development identity 1.5.0.dev0')
+    version=_version(root)
+    if version not in (DEVELOPMENT_VERSION,'1.5.0'):raise ValueError('unsupported v1.5 identity')
     citation=(root/'CITATION.cff').read_text(encoding='utf-8')
-    if citation!=(root/'tests/fixtures/releases/v1_4_0/CITATION.cff').read_text(encoding='utf-8') or _citation_field(citation,'doi')!='10.5281/zenodo.23102549':
+    if version==DEVELOPMENT_VERSION and citation!=(root/'tests/fixtures/releases/v1_4_0/CITATION.cff').read_text(encoding='utf-8'):
         raise ValueError('development citation must retain published v1.4 DOI/identity')
-    markers={'README.md':('**Development version:** `1.5.0.dev0`','**Current stable release:** `1.4.0`'),
-        'docs/broadband_optics.md':('N7 preparation is implemented','release approval remains pending'),
-        'docs/roadmap.md':('N7 preparation is implemented','release approval remains pending'),
-        'docs/v1_5_release_checklist.md':('release approval remains pending','Python 3.11, 3.12 and 3.13','N7 is not complete')}
-    for name,required in markers.items():
-        text=(root/name).read_text(encoding='utf-8')
-        if any(x not in text for x in required):raise ValueError('inconsistent preparation declaration: '+name)
+    if version=='1.5.0':
+        from scripts.validate_v1_5_release_identity import validate_identity
+        validate_identity(root)
+    else:
+        markers={'README.md':('**Development version:** `1.5.0.dev0`','**Current stable release:** `1.4.0`'),
+            'docs/broadband_optics.md':('N7 preparation is implemented','release approval remains pending'),
+            'docs/roadmap.md':('N7 preparation is implemented','release approval remains pending'),
+            'docs/v1_5_release_checklist.md':('release approval remains pending','Python 3.11, 3.12 and 3.13','N7 is not complete')}
+        for name,required in markers.items():
+            text=(root/name).read_text(encoding='utf-8')
+            if any(x not in text for x in required):raise ValueError('inconsistent preparation declaration: '+name)
     from ncmemsim.spectral_reporting import SpectralReport
     archive=_json(root/'tests/fixtures/archives/v1_5_0_dev/spectral_report.json')
     if SpectralReport.from_dict(archive).to_dict()!=archive:raise ValueError('spectral archive roundtrip failed')
-    return {'status':'candidate_contracts_pass_not_release_approval','package_version':DEVELOPMENT_VERSION,
-        'citation_version':'1.4.0','latest_published_stable':'1.4.0','retained_stable_paths':297,
+    return {'status':'candidate_contracts_pass_not_release_approval','package_version':version,
+        'citation_version':version if version=='1.5.0' else '1.4.0','latest_published_stable':'1.4.0','retained_stable_paths':297,
         'stable_ensemble_exports':59,'reviewed_modules':5,'spectral_exports':sum(len(x['exports']) for x in stored['additive_module_qualified_surface'])}
 
 

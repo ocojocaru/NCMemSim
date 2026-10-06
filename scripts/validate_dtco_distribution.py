@@ -167,7 +167,7 @@ def check_source_content(path: Path, root: Path) -> int:
     return len(expected)
 
 
-SOURCE_REQUIRED |= {'scripts/validate_v1_5_api_review.py','docs/v1_5_api_review.json',
+SOURCE_REQUIRED |= {'scripts/validate_v1_5_release_identity.py','scripts/validate_v1_5_api_review.py','docs/v1_5_api_review.json',
     'docs/v1_5_release_checklist.md','docs/broadband_optics.md','docs/broadband_optics_audit.json',
     'tests/fixtures/archives/v1_5_0_dev/spectral_report.json'}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_4_0/'+name for name in (

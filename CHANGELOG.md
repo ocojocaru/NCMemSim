@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+No changes recorded after the final v1.5.0 candidate.
+
+## 1.5.0 — 2026-10-06 (release candidate; publication pending)
+
 - Prepare Phase N7 v1.5.0.dev0 API/source review, retained stable/MODEL/thermal
   contracts, frozen spectral archive and installed distribution/CI gates.
   Citation retains published v1.4.0; final release approval remains pending.

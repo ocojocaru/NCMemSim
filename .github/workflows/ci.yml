@@ -36,6 +36,7 @@ jobs:
         run: |
           python scripts/validate_api_contract.py
           python scripts/validate_v1_5_api_review.py
+          python scripts/validate_v1_5_release_identity.py
       - name: Compile package
         run: python -m compileall -q ncmemsim
       - name: Run test suite

@@ -1,8 +1,9 @@
 # v1.5 Phase N7 candidate and release checklist
 
 Status: N7 preparation implemented; release approval remains pending.
-Development package: `1.5.0.dev0`; target: `1.5.0`.
-Published citation remains v1.4.0, date 2026-10-02 and DOI
+Final candidate identity: `1.5.0`; citation date: `2026-10-06`.
+CITATION.cff now describes the final candidate without a version-specific DOI.
+Published v1.4.0 retains date 2026-10-02 and DOI
 `10.5281/zenodo.23102549`; Concept DOI `10.5281/zenodo.23078330` is separate.
 No v1.5 version-specific DOI is assigned before its actual deposit.
 
@@ -13,8 +14,6 @@ Baseline v1.4 tag commit: `67e8791a6ec5c3a76fc8f92bcba4da614900f4f5`.
 Published v1.4 citation metadata source: `7bf9096de2148201ab301376ce1baac786a06e08`.
 Historical identity snapshots use that citation-completed source, not the original
 tag citation; published tags and assets are not rewritten. Tests overlay these
-identity declarations while exercising the retained contracts in the current source;
-the snapshot directory is not a complete historical source checkout. Tests overlay these
 identity declarations while exercising the retained contracts in the current source;
 the snapshot directory is not a complete historical source checkout.
 
@@ -75,3 +74,19 @@ These results do not approve the later preparation/final candidate commit.
 
 N7 is not complete until final candidate and publication gates are fulfilled.
 No merge, tag or release publication is performed by this preparation step.
+
+Preparation CI passed on fdf491c7574dbb0470b36fcab050b90fe29dc697: CI 37441323800 and Documentation 37441323423. These results do not approve the later final candidate; its exact-commit checks remain pending.
+
+
+## Verified local final-candidate evidence
+
+Final package/citation: 1.5.0, candidate date 2026-10-06; specific DOI pending.
+Full suite: 3972 passed in 948.42 seconds on Python 3.13.12.
+Final identity/API gates passed; retained paths 297, ensemble exports 59,
+five spectral modules and 24 exports unchanged.
+Strict documentation: 51 pages, 8972 local references, zero errors; 128 Python
+blocks and 442 imports checked with executable examples passing.
+Wheel/sdist independently installed as 1.5.0; all legacy/MODEL/thermal/spectral
+probes passed, 309 source files audited. Local dependencies were inherited;
+clean supported-Python remote gates remain pending for the final committed SHA.
+These results do not assert PR/main/tag/publication approval. N7 is not complete.

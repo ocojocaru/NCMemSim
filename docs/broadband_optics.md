@@ -4,7 +4,7 @@
 
 N0 is complete: source/code audit, scope, units, integration boundaries and
 N1-N7 acceptance sequence are defined here. N1-N6 source, absorption, propagation, opt-in integration, controlled references and strict reports are implemented; N7 preparation is implemented; release approval remains pending.
-Target release: v1.5.0. Preparation package: 1.5.0.dev0; published release/citation remain v1.4.0;
+Target release: v1.5.0. Final candidate identity: `1.5.0`, citation date 2026-10-06; publication remains pending;
 the v1.4 DOI and immutable release identities are retained.
 Audit baseline: `7bf9096de2148201ab301376ce1baac786a06e08` (M7 DOI follow-up).
 The machine-readable audit is [broadband_optics_audit.json](broadband_optics_audit.json).
@@ -141,8 +141,8 @@ N5 CI and Documentation passed on `f7673c597e799e093daea09c3d14d8c35ba2c723`.
 N6 CI and Documentation passed on `23cf78cd8088658c9eb95a56f46fa30d04c83b14`.
 N7 preparation is implemented; release approval remains pending. Commit/push preparation
 and verify exact-commit CI before preparing final v1.5.0 identity and publication.
-CITATION.cff retains published v1.4.0; preparation package version is 1.5.0.dev0.
-Final candidate identity is a later N7 task.
+CITATION.cff describes final candidate 1.5.0; v1.4.0 remains the latest published
+release. Next: verify final candidate CI, review PR/main, then tag/publication.
 The Phase M API review, release validators and historical fixtures remain intact.
 
 

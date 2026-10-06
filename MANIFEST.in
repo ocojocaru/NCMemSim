@@ -42,3 +42,4 @@ include scripts/validate_v1_4_release_identity.py
 
 include scripts/validate_v1_5_api_review.py
 recursive-include tests/fixtures/releases *.yml
+include scripts/validate_v1_5_release_identity.py
