@@ -13,8 +13,9 @@ For reproducible research, cite the version-specific DOI and software version.
 The project author confirmed [v1.3.0 DOI: 10.5281/zenodo.23079171](https://doi.org/10.5281/zenodo.23079171).
 The published v1.3.0 citation recorded this specific DOI and the separate Concept DOI.
 The project author confirmed the v1.4.0 version-specific DOI [10.5281/zenodo.23102549](https://doi.org/10.5281/zenodo.23102549).
-The current CITATION.cff describes published v1.4.0 dated 2026-10-02 and records
-this DOI separately from the Concept DOI in identifiers. Earlier versions remain
+The current CITATION.cff describes the v1.5.0 final candidate dated 2026-10-06;
+publication and its version-specific DOI remain pending. The published v1.4.0 DOI
+remains independently citable; Concept DOI stays separate in identifiers. Earlier versions remain
 independently citable. This metadata update does not move release tags or replace assets.
 
 ## Historical v1.0.0 policy

@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 115 package source modules; 643 explicit export paths; 188 distinct documented Python import paths.
+Coverage: 120 package source modules; 667 explicit export paths; 203 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3866,6 +3866,241 @@ Constructor: `__init__(self, device, physics: PhysicsModel | None=None, config: 
 - `voltage_at_capacitance(voltage, capacitance, reference)`; `staticmethod`.
 - `simulate_cv(self, vmin_V=-3.0, vmax_V=3.0, points=241, light_source: LightSource | None=None, photo_config: PhotoTransitionConfig | None=None, photo_weights: PhotoTransitionWeights | None=None)`.
 
+
+## ncmemsim.spectral_absorption
+
+`ncmemsim/spectral_absorption.py`
+
+Explicit exports: `SpectralAbsorptionProfile`, `SpectralAbsorptionResult`, `evaluate_spectral_absorption`, `evaluate_floating_gate_spectrum`
+
+### SpectralAbsorptionProfile
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `layer_name: str`; required declaration.
+- Field `wavelength_nm: tuple[float, ...]`; required declaration.
+- Field `effective_alpha_m_inv: tuple[float, ...]`; required declaration.
+- Field `thickness_m: float`; required declaration.
+- Field `wavelength_min_nm: float`; required declaration.
+- Field `wavelength_max_nm: float`; required declaration.
+- Field `evidence: SpectralEvidence`; required declaration.
+- Field `node_details_json: tuple[str, ...]`; default expression `()`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### SpectralAbsorptionResult
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: TabulatedSpectrum | DiscreteLineSpectrum`; required declaration.
+- Field `profile: SpectralAbsorptionProfile`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `evaluate_spectral_absorption(source, profile)`
+- `evaluate_floating_gate_spectrum(source, layer, *, optical_model, model_identity: str, wavelength_min_nm: float, wavelength_max_nm: float, evidence: SpectralEvidence)`
+
+## ncmemsim.spectral_context
+
+`ncmemsim/spectral_context.py`
+
+Explicit exports: `SpectralSimulationContext`, `SpectralSimulator`, `SpectralPulseProtocol`, `build_spectral_simulation_context`, `run_spectral_program_pulse_read`
+
+### SpectralSimulationContext
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `resolution: ResolvedThermalContext`; required declaration.
+- Field `optical_result: SpectralStackResult`; required declaration.
+- `create_simulator(self)`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### SpectralSimulator
+
+Bases: `ThermalSimulator`.
+
+Constructor: `__init__(self, context: SpectralSimulationContext)`.
+
+- `relax_voltage(self, state, gate_voltage_V, dwell_time_s=None, internal_dt_s=None, light_source=None, photo_config=None, photo_weights=None, occupancy_integrator='explicit_euler')`.
+
+- `build_spectral_simulation_context(resolution, source, *, direction: str, passive_layers: tuple, wavelength_min_nm: float, wavelength_max_nm: float, evidence)`
+### SpectralPulseProtocol
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `electrical_protocol: ProgramPulseReadProtocol`; required declaration.
+- Field `photo_weights: PhotoTransitionWeights`; required declaration.
+- Field `occupancy_integrator: str`; default expression `'backward_euler'`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `run_spectral_program_pulse_read(context: SpectralSimulationContext, protocol: SpectralPulseProtocol, *, photo_config: PhotoTransitionConfig, initial_state: DeviceState | None=None)`
+
+## ncmemsim.spectral_reporting
+
+`ncmemsim/spectral_reporting.py`
+
+Explicit exports: `SpectralRunEvidence`, `build_spectral_run_evidence`, `SpectralReportStudy`, `SpectralReport`, `build_spectral_report`, `write_spectral_report`, `load_spectral_report_bundle`
+
+### SpectralRunEvidence
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `build_spectral_run_evidence(run: dict, *, runtime: dict | None=None)`
+### SpectralReportStudy
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `kind: str`; required declaration.
+- Field `source_json: str`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### SpectralReport
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `studies: tuple[SpectralReportStudy, ...]`; required declaration.
+- Field `limitations: tuple[str, ...]`; required declaration.
+- Field `evidence_json: str`; default expression `'{}'`.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `report_hash(self)`; `property`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `build_spectral_report(name, studies, *, limitations, evidence=None)`
+- `write_spectral_report(report, destination)`
+- `load_spectral_report_bundle(destination)`
+
+## ncmemsim.spectral_sources
+
+`ncmemsim/spectral_sources.py`
+
+Explicit exports: `SpectralEvidence`, `TabulatedSpectrum`, `DiscreteLineSpectrum`
+
+### SpectralEvidence
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: str`; required declaration.
+- Field `locator: str`; required declaration.
+- Field `status: str`; required declaration.
+- Field `original_units: str`; required declaration.
+- Field `transformations: tuple[str, ...]`; required declaration.
+- Field `resolution: str`; required declaration.
+- Field `uncertainty: str`; required declaration.
+- Field `notes: str`; required declaration.
+- Field `source_sha256: str | None`; default expression `None`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### TabulatedSpectrum
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `wavelength_nm: tuple[float, ...]`; required declaration.
+- Field `values: tuple[float, ...]`; required declaration.
+- Field `evidence: SpectralEvidence`; required declaration.
+- Field `input_kind: str`; default expression `'absolute_irradiance'`.
+- Field `target_irradiance_W_m2: float | None`; default expression `None`.
+- Field `enabled: bool`; default expression `True`.
+- `shape_integral(self)`; `property`.
+- `normalization_factor(self)`; `property`.
+- `irradiance_density_W_m2_nm(self)`; `property`.
+- `in_band_irradiance_W_m2(self)`; `property`.
+- `photon_flux_m2_s(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### DiscreteLineSpectrum
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `wavelength_nm: tuple[float, ...]`; required declaration.
+- Field `line_irradiance_W_m2: tuple[float, ...]`; required declaration.
+- Field `evidence: SpectralEvidence`; required declaration.
+- Field `enabled: bool`; default expression `True`.
+- `in_band_irradiance_W_m2(self)`; `property`.
+- `photon_flux_m2_s(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+
+## ncmemsim.spectral_stack
+
+`ncmemsim/spectral_stack.py`
+
+Explicit exports: `SpectralStackLayer`, `SpectralStackPath`, `SpectralStackResult`, `bind_spectral_stack_path`, `evaluate_spectral_stack`
+
+### SpectralStackLayer
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `profile: SpectralAbsorptionProfile`; required declaration.
+- Field `role: str`; required declaration.
+- Field `treatment: str`; default expression `'absorbing'`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### SpectralStackPath
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `layers: tuple[SpectralStackLayer, ...]`; required declaration.
+- Field `direction: str`; required declaration.
+- Field `evidence: SpectralEvidence`; required declaration.
+- Field `device_snapshot_json: str | None`; default expression `None`.
+- `traversal(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `bind_spectral_stack_path(device, layers, *, direction: str, evidence: SpectralEvidence)`
+### SpectralStackResult
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: TabulatedSpectrum | DiscreteLineSpectrum`; required declaration.
+- Field `path: SpectralStackPath`; required declaration.
+- `projection(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `evaluate_spectral_stack(source, path)`
 
 ## ncmemsim.state
 

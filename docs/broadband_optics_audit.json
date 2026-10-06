@@ -1,0 +1,50 @@
+{
+  "schema_version": "broadband-optics-planning-audit-v1",
+  "status": "N0_scope_defined_no_runtime_changes",
+  "baseline_commit": "7bf9096de2148201ab301376ce1baac786a06e08",
+  "target_release": "1.5.0",
+  "current_published_release": "1.4.0",
+  "audit_method": "source inspection; canonical UTF-8 text SHA-256 with LF newlines; no numerical runtime audit claimed",
+  "source_sha256": {
+    "ncmemsim/optics.py": "8a2cf82681274cacc5151d60024148b390f0a920c0f19b9b121ee79237b17681",
+    "ncmemsim/simulator.py": "76283adca7ae543bf38595220ddd6a483739ced51a59a17857524384be237fb7",
+    "ncmemsim/materials/optics/models.py": "080838feb8e5176aead1204b30c9a28121593c23a07f67eca983beb90d8afd2c",
+    "ncmemsim/photo.py": "b9aef62319556ab8a49d5caee48e8aa3d1d8b7e9ed83699f797b64b8116f26ba",
+    "ncmemsim/temperature_context.py": "57cd71a301593d127b43aa9cfc1e43f690359432d4d0cf4fa9c787908874d98c",
+    "ncmemsim/workflows/application.py": "7142aac8240c74bf67f329e0a6c3602b7b89273c5569e0528c5693db6dd28ac7",
+    "ncmemsim/device.py": "321563992be1350e194784e4b28aa34cc1a06fe71bf799cde673d53151f825d1"
+  },
+  "findings": {
+    "end_to_end_sources": "monochromatic LED/laser only",
+    "multi_fg_illumination": "same source independently evaluated for each FG",
+    "legacy_composite": "NC volume fraction times bulk alpha; transparent matrix; no scattering",
+    "thermal_model_owner": "M2 per-layer thermal resolution",
+    "workflow_boundary": "existing applied optical protocols reject non-monochromatic inputs"
+  },
+  "planned_propagation": "explicit ordered normal-incidence single-pass Beer-Lambert",
+  "canonical_units": {
+    "wavelength": "nm",
+    "spectral_irradiance": "W m^-2 nm^-1",
+    "integrated_irradiance": "W m^-2",
+    "photon_flux": "m^-2 s^-1",
+    "absorption_coefficient": "m^-1",
+    "thickness": "m"
+  },
+  "stages": {
+    "N1": "spectral contracts",
+    "N2": "single-layer spectral integration",
+    "N3": "sequential stack propagation",
+    "N4": "opt-in simulator/context integration",
+    "N5": "controlled references",
+    "N6": "strict reports/bundles",
+    "N7": "compatibility and release gates"
+  },
+  "excluded": [
+    "reflection/interference",
+    "scattering",
+    "complex effective-medium laws",
+    "new GeSn thermal laws",
+    "strain/confinement",
+    "independent experimental qualification"
+  ]
+}

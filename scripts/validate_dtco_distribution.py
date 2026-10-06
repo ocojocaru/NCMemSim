@@ -166,6 +166,16 @@ def check_source_content(path: Path, root: Path) -> int:
                     raise ValueError(f"source content differs: {name}")
     return len(expected)
 
+
+SOURCE_REQUIRED |= {'scripts/validate_v1_5_release_identity.py','scripts/validate_v1_5_api_review.py','docs/v1_5_api_review.json',
+    'docs/v1_5_release_checklist.md','docs/broadband_optics.md','docs/broadband_optics_audit.json',
+    'tests/fixtures/archives/v1_5_0_dev/spectral_report.json'}
+SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_4_0/'+name for name in (
+    'README.md','CHANGELOG.md','CITATION.cff','ncmemsim/_version.py','docs/index.md',
+    'docs/roadmap.md','docs/temperature_properties.md','docs/v1_4_release_checklist.md',
+    '.github/workflows/ci.yml','.github/workflows/docs.yml')}
+
+
 def run(*args: str, cwd: Path) -> None:
     subprocess.run(args, cwd=cwd, check=True)
 
@@ -242,7 +252,9 @@ def main() -> None:
             version = next(ast.literal_eval(n.value) for n in version_tree.body
                            if isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id == '__version__' for t in n.targets))
             run(str(python), '-I', '-c', THERMAL_PROBE, str(work), version, cwd=work)
-            results.append({"artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS"})
+            shutil.copyfile(root / 'tests/fixtures/archives/v1_5_0_dev/spectral_report.json', work / 'spectral_report.json')
+            run(str(python), '-I', '-c', SPECTRAL_PROBE, str(work), version, cwd=work)
+            results.append({"artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
 
@@ -524,6 +536,75 @@ else:
     raise AssertionError('forged nested derived content must fail')
 print('Installed thermal anchors/domain, all-failed sources, no replay, tamper rejection and deterministic bundles PASS')
 '''
+
+SPECTRAL_PROBE = r"""import sys,json,hashlib
+from pathlib import Path
+from copy import deepcopy
+import numpy as np
+import ncmemsim
+from ncmemsim.simulator import Simulator
+from ncmemsim.materials.optics.models import CompositeGeSnAbsorptionModel
+from ncmemsim.transport.integration import AdvancedTransportEngine
+from ncmemsim.spectral_reporting import SpectralReport,write_spectral_report,load_spectral_report_bundle
+from ncmemsim.hashing import canonical_hash
+work=Path(sys.argv[1]);assert ncmemsim.__version__==sys.argv[2]
+bundle_work=work/('spectral-'+Path(sys.prefix).name);bundle_work.mkdir(exist_ok=False)
+assert Path(ncmemsim.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()), 'probe must load installed artifact'
+def forbidden(*args,**kwargs):raise AssertionError('spectral restoration must not run solver/optics/RNG')
+# Create a fresh controlled pulse on the installed artifact; readers below never replay it.
+from ncmemsim import DeviceBuilder,PhysicsModel,SimulationConfig
+from ncmemsim.temperature_context import ThermalContext
+from ncmemsim.spectral_sources import SpectralEvidence,TabulatedSpectrum
+from ncmemsim.spectral_absorption import SpectralAbsorptionProfile
+from ncmemsim.spectral_stack import SpectralStackLayer,bind_spectral_stack_path,evaluate_spectral_stack
+from ncmemsim.spectral_context import SpectralSimulationContext,SpectralPulseProtocol,run_spectral_program_pulse_read
+from ncmemsim.spectral_reporting import SpectralReportStudy,build_spectral_run_evidence,build_spectral_report
+from ncmemsim.photo import PhotoTransitionConfig,PhotoTransitionWeights
+from ncmemsim.program_protocol import ProgramPulseReadProtocol
+device=DeviceBuilder.v2(1);device.floating_gates()[0].grid_points=3
+resolution=ThermalContext.from_nominal(device,PhysicsModel.default(),SimulationConfig()).resolve(temperature_K=300)
+e=SpectralEvidence('installed synthetic reference','N7 probe','ASSUMED','canonical units',(),'two nodes','unknown','not calibrated')
+source=TabulatedSpectrum((1500.,2000.),(1.,1.),e)
+layers=tuple(SpectralStackLayer(SpectralAbsorptionProfile(x.name,source.wavelength_nm,
+    (1e6,1e6) if x.role=='floating_gate' else (0.,0.),x.thickness_nm*1e-9,1500,2000,e),
+    'floating_gate' if x.role=='floating_gate' else 'passive','absorbing' if x.role=='floating_gate' else 'assumed_transparent') for x in resolution.device.layers)
+path=bind_spectral_stack_path(resolution.device,layers,direction='gate_to_substrate',evidence=e)
+context=SpectralSimulationContext(resolution,evaluate_spectral_stack(source,path))
+protocol=SpectralPulseProtocol(ProgramPulseReadProtocol(0,1e-8,0,1e-9),PhotoTransitionWeights())
+run=build_spectral_run_evidence(run_spectral_program_pulse_read(context,protocol,photo_config=PhotoTransitionConfig(.1)))
+Simulator.relax_voltage=forbidden
+CompositeGeSnAbsorptionModel.evaluate=forbidden
+AdvancedTransportEngine.step=forbidden
+np.random.default_rng=forbidden
+raw=json.loads((work/'spectral_report.json').read_text(encoding='utf-8'))
+archive=SpectralReport.from_dict(raw)
+assert archive.to_dict()==raw
+assert archive.summary['counts']=={'attempted':2,'completed':0,'failed':2}
+assert archive.summary['pulse_delta_vfb_V']['mean'] is None
+report=build_spectral_report('installed spectral reference',(
+    SpectralReportStudy('stack','stack',context.optical_result.to_json()),
+    SpectralReportStudy('pulse','pulse',run.to_json()),*archive.studies),limitations=archive.limitations)
+raw=report.to_dict()
+assert report.summary['counts']=={'attempted':4,'completed':2,'failed':2}
+assert report.studies[1].summary['scalar_effective_alpha_m_inv_by_fg']==[None]
+write_spectral_report(report,bundle_work/'spectral-a')
+write_spectral_report(load_spectral_report_bundle(bundle_work/'spectral-a'),bundle_work/'spectral-b')
+assert {p.name:p.read_bytes() for p in (bundle_work/'spectral-a').iterdir()}=={p.name:p.read_bytes() for p in (bundle_work/'spectral-b').iterdir()}
+bad=deepcopy(raw);bad['studies'][1]['source']['observations']['photo_transition_rate_by_fg_s'][0]*=2
+for study in bad['studies']:study['source_hash']=canonical_hash(study['source'])
+bad['report_hash']=canonical_hash({k:v for k,v in bad.items() if k!='report_hash'})
+try:SpectralReport.from_dict(bad)
+except ValueError:pass
+else:raise AssertionError('coherently rehashed observation must fail')
+manifest=json.loads((bundle_work/'spectral-a/bundle.json').read_text(encoding='utf-8'))
+file=bundle_work/'spectral-a/layers.csv';file.write_bytes(file.read_bytes()+b'forged\n')
+manifest['files']['layers.csv']=hashlib.sha256(file.read_bytes()).hexdigest()
+(bundle_work/'spectral-a/bundle.json').write_text(json.dumps(manifest),encoding='utf-8')
+try:load_spectral_report_bundle(bundle_work/'spectral-a')
+except ValueError:pass
+else:raise AssertionError('coherently rehashed projection must fail')
+print('Installed spectral archive/restoration/export/tamper probe PASS')
+"""
 
 if __name__ == "__main__":
     main()

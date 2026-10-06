@@ -2,6 +2,12 @@
 
 NCMemSim v0.10.0 introduces compact wavelength-dependent optical modelling and photo-assisted programming for Ge/GeSn nanocrystal nonvolatile-memory structures.
 
+## Phase N planning
+
+The v1.5 target is broadband spectra and opt-in sequential multilayer attenuation.
+[N0 scope and N1-N7 acceptance gates](broadband_optics.md) distinguish this work
+from the retained monochromatic/independent-FG baseline. N0 adds no runtime API.
+
 ## Scope
 
 The optical model provides:
