@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 122 package source modules; 674 explicit export paths; 209 distinct documented Python import paths.
+Coverage: 123 package source modules; 676 explicit export paths; 213 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3137,6 +3137,32 @@ Decorators: `dataclass(frozen=True)`.
 - `to_dict(self)`.
 - `from_dict(cls, data)`; `classmethod`.
 
+
+## ncmemsim.materials.structural_confinement
+
+`ncmemsim/materials/structural_confinement.py`
+
+Explicit exports: `SphericalKineticConfinementGapShiftResult`, `evaluate_spherical_kinetic_confinement_gap_shift`
+
+### SphericalKineticConfinementGapShiftResult
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `profile: SphericalConfinementProfile`; required declaration.
+- Field `unconfined_gap_eV: float`; required declaration.
+- Field `unconfined_gap_evidence: StructuralEvidence`; required declaration.
+- Field `temperature_K: float`; required declaration.
+- Field `radius_m: float`; required declaration.
+- `electron_confinement_energy_eV(self)`; `property`.
+- `hole_confinement_energy_eV(self)`; `property`.
+- `kinetic_gap_shift_eV(self)`; `property`.
+- `confined_gap_eV(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `evaluate_spherical_kinetic_confinement_gap_shift(profile: SphericalConfinementProfile, *, unconfined_gap_eV: float, unconfined_gap_evidence: StructuralEvidence, temperature_K: float, radius_m: float) -> SphericalKineticConfinementGapShiftResult`
 
 ## ncmemsim.materials.structural_strain
 

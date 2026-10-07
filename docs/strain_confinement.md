@@ -3,7 +3,7 @@
 ## O0 status and baseline
 
 O0 is complete: source audit, separated mechanism scope, ownership and O1-O7
-acceptance gates are defined here. O1 contracts and O2 standalone hydrostatic strain-induced optical gap shifts are implemented; O3-O7 are planned.
+acceptance gates are defined here. O1 contracts, O2 hydrostatic strain-induced shifts and O3 kinetic spherical confinement are implemented; O4-O7 are planned.
 Target release: v1.6.0. Current package/citation remain published v1.5.0, with
 version DOI `10.5281/zenodo.23189313`. No version/citation/runtime change is made
 by O0. O1 adds only separate opt-in contracts; no law evaluation or simulator integration.
@@ -141,8 +141,9 @@ will be reviewed in O1/O6, not frozen prematurely here.
 
 O0 exact-commit CI and Documentation passed on `90d0f7146afb048b9a6d8d0a6df0285245a93356`.
 O1 terminology-corrected CI passed on `625d5d1ef4f50076dc1283ca1fd7d255dfad1427`.
-Commit/push O2 and verify exact-commit CI. Next: O3 independent spherical
-kinetic confinement evaluation; coupling remains O4.
+Commit/push O3 and verify exact-commit CI. O2 source is
+`eb88e2ef5a76381669141158c96d76ab03606da4`; its exact-head checks are verified separately.
+Next: O4 owned optical context composition with M/N after O2/O3 acceptance.
 Package and citation remain published v1.5.0; no physical parameter preset is shipped.
 
 
@@ -154,7 +155,7 @@ The additive `ncmemsim.materials.structural` module exports `StructuralEvidence`
 versioned schemas and SHA-256 content identities. Unknown fields, wrong units,
 duplicate JSON keys, nonfinite values, booleans as numbers and relabelled physics
 are rejected. Profiles remain data contracts. O2 adds a separate strain-induced
-gap-shift evaluator below; confinement evaluation remains O3.
+gap-shift evaluator below; O3 adds separate kinetic confinement evaluation.
 
 Initial domains accept Ge only. Temperature bounds are positive finite values;
 hydrostatic trace bounds are signed and contain zero, while radius bounds are
@@ -272,4 +273,79 @@ python examples/phase_o2_hydrostatic_strain_reference.py --output results/o2-hyd
 
 The reference does not select literature-qualified deformation potentials or
 validate embedded-NC response. Those choices remain explicit parameter review.
-Confinement evaluation stays separate in O3; no combined O4 model is inferred.
+Confinement evaluation is provided separately in O3 below; no combined O4 model is inferred.
+
+
+## O3 kinetic contribution of spherical confinement
+
+`ncmemsim.materials.structural_confinement` exports
+`SphericalKineticConfinementGapShiftResult` and
+`evaluate_spherical_kinetic_confinement_gap_shift`. The model remains the
+spherical, infinite-barrier, isotropic-equivalent effective-mass **kinetic-only**
+diagnostic declared in O1. It is not a complete excitonic transition model.
+
+For each carrier, `E = pi^2*hbar^2/(2*m*R^2) = h^2/(8*m*R^2)`. The evaluator
+uses the latter equivalent form with existing `PLANCK_J_S`, `ELECTRON_MASS_KG`
+and `ELEMENTARY_CHARGE_C`. Input masses are multiples of m0; output energies
+are eV. Explicit exponent scaling avoids avoidable intermediate R^2 underflow
+or overflow; nonrepresentable **individual** energies, their sum or final gap
+are rejected. No zero-energy floor or clipping is applied.
+
+The result records electron and hole confinement energies, their summed kinetic
+gap shift and the shifted gap separately, with complete profile, unconfined-gap
+evidence, radius/temperature and numerical constants. The supplied unconfined
+transition gap is at temperature_K; O3 does not determine a thermal baseline,
+infer strain dependence, select a valley mass or bind a device geometry.
+Tiny representable contributions may round away when added to the baseline,
+but are retained explicitly. The formal large-radius limit is analytical; it
+does not authorize evaluation outside an evidence-backed applicability domain.
+
+Radius is accepted in metres only. A caller with NC diameter must explicitly use
+R = diameter/2. Using diameter as radius lowers the kinetic contribution by four;
+the regression test makes this distinction explicit. FG layer thickness is an
+independent geometry and is never interpreted as NC size. Scalar confinement
+masses are not taken from the legacy tunnelling mass or substrate hole mass.
+
+Electron-hole attraction, polarization/image terms, finite barriers, strain,
+selection-rule/amplitude changes and transport barrier/charging corrections are
+not included. Existing density/capacitance/charging laws are unchanged; adding
+their charging energy to this optical shift is not part of O3. GeSn and other
+unreviewed applicability remain rejected by the O1 domain contract.
+
+Strict readers reconstruct inputs, validate domains and recompute both carrier
+energies and their sum. Altered constants, units, coordinates, masses, projections
+or unknown interaction terms fail. No optical evaluator, solver or RNG is used.
+Profiles and material presets remain unchanged.
+
+```python
+from ncmemsim.materials.structural import StructuralEvidence, ConfinementDomain, SphericalConfinementProfile
+from ncmemsim.materials.structural_confinement import evaluate_spherical_kinetic_confinement_gap_shift, SphericalKineticConfinementGapShiftResult
+from ncmemsim.materials.provenance import ParameterStatus
+from ncmemsim.materials.temperature import GapKind
+
+evidence = StructuralEvidence("synthetic O3 masses", "documentation", ParameterStatus.ASSUMED,
+    "arbitrary scalar masses/domain; not qualified embedded-Ge NC data")
+profile = SphericalConfinementProfile("Gamma kinetic diagnostic", "FG1", GapKind.GAMMA,
+    "effective_scalar", ConfinementDomain("Ge", 300.0, 300.0, 2e-9, 1e-8, evidence),
+    .2, .4, evidence, evidence, evidence)
+result = evaluate_spherical_kinetic_confinement_gap_shift(profile, unconfined_gap_eV=.7985,
+    unconfined_gap_evidence=evidence, temperature_K=300.0, radius_m=4e-9)
+assert result.kinetic_gap_shift_eV > 0
+assert SphericalKineticConfinementGapShiftResult.from_json(result.to_json()) == result
+```
+
+The standalone `examples/phase_o3_kinetic_confinement_reference.py` uses Gamma/L
+diagnostics at radii 2/4/8 nm and 300 K with O1's ASSUMED electron masses .2/.3 m0
+and hole mass .4 m0, retaining nominal .7985/.664 eV gaps. Decimal arithmetic
+at 60-digit precision independently checks each kinetic energy and J/eV conversion.
+Doubling radius quarters the shift; changing one carrier mass affects only its
+own term. Eight attempts include six completed cases and two retained domain
+failures (radius and temperature), with requests, source records and a content hash.
+
+```bash
+python examples/phase_o3_kinetic_confinement_reference.py --output results/o3-kinetic-confinement-reference.json
+```
+
+This is numerical validation of an explicit diagnostic law, not selection of
+qualified Ge/GeSn NC masses or domains. Independent O2/O3 mechanisms remain
+separate; their owned composition with thermal/spectral models is O4.

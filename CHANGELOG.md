@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase O3 standalone spherical kinetic confinement gap shifts with explicit
+  electron/hole contributions, radius/mass/J-eV conventions, strict source-linked
+  results and independent Decimal/inverse-square reference with retained failures.
+
 - Add Phase O2 standalone hydrostatic strain-induced optical gap shifts with
   explicit unstrained baseline/provenance, signed contributions, domain/numerical
   checks and an independent Decimal reference retaining three deliberate failures.

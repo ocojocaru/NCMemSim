@@ -428,7 +428,8 @@ effective-medium response requires a separately reviewed model contract.
 O0 is complete: [scope and acceptance sequence](strain_confinement.md) and
 [source audit](strain_confinement_audit.json) separate hydrostatic strain from
 kinetic spherical confinement. O1 separate contracts and O2 hydrostatic strain-induced optical gap evaluation/
-independent reference are implemented; O3-O7 are planned. Initial application is opt-in
+independent reference and O3 kinetic spherical confinement are implemented;
+O4-O7 are planned. Initial application is opt-in
 Ge optical Gamma/L transition shifts; coefficients/masses/domains require O1
 review, and each mechanism is independently validated before composition.
 No automatic transport-barrier correction or complete interacting-exciton model

@@ -22135,6 +22135,225 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.materials.structural_confinement",
+      "source": "ncmemsim/materials/structural_confinement.py",
+      "explicit_exports": [
+        "SphericalKineticConfinementGapShiftResult",
+        "evaluate_spherical_kinetic_confinement_gap_shift"
+      ],
+      "package_import_aliases": {
+        "ELECTRON_MASS_KG": "ncmemsim.constants.ELECTRON_MASS_KG",
+        "ELEMENTARY_CHARGE_C": "ncmemsim.constants.ELEMENTARY_CHARGE_C",
+        "PLANCK_J_S": "ncmemsim.constants.PLANCK_J_S",
+        "SphericalConfinementProfile": "ncmemsim.materials.structural.SphericalConfinementProfile",
+        "StructuralEvidence": "ncmemsim.materials.structural.StructuralEvidence",
+        "_Archive": "ncmemsim.materials.structural._Archive",
+        "_keys": "ncmemsim.materials.structural._keys",
+        "_match": "ncmemsim.materials.structural._match",
+        "_number": "ncmemsim.materials.structural._number"
+      },
+      "public_source_definitions": [
+        {
+          "name": "SphericalKineticConfinementGapShiftResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "profile",
+              "annotation": "SphericalConfinementProfile",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "unconfined_gap_eV",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "unconfined_gap_evidence",
+              "annotation": "StructuralEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "temperature_K",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "radius_m",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "electron_confinement_energy_eV",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "hole_confinement_energy_eV",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "kinetic_gap_shift_eV",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "confined_gap_eV",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "evaluate_spherical_kinetic_confinement_gap_shift",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "profile",
+              "kind": "positional_or_keyword",
+              "annotation": "SphericalConfinementProfile",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "unconfined_gap_eV",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "unconfined_gap_evidence",
+              "kind": "keyword_only",
+              "annotation": "StructuralEvidence",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "temperature_K",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "radius_m",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "SphericalKineticConfinementGapShiftResult",
+          "source_signature": "(profile: SphericalConfinementProfile, *, unconfined_gap_eV: float, unconfined_gap_evidence: StructuralEvidence, temperature_K: float, radius_m: float) -> SphericalKineticConfinementGapShiftResult",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.materials.structural_strain",
       "source": "ncmemsim/materials/structural_strain.py",
       "explicit_exports": [
@@ -36961,9 +37180,13 @@
     "ncmemsim.materials.optics.predict_gesn_near_edge_absorption_m_inv",
     "ncmemsim.materials.optics.qualify_gesn_near_edge_fit",
     "ncmemsim.materials.provenance.ParameterStatus",
+    "ncmemsim.materials.structural.ConfinementDomain",
     "ncmemsim.materials.structural.HydrostaticStrainDomain",
     "ncmemsim.materials.structural.HydrostaticStrainGapShiftProfile",
+    "ncmemsim.materials.structural.SphericalConfinementProfile",
     "ncmemsim.materials.structural.StructuralEvidence",
+    "ncmemsim.materials.structural_confinement.SphericalKineticConfinementGapShiftResult",
+    "ncmemsim.materials.structural_confinement.evaluate_spherical_kinetic_confinement_gap_shift",
     "ncmemsim.materials.structural_strain.HydrostaticStrainGapShiftResult",
     "ncmemsim.materials.structural_strain.evaluate_hydrostatic_strain_gap_shift",
     "ncmemsim.materials.temperature.GapKind",
