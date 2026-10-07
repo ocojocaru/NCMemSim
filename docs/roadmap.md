@@ -429,7 +429,7 @@ O0 is complete: [scope and acceptance sequence](strain_confinement.md) and
 [source audit](strain_confinement_audit.json) separate hydrostatic strain from
 kinetic spherical confinement. O1 separate contracts and O2 hydrostatic strain-induced optical gap evaluation/
 independent reference and O3 kinetic spherical confinement are implemented;
-O4 owned M/N optical/spectral composition is implemented; O5-O7 are planned.
+O4 owned M/N optical/spectral composition and O5 controlled references are implemented; O6-O7 are planned.
 Initial application is opt-in
 Ge optical Gamma/L transition shifts; coefficients/masses/domains require O1
 review, and each mechanism is independently validated before composition.

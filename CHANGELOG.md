@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase O5 controlled structural optical references with isolated mechanism
+  comparisons, spectral/time refinement, layer photon/power budgets, geometry
+  and multi-FG controls, zero capture and retained out-of-domain failures.
+
 - Add Phase O4 owned structural optical/spectral contexts, explicit FG and device
   radius binding, separate thermal/strain/kinetic contributions, recomputed
   absorption, stale-sample rejection and a source-retaining N4 pulse adapter.

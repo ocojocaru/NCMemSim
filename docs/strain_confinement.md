@@ -3,7 +3,7 @@
 ## O0 status and baseline
 
 O0 is complete: source audit, separated mechanism scope, ownership and O1-O7
-acceptance gates are defined here. O1 contracts, O2 hydrostatic strain-induced shifts and O3 kinetic spherical confinement are implemented; O4 owned optical/spectral composition is implemented; O5-O7 are planned.
+acceptance gates are defined here. O1 contracts, O2 hydrostatic strain-induced shifts and O3 kinetic spherical confinement are implemented; O4 owned optical/spectral composition is implemented; O5 controlled references are implemented; O6-O7 are planned.
 Target release: v1.6.0. Current package/citation remain published v1.5.0, with
 version DOI `10.5281/zenodo.23189313`. No version/citation/runtime change is made
 by O0. O1 adds only separate opt-in contracts; no law evaluation or simulator integration.
@@ -143,8 +143,8 @@ O0 exact-commit CI and Documentation passed on `90d0f7146afb048b9a6d8d0a6df02852
 O1 terminology-corrected CI passed on `625d5d1ef4f50076dc1283ca1fd7d255dfad1427`.
 O2 exact-commit CI/Documentation passed on `eb88e2ef5a76381669141158c96d76ab03606da4`.
 O3 exact-commit CI/Documentation passed on `8fd49f86e923429f7ab81f36456f49b9a4e6ddc6`.
-Commit/push O4 and verify exact-commit CI. Next: O5 controlled structural optical/
-broadband and electro-optical references, before O6 report contracts.
+Commit/push O5 and verify exact-commit CI. Next: O6 strict structural reports
+and reproducibility bundles.
 Package and citation remain published v1.5.0; no physical parameter preset is shipped.
 
 
@@ -437,3 +437,43 @@ one/two/three-FG spectral coupling, stale sampling rejection and no optical
 resampling during restoration. Disabled optical/pulse values recover N4, and
 caller/device/material ownership and structural source identity are retained.
 O5 supplies the broader spectral/time convergence and negative-outcome references.
+
+
+## O5 controlled structural optical reference
+
+`examples/phase_o5_structural_reference.py` compares thermal baseline, strain only,
+kinetic confinement only and their assumed additive composition with identical
+8 nm NC diameter, source, temperature and transport inputs. The parameters remain
+explicit synthetic ASSUMED diagnostics; this reference does not qualify a Ge
+nanocrystal material model or a capture efficiency.
+
+A flat relative spectrum is explicitly normalized to 1e6 W/m2 over 1000-2200 nm.
+Each refinement grid contains the union of shifted Gamma and L phonon thresholds
+for the four mechanism modes at 300 and 350 K. Power and photon accounting use
+ordered single-pass propagation with explicitly transparent passive layers.
+Spectral refinement requires successive absorbed-power/photon changes below
+0.2%; temporal refinement requires probability changes below 0.002 and changes
+of illuminated-minus-dark read contrast below 1e-5 V. These are numerical
+acceptance criteria for this diagnostic, not uncertainty estimates for a device.
+
+The pulse uses 2 V for 1e-7 s, backward Euler, capture efficiency 0.1 and a
+zero-dwell dark read. Negative probabilities, probability-mass errors above
+1e-12 and read-state changes above 1e-12 are rejected. Zero capture recovers the
+matched dark trajectory. Separate controls cover two/three FGs, 300/350 K and
+4/8 nm diameters. Diameter controls retain the corresponding changes to physical
+NC density and charging energy; their electrical response is not attributed
+solely to optical confinement.
+
+The main population retains four completed mechanism cases and three explicit
+failures for strain, radius and temperature outside their declared domains.
+Refinements and auxiliary controls are recorded separately from that population.
+The JSON diagnostic retains source, structural inputs, layer budgets, pulse
+observations and its canonical identity. It is not the O6 structural report
+contract and is not a manufacturing-yield study.
+
+```bash
+python examples/phase_o5_structural_reference.py --output structural-reference.json
+```
+
+O6 follows with strict structural reports and reproducibility bundles; O7
+performs the v1.6 API review and release gates.
