@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase O2 standalone hydrostatic strain-induced optical gap shifts with
+  explicit unstrained baseline/provenance, signed contributions, domain/numerical
+  checks and an independent Decimal reference retaining three deliberate failures.
+
 - Clarify O1 terminology: HydrostaticStrainGapShiftProfile describes an optical
   transition-gap shift caused by hydrostatic strain; explicit deformation-potential
   field and unpublished schema/law identifiers replace the ambiguous gap wording.

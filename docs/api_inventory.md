@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 121 package source modules; 672 explicit export paths; 207 distinct documented Python import paths.
+Coverage: 122 package source modules; 674 explicit export paths; 209 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3137,6 +3137,30 @@ Decorators: `dataclass(frozen=True)`.
 - `to_dict(self)`.
 - `from_dict(cls, data)`; `classmethod`.
 
+
+## ncmemsim.materials.structural_strain
+
+`ncmemsim/materials/structural_strain.py`
+
+Explicit exports: `HydrostaticStrainGapShiftResult`, `evaluate_hydrostatic_strain_gap_shift`
+
+### HydrostaticStrainGapShiftResult
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `profile: HydrostaticStrainGapShiftProfile`; required declaration.
+- Field `unstrained_gap_eV: float`; required declaration.
+- Field `unstrained_gap_evidence: StructuralEvidence`; required declaration.
+- Field `temperature_K: float`; required declaration.
+- Field `trace_strain: float`; required declaration.
+- `gap_shift_eV(self)`; `property`.
+- `shifted_gap_eV(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `evaluate_hydrostatic_strain_gap_shift(profile: HydrostaticStrainGapShiftProfile, *, unstrained_gap_eV: float, unstrained_gap_evidence: StructuralEvidence, temperature_K: float, trace_strain: float) -> HydrostaticStrainGapShiftResult`
 
 ## ncmemsim.materials.temperature
 

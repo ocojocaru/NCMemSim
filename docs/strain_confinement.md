@@ -3,7 +3,7 @@
 ## O0 status and baseline
 
 O0 is complete: source audit, separated mechanism scope, ownership and O1-O7
-acceptance gates are defined here. O1 contracts and parameter-review boundaries are implemented; O2-O7 are planned.
+acceptance gates are defined here. O1 contracts and O2 standalone hydrostatic strain-induced optical gap shifts are implemented; O3-O7 are planned.
 Target release: v1.6.0. Current package/citation remain published v1.5.0, with
 version DOI `10.5281/zenodo.23189313`. No version/citation/runtime change is made
 by O0. O1 adds only separate opt-in contracts; no law evaluation or simulator integration.
@@ -140,8 +140,9 @@ will be reviewed in O1/O6, not frozen prematurely here.
 ## Next action
 
 O0 exact-commit CI and Documentation passed on `90d0f7146afb048b9a6d8d0a6df0285245a93356`.
-Commit/push O1 and verify exact-commit CI. Next: O2 independent hydrostatic
-evaluation and reference; O3 confinement evaluation remains a separate stage.
+O1 terminology-corrected CI passed on `625d5d1ef4f50076dc1283ca1fd7d255dfad1427`.
+Commit/push O2 and verify exact-commit CI. Next: O3 independent spherical
+kinetic confinement evaluation; coupling remains O4.
 Package and citation remain published v1.5.0; no physical parameter preset is shipped.
 
 
@@ -152,7 +153,8 @@ The additive `ncmemsim.materials.structural` module exports `StructuralEvidence`
 `SphericalConfinementProfile`. They are frozen contracts with canonical JSON,
 versioned schemas and SHA-256 content identities. Unknown fields, wrong units,
 duplicate JSON keys, nonfinite values, booleans as numbers and relabelled physics
-are rejected. No profile evaluates a gap yet; O2/O3 add those independent laws.
+are rejected. Profiles remain data contracts. O2 adds a separate strain-induced
+gap-shift evaluator below; confinement evaluation remains O3.
 
 Initial domains accept Ge only. Temperature bounds are positive finite values;
 hydrostatic trace bounds are signed and contain zero, while radius bounds are
@@ -201,3 +203,73 @@ assert HydrostaticStrainGapShiftProfile.from_json(profile.to_json()) == profile
 Contracts store targets/assumptions without importing an optical evaluator,
 changing material presets or running workflows/RNG. Composition with resolved
 thermal/spectral contexts remains O4; initial law references must remain separate.
+
+
+## O2 optical gap shifts induced by hydrostatic strain
+
+The additive `ncmemsim.materials.structural_strain` module exports
+`HydrostaticStrainGapShiftResult` and `evaluate_hydrostatic_strain_gap_shift`.
+The input is a typed O1 profile, the explicit **unstrained optical transition
+gap at temperature_K**, its provenance, and dimensionless trace_strain.
+The evaluator computes `gap_shift_eV = gap_deformation_potential_eV_per_trace * trace_strain`
+and `shifted_gap_eV = unstrained_gap_eV + gap_shift_eV`. Hydrostatic describes the
+strain component; the gap target is still the Gamma/L optical transition.
+
+Temperature validates the declared profile domain. O2 does not calculate thermal
+gap dependence, select a material gap, infer pressure/strain from lattice mismatch,
+or bind the named FG to an actual device. O4 will own that composition/binding.
+Both baseline gap and coefficient remain explicit caller inputs with provenance;
+the result is conditional on those inputs and makes no parameter qualification claim.
+
+For zero strain or zero coefficient, the exact supplied gap is retained. Signed
+compression/tension and signed coefficients are supported; the sign of the shift
+comes from their product. Percent strain and individual diagonal tensor entries
+are not silently converted: for equal diagonal entries the trace is three times
+one entry. No shear, valley splitting, conduction/valence band-offset assignment,
+barrier correction or optical-amplitude change is performed.
+
+Domain failures, nonfinite/boolean inputs, nonpositive shifted gaps, overflow and
+underflow of a nonzero shift are rejected. There is no hidden floor or clipping.
+A representable tiny shift can round away in the final gap addition; the signed
+shift and baseline remain recorded separately. This is floating-point precision,
+not a material-domain extension or physical regularization.
+
+The result archive stores the complete profile and identity, unstrained-gap
+evidence, temperature/trace convention and separate signed/final energies. Strict
+readers reconstruct the profile, recheck domains and recompute the linear law;
+unknown units/coordinates/schemas and inconsistent derived projections fail.
+No optical evaluator, solver or RNG is involved; existing material presets and
+profiles are unchanged.
+
+```python
+from ncmemsim.materials.structural import StructuralEvidence, HydrostaticStrainDomain, HydrostaticStrainGapShiftProfile
+from ncmemsim.materials.structural_strain import evaluate_hydrostatic_strain_gap_shift, HydrostaticStrainGapShiftResult
+from ncmemsim.materials.provenance import ParameterStatus
+from ncmemsim.materials.temperature import GapKind
+
+evidence = StructuralEvidence("synthetic O2 diagnostic", "documentation", ParameterStatus.ASSUMED,
+    "arbitrary coefficient/domain and explicit baseline; not qualified Ge strain data")
+profile = HydrostaticStrainGapShiftProfile("Gamma diagnostic", "FG1", GapKind.GAMMA,
+    HydrostaticStrainDomain("Ge", 300.0, 300.0, -.01, .01, evidence), -1.0, evidence)
+result = evaluate_hydrostatic_strain_gap_shift(profile, unstrained_gap_eV=.7985,
+    unstrained_gap_evidence=evidence, temperature_K=300.0, trace_strain=.01)
+assert result.gap_shift_eV == -.01
+assert HydrostaticStrainGapShiftResult.from_json(result.to_json()) == result
+```
+
+The standalone `examples/phase_o2_hydrostatic_strain_reference.py` audits Gamma/L
+at trace [-.01,0,.01] and 300 K using O1's synthetic slopes (-1/-0.5 eV per trace)
+with retained nominal Ge baseline gaps .7985/.664 eV. Independent Decimal
+multiplication/addition checks the numerical law, not empirical Ge strain response.
+Nine attempts include six completed cases and three retained failures: strain
+outside the domain, temperature outside the domain and a nonpositive final gap.
+Requests, provenance, independent values and failure messages are retained with
+a content hash. Failed attempts are not removed from the population.
+
+```bash
+python examples/phase_o2_hydrostatic_strain_reference.py --output results/o2-hydrostatic-strain-reference.json
+```
+
+The reference does not select literature-qualified deformation potentials or
+validate embedded-NC response. Those choices remain explicit parameter review.
+Confinement evaluation stays separate in O3; no combined O4 model is inferred.

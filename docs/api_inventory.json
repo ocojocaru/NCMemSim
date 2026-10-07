@@ -22135,6 +22135,188 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.materials.structural_strain",
+      "source": "ncmemsim/materials/structural_strain.py",
+      "explicit_exports": [
+        "HydrostaticStrainGapShiftResult",
+        "evaluate_hydrostatic_strain_gap_shift"
+      ],
+      "package_import_aliases": {
+        "HydrostaticStrainGapShiftProfile": "ncmemsim.materials.structural.HydrostaticStrainGapShiftProfile",
+        "StructuralEvidence": "ncmemsim.materials.structural.StructuralEvidence",
+        "_Archive": "ncmemsim.materials.structural._Archive",
+        "_keys": "ncmemsim.materials.structural._keys",
+        "_match": "ncmemsim.materials.structural._match",
+        "_number": "ncmemsim.materials.structural._number"
+      },
+      "public_source_definitions": [
+        {
+          "name": "HydrostaticStrainGapShiftResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "profile",
+              "annotation": "HydrostaticStrainGapShiftProfile",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "unstrained_gap_eV",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "unstrained_gap_evidence",
+              "annotation": "StructuralEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "temperature_K",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "trace_strain",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "gap_shift_eV",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "shifted_gap_eV",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "evaluate_hydrostatic_strain_gap_shift",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "profile",
+              "kind": "positional_or_keyword",
+              "annotation": "HydrostaticStrainGapShiftProfile",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "unstrained_gap_eV",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "unstrained_gap_evidence",
+              "kind": "keyword_only",
+              "annotation": "StructuralEvidence",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "temperature_K",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "trace_strain",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": "HydrostaticStrainGapShiftResult",
+          "source_signature": "(profile: HydrostaticStrainGapShiftProfile, *, unstrained_gap_eV: float, unstrained_gap_evidence: StructuralEvidence, temperature_K: float, trace_strain: float) -> HydrostaticStrainGapShiftResult",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.materials.temperature",
       "source": "ncmemsim/materials/temperature.py",
       "explicit_exports": [
@@ -36782,6 +36964,8 @@
     "ncmemsim.materials.structural.HydrostaticStrainDomain",
     "ncmemsim.materials.structural.HydrostaticStrainGapShiftProfile",
     "ncmemsim.materials.structural.StructuralEvidence",
+    "ncmemsim.materials.structural_strain.HydrostaticStrainGapShiftResult",
+    "ncmemsim.materials.structural_strain.evaluate_hydrostatic_strain_gap_shift",
     "ncmemsim.materials.temperature.GapKind",
     "ncmemsim.materials.temperature.TemperatureDomain",
     "ncmemsim.materials.temperature.ThermalEvidence",
