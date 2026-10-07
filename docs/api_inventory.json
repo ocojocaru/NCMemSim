@@ -30376,6 +30376,527 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.structural_optical_context",
+      "source": "ncmemsim/structural_optical_context.py",
+      "explicit_exports": [
+        "StructuralOpticalBinding",
+        "StructuralOpticalContext",
+        "StructuralSpectralContext",
+        "StructuralSpectralSimulator",
+        "build_structural_spectral_context",
+        "run_structural_spectral_program_pulse_read"
+      ],
+      "package_import_aliases": {
+        "ABSORPTION_COEFFICIENT_PROVENANCE": "ncmemsim.materials.optics.models.ABSORPTION_COEFFICIENT_PROVENANCE",
+        "ABSORPTION_MODEL_PROVENANCE": "ncmemsim.materials.optics.models.ABSORPTION_MODEL_PROVENANCE",
+        "DiscreteLineSpectrum": "ncmemsim.spectral_sources.DiscreteLineSpectrum",
+        "GapKind": "ncmemsim.materials.temperature.GapKind",
+        "GeSnAbsorptionParameterSet": "ncmemsim.materials.optics.models.GeSnAbsorptionParameterSet",
+        "HydrostaticStrainGapShiftProfile": "ncmemsim.materials.structural.HydrostaticStrainGapShiftProfile",
+        "OpticalPoint": "ncmemsim.materials.optics.models.OpticalPoint",
+        "PHONON_OCCUPATION_PROVENANCE": "ncmemsim.materials.optics.models.PHONON_OCCUPATION_PROVENANCE",
+        "ParameterProvenance": "ncmemsim.materials.provenance.ParameterProvenance",
+        "ParameterStatus": "ncmemsim.materials.provenance.ParameterStatus",
+        "ResolvedThermalContext": "ncmemsim.temperature_context.ResolvedThermalContext",
+        "SpectralSimulationContext": "ncmemsim.spectral_context.SpectralSimulationContext",
+        "SpectralSimulator": "ncmemsim.spectral_context.SpectralSimulator",
+        "SpectralStackLayer": "ncmemsim.spectral_stack.SpectralStackLayer",
+        "SphericalConfinementProfile": "ncmemsim.materials.structural.SphericalConfinementProfile",
+        "StructuralEvidence": "ncmemsim.materials.structural.StructuralEvidence",
+        "TabulatedSpectrum": "ncmemsim.spectral_sources.TabulatedSpectrum",
+        "_Archive": "ncmemsim.materials.structural._Archive",
+        "_canonical": "ncmemsim.spectral_sources._canonical",
+        "_keys": "ncmemsim.materials.structural._keys",
+        "_match": "ncmemsim.materials.structural._match",
+        "_number": "ncmemsim.materials.structural._number",
+        "_text": "ncmemsim.materials.structural._text",
+        "bind_spectral_stack_path": "ncmemsim.spectral_stack.bind_spectral_stack_path",
+        "direct_absorption_m_inv": "ncmemsim.materials.optics.models.direct_absorption_m_inv",
+        "evaluate_floating_gate_spectrum": "ncmemsim.spectral_absorption.evaluate_floating_gate_spectrum",
+        "evaluate_hydrostatic_strain_gap_shift": "ncmemsim.materials.structural_strain.evaluate_hydrostatic_strain_gap_shift",
+        "evaluate_spectral_stack": "ncmemsim.spectral_stack.evaluate_spectral_stack",
+        "evaluate_spherical_kinetic_confinement_gap_shift": "ncmemsim.materials.structural_confinement.evaluate_spherical_kinetic_confinement_gap_shift",
+        "indirect_absorption_m_inv": "ncmemsim.materials.optics.models.indirect_absorption_m_inv",
+        "photon_energy_eV": "ncmemsim.materials.optics.models.photon_energy_eV",
+        "urbach_absorption_m_inv": "ncmemsim.materials.optics.models.urbach_absorption_m_inv"
+      },
+      "public_source_definitions": [
+        {
+          "name": "StructuralOpticalBinding",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "layer_name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "strain_profiles",
+              "annotation": "tuple[HydrostaticStrainGapShiftProfile, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "confinement_profiles",
+              "annotation": "tuple[SphericalConfinementProfile, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "trace_strain",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "enabled",
+              "annotation": "bool",
+              "default_expression": "True",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "StructuralOpticalContext",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "thermal_resolution",
+              "annotation": "ResolvedThermalContext",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "bindings",
+              "annotation": "tuple[StructuralOpticalBinding, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "projection",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "optical_model",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "layer_name",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, layer_name)",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "StructuralSpectralContext",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "structural_context",
+              "annotation": "StructuralOpticalContext",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "spectral_context",
+              "annotation": "SpectralSimulationContext",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "create_simulator",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "StructuralSpectralSimulator",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "SpectralSimulator"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": {
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "context",
+                "kind": "positional_or_keyword",
+                "annotation": "StructuralSpectralContext",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self, context: StructuralSpectralContext)",
+            "decorators": []
+          },
+          "methods": [
+            {
+              "name": "relax_voltage",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "state",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "gate_voltage_V",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "dwell_time_s",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "internal_dt_s",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "light_source",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "photo_config",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "photo_weights",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "occupancy_integrator",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "'explicit_euler'"
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, state, gate_voltage_V, dwell_time_s=None, internal_dt_s=None, light_source=None, photo_config=None, photo_weights=None, occupancy_integrator='explicit_euler')",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "build_structural_spectral_context",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "context",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "source",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "direction",
+              "kind": "keyword_only",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "passive_layers",
+              "kind": "keyword_only",
+              "annotation": "tuple",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "wavelength_min_nm",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "wavelength_max_nm",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "evidence",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(context, source, *, direction: str, passive_layers: tuple, wavelength_min_nm: float, wavelength_max_nm: float, evidence)",
+          "decorators": []
+        },
+        {
+          "name": "run_structural_spectral_program_pulse_read",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "context",
+              "kind": "positional_or_keyword",
+              "annotation": "StructuralSpectralContext",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "protocol",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "photo_config",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "initial_state",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": false,
+              "default_expression": "None"
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(context: StructuralSpectralContext, protocol, *, photo_config, initial_state=None)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.temperature_context",
       "source": "ncmemsim/temperature_context.py",
       "explicit_exports": [
@@ -37243,6 +37764,8 @@
     "ncmemsim.spectral_stack.SpectralStackPath",
     "ncmemsim.spectral_stack.SpectralStackResult",
     "ncmemsim.spectral_stack.evaluate_spectral_stack",
+    "ncmemsim.structural_optical_context.StructuralOpticalBinding",
+    "ncmemsim.structural_optical_context.StructuralOpticalContext",
     "ncmemsim.temperature_context.SemiconductorThermalMode",
     "ncmemsim.temperature_context.ThermalContext",
     "ncmemsim.transport.AdvancedTransportEngine",

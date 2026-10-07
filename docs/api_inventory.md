@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 123 package source modules; 676 explicit export paths; 213 distinct documented Python import paths.
+Coverage: 124 package source modules; 682 explicit export paths; 215 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -4283,6 +4283,62 @@ Decorators: `dataclass`.
 - `for_layer(self, layer_name: str) -> FloatingGateState`.
 - `mean_normalized_occupations(self) -> np.ndarray`; `property`.
 
+
+## ncmemsim.structural_optical_context
+
+`ncmemsim/structural_optical_context.py`
+
+Explicit exports: `StructuralOpticalBinding`, `StructuralOpticalContext`, `StructuralSpectralContext`, `StructuralSpectralSimulator`, `build_structural_spectral_context`, `run_structural_spectral_program_pulse_read`
+
+### StructuralOpticalBinding
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `layer_name: str`; required declaration.
+- Field `strain_profiles: tuple[HydrostaticStrainGapShiftProfile, ...]`; required declaration.
+- Field `confinement_profiles: tuple[SphericalConfinementProfile, ...]`; required declaration.
+- Field `trace_strain: float`; required declaration.
+- Field `enabled: bool`; default expression `True`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### StructuralOpticalContext
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `thermal_resolution: ResolvedThermalContext`; required declaration.
+- Field `bindings: tuple[StructuralOpticalBinding, ...]`; required declaration.
+- `projection(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+- `optical_model(self, layer_name)`.
+
+### StructuralSpectralContext
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `structural_context: StructuralOpticalContext`; required declaration.
+- Field `spectral_context: SpectralSimulationContext`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+- `create_simulator(self)`.
+
+### StructuralSpectralSimulator
+
+Bases: `SpectralSimulator`.
+
+Constructor: `__init__(self, context: StructuralSpectralContext)`.
+
+- `relax_voltage(self, state, gate_voltage_V, dwell_time_s=None, internal_dt_s=None, light_source=None, photo_config=None, photo_weights=None, occupancy_integrator='explicit_euler')`.
+
+- `build_structural_spectral_context(context, source, *, direction: str, passive_layers: tuple, wavelength_min_nm: float, wavelength_max_nm: float, evidence)`
+- `run_structural_spectral_program_pulse_read(context: StructuralSpectralContext, protocol, *, photo_config, initial_state=None)`
 
 ## ncmemsim.temperature_context
 

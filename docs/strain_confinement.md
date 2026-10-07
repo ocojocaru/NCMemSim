@@ -3,7 +3,7 @@
 ## O0 status and baseline
 
 O0 is complete: source audit, separated mechanism scope, ownership and O1-O7
-acceptance gates are defined here. O1 contracts, O2 hydrostatic strain-induced shifts and O3 kinetic spherical confinement are implemented; O4-O7 are planned.
+acceptance gates are defined here. O1 contracts, O2 hydrostatic strain-induced shifts and O3 kinetic spherical confinement are implemented; O4 owned optical/spectral composition is implemented; O5-O7 are planned.
 Target release: v1.6.0. Current package/citation remain published v1.5.0, with
 version DOI `10.5281/zenodo.23189313`. No version/citation/runtime change is made
 by O0. O1 adds only separate opt-in contracts; no law evaluation or simulator integration.
@@ -141,9 +141,10 @@ will be reviewed in O1/O6, not frozen prematurely here.
 
 O0 exact-commit CI and Documentation passed on `90d0f7146afb048b9a6d8d0a6df0285245a93356`.
 O1 terminology-corrected CI passed on `625d5d1ef4f50076dc1283ca1fd7d255dfad1427`.
-Commit/push O3 and verify exact-commit CI. O2 source is
-`eb88e2ef5a76381669141158c96d76ab03606da4`; its exact-head checks are verified separately.
-Next: O4 owned optical context composition with M/N after O2/O3 acceptance.
+O2 exact-commit CI/Documentation passed on `eb88e2ef5a76381669141158c96d76ab03606da4`.
+O3 exact-commit CI/Documentation passed on `8fd49f86e923429f7ab81f36456f49b9a4e6ddc6`.
+Commit/push O4 and verify exact-commit CI. Next: O5 controlled structural optical/
+broadband and electro-optical references, before O6 report contracts.
 Package and citation remain published v1.5.0; no physical parameter preset is shipped.
 
 
@@ -218,7 +219,7 @@ strain component; the gap target is still the Gamma/L optical transition.
 
 Temperature validates the declared profile domain. O2 does not calculate thermal
 gap dependence, select a material gap, infer pressure/strain from lattice mismatch,
-or bind the named FG to an actual device. O4 will own that composition/binding.
+or bind the named FG to an actual device. O4 owns that composition/binding below.
 Both baseline gap and coefficient remain explicit caller inputs with provenance;
 the result is conditional on those inputs and makes no parameter qualification claim.
 
@@ -348,4 +349,91 @@ python examples/phase_o3_kinetic_confinement_reference.py --output results/o3-ki
 
 This is numerical validation of an explicit diagnostic law, not selection of
 qualified Ge/GeSn NC masses or domains. Independent O2/O3 mechanisms remain
-separate; their owned composition with thermal/spectral models is O4.
+separate; their owned composition with thermal/spectral models is provided by O4 below.
+
+
+## O4 owned structural optical composition with M/N
+
+`ncmemsim.structural_optical_context` exports `StructuralOpticalBinding`,
+`StructuralOpticalContext`, `StructuralSpectralContext`,
+`StructuralSpectralSimulator`, `build_structural_spectral_context` and
+`run_structural_spectral_program_pulse_read`. Profiles are grouped by the actual
+named FG and mechanism; duplicate targets within a mechanism, mismatched profile
+layer names and unknown FG attachments fail. Enabled attachments require the
+declared Ge material model with zero Sn fraction. No GeSn law is inferred.
+
+The thermal resolution is the sole device-temperature owner and must explicitly
+cover every FG optically as required by M; partial coverage is rejected by M. Each Gamma/L target
+stores that already-resolved baseline, an independent O2 strain result and an
+independent O3 confinement result when requested. NC radius is taken explicitly
+as half the associated device NC diameter, not FG thickness. Domain failures for
+temperature/trace/radius stop composition; O2 rejects a nonphysical strain-only
+gap even if a positive confinement shift would otherwise mask it.
+
+The composition policy is `thermal-baseline-plus-independent-structural-shifts-assumed-v1`.
+Both shifts are evaluated on the same thermal baseline, then their separately
+stored contributions are added with that baseline exactly once. Additive optical
+gap composition is an ASSUMED policy, not a qualified interacting/coupled NC law.
+The baseline optical amplitudes and resolved phonon temperature remain unchanged.
+No substrate gap/ni, density, effective mass, barrier, charging or capture parameter
+is modified. Geometry remains the supplied M device geometry.
+
+An empty binding tuple or disabled attachment delegates to M's existing optical
+model. Disabled attachments retain profiles as evidence without imposing their
+new applicability domains on legacy inputs. Enabled zero strain without confinement
+recovers the original optical numbers and retains structural provenance. The
+associated material is checked against its owned snapshot; caller mutations or
+supplying a different material cannot silently change that evaluator.
+
+With shifted gaps, the owned optical evaluator recomputes direct, indirect and
+Urbach absorption from the resolved Gamma/L gaps and M's absorption parameters.
+It does not reuse an alpha sampled before the structural change. Provenance stores
+the structural composition identity and per-FG baseline/contribution evidence.
+Gap-only changes do not qualify oscillator strength or capture efficiency, and
+may move thresholds requiring an independently refined spectral grid in O5.
+
+The spectral builder requires the complete set of explicit passive-layer profiles
+and samples each FG from the structural optical owner. The wrapper retains both
+the full structural owner and unchanged N spectral context. Context identity and
+sampled gap targets are checked on restoration; old samples from a changed trace,
+profile or device radius are rejected. Alpha observations remain stored evidence:
+readers rebuild structural contributions and nested N projections, not optical
+trajectories or fresh alpha samples. Coherently replaced observations describe
+different evidence, not independent physical verification.
+
+The simulator uses N4's photo/occupancy/transport stepping on the new stored
+optical evidence, checks drift of its M device/physics/configuration, and exposes
+structural context identity. The pulse wrapper retains the complete structural
+owner around N4's illuminated pulse and zero-dwell dark read. Existing N/M schemas
+and readers are not converted or changed. O6 will define the structural report
+contracts for those stored runs.
+
+```python
+from ncmemsim import DeviceBuilder, PhysicsModel, SimulationConfig
+from ncmemsim.materials import make_ge
+from ncmemsim.materials.temperature import GapKind
+from ncmemsim.materials.provenance import ParameterStatus
+from ncmemsim.materials.structural import StructuralEvidence, HydrostaticStrainDomain, ConfinementDomain, HydrostaticStrainGapShiftProfile, SphericalConfinementProfile
+from ncmemsim.temperature_context import ThermalContext
+from ncmemsim.structural_optical_context import StructuralOpticalBinding, StructuralOpticalContext
+
+device = DeviceBuilder.v2(1, nc_material=make_ge(), nc_diameter_nm=8.0)
+resolution = ThermalContext.from_nominal(device, PhysicsModel.default(), SimulationConfig()).resolve(temperature_K=300.0)
+evidence = StructuralEvidence("synthetic O4", "documentation", ParameterStatus.ASSUMED,
+    "arbitrary masses/slope/domains and additive policy, not material qualified")
+strain = HydrostaticStrainGapShiftProfile("Gamma strain diagnostic", "FG1", GapKind.GAMMA,
+    HydrostaticStrainDomain("Ge", 300.0, 300.0, -.01, .01, evidence), -1.0, evidence)
+confinement = SphericalConfinementProfile("Gamma kinetic diagnostic", "FG1", GapKind.GAMMA,
+    "effective_scalar", ConfinementDomain("Ge", 300.0, 300.0, 2e-9, 1e-8, evidence),
+    .2, .4, evidence, evidence, evidence)
+context = StructuralOpticalContext(resolution,
+    (StructuralOpticalBinding("FG1", (strain,), (confinement,), .001),))
+assert StructuralOpticalContext.from_json(context.to_json()) == context
+```
+
+Tests cover baseline/strain-only/confinement-only/composed modes, independent
+absorption equations, derived device radius, thermal baseline applied once,
+one/two/three-FG spectral coupling, stale sampling rejection and no optical
+resampling during restoration. Disabled optical/pulse values recover N4, and
+caller/device/material ownership and structural source identity are retained.
+O5 supplies the broader spectral/time convergence and negative-outcome references.

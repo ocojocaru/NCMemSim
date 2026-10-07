@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase O4 owned structural optical/spectral contexts, explicit FG and device
+  radius binding, separate thermal/strain/kinetic contributions, recomputed
+  absorption, stale-sample rejection and a source-retaining N4 pulse adapter.
+
 - Add Phase O3 standalone spherical kinetic confinement gap shifts with explicit
   electron/hole contributions, radius/mass/J-eV conventions, strict source-linked
   results and independent Decimal/inverse-square reference with retained failures.
