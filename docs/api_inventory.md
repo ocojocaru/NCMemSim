@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 124 package source modules; 682 explicit export paths; 215 distinct documented Python import paths.
+Coverage: 125 package source modules; 689 explicit export paths; 222 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -4339,6 +4339,55 @@ Constructor: `__init__(self, context: StructuralSpectralContext)`.
 
 - `build_structural_spectral_context(context, source, *, direction: str, passive_layers: tuple, wavelength_min_nm: float, wavelength_max_nm: float, evidence)`
 - `run_structural_spectral_program_pulse_read(context: StructuralSpectralContext, protocol, *, photo_config, initial_state=None)`
+
+## ncmemsim.structural_reporting
+
+`ncmemsim/structural_reporting.py`
+
+Explicit exports: `StructuralRunEvidence`, `build_structural_run_evidence`, `StructuralReportStudy`, `StructuralReport`, `build_structural_report`, `write_structural_report`, `load_structural_report_bundle`
+
+### StructuralRunEvidence
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `build_structural_run_evidence(run: dict, *, runtime: dict | None=None)`
+### StructuralReportStudy
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `kind: str`; required declaration.
+- Field `source_json: str`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### StructuralReport
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `studies: tuple[StructuralReportStudy, ...]`; required declaration.
+- Field `limitations: tuple[str, ...]`; required declaration.
+- Field `evidence_json: str`; default expression `'{}'`.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `report_hash(self)`; `property`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `build_structural_report(name, studies, *, limitations, evidence=None)`
+- `write_structural_report(report, destination)`
+- `load_structural_report_bundle(destination)`
 
 ## ncmemsim.temperature_context
 

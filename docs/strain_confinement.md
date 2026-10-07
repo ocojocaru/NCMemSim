@@ -3,7 +3,7 @@
 ## O0 status and baseline
 
 O0 is complete: source audit, separated mechanism scope, ownership and O1-O7
-acceptance gates are defined here. O1 contracts, O2 hydrostatic strain-induced shifts and O3 kinetic spherical confinement are implemented; O4 owned optical/spectral composition is implemented; O5 controlled references are implemented; O6-O7 are planned.
+acceptance gates are defined here. O1 contracts, O2 hydrostatic strain-induced shifts and O3 kinetic spherical confinement are implemented; O4 owned optical/spectral composition is implemented; O5 controlled references are implemented; O6 strict reports are implemented; O7 is planned.
 Target release: v1.6.0. Current package/citation remain published v1.5.0, with
 version DOI `10.5281/zenodo.23189313`. No version/citation/runtime change is made
 by O0. O1 adds only separate opt-in contracts; no law evaluation or simulator integration.
@@ -143,8 +143,8 @@ O0 exact-commit CI and Documentation passed on `90d0f7146afb048b9a6d8d0a6df02852
 O1 terminology-corrected CI passed on `625d5d1ef4f50076dc1283ca1fd7d255dfad1427`.
 O2 exact-commit CI/Documentation passed on `eb88e2ef5a76381669141158c96d76ab03606da4`.
 O3 exact-commit CI/Documentation passed on `8fd49f86e923429f7ab81f36456f49b9a4e6ddc6`.
-Commit/push O5 and verify exact-commit CI. Next: O6 strict structural reports
-and reproducibility bundles.
+O4 and O5 exact-commit CI/Documentation passed; O5 is `9e82212f75c4d7370865c43aa1a5f1f4383260ed`.
+Commit/push O6 and verify exact-commit CI. Next: O7 v1.6 API and release gates.
 Package and citation remain published v1.5.0; no physical parameter preset is shipped.
 
 
@@ -405,7 +405,7 @@ The simulator uses N4's photo/occupancy/transport stepping on the new stored
 optical evidence, checks drift of its M device/physics/configuration, and exposes
 structural context identity. The pulse wrapper retains the complete structural
 owner around N4's illuminated pulse and zero-dwell dark read. Existing N/M schemas
-and readers are not converted or changed. O6 will define the structural report
+and readers are not converted or changed. O6 defines separate structural report
 contracts for those stored runs.
 
 ```python
@@ -475,5 +475,61 @@ contract and is not a manufacturing-yield study.
 python examples/phase_o5_structural_reference.py --output structural-reference.json
 ```
 
-O6 follows with strict structural reports and reproducibility bundles; O7
+O6 adds strict structural reports and reproducibility bundles; O7
 performs the v1.6 API review and release gates.
+
+
+## O6 strict structural reports and reproducibility bundles
+
+`ncmemsim.structural_reporting` provides immutable `StructuralRunEvidence`,
+`StructuralReportStudy` and `StructuralReport` contracts. Optical studies retain
+an entire structural/spectral context. Pulse studies retain that owner alongside
+unchanged N run evidence: explicit initial/programmed/read states, protocol,
+capture efficiency, runtime, charge, read shift and photon flux/rate/fluence.
+Readers match the nested spectral owner to the structural context, reconstruct
+the O2/O3 contributions and N projections, and verify state-derived charge/read
+observables without replaying a simulator, optical evaluation or random generator.
+Stored alpha samples and trajectories remain authoritative observations;
+coherently changed observations represent different evidence, not independent
+physical validation or authenticity.
+
+Failure studies retain a JSON request, stage, error type and message. Invalid
+requests are preserved as attempts rather than coerced into successful contexts.
+Each optical/pulse/failure study counts as one attempt. Pulse statistics use only
+completed pulse studies and disclose that denominator; an all-failed report has
+zero estimates and a null mean. Broadband scalar alpha remains null, and a
+disabled source retains zero optical budgets without inventing illumination.
+Duplicate names/JSON keys, nonfinite values, unknown fields, stale structural
+inputs, altered projections and inconsistent observations are rejected.
+
+`build_structural_run_evidence` freezes O4 workflow output;
+`build_structural_report` collects studies with mandatory scientific limitations.
+`write_structural_report` writes a new directory containing `report.json`,
+`report.md`, `attempts.csv`, `layers.csv`, `structural.csv`, `sources.csv` and
+`bundle.json`. The structural CSV separates the thermal baseline, signed
+hydrostatic strain-induced shift, kinetic confinement shift and resolved optical
+transition gap by named FG/target, with radius in metres and gaps in eV.
+JSON/source CSV retain complete evidence. The manifest records content hashes;
+`load_structural_report_bundle` checks exact ordinary-file membership and rebuilds
+all CSV/Markdown bytes, rejecting modified exports even if their hashes were
+updated. Existing directories are never overwritten. Old M/N archives continue
+to use their existing readers and schemas.
+
+```python
+from ncmemsim.structural_reporting import (
+    StructuralRunEvidence, build_structural_run_evidence, StructuralReportStudy,
+    StructuralReport, build_structural_report, write_structural_report,
+    load_structural_report_bundle,
+)
+```
+
+```bash
+python examples/phase_o6_structural_report.py --output structural-bundle
+python examples/phase_o6_structural_report.py --input structural-bundle/report.json --output restored-bundle
+```
+
+The example makes two completed studies and retains two out-of-domain failures.
+Its five spectral nodes/eight time steps demonstrate reporting, not convergence;
+O5 supplies refined numerical reference evidence. Report status remains conditional
+and unqualified, with synthetic ASSUMED parameters, kinetic-only confinement and
+no experimental material, capture or device calibration.

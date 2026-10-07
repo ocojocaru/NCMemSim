@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase O6 strict structural reports retaining profiles, thermal/spectral
+  owners, complete pulse states, runtime and failures; deterministic seven-file
+  bundles rebuild projections without optical, solver or RNG replay.
+
 - Add Phase O5 controlled structural optical references with isolated mechanism
   comparisons, spectral/time refinement, layer photon/power budgets, geometry
   and multi-FG controls, zero capture and retained out-of-domain failures.

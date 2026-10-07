@@ -30897,6 +30897,398 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.structural_reporting",
+      "source": "ncmemsim/structural_reporting.py",
+      "explicit_exports": [
+        "StructuralRunEvidence",
+        "build_structural_run_evidence",
+        "StructuralReportStudy",
+        "StructuralReport",
+        "build_structural_report",
+        "write_structural_report",
+        "load_structural_report_bundle"
+      ],
+      "package_import_aliases": {
+        "SpectralRunEvidence": "ncmemsim.spectral_reporting.SpectralRunEvidence",
+        "StructuralSpectralContext": "ncmemsim.structural_optical_context.StructuralSpectralContext",
+        "_Archive": "ncmemsim.spectral_sources._Archive",
+        "_canonical": "ncmemsim.spectral_sources._canonical",
+        "_cell": "ncmemsim.thermal_reporting._cell",
+        "_keys": "ncmemsim.spectral_sources._keys",
+        "_label": "ncmemsim.thermal_reporting._label",
+        "_load": "ncmemsim.temperature_context._load",
+        "_spectral_run_summary": "ncmemsim.spectral_reporting._run_summary",
+        "build_spectral_run_evidence": "ncmemsim.spectral_reporting.build_spectral_run_evidence",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash"
+      },
+      "public_source_definitions": [
+        {
+          "name": "StructuralRunEvidence",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build_structural_run_evidence",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "run",
+              "kind": "positional_or_keyword",
+              "annotation": "dict",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "runtime",
+              "kind": "keyword_only",
+              "annotation": "dict | None",
+              "required": false,
+              "default_expression": "None"
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(run: dict, *, runtime: dict | None=None)",
+          "decorators": []
+        },
+        {
+          "name": "StructuralReportStudy",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "kind",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "source_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "StructuralReport",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "studies",
+              "annotation": "tuple[StructuralReportStudy, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "limitations",
+              "annotation": "tuple[str, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence_json",
+              "annotation": "str",
+              "default_expression": "'{}'",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "report_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build_structural_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "name",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "studies",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "limitations",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "evidence",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": false,
+              "default_expression": "None"
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(name, studies, *, limitations, evidence=None)",
+          "decorators": []
+        },
+        {
+          "name": "write_structural_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "report",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(report, destination)",
+          "decorators": []
+        },
+        {
+          "name": "load_structural_report_bundle",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(destination)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.temperature_context",
       "source": "ncmemsim/temperature_context.py",
       "explicit_exports": [
@@ -37766,6 +38158,13 @@
     "ncmemsim.spectral_stack.evaluate_spectral_stack",
     "ncmemsim.structural_optical_context.StructuralOpticalBinding",
     "ncmemsim.structural_optical_context.StructuralOpticalContext",
+    "ncmemsim.structural_reporting.StructuralReport",
+    "ncmemsim.structural_reporting.StructuralReportStudy",
+    "ncmemsim.structural_reporting.StructuralRunEvidence",
+    "ncmemsim.structural_reporting.build_structural_report",
+    "ncmemsim.structural_reporting.build_structural_run_evidence",
+    "ncmemsim.structural_reporting.load_structural_report_bundle",
+    "ncmemsim.structural_reporting.write_structural_report",
     "ncmemsim.temperature_context.SemiconductorThermalMode",
     "ncmemsim.temperature_context.ThermalContext",
     "ncmemsim.transport.AdvancedTransportEngine",
