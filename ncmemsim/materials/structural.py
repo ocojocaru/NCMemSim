@@ -8,7 +8,7 @@ from .temperature import GapKind,_number,_text
 from .provenance import ParameterStatus
 
 __all__=['StructuralEvidence','HydrostaticStrainDomain','ConfinementDomain',
-         'HydrostaticGapProfile','SphericalConfinementProfile']
+         'HydrostaticStrainGapShiftProfile','SphericalConfinementProfile']
 
 
 def _keys(data,keys):
@@ -139,30 +139,31 @@ class ConfinementDomain(_Archive):
 
 
 @dataclass(frozen=True)
-class HydrostaticGapProfile(_Archive):
+class HydrostaticStrainGapShiftProfile(_Archive):
+    """Profile of an optical transition-gap shift induced by hydrostatic strain."""
     name: str
     layer_name: str
     gap_kind: GapKind
     domain: HydrostaticStrainDomain
-    gap_coefficient_eV_per_trace: float
+    gap_deformation_potential_eV_per_trace: float
     coefficient_evidence: StructuralEvidence
 
     def __post_init__(self):
         _text(self.name,'name');_text(self.layer_name,'layer_name');_target(self.gap_kind)
         if type(self.domain) is not HydrostaticStrainDomain or type(self.coefficient_evidence) is not StructuralEvidence:raise ValueError('typed hydrostatic domain/coefficient evidence required')
-        object.__setattr__(self,'gap_coefficient_eV_per_trace',_number(self.gap_coefficient_eV_per_trace,'gap coefficient'))
+        object.__setattr__(self,'gap_deformation_potential_eV_per_trace',_number(self.gap_deformation_potential_eV_per_trace,'gap deformation potential'))
         if self.coefficient_evidence.reported_uncertainty is not None and self.coefficient_evidence.uncertainty_unit!='eV_per_unit_trace':raise ValueError('coefficient uncertainty unit mismatch')
 
     def to_dict(self):
-        return {'schema_version':'hydrostatic-gap-profile-v1','name':self.name,'layer_name':self.layer_name,'gap_kind':self.gap_kind.value,
-            'domain':self.domain.to_dict(),'gap_coefficient_eV_per_trace':self.gap_coefficient_eV_per_trace,
+        return {'schema_version':'hydrostatic-strain-gap-shift-profile-v1','name':self.name,'layer_name':self.layer_name,'gap_kind':self.gap_kind.value,
+            'domain':self.domain.to_dict(),'gap_deformation_potential_eV_per_trace':self.gap_deformation_potential_eV_per_trace,
             'coefficient_evidence':self.coefficient_evidence.to_dict(),'coefficient_unit':'eV_per_unit_trace',
-            'coefficient_semantics':'optical_transition_gap_derivative','law_id':'hydrostatic-linear-gap-v1'}
+            'coefficient_semantics':'optical_transition_gap_derivative','law_id':'hydrostatic-strain-linear-gap-shift-v1'}
     @classmethod
     def from_dict(cls,data):
-        _keys(data,('schema_version','name','layer_name','gap_kind','domain','gap_coefficient_eV_per_trace','coefficient_evidence','coefficient_unit','coefficient_semantics','law_id'))
+        _keys(data,('schema_version','name','layer_name','gap_kind','domain','gap_deformation_potential_eV_per_trace','coefficient_evidence','coefficient_unit','coefficient_semantics','law_id'))
         obj=cls(data['name'],data['layer_name'],_target_raw(data['gap_kind']),HydrostaticStrainDomain.from_dict(data['domain']),
-            data['gap_coefficient_eV_per_trace'],StructuralEvidence.from_dict(data['coefficient_evidence']))
+            data['gap_deformation_potential_eV_per_trace'],StructuralEvidence.from_dict(data['coefficient_evidence']))
         _match(data,obj.to_dict());return obj
 
 

@@ -5,7 +5,7 @@ import pytest
 from ncmemsim.materials.provenance import ParameterStatus as Status
 from ncmemsim.materials.temperature import GapKind
 from ncmemsim.materials.structural import (StructuralEvidence,HydrostaticStrainDomain,ConfinementDomain,
-    HydrostaticGapProfile,SphericalConfinementProfile)
+    HydrostaticStrainGapShiftProfile,SphericalConfinementProfile)
 
 @pytest.fixture
 def evidence():return StructuralEvidence('synthetic diagnostic','O1 test',Status.ASSUMED,'not material qualified')
@@ -14,7 +14,7 @@ def evidence():return StructuralEvidence('synthetic diagnostic','O1 test',Status
 def profiles(evidence):
     strain=HydrostaticStrainDomain('Ge',300,300,-.01,.01,evidence)
     size=ConfinementDomain('Ge',300,300,2e-9,1e-8,evidence)
-    return (HydrostaticGapProfile('strain','FG1',GapKind.GAMMA,strain,-1,evidence),
+    return (HydrostaticStrainGapShiftProfile('strain','FG1',GapKind.GAMMA,strain,-1,evidence),
         SphericalConfinementProfile('size','FG1',GapKind.L,'effective_scalar',size,.3,.4,evidence,evidence,evidence))
 
 def test_independent_profiles_and_no_implicit_evaluation(profiles):
@@ -39,8 +39,8 @@ def test_hydrostatic_profile_requires_typed_sources(profiles,name):
 
 @pytest.mark.parametrize('value',[True,'1',float('nan'),float('inf'),10**400])
 def test_coefficient_is_finite_signed_number(profiles,value):
-    with pytest.raises(ValueError):replace(profiles[0],gap_coefficient_eV_per_trace=value)
-    assert replace(profiles[0],gap_coefficient_eV_per_trace=0).gap_coefficient_eV_per_trace==0
+    with pytest.raises(ValueError):replace(profiles[0],gap_deformation_potential_eV_per_trace=value)
+    assert replace(profiles[0],gap_deformation_potential_eV_per_trace=0).gap_deformation_potential_eV_per_trace==0
 
 @pytest.mark.parametrize('field',['electron_mass_m0','hole_mass_m0'])
 @pytest.mark.parametrize('value',[0,-1,True,'1',float('nan'),float('inf')])
@@ -117,7 +117,7 @@ def test_parameter_review_cannot_silently_change_assumptions(tmp_path,fault):
     from scripts.validate_structural_parameters import build_review,validate
     raw=build_review()
     if fault=='physical_claim':raw['shipped_physical_presets']=['Ge qualified default']
-    elif fault=='value':raw['synthetic_diagnostic_profiles']['hydrostatic_gamma']['gap_coefficient_eV_per_trace']=-10
+    elif fault=='value':raw['synthetic_diagnostic_profiles']['hydrostatic_gamma']['gap_deformation_potential_eV_per_trace']=-10
     text=json.dumps(raw)
     if fault=='duplicate':text=text.replace('{','{"status":"calibrated",',1)
     (tmp_path/'docs').mkdir();(tmp_path/'docs/structural_parameters_review.json').write_text(text,encoding='utf-8')

@@ -3053,7 +3053,7 @@ Constructor: `__init__(self) -> None`.
 
 `ncmemsim/materials/structural.py`
 
-Explicit exports: `StructuralEvidence`, `HydrostaticStrainDomain`, `ConfinementDomain`, `HydrostaticGapProfile`, `SphericalConfinementProfile`
+Explicit exports: `StructuralEvidence`, `HydrostaticStrainDomain`, `ConfinementDomain`, `HydrostaticStrainGapShiftProfile`, `SphericalConfinementProfile`
 
 ### StructuralEvidence
 
@@ -3103,7 +3103,7 @@ Decorators: `dataclass(frozen=True)`.
 - `to_dict(self)`.
 - `from_dict(cls, data)`; `classmethod`.
 
-### HydrostaticGapProfile
+### HydrostaticStrainGapShiftProfile
 
 Bases: `_Archive`.
 
@@ -3113,7 +3113,7 @@ Decorators: `dataclass(frozen=True)`.
 - Field `layer_name: str`; required declaration.
 - Field `gap_kind: GapKind`; required declaration.
 - Field `domain: HydrostaticStrainDomain`; required declaration.
-- Field `gap_coefficient_eV_per_trace: float`; required declaration.
+- Field `gap_deformation_potential_eV_per_trace: float`; required declaration.
 - Field `coefficient_evidence: StructuralEvidence`; required declaration.
 - `to_dict(self)`.
 - `from_dict(cls, data)`; `classmethod`.

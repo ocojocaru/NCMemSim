@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Clarify O1 terminology: HydrostaticStrainGapShiftProfile describes an optical
+  transition-gap shift caused by hydrostatic strain; explicit deformation-potential
+  field and unpublished schema/law identifiers replace the ambiguous gap wording.
+
 - Add Phase O1 immutable structural evidence, separate hydrostatic/radius domains
   and Gamma/L strain/confinement profile contracts, strict archives and synthetic
   parameter-review gates; no evaluation law or physical preset is supplied.

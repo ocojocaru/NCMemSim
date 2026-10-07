@@ -21,7 +21,7 @@
   ],
   "synthetic_diagnostic_profiles": {
     "hydrostatic_gamma": {
-      "schema_version": "hydrostatic-gap-profile-v1",
+      "schema_version": "hydrostatic-strain-gap-shift-profile-v1",
       "name": "synthetic-GAMMA",
       "layer_name": "FG1",
       "gap_kind": "optical_gamma_gap",
@@ -46,7 +46,7 @@
         "strain_unit": "dimensionless",
         "sign_convention": "positive_tensile"
       },
-      "gap_coefficient_eV_per_trace": -1.0,
+      "gap_deformation_potential_eV_per_trace": -1.0,
       "coefficient_evidence": {
         "schema_version": "structural-evidence-v1",
         "source": "O1 synthetic parameter review",
@@ -59,7 +59,7 @@
       },
       "coefficient_unit": "eV_per_unit_trace",
       "coefficient_semantics": "optical_transition_gap_derivative",
-      "law_id": "hydrostatic-linear-gap-v1"
+      "law_id": "hydrostatic-strain-linear-gap-shift-v1"
     },
     "confinement_gamma": {
       "schema_version": "spherical-confinement-profile-v1",
@@ -127,7 +127,7 @@
       "law_id": "spherical-infinite-barrier-ema-kinetic-v1"
     },
     "hydrostatic_l": {
-      "schema_version": "hydrostatic-gap-profile-v1",
+      "schema_version": "hydrostatic-strain-gap-shift-profile-v1",
       "name": "synthetic-L",
       "layer_name": "FG1",
       "gap_kind": "optical_l_gap",
@@ -152,7 +152,7 @@
         "strain_unit": "dimensionless",
         "sign_convention": "positive_tensile"
       },
-      "gap_coefficient_eV_per_trace": -0.5,
+      "gap_deformation_potential_eV_per_trace": -0.5,
       "coefficient_evidence": {
         "schema_version": "structural-evidence-v1",
         "source": "O1 synthetic parameter review",
@@ -165,7 +165,7 @@
       },
       "coefficient_unit": "eV_per_unit_trace",
       "coefficient_semantics": "optical_transition_gap_derivative",
-      "law_id": "hydrostatic-linear-gap-v1"
+      "law_id": "hydrostatic-strain-linear-gap-shift-v1"
     },
     "confinement_l": {
       "schema_version": "spherical-confinement-profile-v1",

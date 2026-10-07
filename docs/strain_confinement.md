@@ -124,7 +124,7 @@ N's old alpha samples are not transferable to a new structural context.
 | Stage | Deliverable | Acceptance |
 |---|---|---|
 | O1 | Separate strain/confinement evidence, domains and immutable contracts; coefficient review | Explicit units/sign/valley/radius/mass identities, strict readers, no hidden defaults or calibration claim |
-| O2 | Hydrostatic optical-gap evaluation plus independent strain reference | Zero/positive/negative strain, slope/sign checks, domain failures, no shear/splitting or barrier mutation |
+| O2 | Optical gap shifts induced by hydrostatic strain plus independent reference | Zero/positive/negative strain, slope/sign checks, domain failures, no shear/splitting or barrier mutation |
 | O3 | Kinetic spherical confinement plus independent size reference | Radius/diameter and J/eV checks, inverse-square scaling, mass sensitivity and declared applicability; charging left distinct |
 | O4 | Owned opt-in optical context composed with M/N | Separate shifts and baseline identities, disabled recovery, no mutation, correct layer/geometry/temperature, rebuild alpha |
 | O5 | Controlled optical/broadband and electro-optical reference | Baseline/strain-only/confinement-only/composed controls, threshold-grid/time convergence, budgets and retained negative outcomes |
@@ -148,7 +148,7 @@ Package and citation remain published v1.5.0; no physical parameter preset is sh
 ## O1 contracts and reviewed parameter boundary
 
 The additive `ncmemsim.materials.structural` module exports `StructuralEvidence`,
-`HydrostaticStrainDomain`, `ConfinementDomain`, `HydrostaticGapProfile` and
+`HydrostaticStrainDomain`, `ConfinementDomain`, `HydrostaticStrainGapShiftProfile` and
 `SphericalConfinementProfile`. They are frozen contracts with canonical JSON,
 versioned schemas and SHA-256 content identities. Unknown fields, wrong units,
 duplicate JSON keys, nonfinite values, booleans as numbers and relabelled physics
@@ -161,7 +161,7 @@ Domain evidence is mandatory and does not establish experimental qualification.
 Gamma/L optical transition targets reuse the existing GapKind enum; substrate
 gaps, string-valued targets and unreviewed GeSn applicability fail explicitly.
 
-Hydrostatic coefficients are signed, finite eV per unit trace, with their own
+Gap deformation potentials for hydrostatic strain are signed, finite eV per unit trace, with their own
 evidence and optical-gap-derivative semantics. Confinement requires positive
 electron and hole masses in m0, an explicit hole branch, separate mass evidence
 and explicit approximation evidence. Archives name the spherical infinite-barrier,
@@ -185,17 +185,17 @@ fixtures, never automatically loaded as package defaults. Physical coefficient,
 mass and domain selection remains pending explicit material-specific review.
 
 ```python
-from ncmemsim.materials.structural import StructuralEvidence, HydrostaticStrainDomain, HydrostaticGapProfile
+from ncmemsim.materials.structural import StructuralEvidence, HydrostaticStrainDomain, HydrostaticStrainGapShiftProfile
 from ncmemsim.materials.provenance import ParameterStatus
 from ncmemsim.materials.temperature import GapKind
 
 evidence = StructuralEvidence("synthetic unit fixture", "documentation example",
     ParameterStatus.ASSUMED, "arbitrary diagnostic slope/domain; not material qualified")
 domain = HydrostaticStrainDomain("Ge", 300.0, 300.0, -.01, .01, evidence)
-profile = HydrostaticGapProfile("explicit Gamma fixture", "FG1", GapKind.GAMMA,
+profile = HydrostaticStrainGapShiftProfile("explicit Gamma fixture", "FG1", GapKind.GAMMA,
     domain, -1.0, evidence)
 domain.validate_point(temperature_K=300.0, trace_strain=0.0)
-assert HydrostaticGapProfile.from_json(profile.to_json()) == profile
+assert HydrostaticStrainGapShiftProfile.from_json(profile.to_json()) == profile
 ```
 
 Contracts store targets/assumptions without importing an optical evaluator,

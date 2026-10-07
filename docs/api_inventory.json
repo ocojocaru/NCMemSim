@@ -21578,7 +21578,7 @@
         "StructuralEvidence",
         "HydrostaticStrainDomain",
         "ConfinementDomain",
-        "HydrostaticGapProfile",
+        "HydrostaticStrainGapShiftProfile",
         "SphericalConfinementProfile"
       ],
       "package_import_aliases": {
@@ -21926,7 +21926,7 @@
           ]
         },
         {
-          "name": "HydrostaticGapProfile",
+          "name": "HydrostaticStrainGapShiftProfile",
           "kind": "class",
           "class_assignments": [],
           "bases": [
@@ -21961,7 +21961,7 @@
               "required_in_source": true
             },
             {
-              "name": "gap_coefficient_eV_per_trace",
+              "name": "gap_deformation_potential_eV_per_trace",
               "annotation": "float",
               "default_expression": null,
               "required_in_source": true
@@ -36779,8 +36779,8 @@
     "ncmemsim.materials.optics.predict_gesn_near_edge_absorption_m_inv",
     "ncmemsim.materials.optics.qualify_gesn_near_edge_fit",
     "ncmemsim.materials.provenance.ParameterStatus",
-    "ncmemsim.materials.structural.HydrostaticGapProfile",
     "ncmemsim.materials.structural.HydrostaticStrainDomain",
+    "ncmemsim.materials.structural.HydrostaticStrainGapShiftProfile",
     "ncmemsim.materials.structural.StructuralEvidence",
     "ncmemsim.materials.temperature.GapKind",
     "ncmemsim.materials.temperature.TemperatureDomain",
