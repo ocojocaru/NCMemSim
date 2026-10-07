@@ -2,6 +2,12 @@
 
 NCMemSim v0.10.0 introduces compact wavelength-dependent optical modelling and photo-assisted programming for Ge/GeSn nanocrystal nonvolatile-memory structures.
 
+## Phase O planning
+
+The v1.6 scope separates hydrostatic strain and kinetic NC confinement.
+[O0 scope and O1-O7 acceptance gates](strain_confinement.md) preserve existing
+bulk/thermal/spectral models; no structural runtime law is added by O0.
+
 ## Phase N planning
 
 The v1.5 target is broadband spectra and opt-in sequential multilayer attenuation.

@@ -43,7 +43,7 @@ Multi-level charge states, gradual programming, retention, optical sensitivity, 
 Trap-assisted transport, an opt-in image-force correction and stochastic
 ensembles are delivered in v1.1-v1.2. Remaining candidates include improved
 barrier shapes, self-consistent carrier statistics, strain, quantum confinement,
-Coulomb charging and hierarchical uncertainty. Opt-in anchored temperature
+improved charging/interaction models and hierarchical uncertainty. Opt-in anchored temperature
 properties are delivered in v1.4.
 
 ## Software trajectory
@@ -57,7 +57,8 @@ properties are delivered in v1.4.
 - **v1.1-v1.2:** released advanced transport and stochastic ensembles;
 - **v1.3:** released explicit MODEL/TAT variability and strict reproducibility bundles;
 - **v1.4:** released temperature-dependent properties and strict thermal reports;
-- **v1.5 (planned):** broadband and sequential multi-FG optics; N0 scope established;
+- **v1.5:** released broadband/sequential multi-FG optics and strict spectral reports;
+- **v1.6 (planned):** separate strain/confinement models; O0 scope established;
 - **Later (indicative):** strain/confinement, independent calibration, neuromorphic
   workflows, acceleration and higher-fidelity interoperability; see
   [roadmap](docs/roadmap.md). Major-version changes require a compatibility rationale.

@@ -59,6 +59,7 @@ nav:
       - Temperature-dependent material planning: temperature_properties.md
       - Optical programming: optics.md
       - Broadband and multilayer optics planning: broadband_optics.md
+      - Strain and confinement planning: strain_confinement.md
       - GeSn near-edge reference: near_edge_reference.md
       - Glossary and notation: glossary.md
   - Quality and reproducibility:

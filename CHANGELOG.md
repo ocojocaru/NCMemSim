@@ -4,6 +4,9 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Define Phase O0 source audit, separate strain/confinement scope and O1-O7
+  acceptance sequence for v1.6; no runtime/default/API or citation identity change.
+
 - Record the author-confirmed v1.5.0 Zenodo DOI and close N7 after verified publication; adapt identity gates without moving the release tag or changing assets.
 
 ## 1.5.0 — 2026-10-06

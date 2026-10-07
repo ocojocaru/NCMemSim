@@ -425,8 +425,13 @@ effective-medium response requires a separately reviewed model contract.
 
 ### v1.6.0: Phase O - Strain and nanocrystal confinement
 
-Indicative: separate strain and quantum-confinement submilestones with equations,
-units, applicability, provenance and independent validation before coupling.
+O0 is complete: [scope and acceptance sequence](strain_confinement.md) and
+[source audit](strain_confinement_audit.json) separate hydrostatic strain from
+kinetic spherical confinement. O1-O7 are planned. Initial application is opt-in
+Ge optical Gamma/L transition shifts; coefficients/masses/domains require O1
+review, and each mechanism is independently validated before composition.
+No automatic transport-barrier correction or complete interacting-exciton model
+is promised by this first scope.
 Franz-Keldysh effects, Stark shifts and state filling remain separate candidates.
 
 ### v1.7.0: Phase P - Independent experimental calibration
