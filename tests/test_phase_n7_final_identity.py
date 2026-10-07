@@ -6,6 +6,11 @@ import pytest
 from scripts.validate_v1_5_release_identity import validate,validate_identity
 ROOT=Path(__file__).resolve().parents[1]
 
+@pytest.fixture(autouse=True)
+def isolate_published_identity(published_v1_5_copy,monkeypatch):
+    monkeypatch.setattr(__import__(__name__,fromlist=['ROOT']),'ROOT',published_v1_5_copy)
+
+
 def test_final_identity_and_retained_contracts():
     r=validate(ROOT)
     assert r['release_version']=='1.5.0' and r['citation_date']=='2026-10-06'

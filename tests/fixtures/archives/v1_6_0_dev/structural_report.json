@@ -1,0 +1,3031 @@
+{
+  "schema_version": "structural-report-v1",
+  "name": "O7 frozen development failure archive",
+  "scientific_status": "conditional-unqualified-simulation",
+  "restoration_policy": "stored states/observations authoritative; rebuild projections; no optical/workflow/RNG replay",
+  "studies": [
+    {
+      "schema_version": "structural-report-study-v1",
+      "name": "strain outside domain",
+      "kind": "failure",
+      "source": {
+        "error_type": "builtins.ValueError",
+        "message": "point outside hydrostatic applicability domain",
+        "request": {
+          "baseline_context": {
+            "bindings": [
+              {
+                "confinement_profiles": [
+                  {
+                    "approximation_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "barrier_model": "infinite",
+                    "domain": {
+                      "evidence": {
+                        "doi": null,
+                        "locator": "explicit O1 synthetic fixture",
+                        "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                        "reported_uncertainty": null,
+                        "schema_version": "structural-evidence-v1",
+                        "source": "O5 diagnostic parameters",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "material": "Ge",
+                      "max_radius_m": 1e-08,
+                      "max_temperature_K": 350.0,
+                      "min_radius_m": 2e-09,
+                      "min_temperature_K": 250.0,
+                      "schema_version": "confinement-domain-v1",
+                      "size_coordinate": "radius",
+                      "size_unit": "m"
+                    },
+                    "electron_mass_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "electron_mass_m0": 0.2,
+                    "gap_kind": "optical_gamma_gap",
+                    "geometry": "spherical",
+                    "hole_branch": "effective_scalar",
+                    "hole_mass_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "hole_mass_m0": 0.4,
+                    "interaction_terms": "kinetic_only",
+                    "law_id": "spherical-infinite-barrier-ema-kinetic-v1",
+                    "layer_name": "FG1",
+                    "mass_basis": "isotropic_equivalent",
+                    "mass_unit": "m0",
+                    "name": "o5-GAMMA",
+                    "schema_version": "spherical-confinement-profile-v1"
+                  },
+                  {
+                    "approximation_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "barrier_model": "infinite",
+                    "domain": {
+                      "evidence": {
+                        "doi": null,
+                        "locator": "explicit O1 synthetic fixture",
+                        "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                        "reported_uncertainty": null,
+                        "schema_version": "structural-evidence-v1",
+                        "source": "O5 diagnostic parameters",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "material": "Ge",
+                      "max_radius_m": 1e-08,
+                      "max_temperature_K": 350.0,
+                      "min_radius_m": 2e-09,
+                      "min_temperature_K": 250.0,
+                      "schema_version": "confinement-domain-v1",
+                      "size_coordinate": "radius",
+                      "size_unit": "m"
+                    },
+                    "electron_mass_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "electron_mass_m0": 0.3,
+                    "gap_kind": "optical_l_gap",
+                    "geometry": "spherical",
+                    "hole_branch": "effective_scalar",
+                    "hole_mass_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "hole_mass_m0": 0.4,
+                    "interaction_terms": "kinetic_only",
+                    "law_id": "spherical-infinite-barrier-ema-kinetic-v1",
+                    "layer_name": "FG1",
+                    "mass_basis": "isotropic_equivalent",
+                    "mass_unit": "m0",
+                    "name": "o5-L",
+                    "schema_version": "spherical-confinement-profile-v1"
+                  }
+                ],
+                "enabled": true,
+                "layer_name": "FG1",
+                "schema_version": "structural-optical-binding-v1",
+                "strain_profiles": [
+                  {
+                    "coefficient_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "coefficient_semantics": "optical_transition_gap_derivative",
+                    "coefficient_unit": "eV_per_unit_trace",
+                    "domain": {
+                      "evidence": {
+                        "doi": null,
+                        "locator": "explicit O1 synthetic fixture",
+                        "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                        "reported_uncertainty": null,
+                        "schema_version": "structural-evidence-v1",
+                        "source": "O5 diagnostic parameters",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "material": "Ge",
+                      "max_temperature_K": 350.0,
+                      "max_trace_strain": 0.01,
+                      "min_temperature_K": 250.0,
+                      "min_trace_strain": -0.01,
+                      "schema_version": "hydrostatic-strain-domain-v1",
+                      "sign_convention": "positive_tensile",
+                      "strain_coordinate": "trace_epsilon",
+                      "strain_unit": "dimensionless"
+                    },
+                    "gap_deformation_potential_eV_per_trace": -1.0,
+                    "gap_kind": "optical_gamma_gap",
+                    "law_id": "hydrostatic-strain-linear-gap-shift-v1",
+                    "layer_name": "FG1",
+                    "name": "o5-GAMMA",
+                    "schema_version": "hydrostatic-strain-gap-shift-profile-v1"
+                  },
+                  {
+                    "coefficient_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "coefficient_semantics": "optical_transition_gap_derivative",
+                    "coefficient_unit": "eV_per_unit_trace",
+                    "domain": {
+                      "evidence": {
+                        "doi": null,
+                        "locator": "explicit O1 synthetic fixture",
+                        "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                        "reported_uncertainty": null,
+                        "schema_version": "structural-evidence-v1",
+                        "source": "O5 diagnostic parameters",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "material": "Ge",
+                      "max_temperature_K": 350.0,
+                      "max_trace_strain": 0.01,
+                      "min_temperature_K": 250.0,
+                      "min_trace_strain": -0.01,
+                      "schema_version": "hydrostatic-strain-domain-v1",
+                      "sign_convention": "positive_tensile",
+                      "strain_coordinate": "trace_epsilon",
+                      "strain_unit": "dimensionless"
+                    },
+                    "gap_deformation_potential_eV_per_trace": -0.5,
+                    "gap_kind": "optical_l_gap",
+                    "law_id": "hydrostatic-strain-linear-gap-shift-v1",
+                    "layer_name": "FG1",
+                    "name": "o5-L",
+                    "schema_version": "hydrostatic-strain-gap-shift-profile-v1"
+                  }
+                ],
+                "trace_strain": 0.005
+              }
+            ],
+            "resolved": {
+              "composition_policy": "thermal-baseline-plus-independent-structural-shifts-assumed-v1",
+              "layers": [
+                {
+                  "applied": true,
+                  "layer_name": "FG1",
+                  "radius_m_from_device": 4e-09,
+                  "targets": {
+                    "optical_gamma_gap": {
+                      "confinement_result": {
+                        "confined_gap_eV": 0.9747641387265956,
+                        "constants": {
+                          "electron_mass_kg": 9.1093837015e-31,
+                          "elementary_charge_C": 1.602176634e-19,
+                          "planck_J_s": 6.62607015e-34
+                        },
+                        "electron_confinement_energy_eV": 0.11750942581773043,
+                        "energy_unit": "eV",
+                        "hole_confinement_energy_eV": 0.05875471290886521,
+                        "kinetic_gap_shift_eV": 0.17626413872659563,
+                        "mass_unit": "m0",
+                        "profile": {
+                          "approximation_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "barrier_model": "infinite",
+                          "domain": {
+                            "evidence": {
+                              "doi": null,
+                              "locator": "explicit O1 synthetic fixture",
+                              "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                              "reported_uncertainty": null,
+                              "schema_version": "structural-evidence-v1",
+                              "source": "O5 diagnostic parameters",
+                              "status": "assumed",
+                              "uncertainty_unit": null
+                            },
+                            "material": "Ge",
+                            "max_radius_m": 1e-08,
+                            "max_temperature_K": 350.0,
+                            "min_radius_m": 2e-09,
+                            "min_temperature_K": 250.0,
+                            "schema_version": "confinement-domain-v1",
+                            "size_coordinate": "radius",
+                            "size_unit": "m"
+                          },
+                          "electron_mass_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "electron_mass_m0": 0.2,
+                          "gap_kind": "optical_gamma_gap",
+                          "geometry": "spherical",
+                          "hole_branch": "effective_scalar",
+                          "hole_mass_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "hole_mass_m0": 0.4,
+                          "interaction_terms": "kinetic_only",
+                          "law_id": "spherical-infinite-barrier-ema-kinetic-v1",
+                          "layer_name": "FG1",
+                          "mass_basis": "isotropic_equivalent",
+                          "mass_unit": "m0",
+                          "name": "o5-GAMMA",
+                          "schema_version": "spherical-confinement-profile-v1"
+                        },
+                        "profile_hash": "8d06a4106f86375cbc4d7aed829427ad4a212b0b8dcf028988f7742c25c8a0e0",
+                        "radius_m": 4e-09,
+                        "schema_version": "spherical-kinetic-confinement-gap-shift-result-v1",
+                        "size_coordinate": "radius",
+                        "size_unit": "m",
+                        "temperature_K": 300.0,
+                        "unconfined_gap_eV": 0.7985,
+                        "unconfined_gap_evidence": {
+                          "doi": null,
+                          "locator": "1f8f7553f2498f18e7e0802ea8e5d839fe0cc2dd5eb85c782f3e4e7aeaf46e63/FG1/optical_gamma_gap",
+                          "notes": "Gap already resolved at the sole device temperature; no second thermal correction",
+                          "reported_uncertainty": null,
+                          "schema_version": "structural-evidence-v1",
+                          "source": "Resolved M optical baseline",
+                          "status": "derived",
+                          "uncertainty_unit": null
+                        }
+                      },
+                      "kinetic_confinement_gap_shift_eV": 0.17626413872659563,
+                      "resolved_gap_eV": 0.9697641387265956,
+                      "strain_gap_shift_eV": -0.005,
+                      "strain_result": {
+                        "energy_unit": "eV",
+                        "gap_shift_eV": -0.005,
+                        "profile": {
+                          "coefficient_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "coefficient_semantics": "optical_transition_gap_derivative",
+                          "coefficient_unit": "eV_per_unit_trace",
+                          "domain": {
+                            "evidence": {
+                              "doi": null,
+                              "locator": "explicit O1 synthetic fixture",
+                              "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                              "reported_uncertainty": null,
+                              "schema_version": "structural-evidence-v1",
+                              "source": "O5 diagnostic parameters",
+                              "status": "assumed",
+                              "uncertainty_unit": null
+                            },
+                            "material": "Ge",
+                            "max_temperature_K": 350.0,
+                            "max_trace_strain": 0.01,
+                            "min_temperature_K": 250.0,
+                            "min_trace_strain": -0.01,
+                            "schema_version": "hydrostatic-strain-domain-v1",
+                            "sign_convention": "positive_tensile",
+                            "strain_coordinate": "trace_epsilon",
+                            "strain_unit": "dimensionless"
+                          },
+                          "gap_deformation_potential_eV_per_trace": -1.0,
+                          "gap_kind": "optical_gamma_gap",
+                          "law_id": "hydrostatic-strain-linear-gap-shift-v1",
+                          "layer_name": "FG1",
+                          "name": "o5-GAMMA",
+                          "schema_version": "hydrostatic-strain-gap-shift-profile-v1"
+                        },
+                        "profile_hash": "bbeb5e3cbef7b89027af9d6f75717af9d494610bc5830f13e0848cec95dca3bf",
+                        "schema_version": "hydrostatic-strain-gap-shift-result-v1",
+                        "shifted_gap_eV": 0.7935,
+                        "sign_convention": "positive_tensile",
+                        "strain_coordinate": "trace_epsilon",
+                        "strain_unit": "dimensionless",
+                        "temperature_K": 300.0,
+                        "trace_strain": 0.005,
+                        "unstrained_gap_eV": 0.7985,
+                        "unstrained_gap_evidence": {
+                          "doi": null,
+                          "locator": "1f8f7553f2498f18e7e0802ea8e5d839fe0cc2dd5eb85c782f3e4e7aeaf46e63/FG1/optical_gamma_gap",
+                          "notes": "Gap already resolved at the sole device temperature; no second thermal correction",
+                          "reported_uncertainty": null,
+                          "schema_version": "structural-evidence-v1",
+                          "source": "Resolved M optical baseline",
+                          "status": "derived",
+                          "uncertainty_unit": null
+                        }
+                      },
+                      "thermal_baseline_gap_eV": 0.7985
+                    },
+                    "optical_l_gap": {
+                      "confinement_result": {
+                        "confined_gap_eV": 0.8010943301206855,
+                        "constants": {
+                          "electron_mass_kg": 9.1093837015e-31,
+                          "elementary_charge_C": 1.602176634e-19,
+                          "planck_J_s": 6.62607015e-34
+                        },
+                        "electron_confinement_energy_eV": 0.0783396172118203,
+                        "energy_unit": "eV",
+                        "hole_confinement_energy_eV": 0.05875471290886521,
+                        "kinetic_gap_shift_eV": 0.1370943301206855,
+                        "mass_unit": "m0",
+                        "profile": {
+                          "approximation_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "barrier_model": "infinite",
+                          "domain": {
+                            "evidence": {
+                              "doi": null,
+                              "locator": "explicit O1 synthetic fixture",
+                              "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                              "reported_uncertainty": null,
+                              "schema_version": "structural-evidence-v1",
+                              "source": "O5 diagnostic parameters",
+                              "status": "assumed",
+                              "uncertainty_unit": null
+                            },
+                            "material": "Ge",
+                            "max_radius_m": 1e-08,
+                            "max_temperature_K": 350.0,
+                            "min_radius_m": 2e-09,
+                            "min_temperature_K": 250.0,
+                            "schema_version": "confinement-domain-v1",
+                            "size_coordinate": "radius",
+                            "size_unit": "m"
+                          },
+                          "electron_mass_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "electron_mass_m0": 0.3,
+                          "gap_kind": "optical_l_gap",
+                          "geometry": "spherical",
+                          "hole_branch": "effective_scalar",
+                          "hole_mass_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "hole_mass_m0": 0.4,
+                          "interaction_terms": "kinetic_only",
+                          "law_id": "spherical-infinite-barrier-ema-kinetic-v1",
+                          "layer_name": "FG1",
+                          "mass_basis": "isotropic_equivalent",
+                          "mass_unit": "m0",
+                          "name": "o5-L",
+                          "schema_version": "spherical-confinement-profile-v1"
+                        },
+                        "profile_hash": "7f6ea1ee7ec25e979fdf17261aa16d7e52eeb74dc8c3b8ef6b34a87f8d440b8f",
+                        "radius_m": 4e-09,
+                        "schema_version": "spherical-kinetic-confinement-gap-shift-result-v1",
+                        "size_coordinate": "radius",
+                        "size_unit": "m",
+                        "temperature_K": 300.0,
+                        "unconfined_gap_eV": 0.664,
+                        "unconfined_gap_evidence": {
+                          "doi": null,
+                          "locator": "1f8f7553f2498f18e7e0802ea8e5d839fe0cc2dd5eb85c782f3e4e7aeaf46e63/FG1/optical_l_gap",
+                          "notes": "Gap already resolved at the sole device temperature; no second thermal correction",
+                          "reported_uncertainty": null,
+                          "schema_version": "structural-evidence-v1",
+                          "source": "Resolved M optical baseline",
+                          "status": "derived",
+                          "uncertainty_unit": null
+                        }
+                      },
+                      "kinetic_confinement_gap_shift_eV": 0.1370943301206855,
+                      "resolved_gap_eV": 0.7985943301206856,
+                      "strain_gap_shift_eV": -0.0025,
+                      "strain_result": {
+                        "energy_unit": "eV",
+                        "gap_shift_eV": -0.0025,
+                        "profile": {
+                          "coefficient_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "coefficient_semantics": "optical_transition_gap_derivative",
+                          "coefficient_unit": "eV_per_unit_trace",
+                          "domain": {
+                            "evidence": {
+                              "doi": null,
+                              "locator": "explicit O1 synthetic fixture",
+                              "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                              "reported_uncertainty": null,
+                              "schema_version": "structural-evidence-v1",
+                              "source": "O5 diagnostic parameters",
+                              "status": "assumed",
+                              "uncertainty_unit": null
+                            },
+                            "material": "Ge",
+                            "max_temperature_K": 350.0,
+                            "max_trace_strain": 0.01,
+                            "min_temperature_K": 250.0,
+                            "min_trace_strain": -0.01,
+                            "schema_version": "hydrostatic-strain-domain-v1",
+                            "sign_convention": "positive_tensile",
+                            "strain_coordinate": "trace_epsilon",
+                            "strain_unit": "dimensionless"
+                          },
+                          "gap_deformation_potential_eV_per_trace": -0.5,
+                          "gap_kind": "optical_l_gap",
+                          "law_id": "hydrostatic-strain-linear-gap-shift-v1",
+                          "layer_name": "FG1",
+                          "name": "o5-L",
+                          "schema_version": "hydrostatic-strain-gap-shift-profile-v1"
+                        },
+                        "profile_hash": "9aef329b8659d58881c5834c928c4b8485ab47517fc6e8ef59e22a81ebb81269",
+                        "schema_version": "hydrostatic-strain-gap-shift-result-v1",
+                        "shifted_gap_eV": 0.6615000000000001,
+                        "sign_convention": "positive_tensile",
+                        "strain_coordinate": "trace_epsilon",
+                        "strain_unit": "dimensionless",
+                        "temperature_K": 300.0,
+                        "trace_strain": 0.005,
+                        "unstrained_gap_eV": 0.664,
+                        "unstrained_gap_evidence": {
+                          "doi": null,
+                          "locator": "1f8f7553f2498f18e7e0802ea8e5d839fe0cc2dd5eb85c782f3e4e7aeaf46e63/FG1/optical_l_gap",
+                          "notes": "Gap already resolved at the sole device temperature; no second thermal correction",
+                          "reported_uncertainty": null,
+                          "schema_version": "structural-evidence-v1",
+                          "source": "Resolved M optical baseline",
+                          "status": "derived",
+                          "uncertainty_unit": null
+                        }
+                      },
+                      "thermal_baseline_gap_eV": 0.664
+                    }
+                  },
+                  "thermal_optical_row": {
+                    "absorption_parameters": {
+                      "direct_prefactor_A": 10000000.0,
+                      "indirect_prefactor_A": 1000000.0,
+                      "name": "gesn-absorption-compact-v1",
+                      "phonon_energy_eV": 0.027,
+                      "temperature_K": 300.0,
+                      "urbach_edge_alpha_m_inv": 100000.0,
+                      "urbach_energy_eV": 0.012
+                    },
+                    "applied_mode": "coupled",
+                    "gamma_gap_eV": 0.7985,
+                    "l_gap_eV": 0.664,
+                    "layer_name": "FG1",
+                    "optical_parameters": {
+                      "absorption_prefactor_m_inv_eV_sqrt": 10000000.0,
+                      "alpha_sn_direct_gap_eV": -0.413,
+                      "alpha_sn_indirect_gap_eV": 0.092,
+                      "broadening_eV": 0.0,
+                      "direct_gap_bowing_eV": 2.89,
+                      "ge_direct_gap_eV": 0.7985,
+                      "ge_indirect_gap_eV": 0.664,
+                      "indirect_gap_bowing_eV": 0.89,
+                      "name": "gesn-optical-300K-v1",
+                      "temperature_K": 300.0
+                    },
+                    "phonon_temperature_K": 300.0,
+                    "sn_fraction": 0.0
+                  }
+                }
+              ],
+              "temperature_K": 300.0
+            },
+            "schema_version": "structural-optical-context-v1",
+            "thermal_resolution": {
+              "context": {
+                "enabled": true,
+                "intrinsic_density": null,
+                "nominal_device": {
+                  "device": {
+                    "architecture": "V2",
+                    "gate_work_function_eV": 4.8,
+                    "layers": [
+                      {
+                        "eps_r": 3.9,
+                        "material": "SiO2",
+                        "name": "control_sio2",
+                        "role": "control_dielectric",
+                        "thickness_nm": 20.0,
+                        "type": "layer"
+                      },
+                      {
+                        "electrically_active_fraction": 0.1,
+                        "grid_points": 3,
+                        "matrix_material": "SiO2",
+                        "name": "FG1",
+                        "nc_diameter_nm": 8.0,
+                        "nc_material": "Ge",
+                        "nc_volume_fraction": 0.2,
+                        "sn_fraction": 0.0,
+                        "spatial_profile": "uniform",
+                        "thickness_nm": 6.0,
+                        "type": "floating_gate"
+                      },
+                      {
+                        "eps_r": 3.9,
+                        "material": "SiO2",
+                        "name": "tunnel_sio2",
+                        "role": "tunnel_dielectric",
+                        "thickness_nm": 8.0,
+                        "type": "layer"
+                      }
+                    ],
+                    "metadata": {},
+                    "name": "o5-fixed-geometry",
+                    "number_of_fgs": 1,
+                    "substrate_doping_m3": 1e+21,
+                    "temperature_K": 300.0,
+                    "total_thickness_nm": 34.0
+                  },
+                  "layer_material_definitions": [
+                    {
+                      "layer_name": "control_sio2",
+                      "material": {
+                        "bandgap_eV": 8.9,
+                        "electron_affinity_eV": 0.95,
+                        "electron_effective_mass_m0": null,
+                        "eps_r": 3.9,
+                        "hole_effective_mass_m0": null,
+                        "metadata": {
+                          "parameter_set": "default-v1"
+                        },
+                        "name": "SiO2",
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 8.9
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 0.95
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 3.9
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "layer_name": "FG1",
+                      "matrix_material": {
+                        "bandgap_eV": 8.9,
+                        "electron_affinity_eV": 0.95,
+                        "electron_effective_mass_m0": null,
+                        "eps_r": 3.9,
+                        "hole_effective_mass_m0": null,
+                        "metadata": {
+                          "parameter_set": "default-v1"
+                        },
+                        "name": "SiO2",
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 8.9
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 0.95
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 3.9
+                          }
+                        }
+                      },
+                      "nc_material": {
+                        "bandgap_eV": 0.66,
+                        "effective_mass_m0": 0.12,
+                        "electron_affinity_eV": 4.0,
+                        "eps_r_nc": 16.0,
+                        "metadata": {
+                          "parameter_set": "default-v1",
+                          "parameter_status": "provisional/default"
+                        },
+                        "model_name": "GeModel",
+                        "model_version": "default-v1",
+                        "name": "Ge",
+                        "phi_barrier_erase_eV": 2.8,
+                        "phi_barrier_prog_eV": 2.8,
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 0.66
+                          },
+                          "effective_mass_m0": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "m_e^*",
+                            "unit": "m0",
+                            "value": 0.12
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 4.0
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 16.0
+                          },
+                          "phi_barrier_erase_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "Phi_erase",
+                            "unit": "eV",
+                            "value": 2.8
+                          },
+                          "phi_barrier_prog_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "Phi_prog",
+                            "unit": "eV",
+                            "value": 2.8
+                          }
+                        },
+                        "sn_fraction": 0.0
+                      }
+                    },
+                    {
+                      "layer_name": "tunnel_sio2",
+                      "material": {
+                        "bandgap_eV": 8.9,
+                        "electron_affinity_eV": 0.95,
+                        "electron_effective_mass_m0": null,
+                        "eps_r": 3.9,
+                        "hole_effective_mass_m0": null,
+                        "metadata": {
+                          "parameter_set": "default-v1"
+                        },
+                        "name": "SiO2",
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 8.9
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 0.95
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 3.9
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "layer_metadata": [
+                    {},
+                    {},
+                    {}
+                  ]
+                },
+                "nominal_physics": {
+                  "coupling": {
+                    "legacy_single_fg": true
+                  },
+                  "field_solver": "FieldSolver1D",
+                  "implementation": "ncmemsim-core-physics-v1",
+                  "kinetics": {
+                    "capacitance_eps_r": 8.0,
+                    "density_profile": "front_loaded",
+                    "nu0_Hz": 1000000000000.0,
+                    "nu1_Hz": 10000000000.0,
+                    "nu2_Hz": 3000000000.0
+                  },
+                  "semiconductor": {
+                    "accumulation_factor": 40.0,
+                    "bandgap_eV": 1.12,
+                    "electron_affinity_eV": 4.05,
+                    "intrinsic_density_m3": 1e+16,
+                    "psi_max_V": 0.9,
+                    "silicon_eps_r": 11.7,
+                    "transition_voltage_V": 0.65,
+                    "transition_width_V": 0.22
+                  },
+                  "shared_tunneling": true,
+                  "transport": {
+                    "attempt_frequency_Hz": 1000000000.0,
+                    "default_barrier_eV": 1.78,
+                    "direction_beta_V_inv": 8.0,
+                    "effective_mass_m0": 0.15,
+                    "enabled": true,
+                    "include_substrate_diagnostics": true,
+                    "max_transfer_fraction_per_step": 0.1
+                  },
+                  "tunneling": {
+                    "activation_beta_V_inv": 0.8,
+                    "field_coupling_factor": 0.8,
+                    "injection_energy_eV": 0.1,
+                    "integration_points": 160,
+                    "oxide_effective_mass_m0": 0.15
+                  }
+                },
+                "optical_bindings": [
+                  {
+                    "absorption_parameters": {
+                      "direct_prefactor_A": 10000000.0,
+                      "indirect_prefactor_A": 1000000.0,
+                      "name": "gesn-absorption-compact-v1",
+                      "phonon_energy_eV": 0.027,
+                      "temperature_K": 300.0,
+                      "urbach_edge_alpha_m_inv": 100000.0,
+                      "urbach_energy_eV": 0.012
+                    },
+                    "gamma_profile": {
+                      "alpha_eV_K": 0.0006042,
+                      "beta_K": 398.0,
+                      "coefficient_evidence": {
+                        "doi": "10.1016/0031-8914(67)90062-6",
+                        "locator": "Table I, p. 152; equation (1), p. 149",
+                        "notes": "Table I fit; Si uses the exciton-subtracted gap convention. No operating domain is certified by this record.",
+                        "source": "Y. P. Varshni, Physica 34 (1967), 149-154",
+                        "status": "literature_fitted"
+                      },
+                      "domain": {
+                        "evidence": {
+                          "doi": null,
+                          "locator": "250-350 K diagnostic window; inherited 300 K bulk-Ge anchors",
+                          "notes": "Conditional unstrained bulk-Ge gap laws applied to a compact nanocrystal layer; synthetic geometry, illumination and capture efficiency. Absorption amplitudes, Urbach tail, phonon energy and barriers held constant. No experimental thermal absorption calibration, confinement, broadband propagation or GeSn thermal qualification.",
+                          "source": "Explicit M4 numerical assumption",
+                          "status": "assumed"
+                        },
+                        "material": "Ge",
+                        "max_sn_fraction": 0.0,
+                        "max_temperature_K": 350.0,
+                        "min_sn_fraction": 0.0,
+                        "min_temperature_K": 250.0,
+                        "strain_state": "unstrained"
+                      },
+                      "gap_kind": "optical_gamma_gap",
+                      "name": "m4-varshni1967-ge-gamma",
+                      "reference_evidence": {
+                        "doi": null,
+                        "locator": "250-350 K diagnostic window; inherited 300 K bulk-Ge anchors",
+                        "notes": "Conditional unstrained bulk-Ge gap laws applied to a compact nanocrystal layer; synthetic geometry, illumination and capture efficiency. Absorption amplitudes, Urbach tail, phonon energy and barriers held constant. No experimental thermal absorption calibration, confinement, broadband propagation or GeSn thermal qualification.",
+                        "source": "Explicit M4 numerical assumption",
+                        "status": "assumed"
+                      },
+                      "reference_gap_eV": 0.7985,
+                      "reference_temperature_K": 300.0,
+                      "schema_version": "anchored-varshni-v1",
+                      "sn_fraction": 0.0,
+                      "unit": "eV"
+                    },
+                    "l_profile": {
+                      "alpha_eV_K": 0.0004561,
+                      "beta_K": 210.0,
+                      "coefficient_evidence": {
+                        "doi": "10.1016/0031-8914(67)90062-6",
+                        "locator": "Table I, p. 152; equation (1), p. 149",
+                        "notes": "Table I fit; Si uses the exciton-subtracted gap convention. No operating domain is certified by this record.",
+                        "source": "Y. P. Varshni, Physica 34 (1967), 149-154",
+                        "status": "literature_fitted"
+                      },
+                      "domain": {
+                        "evidence": {
+                          "doi": null,
+                          "locator": "250-350 K diagnostic window; inherited 300 K bulk-Ge anchors",
+                          "notes": "Conditional unstrained bulk-Ge gap laws applied to a compact nanocrystal layer; synthetic geometry, illumination and capture efficiency. Absorption amplitudes, Urbach tail, phonon energy and barriers held constant. No experimental thermal absorption calibration, confinement, broadband propagation or GeSn thermal qualification.",
+                          "source": "Explicit M4 numerical assumption",
+                          "status": "assumed"
+                        },
+                        "material": "Ge",
+                        "max_sn_fraction": 0.0,
+                        "max_temperature_K": 350.0,
+                        "min_sn_fraction": 0.0,
+                        "min_temperature_K": 250.0,
+                        "strain_state": "unstrained"
+                      },
+                      "gap_kind": "optical_l_gap",
+                      "name": "m4-varshni1967-ge-l",
+                      "reference_evidence": {
+                        "doi": null,
+                        "locator": "250-350 K diagnostic window; inherited 300 K bulk-Ge anchors",
+                        "notes": "Conditional unstrained bulk-Ge gap laws applied to a compact nanocrystal layer; synthetic geometry, illumination and capture efficiency. Absorption amplitudes, Urbach tail, phonon energy and barriers held constant. No experimental thermal absorption calibration, confinement, broadband propagation or GeSn thermal qualification.",
+                        "source": "Explicit M4 numerical assumption",
+                        "status": "assumed"
+                      },
+                      "reference_gap_eV": 0.664,
+                      "reference_temperature_K": 300.0,
+                      "schema_version": "anchored-varshni-v1",
+                      "sn_fraction": 0.0,
+                      "unit": "eV"
+                    },
+                    "layer_name": "FG1",
+                    "mode": "coupled",
+                    "optical_parameters": {
+                      "absorption_prefactor_m_inv_eV_sqrt": 10000000.0,
+                      "alpha_sn_direct_gap_eV": -0.413,
+                      "alpha_sn_indirect_gap_eV": 0.092,
+                      "broadening_eV": 0.0,
+                      "direct_gap_bowing_eV": 2.89,
+                      "ge_direct_gap_eV": 0.7985,
+                      "ge_indirect_gap_eV": 0.664,
+                      "indirect_gap_bowing_eV": 0.89,
+                      "name": "gesn-optical-300K-v1",
+                      "temperature_K": 300.0
+                    }
+                  }
+                ],
+                "schema_version": "thermal-context-v1",
+                "semiconductor_mode": "legacy",
+                "simulation_config": {
+                  "dwell_time_s": 0.005,
+                  "internal_dt_s": 1e-05,
+                  "qfix_C_m2": 0.0,
+                  "qit_C_m2": 0.0
+                },
+                "substrate_gap": null
+              },
+              "nominal_hash": "9935aadc03ca410469d4e9c3c484253e8b8bc7e2220e5c794ef4fb5cb2cbbe52",
+              "resolved": {
+                "device": {
+                  "device": {
+                    "architecture": "V2",
+                    "gate_work_function_eV": 4.8,
+                    "layers": [
+                      {
+                        "eps_r": 3.9,
+                        "material": "SiO2",
+                        "name": "control_sio2",
+                        "role": "control_dielectric",
+                        "thickness_nm": 20.0,
+                        "type": "layer"
+                      },
+                      {
+                        "electrically_active_fraction": 0.1,
+                        "grid_points": 3,
+                        "matrix_material": "SiO2",
+                        "name": "FG1",
+                        "nc_diameter_nm": 8.0,
+                        "nc_material": "Ge",
+                        "nc_volume_fraction": 0.2,
+                        "sn_fraction": 0.0,
+                        "spatial_profile": "uniform",
+                        "thickness_nm": 6.0,
+                        "type": "floating_gate"
+                      },
+                      {
+                        "eps_r": 3.9,
+                        "material": "SiO2",
+                        "name": "tunnel_sio2",
+                        "role": "tunnel_dielectric",
+                        "thickness_nm": 8.0,
+                        "type": "layer"
+                      }
+                    ],
+                    "metadata": {},
+                    "name": "o5-fixed-geometry",
+                    "number_of_fgs": 1,
+                    "substrate_doping_m3": 1e+21,
+                    "temperature_K": 300.0,
+                    "total_thickness_nm": 34.0
+                  },
+                  "layer_material_definitions": [
+                    {
+                      "layer_name": "control_sio2",
+                      "material": {
+                        "bandgap_eV": 8.9,
+                        "electron_affinity_eV": 0.95,
+                        "electron_effective_mass_m0": null,
+                        "eps_r": 3.9,
+                        "hole_effective_mass_m0": null,
+                        "metadata": {
+                          "parameter_set": "default-v1"
+                        },
+                        "name": "SiO2",
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 8.9
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 0.95
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 3.9
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "layer_name": "FG1",
+                      "matrix_material": {
+                        "bandgap_eV": 8.9,
+                        "electron_affinity_eV": 0.95,
+                        "electron_effective_mass_m0": null,
+                        "eps_r": 3.9,
+                        "hole_effective_mass_m0": null,
+                        "metadata": {
+                          "parameter_set": "default-v1"
+                        },
+                        "name": "SiO2",
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 8.9
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 0.95
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 3.9
+                          }
+                        }
+                      },
+                      "nc_material": {
+                        "bandgap_eV": 0.66,
+                        "effective_mass_m0": 0.12,
+                        "electron_affinity_eV": 4.0,
+                        "eps_r_nc": 16.0,
+                        "metadata": {
+                          "parameter_set": "default-v1",
+                          "parameter_status": "provisional/default"
+                        },
+                        "model_name": "GeModel",
+                        "model_version": "default-v1",
+                        "name": "Ge",
+                        "phi_barrier_erase_eV": 2.8,
+                        "phi_barrier_prog_eV": 2.8,
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 0.66
+                          },
+                          "effective_mass_m0": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "m_e^*",
+                            "unit": "m0",
+                            "value": 0.12
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 4.0
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 16.0
+                          },
+                          "phi_barrier_erase_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "Phi_erase",
+                            "unit": "eV",
+                            "value": 2.8
+                          },
+                          "phi_barrier_prog_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "Phi_prog",
+                            "unit": "eV",
+                            "value": 2.8
+                          }
+                        },
+                        "sn_fraction": 0.0
+                      }
+                    },
+                    {
+                      "layer_name": "tunnel_sio2",
+                      "material": {
+                        "bandgap_eV": 8.9,
+                        "electron_affinity_eV": 0.95,
+                        "electron_effective_mass_m0": null,
+                        "eps_r": 3.9,
+                        "hole_effective_mass_m0": null,
+                        "metadata": {
+                          "parameter_set": "default-v1"
+                        },
+                        "name": "SiO2",
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 8.9
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 0.95
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 3.9
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "layer_metadata": [
+                    {},
+                    {},
+                    {}
+                  ]
+                },
+                "optical": [
+                  {
+                    "absorption_parameters": {
+                      "direct_prefactor_A": 10000000.0,
+                      "indirect_prefactor_A": 1000000.0,
+                      "name": "gesn-absorption-compact-v1",
+                      "phonon_energy_eV": 0.027,
+                      "temperature_K": 300.0,
+                      "urbach_edge_alpha_m_inv": 100000.0,
+                      "urbach_energy_eV": 0.012
+                    },
+                    "applied_mode": "coupled",
+                    "gamma_gap_eV": 0.7985,
+                    "l_gap_eV": 0.664,
+                    "layer_name": "FG1",
+                    "optical_parameters": {
+                      "absorption_prefactor_m_inv_eV_sqrt": 10000000.0,
+                      "alpha_sn_direct_gap_eV": -0.413,
+                      "alpha_sn_indirect_gap_eV": 0.092,
+                      "broadening_eV": 0.0,
+                      "direct_gap_bowing_eV": 2.89,
+                      "ge_direct_gap_eV": 0.7985,
+                      "ge_indirect_gap_eV": 0.664,
+                      "indirect_gap_bowing_eV": 0.89,
+                      "name": "gesn-optical-300K-v1",
+                      "temperature_K": 300.0
+                    },
+                    "phonon_temperature_K": 300.0,
+                    "sn_fraction": 0.0
+                  }
+                ],
+                "physics": {
+                  "coupling": {
+                    "legacy_single_fg": true
+                  },
+                  "field_solver": "FieldSolver1D",
+                  "implementation": "ncmemsim-core-physics-v1",
+                  "kinetics": {
+                    "capacitance_eps_r": 8.0,
+                    "density_profile": "front_loaded",
+                    "nu0_Hz": 1000000000000.0,
+                    "nu1_Hz": 10000000000.0,
+                    "nu2_Hz": 3000000000.0
+                  },
+                  "semiconductor": {
+                    "accumulation_factor": 40.0,
+                    "bandgap_eV": 1.12,
+                    "electron_affinity_eV": 4.05,
+                    "intrinsic_density_m3": 1e+16,
+                    "psi_max_V": 0.9,
+                    "silicon_eps_r": 11.7,
+                    "transition_voltage_V": 0.65,
+                    "transition_width_V": 0.22
+                  },
+                  "shared_tunneling": true,
+                  "transport": {
+                    "attempt_frequency_Hz": 1000000000.0,
+                    "default_barrier_eV": 1.78,
+                    "direction_beta_V_inv": 8.0,
+                    "effective_mass_m0": 0.15,
+                    "enabled": true,
+                    "include_substrate_diagnostics": true,
+                    "max_transfer_fraction_per_step": 0.1
+                  },
+                  "tunneling": {
+                    "activation_beta_V_inv": 0.8,
+                    "field_coupling_factor": 0.8,
+                    "injection_energy_eV": 0.1,
+                    "integration_points": 160,
+                    "oxide_effective_mass_m0": 0.15
+                  }
+                },
+                "simulation_config": {
+                  "dwell_time_s": 0.005,
+                  "internal_dt_s": 1e-05,
+                  "qfix_C_m2": 0.0,
+                  "qit_C_m2": 0.0
+                }
+              },
+              "schema_version": "resolved-thermal-context-v1",
+              "source_context_hash": "bb1334ad27d28a817209b791600224214954bbfa2238a0aee9b55dfeca4c3abd",
+              "temperature_K": 300.0
+            }
+          },
+          "mode": "composed",
+          "requested_override": {
+            "trace": 0.02
+          },
+          "source": {
+            "enabled": true,
+            "evidence": {
+              "locator": "explicit numerical diagnostic",
+              "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+              "original_units": "dimensionless shape",
+              "resolution": "declared wavelength grid",
+              "schema_version": "spectral-evidence-v1",
+              "source": "O5 flat in-band source",
+              "source_sha256": null,
+              "status": "ASSUMED",
+              "transformations": [],
+              "uncertainty": "unknown"
+            },
+            "input_kind": "relative_shape",
+            "integration_policy": "piecewise-linear-density-exact-moments-v1",
+            "schema_version": "tabulated-spectrum-v1",
+            "target_irradiance_W_m2": 1000000.0,
+            "value_unit": "dimensionless",
+            "values": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "wavelength_nm": [
+              1000.0,
+              1300.0,
+              1600.0,
+              1900.0,
+              2200.0
+            ],
+            "wavelength_unit": "nm"
+          }
+        },
+        "schema_version": "structural-failed-request-v1",
+        "stage": "structural resolution"
+      },
+      "source_hash": "95473d0a9eca295f5d5cd8f1563270570e6bf0c8fa7e7926c7cd8c361ae03953",
+      "summary": {
+        "status": "failed",
+        "stage": "structural resolution",
+        "error_type": "builtins.ValueError",
+        "message": "point outside hydrostatic applicability domain"
+      }
+    },
+    {
+      "schema_version": "structural-report-study-v1",
+      "name": "radius outside domain",
+      "kind": "failure",
+      "source": {
+        "error_type": "builtins.ValueError",
+        "message": "point outside confinement applicability domain",
+        "request": {
+          "baseline_context": {
+            "bindings": [
+              {
+                "confinement_profiles": [
+                  {
+                    "approximation_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "barrier_model": "infinite",
+                    "domain": {
+                      "evidence": {
+                        "doi": null,
+                        "locator": "explicit O1 synthetic fixture",
+                        "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                        "reported_uncertainty": null,
+                        "schema_version": "structural-evidence-v1",
+                        "source": "O5 diagnostic parameters",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "material": "Ge",
+                      "max_radius_m": 1e-08,
+                      "max_temperature_K": 350.0,
+                      "min_radius_m": 2e-09,
+                      "min_temperature_K": 250.0,
+                      "schema_version": "confinement-domain-v1",
+                      "size_coordinate": "radius",
+                      "size_unit": "m"
+                    },
+                    "electron_mass_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "electron_mass_m0": 0.2,
+                    "gap_kind": "optical_gamma_gap",
+                    "geometry": "spherical",
+                    "hole_branch": "effective_scalar",
+                    "hole_mass_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "hole_mass_m0": 0.4,
+                    "interaction_terms": "kinetic_only",
+                    "law_id": "spherical-infinite-barrier-ema-kinetic-v1",
+                    "layer_name": "FG1",
+                    "mass_basis": "isotropic_equivalent",
+                    "mass_unit": "m0",
+                    "name": "o5-GAMMA",
+                    "schema_version": "spherical-confinement-profile-v1"
+                  },
+                  {
+                    "approximation_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "barrier_model": "infinite",
+                    "domain": {
+                      "evidence": {
+                        "doi": null,
+                        "locator": "explicit O1 synthetic fixture",
+                        "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                        "reported_uncertainty": null,
+                        "schema_version": "structural-evidence-v1",
+                        "source": "O5 diagnostic parameters",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "material": "Ge",
+                      "max_radius_m": 1e-08,
+                      "max_temperature_K": 350.0,
+                      "min_radius_m": 2e-09,
+                      "min_temperature_K": 250.0,
+                      "schema_version": "confinement-domain-v1",
+                      "size_coordinate": "radius",
+                      "size_unit": "m"
+                    },
+                    "electron_mass_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "electron_mass_m0": 0.3,
+                    "gap_kind": "optical_l_gap",
+                    "geometry": "spherical",
+                    "hole_branch": "effective_scalar",
+                    "hole_mass_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "hole_mass_m0": 0.4,
+                    "interaction_terms": "kinetic_only",
+                    "law_id": "spherical-infinite-barrier-ema-kinetic-v1",
+                    "layer_name": "FG1",
+                    "mass_basis": "isotropic_equivalent",
+                    "mass_unit": "m0",
+                    "name": "o5-L",
+                    "schema_version": "spherical-confinement-profile-v1"
+                  }
+                ],
+                "enabled": true,
+                "layer_name": "FG1",
+                "schema_version": "structural-optical-binding-v1",
+                "strain_profiles": [
+                  {
+                    "coefficient_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "coefficient_semantics": "optical_transition_gap_derivative",
+                    "coefficient_unit": "eV_per_unit_trace",
+                    "domain": {
+                      "evidence": {
+                        "doi": null,
+                        "locator": "explicit O1 synthetic fixture",
+                        "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                        "reported_uncertainty": null,
+                        "schema_version": "structural-evidence-v1",
+                        "source": "O5 diagnostic parameters",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "material": "Ge",
+                      "max_temperature_K": 350.0,
+                      "max_trace_strain": 0.01,
+                      "min_temperature_K": 250.0,
+                      "min_trace_strain": -0.01,
+                      "schema_version": "hydrostatic-strain-domain-v1",
+                      "sign_convention": "positive_tensile",
+                      "strain_coordinate": "trace_epsilon",
+                      "strain_unit": "dimensionless"
+                    },
+                    "gap_deformation_potential_eV_per_trace": -1.0,
+                    "gap_kind": "optical_gamma_gap",
+                    "law_id": "hydrostatic-strain-linear-gap-shift-v1",
+                    "layer_name": "FG1",
+                    "name": "o5-GAMMA",
+                    "schema_version": "hydrostatic-strain-gap-shift-profile-v1"
+                  },
+                  {
+                    "coefficient_evidence": {
+                      "doi": null,
+                      "locator": "explicit O1 synthetic fixture",
+                      "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                      "reported_uncertainty": null,
+                      "schema_version": "structural-evidence-v1",
+                      "source": "O5 diagnostic parameters",
+                      "status": "assumed",
+                      "uncertainty_unit": null
+                    },
+                    "coefficient_semantics": "optical_transition_gap_derivative",
+                    "coefficient_unit": "eV_per_unit_trace",
+                    "domain": {
+                      "evidence": {
+                        "doi": null,
+                        "locator": "explicit O1 synthetic fixture",
+                        "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                        "reported_uncertainty": null,
+                        "schema_version": "structural-evidence-v1",
+                        "source": "O5 diagnostic parameters",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "material": "Ge",
+                      "max_temperature_K": 350.0,
+                      "max_trace_strain": 0.01,
+                      "min_temperature_K": 250.0,
+                      "min_trace_strain": -0.01,
+                      "schema_version": "hydrostatic-strain-domain-v1",
+                      "sign_convention": "positive_tensile",
+                      "strain_coordinate": "trace_epsilon",
+                      "strain_unit": "dimensionless"
+                    },
+                    "gap_deformation_potential_eV_per_trace": -0.5,
+                    "gap_kind": "optical_l_gap",
+                    "law_id": "hydrostatic-strain-linear-gap-shift-v1",
+                    "layer_name": "FG1",
+                    "name": "o5-L",
+                    "schema_version": "hydrostatic-strain-gap-shift-profile-v1"
+                  }
+                ],
+                "trace_strain": 0.005
+              }
+            ],
+            "resolved": {
+              "composition_policy": "thermal-baseline-plus-independent-structural-shifts-assumed-v1",
+              "layers": [
+                {
+                  "applied": true,
+                  "layer_name": "FG1",
+                  "radius_m_from_device": 4e-09,
+                  "targets": {
+                    "optical_gamma_gap": {
+                      "confinement_result": {
+                        "confined_gap_eV": 0.9747641387265956,
+                        "constants": {
+                          "electron_mass_kg": 9.1093837015e-31,
+                          "elementary_charge_C": 1.602176634e-19,
+                          "planck_J_s": 6.62607015e-34
+                        },
+                        "electron_confinement_energy_eV": 0.11750942581773043,
+                        "energy_unit": "eV",
+                        "hole_confinement_energy_eV": 0.05875471290886521,
+                        "kinetic_gap_shift_eV": 0.17626413872659563,
+                        "mass_unit": "m0",
+                        "profile": {
+                          "approximation_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "barrier_model": "infinite",
+                          "domain": {
+                            "evidence": {
+                              "doi": null,
+                              "locator": "explicit O1 synthetic fixture",
+                              "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                              "reported_uncertainty": null,
+                              "schema_version": "structural-evidence-v1",
+                              "source": "O5 diagnostic parameters",
+                              "status": "assumed",
+                              "uncertainty_unit": null
+                            },
+                            "material": "Ge",
+                            "max_radius_m": 1e-08,
+                            "max_temperature_K": 350.0,
+                            "min_radius_m": 2e-09,
+                            "min_temperature_K": 250.0,
+                            "schema_version": "confinement-domain-v1",
+                            "size_coordinate": "radius",
+                            "size_unit": "m"
+                          },
+                          "electron_mass_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "electron_mass_m0": 0.2,
+                          "gap_kind": "optical_gamma_gap",
+                          "geometry": "spherical",
+                          "hole_branch": "effective_scalar",
+                          "hole_mass_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "hole_mass_m0": 0.4,
+                          "interaction_terms": "kinetic_only",
+                          "law_id": "spherical-infinite-barrier-ema-kinetic-v1",
+                          "layer_name": "FG1",
+                          "mass_basis": "isotropic_equivalent",
+                          "mass_unit": "m0",
+                          "name": "o5-GAMMA",
+                          "schema_version": "spherical-confinement-profile-v1"
+                        },
+                        "profile_hash": "8d06a4106f86375cbc4d7aed829427ad4a212b0b8dcf028988f7742c25c8a0e0",
+                        "radius_m": 4e-09,
+                        "schema_version": "spherical-kinetic-confinement-gap-shift-result-v1",
+                        "size_coordinate": "radius",
+                        "size_unit": "m",
+                        "temperature_K": 300.0,
+                        "unconfined_gap_eV": 0.7985,
+                        "unconfined_gap_evidence": {
+                          "doi": null,
+                          "locator": "1f8f7553f2498f18e7e0802ea8e5d839fe0cc2dd5eb85c782f3e4e7aeaf46e63/FG1/optical_gamma_gap",
+                          "notes": "Gap already resolved at the sole device temperature; no second thermal correction",
+                          "reported_uncertainty": null,
+                          "schema_version": "structural-evidence-v1",
+                          "source": "Resolved M optical baseline",
+                          "status": "derived",
+                          "uncertainty_unit": null
+                        }
+                      },
+                      "kinetic_confinement_gap_shift_eV": 0.17626413872659563,
+                      "resolved_gap_eV": 0.9697641387265956,
+                      "strain_gap_shift_eV": -0.005,
+                      "strain_result": {
+                        "energy_unit": "eV",
+                        "gap_shift_eV": -0.005,
+                        "profile": {
+                          "coefficient_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "coefficient_semantics": "optical_transition_gap_derivative",
+                          "coefficient_unit": "eV_per_unit_trace",
+                          "domain": {
+                            "evidence": {
+                              "doi": null,
+                              "locator": "explicit O1 synthetic fixture",
+                              "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                              "reported_uncertainty": null,
+                              "schema_version": "structural-evidence-v1",
+                              "source": "O5 diagnostic parameters",
+                              "status": "assumed",
+                              "uncertainty_unit": null
+                            },
+                            "material": "Ge",
+                            "max_temperature_K": 350.0,
+                            "max_trace_strain": 0.01,
+                            "min_temperature_K": 250.0,
+                            "min_trace_strain": -0.01,
+                            "schema_version": "hydrostatic-strain-domain-v1",
+                            "sign_convention": "positive_tensile",
+                            "strain_coordinate": "trace_epsilon",
+                            "strain_unit": "dimensionless"
+                          },
+                          "gap_deformation_potential_eV_per_trace": -1.0,
+                          "gap_kind": "optical_gamma_gap",
+                          "law_id": "hydrostatic-strain-linear-gap-shift-v1",
+                          "layer_name": "FG1",
+                          "name": "o5-GAMMA",
+                          "schema_version": "hydrostatic-strain-gap-shift-profile-v1"
+                        },
+                        "profile_hash": "bbeb5e3cbef7b89027af9d6f75717af9d494610bc5830f13e0848cec95dca3bf",
+                        "schema_version": "hydrostatic-strain-gap-shift-result-v1",
+                        "shifted_gap_eV": 0.7935,
+                        "sign_convention": "positive_tensile",
+                        "strain_coordinate": "trace_epsilon",
+                        "strain_unit": "dimensionless",
+                        "temperature_K": 300.0,
+                        "trace_strain": 0.005,
+                        "unstrained_gap_eV": 0.7985,
+                        "unstrained_gap_evidence": {
+                          "doi": null,
+                          "locator": "1f8f7553f2498f18e7e0802ea8e5d839fe0cc2dd5eb85c782f3e4e7aeaf46e63/FG1/optical_gamma_gap",
+                          "notes": "Gap already resolved at the sole device temperature; no second thermal correction",
+                          "reported_uncertainty": null,
+                          "schema_version": "structural-evidence-v1",
+                          "source": "Resolved M optical baseline",
+                          "status": "derived",
+                          "uncertainty_unit": null
+                        }
+                      },
+                      "thermal_baseline_gap_eV": 0.7985
+                    },
+                    "optical_l_gap": {
+                      "confinement_result": {
+                        "confined_gap_eV": 0.8010943301206855,
+                        "constants": {
+                          "electron_mass_kg": 9.1093837015e-31,
+                          "elementary_charge_C": 1.602176634e-19,
+                          "planck_J_s": 6.62607015e-34
+                        },
+                        "electron_confinement_energy_eV": 0.0783396172118203,
+                        "energy_unit": "eV",
+                        "hole_confinement_energy_eV": 0.05875471290886521,
+                        "kinetic_gap_shift_eV": 0.1370943301206855,
+                        "mass_unit": "m0",
+                        "profile": {
+                          "approximation_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "barrier_model": "infinite",
+                          "domain": {
+                            "evidence": {
+                              "doi": null,
+                              "locator": "explicit O1 synthetic fixture",
+                              "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                              "reported_uncertainty": null,
+                              "schema_version": "structural-evidence-v1",
+                              "source": "O5 diagnostic parameters",
+                              "status": "assumed",
+                              "uncertainty_unit": null
+                            },
+                            "material": "Ge",
+                            "max_radius_m": 1e-08,
+                            "max_temperature_K": 350.0,
+                            "min_radius_m": 2e-09,
+                            "min_temperature_K": 250.0,
+                            "schema_version": "confinement-domain-v1",
+                            "size_coordinate": "radius",
+                            "size_unit": "m"
+                          },
+                          "electron_mass_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "electron_mass_m0": 0.3,
+                          "gap_kind": "optical_l_gap",
+                          "geometry": "spherical",
+                          "hole_branch": "effective_scalar",
+                          "hole_mass_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "hole_mass_m0": 0.4,
+                          "interaction_terms": "kinetic_only",
+                          "law_id": "spherical-infinite-barrier-ema-kinetic-v1",
+                          "layer_name": "FG1",
+                          "mass_basis": "isotropic_equivalent",
+                          "mass_unit": "m0",
+                          "name": "o5-L",
+                          "schema_version": "spherical-confinement-profile-v1"
+                        },
+                        "profile_hash": "7f6ea1ee7ec25e979fdf17261aa16d7e52eeb74dc8c3b8ef6b34a87f8d440b8f",
+                        "radius_m": 4e-09,
+                        "schema_version": "spherical-kinetic-confinement-gap-shift-result-v1",
+                        "size_coordinate": "radius",
+                        "size_unit": "m",
+                        "temperature_K": 300.0,
+                        "unconfined_gap_eV": 0.664,
+                        "unconfined_gap_evidence": {
+                          "doi": null,
+                          "locator": "1f8f7553f2498f18e7e0802ea8e5d839fe0cc2dd5eb85c782f3e4e7aeaf46e63/FG1/optical_l_gap",
+                          "notes": "Gap already resolved at the sole device temperature; no second thermal correction",
+                          "reported_uncertainty": null,
+                          "schema_version": "structural-evidence-v1",
+                          "source": "Resolved M optical baseline",
+                          "status": "derived",
+                          "uncertainty_unit": null
+                        }
+                      },
+                      "kinetic_confinement_gap_shift_eV": 0.1370943301206855,
+                      "resolved_gap_eV": 0.7985943301206856,
+                      "strain_gap_shift_eV": -0.0025,
+                      "strain_result": {
+                        "energy_unit": "eV",
+                        "gap_shift_eV": -0.0025,
+                        "profile": {
+                          "coefficient_evidence": {
+                            "doi": null,
+                            "locator": "explicit O1 synthetic fixture",
+                            "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                            "reported_uncertainty": null,
+                            "schema_version": "structural-evidence-v1",
+                            "source": "O5 diagnostic parameters",
+                            "status": "assumed",
+                            "uncertainty_unit": null
+                          },
+                          "coefficient_semantics": "optical_transition_gap_derivative",
+                          "coefficient_unit": "eV_per_unit_trace",
+                          "domain": {
+                            "evidence": {
+                              "doi": null,
+                              "locator": "explicit O1 synthetic fixture",
+                              "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+                              "reported_uncertainty": null,
+                              "schema_version": "structural-evidence-v1",
+                              "source": "O5 diagnostic parameters",
+                              "status": "assumed",
+                              "uncertainty_unit": null
+                            },
+                            "material": "Ge",
+                            "max_temperature_K": 350.0,
+                            "max_trace_strain": 0.01,
+                            "min_temperature_K": 250.0,
+                            "min_trace_strain": -0.01,
+                            "schema_version": "hydrostatic-strain-domain-v1",
+                            "sign_convention": "positive_tensile",
+                            "strain_coordinate": "trace_epsilon",
+                            "strain_unit": "dimensionless"
+                          },
+                          "gap_deformation_potential_eV_per_trace": -0.5,
+                          "gap_kind": "optical_l_gap",
+                          "law_id": "hydrostatic-strain-linear-gap-shift-v1",
+                          "layer_name": "FG1",
+                          "name": "o5-L",
+                          "schema_version": "hydrostatic-strain-gap-shift-profile-v1"
+                        },
+                        "profile_hash": "9aef329b8659d58881c5834c928c4b8485ab47517fc6e8ef59e22a81ebb81269",
+                        "schema_version": "hydrostatic-strain-gap-shift-result-v1",
+                        "shifted_gap_eV": 0.6615000000000001,
+                        "sign_convention": "positive_tensile",
+                        "strain_coordinate": "trace_epsilon",
+                        "strain_unit": "dimensionless",
+                        "temperature_K": 300.0,
+                        "trace_strain": 0.005,
+                        "unstrained_gap_eV": 0.664,
+                        "unstrained_gap_evidence": {
+                          "doi": null,
+                          "locator": "1f8f7553f2498f18e7e0802ea8e5d839fe0cc2dd5eb85c782f3e4e7aeaf46e63/FG1/optical_l_gap",
+                          "notes": "Gap already resolved at the sole device temperature; no second thermal correction",
+                          "reported_uncertainty": null,
+                          "schema_version": "structural-evidence-v1",
+                          "source": "Resolved M optical baseline",
+                          "status": "derived",
+                          "uncertainty_unit": null
+                        }
+                      },
+                      "thermal_baseline_gap_eV": 0.664
+                    }
+                  },
+                  "thermal_optical_row": {
+                    "absorption_parameters": {
+                      "direct_prefactor_A": 10000000.0,
+                      "indirect_prefactor_A": 1000000.0,
+                      "name": "gesn-absorption-compact-v1",
+                      "phonon_energy_eV": 0.027,
+                      "temperature_K": 300.0,
+                      "urbach_edge_alpha_m_inv": 100000.0,
+                      "urbach_energy_eV": 0.012
+                    },
+                    "applied_mode": "coupled",
+                    "gamma_gap_eV": 0.7985,
+                    "l_gap_eV": 0.664,
+                    "layer_name": "FG1",
+                    "optical_parameters": {
+                      "absorption_prefactor_m_inv_eV_sqrt": 10000000.0,
+                      "alpha_sn_direct_gap_eV": -0.413,
+                      "alpha_sn_indirect_gap_eV": 0.092,
+                      "broadening_eV": 0.0,
+                      "direct_gap_bowing_eV": 2.89,
+                      "ge_direct_gap_eV": 0.7985,
+                      "ge_indirect_gap_eV": 0.664,
+                      "indirect_gap_bowing_eV": 0.89,
+                      "name": "gesn-optical-300K-v1",
+                      "temperature_K": 300.0
+                    },
+                    "phonon_temperature_K": 300.0,
+                    "sn_fraction": 0.0
+                  }
+                }
+              ],
+              "temperature_K": 300.0
+            },
+            "schema_version": "structural-optical-context-v1",
+            "thermal_resolution": {
+              "context": {
+                "enabled": true,
+                "intrinsic_density": null,
+                "nominal_device": {
+                  "device": {
+                    "architecture": "V2",
+                    "gate_work_function_eV": 4.8,
+                    "layers": [
+                      {
+                        "eps_r": 3.9,
+                        "material": "SiO2",
+                        "name": "control_sio2",
+                        "role": "control_dielectric",
+                        "thickness_nm": 20.0,
+                        "type": "layer"
+                      },
+                      {
+                        "electrically_active_fraction": 0.1,
+                        "grid_points": 3,
+                        "matrix_material": "SiO2",
+                        "name": "FG1",
+                        "nc_diameter_nm": 8.0,
+                        "nc_material": "Ge",
+                        "nc_volume_fraction": 0.2,
+                        "sn_fraction": 0.0,
+                        "spatial_profile": "uniform",
+                        "thickness_nm": 6.0,
+                        "type": "floating_gate"
+                      },
+                      {
+                        "eps_r": 3.9,
+                        "material": "SiO2",
+                        "name": "tunnel_sio2",
+                        "role": "tunnel_dielectric",
+                        "thickness_nm": 8.0,
+                        "type": "layer"
+                      }
+                    ],
+                    "metadata": {},
+                    "name": "o5-fixed-geometry",
+                    "number_of_fgs": 1,
+                    "substrate_doping_m3": 1e+21,
+                    "temperature_K": 300.0,
+                    "total_thickness_nm": 34.0
+                  },
+                  "layer_material_definitions": [
+                    {
+                      "layer_name": "control_sio2",
+                      "material": {
+                        "bandgap_eV": 8.9,
+                        "electron_affinity_eV": 0.95,
+                        "electron_effective_mass_m0": null,
+                        "eps_r": 3.9,
+                        "hole_effective_mass_m0": null,
+                        "metadata": {
+                          "parameter_set": "default-v1"
+                        },
+                        "name": "SiO2",
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 8.9
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 0.95
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 3.9
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "layer_name": "FG1",
+                      "matrix_material": {
+                        "bandgap_eV": 8.9,
+                        "electron_affinity_eV": 0.95,
+                        "electron_effective_mass_m0": null,
+                        "eps_r": 3.9,
+                        "hole_effective_mass_m0": null,
+                        "metadata": {
+                          "parameter_set": "default-v1"
+                        },
+                        "name": "SiO2",
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 8.9
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 0.95
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 3.9
+                          }
+                        }
+                      },
+                      "nc_material": {
+                        "bandgap_eV": 0.66,
+                        "effective_mass_m0": 0.12,
+                        "electron_affinity_eV": 4.0,
+                        "eps_r_nc": 16.0,
+                        "metadata": {
+                          "parameter_set": "default-v1",
+                          "parameter_status": "provisional/default"
+                        },
+                        "model_name": "GeModel",
+                        "model_version": "default-v1",
+                        "name": "Ge",
+                        "phi_barrier_erase_eV": 2.8,
+                        "phi_barrier_prog_eV": 2.8,
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 0.66
+                          },
+                          "effective_mass_m0": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "m_e^*",
+                            "unit": "m0",
+                            "value": 0.12
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 4.0
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 16.0
+                          },
+                          "phi_barrier_erase_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "Phi_erase",
+                            "unit": "eV",
+                            "value": 2.8
+                          },
+                          "phi_barrier_prog_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "Phi_prog",
+                            "unit": "eV",
+                            "value": 2.8
+                          }
+                        },
+                        "sn_fraction": 0.0
+                      }
+                    },
+                    {
+                      "layer_name": "tunnel_sio2",
+                      "material": {
+                        "bandgap_eV": 8.9,
+                        "electron_affinity_eV": 0.95,
+                        "electron_effective_mass_m0": null,
+                        "eps_r": 3.9,
+                        "hole_effective_mass_m0": null,
+                        "metadata": {
+                          "parameter_set": "default-v1"
+                        },
+                        "name": "SiO2",
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 8.9
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 0.95
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 3.9
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "layer_metadata": [
+                    {},
+                    {},
+                    {}
+                  ]
+                },
+                "nominal_physics": {
+                  "coupling": {
+                    "legacy_single_fg": true
+                  },
+                  "field_solver": "FieldSolver1D",
+                  "implementation": "ncmemsim-core-physics-v1",
+                  "kinetics": {
+                    "capacitance_eps_r": 8.0,
+                    "density_profile": "front_loaded",
+                    "nu0_Hz": 1000000000000.0,
+                    "nu1_Hz": 10000000000.0,
+                    "nu2_Hz": 3000000000.0
+                  },
+                  "semiconductor": {
+                    "accumulation_factor": 40.0,
+                    "bandgap_eV": 1.12,
+                    "electron_affinity_eV": 4.05,
+                    "intrinsic_density_m3": 1e+16,
+                    "psi_max_V": 0.9,
+                    "silicon_eps_r": 11.7,
+                    "transition_voltage_V": 0.65,
+                    "transition_width_V": 0.22
+                  },
+                  "shared_tunneling": true,
+                  "transport": {
+                    "attempt_frequency_Hz": 1000000000.0,
+                    "default_barrier_eV": 1.78,
+                    "direction_beta_V_inv": 8.0,
+                    "effective_mass_m0": 0.15,
+                    "enabled": true,
+                    "include_substrate_diagnostics": true,
+                    "max_transfer_fraction_per_step": 0.1
+                  },
+                  "tunneling": {
+                    "activation_beta_V_inv": 0.8,
+                    "field_coupling_factor": 0.8,
+                    "injection_energy_eV": 0.1,
+                    "integration_points": 160,
+                    "oxide_effective_mass_m0": 0.15
+                  }
+                },
+                "optical_bindings": [
+                  {
+                    "absorption_parameters": {
+                      "direct_prefactor_A": 10000000.0,
+                      "indirect_prefactor_A": 1000000.0,
+                      "name": "gesn-absorption-compact-v1",
+                      "phonon_energy_eV": 0.027,
+                      "temperature_K": 300.0,
+                      "urbach_edge_alpha_m_inv": 100000.0,
+                      "urbach_energy_eV": 0.012
+                    },
+                    "gamma_profile": {
+                      "alpha_eV_K": 0.0006042,
+                      "beta_K": 398.0,
+                      "coefficient_evidence": {
+                        "doi": "10.1016/0031-8914(67)90062-6",
+                        "locator": "Table I, p. 152; equation (1), p. 149",
+                        "notes": "Table I fit; Si uses the exciton-subtracted gap convention. No operating domain is certified by this record.",
+                        "source": "Y. P. Varshni, Physica 34 (1967), 149-154",
+                        "status": "literature_fitted"
+                      },
+                      "domain": {
+                        "evidence": {
+                          "doi": null,
+                          "locator": "250-350 K diagnostic window; inherited 300 K bulk-Ge anchors",
+                          "notes": "Conditional unstrained bulk-Ge gap laws applied to a compact nanocrystal layer; synthetic geometry, illumination and capture efficiency. Absorption amplitudes, Urbach tail, phonon energy and barriers held constant. No experimental thermal absorption calibration, confinement, broadband propagation or GeSn thermal qualification.",
+                          "source": "Explicit M4 numerical assumption",
+                          "status": "assumed"
+                        },
+                        "material": "Ge",
+                        "max_sn_fraction": 0.0,
+                        "max_temperature_K": 350.0,
+                        "min_sn_fraction": 0.0,
+                        "min_temperature_K": 250.0,
+                        "strain_state": "unstrained"
+                      },
+                      "gap_kind": "optical_gamma_gap",
+                      "name": "m4-varshni1967-ge-gamma",
+                      "reference_evidence": {
+                        "doi": null,
+                        "locator": "250-350 K diagnostic window; inherited 300 K bulk-Ge anchors",
+                        "notes": "Conditional unstrained bulk-Ge gap laws applied to a compact nanocrystal layer; synthetic geometry, illumination and capture efficiency. Absorption amplitudes, Urbach tail, phonon energy and barriers held constant. No experimental thermal absorption calibration, confinement, broadband propagation or GeSn thermal qualification.",
+                        "source": "Explicit M4 numerical assumption",
+                        "status": "assumed"
+                      },
+                      "reference_gap_eV": 0.7985,
+                      "reference_temperature_K": 300.0,
+                      "schema_version": "anchored-varshni-v1",
+                      "sn_fraction": 0.0,
+                      "unit": "eV"
+                    },
+                    "l_profile": {
+                      "alpha_eV_K": 0.0004561,
+                      "beta_K": 210.0,
+                      "coefficient_evidence": {
+                        "doi": "10.1016/0031-8914(67)90062-6",
+                        "locator": "Table I, p. 152; equation (1), p. 149",
+                        "notes": "Table I fit; Si uses the exciton-subtracted gap convention. No operating domain is certified by this record.",
+                        "source": "Y. P. Varshni, Physica 34 (1967), 149-154",
+                        "status": "literature_fitted"
+                      },
+                      "domain": {
+                        "evidence": {
+                          "doi": null,
+                          "locator": "250-350 K diagnostic window; inherited 300 K bulk-Ge anchors",
+                          "notes": "Conditional unstrained bulk-Ge gap laws applied to a compact nanocrystal layer; synthetic geometry, illumination and capture efficiency. Absorption amplitudes, Urbach tail, phonon energy and barriers held constant. No experimental thermal absorption calibration, confinement, broadband propagation or GeSn thermal qualification.",
+                          "source": "Explicit M4 numerical assumption",
+                          "status": "assumed"
+                        },
+                        "material": "Ge",
+                        "max_sn_fraction": 0.0,
+                        "max_temperature_K": 350.0,
+                        "min_sn_fraction": 0.0,
+                        "min_temperature_K": 250.0,
+                        "strain_state": "unstrained"
+                      },
+                      "gap_kind": "optical_l_gap",
+                      "name": "m4-varshni1967-ge-l",
+                      "reference_evidence": {
+                        "doi": null,
+                        "locator": "250-350 K diagnostic window; inherited 300 K bulk-Ge anchors",
+                        "notes": "Conditional unstrained bulk-Ge gap laws applied to a compact nanocrystal layer; synthetic geometry, illumination and capture efficiency. Absorption amplitudes, Urbach tail, phonon energy and barriers held constant. No experimental thermal absorption calibration, confinement, broadband propagation or GeSn thermal qualification.",
+                        "source": "Explicit M4 numerical assumption",
+                        "status": "assumed"
+                      },
+                      "reference_gap_eV": 0.664,
+                      "reference_temperature_K": 300.0,
+                      "schema_version": "anchored-varshni-v1",
+                      "sn_fraction": 0.0,
+                      "unit": "eV"
+                    },
+                    "layer_name": "FG1",
+                    "mode": "coupled",
+                    "optical_parameters": {
+                      "absorption_prefactor_m_inv_eV_sqrt": 10000000.0,
+                      "alpha_sn_direct_gap_eV": -0.413,
+                      "alpha_sn_indirect_gap_eV": 0.092,
+                      "broadening_eV": 0.0,
+                      "direct_gap_bowing_eV": 2.89,
+                      "ge_direct_gap_eV": 0.7985,
+                      "ge_indirect_gap_eV": 0.664,
+                      "indirect_gap_bowing_eV": 0.89,
+                      "name": "gesn-optical-300K-v1",
+                      "temperature_K": 300.0
+                    }
+                  }
+                ],
+                "schema_version": "thermal-context-v1",
+                "semiconductor_mode": "legacy",
+                "simulation_config": {
+                  "dwell_time_s": 0.005,
+                  "internal_dt_s": 1e-05,
+                  "qfix_C_m2": 0.0,
+                  "qit_C_m2": 0.0
+                },
+                "substrate_gap": null
+              },
+              "nominal_hash": "9935aadc03ca410469d4e9c3c484253e8b8bc7e2220e5c794ef4fb5cb2cbbe52",
+              "resolved": {
+                "device": {
+                  "device": {
+                    "architecture": "V2",
+                    "gate_work_function_eV": 4.8,
+                    "layers": [
+                      {
+                        "eps_r": 3.9,
+                        "material": "SiO2",
+                        "name": "control_sio2",
+                        "role": "control_dielectric",
+                        "thickness_nm": 20.0,
+                        "type": "layer"
+                      },
+                      {
+                        "electrically_active_fraction": 0.1,
+                        "grid_points": 3,
+                        "matrix_material": "SiO2",
+                        "name": "FG1",
+                        "nc_diameter_nm": 8.0,
+                        "nc_material": "Ge",
+                        "nc_volume_fraction": 0.2,
+                        "sn_fraction": 0.0,
+                        "spatial_profile": "uniform",
+                        "thickness_nm": 6.0,
+                        "type": "floating_gate"
+                      },
+                      {
+                        "eps_r": 3.9,
+                        "material": "SiO2",
+                        "name": "tunnel_sio2",
+                        "role": "tunnel_dielectric",
+                        "thickness_nm": 8.0,
+                        "type": "layer"
+                      }
+                    ],
+                    "metadata": {},
+                    "name": "o5-fixed-geometry",
+                    "number_of_fgs": 1,
+                    "substrate_doping_m3": 1e+21,
+                    "temperature_K": 300.0,
+                    "total_thickness_nm": 34.0
+                  },
+                  "layer_material_definitions": [
+                    {
+                      "layer_name": "control_sio2",
+                      "material": {
+                        "bandgap_eV": 8.9,
+                        "electron_affinity_eV": 0.95,
+                        "electron_effective_mass_m0": null,
+                        "eps_r": 3.9,
+                        "hole_effective_mass_m0": null,
+                        "metadata": {
+                          "parameter_set": "default-v1"
+                        },
+                        "name": "SiO2",
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 8.9
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 0.95
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 3.9
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "layer_name": "FG1",
+                      "matrix_material": {
+                        "bandgap_eV": 8.9,
+                        "electron_affinity_eV": 0.95,
+                        "electron_effective_mass_m0": null,
+                        "eps_r": 3.9,
+                        "hole_effective_mass_m0": null,
+                        "metadata": {
+                          "parameter_set": "default-v1"
+                        },
+                        "name": "SiO2",
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 8.9
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 0.95
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 3.9
+                          }
+                        }
+                      },
+                      "nc_material": {
+                        "bandgap_eV": 0.66,
+                        "effective_mass_m0": 0.12,
+                        "electron_affinity_eV": 4.0,
+                        "eps_r_nc": 16.0,
+                        "metadata": {
+                          "parameter_set": "default-v1",
+                          "parameter_status": "provisional/default"
+                        },
+                        "model_name": "GeModel",
+                        "model_version": "default-v1",
+                        "name": "Ge",
+                        "phi_barrier_erase_eV": 2.8,
+                        "phi_barrier_prog_eV": 2.8,
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 0.66
+                          },
+                          "effective_mass_m0": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "m_e^*",
+                            "unit": "m0",
+                            "value": 0.12
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 4.0
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 16.0
+                          },
+                          "phi_barrier_erase_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "Phi_erase",
+                            "unit": "eV",
+                            "value": 2.8
+                          },
+                          "phi_barrier_prog_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "Phi_prog",
+                            "unit": "eV",
+                            "value": 2.8
+                          }
+                        },
+                        "sn_fraction": 0.0
+                      }
+                    },
+                    {
+                      "layer_name": "tunnel_sio2",
+                      "material": {
+                        "bandgap_eV": 8.9,
+                        "electron_affinity_eV": 0.95,
+                        "electron_effective_mass_m0": null,
+                        "eps_r": 3.9,
+                        "hole_effective_mass_m0": null,
+                        "metadata": {
+                          "parameter_set": "default-v1"
+                        },
+                        "name": "SiO2",
+                        "properties": {
+                          "bandgap_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "E_g",
+                            "unit": "eV",
+                            "value": 8.9
+                          },
+                          "electron_affinity_eV": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "chi",
+                            "unit": "eV",
+                            "value": 0.95
+                          },
+                          "eps_r": {
+                            "provenance": {
+                              "doi": null,
+                              "notes": "Replace or calibrate before quantitative publication.",
+                              "parameter_set": "default-v1",
+                              "source": "NCMemSim provisional parameter set",
+                              "status": "assumed"
+                            },
+                            "symbol": "epsilon_r",
+                            "unit": "1",
+                            "value": 3.9
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "layer_metadata": [
+                    {},
+                    {},
+                    {}
+                  ]
+                },
+                "optical": [
+                  {
+                    "absorption_parameters": {
+                      "direct_prefactor_A": 10000000.0,
+                      "indirect_prefactor_A": 1000000.0,
+                      "name": "gesn-absorption-compact-v1",
+                      "phonon_energy_eV": 0.027,
+                      "temperature_K": 300.0,
+                      "urbach_edge_alpha_m_inv": 100000.0,
+                      "urbach_energy_eV": 0.012
+                    },
+                    "applied_mode": "coupled",
+                    "gamma_gap_eV": 0.7985,
+                    "l_gap_eV": 0.664,
+                    "layer_name": "FG1",
+                    "optical_parameters": {
+                      "absorption_prefactor_m_inv_eV_sqrt": 10000000.0,
+                      "alpha_sn_direct_gap_eV": -0.413,
+                      "alpha_sn_indirect_gap_eV": 0.092,
+                      "broadening_eV": 0.0,
+                      "direct_gap_bowing_eV": 2.89,
+                      "ge_direct_gap_eV": 0.7985,
+                      "ge_indirect_gap_eV": 0.664,
+                      "indirect_gap_bowing_eV": 0.89,
+                      "name": "gesn-optical-300K-v1",
+                      "temperature_K": 300.0
+                    },
+                    "phonon_temperature_K": 300.0,
+                    "sn_fraction": 0.0
+                  }
+                ],
+                "physics": {
+                  "coupling": {
+                    "legacy_single_fg": true
+                  },
+                  "field_solver": "FieldSolver1D",
+                  "implementation": "ncmemsim-core-physics-v1",
+                  "kinetics": {
+                    "capacitance_eps_r": 8.0,
+                    "density_profile": "front_loaded",
+                    "nu0_Hz": 1000000000000.0,
+                    "nu1_Hz": 10000000000.0,
+                    "nu2_Hz": 3000000000.0
+                  },
+                  "semiconductor": {
+                    "accumulation_factor": 40.0,
+                    "bandgap_eV": 1.12,
+                    "electron_affinity_eV": 4.05,
+                    "intrinsic_density_m3": 1e+16,
+                    "psi_max_V": 0.9,
+                    "silicon_eps_r": 11.7,
+                    "transition_voltage_V": 0.65,
+                    "transition_width_V": 0.22
+                  },
+                  "shared_tunneling": true,
+                  "transport": {
+                    "attempt_frequency_Hz": 1000000000.0,
+                    "default_barrier_eV": 1.78,
+                    "direction_beta_V_inv": 8.0,
+                    "effective_mass_m0": 0.15,
+                    "enabled": true,
+                    "include_substrate_diagnostics": true,
+                    "max_transfer_fraction_per_step": 0.1
+                  },
+                  "tunneling": {
+                    "activation_beta_V_inv": 0.8,
+                    "field_coupling_factor": 0.8,
+                    "injection_energy_eV": 0.1,
+                    "integration_points": 160,
+                    "oxide_effective_mass_m0": 0.15
+                  }
+                },
+                "simulation_config": {
+                  "dwell_time_s": 0.005,
+                  "internal_dt_s": 1e-05,
+                  "qfix_C_m2": 0.0,
+                  "qit_C_m2": 0.0
+                }
+              },
+              "schema_version": "resolved-thermal-context-v1",
+              "source_context_hash": "bb1334ad27d28a817209b791600224214954bbfa2238a0aee9b55dfeca4c3abd",
+              "temperature_K": 300.0
+            }
+          },
+          "mode": "composed",
+          "requested_override": {
+            "diameter_nm": 2.0
+          },
+          "source": {
+            "enabled": true,
+            "evidence": {
+              "locator": "explicit numerical diagnostic",
+              "notes": "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+              "original_units": "dimensionless shape",
+              "resolution": "declared wavelength grid",
+              "schema_version": "spectral-evidence-v1",
+              "source": "O5 flat in-band source",
+              "source_sha256": null,
+              "status": "ASSUMED",
+              "transformations": [],
+              "uncertainty": "unknown"
+            },
+            "input_kind": "relative_shape",
+            "integration_policy": "piecewise-linear-density-exact-moments-v1",
+            "schema_version": "tabulated-spectrum-v1",
+            "target_irradiance_W_m2": 1000000.0,
+            "value_unit": "dimensionless",
+            "values": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "wavelength_nm": [
+              1000.0,
+              1300.0,
+              1600.0,
+              1900.0,
+              2200.0
+            ],
+            "wavelength_unit": "nm"
+          }
+        },
+        "schema_version": "structural-failed-request-v1",
+        "stage": "structural resolution"
+      },
+      "source_hash": "cfe41c1efc7146a155b6215c054fbf5ca9c79241cd2b1e680b000e249d1ef130",
+      "summary": {
+        "status": "failed",
+        "stage": "structural resolution",
+        "error_type": "builtins.ValueError",
+        "message": "point outside confinement applicability domain"
+      }
+    }
+  ],
+  "limitations": [
+    "Synthetic structural gap/mass/domain and additive-composition assumptions; bulk-Ge compact optics, transparent passive/matrix layers and constant capture .1. No embedded-NC material/capture qualification, Coulomb/image/finite-barrier/shear/interference or manufacturing-yield claim. Combined electrical/optical charge is not attributed wholly to absorbed photons.",
+    "Stored states/alpha observations are authoritative; consistency hashes do not establish authenticity or independently validate a trajectory.",
+    "Five spectral nodes and eight time steps demonstrate reporting only; use O5 for numerical refinement evidence."
+  ],
+  "evidence": {
+    "archive_role": "new development all-failed reporting evidence; not a published archive or O5 population",
+    "implementation_source": "13b05572567d5124079372f295b39dc6547595e8",
+    "runtime": {
+      "ncmemsim": "1.6.0.dev0",
+      "numpy": "2.4.3",
+      "python": "3.13.12",
+      "python_implementation": "CPython"
+    }
+  },
+  "summary": {
+    "counts": {
+      "attempted": 2,
+      "completed": 0,
+      "failed": 2
+    },
+    "completed_fraction": 0.0,
+    "pulse_delta_vfb_V": {
+      "estimated_count": 0,
+      "mean": null,
+      "denominator": "completed pulse studies"
+    }
+  },
+  "report_hash": "7e9b461543b09b6a01741449654efc9fbb6b47c4e91b2fc2188ba9f60fd73bf9"
+}

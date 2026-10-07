@@ -1,0 +1,44 @@
+cff-version: 1.2.0
+message: "If you use NCMemSim in research, cite the exact software version and this repository."
+title: "NCMemSim: Nanocrystal Memory Simulation Platform"
+type: software
+version: 1.5.0
+date-released: 2026-10-06
+doi: 10.5281/zenodo.23189313
+license: Apache-2.0
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23078330
+    description: "Concept DOI representing all published versions"
+authors:
+  - family-names: Cojocaru
+    given-names: Ovidiu
+repository-code: "https://github.com/ocojocaru/NCMemSim"
+abstract: >-
+  A modular Python framework for simulation and design-technology
+  co-optimization of Ge/GeSn nanocrystal non-volatile memories,
+  including multi-floating-gate state dynamics, compact electrostatics,
+  local fields, WKB tunnelling, charge redistribution, retention,
+  optical and electro-optical programming, experimental-data handling,
+  deterministic parameter fitting, uncertainty diagnostics, calibration
+  qualification, deterministic design-space sweeps, Pareto and grid sensitivity
+  analysis, bounded independent uncertainty propagation, explicit robust objectives,
+  reproducible nominal and Robust DTCO reports, immutable scientific workflow
+  evidence, fitted evaluator contexts, linked workflow exports, opt-in trap-assisted
+  transport with image-force barrier corrections, mechanism-resolved diagnostics and reports,
+  reproducible stochastic nanocrystal ensembles, population statistics, feasibility and failure
+  accounting, variability-aware DTCO, ensemble Pareto analysis, and integrity-checked ensemble
+  reports, explicit model/TAT-density variability, isolated model execution, source-linked
+  population and Pareto analysis, strict MODEL report bundles, opt-in reference-anchored
+  Si and Ge temperature properties, isolated thermal simulation contexts, thermal DTCO,
+  source-linked thermal report bundles, explicit broadband and discrete spectral sources,
+  ordered single-pass optical propagation, spectral pulse contexts and strict spectral
+  report bundles, validation, and reproducibility tools.
+keywords:
+  - nanocrystal memory
+  - non-volatile memory
+  - GeSn
+  - floating gate
+  - tunnelling
+  - retention
+  - DTCO

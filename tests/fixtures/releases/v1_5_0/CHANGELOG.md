@@ -4,9 +4,6 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
-- Prepare Phase O7 v1.6.0.dev0 structural API review, retained release fixtures,
-  frozen development report and installed distribution/CI gates.
-
 - Add Phase O6 strict structural reports retaining profiles, thermal/spectral
   owners, complete pulse states, runtime and failures; deterministic seven-file
   bundles rebuild projections without optical, solver or RNG replay.

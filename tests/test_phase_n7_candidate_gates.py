@@ -11,6 +11,11 @@ from ncmemsim.spectral_reporting import SpectralReport
 
 ROOT=Path(__file__).resolve().parents[1]
 
+@pytest.fixture(autouse=True)
+def isolate_published_identity(published_v1_5_copy,monkeypatch):
+    monkeypatch.setattr(__import__(__name__,fromlist=['ROOT']),'ROOT',published_v1_5_copy)
+
+
 
 @pytest.fixture
 def candidate_copy(tmp_path):

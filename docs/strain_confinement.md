@@ -3,8 +3,8 @@
 ## O0 status and baseline
 
 O0 is complete: source audit, separated mechanism scope, ownership and O1-O7
-acceptance gates are defined here. O1 contracts, O2 hydrostatic strain-induced shifts and O3 kinetic spherical confinement are implemented; O4 owned optical/spectral composition is implemented; O5 controlled references are implemented; O6 strict reports are implemented; O7 is planned.
-Target release: v1.6.0. Current package/citation remain published v1.5.0, with
+acceptance gates are defined here. O1 contracts, O2 hydrostatic strain-induced shifts and O3 kinetic spherical confinement are implemented; O4 owned optical/spectral composition is implemented; O5 controlled references are implemented; O6 strict reports are implemented; O7 preparation is implemented; release approval remains pending.
+Target release: v1.6.0. Development package: 1.6.0.dev0; citation retains published v1.5.0, with
 version DOI `10.5281/zenodo.23189313`. No version/citation/runtime change is made
 by O0. O1 adds only separate opt-in contracts; no law evaluation or simulator integration.
 
@@ -144,8 +144,9 @@ O1 terminology-corrected CI passed on `625d5d1ef4f50076dc1283ca1fd7d255dfad1427`
 O2 exact-commit CI/Documentation passed on `eb88e2ef5a76381669141158c96d76ab03606da4`.
 O3 exact-commit CI/Documentation passed on `8fd49f86e923429f7ab81f36456f49b9a4e6ddc6`.
 O4 and O5 exact-commit CI/Documentation passed; O5 is `9e82212f75c4d7370865c43aa1a5f1f4383260ed`.
-Commit/push O6 and verify exact-commit CI. Next: O7 v1.6 API and release gates.
-Package and citation remain published v1.5.0; no physical parameter preset is shipped.
+O6 exact-commit CI/Documentation passed on `13b05572567d5124079372f295b39dc6547595e8`.
+O7 preparation is implemented; release approval remains pending. See [v1.6 checklist](v1_6_release_checklist.md).
+Package is 1.6.0.dev0; citation remains published v1.5.0; no physical parameter preset is shipped.
 
 
 ## O1 contracts and reviewed parameter boundary
