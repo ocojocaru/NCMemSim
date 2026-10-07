@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 120 package source modules; 667 explicit export paths; 203 distinct documented Python import paths.
+Coverage: 121 package source modules; 672 explicit export paths; 207 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3047,6 +3047,95 @@ Constructor: `__init__(self) -> None`.
 - `register(self, name: str, factory: Callable[..., Any], *, replace: bool=False) -> None`.
 - `create(self, name: str, **kwargs: Any) -> Any`.
 - `available(self) -> tuple[str, ...]`.
+
+
+## ncmemsim.materials.structural
+
+`ncmemsim/materials/structural.py`
+
+Explicit exports: `StructuralEvidence`, `HydrostaticStrainDomain`, `ConfinementDomain`, `HydrostaticGapProfile`, `SphericalConfinementProfile`
+
+### StructuralEvidence
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: str`; required declaration.
+- Field `locator: str`; required declaration.
+- Field `status: ParameterStatus`; required declaration.
+- Field `notes: str`; required declaration.
+- Field `doi: str | None`; default expression `None`.
+- Field `reported_uncertainty: float | None`; default expression `None`.
+- Field `uncertainty_unit: str | None`; default expression `None`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### HydrostaticStrainDomain
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `material: str`; required declaration.
+- Field `min_temperature_K: float`; required declaration.
+- Field `max_temperature_K: float`; required declaration.
+- Field `min_trace_strain: float`; required declaration.
+- Field `max_trace_strain: float`; required declaration.
+- Field `evidence: StructuralEvidence`; required declaration.
+- `validate_point(self, *, temperature_K, trace_strain)`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### ConfinementDomain
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `material: str`; required declaration.
+- Field `min_temperature_K: float`; required declaration.
+- Field `max_temperature_K: float`; required declaration.
+- Field `min_radius_m: float`; required declaration.
+- Field `max_radius_m: float`; required declaration.
+- Field `evidence: StructuralEvidence`; required declaration.
+- `validate_point(self, *, temperature_K, radius_m)`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### HydrostaticGapProfile
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `layer_name: str`; required declaration.
+- Field `gap_kind: GapKind`; required declaration.
+- Field `domain: HydrostaticStrainDomain`; required declaration.
+- Field `gap_coefficient_eV_per_trace: float`; required declaration.
+- Field `coefficient_evidence: StructuralEvidence`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### SphericalConfinementProfile
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `layer_name: str`; required declaration.
+- Field `gap_kind: GapKind`; required declaration.
+- Field `hole_branch: str`; required declaration.
+- Field `domain: ConfinementDomain`; required declaration.
+- Field `electron_mass_m0: float`; required declaration.
+- Field `hole_mass_m0: float`; required declaration.
+- Field `electron_mass_evidence: StructuralEvidence`; required declaration.
+- Field `hole_mass_evidence: StructuralEvidence`; required declaration.
+- Field `approximation_evidence: StructuralEvidence`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
 
 
 ## ncmemsim.materials.temperature

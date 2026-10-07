@@ -3,10 +3,10 @@
 ## O0 status and baseline
 
 O0 is complete: source audit, separated mechanism scope, ownership and O1-O7
-acceptance gates are defined here. O1-O7 are planned, not implemented.
+acceptance gates are defined here. O1 contracts and parameter-review boundaries are implemented; O2-O7 are planned.
 Target release: v1.6.0. Current package/citation remain published v1.5.0, with
 version DOI `10.5281/zenodo.23189313`. No version/citation/runtime change is made
-by this planning stage.
+by O0. O1 adds only separate opt-in contracts; no law evaluation or simulator integration.
 
 Baseline: `46965a3d7ed86fd64223b587db71500f4a7e7e44`, the N7 DOI closure.
 [strain_confinement_audit.json](strain_confinement_audit.json) records source
@@ -139,6 +139,65 @@ will be reviewed in O1/O6, not frozen prematurely here.
 
 ## Next action
 
-Commit O0 on `dev/v1.6-strain-confinement`, push and verify exact-commit checks.
-Then implement O1 contracts and parameter/domain review. No O runtime API,
-parameter preset, package version or citation change is included in O0.
+O0 exact-commit CI and Documentation passed on `90d0f7146afb048b9a6d8d0a6df0285245a93356`.
+Commit/push O1 and verify exact-commit CI. Next: O2 independent hydrostatic
+evaluation and reference; O3 confinement evaluation remains a separate stage.
+Package and citation remain published v1.5.0; no physical parameter preset is shipped.
+
+
+## O1 contracts and reviewed parameter boundary
+
+The additive `ncmemsim.materials.structural` module exports `StructuralEvidence`,
+`HydrostaticStrainDomain`, `ConfinementDomain`, `HydrostaticGapProfile` and
+`SphericalConfinementProfile`. They are frozen contracts with canonical JSON,
+versioned schemas and SHA-256 content identities. Unknown fields, wrong units,
+duplicate JSON keys, nonfinite values, booleans as numbers and relabelled physics
+are rejected. No profile evaluates a gap yet; O2/O3 add those independent laws.
+
+Initial domains accept Ge only. Temperature bounds are positive finite values;
+hydrostatic trace bounds are signed and contain zero, while radius bounds are
+positive metres. `validate_point` checks declared bounds without extrapolation.
+Domain evidence is mandatory and does not establish experimental qualification.
+Gamma/L optical transition targets reuse the existing GapKind enum; substrate
+gaps, string-valued targets and unreviewed GeSn applicability fail explicitly.
+
+Hydrostatic coefficients are signed, finite eV per unit trace, with their own
+evidence and optical-gap-derivative semantics. Confinement requires positive
+electron and hole masses in m0, an explicit hole branch, separate mass evidence
+and explicit approximation evidence. Archives name the spherical infinite-barrier,
+isotropic-equivalent, kinetic-only model. No tunnelling mass, diameter, dielectric
+constant or Coulomb term is inferred. Optional uncertainties require paired units;
+coefficient uncertainty uses eV_per_unit_trace and mass uncertainty uses m0.
+
+Evidence retains source, locator, notes, typed provenance status and optional DOI.
+ASSUMED/DERIVED/ESTIMATED/LITERATURE/FITTED/LITERATURE_FITTED remain distinct.
+CALIBRATED is rejected by this stage: device qualification needs a separately
+reviewed evidence contract; a label or framework citation does not establish it.
+
+[structural_parameters_review.json](structural_parameters_review.json), checked
+by `python scripts/validate_structural_parameters.py`, records the review outcome:
+**zero qualified physical presets**. Four synthetic Gamma/L diagnostic profiles
+use arbitrary slopes (-1/-0.5 eV per trace), electron masses (.2/.3 m0), hole mass
+(.4 m0), 300 K, trace [-.01,.01] and radius [2,10] nm, all marked ASSUMED. These
+values test contracts and future analytical limits; they are not Ge parameter
+recommendations or a literature-derived valid window. They are documentation/test
+fixtures, never automatically loaded as package defaults. Physical coefficient,
+mass and domain selection remains pending explicit material-specific review.
+
+```python
+from ncmemsim.materials.structural import StructuralEvidence, HydrostaticStrainDomain, HydrostaticGapProfile
+from ncmemsim.materials.provenance import ParameterStatus
+from ncmemsim.materials.temperature import GapKind
+
+evidence = StructuralEvidence("synthetic unit fixture", "documentation example",
+    ParameterStatus.ASSUMED, "arbitrary diagnostic slope/domain; not material qualified")
+domain = HydrostaticStrainDomain("Ge", 300.0, 300.0, -.01, .01, evidence)
+profile = HydrostaticGapProfile("explicit Gamma fixture", "FG1", GapKind.GAMMA,
+    domain, -1.0, evidence)
+domain.validate_point(temperature_K=300.0, trace_strain=0.0)
+assert HydrostaticGapProfile.from_json(profile.to_json()) == profile
+```
+
+Contracts store targets/assumptions without importing an optical evaluator,
+changing material presets or running workflows/RNG. Composition with resolved
+thermal/spectral contexts remains O4; initial law references must remain separate.

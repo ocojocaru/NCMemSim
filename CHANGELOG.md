@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase O1 immutable structural evidence, separate hydrostatic/radius domains
+  and Gamma/L strain/confinement profile contracts, strict archives and synthetic
+  parameter-review gates; no evaluation law or physical preset is supplied.
+
 - Define Phase O0 source audit, separate strain/confinement scope and O1-O7
   acceptance sequence for v1.6; no runtime/default/API or citation identity change.
 
