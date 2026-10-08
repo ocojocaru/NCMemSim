@@ -68,15 +68,20 @@ def validate(root):
     previous=retained_review(root)
     if previous['retained_stable_paths']!=297 or previous['stable_ensemble_exports']!=59:raise ValueError('retained stable contracts changed')
     structural_parameters(root)
-    if _version(root)!='1.6.0.dev0':raise ValueError('O7 preparation identity must be 1.6.0.dev0')
+    version=_version(root)
+    if version not in ('1.6.0.dev0','1.6.0'):raise ValueError('unsupported v1.6 identity')
     citation=(root/'CITATION.cff').read_text(encoding='utf-8')
-    if citation!=(root/'tests/fixtures/releases/v1_5_0/CITATION.cff').read_text(encoding='utf-8'):raise ValueError('development citation must retain published v1.5 identity/DOI')
-    markers={'README.md':('**Development version:** `1.6.0.dev0`','**Current stable release:** `1.5.0`'),
-        'docs/strain_confinement.md':('O7 preparation is implemented','release approval remains pending'),
-        'docs/roadmap.md':('O7 preparation is implemented','release approval remains pending'),
-        'docs/v1_6_release_checklist.md':('O7 is not complete','release approval remains pending','Python 3.11, 3.12 and 3.13')}
-    for name,values in markers.items():
-        if any(v not in (root/name).read_text(encoding='utf-8') for v in values):raise ValueError('candidate declaration mismatch: '+name)
+    if version=='1.6.0':
+        from scripts.validate_v1_6_release_identity import validate_identity
+        validate_identity(root)
+    else:
+        if citation!=(root/'tests/fixtures/releases/v1_5_0/CITATION.cff').read_text(encoding='utf-8'):raise ValueError('development citation must retain published v1.5 identity/DOI')
+        markers={'README.md':('**Development version:** `1.6.0.dev0`','**Current stable release:** `1.5.0`'),
+            'docs/strain_confinement.md':('O7 preparation is implemented','release approval remains pending'),
+            'docs/roadmap.md':('O7 preparation is implemented','release approval remains pending'),
+            'docs/v1_6_release_checklist.md':('O7 is not complete','release approval remains pending','Python 3.11, 3.12 and 3.13')}
+        for name,values in markers.items():
+            if any(v not in (root/name).read_text(encoding='utf-8') for v in values):raise ValueError('candidate declaration mismatch: '+name)
     from ncmemsim.structural_reporting import StructuralReport
     raw=_json(root/'tests/fixtures/archives/v1_6_0_dev/structural_report.json')
     if StructuralReport.from_dict(raw).to_dict()!=raw:raise ValueError('structural archive mismatch')

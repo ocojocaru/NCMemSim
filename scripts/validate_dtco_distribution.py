@@ -197,7 +197,7 @@ def create_environment(path: Path, *, inherit: bool = False) -> Path:
     run(str(python), "-I", "-c", "import pyexpat, ssl; print('Runtime DLL check: PASS')", cwd=path)
     return python
 
-SOURCE_REQUIRED |= {'scripts/validate_v1_6_api_review.py','docs/v1_6_api_review.json','docs/v1_6_release_checklist.md','tests/fixtures/archives/v1_6_0_dev/structural_report.json'}
+SOURCE_REQUIRED |= {'scripts/validate_v1_6_release_identity.py','scripts/validate_v1_6_api_review.py','docs/v1_6_api_review.json','docs/v1_6_release_checklist.md','tests/fixtures/archives/v1_6_0_dev/structural_report.json'}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_5_0/'+name for name in ('README.md','CHANGELOG.md','CITATION.cff','ncmemsim/_version.py','docs/index.md','docs/roadmap.md','docs/broadband_optics.md','docs/v1_5_release_checklist.md','.github/workflows/ci.yml','.github/workflows/docs.yml')}
 
 def main() -> None:

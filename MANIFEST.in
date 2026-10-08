@@ -46,3 +46,4 @@ include scripts/validate_v1_5_release_identity.py
 include scripts/validate_structural_parameters.py
 
 include scripts/validate_v1_6_api_review.py
+include scripts/validate_v1_6_release_identity.py

@@ -11,7 +11,7 @@
 NCMemSim is a modular Python framework for the simulation and design–technology co-optimization (DTCO) of Ge/GeSn nanocrystal non-volatile memories. It provides an explicit multilayer device description, independent state variables for one to three floating gates, compact electrostatics, local field reconstruction, WKB-based tunnelling, inter-floating-gate charge redistribution, retention analysis, wavelength-dependent Ge/GeSn optical absorption, photo-assisted programming, validation utilities, reproducibility manifests, and deterministic regression references.
 
 > **Published v1.5.0 status:** Phase N is complete; broadband/multilayer optics and strict spectral reports are published.
-> **Development version:** `1.6.0.dev0`
+> **Final candidate version:** `1.6.0` — publication and version-specific DOI pending
 
 **Current stable release:** `1.5.0` — broadband optics and reproducible spectral reports; main/tag CI and Release passed, with wheel and sdist published.
 > **Previous stable release:** `1.4.0` — temperature-dependent properties and reproducible thermal reports

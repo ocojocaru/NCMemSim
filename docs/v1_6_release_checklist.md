@@ -1,9 +1,10 @@
 # v1.6 Phase O7 candidate and release checklist
 
 Status: O7 preparation is implemented; release approval remains pending. O7 is not complete.
-Development identity: `1.6.0.dev0`; target candidate: `1.6.0`.
+Final candidate identity: `1.6.0`; Citation date: `2026-10-08`.
+Publication and version-specific DOI remain pending.
 Latest published stable: `1.5.0`, with date 2026-10-06 and author-confirmed version DOI `10.5281/zenodo.23189313`.
-CITATION.cff retains that published identity during development; Concept DOI `10.5281/zenodo.23078330` remains separate. No v1.6-specific DOI is assigned before deposit.
+CITATION.cff now describes the final 1.6.0 candidate without a version-specific DOI; Concept DOI `10.5281/zenodo.23078330` remains separate. No v1.6-specific DOI is assigned before deposit.
 
 ## Reviewed scope
 
@@ -49,3 +50,7 @@ These results precede the preparation commit. Exact-commit remote CI/Documentati
 4. Create annotated v1.6.0 tag on the verified merge commit and wait for release workflow/assets.
 5. Confirm published GitHub release and actual Zenodo deposit; record version DOI without moving the tag.
 6. Close O7 only after publication, DOI and final metadata CI are verified.
+
+## Final candidate preparation
+
+O7 development preparation passed all six CI jobs and Documentation on `dcee61c47f62659f95e5c6c6bb54d4d14ee3f5c0`. The earlier 4190-test regression covered unchanged runtime contracts at 1.6.0.dev0. Final identity and installed version checks are performed separately; the final commit requires its own full remote CI. Final candidate metadata does not close O7 or claim publication.

@@ -514,3 +514,5 @@ policy are recorded in the [v1.0 readiness consolidation](release_readiness.md).
 The stable API, scientific scope and citation policy are approved, and the full
 regression, strict documentation, clean-distribution and remote Actions gates
 all passed. The preparation branch was promoted to `main` for v1.0.0.
+
+Final candidate identity: `1.6.0`, citation date `2026-10-08`; publication and version-specific DOI pending. O7 is not complete.

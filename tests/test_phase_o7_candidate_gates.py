@@ -20,16 +20,16 @@ def candidate_copy(tmp_path):
 
 def test_candidate_identity_and_retained_contracts():
     assert gate.validate(ROOT)=={'status':'candidate_contracts_pass_not_release_approval',
-        'package_version':'1.6.0.dev0','citation_version':'1.5.0','latest_published_stable':'1.5.0',
+        'package_version':'1.6.0','citation_version':'1.6.0','latest_published_stable':'1.5.0',
         'retained_stable_paths':297,'stable_ensemble_exports':59,'reviewed_modules':5,'structural_exports':22}
 
 
 @pytest.mark.parametrize('fault',['version','citation','readme','review','source','archive','snapshot','audit','parameters','spectral','checklist','inventory'])
 def test_unreviewed_preparation_rejected(candidate_copy,fault):
     root=candidate_copy
-    if fault=='version':(root/'ncmemsim/_version.py').write_text('__version__="1.6.0"\n',encoding='utf-8')
+    if fault=='version':(root/'ncmemsim/_version.py').write_text('__version__="1.5.0"\n',encoding='utf-8')
     elif fault=='citation':
-        p=root/'CITATION.cff';p.write_text(p.read_text(encoding='utf-8').replace('version: 1.5.0','version: 1.6.0'),encoding='utf-8')
+        p=root/'CITATION.cff';p.write_text(p.read_text(encoding='utf-8').replace('version: 1.6.0','version: 1.5.0'),encoding='utf-8')
     elif fault=='readme':(root/'README.md').write_text('published v1.6',encoding='utf-8')
     elif fault=='source':
         p=root/'ncmemsim/structural_reporting.py';p.write_text(p.read_text(encoding='utf-8')+'# unreviewed\n',encoding='utf-8')
