@@ -439,11 +439,16 @@ Franz-Keldysh effects, Stark shifts and state filling remain separate candidates
 
 ### v1.7.0: Phase P - Independent experimental calibration
 
-Indicative: independent absorption/device datasets, photo-capture qualification,
-multi-condition fitting, holdout validation and population-based distributions
-where measured data support them. Preserve FITTED/CALIBRATED distinctions and
-negative qualification outcomes. Delivery depends on dataset access and quality;
-it does not promise successful calibration and may be advanced ahead of O.
+P0 is complete: [independent calibration planning](independent_calibration.md)
+and [source/data/literature audit](independent_calibration_audit.json) define
+acquisition, lineage, split and uncertainty requirements. The existing Tran2016
+reference is a same-curve holdout with a retained failed qualification. Additional
+optical/device literature candidates are screened, not admitted or calibrated.
+First scope is an opt-in bulk-Ge optical study using existing equations;
+independent numerical observations and specimen/acquisition provenance must be
+acquired before fitting. Device/photo qualification remains conditional on complete
+measured protocols. P1-P7 are planned; v1.7 delivery and successful calibration
+are not promised by dataset discovery. Current package/citation remain v1.6.0.
 
 ### v1.8.0: Phase Q - Multilevel and neuromorphic/in-memory operation
 

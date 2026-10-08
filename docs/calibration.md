@@ -672,3 +672,10 @@ locally during digitization QA but is intentionally not redistributed.
 
 The metadata records source identity, digitization calibration, split
 policy, limitations, and SHA-256 hashes for the reference artifacts.
+
+## Phase P independent experimental acceptance
+
+[Phase P planning](independent_calibration.md) audits the existing references and
+literature candidates. Distinct hashes and same-curve holdouts are not evidence of
+independent acquisition. P0 adds planning/acceptance requirements, not a change
+to existing calibration APIs or historical qualification outputs.

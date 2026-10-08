@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Define Phase P0 repository/literature data audit, acquisition/independence and
+  uncertainty requirements, and conditional P1-P7 scope; no runtime, fitting or
+  calibration-status change.
+
 - Record the v1.6.0 Zenodo DOI and close O7 without moving its release tag or replacing assets.
 
 - Prepare Phase O7 v1.6.0.dev0 structural API review, retained release fixtures,

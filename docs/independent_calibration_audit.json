@@ -1,0 +1,181 @@
+{
+  "schema_version": "independent-calibration-planning-audit-v1",
+  "status": "P0_scope_defined_no_runtime_changes",
+  "baseline_commit": "5bef1593e05fffe1d59b6aaf1614f74103c65aba",
+  "current_release": "1.6.0",
+  "current_version_doi": "10.5281/zenodo.23235484",
+  "target_release": "1.7.0_indicative_data_dependent",
+  "audit_date": "2026-10-08",
+  "audit_method": "source/document/data inspection; SHA-256 of UTF-8 text with normalized LF; literature metadata/fulltext screening; not a fresh fit or measurement certification",
+  "source_sha256": {
+    "ncmemsim/experimental.py": "7c7e4b0109011c320420c13c36e470e936a6542aa1cdc6b1118d2ced61ac98ce",
+    "ncmemsim/io.py": "9396778389fbb4eb191cb17d94fd7d7e998ab725aac25c1d75d58abb318ed70c",
+    "ncmemsim/calibration.py": "4e0f92a198883f83720bc966a4db72adbba462ecb0e1065a6d52e0b0428bd1ff",
+    "ncmemsim/device_calibration.py": "6e579bc37b68bd15892cde864dfef40ede720e76338d6216ba1af737ddfdc378",
+    "ncmemsim/photo_calibration.py": "0fab82700472d249de765c7e1df982e0e86efd333c0dc838db75ee5b68583ab6",
+    "ncmemsim/photo_program_fit.py": "6520568ec1de53b9bf5acf566278901e846e89539448dc74a94b70d566b1239c",
+    "ncmemsim/workflows/evidence.py": "557ea89be406cb1cb4aa0b3b7305c8e8efb675558776c8474afdf2bf41e80f07",
+    "ncmemsim/materials/optics/near_edge.py": "65a78f2620ea77ebbf109ebebcb972e63dbd0a8ce2585362e1785671dc9e3819",
+    "ncmemsim/materials/optics/domain.py": "a6d813da53236059f9c34021dc56df315f1869be4c7e0b40b8098981a2f9fa96",
+    "ncmemsim/materials/optics/near_edge_calibration.py": "25c642418e6e0199694b69c1d177d2b064d0728678128941ca802286e1a46c30",
+    "ncmemsim/fitting.py": "ca0ddcd0764c3e1cde8b1c0f0c59f892b6faa8089f910546426821471f3f6636",
+    "ncmemsim/fit_diagnostics.py": "aeee909f1de1935c7b3deef47d05b9648cff17d36a714d9b8453842f446d73a1",
+    "docs/calibration.md": "457268612b3fd6cd72527dd85fe65b262b158fe44adc195c38330737d200d221",
+    "data/reference/tran2016/README.md": "0d95c49dc1fc50d809a67972297bd90ae3772a7ed9001de0e88d987aad11f2d5",
+    "data/reference/tran2016/tran2016_sampleA_fig6a_metadata.json": "87cfe4a6f2c1f4f884ac42b1be9e0e4f882d6085b07b00c2354d077c622f1631",
+    "data/reference/tran2016/tran2016_sampleA_fig6a_workflow_result.json": "2fa3e83439a53398039c4c53d3e8e6982d7daf06dc5395b027328bd5346bbac1"
+  },
+  "tabular_inventory_scope": {
+    "roots": [
+      "data",
+      "tests/fixtures"
+    ],
+    "extensions": [
+      ".csv",
+      ".tsv",
+      ".xlsx",
+      ".h5",
+      ".hdf5"
+    ],
+    "files": [
+      "data/reference/tran2016/tran2016_sampleA_fig6a_digitization_audit.csv",
+      "data/reference/tran2016/tran2016_sampleA_fig6a_fit.csv",
+      "data/reference/tran2016/tran2016_sampleA_fig6a_near_edge_all.csv",
+      "data/reference/tran2016/tran2016_sampleA_fig6a_validation.csv"
+    ]
+  },
+  "existing_csv_artifacts": [
+    {
+      "path": "data/reference/tran2016/tran2016_sampleA_fig6a_digitization_audit.csv",
+      "rows": 11,
+      "canonical_text_sha256": "9d50bdca0fa6f60b5918ec606b618c436de8bc04f5274ab7dc01470cd52d94c9",
+      "role": "digitization_lineage"
+    },
+    {
+      "path": "data/reference/tran2016/tran2016_sampleA_fig6a_fit.csv",
+      "rows": 4,
+      "canonical_text_sha256": "17d325ad8a595357300eb0d8db20f5dbd251d383680acb912333bb2c17bdd89c",
+      "role": "same_curve_digitized_optical_observations"
+    },
+    {
+      "path": "data/reference/tran2016/tran2016_sampleA_fig6a_near_edge_all.csv",
+      "rows": 8,
+      "canonical_text_sha256": "8175449c5e5c2c9ed365c2fc71b5d8315051adfcf25a1162b04384d5b74bf145",
+      "role": "same_curve_digitized_optical_observations"
+    },
+    {
+      "path": "data/reference/tran2016/tran2016_sampleA_fig6a_validation.csv",
+      "rows": 4,
+      "canonical_text_sha256": "01925188e5ec2cf9fd8af09be31558ca79213a5273b73188937396d7e0a49cd6",
+      "role": "same_curve_digitized_optical_observations"
+    }
+  ],
+  "existing_reference": {
+    "family": "tran2016_sampleA_fig6a",
+    "doi": "10.1063/1.4943652",
+    "classification": "digitized_model_derived_experimental",
+    "fit_count": 4,
+    "validation_count": 4,
+    "selected_count": 8,
+    "audit_count_including_excluded": 11,
+    "independent_experiment": false,
+    "uncertainty": "assigned 5% digitization estimate, not a reported experimental standard deviation",
+    "stored_calibrated": false,
+    "stored_eligible_for_calibration": false,
+    "stored_failed_criteria": [
+      "validation_rmse"
+    ]
+  },
+  "user_inputs": {
+    "additional_local_experimental_data_available": false,
+    "instruction": "search literature; prepare acquisition/acceptance requirements"
+  },
+  "literature_candidates": [
+    {
+      "id": "nunley2016",
+      "doi": "10.1116/1.4963075",
+      "url": "https://doi.org/10.1116/1.4963075",
+      "author_copy_url": "https://femto.nmsu.edu/2016/Nunley-JVST-Ge-2016.pdf",
+      "role": "bulk/film optical near-edge candidate",
+      "spectral_energy_range_eV": [
+        0.5,
+        6.6
+      ],
+      "access": "primary author-hosted publication indexed; PDF/supplement download unverified in session",
+      "admission": "candidate_pending_tables_sample_uncertainty_and_lineage_review"
+    },
+    {
+      "id": "menendez2018",
+      "doi": "10.1103/PhysRevB.98.165207",
+      "url": "https://link.aps.org/accepted/10.1103/PhysRevB.98.165207",
+      "role": "bulk Ge indirect absorption candidate",
+      "access": "accepted manuscript full text inspected",
+      "specimen_count": 6,
+      "average_temperature_K": 301,
+      "candidate_figures": [
+        "6",
+        "8"
+      ],
+      "reused_figure_exclusion": "Figure 7 reuses Ref.43 data; not a new acquisition",
+      "admission": "candidate_pending_numerical_observations_uncertainty_independence_and_model_domain_review"
+    },
+    {
+      "id": "das2012",
+      "doi": "10.1186/1556-276X-7-143",
+      "url": "https://link.springer.com/article/10.1186/1556-276X-7-143",
+      "role": "secondary Ge NC electrical-device candidate",
+      "access": "primary article inspected",
+      "candidate_figures": [
+        "7",
+        "9"
+      ],
+      "excluded_observations": [
+        "ten-year extrapolations as measured validation points",
+        "PL/EL as direct absorption or capture-efficiency measurements"
+      ],
+      "admission": "candidate_pending_protocol_geometry_and_measured_time_window_review"
+    },
+    {
+      "id": "zhao2020_ge_nk",
+      "doi": "10.6084/m9.figshare.12756326.v1",
+      "paper_doi": "10.1364/OL.404423",
+      "url": "https://opticapublishing.figshare.com/articles/dataset/Ge_n_k_csv/12756326",
+      "access": "public CSV downloaded to scratch only; 101 well-formed numeric rows checked",
+      "wavelength_range_nm": [
+        300,
+        800
+      ],
+      "license": "CC BY 4.0",
+      "download_url": "https://ndownloader.figshare.com/files/24140312",
+      "raw_file_sha256": "3452ccd17d6e4d31a0f6c506af038a8fda111c2cbcb587a92ca3eb3db9e78e18",
+      "admission": "excluded_from_first_near_edge_selection_no_1500_2500_nm_overlap"
+    }
+  ],
+  "accepted_new_independent_dataset_count": 0,
+  "calibration_claim_created": false,
+  "findings": {
+    "hash_distinction": "existing distinct-dataset hashes do not certify acquisition independence or exclude transformed/partial overlap",
+    "photo_training_collection": "rejects validation hash equal to a training collection member; genealogy still requires review",
+    "uncertainty_gaps": "wavelength uncertainty and correlated/source/extraction/systematic distinctions need P envelope",
+    "origin_gaps": "declared synthetic/measured origin is not instrument or experiment authentication",
+    "legacy_status_policy": "no rewriting of historical qualification outputs; new independent-experimental acceptance envelope"
+  },
+  "first_scope": "opt-in existing-equation bulk-Ge optical study with independent acquisition evidence, predeclared fit/holdout criteria; device/photo track conditional",
+  "stages": {
+    "P1": "additive lineage/split/uncertainty acceptance and admitted data or gaps",
+    "P2": "owned existing-model optical fitting",
+    "P3": "independent evaluation/leakage rejection and negative outcomes",
+    "P4": "conditional measured multi-condition device/photo adapter",
+    "P5": "applied reference and numerical/statistical/error-budget diagnostics",
+    "P6": "strict measured-study evidence/reports/bundles",
+    "P7": "compatibility, exact-commit CI and conditional release"
+  },
+  "excluded": [
+    "unreviewed new physics or automatic NC transfer",
+    "successful calibration promise",
+    "synthetic recovery as experimental qualification",
+    "same-curve or transformed-copy validation as independent replication",
+    "invented uncertainty/conditions/thresholds",
+    "manufacturing yield/endurance qualification"
+  ]
+}
