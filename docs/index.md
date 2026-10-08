@@ -2,9 +2,9 @@
 
 # NCMemSim
 
-Final v1.6.0 candidate: `1.6.0`, citation date `2026-10-08`; publication and version-specific DOI pending.
+Published stable release: `1.6.0`, dated 2026-10-08. O7 is complete; CITATION.cff records [10.5281/zenodo.23235484](https://doi.org/10.5281/zenodo.23235484).
 
-Published stable release: `1.5.0`, dated 2026-10-06. Phase N7 is complete; Version-specific DOI: [10.5281/zenodo.23189313](https://doi.org/10.5281/zenodo.23189313).
+Previous stable release: `1.5.0`, dated 2026-10-06. Phase N7 is complete; Version-specific DOI: [10.5281/zenodo.23189313](https://doi.org/10.5281/zenodo.23189313).
 
 Previous stable release: `1.4.0`, dated 2026-10-02. Phase M7 is complete; Version-specific DOI: [10.5281/zenodo.23102549](https://doi.org/10.5281/zenodo.23102549).
 

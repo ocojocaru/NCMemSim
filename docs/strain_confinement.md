@@ -3,8 +3,8 @@
 ## O0 status and baseline
 
 O0 is complete: source audit, separated mechanism scope, ownership and O1-O7
-acceptance gates are defined here. O1 contracts, O2 hydrostatic strain-induced shifts and O3 kinetic spherical confinement are implemented; O4 owned optical/spectral composition is implemented; O5 controlled references are implemented; O6 strict reports are implemented; O7 preparation is implemented; release approval remains pending.
-Target release: v1.6.0. Final candidate identity: `1.6.0`, citation date `2026-10-08`; publication and version-specific DOI pending.
+acceptance gates are defined here. O1 contracts, O2 hydrostatic strain-induced shifts and O3 kinetic spherical confinement are implemented; O4 owned optical/spectral composition is implemented; O5 controlled references are implemented; O6 strict reports are implemented; O7 is complete; v1.6.0 is published.
+Published release: v1.6.0. Published identity: `1.6.0`, dated 2026-10-08; O7 is complete. Version DOI: 10.5281/zenodo.23235484.
 Published v1.5.0 remains separately citable with DOI `10.5281/zenodo.23189313`. No version/citation/runtime change is made
 by O0. O1 adds only separate opt-in contracts; no law evaluation or simulator integration.
 
@@ -145,8 +145,8 @@ O2 exact-commit CI/Documentation passed on `eb88e2ef5a76381669141158c96d76ab0360
 O3 exact-commit CI/Documentation passed on `8fd49f86e923429f7ab81f36456f49b9a4e6ddc6`.
 O4 and O5 exact-commit CI/Documentation passed; O5 is `9e82212f75c4d7370865c43aa1a5f1f4383260ed`.
 O6 exact-commit CI/Documentation passed on `13b05572567d5124079372f295b39dc6547595e8`.
-O7 preparation is implemented; release approval remains pending. See [v1.6 checklist](v1_6_release_checklist.md).
-Package and citation are the final 1.6.0 candidate; no physical parameter preset is shipped.
+O7 is complete; v1.6.0 is published. See [v1.6 checklist](v1_6_release_checklist.md).
+Package and citation describe published 1.6.0; no physical parameter preset is shipped.
 
 
 ## O1 contracts and reviewed parameter boundary
@@ -535,4 +535,4 @@ O5 supplies refined numerical reference evidence. Report status remains conditio
 and unqualified, with synthetic ASSUMED parameters, kinetic-only confinement and
 no experimental material, capture or device calibration.
 
-O7 preparation CI/Documentation passed on `dcee61c47f62659f95e5c6c6bb54d4d14ee3f5c0`. Final candidate identity: `1.6.0`; publication and version-specific DOI pending.
+O7 preparation CI/Documentation passed on `dcee61c47f62659f95e5c6c6bb54d4d14ee3f5c0`. Published identity: `1.6.0`; O7 is complete. Version DOI: 10.5281/zenodo.23235484.

@@ -86,7 +86,7 @@ def validate(root):
     raw=_json(root/'tests/fixtures/archives/v1_6_0_dev/structural_report.json')
     if StructuralReport.from_dict(raw).to_dict()!=raw:raise ValueError('structural archive mismatch')
     return {'status':'candidate_contracts_pass_not_release_approval','package_version':_version(root),
-        'citation_version':_citation_field(citation,'version'),'latest_published_stable':'1.5.0',
+        'citation_version':_citation_field(citation,'version'),'latest_published_stable':'1.6.0' if version=='1.6.0' else '1.5.0',
         'retained_stable_paths':297,'stable_ensemble_exports':59,'reviewed_modules':len(MODULES),
         'structural_exports':sum(len(m['exports']) for m in stored['additive_module_qualified_surface'])}
 

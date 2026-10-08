@@ -4,6 +4,7 @@ title: "NCMemSim: Nanocrystal Memory Simulation Platform"
 type: software
 version: 1.6.0
 date-released: 2026-10-08
+doi: 10.5281/zenodo.23235484
 license: Apache-2.0
 identifiers:
   - type: doi

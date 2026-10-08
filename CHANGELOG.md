@@ -4,6 +4,8 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Record the v1.6.0 Zenodo DOI and close O7 without moving its release tag or replacing assets.
+
 - Prepare Phase O7 v1.6.0.dev0 structural API review, retained release fixtures,
   frozen development report and installed distribution/CI gates.
 
@@ -40,7 +42,7 @@ All notable changes to NCMemSim are documented in this file.
 
 - Record the author-confirmed v1.5.0 Zenodo DOI and close N7 after verified publication; adapt identity gates without moving the release tag or changing assets.
 
-## 1.6.0 — 2026-10-08 (final candidate; publication pending)
+## 1.6.0 — 2026-10-08
 
 - Add explicit Ge Gamma/L hydrostatic strain-induced optical gap shifts and
   spherical kinetic confinement diagnostics with separate electron/hole terms.
@@ -48,7 +50,7 @@ All notable changes to NCMemSim are documented in this file.
   references and strict structural reports/reproducibility bundles.
 - Retain existing stable, MODEL, thermal and spectral contracts. Parameters and
   additive policy remain ASSUMED; no material/device calibration is claimed.
-- Prepare final package/citation identity; version-specific DOI awaits deposit.
+- Publish v1.6.0 and record author-confirmed Zenodo DOI 10.5281/zenodo.23235484; close O7 after verified main/tag CI and Release.
 
 ## 1.5.0 — 2026-10-06
 

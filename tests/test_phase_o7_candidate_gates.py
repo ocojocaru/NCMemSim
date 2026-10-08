@@ -20,7 +20,7 @@ def candidate_copy(tmp_path):
 
 def test_candidate_identity_and_retained_contracts():
     assert gate.validate(ROOT)=={'status':'candidate_contracts_pass_not_release_approval',
-        'package_version':'1.6.0','citation_version':'1.6.0','latest_published_stable':'1.5.0',
+        'package_version':'1.6.0','citation_version':'1.6.0','latest_published_stable':'1.6.0',
         'retained_stable_paths':297,'stable_ensemble_exports':59,'reviewed_modules':5,'structural_exports':22}
 
 
@@ -61,7 +61,7 @@ def test_development_archive_does_not_claim_publication():
     assert report.summary['counts']=={'attempted':2,'completed':0,'failed':2}
     assert report.summary['pulse_delta_vfb_V']['mean'] is None
     assert raw['evidence']['runtime']['ncmemsim']=='1.6.0.dev0'
-    assert 'O7 is not complete' in (ROOT/'docs/v1_6_release_checklist.md').read_text(encoding='utf-8')
+    assert 'O7 is complete' in (ROOT/'docs/v1_6_release_checklist.md').read_text(encoding='utf-8')
 
 
 def test_installed_probe_and_source_requirements():

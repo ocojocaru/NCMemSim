@@ -1,10 +1,10 @@
 # v1.6 Phase O7 candidate and release checklist
 
-Status: O7 preparation is implemented; release approval remains pending. O7 is not complete.
-Final candidate identity: `1.6.0`; Citation date: `2026-10-08`.
-Publication and version-specific DOI remain pending.
-Latest published stable: `1.5.0`, with date 2026-10-06 and author-confirmed version DOI `10.5281/zenodo.23189313`.
-CITATION.cff now describes the final 1.6.0 candidate without a version-specific DOI; Concept DOI `10.5281/zenodo.23078330` remains separate. No v1.6-specific DOI is assigned before deposit.
+Status: O7 is complete; v1.6.0 is published.
+Published identity: `1.6.0`; Citation date: `2026-10-08`.
+Author-confirmed version-specific DOI: [10.5281/zenodo.23235484](https://doi.org/10.5281/zenodo.23235484).
+Previous published stable: `1.5.0`, with date 2026-10-06 and author-confirmed version DOI `10.5281/zenodo.23189313`.
+CITATION.cff records the published 1.6.0 identity and its author-confirmed DOI; Concept DOI `10.5281/zenodo.23078330` remains separate. The version-specific DOI was added only after the author confirmed the actual deposit.
 
 ## Reviewed scope
 
@@ -40,9 +40,9 @@ Scientific status remains conditional and unqualified. Hydrostatic strain-induce
 - Wheel/sdist independently installed as 1.6.0.dev0: workflow, MODEL, thermal, spectral and structural probes passed. 336 source files audited.
 - Local distributions inherited dependencies; this does not replace the clean remote matrix.
 
-These results precede the preparation commit. Exact-commit remote CI/Documentation must pass separately; final 1.6.0 candidate and publication checks remain pending.
+These results preceded the preparation commit; final-candidate and publication checks were pending at that checkpoint. Their verified completion is recorded below.
 
-## Publication sequence still pending
+## Publication sequence (completed)
 
 1. Commit/push preparation and verify all six CI jobs plus Documentation.
 2. Prepare final 1.6.0 candidate identity, citation date and release gates; rerun affected checks and exact-commit CI.
@@ -53,4 +53,22 @@ These results precede the preparation commit. Exact-commit remote CI/Documentati
 
 ## Final candidate preparation
 
-O7 development preparation passed all six CI jobs and Documentation on `dcee61c47f62659f95e5c6c6bb54d4d14ee3f5c0`. The earlier 4190-test regression covered unchanged runtime contracts at 1.6.0.dev0. Final identity and installed version checks are performed separately; the final commit requires its own full remote CI. Final candidate metadata does not close O7 or claim publication.
+O7 development preparation passed all six CI jobs and Documentation on `dcee61c47f62659f95e5c6c6bb54d4d14ee3f5c0`. The earlier 4190-test regression covered unchanged runtime contracts at 1.6.0.dev0. Final identity and installed version checks passed separately; the final candidate, PR, main and tag received their own successful CI checks. That candidate metadata did not itself close O7 or claim publication.
+
+
+## Verified publication and DOI closure
+
+PR #9 merged at `eebc163ef2f17333d11d62fcbc4135bc0f9a4b1f`; all six main CI jobs and Documentation passed.
+The annotated v1.6.0 tag targets that same commit. All six tag CI jobs and the Release workflow passed.
+GitHub Release was published on 2026-10-08 at 09:40:38 UTC, publicly and without prerelease/draft flags,
+with ncmemsim-1.6.0-py3-none-any.whl and ncmemsim-1.6.0.tar.gz.
+The author confirmed version DOI 10.5281/zenodo.23235484; automated Zenodo access was unavailable.
+
+Evidence: [main CI](https://github.com/ocojocaru/NCMemSim/actions/runs/37753775648),
+[main Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/37753775796),
+[tag CI](https://github.com/ocojocaru/NCMemSim/actions/runs/37756345556),
+[Release workflow](https://github.com/ocojocaru/NCMemSim/actions/runs/37756345779),
+[GitHub Release](https://github.com/ocojocaru/NCMemSim/releases/tag/v1.6.0),
+[version DOI](https://doi.org/10.5281/zenodo.23235484).
+
+This post-publication metadata commit does not move the tag or replace assets. Exact metadata-commit CI remains a separate check after commit/push.

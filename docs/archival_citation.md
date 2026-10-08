@@ -14,8 +14,8 @@ The project author confirmed [v1.3.0 DOI: 10.5281/zenodo.23079171](https://doi.o
 The published v1.3.0 citation recorded this specific DOI and the separate Concept DOI.
 The project author confirmed the v1.4.0 version-specific DOI [10.5281/zenodo.23102549](https://doi.org/10.5281/zenodo.23102549).
 The project author confirmed the v1.5.0 version-specific DOI [10.5281/zenodo.23189313](https://doi.org/10.5281/zenodo.23189313).
-The current CITATION.cff describes the final v1.6.0 candidate dated 2026-10-08.
-No v1.6-specific DOI is assigned before the actual deposit; Concept DOI remains separate.
+The author confirmed the v1.6.0 version-specific DOI [10.5281/zenodo.23235484](https://doi.org/10.5281/zenodo.23235484).
+The current CITATION.cff describes published v1.6.0 dated 2026-10-08 and records that DOI; Concept DOI remains separate.
 The v1.5.0 version-specific DOI remains the identifier of that published release. The published v1.4.0 DOI
 remains independently citable; Concept DOI stays separate in identifiers. Earlier versions remain
 independently citable. This metadata update does not move release tags or replace assets.
