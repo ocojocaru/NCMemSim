@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 120 package source modules; 667 explicit export paths; 203 distinct documented Python import paths.
+Coverage: 125 package source modules; 689 explicit export paths; 222 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3049,6 +3049,145 @@ Constructor: `__init__(self) -> None`.
 - `available(self) -> tuple[str, ...]`.
 
 
+## ncmemsim.materials.structural
+
+`ncmemsim/materials/structural.py`
+
+Explicit exports: `StructuralEvidence`, `HydrostaticStrainDomain`, `ConfinementDomain`, `HydrostaticStrainGapShiftProfile`, `SphericalConfinementProfile`
+
+### StructuralEvidence
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `source: str`; required declaration.
+- Field `locator: str`; required declaration.
+- Field `status: ParameterStatus`; required declaration.
+- Field `notes: str`; required declaration.
+- Field `doi: str | None`; default expression `None`.
+- Field `reported_uncertainty: float | None`; default expression `None`.
+- Field `uncertainty_unit: str | None`; default expression `None`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### HydrostaticStrainDomain
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `material: str`; required declaration.
+- Field `min_temperature_K: float`; required declaration.
+- Field `max_temperature_K: float`; required declaration.
+- Field `min_trace_strain: float`; required declaration.
+- Field `max_trace_strain: float`; required declaration.
+- Field `evidence: StructuralEvidence`; required declaration.
+- `validate_point(self, *, temperature_K, trace_strain)`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### ConfinementDomain
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `material: str`; required declaration.
+- Field `min_temperature_K: float`; required declaration.
+- Field `max_temperature_K: float`; required declaration.
+- Field `min_radius_m: float`; required declaration.
+- Field `max_radius_m: float`; required declaration.
+- Field `evidence: StructuralEvidence`; required declaration.
+- `validate_point(self, *, temperature_K, radius_m)`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### HydrostaticStrainGapShiftProfile
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `layer_name: str`; required declaration.
+- Field `gap_kind: GapKind`; required declaration.
+- Field `domain: HydrostaticStrainDomain`; required declaration.
+- Field `gap_deformation_potential_eV_per_trace: float`; required declaration.
+- Field `coefficient_evidence: StructuralEvidence`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### SphericalConfinementProfile
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `layer_name: str`; required declaration.
+- Field `gap_kind: GapKind`; required declaration.
+- Field `hole_branch: str`; required declaration.
+- Field `domain: ConfinementDomain`; required declaration.
+- Field `electron_mass_m0: float`; required declaration.
+- Field `hole_mass_m0: float`; required declaration.
+- Field `electron_mass_evidence: StructuralEvidence`; required declaration.
+- Field `hole_mass_evidence: StructuralEvidence`; required declaration.
+- Field `approximation_evidence: StructuralEvidence`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+
+## ncmemsim.materials.structural_confinement
+
+`ncmemsim/materials/structural_confinement.py`
+
+Explicit exports: `SphericalKineticConfinementGapShiftResult`, `evaluate_spherical_kinetic_confinement_gap_shift`
+
+### SphericalKineticConfinementGapShiftResult
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `profile: SphericalConfinementProfile`; required declaration.
+- Field `unconfined_gap_eV: float`; required declaration.
+- Field `unconfined_gap_evidence: StructuralEvidence`; required declaration.
+- Field `temperature_K: float`; required declaration.
+- Field `radius_m: float`; required declaration.
+- `electron_confinement_energy_eV(self)`; `property`.
+- `hole_confinement_energy_eV(self)`; `property`.
+- `kinetic_gap_shift_eV(self)`; `property`.
+- `confined_gap_eV(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `evaluate_spherical_kinetic_confinement_gap_shift(profile: SphericalConfinementProfile, *, unconfined_gap_eV: float, unconfined_gap_evidence: StructuralEvidence, temperature_K: float, radius_m: float) -> SphericalKineticConfinementGapShiftResult`
+
+## ncmemsim.materials.structural_strain
+
+`ncmemsim/materials/structural_strain.py`
+
+Explicit exports: `HydrostaticStrainGapShiftResult`, `evaluate_hydrostatic_strain_gap_shift`
+
+### HydrostaticStrainGapShiftResult
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `profile: HydrostaticStrainGapShiftProfile`; required declaration.
+- Field `unstrained_gap_eV: float`; required declaration.
+- Field `unstrained_gap_evidence: StructuralEvidence`; required declaration.
+- Field `temperature_K: float`; required declaration.
+- Field `trace_strain: float`; required declaration.
+- `gap_shift_eV(self)`; `property`.
+- `shifted_gap_eV(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `evaluate_hydrostatic_strain_gap_shift(profile: HydrostaticStrainGapShiftProfile, *, unstrained_gap_eV: float, unstrained_gap_evidence: StructuralEvidence, temperature_K: float, trace_strain: float) -> HydrostaticStrainGapShiftResult`
+
 ## ncmemsim.materials.temperature
 
 `ncmemsim/materials/temperature.py`
@@ -4144,6 +4283,111 @@ Decorators: `dataclass`.
 - `for_layer(self, layer_name: str) -> FloatingGateState`.
 - `mean_normalized_occupations(self) -> np.ndarray`; `property`.
 
+
+## ncmemsim.structural_optical_context
+
+`ncmemsim/structural_optical_context.py`
+
+Explicit exports: `StructuralOpticalBinding`, `StructuralOpticalContext`, `StructuralSpectralContext`, `StructuralSpectralSimulator`, `build_structural_spectral_context`, `run_structural_spectral_program_pulse_read`
+
+### StructuralOpticalBinding
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `layer_name: str`; required declaration.
+- Field `strain_profiles: tuple[HydrostaticStrainGapShiftProfile, ...]`; required declaration.
+- Field `confinement_profiles: tuple[SphericalConfinementProfile, ...]`; required declaration.
+- Field `trace_strain: float`; required declaration.
+- Field `enabled: bool`; default expression `True`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### StructuralOpticalContext
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `thermal_resolution: ResolvedThermalContext`; required declaration.
+- Field `bindings: tuple[StructuralOpticalBinding, ...]`; required declaration.
+- `projection(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+- `optical_model(self, layer_name)`.
+
+### StructuralSpectralContext
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `structural_context: StructuralOpticalContext`; required declaration.
+- Field `spectral_context: SpectralSimulationContext`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+- `create_simulator(self)`.
+
+### StructuralSpectralSimulator
+
+Bases: `SpectralSimulator`.
+
+Constructor: `__init__(self, context: StructuralSpectralContext)`.
+
+- `relax_voltage(self, state, gate_voltage_V, dwell_time_s=None, internal_dt_s=None, light_source=None, photo_config=None, photo_weights=None, occupancy_integrator='explicit_euler')`.
+
+- `build_structural_spectral_context(context, source, *, direction: str, passive_layers: tuple, wavelength_min_nm: float, wavelength_max_nm: float, evidence)`
+- `run_structural_spectral_program_pulse_read(context: StructuralSpectralContext, protocol, *, photo_config, initial_state=None)`
+
+## ncmemsim.structural_reporting
+
+`ncmemsim/structural_reporting.py`
+
+Explicit exports: `StructuralRunEvidence`, `build_structural_run_evidence`, `StructuralReportStudy`, `StructuralReport`, `build_structural_report`, `write_structural_report`, `load_structural_report_bundle`
+
+### StructuralRunEvidence
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `build_structural_run_evidence(run: dict, *, runtime: dict | None=None)`
+### StructuralReportStudy
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `kind: str`; required declaration.
+- Field `source_json: str`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### StructuralReport
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `studies: tuple[StructuralReportStudy, ...]`; required declaration.
+- Field `limitations: tuple[str, ...]`; required declaration.
+- Field `evidence_json: str`; default expression `'{}'`.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `report_hash(self)`; `property`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `build_structural_report(name, studies, *, limitations, evidence=None)`
+- `write_structural_report(report, destination)`
+- `load_structural_report_bundle(destination)`
 
 ## ncmemsim.temperature_context
 

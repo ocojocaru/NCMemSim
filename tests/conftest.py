@@ -40,3 +40,19 @@ def published_v1_4_copy(tmp_path):
             target.parent.mkdir(parents=True,exist_ok=True)
             shutil.copyfile(source,target)
     return destination
+
+
+@pytest.fixture
+def published_v1_5_copy(tmp_path):
+    destination=tmp_path/'published-v1_5'
+    for folder in ('docs','ncmemsim','tests/fixtures','.github'):
+        shutil.copytree(ROOT/folder,destination/folder)
+    for name in ('README.md','CHANGELOG.md','CITATION.cff'):
+        shutil.copyfile(ROOT/name,destination/name)
+    snapshots=ROOT/'tests/fixtures/releases/v1_5_0'
+    for source in snapshots.rglob('*'):
+        if source.is_file():
+            target=destination/source.relative_to(snapshots)
+            target.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(source,target)
+    return destination

@@ -1,0 +1,236 @@
+{
+  "schema_version": "structural-parameters-review-v1",
+  "status": "contracts_reviewed_physical_parameters_not_qualified",
+  "implementation_baseline": "90d0f7146afb048b9a6d8d0a6df0285245a93356",
+  "shipped_physical_presets": [],
+  "framework_references": [
+    {
+      "doi": "10.1103/PhysRevB.39.1871",
+      "role": "deformation-potential framework, not selected Ge gap coefficients"
+    },
+    {
+      "doi": "10.1063/1.447218",
+      "role": "effective-mass/interactions framework, not selected Ge confinement masses"
+    }
+  ],
+  "parameter_policy": "explicit caller parameters; synthetic fixtures do not establish material/domain calibration",
+  "pending_physical_review": [
+    "Ge Gamma/L optical transition-gap deformation coefficients and sign conventions",
+    "valley/hole confinement masses and applicability in embedded Ge nanocrystals",
+    "qualified strain, temperature and radius domains; GeSn requires separate evidence"
+  ],
+  "synthetic_diagnostic_profiles": {
+    "hydrostatic_gamma": {
+      "schema_version": "hydrostatic-strain-gap-shift-profile-v1",
+      "name": "synthetic-GAMMA",
+      "layer_name": "FG1",
+      "gap_kind": "optical_gamma_gap",
+      "domain": {
+        "schema_version": "hydrostatic-strain-domain-v1",
+        "material": "Ge",
+        "min_temperature_K": 300.0,
+        "max_temperature_K": 300.0,
+        "min_trace_strain": -0.01,
+        "max_trace_strain": 0.01,
+        "evidence": {
+          "schema_version": "structural-evidence-v1",
+          "source": "O1 synthetic parameter review",
+          "locator": "explicit diagnostic fixture, not literature data",
+          "status": "assumed",
+          "notes": "Arbitrary slopes/masses and applicability bounds; no Ge material qualification",
+          "doi": null,
+          "reported_uncertainty": null,
+          "uncertainty_unit": null
+        },
+        "strain_coordinate": "trace_epsilon",
+        "strain_unit": "dimensionless",
+        "sign_convention": "positive_tensile"
+      },
+      "gap_deformation_potential_eV_per_trace": -1.0,
+      "coefficient_evidence": {
+        "schema_version": "structural-evidence-v1",
+        "source": "O1 synthetic parameter review",
+        "locator": "explicit diagnostic fixture, not literature data",
+        "status": "assumed",
+        "notes": "Arbitrary slopes/masses and applicability bounds; no Ge material qualification",
+        "doi": null,
+        "reported_uncertainty": null,
+        "uncertainty_unit": null
+      },
+      "coefficient_unit": "eV_per_unit_trace",
+      "coefficient_semantics": "optical_transition_gap_derivative",
+      "law_id": "hydrostatic-strain-linear-gap-shift-v1"
+    },
+    "confinement_gamma": {
+      "schema_version": "spherical-confinement-profile-v1",
+      "name": "synthetic-GAMMA",
+      "layer_name": "FG1",
+      "gap_kind": "optical_gamma_gap",
+      "hole_branch": "effective_scalar",
+      "domain": {
+        "schema_version": "confinement-domain-v1",
+        "material": "Ge",
+        "min_temperature_K": 300.0,
+        "max_temperature_K": 300.0,
+        "min_radius_m": 2e-09,
+        "max_radius_m": 1e-08,
+        "evidence": {
+          "schema_version": "structural-evidence-v1",
+          "source": "O1 synthetic parameter review",
+          "locator": "explicit diagnostic fixture, not literature data",
+          "status": "assumed",
+          "notes": "Arbitrary slopes/masses and applicability bounds; no Ge material qualification",
+          "doi": null,
+          "reported_uncertainty": null,
+          "uncertainty_unit": null
+        },
+        "size_coordinate": "radius",
+        "size_unit": "m"
+      },
+      "electron_mass_m0": 0.2,
+      "hole_mass_m0": 0.4,
+      "electron_mass_evidence": {
+        "schema_version": "structural-evidence-v1",
+        "source": "O1 synthetic parameter review",
+        "locator": "explicit diagnostic fixture, not literature data",
+        "status": "assumed",
+        "notes": "Arbitrary slopes/masses and applicability bounds; no Ge material qualification",
+        "doi": null,
+        "reported_uncertainty": null,
+        "uncertainty_unit": null
+      },
+      "hole_mass_evidence": {
+        "schema_version": "structural-evidence-v1",
+        "source": "O1 synthetic parameter review",
+        "locator": "explicit diagnostic fixture, not literature data",
+        "status": "assumed",
+        "notes": "Arbitrary slopes/masses and applicability bounds; no Ge material qualification",
+        "doi": null,
+        "reported_uncertainty": null,
+        "uncertainty_unit": null
+      },
+      "approximation_evidence": {
+        "schema_version": "structural-evidence-v1",
+        "source": "O1 synthetic parameter review",
+        "locator": "explicit diagnostic fixture, not literature data",
+        "status": "assumed",
+        "notes": "Arbitrary slopes/masses and applicability bounds; no Ge material qualification",
+        "doi": null,
+        "reported_uncertainty": null,
+        "uncertainty_unit": null
+      },
+      "mass_unit": "m0",
+      "geometry": "spherical",
+      "barrier_model": "infinite",
+      "mass_basis": "isotropic_equivalent",
+      "interaction_terms": "kinetic_only",
+      "law_id": "spherical-infinite-barrier-ema-kinetic-v1"
+    },
+    "hydrostatic_l": {
+      "schema_version": "hydrostatic-strain-gap-shift-profile-v1",
+      "name": "synthetic-L",
+      "layer_name": "FG1",
+      "gap_kind": "optical_l_gap",
+      "domain": {
+        "schema_version": "hydrostatic-strain-domain-v1",
+        "material": "Ge",
+        "min_temperature_K": 300.0,
+        "max_temperature_K": 300.0,
+        "min_trace_strain": -0.01,
+        "max_trace_strain": 0.01,
+        "evidence": {
+          "schema_version": "structural-evidence-v1",
+          "source": "O1 synthetic parameter review",
+          "locator": "explicit diagnostic fixture, not literature data",
+          "status": "assumed",
+          "notes": "Arbitrary slopes/masses and applicability bounds; no Ge material qualification",
+          "doi": null,
+          "reported_uncertainty": null,
+          "uncertainty_unit": null
+        },
+        "strain_coordinate": "trace_epsilon",
+        "strain_unit": "dimensionless",
+        "sign_convention": "positive_tensile"
+      },
+      "gap_deformation_potential_eV_per_trace": -0.5,
+      "coefficient_evidence": {
+        "schema_version": "structural-evidence-v1",
+        "source": "O1 synthetic parameter review",
+        "locator": "explicit diagnostic fixture, not literature data",
+        "status": "assumed",
+        "notes": "Arbitrary slopes/masses and applicability bounds; no Ge material qualification",
+        "doi": null,
+        "reported_uncertainty": null,
+        "uncertainty_unit": null
+      },
+      "coefficient_unit": "eV_per_unit_trace",
+      "coefficient_semantics": "optical_transition_gap_derivative",
+      "law_id": "hydrostatic-strain-linear-gap-shift-v1"
+    },
+    "confinement_l": {
+      "schema_version": "spherical-confinement-profile-v1",
+      "name": "synthetic-L",
+      "layer_name": "FG1",
+      "gap_kind": "optical_l_gap",
+      "hole_branch": "effective_scalar",
+      "domain": {
+        "schema_version": "confinement-domain-v1",
+        "material": "Ge",
+        "min_temperature_K": 300.0,
+        "max_temperature_K": 300.0,
+        "min_radius_m": 2e-09,
+        "max_radius_m": 1e-08,
+        "evidence": {
+          "schema_version": "structural-evidence-v1",
+          "source": "O1 synthetic parameter review",
+          "locator": "explicit diagnostic fixture, not literature data",
+          "status": "assumed",
+          "notes": "Arbitrary slopes/masses and applicability bounds; no Ge material qualification",
+          "doi": null,
+          "reported_uncertainty": null,
+          "uncertainty_unit": null
+        },
+        "size_coordinate": "radius",
+        "size_unit": "m"
+      },
+      "electron_mass_m0": 0.3,
+      "hole_mass_m0": 0.4,
+      "electron_mass_evidence": {
+        "schema_version": "structural-evidence-v1",
+        "source": "O1 synthetic parameter review",
+        "locator": "explicit diagnostic fixture, not literature data",
+        "status": "assumed",
+        "notes": "Arbitrary slopes/masses and applicability bounds; no Ge material qualification",
+        "doi": null,
+        "reported_uncertainty": null,
+        "uncertainty_unit": null
+      },
+      "hole_mass_evidence": {
+        "schema_version": "structural-evidence-v1",
+        "source": "O1 synthetic parameter review",
+        "locator": "explicit diagnostic fixture, not literature data",
+        "status": "assumed",
+        "notes": "Arbitrary slopes/masses and applicability bounds; no Ge material qualification",
+        "doi": null,
+        "reported_uncertainty": null,
+        "uncertainty_unit": null
+      },
+      "approximation_evidence": {
+        "schema_version": "structural-evidence-v1",
+        "source": "O1 synthetic parameter review",
+        "locator": "explicit diagnostic fixture, not literature data",
+        "status": "assumed",
+        "notes": "Arbitrary slopes/masses and applicability bounds; no Ge material qualification",
+        "doi": null,
+        "reported_uncertainty": null,
+        "uncertainty_unit": null
+      },
+      "mass_unit": "m0",
+      "geometry": "spherical",
+      "barrier_model": "infinite",
+      "mass_basis": "isotropic_equivalent",
+      "interaction_terms": "kinetic_only",
+      "law_id": "spherical-infinite-barrier-ema-kinetic-v1"
+    }
+  }
+}

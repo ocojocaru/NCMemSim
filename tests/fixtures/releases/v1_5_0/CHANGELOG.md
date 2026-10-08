@@ -4,9 +4,6 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
-- Prepare Phase O7 v1.6.0.dev0 structural API review, retained release fixtures,
-  frozen development report and installed distribution/CI gates.
-
 - Add Phase O6 strict structural reports retaining profiles, thermal/spectral
   owners, complete pulse states, runtime and failures; deterministic seven-file
   bundles rebuild projections without optical, solver or RNG replay.
@@ -39,16 +36,6 @@ All notable changes to NCMemSim are documented in this file.
   acceptance sequence for v1.6; no runtime/default/API or citation identity change.
 
 - Record the author-confirmed v1.5.0 Zenodo DOI and close N7 after verified publication; adapt identity gates without moving the release tag or changing assets.
-
-## 1.6.0 — 2026-10-08 (final candidate; publication pending)
-
-- Add explicit Ge Gamma/L hydrostatic strain-induced optical gap shifts and
-  spherical kinetic confinement diagnostics with separate electron/hole terms.
-- Add owned structural optical/spectral composition, controlled numerical
-  references and strict structural reports/reproducibility bundles.
-- Retain existing stable, MODEL, thermal and spectral contracts. Parameters and
-  additive policy remain ASSUMED; no material/device calibration is claimed.
-- Prepare final package/citation identity; version-specific DOI awaits deposit.
 
 ## 1.5.0 — 2026-10-06
 

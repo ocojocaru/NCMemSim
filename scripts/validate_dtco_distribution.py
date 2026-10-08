@@ -167,6 +167,8 @@ def check_source_content(path: Path, root: Path) -> int:
     return len(expected)
 
 
+SOURCE_REQUIRED |= {'scripts/validate_structural_parameters.py','docs/strain_confinement.md','docs/strain_confinement_audit.json','docs/structural_parameters_review.json'}
+
 SOURCE_REQUIRED |= {'scripts/validate_v1_5_release_identity.py','scripts/validate_v1_5_api_review.py','docs/v1_5_api_review.json',
     'docs/v1_5_release_checklist.md','docs/broadband_optics.md','docs/broadband_optics_audit.json',
     'tests/fixtures/archives/v1_5_0_dev/spectral_report.json'}
@@ -194,6 +196,9 @@ def create_environment(path: Path, *, inherit: bool = False) -> Path:
     run(str(python), "-m", "ensurepip", "--upgrade", cwd=path)
     run(str(python), "-I", "-c", "import pyexpat, ssl; print('Runtime DLL check: PASS')", cwd=path)
     return python
+
+SOURCE_REQUIRED |= {'scripts/validate_v1_6_release_identity.py','scripts/validate_v1_6_api_review.py','docs/v1_6_api_review.json','docs/v1_6_release_checklist.md','tests/fixtures/archives/v1_6_0_dev/structural_report.json'}
+SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_5_0/'+name for name in ('README.md','CHANGELOG.md','CITATION.cff','ncmemsim/_version.py','docs/index.md','docs/roadmap.md','docs/broadband_optics.md','docs/v1_5_release_checklist.md','.github/workflows/ci.yml','.github/workflows/docs.yml')}
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -254,7 +259,9 @@ def main() -> None:
             run(str(python), '-I', '-c', THERMAL_PROBE, str(work), version, cwd=work)
             shutil.copyfile(root / 'tests/fixtures/archives/v1_5_0_dev/spectral_report.json', work / 'spectral_report.json')
             run(str(python), '-I', '-c', SPECTRAL_PROBE, str(work), version, cwd=work)
-            results.append({"artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS"})
+            shutil.copyfile(root / 'tests/fixtures/archives/v1_6_0_dev/structural_report.json', work / 'structural_report.json')
+            run(str(python), '-I', '-c', STRUCTURAL_PROBE, str(work), version, cwd=work)
+            results.append({"artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
 
@@ -604,6 +611,65 @@ try:load_spectral_report_bundle(bundle_work/'spectral-a')
 except ValueError:pass
 else:raise AssertionError('coherently rehashed projection must fail')
 print('Installed spectral archive/restoration/export/tamper probe PASS')
+"""
+
+STRUCTURAL_PROBE = r"""import sys,json,hashlib
+from pathlib import Path
+import numpy as np
+import ncmemsim.structural_reporting as installed
+from ncmemsim._version import __version__
+assert __version__==sys.argv[2]
+assert Path(installed.__file__).resolve().is_relative_to(Path(sys.prefix).resolve())
+from ncmemsim import DeviceBuilder,PhysicsModel,SimulationConfig
+from ncmemsim.materials import make_ge
+from ncmemsim.materials.temperature import GapKind
+from ncmemsim.materials.provenance import ParameterStatus
+from ncmemsim.materials.structural import StructuralEvidence,HydrostaticStrainDomain,ConfinementDomain,HydrostaticStrainGapShiftProfile,SphericalConfinementProfile
+from ncmemsim.temperature_context import ThermalContext
+from ncmemsim.structural_optical_context import StructuralOpticalBinding,StructuralOpticalContext,build_structural_spectral_context,run_structural_spectral_program_pulse_read,_StructuralOpticalModel
+from ncmemsim.spectral_sources import SpectralEvidence,DiscreteLineSpectrum
+from ncmemsim.spectral_absorption import SpectralAbsorptionProfile
+from ncmemsim.spectral_stack import SpectralStackLayer
+from ncmemsim.spectral_context import SpectralPulseProtocol
+from ncmemsim.program_protocol import ProgramPulseReadProtocol
+from ncmemsim.photo import PhotoTransitionWeights,PhotoTransitionConfig
+from ncmemsim.structural_reporting import StructuralReport,StructuralReportStudy,build_structural_run_evidence,build_structural_report,write_structural_report,load_structural_report_bundle
+from ncmemsim.hashing import canonical_hash
+work=Path(sys.argv[1]);folder=work/('structural-'+Path(sys.prefix).name);folder.mkdir()
+device=DeviceBuilder.v2(1,nc_material=make_ge(),nc_diameter_nm=8.)
+resolution=ThermalContext.from_nominal(device,PhysicsModel.default(),SimulationConfig()).resolve(temperature_K=300.)
+e=StructuralEvidence('installed diagnostic','explicit synthetic fixture',ParameterStatus.ASSUMED,'Not qualified material parameters')
+a=HydrostaticStrainGapShiftProfile('strain','FG1',GapKind.GAMMA,HydrostaticStrainDomain('Ge',300,300,-.01,.01,e),-1,e)
+c=SphericalConfinementProfile('kinetic','FG1',GapKind.GAMMA,'effective_scalar',ConfinementDomain('Ge',300,300,2e-9,1e-8,e),.2,.4,e,e,e)
+owner=StructuralOpticalContext(resolution,(StructuralOpticalBinding('FG1',(a,),(c,),.005),))
+se=SpectralEvidence('installed source','explicit line','ASSUMED','W/m2',(),'none','unknown','Transparent passive layers')
+source=DiscreteLineSpectrum((1500.,),(1e5,),se)
+passive=tuple(SpectralStackLayer(SpectralAbsorptionProfile(x.name,source.wavelength_nm,(0.,),x.thickness_nm*1e-9,1000,2200,se),'passive','assumed_transparent') for x in device.layers if x.role!='floating_gate')
+context=build_structural_spectral_context(owner,source,direction='gate_to_substrate',passive_layers=passive,wavelength_min_nm=1000,wavelength_max_nm=2200,evidence=se)
+protocol=SpectralPulseProtocol(ProgramPulseReadProtocol(2,1e-8,0,1e-8),PhotoTransitionWeights())
+frozen=build_structural_run_evidence(run_structural_spectral_program_pulse_read(context,protocol,photo_config=PhotoTransitionConfig(.1)))
+def forbidden(*args,**kwargs):raise AssertionError('structural restoration must not replay optical/solver/RNG')
+from ncmemsim.simulator import Simulator
+Simulator.relax_voltage=forbidden;_StructuralOpticalModel.evaluate=forbidden;np.random.default_rng=forbidden
+archive=StructuralReport.from_json((work/'structural_report.json').read_text(encoding='utf-8'))
+assert archive.summary['counts']=={'attempted':2,'completed':0,'failed':2}
+assert archive.summary['pulse_delta_vfb_V']['mean'] is None
+report=build_structural_report('installed structural reference',(
+    StructuralReportStudy('optical','optical',context.to_json()),StructuralReportStudy('pulse','pulse',frozen.to_json()),
+    *archive.studies),limitations=archive.limitations)
+write_structural_report(report,folder/'a');write_structural_report(load_structural_report_bundle(folder/'a'),folder/'b')
+assert {p.name:p.read_bytes() for p in (folder/'a').iterdir()}=={p.name:p.read_bytes() for p in (folder/'b').iterdir()}
+raw=report.to_dict();raw['studies'][0]['summary']['structural_projection']['layers'][0]['radius_m_from_device']*=2
+raw['report_hash']=canonical_hash({k:v for k,v in raw.items() if k!='report_hash'})
+try:StructuralReport.from_dict(raw)
+except ValueError:pass
+else:raise AssertionError('coherently rehashed projection must fail')
+manifest=json.loads((folder/'a/bundle.json').read_text(encoding='utf-8'));p=folder/'a/structural.csv';p.write_bytes(p.read_bytes()+b'forged\n')
+manifest['files']['structural.csv']=hashlib.sha256(p.read_bytes()).hexdigest();(folder/'a/bundle.json').write_text(json.dumps(manifest),encoding='utf-8')
+try:load_structural_report_bundle(folder/'a')
+except ValueError:pass
+else:raise AssertionError('coherently rehashed bundle projection must fail')
+print('Installed structural archive/completed pulse/no-replay/export/tamper probe PASS')
 """
 
 if __name__ == "__main__":

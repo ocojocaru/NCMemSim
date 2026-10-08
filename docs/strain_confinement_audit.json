@@ -1,0 +1,60 @@
+{
+  "schema_version": "strain-confinement-planning-audit-v1",
+  "status": "O0_scope_defined_no_runtime_changes",
+  "baseline_commit": "46965a3d7ed86fd64223b587db71500f4a7e7e44",
+  "current_release": "1.5.0",
+  "target_release": "1.6.0",
+  "audit_method": "source inspection; SHA-256 of UTF-8 text with normalized LF; no numerical audit claimed",
+  "source_sha256": {
+    "ncmemsim/materials/base.py": "96909b67dea2be50a505e0b52123667ef395cdcabbb3394d49516ffcd0bc97e2",
+    "ncmemsim/layers.py": "01a0ac9eb97dbdc2b815bf2c1f06fbabfe922b8c4a7737dd286e6b8381a6bc5d",
+    "ncmemsim/kinetics.py": "db3733dc68b1ff5bc5f78ade1e301d6dbd6d84801356f99022a1c2308c85e535",
+    "ncmemsim/tunneling.py": "c763a6637f9b44c7c91715b7b577e9acf7e6e67f9d275b1b7eabd34c6b62f90a",
+    "ncmemsim/materials/optics/models.py": "080838feb8e5176aead1204b30c9a28121593c23a07f67eca983beb90d8afd2c",
+    "ncmemsim/materials/optics/near_edge.py": "65a78f2620ea77ebbf109ebebcb972e63dbd0a8ce2585362e1785671dc9e3819",
+    "ncmemsim/temperature_context.py": "57cd71a301593d127b43aa9cfc1e43f690359432d4d0cf4fa9c787908874d98c",
+    "ncmemsim/spectral_absorption.py": "fa2f76e718a0e330e869982170669187b2f6015bd1928858e581fe69895c7915",
+    "ncmemsim/spectral_context.py": "dded2ae1d156d7d997173db094c698541dd694a312398ec009bc3b3addac1ed2",
+    "ncmemsim/spectral_reporting.py": "3a8b990c64a2553c317083280729555d2e80900ad9d6a0db888f08e12803a016"
+  },
+  "findings": {
+    "diameter": "density, capacitance and charging already depend on NC diameter",
+    "optical_gaps": "bulk composition and explicit thermal laws; no structural confinement/strain law",
+    "masses": "legacy tunnelling mass is not automatically an electron/hole optical mass",
+    "barriers": "optical transition shift alone does not determine band alignment"
+  },
+  "proposed_first_laws": [
+    "hydrostatic linear transition-gap shift",
+    "spherical infinite-barrier EMA kinetic gap shift"
+  ],
+  "numerical_coefficients_selected": false,
+  "first_material": "Ge",
+  "stages": {
+    "O1": "contracts/evidence/domain review",
+    "O2": "independent hydrostatic strain evaluation",
+    "O3": "independent kinetic confinement evaluation",
+    "O4": "owned M/N optical context composition",
+    "O5": "controlled references",
+    "O6": "strict reports/bundles",
+    "O7": "compatibility and release gates"
+  },
+  "excluded": [
+    "shear/valley splitting",
+    "automatic GeSn coefficients",
+    "finite-barrier/atomistic models",
+    "electron-hole Coulomb/image terms",
+    "automatic transport barrier changes",
+    "Franz-Keldysh/Stark/state-filling",
+    "independent device calibration"
+  ],
+  "framework_references": [
+    {
+      "doi": "10.1103/PhysRevB.39.1871",
+      "role": "framework only; parameter review pending"
+    },
+    {
+      "doi": "10.1063/1.447218",
+      "role": "framework only; masses/domain review pending"
+    }
+  ]
+}

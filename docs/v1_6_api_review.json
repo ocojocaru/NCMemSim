@@ -1,0 +1,1966 @@
+{
+  "schema_version": "structural-v1_6-api-review-v1",
+  "status": "reviewed_candidate_not_release_approval",
+  "baseline_release": "v1.5.0",
+  "baseline_release_commit": "53d7c0b9bfa2be5e75aa3a6813c8e33be068843d",
+  "baseline_citation_commit": "46965a3d7ed86fd64223b587db71500f4a7e7e44",
+  "implementation_source_commit": "13b05572567d5124079372f295b39dc6547595e8",
+  "development_version": "1.6.0.dev0",
+  "candidate_version": "1.6.0",
+  "retained_stable_path_count": 297,
+  "retained_spectral_review_sha256": "e5dba4593c7ee7dfb962c89d44617c3a9f4d0640c9a5fc3198848579fec700ab",
+  "structural_audit_sha256": "91e2550c298aae8bfcc74b78cd28e823a6efc05d77696cd73df53376246f4c20",
+  "parameter_review_sha256": "da4633d456dd75a3a8c14e38c5f7d75090416aedb88ef6915e4a868f808e1928",
+  "structural_archive_sha256": "48e8105b22123f3a670a461a2721092db276e22d5798d706e31bdd6a00dede5f",
+  "published_v1_5_snapshot_sha256": {
+    "README.md": "80179cee7acaf9a4fdaf96c18629d28b5ec37069869999c0be2ecd47d0bdc375",
+    "CHANGELOG.md": "b1d8ea8475bbe1112da30bde5a821e01256022933941af3f08156a0e28853848",
+    "CITATION.cff": "b604338c4a1c39600dbc78dac1581440f18f2f92e2dff094bc44529cf6d23cc1",
+    "ncmemsim/_version.py": "546cca86c1d0e02b69c73271f9df0d8d9aa593930f0eb06dffa7839dad7c2bd7",
+    "docs/index.md": "de22b81b5398e14335822e0081a29af70b83c6ac1bbfe198ef4e9e82b83b0308",
+    "docs/roadmap.md": "c3b7683fcc3aa8edca422b92d0b7d1a21f23bac45175428e9e0c0be6d5b9e215",
+    "docs/broadband_optics.md": "1a967380ae620671b87a3d460d9329161d52a25a1722497eb9e48680f6750081",
+    "docs/v1_5_release_checklist.md": "6b211a872487470a3ae1b0212695bfc7493fbe352164048aac90ae9468c63886",
+    ".github/workflows/ci.yml": "8a592808eb286cc2ccf6fcb014940b05e6a7183d3f96d57e5e62a6c8ffed9e8c",
+    ".github/workflows/docs.yml": "610a693eb4f1c0d54a76962cce501336ef4a5c99598a009341a8f842d9ba5b27"
+  },
+  "additive_module_qualified_surface": [
+    {
+      "module": "ncmemsim.materials.structural",
+      "exports": [
+        "StructuralEvidence",
+        "HydrostaticStrainDomain",
+        "ConfinementDomain",
+        "HydrostaticStrainGapShiftProfile",
+        "SphericalConfinementProfile"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.materials.structural",
+        "source": "ncmemsim/materials/structural.py",
+        "explicit_exports": [
+          "StructuralEvidence",
+          "HydrostaticStrainDomain",
+          "ConfinementDomain",
+          "HydrostaticStrainGapShiftProfile",
+          "SphericalConfinementProfile"
+        ],
+        "package_import_aliases": {
+          "GapKind": "ncmemsim.materials.temperature.GapKind",
+          "ParameterStatus": "ncmemsim.materials.provenance.ParameterStatus",
+          "_number": "ncmemsim.materials.temperature._number",
+          "_text": "ncmemsim.materials.temperature._text"
+        },
+        "public_source_definitions": [
+          {
+            "name": "StructuralEvidence",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "source",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "locator",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "status",
+                "annotation": "ParameterStatus",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "notes",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "doi",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "reported_uncertainty",
+                "annotation": "float | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "uncertainty_unit",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "HydrostaticStrainDomain",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "material",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "min_temperature_K",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "max_temperature_K",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "min_trace_strain",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "max_trace_strain",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "evidence",
+                "annotation": "StructuralEvidence",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "validate_point",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "temperature_K",
+                    "kind": "keyword_only",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "trace_strain",
+                    "kind": "keyword_only",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self, *, temperature_K, trace_strain)",
+                "decorators": []
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "ConfinementDomain",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "material",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "min_temperature_K",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "max_temperature_K",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "min_radius_m",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "max_radius_m",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "evidence",
+                "annotation": "StructuralEvidence",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "validate_point",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "temperature_K",
+                    "kind": "keyword_only",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "radius_m",
+                    "kind": "keyword_only",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self, *, temperature_K, radius_m)",
+                "decorators": []
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "HydrostaticStrainGapShiftProfile",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "name",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "layer_name",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "gap_kind",
+                "annotation": "GapKind",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "domain",
+                "annotation": "HydrostaticStrainDomain",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "gap_deformation_potential_eV_per_trace",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "coefficient_evidence",
+                "annotation": "StructuralEvidence",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "SphericalConfinementProfile",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "name",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "layer_name",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "gap_kind",
+                "annotation": "GapKind",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "hole_branch",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "domain",
+                "annotation": "ConfinementDomain",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "electron_mass_m0",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "hole_mass_m0",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "electron_mass_evidence",
+                "annotation": "StructuralEvidence",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "hole_mass_evidence",
+                "annotation": "StructuralEvidence",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "approximation_evidence",
+                "annotation": "StructuralEvidence",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "b642060fa14137b78d0fc7367c2279cfbbbbcb12c22b133b762e61523d115459"
+    },
+    {
+      "module": "ncmemsim.materials.structural_strain",
+      "exports": [
+        "HydrostaticStrainGapShiftResult",
+        "evaluate_hydrostatic_strain_gap_shift"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.materials.structural_strain",
+        "source": "ncmemsim/materials/structural_strain.py",
+        "explicit_exports": [
+          "HydrostaticStrainGapShiftResult",
+          "evaluate_hydrostatic_strain_gap_shift"
+        ],
+        "package_import_aliases": {
+          "HydrostaticStrainGapShiftProfile": "ncmemsim.materials.structural.HydrostaticStrainGapShiftProfile",
+          "StructuralEvidence": "ncmemsim.materials.structural.StructuralEvidence",
+          "_Archive": "ncmemsim.materials.structural._Archive",
+          "_keys": "ncmemsim.materials.structural._keys",
+          "_match": "ncmemsim.materials.structural._match",
+          "_number": "ncmemsim.materials.structural._number"
+        },
+        "public_source_definitions": [
+          {
+            "name": "HydrostaticStrainGapShiftResult",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "profile",
+                "annotation": "HydrostaticStrainGapShiftProfile",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "unstrained_gap_eV",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "unstrained_gap_evidence",
+                "annotation": "StructuralEvidence",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "temperature_K",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "trace_strain",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "gap_shift_eV",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "shifted_gap_eV",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evaluate_hydrostatic_strain_gap_shift",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "profile",
+                "kind": "positional_or_keyword",
+                "annotation": "HydrostaticStrainGapShiftProfile",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "unstrained_gap_eV",
+                "kind": "keyword_only",
+                "annotation": "float",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "unstrained_gap_evidence",
+                "kind": "keyword_only",
+                "annotation": "StructuralEvidence",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "temperature_K",
+                "kind": "keyword_only",
+                "annotation": "float",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "trace_strain",
+                "kind": "keyword_only",
+                "annotation": "float",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "HydrostaticStrainGapShiftResult",
+            "source_signature": "(profile: HydrostaticStrainGapShiftProfile, *, unstrained_gap_eV: float, unstrained_gap_evidence: StructuralEvidence, temperature_K: float, trace_strain: float) -> HydrostaticStrainGapShiftResult",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "fb17a3c8865f8ca9d2dac55c3d8a88b8b72d22c0320db38d988284ba7a8f3a02"
+    },
+    {
+      "module": "ncmemsim.materials.structural_confinement",
+      "exports": [
+        "SphericalKineticConfinementGapShiftResult",
+        "evaluate_spherical_kinetic_confinement_gap_shift"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.materials.structural_confinement",
+        "source": "ncmemsim/materials/structural_confinement.py",
+        "explicit_exports": [
+          "SphericalKineticConfinementGapShiftResult",
+          "evaluate_spherical_kinetic_confinement_gap_shift"
+        ],
+        "package_import_aliases": {
+          "ELECTRON_MASS_KG": "ncmemsim.constants.ELECTRON_MASS_KG",
+          "ELEMENTARY_CHARGE_C": "ncmemsim.constants.ELEMENTARY_CHARGE_C",
+          "PLANCK_J_S": "ncmemsim.constants.PLANCK_J_S",
+          "SphericalConfinementProfile": "ncmemsim.materials.structural.SphericalConfinementProfile",
+          "StructuralEvidence": "ncmemsim.materials.structural.StructuralEvidence",
+          "_Archive": "ncmemsim.materials.structural._Archive",
+          "_keys": "ncmemsim.materials.structural._keys",
+          "_match": "ncmemsim.materials.structural._match",
+          "_number": "ncmemsim.materials.structural._number"
+        },
+        "public_source_definitions": [
+          {
+            "name": "SphericalKineticConfinementGapShiftResult",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "profile",
+                "annotation": "SphericalConfinementProfile",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "unconfined_gap_eV",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "unconfined_gap_evidence",
+                "annotation": "StructuralEvidence",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "temperature_K",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "radius_m",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "electron_confinement_energy_eV",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "hole_confinement_energy_eV",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "kinetic_gap_shift_eV",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "confined_gap_eV",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evaluate_spherical_kinetic_confinement_gap_shift",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "profile",
+                "kind": "positional_or_keyword",
+                "annotation": "SphericalConfinementProfile",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "unconfined_gap_eV",
+                "kind": "keyword_only",
+                "annotation": "float",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "unconfined_gap_evidence",
+                "kind": "keyword_only",
+                "annotation": "StructuralEvidence",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "temperature_K",
+                "kind": "keyword_only",
+                "annotation": "float",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "radius_m",
+                "kind": "keyword_only",
+                "annotation": "float",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": "SphericalKineticConfinementGapShiftResult",
+            "source_signature": "(profile: SphericalConfinementProfile, *, unconfined_gap_eV: float, unconfined_gap_evidence: StructuralEvidence, temperature_K: float, radius_m: float) -> SphericalKineticConfinementGapShiftResult",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "e2efa5354fef9978e945b4a9bb05a89a873ca221e051b67afc1aa21e2a4f5ba1"
+    },
+    {
+      "module": "ncmemsim.structural_optical_context",
+      "exports": [
+        "StructuralOpticalBinding",
+        "StructuralOpticalContext",
+        "StructuralSpectralContext",
+        "StructuralSpectralSimulator",
+        "build_structural_spectral_context",
+        "run_structural_spectral_program_pulse_read"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.structural_optical_context",
+        "source": "ncmemsim/structural_optical_context.py",
+        "explicit_exports": [
+          "StructuralOpticalBinding",
+          "StructuralOpticalContext",
+          "StructuralSpectralContext",
+          "StructuralSpectralSimulator",
+          "build_structural_spectral_context",
+          "run_structural_spectral_program_pulse_read"
+        ],
+        "package_import_aliases": {
+          "ABSORPTION_COEFFICIENT_PROVENANCE": "ncmemsim.materials.optics.models.ABSORPTION_COEFFICIENT_PROVENANCE",
+          "ABSORPTION_MODEL_PROVENANCE": "ncmemsim.materials.optics.models.ABSORPTION_MODEL_PROVENANCE",
+          "DiscreteLineSpectrum": "ncmemsim.spectral_sources.DiscreteLineSpectrum",
+          "GapKind": "ncmemsim.materials.temperature.GapKind",
+          "GeSnAbsorptionParameterSet": "ncmemsim.materials.optics.models.GeSnAbsorptionParameterSet",
+          "HydrostaticStrainGapShiftProfile": "ncmemsim.materials.structural.HydrostaticStrainGapShiftProfile",
+          "OpticalPoint": "ncmemsim.materials.optics.models.OpticalPoint",
+          "PHONON_OCCUPATION_PROVENANCE": "ncmemsim.materials.optics.models.PHONON_OCCUPATION_PROVENANCE",
+          "ParameterProvenance": "ncmemsim.materials.provenance.ParameterProvenance",
+          "ParameterStatus": "ncmemsim.materials.provenance.ParameterStatus",
+          "ResolvedThermalContext": "ncmemsim.temperature_context.ResolvedThermalContext",
+          "SpectralSimulationContext": "ncmemsim.spectral_context.SpectralSimulationContext",
+          "SpectralSimulator": "ncmemsim.spectral_context.SpectralSimulator",
+          "SpectralStackLayer": "ncmemsim.spectral_stack.SpectralStackLayer",
+          "SphericalConfinementProfile": "ncmemsim.materials.structural.SphericalConfinementProfile",
+          "StructuralEvidence": "ncmemsim.materials.structural.StructuralEvidence",
+          "TabulatedSpectrum": "ncmemsim.spectral_sources.TabulatedSpectrum",
+          "_Archive": "ncmemsim.materials.structural._Archive",
+          "_canonical": "ncmemsim.spectral_sources._canonical",
+          "_keys": "ncmemsim.materials.structural._keys",
+          "_match": "ncmemsim.materials.structural._match",
+          "_number": "ncmemsim.materials.structural._number",
+          "_text": "ncmemsim.materials.structural._text",
+          "bind_spectral_stack_path": "ncmemsim.spectral_stack.bind_spectral_stack_path",
+          "direct_absorption_m_inv": "ncmemsim.materials.optics.models.direct_absorption_m_inv",
+          "evaluate_floating_gate_spectrum": "ncmemsim.spectral_absorption.evaluate_floating_gate_spectrum",
+          "evaluate_hydrostatic_strain_gap_shift": "ncmemsim.materials.structural_strain.evaluate_hydrostatic_strain_gap_shift",
+          "evaluate_spectral_stack": "ncmemsim.spectral_stack.evaluate_spectral_stack",
+          "evaluate_spherical_kinetic_confinement_gap_shift": "ncmemsim.materials.structural_confinement.evaluate_spherical_kinetic_confinement_gap_shift",
+          "indirect_absorption_m_inv": "ncmemsim.materials.optics.models.indirect_absorption_m_inv",
+          "photon_energy_eV": "ncmemsim.materials.optics.models.photon_energy_eV",
+          "urbach_absorption_m_inv": "ncmemsim.materials.optics.models.urbach_absorption_m_inv"
+        },
+        "public_source_definitions": [
+          {
+            "name": "StructuralOpticalBinding",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "layer_name",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "strain_profiles",
+                "annotation": "tuple[HydrostaticStrainGapShiftProfile, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "confinement_profiles",
+                "annotation": "tuple[SphericalConfinementProfile, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "trace_strain",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "enabled",
+                "annotation": "bool",
+                "default_expression": "True",
+                "required_in_source": false
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "StructuralOpticalContext",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "thermal_resolution",
+                "annotation": "ResolvedThermalContext",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "bindings",
+                "annotation": "tuple[StructuralOpticalBinding, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "projection",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              },
+              {
+                "name": "optical_model",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "layer_name",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self, layer_name)",
+                "decorators": []
+              }
+            ]
+          },
+          {
+            "name": "StructuralSpectralContext",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "structural_context",
+                "annotation": "StructuralOpticalContext",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "spectral_context",
+                "annotation": "SpectralSimulationContext",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              },
+              {
+                "name": "create_simulator",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              }
+            ]
+          },
+          {
+            "name": "StructuralSpectralSimulator",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "SpectralSimulator"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "context",
+                  "kind": "positional_or_keyword",
+                  "annotation": "StructuralSpectralContext",
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, context: StructuralSpectralContext)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "relax_voltage",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "state",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "gate_voltage_V",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "dwell_time_s",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": false,
+                    "default_expression": "None"
+                  },
+                  {
+                    "name": "internal_dt_s",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": false,
+                    "default_expression": "None"
+                  },
+                  {
+                    "name": "light_source",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": false,
+                    "default_expression": "None"
+                  },
+                  {
+                    "name": "photo_config",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": false,
+                    "default_expression": "None"
+                  },
+                  {
+                    "name": "photo_weights",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": false,
+                    "default_expression": "None"
+                  },
+                  {
+                    "name": "occupancy_integrator",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": false,
+                    "default_expression": "'explicit_euler'"
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self, state, gate_voltage_V, dwell_time_s=None, internal_dt_s=None, light_source=None, photo_config=None, photo_weights=None, occupancy_integrator='explicit_euler')",
+                "decorators": []
+              }
+            ]
+          },
+          {
+            "name": "build_structural_spectral_context",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "context",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "source",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "direction",
+                "kind": "keyword_only",
+                "annotation": "str",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "passive_layers",
+                "kind": "keyword_only",
+                "annotation": "tuple",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "wavelength_min_nm",
+                "kind": "keyword_only",
+                "annotation": "float",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "wavelength_max_nm",
+                "kind": "keyword_only",
+                "annotation": "float",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "evidence",
+                "kind": "keyword_only",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(context, source, *, direction: str, passive_layers: tuple, wavelength_min_nm: float, wavelength_max_nm: float, evidence)",
+            "decorators": []
+          },
+          {
+            "name": "run_structural_spectral_program_pulse_read",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "context",
+                "kind": "positional_or_keyword",
+                "annotation": "StructuralSpectralContext",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "protocol",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "photo_config",
+                "kind": "keyword_only",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "initial_state",
+                "kind": "keyword_only",
+                "annotation": null,
+                "required": false,
+                "default_expression": "None"
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(context: StructuralSpectralContext, protocol, *, photo_config, initial_state=None)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "2fcc1ecb52b1192fdeb5d3dcc8c6af401c64d89c17a155ed94374e899cd267a3"
+    },
+    {
+      "module": "ncmemsim.structural_reporting",
+      "exports": [
+        "StructuralRunEvidence",
+        "build_structural_run_evidence",
+        "StructuralReportStudy",
+        "StructuralReport",
+        "build_structural_report",
+        "write_structural_report",
+        "load_structural_report_bundle"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.structural_reporting",
+        "source": "ncmemsim/structural_reporting.py",
+        "explicit_exports": [
+          "StructuralRunEvidence",
+          "build_structural_run_evidence",
+          "StructuralReportStudy",
+          "StructuralReport",
+          "build_structural_report",
+          "write_structural_report",
+          "load_structural_report_bundle"
+        ],
+        "package_import_aliases": {
+          "SpectralRunEvidence": "ncmemsim.spectral_reporting.SpectralRunEvidence",
+          "StructuralSpectralContext": "ncmemsim.structural_optical_context.StructuralSpectralContext",
+          "_Archive": "ncmemsim.spectral_sources._Archive",
+          "_canonical": "ncmemsim.spectral_sources._canonical",
+          "_cell": "ncmemsim.thermal_reporting._cell",
+          "_keys": "ncmemsim.spectral_sources._keys",
+          "_label": "ncmemsim.thermal_reporting._label",
+          "_load": "ncmemsim.temperature_context._load",
+          "_spectral_run_summary": "ncmemsim.spectral_reporting._run_summary",
+          "build_spectral_run_evidence": "ncmemsim.spectral_reporting.build_spectral_run_evidence",
+          "canonical_hash": "ncmemsim.hashing.canonical_hash"
+        },
+        "public_source_definitions": [
+          {
+            "name": "StructuralRunEvidence",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "record_json",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "build_structural_run_evidence",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "run",
+                "kind": "positional_or_keyword",
+                "annotation": "dict",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "runtime",
+                "kind": "keyword_only",
+                "annotation": "dict | None",
+                "required": false,
+                "default_expression": "None"
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(run: dict, *, runtime: dict | None=None)",
+            "decorators": []
+          },
+          {
+            "name": "StructuralReportStudy",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "name",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "kind",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "source_json",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "summary",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "StructuralReport",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "name",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "studies",
+                "annotation": "tuple[StructuralReportStudy, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "limitations",
+                "annotation": "tuple[str, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "evidence_json",
+                "annotation": "str",
+                "default_expression": "'{}'",
+                "required_in_source": false
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "summary",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "report_hash",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "build_structural_report",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "name",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "studies",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "limitations",
+                "kind": "keyword_only",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "evidence",
+                "kind": "keyword_only",
+                "annotation": null,
+                "required": false,
+                "default_expression": "None"
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(name, studies, *, limitations, evidence=None)",
+            "decorators": []
+          },
+          {
+            "name": "write_structural_report",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "report",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "destination",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(report, destination)",
+            "decorators": []
+          },
+          {
+            "name": "load_structural_report_bundle",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "destination",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(destination)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "98dd8f15a9006abd48be8c7ad93bc52b702f731ed345600be1f3f40bc2d50fa6"
+    }
+  ],
+  "scientific_status": "conditional-unqualified-simulation",
+  "scientific_limits": [
+    "Ge Gamma/L optical transition shifts only; no automatic transport-band-offset correction",
+    "hydrostatic strain-induced shift; spherical infinite-barrier EMA kinetic confinement only",
+    "synthetic masses/coefficient/domain and additive policy ASSUMED; zero qualified material presets",
+    "complete stored observations; rebuild projections without optical/solver/RNG replay; consistency is not authenticity"
+  ],
+  "release_policy": "full regression/docs/installed wheel-sdist; Python 3.11-3.13 exact-commit CI; publication and actual v1.6 DOI pending"
+}
