@@ -4,7 +4,8 @@
 
 P0 is complete: repository data/code audit, literature candidate screening,
 acquisition requirements and P1-P7 acceptance sequence are defined here.
-P1 admission/source review, P2 training fit, P3 fixed-parameter holdouts and P4A device/photo diagnostics are implemented. P4B experimental qualification is data-dependent; P5-P7 remain planned.
+P1 admission/source review, P2 training fit, P3 fixed-parameter holdouts and P4A device/photo diagnostics are implemented. P4B experimental qualification is data-dependent. P5A numerical diagnostics are
+implemented; P5B measured reference remains conditional, and P6-P7 are planned.
 Target release is indicative v1.7.0, conditional on usable independent data.
 Package/citation remain published v1.6.0 with DOI 10.5281/zenodo.23235484.
 No runtime, parameter, preset, fitting or calibration status changes are made by P0.
@@ -132,7 +133,8 @@ No successful calibration or v1.7 release is promised by dataset discovery.
 | P3 | Independent acquisition/holdout evaluation and leakage rejection; retained negatives; reproduce existing Tran2016 limitation |
 | P4A | Reproducible device/photo specification and fixed-input light/dark prediction; synthetic diagnostics only |
 | P4B | Conditional measured device/photo qualification after complete eligible protocols/data are acquired; no automatic promotion from P4A |
-| P5 | Applied measured reference, discretization/identifiability/sensitivity and error-budget checks; model inadequacy may be the outcome |
+| P5A | [Assumed OM-2 numerical diagnostics](om2_numerical_study.md): fixed-sequence timestep refinement, local sensitivity, controls and capture/power confounding; no measured validation |
+| P5B | Applied measured reference, discretization/identifiability/sensitivity and error-budget checks after admission; model inadequacy may be the outcome |
 | P6 | Strict measured-study reports/bundles with complete source/transform/split/failure evidence and no unrequested optimizer/solver/RNG replay |
 | P7 | v1.7 API/history, tests/docs/installed-distribution and exact-commit release gates; publication and real DOI only after evidence supports the scope |
 

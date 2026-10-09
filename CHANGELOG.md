@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add approved Phase P5A assumed OM-2 timestep/sensitivity reference, retained
+  zero-photo and out-of-range controls, power/capture confounding check and
+  strict no-replay study restoration; P5B measured validation remains conditional.
+
 - Add assumed Phase P4B OM-2 sequence contracts, state-continuing endpoint holds
   and dark sweeps, signed common-capacitance crossings, matched-dark controls
   and strict partial-failure archives; PDFs-only diagnostics do not qualify

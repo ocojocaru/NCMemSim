@@ -231,3 +231,7 @@ With PDFs only, the software scope can progress, and measured-curve comparisons
 remain exploratory. Substrate photogeneration, RC measurement conversion and
 unknown preparation/error/source metadata remain outside this adapter. P4B's
 experimental qualification is not closed by this implementation.
+
+P5A [numerical diagnostics](om2_numerical_study.md) now check fixed-sequence
+temporal refinement, local sensitivities, capture/power confounding and
+observable selection. P5B measured validation remains conditional.
