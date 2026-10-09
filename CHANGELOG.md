@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Document Phase P4B Palade2018 OM-2 comparison protocol, full-text/source
+  identity, selected candidate digitization and unresolved measurement/substrate
+  photo-response gates; no experimental admission or runtime change.
+
 - Add Phase P4A owned device/photo experiment and sample-plane delivery
   contracts, fixed-input illuminated/matched-dark predictions, signed charge/VFB
   contrasts and original-state read-roundoff audit; no experimental qualification.

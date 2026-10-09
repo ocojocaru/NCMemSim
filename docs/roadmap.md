@@ -449,6 +449,10 @@ independent numerical observations and specimen/acquisition provenance must be
 acquired before fitting. Device/photo qualification remains conditional on complete
 measured protocols. P1 admission/source/uncertainty contracts, explicit acquisition gaps and P2 owned direct/Urbach training fit and P3 fixed-parameter holdout evaluation and P4A fixed-input device/photo diagnostics are implemented. P4B experimental qualification remains conditional; P5-P7 are planned. v1.7 delivery and successful calibration
 are not promised by dataset discovery. Current package/citation remain v1.6.0.
+P4B [device/photo protocol review](device_photo_qualification.md) now defines
+OM-2 observable/sequence/source/uncertainty gates from the supplied Palade2018
+article. No measured device dataset, measurement adapter or experimental
+qualification is admitted by this review.
 
 ### v1.8.0: Phase Q - Multilevel and neuromorphic/in-memory operation
 

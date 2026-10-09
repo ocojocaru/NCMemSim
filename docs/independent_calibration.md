@@ -147,8 +147,11 @@ P0 exact-commit CI/Documentation passed on `fab21a926798e01e940921517acf0fda1000
 P1 exact-commit CI/Documentation passed on `5496282875a0fef7c55c7912a6e670d7747b7d19`.
 P2 exact-commit CI/Documentation passed on `5768212f3050a8068226fe67b82cede0be0e2a8c`.
 P3 exact-commit CI/Documentation passed on `ec25f9ac2ad15a280a2711cfb6482e13b51bee01`.
-Commit/push P4A and verify exact-commit CI/Documentation. P4B requires actual admitted
-measured device/photo data; acquisition review continues. No new experimental
+P4A exact-commit CI/Documentation passed on `723bdd14dde7af7cb26fdc0d66d693967cd89154`.
+P4B [protocol and applicability review](device_photo_qualification.md) selects
+Palade2018 OM-2 for comparison development. Full text and selected digitization
+are reviewed; actual data admission, substrate photo-response and C-V measurement
+mapping remain unresolved. No new experimental
 qualification or CALIBRATED parameter is claimed by P4A.
 
 

@@ -1,0 +1,57 @@
+{
+  "schema_version": "device-photo-protocol-planning-review-v1",
+  "review_date": "2026-10-09",
+  "status": "not_assessable",
+  "implementation_status": "protocol_document_only",
+  "baseline_commit": "723bdd14dde7af7cb26fdc0d66d693967cd89154",
+  "source": {
+    "doi": "10.1063/1.5039554",
+    "title": "Optoelectric charging-discharging of Ge nanocrystals in floating gate memory",
+    "source_pdf_sha256": "c0e634b4bfd32483c6d3c6a1a0f393a1e90a6eebadaccd42b076f027b25969ea",
+    "full_text_inspected": true,
+    "article_pages": 5,
+    "pdf_pages": 6,
+    "source_redistributed": false
+  },
+  "selected_comparison": {
+    "mode": "OM-2",
+    "figure": "2(b)",
+    "observable": "signed two-branch memory-window contrast from dark C-V measurement",
+    "runtime_adapter_implemented": false,
+    "flat_band_extraction_rule": "unresolved",
+    "initial_sequence": "unresolved"
+  },
+  "candidate_digitization": {
+    "point_count": 64,
+    "figure_2b_points": 14,
+    "figure_3a_points": 50,
+    "role": "sparse candidate raster extraction",
+    "artifact_csv_sha256": "692ea39015b462f2fb7641dd936124b0d4282d640ff02f280ac4b40e462dc3ae",
+    "artifact_committed": false,
+    "measurement_standard_uncertainty": "unknown",
+    "admitted": false
+  },
+  "required_gates": [
+    "original data/digitization and redistribution review",
+    "specimen/acquisition genealogy and holdout policy",
+    "lamp spectrum/reference plane/coverage",
+    "complete electrical sequence, reset and initial preparation",
+    "measurement temperature, AC amplitude and voltage extraction",
+    "measurement and shared-systematic uncertainty",
+    "NC density inconsistency and reference48 permittivity provenance",
+    "substrate photo-response physics applicability",
+    "C-V measurement adapter and sign mapping",
+    "predeclared fit/holdout criteria after admission"
+  ],
+  "excluded_claims": [
+    "condition change proves specimen independence",
+    "Fig3b independent of Fig3a",
+    "digitization bounds are laboratory sigma",
+    "P4A endpoint delta_vfb equals OM2 memory window",
+    "capture efficiency compensates missing substrate physics"
+  ],
+  "new_measured_device_packages_admitted": 0,
+  "parameters_fitted": 0,
+  "experimental_qualifications": 0,
+  "package_release_identity": "1.6.0_unchanged"
+}
