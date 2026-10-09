@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Review the supplied CAS2017 and reference-48 full texts for P4B; preserve
+  reported FG permittivity 16.4, flag the possible capacitance decimal error
+  separately and retain protocol/parameter-transfer and acquisition gaps.
+
 - Document Phase P4B Palade2018 OM-2 comparison protocol, full-text/source
   identity, selected candidate digitization and unresolved measurement/substrate
   photo-response gates; no experimental admission or runtime change.
@@ -66,7 +70,7 @@ All notable changes to NCMemSim are documented in this file.
 
 - Record the author-confirmed v1.5.0 Zenodo DOI and close N7 after verified publication; adapt identity gates without moving the release tag or changing assets.
 
-## 1.6.0 — 2026-10-08
+## 1.6.0 â€” 2026-10-08
 
 - Add explicit Ge Gamma/L hydrostatic strain-induced optical gap shifts and
   spherical kinetic confinement diagnostics with separate electron/hole terms.
@@ -76,7 +80,7 @@ All notable changes to NCMemSim are documented in this file.
   additive policy remain ASSUMED; no material/device calibration is claimed.
 - Publish v1.6.0 and record author-confirmed Zenodo DOI 10.5281/zenodo.23235484; close O7 after verified main/tag CI and Release.
 
-## 1.5.0 — 2026-10-06
+## 1.5.0 â€” 2026-10-06
 
 - Prepare Phase N7 v1.5.0.dev0 API/source review, retained stable/MODEL/thermal
   contracts, frozen spectral archive and installed distribution/CI gates.
@@ -111,7 +115,7 @@ All notable changes to NCMemSim are documented in this file.
 
 - Record the author-confirmed v1.4.0 Zenodo DOI in citation/docs and close M7 after verified publication; adapt identity gates to the published state. Release tag and assets are unchanged.
 
-## 1.4.0 — 2026-10-02
+## 1.4.0 â€” 2026-10-02
 
 - Opt-in, anchored Si gap/intrinsic-density and bulk-Ge Gamma/L/phonon profiles,
   isolated thermal simulator contexts and controlled Si/Ge reference audits.
@@ -207,7 +211,7 @@ Historical implementation milestones for this candidate follow.
 - Plan M1-M7 contracts, isolated resolution, references, DTCO, reports and gates;
   defer unsupported GeSn profiles and preserve current defaults and archives.
 
-## 1.3.0 — 2026-10-01
+## 1.3.0 â€” 2026-10-01
 
 ### Phase L7 - candidate compatibility and release preparation
 
@@ -555,12 +559,12 @@ Historical implementation milestones for this candidate follow.
 - Keep automatic CI and Documentation pushes limited to `main`; development
   branches use focused local checks until final-version preparation.
 
-## v1.0.0 — Stable API and release readiness
+## v1.0.0 â€” Stable API and release readiness
 
 - Promote the reviewed 204-path API candidate to the first stable NCMemSim release.
 - Align package and citation metadata with `1.0.0` and the final release date.
 - Retain approved result, archive-reader, scientific-default, distribution and compatibility contracts.
-- Record green Python 3.11–3.13 CI, strict documentation, full local regression and clean installed wheel/source-distribution gates.
+- Record green Python 3.11â€“3.13 CI, strict documentation, full local regression and clean installed wheel/source-distribution gates.
 - Keep the published v0.14.0 archive fixtures as compatibility evidence.
 - Publish repository-and-version citation metadata without claiming an unassigned DOI.
 - Recorded clean installed wheel/source-distribution evidence and marked the v1.0 stability-preparation candidate ready after all final gates passed.
@@ -597,13 +601,13 @@ Historical implementation milestones for this candidate follow.
 - Correct the API overview to reflect implemented I6 linked workflow reports.
 - Preserve package version, scientific defaults and published release tag.
 
-## v0.14.0 — Scientific workflow integration
+## v0.14.0 â€” Scientific workflow integration
 
-### I7 — final-version preparation and release gates
+### I7 â€” final-version preparation and release gates
 
 - Align package/citation and current documentation with 0.14.0; retain historical
   release evidence and explicit synthetic/FITTED applicability limits.
-- Audit strict MkDocs, rendered links, source references and executable I1–I6
+- Audit strict MkDocs, rendered links, source references and executable I1â€“I6
   examples; full suite contains 2000 tests, including 192 Phase I cases.
 - Validate clean wheel/sdist installations with actual electrical/optical fits,
   linked archives and exports, and audited source-archive bytes.
@@ -614,7 +618,7 @@ Historical implementation milestones for this candidate follow.
   calibration. Remote results must refer to the final prepared commit.
 
 
-### I6 — linked workflow reports and portable exports
+### I6 â€” linked workflow reports and portable exports
 
 - Add immutable WorkflowReport and typed builder/writer linking full workflow,
   applied context and ordered Robust DTCO studies with explicit DEVICE variants.
@@ -626,7 +630,7 @@ Historical implementation milestones for this candidate follow.
   update docs and future installed probe. Existing F/G/H APIs/physics unchanged.
 
 
-### I5 — cross-workflow integration verification
+### I5 â€” cross-workflow integration verification
 
 - Verify real electrical/electro-optical source, fitted application and held-out
   identity links against swaps and recalculated-hash context corruption.
@@ -638,7 +642,7 @@ Historical implementation milestones for this candidate follow.
 
 
 
-### Phase I4 — synthetic electro-optical workflow reference
+### Phase I4 â€” synthetic electro-optical workflow reference
 
 - Connect existing photo-capture fitting, diagnostics and held-out synthetic
   qualification to explicit fitted application and actual nominal/Robust DTCO.
@@ -650,11 +654,11 @@ Historical implementation milestones for this candidate follow.
   of experimental calibration/manufacturing yield; package/Actions gates remain
   final-version preparation work.
 
-### I0 — bootstrap and scope/contracts
+### I0 â€” bootstrap and scope/contracts
 
 - Start from published v0.13.0 commit `c3b1c10824c8296e7900e0b9bd8cbb19d6d75f8f`.
 - Set the package development version to `0.14.0.dev0`; retain v0.13.0 citation metadata.
-- Define I1–I7 evidence, parameter-application, electrical/electro-optical workflow,
+- Define I1â€“I7 evidence, parameter-application, electrical/electro-optical workflow,
   integration report and final-validation deliverables without claiming implementation.
 - Preserve Phase F/G/H APIs, units, qualification semantics and simulator physics.
 - Require explicit data origin, full device/model/configuration provenance and
@@ -663,7 +667,7 @@ Historical implementation milestones for this candidate follow.
 - Keep local focused tests/docs updates per step; defer full CI, strict Documentation
   builds and clean package checks to final-version preparation on the same dev branch.
 
-### I1 — immutable scientific workflow evidence
+### I1 â€” immutable scientific workflow evidence
 
 - Add a dedicated `ncmemsim.workflows` API for declared dataset origin/provenance,
   immutable dataset and linked workflow evidence snapshots.
@@ -672,11 +676,11 @@ Historical implementation milestones for this candidate follow.
 - Preserve FITTED status, explicit eligibility/unknown qualification, synthetic versus
   measured declarations and unavailable/non-finite diagnostic values without promotion.
 - Validate source identities and strict JSON restoration without refitting/requalification;
-  keep full evaluator-context application and end-to-end references for I2–I6.
+  keep full evaluator-context application and end-to-end references for I2â€“I6.
 - Add real synthetic C-V fit/qualification linkage, mismatch, mutation, restoration,
   scientific-label and rank-diagnostic tests; extend required distribution inventory.
 
-### I2 — explicit fitted application and complete evaluator context
+### I2 â€” explicit fitted application and complete evaluator context
 
 - Add `AppliedWorkflowEvidence`, `WorkflowEvaluator` and `apply_workflow_parameters`
   in the dedicated workflows API; preserve Phase F/G/H and top-level interfaces.
@@ -692,7 +696,7 @@ Historical implementation milestones for this candidate follow.
 - Add genuine fit/application, target compatibility, isolation, context identity,
   restoration and Phase H nominal/sample/failure tests; update docs/source inventory.
 
-### I3 — synthetic electrical fitting/qualification to nominal/Robust DTCO
+### I3 â€” synthetic electrical fitting/qualification to nominal/Robust DTCO
 
 - Add a runnable electrical reference linking real program-time fitting,
   held-out synthetic qualification, I1/I2 source/context evidence and fresh
@@ -708,7 +712,7 @@ Historical implementation milestones for this candidate follow.
 - Register the reference in source inventory and future installed probes using
   the existing optional fit extra; defer actual clean builds/installs to I7.
 
-## v0.13.0 — Robust DTCO
+## v0.13.0 â€” Robust DTCO
 
 Release preparation sets package/citation metadata to `0.13.0` (2026-09-18).
 Phase H adds bounded independent variation contracts, exact reproducible sample
@@ -718,12 +722,12 @@ Existing physics and Phase G APIs remain compatible. Variation assumptions do
 not establish experimentally calibrated manufacturing yield.
 
 The candidate `b5d8374e1a386e00a442b37839784134ae6e6209` passed all six
-manual CI test/distribution jobs on Python 3.11–3.13 and manual Documentation.
+manual CI test/distribution jobs on Python 3.11â€“3.13 and manual Documentation.
 Local verification passed 1808 tests, strict rendered-documentation auditing and
 clean wheel/sdist workflows. Final publication follows review of this release
 metadata change; no release tag is created by preparation.
 
-### H0 — bootstrap and contract freeze
+### H0 â€” bootstrap and contract freeze
 
 - Start Phase H from the published v0.12.0 baseline, preserving its physics,
   DTCO APIs, canonical experiment definitions and scientific regressions.
@@ -736,14 +740,14 @@ metadata change; no release tag is created by preparation.
   development/PR documentation without deploying it over main Pages.
 - Require documentation and source-archive content audits before release tags.
 
-### H1 — bounded variation contracts (0.13.0.dev0)
+### H1 â€” bounded variation contracts (0.13.0.dev0)
 
 - Add immutable uniform and truncated-normal definitions with finite explicit bounds.
 - Enforce continuous DEVICE/OPERATING bindings, exact canonical units and physical ranges.
 - Require variation kind, source and applicability; add nominal endpoint validation and identity hashes.
 - Subsequent H2/H3 complete sampling and propagation; Phase G APIs remain unchanged.
 
-### H2 — reproducible independent sampling
+### H2 â€” reproducible independent sampling
 
 - Add explicit seed/count/attempt-budget specifications with unique ordered bindings.
 - Sample bounded uniform and truncated-normal laws using local PCG64 scalar draws;
@@ -755,7 +759,7 @@ metadata change; no release tag is created by preparation.
   candidate and CI manually or on release tags, without intermediate push/PR Actions.
 - Retain propagation and robust statistics as future phases.
 
-### H3 — isolated sample propagation
+### H3 â€” isolated sample propagation
 
 - Consume exact H2 manifest values without resampling and preserve every sample index.
 - Snapshot full nominal device/material/protocol definitions and evaluator settings;
@@ -768,7 +772,7 @@ metadata change; no release tag is created by preparation.
   plus current API documentation and an executable electrical example.
 - Leave metrics, feasibility and robust statistics for H4 onward.
 
-### H4 — response statistics and feasibility accounting
+### H4 â€” response statistics and feasibility accounting
 
 - Reuse Phase G metric/unit/constraint definitions on exact H3 results without reevaluation.
 - Assess complete metric cases; keep propagation/extraction failures distinct from infeasibility.
@@ -781,7 +785,7 @@ metadata change; no release tag is created by preparation.
 - Add dedicated statistical/accounting/identity tests and an executable example.
 - Leave robust objectives/comparisons and reports for H5/H6.
 
-### H5 — linked nominal comparisons and robust objectives
+### H5 â€” linked nominal comparisons and robust objectives
 
 - Evaluate isolated nominal baselines and compare them with H4 only when full
   device/material/protocol, evaluator/settings and propagation runtime match.
@@ -795,7 +799,7 @@ metadata change; no release tag is created by preparation.
   tests, plus executable examples and updated development status.
 - H6/H7 complete reproducible report bundles and release-candidate validation.
 
-### H6 — reproducible Robust DTCO reports and reference
+### H6 â€” reproducible Robust DTCO reports and reference
 
 - Snapshot full ordered sample analyses, exact manifests, nominal comparisons
   and robust fronts into integrity-linked immutable report JSON.
@@ -814,7 +818,7 @@ metadata change; no release tag is created by preparation.
 - Compare built source-release documentation, assets and required modules with audited checkout bytes.
 - Keep CI and Documentation manual during development; remote candidate gates precede publication.
 
-## v0.12.0 — Design-Space Exploration and DTCO
+## v0.12.0 â€” Design-Space Exploration and DTCO
 
 Phase G adds deterministic Cartesian design-space exploration, canonical
 binding/unit contracts, explicit metrics and feasibility constraints,
@@ -822,7 +826,7 @@ multi-objective Pareto fronts, adjacent-grid sensitivity and reproducible
 DTCO reports on the preserved v0.11.0 simulation and calibration baseline.
 
 Release preparation sets the package and citation version to `0.12.0`.
-The G7 baseline passed all seven CI jobs on Python 3.11–3.13, including
+The G7 baseline passed all seven CI jobs on Python 3.11â€“3.13, including
 installed wheel/source workflows and strict documentation. The tag workflow
 checks version agreement, regressions and installed distributions before
 publication. Creating a tag and publishing release assets are separate steps.
@@ -831,18 +835,18 @@ Advanced optimizers and MODEL-scope binding application remain outside the
 implemented scope. Grid sensitivity is not a probabilistic Sobol analysis;
 software verification does not establish device-specific physical calibration.
 
-### G7 — release validation and distribution checks
+### G7 â€” release validation and distribution checks
 
 - Added wheel and source distribution archive checks and separate installed
   DTCO reference workflows outside the source checkout.
 - Verify deterministic reports, manifest restoration, candidate failures and
   CSV exports from each installed distribution.
 - Extended CI to the DTCO branch with clean distribution checks on Python
-  3.11–3.13 and strict documentation builds.
+  3.11â€“3.13 and strict documentation builds.
 - Gate tag publication on installed distribution validation; preserve the
   development version and existing scientific behavior.
 
-### G0 — cycle bootstrap and architecture freeze
+### G0 â€” cycle bootstrap and architecture freeze
 
 - Started the `dev/v0.12.0-dtco` development cycle from the tagged v0.11.0
   release.
@@ -855,7 +859,7 @@ software verification does not establish device-specific physical calibration.
 - Kept advanced optimizers outside the initial implementation scope: the first
   sweep engine will be deterministic and grid-based.
 
-### G1a — design-variable and experiment-specification core
+### G1a â€” design-variable and experiment-specification core
 
 - Added a dedicated `ncmemsim.dtco` namespace.
 - Added typed semantic parameter bindings for device, operating, and model
@@ -869,7 +873,7 @@ software verification does not establish device-specific physical calibration.
 - Kept device mutation, sweep execution, metrics, Pareto analysis, and
   optimization outside the G1a checkpoint.
 
-### G1b — controlled device-binding application
+### G1b â€” controlled device-binding application
 
 - Added copy-on-write application of device-scope parameter bindings.
 - Added strict semantic resolution for supported device and named-layer
@@ -887,7 +891,7 @@ software verification does not establish device-specific physical calibration.
   G1b so composition-dependent and protocol-specific semantics can be added
   explicitly rather than inferred.
 
-### G1c1 — material-aware GeSn composition binding
+### G1c1 â€” material-aware GeSn composition binding
 
 - Added an explicit floating-gate GeSn `sn_fraction` binding path.
 - Rebuilds the complete GeSn nanocrystal material through `make_gesn()` rather
@@ -899,7 +903,7 @@ software verification does not establish device-specific physical calibration.
   parameter-set inputs cannot be reconstructed safely from the material object.
 - Added experiment design-point coverage for GeSn composition variables.
 
-### G1c2a — operating-variable binding primitives
+### G1c2a â€” operating-variable binding primitives
 
 - Added immutable bindings for program voltage/time, read voltage, and
   optional program integration timestep.
@@ -912,7 +916,7 @@ software verification does not establish device-specific physical calibration.
 - Defers operating-baseline identity and mixed experiment-point application
   to G1c2b.
 
-### G1c2b — operating-baseline identity and mixed experiment points
+### G1c2b â€” operating-baseline identity and mixed experiment points
 
 - Added optional canonical operating-protocol identity to `ExperimentSpec`.
 - Preserved device-only experiment serialization by omitting operating identity
@@ -924,7 +928,7 @@ software verification does not establish device-specific physical calibration.
 - Keeps `BindingScope.MODEL` application deferred so fitted model parameters
   remain distinct from operating conditions.
 
-### G1d — binding/unit contracts
+### G1d â€” binding/unit contracts
 
 - Validates exact canonical units for known numeric DEVICE and OPERATING
   bindings at DesignVariable construction, without conversions or aliases.
@@ -934,7 +938,7 @@ software verification does not establish device-specific physical calibration.
   hashes, domain order, and existing application validation.
 - Adds dedicated contract and compatibility coverage.
 
-### G2 — deterministic structured sweeps
+### G2 â€” deterministic structured sweeps
 
 - Adds lazy Cartesian points preserving declared axis/domain order, with
   stable indices and experiment-bound point hashes.
@@ -948,7 +952,7 @@ software verification does not establish device-specific physical calibration.
 - Adds ordering, isolation, identity, serialization, electrical/optical, GeSn,
   and real program/read integration tests.
 
-### G3 — metrics and feasibility constraints
+### G3 â€” metrics and feasibility constraints
 
 - Adds explicit scalar JSON-path metric definitions with units and optional
   minimize/maximize objective direction, preserving signed numeric values.
@@ -961,7 +965,7 @@ software verification does not establish device-specific physical calibration.
 - Keeps G1/G2 serialization unchanged and Pareto ranking deferred to G4.
 - Adds dedicated validation, isolation, identity, and real program/read tests.
 
-### G4 — multi-objective / Pareto analysis
+### G4 â€” multi-objective / Pareto analysis
 
 - Adds explicit ordered objective selection from directed G3 metrics.
 - Adds exact non-dominated sorting across minimize/maximize objectives, with
@@ -974,7 +978,7 @@ software verification does not establish device-specific physical calibration.
   analysis and result hashes without changing G1/G2/G3 serialization.
 - Adds independent-reference, tie, exclusion, precision and identity tests.
 
-### G5 — sensitivity analysis
+### G5 â€” sensitivity analysis
 
 - Adds explicit numeric-axis/metric selection and assessed/feasible-only
   eligibility over completed G3 analyses without rerunning simulations.
@@ -985,11 +989,11 @@ software verification does not establish device-specific physical calibration.
 - Adds equal-valid-edge grid-wide signed/absolute slope summaries with
   attempted/estimated/excluded/failed counts and explicit coverage.
 - Adds immutable serializable records, complete source provenance and
-  deterministic definition/analysis/result hashes without changing G1–G4.
+  deterministic definition/analysis/result hashes without changing G1â€“G4.
 - Adds analytic nonuniform-grid, interaction, isolation, precision and
   real program/read integration coverage.
 
-### G6 — reproducible DTCO reports and reference examples
+### G6 â€” reproducible DTCO reports and reference examples
 
 - Adds immutable report manifests linking exact G2/G3 sources with optional
   Pareto/sensitivity results, rejecting mismatched analyses.
@@ -1000,10 +1004,10 @@ software verification does not establish device-specific physical calibration.
 - Adds an executable electrical reference workflow with explicit configuration,
   initial-state policy, runtime versions, derived observables and failure demo.
 - Adds optional 300-dpi PNG/vector SVG trade-off figures without a base plotting
-  dependency or changes to G1–G5 hashes and simulation semantics.
+  dependency or changes to G1â€“G5 hashes and simulation semantics.
 - Adds integrity, precision, export, source-isolation and reference-workflow tests.
 
-## v0.11.0 — Experimental Fitting and Calibration
+## v0.11.0 â€” Experimental Fitting and Calibration
 
 NCMemSim v0.11.0 adds traceable experimental-data handling, deterministic
 parameter fitting, uncertainty and identifiability diagnostics, and explicit
@@ -1081,7 +1085,7 @@ and optical simulation baseline.
 - Kept optional global-search initialization and additional independent
   experimental datasets outside the required v0.11.0 scientific scope.
 
-## v0.10.0 — Optical Programming
+## v0.10.0 â€” Optical Programming
 
 NCMemSim v0.10.0 introduces wavelength-dependent optical and
 photo-assisted programming capabilities for Ge/GeSn nanocrystal
@@ -1162,12 +1166,12 @@ phonon-assisted, and Urbach-tail contributions.
 
 v0.10.0 extends the automated validation suite through Phase E6:
 
-- E1 — optical sources
-- E2 — optical material response
-- E3 — optical absorption
-- E4 — photo-assisted transition kinetics
-- E5 — simulator, sweep, and C-V integration
-- E6 — SWIR spectral and programming benchmarks
+- E1 â€” optical sources
+- E2 â€” optical material response
+- E3 â€” optical absorption
+- E4 â€” photo-assisted transition kinetics
+- E5 â€” simulator, sweep, and C-V integration
+- E6 â€” SWIR spectral and programming benchmarks
 
 Current validation status:
 
@@ -1178,52 +1182,52 @@ green, preserving compatibility with the validated pre-optical model.
 
 ## [0.9.1] - 2026-09-09
 
-### Repository Polish — R1: cleanup
+### Repository Polish â€” R1: cleanup
 
 - Added Apache License 2.0, repository ignore rules and editor configuration.
 - Centralized version metadata and defined an explicit public package API.
 - Removed generated cache artifacts from release packages.
 
-### Repository Polish — R2: professional documentation
+### Repository Polish â€” R2: professional documentation
 
 - Added a complete README, vision, contribution, conduct and citation files.
 - Added MkDocs structure and substantive installation, quick-start, architecture, physics, materials, validation, API, developer and roadmap documentation.
 
-### Repository Polish — R3: GitHub infrastructure
+### Repository Polish â€” R3: GitHub infrastructure
 
 - Added CI, documentation and tagged-release GitHub Actions workflows.
 - Added issue templates, pull-request template, Dependabot and CODEOWNERS.
 
-### Repository Polish — R4: scientific documentation
+### Repository Polish â€” R4: scientific documentation
 
 - Added dedicated scope, device-state, electrostatics, transport-retention, reproducibility, workflow and glossary chapters.
 - Reorganized documentation around scientific assumptions, validation and reproducible workflows.
 
-### Repository Polish — R5: assets and branding
+### Repository Polish â€” R5: assets and branding
 
 - Added logo, banner and reusable SVG diagrams for device stacks, software architecture, transport and scientific workflow.
 - Integrated visual assets into README and MkDocs documentation.
 
-### Repository Polish — R6: release engineering
+### Repository Polish â€” R6: release engineering
 
 - Added the release gate, first-publication procedure and security policy.
 - Finalized executable CI, GitHub Pages and tagged-release workflows.
 - Added tag/version verification and automated wheel/source-distribution release assets.
 - Expanded GitHub issue and pull-request templates for scientific-software traceability.
-- Consolidated the cumulative R1–R6 project into the final `v0.9.1` release.
+- Consolidated the cumulative R1â€“R6 project into the final `v0.9.1` release.
 
-## 0.4.0 — Phase D1
+## 0.4.0 â€” Phase D1
 
 - Removed the one-FG-only simulator guard.
 - Added traceable FG IDs, physical layer names, and centre coordinates to states.
 - Added strict state/device and grid-size validation.
-- Added independent transient evolution for 1–3 floating gates.
+- Added independent transient evolution for 1â€“3 floating gates.
 - Added per-FG charge, occupation, field, and transmission outputs.
 - Added two-dimensional per-FG sweep histories.
 - Preserved the legacy scalar API and one-FG numerical regression.
 - Added seven Phase-D1 tests; complete suite: 34 passed.
 
-## 0.3.0 — Phase C
+## 0.3.0 â€” Phase C
 
 - Replaced the flat material module with a scalable material package.
 - Added parameter provenance, units, and status tracking.
@@ -1233,14 +1237,14 @@ green, preserving compatibility with the validated pre-optical model.
 - Added reproducibility manifests and the Developer Guide.
 - Preserved Phase B public imports and regression behavior.
 
-## 6.0.0-alpha2 — Phase B
+## 6.0.0-alpha2 â€” Phase B
 
 - Migrated v5.3 electrostatics into `ElectrostaticsEngine`.
 - Migrated trapezoidal WKB into `TunnelingEngine`.
 - Migrated distributed P0/P1/P2 kinetics into `OccupancyEngine`.
 - Added `PhysicsModel`, `DeviceState`, and a modular one-FG `Simulator`.
 - Added a v5.3 reference device with effective FG permittivity 18 and original barriers.
-- Added regression tests for capacitance, flat-band voltage, charging energy, WKB, probability stepping, one-voltage relaxation, and a compact C–V sweep.
+- Added regression tests for capacitance, flat-band voltage, charging energy, WKB, probability stepping, one-voltage relaxation, and a compact Câ€“V sweep.
 
 ## 0.5.0 - Phase D2
 
@@ -1252,20 +1256,20 @@ green, preserving compatibility with the validated pre-optical model.
 - Connected local per-FG fields to multi-FG WKB rate calculations.
 - Extended transient and sweep results with D2 coupling diagnostics.
 
-## 0.6.0 — Phase D3
+## 0.6.0 â€” Phase D3
 
 - Added `FieldSolver1D` and immutable `FieldProfile`.
 - Added complete one-dimensional potential and electric-field profiles.
 - Added local potential and local field values at every floating-gate centroid.
 - Added sheet-charge displacement jumps at FG centroids.
 - Integrated field profiles into `ElectrostaticsResult`, simulator outputs, sweep outputs and `FloatingGateState`.
-- Preserved the validated one-FG kinetic path and all Phase A–D2 regression tests.
+- Preserved the validated one-FG kinetic path and all Phase Aâ€“D2 regression tests.
 
 ## 0.7.0 - Phase D4
 
 - Added a graph-like transport layer with `TransportNode`, `TunnelLink`, and `TunnelNetwork`.
-- Added nearest-neighbour FG↔FG WKB transport with conservative electron redistribution.
-- Added substrate↔nearest-FG diagnostic links without double-counting the existing substrate kinetics.
+- Added nearest-neighbour FGâ†”FG WKB transport with conservative electron redistribution.
+- Added substrateâ†”nearest-FG diagnostic links without double-counting the existing substrate kinetics.
 - Added per-link transmission, directional rates, fields, potential differences, and electron fluxes.
 - Integrated transport into transient relaxation and voltage-sweep results.
 - Added Phase D4 example and regression tests.

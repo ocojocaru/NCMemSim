@@ -136,3 +136,35 @@ review the substrate photo-response and C-V measurement scope before runtime
 implementation. If those inputs cannot be recovered, retain this gap or select
 another eligible experiment. Do not manufacture a calibration from the P4A
 synthetic example.
+
+## Related-source full-text checkpoint
+
+The supplied CAS2017 paper (DOI 10.1109/SMICND.2017.8101163) uses -1/+5 V
+endpoint programming and approximately 5 mW/cm2 integral illumination. It
+reports room-temperature measurements, 1 MHz, 0.1 V steps, 0.5 s per point and
+a +5 to -1 V read sweep after positive programming. Its capacitance ratio
+Q=CPL/CPD-1 is dimensionless, not stored electric charge or a memory-window
+contrast. These conditions cannot silently replace APL2018's -2/+5 V and
+20 mW/cm2 inputs. Shared project/authors do not settle specimen genealogy.
+
+Reference 48 (DOI 10.1016/j.apsusc.2017.09.038) has now been read in full.
+Its Table 1 permittivities are fit-derived from an equivalent RC layer circuit,
+including series contact/substrate resistance and an interfacial SiOx branch.
+Its Al-contact 1 mm2 device and 7 nm composite FG region differ from the
+Au-contact photo-memory specimen. Its effective FG relative permittivity is
+retained as **16.4**, exactly as reported; it is not automatically a direct
+measurement of pure-Ge NC permittivity or a universal preset.
+
+The FG capacitance printed as 2.07 nF is inconsistent with that permittivity,
+the 7 nm layer and the reported area under the planar-capacitance conversion.
+Approximately 20.7 nF would reconcile those values. A decimal error is a possible
+explanation, not an author-confirmed correction. Keep epsilon_r=16.4; retain the
+printed capacitance and flag the possible correction separately. Do not reject
+or replace the reported permittivity merely from this consistency calculation.
+
+The user will check original-data and metadata availability with the authors or
+laboratory. No acquisition is presumed complete. Lamp spectrum/reference plane,
+full APL electrical/read sequence, repetitions/error budget and specimen identities
+remain requested inputs. The Wang2006 candidate remains abstract-only. No
+messages to authors are sent by this software review, and no runtime equation,
+calibration status, numerical preset or package version changes at this checkpoint.

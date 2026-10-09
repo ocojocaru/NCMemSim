@@ -38,7 +38,7 @@
     "complete electrical sequence, reset and initial preparation",
     "measurement temperature, AC amplitude and voltage extraction",
     "measurement and shared-systematic uncertainty",
-    "NC density inconsistency and reference48 permittivity provenance",
+    "NC density inconsistency, reference48 FG capacitance discrepancy and fitted-parameter transferability",
     "substrate photo-response physics applicability",
     "C-V measurement adapter and sign mapping",
     "predeclared fit/holdout criteria after admission"
@@ -53,5 +53,44 @@
   "new_measured_device_packages_admitted": 0,
   "parameters_fitted": 0,
   "experimental_qualifications": 0,
-  "package_release_identity": "1.6.0_unchanged"
+  "package_release_identity": "1.6.0_unchanged",
+  "related_sources": [
+    {
+      "doi": "10.1109/SMICND.2017.8101163",
+      "source_pdf_sha256": "f98e7051ef25c33f8a7a40bad46d3c9c2697da0d5fb4b387d3c2c33b5e80f685",
+      "full_text_inspected": true,
+      "pdf_pages": 4,
+      "source_redistributed": false,
+      "endpoint_voltages_V": [
+        -1,
+        5
+      ],
+      "integral_irradiance_W_m2": 50,
+      "temperature_description": "room temperature, exact value unknown",
+      "observable": "CPL/CPD - 1, dimensionless capacitance ratio",
+      "independent_acquisition": "unresolved"
+    },
+    {
+      "doi": "10.1016/j.apsusc.2017.09.038",
+      "source_pdf_sha256": "c2b92dfccdaccba8238e8648f8bfc52daafa95b87bbaa4620d021ae9b58da117",
+      "full_text_inspected": true,
+      "pdf_pages": 5,
+      "source_redistributed": false,
+      "electrode": "Al",
+      "area_m2": 1e-06,
+      "parameter_origin": "equivalent RC circuit fitting",
+      "reported_FG_relative_permittivity": 16.4,
+      "reported_FG_capacitance_nF": 2.07,
+      "possible_capacitance_correction_nF": 20.7,
+      "correction_status": "unconfirmed_possible_decimal_error; retain reported epsilon_r=16.4",
+      "transfer_to_APL_photo_specimen": "requires review; different electrode/geometry/composition"
+    },
+    {
+      "identifier": "PMID16578903",
+      "full_text_inspected": false,
+      "access": "abstract_only",
+      "admitted": false
+    }
+  ],
+  "author_metadata_acquisition": "user will check availability with authors/laboratory; no data received or messages sent by agent"
 }
