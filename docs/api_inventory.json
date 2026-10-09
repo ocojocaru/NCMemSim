@@ -18485,6 +18485,345 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.independent_optical_fit",
+      "source": "ncmemsim/independent_optical_fit.py",
+      "explicit_exports": [
+        "OpticalFitSpecification",
+        "OpticalTrainingContext",
+        "OpticalTrainingFitResult",
+        "predict_optical_training",
+        "fit_optical_training"
+      ],
+      "package_import_aliases": {
+        "DataOrigin": "ncmemsim.workflows.evidence.DataOrigin",
+        "DeterministicFitResult": "ncmemsim.fitting.DeterministicFitResult",
+        "ExperimentalDataPackage": "ncmemsim.independent_data.ExperimentalDataPackage",
+        "FitParameter": "ncmemsim.fitting.FitParameter",
+        "FitParameterSet": "ncmemsim.fitting.FitParameterSet",
+        "GeSnNearEdgeParameterSet": "ncmemsim.materials.optics.near_edge.GeSnNearEdgeParameterSet",
+        "LeastSquaresConfig": "ncmemsim.fitting.LeastSquaresConfig",
+        "_Archive": "ncmemsim.independent_data._Archive",
+        "_canonical": "ncmemsim.independent_data._canonical",
+        "_encode": "ncmemsim.workflows.evidence._encode",
+        "_keys": "ncmemsim.independent_data._keys",
+        "_match": "ncmemsim.independent_data._match",
+        "_number": "ncmemsim.independent_data._number",
+        "_runtime": "ncmemsim.ensemble.execution._runtime",
+        "_text": "ncmemsim.independent_data._text",
+        "analyze_fit_uncertainty": "ncmemsim.fit_diagnostics.analyze_fit_uncertainty",
+        "direct_gap_gesn_eV": "ncmemsim.materials.optics.models.direct_gap_gesn_eV",
+        "predict_gesn_near_edge_absorption_m_inv": "ncmemsim.materials.optics.near_edge_fit.predict_gesn_near_edge_absorption_m_inv",
+        "run_least_squares_fit": "ncmemsim.fitting.run_least_squares_fit"
+      },
+      "public_source_definitions": [
+        {
+          "name": "OpticalFitSpecification",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "parameter_set",
+              "annotation": "FitParameterSet",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "solver_config",
+              "annotation": "LeastSquaresConfig",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "wavelength_min_nm",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "wavelength_max_nm",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "sample_form",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "assumption_review",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "OpticalTrainingContext",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "data_package",
+              "annotation": "ExperimentalDataPackage",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "specification",
+              "annotation": "OpticalFitSpecification",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "mode",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "predict_optical_training",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "context",
+              "kind": "positional_or_keyword",
+              "annotation": "OpticalTrainingContext",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "values",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": false,
+              "default_expression": "None"
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(context: OpticalTrainingContext, values=None)",
+          "decorators": []
+        },
+        {
+          "name": "OpticalTrainingFitResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "fit_optical_training",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "context",
+              "kind": "positional_or_keyword",
+              "annotation": "OpticalTrainingContext",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(context: OpticalTrainingContext)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.io",
       "source": "ncmemsim/io.py",
       "explicit_exports": [
@@ -38709,6 +39048,11 @@
     "ncmemsim.independent_data.ExperimentalDataPackage",
     "ncmemsim.independent_data.IndependentStudySplit",
     "ncmemsim.independent_data.UncertaintyBudget",
+    "ncmemsim.independent_optical_fit.OpticalFitSpecification",
+    "ncmemsim.independent_optical_fit.OpticalTrainingContext",
+    "ncmemsim.independent_optical_fit.OpticalTrainingFitResult",
+    "ncmemsim.independent_optical_fit.fit_optical_training",
+    "ncmemsim.independent_optical_fit.predict_optical_training",
     "ncmemsim.io.load_optical_absorption_csv",
     "ncmemsim.make_ge",
     "ncmemsim.make_gesn",

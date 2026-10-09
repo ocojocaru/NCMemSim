@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 126 package source modules; 694 explicit export paths; 227 distinct documented Python import paths.
+Coverage: 127 package source modules; 699 explicit export paths; 232 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2589,6 +2589,55 @@ Decorators: `dataclass(frozen=True)`.
 - `to_dict(self)`.
 - `from_dict(cls, data)`; `classmethod`.
 
+
+## ncmemsim.independent_optical_fit
+
+`ncmemsim/independent_optical_fit.py`
+
+Explicit exports: `OpticalFitSpecification`, `OpticalTrainingContext`, `OpticalTrainingFitResult`, `predict_optical_training`, `fit_optical_training`
+
+### OpticalFitSpecification
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `parameter_set: FitParameterSet`; required declaration.
+- Field `solver_config: LeastSquaresConfig`; required declaration.
+- Field `wavelength_min_nm: float`; required declaration.
+- Field `wavelength_max_nm: float`; required declaration.
+- Field `sample_form: str`; required declaration.
+- Field `assumption_review: str`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### OpticalTrainingContext
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `data_package: ExperimentalDataPackage`; required declaration.
+- Field `specification: OpticalFitSpecification`; required declaration.
+- Field `mode: str`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `predict_optical_training(context: OpticalTrainingContext, values=None)`
+### OpticalTrainingFitResult
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `fit_optical_training(context: OpticalTrainingContext)`
 
 ## ncmemsim.io
 

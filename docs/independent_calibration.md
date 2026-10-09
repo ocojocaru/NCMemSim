@@ -4,7 +4,7 @@
 
 P0 is complete: repository data/code audit, literature candidate screening,
 acquisition requirements and P1-P7 acceptance sequence are defined here.
-P1 admission contracts and the source/data-gap review are implemented; P2-P7 remain planned.
+P1 admission contracts/source review and P2 owned optical training fit are implemented; P3-P7 remain planned.
 Target release is indicative v1.7.0, conditional on usable independent data.
 Package/citation remain published v1.6.0 with DOI 10.5281/zenodo.23235484.
 No runtime, parameter, preset, fitting or calibration status changes are made by P0.
@@ -143,9 +143,10 @@ physics scope, not a side effect of parameter calibration.
 ## Next action
 
 P0 exact-commit CI/Documentation passed on `fab21a926798e01e940921517acf0fda10006f36`.
-Commit/push P1 and verify exact-commit CI/Documentation. P2 is the owned existing-model
-optical fitting adapter; acquisition review continues and no new experimental
-fit or CALIBRATED parameter is claimed by P1.
+P1 exact-commit CI/Documentation passed on `5496282875a0fef7c55c7912a6e670d7747b7d19`.
+Commit/push P2 and verify exact-commit CI/Documentation. P3 will evaluate declared
+independent holdouts without optimizing against them; acquisition review continues.
+No new admitted experimental dataset or CALIBRATED parameter is claimed by P2.
 
 
 ## P1 declared-data admission contracts
@@ -236,3 +237,85 @@ python scripts/validate_independent_data_review.py
 This CI gate checks current source/P0/legacy-data identities, typed restoration,
 negative split accounting and the unchanged no-admission counts. Deliberate review
 regeneration is separate from experimental approval.
+
+
+## P2 owned optical training adapter
+
+`ncmemsim.independent_optical_fit` adds `OpticalFitSpecification`,
+`OpticalTrainingContext`, `OpticalTrainingFitResult`, `predict_optical_training`
+and `fit_optical_training`. It reuses the unchanged direct/Urbach near-edge
+prediction helper, generic bounded least-squares solver and local uncertainty
+diagnostics. The specification owns two parameters with exact existing units:
+`direct_prefactor_A` (m^-1 eV^(1/2)) and `urbach_energy_eV` (eV). The pure-Ge direct
+gap remains fixed by the existing composition relation; it is not fitted.
+
+```python
+from ncmemsim.independent_optical_fit import (
+    OpticalFitSpecification, OpticalTrainingContext, OpticalTrainingFitResult,
+    predict_optical_training, fit_optical_training,
+)
+```
+
+The first scope is pure Ge, a declared bulk/film unstrained reference, fixed
+nominal 300 K and an explicitly selected subset of 1500-2500 nm. The temperature
+is the existing model's room-temperature representation, not an experimentally
+qualified thermal law. No indirect absorption, excitonic/structural correction,
+GeSn composition parameter, capture efficiency or transport parameter is added.
+The adapter does not justify mapping indirect-dominated literature curves to an
+Urbach tail. Domain/observable/model adequacy and any approximation to measured
+conditions require review; a measured 301 K dataset cannot silently become a
+300 K model-context observation. All rows must remain in the declared domain:
+no automatic cropping or extrapolation to obtain a fit.
+
+`measured_training` requires a P1-eligible declared measured package.
+`synthetic_diagnostic` requires an explicitly synthetic origin; it cannot bypass
+admission for a measured package with missing evidence. Synthetic package gaps
+are retained in its source snapshot. Both modes require resolved, positive
+observable standard uncertainties and a declared covariance/independence policy.
+Non-negligible or unresolved wavelength errors are rejected: errors-in-variables
+need a separately reviewed adapter. Exact synthetic coordinates or an explicit
+negligible-axis-error review are supported. No reported/extracted error bar is
+silently reinterpreted as one sigma.
+
+The declared objective is linear absorption GLS, with residual sign prediction
+minus observation. Independent observable errors divide residuals by their
+standard uncertainty. Full covariance uses Cholesky whitening of the symmetrized
+matrix and requires positive definiteness. Singular PSD covariance admissible as
+source evidence in P1 is not silently pseudoinverted or diagonalized by P2.
+Uncertainty remains fixed throughout optimization; no residual-dependent weights
+or robust-loss substitution is introduced. Bounds, solver tolerances and model
+assumption review are owned snapshots. There is no validation-dataset argument;
+P2 neither reads a holdout nor proves that a user's declarations were chosen
+before inspecting one.
+
+A successful result is FITTED, with mode-specific `fitted` or `diagnostic_fitted`
+status and scientific status `training_only_not_calibrated`. Training quality or
+local identifiability does not create CALIBRATED provenance, validate a device or
+establish parameter uncertainty from experimental replication. The retained old
+linearized diagnostics scale covariance by objective SSE/residual degrees of
+freedom; they are conditional model-based fit estimates, not source-reported
+measurement uncertainty or a new absolute-error likelihood calibration.
+
+Unsuccessful optimizer termination retains the numerical trace and predictions;
+model/optimizer/dependency exceptions retain context, stage/type/message and no
+invented numerical result. Result archives preserve the training package, spec,
+mode, runtime, full numerical result, stored predictions/residuals and diagnostics.
+Readers verify source/spec/solver identities, reconstruct weighted residuals and
+local diagnostics from stored observations/Jacobian, and reject inconsistent
+summaries. They do not optimize, evaluate optical predictions or replay RNG.
+Stored predictions/Jacobian remain authoritative evidence: coherent replacements
+represent different evidence, not authenticated/replayed solver trajectories.
+
+```bash
+python examples/phase_p2_optical_training_reference.py --output optical-training.json
+python examples/phase_p2_optical_training_reference.py --input optical-training.json --output restored-optical-training.json
+```
+
+The example generates eight synthetic coordinates using the existing equations
+and recovers the selected prefactor/Urbach values. It is an exact matched-model
+software exercise, not independent experimental calibration or a universal
+convergence grid. It does not admit a literature dataset or relax Tran2016's
+retained negative qualification. The P1 candidate/data-gap registry remains in
+force; obtaining actual usable independent numerical observations is still a
+separate acquisition task. P3 adds independent evaluation and retained negative
+validation results after the appropriate source admission review.

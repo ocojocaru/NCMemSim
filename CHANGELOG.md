@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase P2 owned pure-Ge direct/Urbach training-fit specification/context,
+  explicit standard-error/GLS objectives, retained optimizer failures and strict
+  no-replay result archives; synthetic recovery is not experimental calibration.
+
 - Add Phase P1 immutable acquisition/uncertainty/data-package/split/gap contracts,
   retained overlap and missing-evidence outcomes, and a source-linked review gate;
   no new independent dataset or calibrated parameter is admitted.
