@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase P3 frozen optical holdout plans/criteria and fixed-parameter
+  evaluation, source-leakage rejection and retained unassessed/failed outcomes;
+  passing diagnostics do not promote calibration.
+
 - Add Phase P2 owned pure-Ge direct/Urbach training-fit specification/context,
   explicit standard-error/GLS objectives, retained optimizer failures and strict
   no-replay result archives; synthetic recovery is not experimental calibration.

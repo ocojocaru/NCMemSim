@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 127 package source modules; 699 explicit export paths; 232 distinct documented Python import paths.
+Coverage: 128 package source modules; 704 explicit export paths; 237 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2638,6 +2638,54 @@ Decorators: `dataclass(frozen=True)`.
 - `from_dict(cls, data)`; `classmethod`.
 
 - `fit_optical_training(context: OpticalTrainingContext)`
+
+## ncmemsim.independent_optical_validation
+
+`ncmemsim/independent_optical_validation.py`
+
+Explicit exports: `OpticalHoldoutCriteria`, `OpticalHoldoutPlan`, `OpticalHoldoutEvaluation`, `review_optical_holdout_admission`, `evaluate_optical_holdout`
+
+### OpticalHoldoutCriteria
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `max_rmse_m_inv: float`; required declaration.
+- Field `max_whitened_rmse: float`; required declaration.
+- Field `max_abs_marginal_standardized_residual: float`; required declaration.
+- Field `min_observations: int`; required declaration.
+- Field `require_local_identifiability: bool`; default expression `True`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### OpticalHoldoutPlan
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `training_context: OpticalTrainingContext`; required declaration.
+- Field `criteria: OpticalHoldoutCriteria`; required declaration.
+- Field `mode: str`; required declaration.
+- Field `predeclaration_evidence: str`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `review_optical_holdout_admission(split: IndependentStudySplit)`
+### OpticalHoldoutEvaluation
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `evaluate_optical_holdout(plan: OpticalHoldoutPlan, training_fit: OpticalTrainingFitResult, split: IndependentStudySplit)`
 
 ## ncmemsim.io
 

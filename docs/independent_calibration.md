@@ -4,7 +4,7 @@
 
 P0 is complete: repository data/code audit, literature candidate screening,
 acquisition requirements and P1-P7 acceptance sequence are defined here.
-P1 admission contracts/source review and P2 owned optical training fit are implemented; P3-P7 remain planned.
+P1 admission/source review, P2 owned optical training fit and P3 fixed-parameter holdout evaluation are implemented; P4-P7 remain planned.
 Target release is indicative v1.7.0, conditional on usable independent data.
 Package/citation remain published v1.6.0 with DOI 10.5281/zenodo.23235484.
 No runtime, parameter, preset, fitting or calibration status changes are made by P0.
@@ -144,9 +144,10 @@ physics scope, not a side effect of parameter calibration.
 
 P0 exact-commit CI/Documentation passed on `fab21a926798e01e940921517acf0fda10006f36`.
 P1 exact-commit CI/Documentation passed on `5496282875a0fef7c55c7912a6e670d7747b7d19`.
-Commit/push P2 and verify exact-commit CI/Documentation. P3 will evaluate declared
-independent holdouts without optimizing against them; acquisition review continues.
-No new admitted experimental dataset or CALIBRATED parameter is claimed by P2.
+P2 exact-commit CI/Documentation passed on `5768212f3050a8068226fe67b82cede0be0e2a8c`.
+Commit/push P3 and verify exact-commit CI/Documentation. Acquisition review continues;
+P4 measured device/photo integration remains conditional on complete measured
+protocols. No new admitted experimental dataset or CALIBRATED parameter is claimed by P3.
 
 
 ## P1 declared-data admission contracts
@@ -319,3 +320,79 @@ retained negative qualification. The P1 candidate/data-gap registry remains in
 force; obtaining actual usable independent numerical observations is still a
 separate acquisition task. P3 adds independent evaluation and retained negative
 validation results after the appropriate source admission review.
+
+
+## P3 fixed-parameter optical holdout evaluation
+
+`ncmemsim.independent_optical_validation` adds `OpticalHoldoutCriteria`,
+`OpticalHoldoutPlan`, `OpticalHoldoutEvaluation`,
+`review_optical_holdout_admission` and `evaluate_optical_holdout`.
+
+```python
+from ncmemsim.independent_optical_validation import (
+    OpticalHoldoutCriteria, OpticalHoldoutPlan, OpticalHoldoutEvaluation,
+    review_optical_holdout_admission, evaluate_optical_holdout,
+)
+```
+
+A plan owns a P2 training context and explicit criteria: maximum raw-alpha RMSE
+(m^-1), maximum GLS-whitened RMSE (dimensionless), maximum absolute marginal
+standardized residual (dimensionless), minimum observation count and a declared
+training-identifiability requirement. Marginal residuals divide each raw residual
+by its pointwise standard uncertainty, not by a Cholesky coordinate; full-covariance
+GLS metrics use the existing P2 whitening. Every validation package must pass
+its own criteria; pooling cannot hide a failed condition. These are caller-declared
+study thresholds, not universal defaults or a new experimental error model.
+
+The plan retains predeclaration evidence and declares selection before training
+and holdout inspection. `timing_authenticated=false`: software hashes cannot
+prove when a human inspected data. Prepare and preserve the plan before fitting;
+changing it creates different evidence, not a retrospective qualification of the
+same preregistered study.
+
+The training fit must belong to the exact plan context, and its single training
+package must match the split source. P3 consumes an already completed P2 result;
+there is no optimizer invocation. Every evaluated row records exactly the fitted
+parameter map, unchanged, on the validation coordinates. A failed training fit
+is `not_assessable` for holdout evaluation, without invented metrics.
+
+`independent_measured` uses P1 admission unchanged: measured declared sources,
+disjoint specimen/acquisition/observation ancestry and assessed shared systematics.
+Known overlap blocks model evaluation and retains `not_admissible`; missing
+information retains `not_assessable`. Eligibility/independence claims remain
+conditional on the declared evidence, not measurement authentication or proof of
+statistical independence. `synthetic_diagnostic` is a separate all-synthetic
+numerical mode: it bypasses only the prohibition on experimental admission of
+synthetic origins, never known overlap, missing observation lineage or unreviewed
+shared-systematic IDs. The original negative P1 synthetic-admission summary remains
+stored. A diagnostic pass is not an independent experiment or CALIBRATED result.
+
+Validation context checks reuse the P2 model/objective restrictions without
+training on those rows. Unsupported domain/temperature/error budgets remain
+unassessed, model/numerical exceptions remain evaluation failures, and completed
+quality failures retain all metrics and failed criteria. Results never change
+the training parameters, promote provenance, create calibrated presets or qualify
+photo/device operation. Any passing measured result is labelled declared holdout
+evidence, not automatic calibration.
+
+Archives own plan, criteria, full P2 result, split/packages, runtime, fixed
+parameters used and stored predictions/outcomes. Readers recompute source links,
+admission, residuals, metrics and criteria outcomes without optimizer, optical or
+RNG replay. Context incompatibility is rechecked; runtime model exceptions remain
+stored evidence, not replayed events. Coherently replaced observations describe
+different evidence and cannot authenticate the historical computation.
+
+```bash
+python examples/phase_p3_optical_holdout_reference.py --output optical-holdout.json
+python examples/phase_p3_optical_holdout_reference.py --input optical-holdout.json --output restored-optical-holdout.json
+```
+
+The example declares its synthetic criteria before fitting/generating validation
+observations. It retains one passing numerical holdout, one deliberately shifted
+failing holdout and the real Tran2016 same-curve admission rejection. That legacy
+rejection uses stored P1 sources, not a fresh fit/prediction or a new measurement.
+The three pending literature acquisitions and visible-only exclusion remain;
+there are still zero newly admitted independent datasets and zero new calibrated
+parameters. P4's experimental device/photo track requires additional data before
+it can claim such qualification; numerical infrastructure alone cannot close that
+experimental acquisition gap.

@@ -18824,6 +18824,330 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.independent_optical_validation",
+      "source": "ncmemsim/independent_optical_validation.py",
+      "explicit_exports": [
+        "OpticalHoldoutCriteria",
+        "OpticalHoldoutPlan",
+        "OpticalHoldoutEvaluation",
+        "review_optical_holdout_admission",
+        "evaluate_optical_holdout"
+      ],
+      "package_import_aliases": {
+        "DataOrigin": "ncmemsim.workflows.evidence.DataOrigin",
+        "IndependentStudySplit": "ncmemsim.independent_data.IndependentStudySplit",
+        "OpticalTrainingContext": "ncmemsim.independent_optical_fit.OpticalTrainingContext",
+        "OpticalTrainingFitResult": "ncmemsim.independent_optical_fit.OpticalTrainingFitResult",
+        "_Archive": "ncmemsim.independent_data._Archive",
+        "_canonical": "ncmemsim.independent_data._canonical",
+        "_constant": "ncmemsim.independent_data._constant",
+        "_keys": "ncmemsim.independent_data._keys",
+        "_match": "ncmemsim.independent_data._match",
+        "_number": "ncmemsim.independent_data._number",
+        "_runtime": "ncmemsim.ensemble.execution._runtime",
+        "_text": "ncmemsim.independent_data._text",
+        "_unique": "ncmemsim.independent_data._unique",
+        "predict_optical_training": "ncmemsim.independent_optical_fit.predict_optical_training"
+      },
+      "public_source_definitions": [
+        {
+          "name": "OpticalHoldoutCriteria",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "max_rmse_m_inv",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "max_whitened_rmse",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "max_abs_marginal_standardized_residual",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "min_observations",
+              "annotation": "int",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "require_local_identifiability",
+              "annotation": "bool",
+              "default_expression": "True",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "OpticalHoldoutPlan",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "training_context",
+              "annotation": "OpticalTrainingContext",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "criteria",
+              "annotation": "OpticalHoldoutCriteria",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "mode",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "predeclaration_evidence",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "review_optical_holdout_admission",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "split",
+              "kind": "positional_or_keyword",
+              "annotation": "IndependentStudySplit",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(split: IndependentStudySplit)",
+          "decorators": []
+        },
+        {
+          "name": "OpticalHoldoutEvaluation",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "evaluate_optical_holdout",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "plan",
+              "kind": "positional_or_keyword",
+              "annotation": "OpticalHoldoutPlan",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "training_fit",
+              "kind": "positional_or_keyword",
+              "annotation": "OpticalTrainingFitResult",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "split",
+              "kind": "positional_or_keyword",
+              "annotation": "IndependentStudySplit",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(plan: OpticalHoldoutPlan, training_fit: OpticalTrainingFitResult, split: IndependentStudySplit)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.io",
       "source": "ncmemsim/io.py",
       "explicit_exports": [
@@ -39053,6 +39377,11 @@
     "ncmemsim.independent_optical_fit.OpticalTrainingFitResult",
     "ncmemsim.independent_optical_fit.fit_optical_training",
     "ncmemsim.independent_optical_fit.predict_optical_training",
+    "ncmemsim.independent_optical_validation.OpticalHoldoutCriteria",
+    "ncmemsim.independent_optical_validation.OpticalHoldoutEvaluation",
+    "ncmemsim.independent_optical_validation.OpticalHoldoutPlan",
+    "ncmemsim.independent_optical_validation.evaluate_optical_holdout",
+    "ncmemsim.independent_optical_validation.review_optical_holdout_admission",
     "ncmemsim.io.load_optical_absorption_csv",
     "ncmemsim.make_ge",
     "ncmemsim.make_gesn",
