@@ -85,3 +85,7 @@ is created. A measured P5B reference still needs adequate source/protocol/error
 inputs, genealogy, model/measurement applicability and predeclared criteria.
 P6 reporting and P7 release scope must preserve these limits; implementing P5A
 does not close the independent-calibration milestone.
+
+P6A [numerical reports/bundles](om2_reporting.md) now owns this study through
+OM2NumericalStudy and preserves the unchanged P5A archive format. P6B measured
+reports remain conditional on eligible evidence.

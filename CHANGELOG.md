@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add approved Phase P6A owned numerical-study/report contracts, deterministic
+  six-file OM-2 bundles, strict byte/source verification and retained synthetic
+  scope/failures; preserve P5A archive format and leave P6B measured reports conditional.
+
 - Add approved Phase P5A assumed OM-2 timestep/sensitivity reference, retained
   zero-photo and out-of-range controls, power/capture confounding check and
   strict no-replay study restoration; P5B measured validation remains conditional.

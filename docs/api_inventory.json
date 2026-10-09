@@ -25151,6 +25151,310 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.om2_numerics",
+      "source": "ncmemsim/om2_numerics.py",
+      "explicit_exports": [
+        "OM2NumericalStudy"
+      ],
+      "package_import_aliases": {
+        "OM2SweepPrediction": "ncmemsim.om2_sweep.OM2SweepPrediction",
+        "_Archive": "ncmemsim.independent_data._Archive",
+        "_canonical": "ncmemsim.independent_data._canonical",
+        "_constant": "ncmemsim.independent_data._constant",
+        "_keys": "ncmemsim.independent_data._keys",
+        "_match": "ncmemsim.independent_data._match",
+        "_unique": "ncmemsim.independent_data._unique",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash"
+      },
+      "public_source_definitions": [
+        {
+          "name": "specification",
+          "kind": "function",
+          "parameters": [],
+          "return_annotation": null,
+          "source_signature": "()",
+          "decorators": []
+        },
+        {
+          "name": "summarize",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "results",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "spec",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(results, spec)",
+          "decorators": []
+        },
+        {
+          "name": "restore_study",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "raw",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(raw)",
+          "decorators": []
+        },
+        {
+          "name": "OM2NumericalStudy",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        }
+      ],
+      "public_assignments": [
+        {
+          "name": "LABELS",
+          "expression": "('dt', 'dt_half', 'dt_quarter', 'capture_zero', 'capture_low', 'capture_high', 'power_zero', 'power_low', 'power_high', 'equal_product', 'reference_low', 'reference_high', 'reference_outside')"
+        }
+      ]
+    },
+    {
+      "module": "ncmemsim.om2_reporting",
+      "source": "ncmemsim/om2_reporting.py",
+      "explicit_exports": [
+        "OM2NumericalReport",
+        "build_om2_numerical_report",
+        "write_om2_numerical_report",
+        "load_om2_numerical_report_bundle"
+      ],
+      "package_import_aliases": {
+        "LABELS": "ncmemsim.om2_numerics.LABELS",
+        "OM2NumericalStudy": "ncmemsim.om2_numerics.OM2NumericalStudy",
+        "_Archive": "ncmemsim.independent_data._Archive",
+        "_canonical": "ncmemsim.independent_data._canonical",
+        "_constant": "ncmemsim.independent_data._constant",
+        "_keys": "ncmemsim.independent_data._keys",
+        "_match": "ncmemsim.independent_data._match",
+        "_text": "ncmemsim.independent_data._text",
+        "_unique": "ncmemsim.independent_data._unique",
+        "canonical_hash": "ncmemsim.hashing.canonical_hash"
+      },
+      "public_source_definitions": [
+        {
+          "name": "OM2NumericalReport",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "title",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "study",
+              "annotation": "OM2NumericalStudy",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build_om2_numerical_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "title",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "study",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(title, study)",
+          "decorators": []
+        },
+        {
+          "name": "write_om2_numerical_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "report",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(report, destination)",
+          "decorators": []
+        },
+        {
+          "name": "load_om2_numerical_report_bundle",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(destination)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.om2_sweep",
       "source": "ncmemsim/om2_sweep.py",
       "explicit_exports": [
@@ -40194,6 +40498,11 @@
     "ncmemsim.materials.temperature.ThermalMaterial",
     "ncmemsim.materials.temperature.profile_from_reviewed_record",
     "ncmemsim.materials.temperature.reviewed_varshni_coefficients",
+    "ncmemsim.om2_numerics.OM2NumericalStudy",
+    "ncmemsim.om2_reporting.OM2NumericalReport",
+    "ncmemsim.om2_reporting.build_om2_numerical_report",
+    "ncmemsim.om2_reporting.load_om2_numerical_report_bundle",
+    "ncmemsim.om2_reporting.write_om2_numerical_report",
     "ncmemsim.om2_sweep.OM2SweepExperiment",
     "ncmemsim.om2_sweep.OM2SweepPrediction",
     "ncmemsim.om2_sweep.OM2SweepProtocol",

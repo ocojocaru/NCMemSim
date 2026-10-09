@@ -67,6 +67,7 @@ nav:
       - Independent experimental calibration planning: independent_calibration.md
       - Device/photo qualification protocol: device_photo_qualification.md
       - OM-2 numerical diagnostics: om2_numerical_study.md
+      - OM-2 numerical reports: om2_reporting.md
       - Device-level calibration and pulse protocols: device_calibration.md
       - Validation overview: validation.md
       - Reproducibility and benchmarks: reproducibility.md

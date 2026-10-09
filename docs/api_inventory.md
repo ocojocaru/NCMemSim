@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 130 package source modules; 713 explicit export paths; 246 distinct documented Python import paths.
+Coverage: 132 package source modules; 718 explicit export paths; 251 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3566,6 +3566,48 @@ Decorators: `dataclass(frozen=True)`.
 
 - `reviewed_varshni_coefficients() -> tuple[VarshniCoefficientRecord, ...]`
 - `profile_from_reviewed_record(record: VarshniCoefficientRecord, *, name: str, domain: TemperatureDomain, reference_temperature_K: float, reference_gap_eV: float, reference_evidence: ThermalEvidence) -> AnchoredVarshniProfile`
+
+## ncmemsim.om2_numerics
+
+`ncmemsim/om2_numerics.py`
+
+Explicit exports: `OM2NumericalStudy`
+
+- `specification()`
+- `summarize(results, spec)`
+- `restore_study(raw)`
+### OM2NumericalStudy
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+
+## ncmemsim.om2_reporting
+
+`ncmemsim/om2_reporting.py`
+
+Explicit exports: `OM2NumericalReport`, `build_om2_numerical_report`, `write_om2_numerical_report`, `load_om2_numerical_report_bundle`
+
+### OM2NumericalReport
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `title: str`; required declaration.
+- Field `study: OM2NumericalStudy`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `build_om2_numerical_report(title, study)`
+- `write_om2_numerical_report(report, destination)`
+- `load_om2_numerical_report_bundle(destination)`
 
 ## ncmemsim.om2_sweep
 
