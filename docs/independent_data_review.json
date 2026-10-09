@@ -1,0 +1,404 @@
+{
+  "schema_version": "independent-data-review-v1",
+  "status": "P1_contracts_reviewed_no_new_independent_data_admitted",
+  "implementation_baseline": "fab21a926798e01e940921517acf0fda10006f36",
+  "source_sha256": {
+    "ncmemsim/independent_data.py": "0d452c9103a0908c9503f2e309ce623fd197b24190e60686144c0d77cb3f2a9a",
+    "ncmemsim/experimental.py": "7c7e4b0109011c320420c13c36e470e936a6542aa1cdc6b1118d2ced61ac98ce",
+    "ncmemsim/io.py": "9396778389fbb4eb191cb17d94fd7d7e998ab725aac25c1d75d58abb318ed70c",
+    "ncmemsim/workflows/evidence.py": "557ea89be406cb1cb4aa0b3b7305c8e8efb675558776c8474afdf2bf41e80f07"
+  },
+  "p0_audit_sha256": "fd90171d4e31c4d990a95e0fb2e63657fc48ca29caefe7e7d24c4757c0e498f9",
+  "legacy_artifact_sha256": {
+    "data/reference/tran2016/README.md": "0d95c49dc1fc50d809a67972297bd90ae3772a7ed9001de0e88d987aad11f2d5",
+    "data/reference/tran2016/tran2016_sampleA_fig6a_digitization_audit.csv": "9d50bdca0fa6f60b5918ec606b618c436de8bc04f5274ab7dc01470cd52d94c9",
+    "data/reference/tran2016/tran2016_sampleA_fig6a_fit.csv": "17d325ad8a595357300eb0d8db20f5dbd251d383680acb912333bb2c17bdd89c",
+    "data/reference/tran2016/tran2016_sampleA_fig6a_metadata.json": "87cfe4a6f2c1f4f884ac42b1be9e0e4f882d6085b07b00c2354d077c622f1631",
+    "data/reference/tran2016/tran2016_sampleA_fig6a_near_edge_all.csv": "8175449c5e5c2c9ed365c2fc71b5d8315051adfcf25a1162b04384d5b74bf145",
+    "data/reference/tran2016/tran2016_sampleA_fig6a_validation.csv": "01925188e5ec2cf9fd8af09be31558ca79213a5273b73188937396d7e0a49cd6",
+    "data/reference/tran2016/tran2016_sampleA_fig6a_workflow_result.json": "2fa3e83439a53398039c4c53d3e8e6982d7daf06dc5395b027328bd5346bbac1"
+  },
+  "legacy_split": {
+    "schema_version": "independent-study-split-v1",
+    "name": "Tran2016 same-curve holdout rejection",
+    "training": [
+      {
+        "schema_version": "experimental-data-package-v1",
+        "name": "Tran2016 fit",
+        "dataset_evidence": {
+          "applicability": "legacy bulk/film Ge digitized holdout only",
+          "dataset": {
+            "absorption_coefficient_m_inv": [
+              78195.510301,
+              205890.526241,
+              423909.087958,
+              611453.783124
+            ],
+            "absorption_uncertainty_m_inv": [
+              3909.775515,
+              10294.526312,
+              21195.454398,
+              30572.689156
+            ],
+            "dataset_type": "optical_absorption",
+            "metadata": {
+              "dataset_id": "tran2016_sampleA_fig6a-fit",
+              "doi": "10.1063/1.4943652",
+              "notes": "Same published curve; digitized model-derived experimental observations, not independent acquisition.",
+              "sample_id": "A",
+              "source": "H. Tran et al., Systematic study of Ge1-xSnx absorption coefficient and refractive index for the device applications of Si-based optoelectronics, J. Appl. Phys. 119, 103106 (2016).",
+              "temperature_K": null,
+              "temperature_description": "room temperature"
+            },
+            "schema_version": 1,
+            "sn_fraction": 0.0,
+            "wavelength_nm": [
+              1559.938218,
+              1539.797607,
+              1519.709228,
+              1499.689107
+            ]
+          },
+          "dataset_hash": "a2a816078da84889faeef71a439af7c119158f606d1d4e8a2367eeadf28c41a8",
+          "origin": "measured",
+          "schema_version": "workflow-dataset-evidence-v1",
+          "source": "H. Tran et al., Systematic study of Ge1-xSnx absorption coefficient and refractive index for the device applications of Si-based optoelectronics, J. Appl. Phys. 119, 103106 (2016).",
+          "evidence_hash": "ec34082cd8dccf9ffa49c66f3bc5a25cd1c6d60729ffde744f9312a92741766f"
+        },
+        "lineage": {
+          "schema_version": "acquisition-lineage-v1",
+          "study_id": "10.1063/1.4943652",
+          "specimen_id": "10.1063/1.4943652/sample-A",
+          "acquisition_id": null,
+          "acquisition_roots": [],
+          "observation_groups": [
+            "10.1063/1.4943652/figure6a"
+          ],
+          "observation_ids": [
+            "10.1063/1.4943652/figure6a/P02",
+            "10.1063/1.4943652/figure6a/P04",
+            "10.1063/1.4943652/figure6a/P06",
+            "10.1063/1.4943652/figure6a/P08"
+          ],
+          "observation_artifact_sha256": [
+            "8175449c5e5c2c9ed365c2fc71b5d8315051adfcf25a1162b04384d5b74bf145"
+          ],
+          "data_kind": "digitized",
+          "source_locator": "Figure 6(a); repository metadata/digitization audit",
+          "source_doi": "10.1063/1.4943652",
+          "transformations": [
+            "spectroscopic ellipsometry measurement",
+            "Johs-Herzinger optical-model extraction of absorption coefficient",
+            "published Figure 6(a) marker symbols",
+            "NCMemSim 600-dpi figure digitization"
+          ],
+          "shared_systematic_ids": [
+            "10.1063/1.4943652/figure6a/optical-extraction",
+            "10.1063/1.4943652/figure6a/digitization-axis-map"
+          ],
+          "redistribution_terms": null,
+          "temperature_K": null,
+          "temperature_standard_uncertainty_K": null,
+          "material_description": "Repository metadata: pure Ge film",
+          "specimen_characterization": "Repository metadata: Sample A, nominal 300 nm film; no new specimen verification",
+          "measurement_geometry": null,
+          "instrument_and_calibration": null
+        },
+        "uncertainty": {
+          "schema_version": "uncertainty-budget-v1",
+          "covariance_unit": "(m^-1)^2",
+          "observable_unit": "m^-1",
+          "independent_unit": "nm",
+          "observable_origin": "estimated",
+          "standard_uncertainty": null,
+          "independent_policy": "unresolved",
+          "independent_standard_uncertainty": null,
+          "correlation_policy": "unresolved",
+          "covariance": null,
+          "sources": [
+            "repository 5% digitization estimate"
+          ],
+          "notes": "Legacy uncertainty is a digitization estimate, not a reported experimental standard deviation; no standard-error conversion is declared.",
+          "missing_components": [
+            "experimental_measurement_error_budget",
+            "wavelength_uncertainty",
+            "source_covariance_review"
+          ],
+          "legacy_uncertainty_role": "unknown"
+        },
+        "applicability": "legacy disjoint holdout; not independent experimental qualification",
+        "reviewer": "P1 repository audit",
+        "review_notes": "Identity/source inspection only; incomplete acquisition and uncertainty evidence retained.",
+        "acquisition_gaps": [
+          "exact_measurement_temperature_missing",
+          "redistribution_terms_not_reviewed",
+          "original_raw_measurements_not_available"
+        ],
+        "summary": {
+          "status": "not_assessable",
+          "dataset_id": "tran2016_sampleA_fig6a-fit",
+          "dataset_hash": "a2a816078da84889faeef71a439af7c119158f606d1d4e8a2367eeadf28c41a8",
+          "n_observations": 4,
+          "negative_reasons": [],
+          "acquisition_gaps": [
+            "acquisition_id_missing",
+            "acquisition_roots_missing",
+            "correlation_unresolved",
+            "exact_measurement_temperature_missing",
+            "experimental_measurement_error_budget",
+            "independent_axis_uncertainty_unresolved",
+            "instrument_and_calibration_missing",
+            "legacy_uncertainty_interpretation_unresolved",
+            "measurement_geometry_missing",
+            "original_raw_measurements_not_available",
+            "positive_observable_standard_uncertainty_missing",
+            "redistribution_terms_missing",
+            "redistribution_terms_not_reviewed",
+            "source_covariance_review",
+            "temperature_K_missing",
+            "temperature_standard_uncertainty_K_missing",
+            "wavelength_uncertainty"
+          ],
+          "uncertainty_origin": "estimated",
+          "scientific_status": "declared_evidence_not_calibrated"
+        }
+      }
+    ],
+    "validation": [
+      {
+        "schema_version": "experimental-data-package-v1",
+        "name": "Tran2016 validation",
+        "dataset_evidence": {
+          "applicability": "legacy bulk/film Ge digitized holdout only",
+          "dataset": {
+            "absorption_coefficient_m_inv": [
+              50118.723363,
+              128555.573191,
+              309677.099694,
+              530884.444231
+            ],
+            "absorption_uncertainty_m_inv": [
+              2505.936168,
+              6427.77866,
+              15483.854985,
+              26544.222212
+            ],
+            "dataset_type": "optical_absorption",
+            "metadata": {
+              "dataset_id": "tran2016_sampleA_fig6a-validation",
+              "doi": "10.1063/1.4943652",
+              "notes": "Same published curve; digitized model-derived experimental observations, not independent acquisition.",
+              "sample_id": "A",
+              "source": "H. Tran et al., Systematic study of Ge1-xSnx absorption coefficient and refractive index for the device applications of Si-based optoelectronics, J. Appl. Phys. 119, 103106 (2016).",
+              "temperature_K": null,
+              "temperature_description": "room temperature"
+            },
+            "schema_version": 1,
+            "sn_fraction": 0.0,
+            "wavelength_nm": [
+              1569.961328,
+              1549.80248,
+              1529.453929,
+              1509.632796
+            ]
+          },
+          "dataset_hash": "2b3b2cf27e6e9da00df604125c537e9592de3088886e9ed4f4422a099d000789",
+          "origin": "measured",
+          "schema_version": "workflow-dataset-evidence-v1",
+          "source": "H. Tran et al., Systematic study of Ge1-xSnx absorption coefficient and refractive index for the device applications of Si-based optoelectronics, J. Appl. Phys. 119, 103106 (2016).",
+          "evidence_hash": "01c8499029889228acdf71f5145c158ff3388162970b59eb55646e37d71a5e02"
+        },
+        "lineage": {
+          "schema_version": "acquisition-lineage-v1",
+          "study_id": "10.1063/1.4943652",
+          "specimen_id": "10.1063/1.4943652/sample-A",
+          "acquisition_id": null,
+          "acquisition_roots": [],
+          "observation_groups": [
+            "10.1063/1.4943652/figure6a"
+          ],
+          "observation_ids": [
+            "10.1063/1.4943652/figure6a/P01",
+            "10.1063/1.4943652/figure6a/P03",
+            "10.1063/1.4943652/figure6a/P05",
+            "10.1063/1.4943652/figure6a/P07"
+          ],
+          "observation_artifact_sha256": [
+            "8175449c5e5c2c9ed365c2fc71b5d8315051adfcf25a1162b04384d5b74bf145"
+          ],
+          "data_kind": "digitized",
+          "source_locator": "Figure 6(a); repository metadata/digitization audit",
+          "source_doi": "10.1063/1.4943652",
+          "transformations": [
+            "spectroscopic ellipsometry measurement",
+            "Johs-Herzinger optical-model extraction of absorption coefficient",
+            "published Figure 6(a) marker symbols",
+            "NCMemSim 600-dpi figure digitization"
+          ],
+          "shared_systematic_ids": [
+            "10.1063/1.4943652/figure6a/optical-extraction",
+            "10.1063/1.4943652/figure6a/digitization-axis-map"
+          ],
+          "redistribution_terms": null,
+          "temperature_K": null,
+          "temperature_standard_uncertainty_K": null,
+          "material_description": "Repository metadata: pure Ge film",
+          "specimen_characterization": "Repository metadata: Sample A, nominal 300 nm film; no new specimen verification",
+          "measurement_geometry": null,
+          "instrument_and_calibration": null
+        },
+        "uncertainty": {
+          "schema_version": "uncertainty-budget-v1",
+          "covariance_unit": "(m^-1)^2",
+          "observable_unit": "m^-1",
+          "independent_unit": "nm",
+          "observable_origin": "estimated",
+          "standard_uncertainty": null,
+          "independent_policy": "unresolved",
+          "independent_standard_uncertainty": null,
+          "correlation_policy": "unresolved",
+          "covariance": null,
+          "sources": [
+            "repository 5% digitization estimate"
+          ],
+          "notes": "Legacy uncertainty is a digitization estimate, not a reported experimental standard deviation; no standard-error conversion is declared.",
+          "missing_components": [
+            "experimental_measurement_error_budget",
+            "wavelength_uncertainty",
+            "source_covariance_review"
+          ],
+          "legacy_uncertainty_role": "unknown"
+        },
+        "applicability": "legacy disjoint holdout; not independent experimental qualification",
+        "reviewer": "P1 repository audit",
+        "review_notes": "Identity/source inspection only; incomplete acquisition and uncertainty evidence retained.",
+        "acquisition_gaps": [
+          "exact_measurement_temperature_missing",
+          "redistribution_terms_not_reviewed",
+          "original_raw_measurements_not_available"
+        ],
+        "summary": {
+          "status": "not_assessable",
+          "dataset_id": "tran2016_sampleA_fig6a-validation",
+          "dataset_hash": "2b3b2cf27e6e9da00df604125c537e9592de3088886e9ed4f4422a099d000789",
+          "n_observations": 4,
+          "negative_reasons": [],
+          "acquisition_gaps": [
+            "acquisition_id_missing",
+            "acquisition_roots_missing",
+            "correlation_unresolved",
+            "exact_measurement_temperature_missing",
+            "experimental_measurement_error_budget",
+            "independent_axis_uncertainty_unresolved",
+            "instrument_and_calibration_missing",
+            "legacy_uncertainty_interpretation_unresolved",
+            "measurement_geometry_missing",
+            "original_raw_measurements_not_available",
+            "positive_observable_standard_uncertainty_missing",
+            "redistribution_terms_missing",
+            "redistribution_terms_not_reviewed",
+            "source_covariance_review",
+            "temperature_K_missing",
+            "temperature_standard_uncertainty_K_missing",
+            "wavelength_uncertainty"
+          ],
+          "uncertainty_origin": "estimated",
+          "scientific_status": "declared_evidence_not_calibrated"
+        }
+      }
+    ],
+    "reviewer": "P1 repository audit",
+    "review_notes": "Shared specimen, curve ancestry and observation artifact; hashes alone do not establish independence.",
+    "shared_systematics_assessment": null,
+    "summary": {
+      "status": "not_admissible",
+      "policy": "disjoint_specimen_acquisition_and_observation_lineage-v1",
+      "training_count": 1,
+      "validation_count": 1,
+      "negative_reasons": [
+        "overlapping_observation_artifact_sha256",
+        "overlapping_observation_groups",
+        "shared_specimen_id"
+      ],
+      "acquisition_gaps": [
+        "package_not_assessable:Tran2016 fit",
+        "package_not_assessable:Tran2016 validation",
+        "shared_systematics_review_missing"
+      ],
+      "shared_systematic_ids": [
+        "10.1063/1.4943652/figure6a/digitization-axis-map",
+        "10.1063/1.4943652/figure6a/optical-extraction"
+      ],
+      "statistical_independence_certified": false,
+      "scientific_status": "declared_evidence_not_calibrated"
+    }
+  },
+  "candidate_gaps": [
+    {
+      "schema_version": "acquisition-gap-v1",
+      "candidate_id": "nunley2016",
+      "source_url": "https://doi.org/10.1116/1.4963075",
+      "missing_evidence": [
+        "numerical_observations_or_audited_digitization",
+        "specimen_acquisition_genealogy",
+        "uncertainty_budget_and_units",
+        "redistribution_terms_review"
+      ],
+      "reason": "candidate_pending_tables_sample_uncertainty_and_lineage_review",
+      "decision": "pending",
+      "source_doi": "10.1116/1.4963075"
+    },
+    {
+      "schema_version": "acquisition-gap-v1",
+      "candidate_id": "menendez2018",
+      "source_url": "https://link.aps.org/accepted/10.1103/PhysRevB.98.165207",
+      "missing_evidence": [
+        "numerical_observations_or_audited_digitization",
+        "specimen_acquisition_genealogy",
+        "uncertainty_budget_and_units",
+        "redistribution_terms_review"
+      ],
+      "reason": "candidate_pending_numerical_observations_uncertainty_independence_and_model_domain_review",
+      "decision": "pending",
+      "source_doi": "10.1103/PhysRevB.98.165207"
+    },
+    {
+      "schema_version": "acquisition-gap-v1",
+      "candidate_id": "das2012",
+      "source_url": "https://link.springer.com/article/10.1186/1556-276X-7-143",
+      "missing_evidence": [
+        "numerical_observations_or_audited_digitization",
+        "specimen_acquisition_genealogy",
+        "uncertainty_budget_and_units",
+        "redistribution_terms_review"
+      ],
+      "reason": "candidate_pending_protocol_geometry_and_measured_time_window_review",
+      "decision": "pending",
+      "source_doi": "10.1186/1556-276X-7-143"
+    },
+    {
+      "schema_version": "acquisition-gap-v1",
+      "candidate_id": "zhao2020_ge_nk",
+      "source_url": "https://opticapublishing.figshare.com/articles/dataset/Ge_n_k_csv/12756326",
+      "missing_evidence": [
+        "near_edge_spectral_coverage"
+      ],
+      "reason": "excluded_from_first_near_edge_selection_no_1500_2500_nm_overlap",
+      "decision": "excluded",
+      "source_doi": "10.6084/m9.figshare.12756326.v1"
+    }
+  ],
+  "new_admitted_independent_dataset_count": 0,
+  "new_calibrated_parameter_count": 0,
+  "legacy_qualification": {
+    "calibrated": false,
+    "failed_criteria": [
+      "validation_rmse"
+    ]
+  },
+  "scientific_limits": [
+    "declared genealogy/reviewer evidence is not measurement authentication",
+    "eligible-for-study status is not CALIBRATED or numerical qualification",
+    "no new observation acquisition or fitting claimed by this review"
+  ]
+}

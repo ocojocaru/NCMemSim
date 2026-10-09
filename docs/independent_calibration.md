@@ -4,6 +4,7 @@
 
 P0 is complete: repository data/code audit, literature candidate screening,
 acquisition requirements and P1-P7 acceptance sequence are defined here.
+P1 admission contracts and the source/data-gap review are implemented; P2-P7 remain planned.
 Target release is indicative v1.7.0, conditional on usable independent data.
 Package/citation remain published v1.6.0 with DOI 10.5281/zenodo.23235484.
 No runtime, parameter, preset, fitting or calibration status changes are made by P0.
@@ -141,6 +142,97 @@ physics scope, not a side effect of parameter calibration.
 
 ## Next action
 
-Commit/push P0 on a development branch, then verify exact-commit CI/Documentation.
-P1 begins with acquisition/traceability review of the optical candidates. No
-literature curve or numerical parameter is selected as calibrated by P0.
+P0 exact-commit CI/Documentation passed on `fab21a926798e01e940921517acf0fda10006f36`.
+Commit/push P1 and verify exact-commit CI/Documentation. P2 is the owned existing-model
+optical fitting adapter; acquisition review continues and no new experimental
+fit or CALIBRATED parameter is claimed by P1.
+
+
+## P1 declared-data admission contracts
+
+`ncmemsim.independent_data` adds five separate contracts: `AcquisitionLineage`,
+`UncertaintyBudget`, `ExperimentalDataPackage`, `IndependentStudySplit` and
+`AcquisitionGap`. Existing datasets, fit/calibration classes, enums and archive
+readers retain their semantics. Package/citation remain published v1.6.0.
+
+```python
+from ncmemsim.independent_data import (
+    AcquisitionLineage, UncertaintyBudget, ExperimentalDataPackage,
+    IndependentStudySplit, AcquisitionGap,
+)
+```
+
+A data package owns existing `DatasetEvidence` alongside source DOI/locator,
+globally scoped study/specimen/acquisition IDs, acquisition roots, observation
+parent groups, ordered row identities and ancestor observation-artifact hashes.
+IDs must refer to original observations, not just renamed files or derived
+parameter tables. Transformations, material/specimen characterization, temperature
+and its standard uncertainty, measurement geometry, instrument/calibration,
+shared systematic IDs, redistribution terms and reviewer evidence are retained.
+Unknown fields remain null/empty with explicit gaps; they are not invented.
+Observation-artifact hashes describe numerical observation ancestry, not a shared
+paper PDF or archive container containing unrelated experiments.
+
+The uncertainty budget separates reported, estimated, mixed and unknown sources.
+It uses standard uncertainties in the canonical dataset units; an expanded error
+bar must be explicitly converted and recorded before being supplied as a standard
+uncertainty. The legacy uncertainty array is not silently interpreted as one sigma:
+its role is standard, converted, absent or unknown. A standard declaration must
+match the old array; conversion requires transformation evidence. Independent-axis
+uncertainty must be supplied, explicitly reviewed as negligible, or unresolved.
+Observable correlations are declared independent, supplied as covariance, or
+unresolved. Covariance has squared observable units, matching diagonal standard
+uncertainties, symmetry and positive-semidefinite checks with normalized numerical
+roundoff tolerance. Singular PSD covariance is retained; eligibility does not
+promise invertible whitening or parameter identifiability in a later fit.
+
+A package is `not_assessable` when required source/reviewer/measurement/unit/error
+information is missing or unresolved. Synthetic packages are `not_admissible`.
+Complete reviewed declarations can be `eligible_for_independent_study`, not
+CALIBRATED. This is a source-consistency gate; declared origin, artifact hashes
+and reviewer text do not authenticate a laboratory measurement or prove that all
+ancestors/uncertainty components have been disclosed. Reviewers remain responsible
+for that evidence; thresholds and model fit quality belong to later stages.
+
+The first split policy requires disjoint specimens, acquisitions/roots and
+observation ancestry across training and validation. Same dataset hashes/IDs,
+shared specimens/acquisitions, parent groups, row IDs or ancestor observation
+hashes produce a retained `not_admissible` result even when metadata or transforms
+changed the dataset hash. This strict specimen-held-out policy is scoped to the
+first independent-study track, not a universal definition of every condition
+holdout. Shared systematic IDs require a separate assessment. Even with that
+assessment, `statistical_independence_certified` remains false; later objectives
+must handle any statistical dependence explicitly. Known overlap takes priority
+over missing evidence; gaps alone produce `not_assessable`, not a false model
+failure. Neither outcome promotes old fitted/calibrated records.
+
+Archives are immutable, reject unknown schemas/fields, duplicate JSON keys,
+nonfinite numbers, unit/source/row-count mismatches and tampered derived summaries.
+Restoration rebuilds admission results only; it does not fit, simulate, evaluate
+an optical model or replay a random generator.
+
+## P1 repository review and acquisition gaps
+
+[independent_data_review.json](independent_data_review.json) retains the complete
+existing Tran2016 fit/validation snapshots, declared same-curve lineage,
+unresolved uncertainty interpretation and the negative split result. The 5%
+digitization estimate is not converted into an invented experimental standard
+deviation. Original acquisition ID, exact temperature, calibration/error budget
+and redistribution review remain gaps. Existing stored failed qualification is
+preserved separately; no fresh fit is run to create this review.
+
+The four literature candidates from P0 remain three pending acquisition reviews
+and one visible-only dataset excluded from the initial near-edge selection.
+Candidate gap records can be pending/excluded, never admitted. Source screening
+is inherited from P0, not claimed as newly acquired measurements. Counts are
+explicit: zero new admitted independent datasets and zero new calibrated
+parameters. Complete synthetic declarations in unit tests test mechanics only;
+they do not change these repository admission counts.
+
+```bash
+python scripts/validate_independent_data_review.py
+```
+
+This CI gate checks current source/P0/legacy-data identities, typed restoration,
+negative split accounting and the unchanged no-admission counts. Deliberate review
+regeneration is separate from experimental approval.

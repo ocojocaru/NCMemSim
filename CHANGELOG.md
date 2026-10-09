@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase P1 immutable acquisition/uncertainty/data-package/split/gap contracts,
+  retained overlap and missing-evidence outcomes, and a source-linked review gate;
+  no new independent dataset or calibrated parameter is admitted.
+
 - Define Phase P0 repository/literature data audit, acquisition/independence and
   uncertainty requirements, and conditional P1-P7 scope; no runtime, fitting or
   calibration-status change.

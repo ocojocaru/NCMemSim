@@ -17852,6 +17852,639 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.independent_data",
+      "source": "ncmemsim/independent_data.py",
+      "explicit_exports": [
+        "AcquisitionLineage",
+        "UncertaintyBudget",
+        "ExperimentalDataPackage",
+        "IndependentStudySplit",
+        "AcquisitionGap"
+      ],
+      "package_import_aliases": {
+        "DataOrigin": "ncmemsim.workflows.evidence.DataOrigin",
+        "DatasetEvidence": "ncmemsim.workflows.evidence.DatasetEvidence"
+      },
+      "public_source_definitions": [
+        {
+          "name": "AcquisitionLineage",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "study_id",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "specimen_id",
+              "annotation": "str | None",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "acquisition_id",
+              "annotation": "str | None",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "acquisition_roots",
+              "annotation": "tuple[str, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "observation_groups",
+              "annotation": "tuple[str, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "observation_ids",
+              "annotation": "tuple[str, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "observation_artifact_sha256",
+              "annotation": "tuple[str, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "data_kind",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "source_locator",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "source_doi",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "transformations",
+              "annotation": "tuple[str, ...]",
+              "default_expression": "()",
+              "required_in_source": false
+            },
+            {
+              "name": "shared_systematic_ids",
+              "annotation": "tuple[str, ...]",
+              "default_expression": "()",
+              "required_in_source": false
+            },
+            {
+              "name": "redistribution_terms",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "temperature_K",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "temperature_standard_uncertainty_K",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "material_description",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "specimen_characterization",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "measurement_geometry",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "instrument_and_calibration",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "UncertaintyBudget",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "observable_unit",
+              "annotation": "str | None",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "independent_unit",
+              "annotation": "str | None",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "observable_origin",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "standard_uncertainty",
+              "annotation": "tuple[float, ...] | None",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "independent_policy",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "independent_standard_uncertainty",
+              "annotation": "tuple[float, ...] | None",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "correlation_policy",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "covariance",
+              "annotation": "tuple[tuple[float, ...], ...] | None",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "sources",
+              "annotation": "tuple[str, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "notes",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "missing_components",
+              "annotation": "tuple[str, ...]",
+              "default_expression": "()",
+              "required_in_source": false
+            },
+            {
+              "name": "legacy_uncertainty_role",
+              "annotation": "str",
+              "default_expression": "'unknown'",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ExperimentalDataPackage",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "dataset_evidence",
+              "annotation": "DatasetEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "lineage",
+              "annotation": "AcquisitionLineage",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "uncertainty",
+              "annotation": "UncertaintyBudget",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "applicability",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "reviewer",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "review_notes",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "acquisition_gaps",
+              "annotation": "tuple[str, ...]",
+              "default_expression": "()",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "IndependentStudySplit",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "training",
+              "annotation": "tuple[ExperimentalDataPackage, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "validation",
+              "annotation": "tuple[ExperimentalDataPackage, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "reviewer",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "review_notes",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "shared_systematics_assessment",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "AcquisitionGap",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "candidate_id",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "source_url",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "missing_evidence",
+              "annotation": "tuple[str, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "reason",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "decision",
+              "annotation": "str",
+              "default_expression": "'pending'",
+              "required_in_source": false
+            },
+            {
+              "name": "source_doi",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.io",
       "source": "ncmemsim/io.py",
       "explicit_exports": [
@@ -38071,6 +38704,11 @@
     "ncmemsim.fit_diagnostics.analyze_fit_uncertainty",
     "ncmemsim.fitting.FitParameter",
     "ncmemsim.fitting.FitParameterSet",
+    "ncmemsim.independent_data.AcquisitionGap",
+    "ncmemsim.independent_data.AcquisitionLineage",
+    "ncmemsim.independent_data.ExperimentalDataPackage",
+    "ncmemsim.independent_data.IndependentStudySplit",
+    "ncmemsim.independent_data.UncertaintyBudget",
     "ncmemsim.io.load_optical_absorption_csv",
     "ncmemsim.make_ge",
     "ncmemsim.make_gesn",

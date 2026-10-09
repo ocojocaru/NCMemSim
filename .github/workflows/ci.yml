@@ -38,6 +38,7 @@ jobs:
           python scripts/validate_v1_6_api_review.py
           python scripts/validate_v1_6_release_identity.py
           python scripts/validate_structural_parameters.py
+          python scripts/validate_independent_data_review.py
       - name: Compile package
         run: python -m compileall -q ncmemsim
       - name: Run test suite

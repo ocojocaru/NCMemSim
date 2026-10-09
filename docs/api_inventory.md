@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 125 package source modules; 689 explicit export paths; 222 distinct documented Python import paths.
+Coverage: 126 package source modules; 694 explicit export paths; 227 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2484,6 +2484,111 @@ No explicit export list; documented entry points need individual approval.
 Explicit exports: `canonical_hash`
 
 - `canonical_hash(value: Any) -> str`
+
+## ncmemsim.independent_data
+
+`ncmemsim/independent_data.py`
+
+Explicit exports: `AcquisitionLineage`, `UncertaintyBudget`, `ExperimentalDataPackage`, `IndependentStudySplit`, `AcquisitionGap`
+
+### AcquisitionLineage
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `study_id: str`; required declaration.
+- Field `specimen_id: str | None`; required declaration.
+- Field `acquisition_id: str | None`; required declaration.
+- Field `acquisition_roots: tuple[str, ...]`; required declaration.
+- Field `observation_groups: tuple[str, ...]`; required declaration.
+- Field `observation_ids: tuple[str, ...]`; required declaration.
+- Field `observation_artifact_sha256: tuple[str, ...]`; required declaration.
+- Field `data_kind: str`; required declaration.
+- Field `source_locator: str`; required declaration.
+- Field `source_doi: str | None`; default expression `None`.
+- Field `transformations: tuple[str, ...]`; default expression `()`.
+- Field `shared_systematic_ids: tuple[str, ...]`; default expression `()`.
+- Field `redistribution_terms: str | None`; default expression `None`.
+- Field `temperature_K: float | None`; default expression `None`.
+- Field `temperature_standard_uncertainty_K: float | None`; default expression `None`.
+- Field `material_description: str | None`; default expression `None`.
+- Field `specimen_characterization: str | None`; default expression `None`.
+- Field `measurement_geometry: str | None`; default expression `None`.
+- Field `instrument_and_calibration: str | None`; default expression `None`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### UncertaintyBudget
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `observable_unit: str | None`; required declaration.
+- Field `independent_unit: str | None`; required declaration.
+- Field `observable_origin: str`; required declaration.
+- Field `standard_uncertainty: tuple[float, ...] | None`; required declaration.
+- Field `independent_policy: str`; required declaration.
+- Field `independent_standard_uncertainty: tuple[float, ...] | None`; required declaration.
+- Field `correlation_policy: str`; required declaration.
+- Field `covariance: tuple[tuple[float, ...], ...] | None`; required declaration.
+- Field `sources: tuple[str, ...]`; required declaration.
+- Field `notes: str`; required declaration.
+- Field `missing_components: tuple[str, ...]`; default expression `()`.
+- Field `legacy_uncertainty_role: str`; default expression `'unknown'`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### ExperimentalDataPackage
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `dataset_evidence: DatasetEvidence`; required declaration.
+- Field `lineage: AcquisitionLineage`; required declaration.
+- Field `uncertainty: UncertaintyBudget`; required declaration.
+- Field `applicability: str`; required declaration.
+- Field `reviewer: str | None`; default expression `None`.
+- Field `review_notes: str | None`; default expression `None`.
+- Field `acquisition_gaps: tuple[str, ...]`; default expression `()`.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### IndependentStudySplit
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `training: tuple[ExperimentalDataPackage, ...]`; required declaration.
+- Field `validation: tuple[ExperimentalDataPackage, ...]`; required declaration.
+- Field `reviewer: str | None`; default expression `None`.
+- Field `review_notes: str | None`; default expression `None`.
+- Field `shared_systematics_assessment: str | None`; default expression `None`.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### AcquisitionGap
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `candidate_id: str`; required declaration.
+- Field `source_url: str`; required declaration.
+- Field `missing_evidence: tuple[str, ...]`; required declaration.
+- Field `reason: str`; required declaration.
+- Field `decision: str`; default expression `'pending'`.
+- Field `source_doi: str | None`; default expression `None`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
 
 ## ncmemsim.io
 
