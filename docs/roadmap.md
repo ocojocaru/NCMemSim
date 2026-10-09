@@ -447,7 +447,7 @@ optical/device literature candidates are screened, not admitted or calibrated.
 First scope is an opt-in bulk-Ge optical study using existing equations;
 independent numerical observations and specimen/acquisition provenance must be
 acquired before fitting. Device/photo qualification remains conditional on complete
-measured protocols. P1 admission/source/uncertainty contracts, explicit acquisition gaps and P2 owned direct/Urbach training fit and P3 fixed-parameter holdout evaluation are implemented; P4-P7 are planned. v1.7 delivery and successful calibration
+measured protocols. P1 admission/source/uncertainty contracts, explicit acquisition gaps and P2 owned direct/Urbach training fit and P3 fixed-parameter holdout evaluation and P4A fixed-input device/photo diagnostics are implemented. P4B experimental qualification remains conditional; P5-P7 are planned. v1.7 delivery and successful calibration
 are not promised by dataset discovery. Current package/citation remain v1.6.0.
 
 ### v1.8.0: Phase Q - Multilevel and neuromorphic/in-memory operation

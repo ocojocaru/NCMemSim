@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase P4A owned device/photo experiment and sample-plane delivery
+  contracts, fixed-input illuminated/matched-dark predictions, signed charge/VFB
+  contrasts and original-state read-roundoff audit; no experimental qualification.
+
 - Add Phase P3 frozen optical holdout plans/criteria and fixed-parameter
   evaluation, source-leakage rejection and retained unassessed/failed outcomes;
   passing diagnostics do not promote calibration.

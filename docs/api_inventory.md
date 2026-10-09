@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 128 package source modules; 704 explicit export paths; 237 distinct documented Python import paths.
+Coverage: 129 package source modules; 709 explicit export paths; 242 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -341,6 +341,61 @@ Decorators: `dataclass(frozen=True)`.
 - `evaluate_memory_window_vs_program_voltage_objective(dataset: DeviceObservableDataset, *, program_voltages_V: np.ndarray | Sequence[float], cv_results: Sequence[CVResult], program_pulse_width_s: float) -> DeviceObjectiveEvaluation`
 - `evaluate_memory_window_vs_programming_time_objective(dataset: DeviceObservableDataset, *, programming_times_s: np.ndarray | Sequence[float], cv_results: Sequence[CVResult], program_voltage_V: float) -> DeviceObjectiveEvaluation`
 - `evaluate_retention_objective(dataset: DeviceObservableDataset, result: RetentionResult, *, retention_gate_voltage_V: float) -> DeviceObjectiveEvaluation`
+
+## ncmemsim.device_photo_experiment
+
+`ncmemsim/device_photo_experiment.py`
+
+Explicit exports: `SamplePlaneIllumination`, `DevicePhotoExperiment`, `DevicePhotoPrediction`, `build_device_photo_experiment`, `predict_device_photo_experiment`
+
+### SamplePlaneIllumination
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `wavelength_nm: float`; required declaration.
+- Field `sample_power_W: float`; required declaration.
+- Field `uniform_spot_area_m2: float`; required declaration.
+- Field `exposure_time_s: float`; required declaration.
+- Field `evidence: SpectralEvidence`; required declaration.
+- Field `delivery_statement: str`; required declaration.
+- `source(self)`; `property`.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### DevicePhotoExperiment
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `illumination: SamplePlaneIllumination`; required declaration.
+- Field `spectral_context: SpectralSimulationContext`; required declaration.
+- Field `protocol: SpectralPulseProtocol`; required declaration.
+- Field `capture_efficiency: float`; required declaration.
+- Field `initial_state_json: str`; required declaration.
+- Field `device_area_m2: float`; required declaration.
+- Field `initial_preparation_evidence: str`; required declaration.
+- Field `assumptions: str`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `build_device_photo_experiment(name, resolution, illumination: SamplePlaneIllumination, protocol: SpectralPulseProtocol, *, capture_efficiency: float, initial_state: DeviceState, device_area_m2: float, initial_preparation_evidence: str, assumptions: str, direction: str, passive_layers: tuple, wavelength_min_nm: float, wavelength_max_nm: float, evidence: SpectralEvidence)`
+### DevicePhotoPrediction
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `predict_device_photo_experiment(experiment: DevicePhotoExperiment)`
 
 ## ncmemsim.dtco
 

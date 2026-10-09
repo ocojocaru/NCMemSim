@@ -4,7 +4,7 @@
 
 P0 is complete: repository data/code audit, literature candidate screening,
 acquisition requirements and P1-P7 acceptance sequence are defined here.
-P1 admission/source review, P2 owned optical training fit and P3 fixed-parameter holdout evaluation are implemented; P4-P7 remain planned.
+P1 admission/source review, P2 training fit, P3 fixed-parameter holdouts and P4A device/photo diagnostics are implemented. P4B experimental qualification is data-dependent; P5-P7 remain planned.
 Target release is indicative v1.7.0, conditional on usable independent data.
 Package/citation remain published v1.6.0 with DOI 10.5281/zenodo.23235484.
 No runtime, parameter, preset, fitting or calibration status changes are made by P0.
@@ -130,7 +130,8 @@ No successful calibration or v1.7 release is promised by dataset discovery.
 | P1 | Additive source/lineage/split/uncertainty acceptance contracts; reviewed numerical data package or explicit acquisition gaps; preserve old API/archive semantics |
 | P2 | Owned existing-model optical fitting adapter with predeclared bounds/objective and complete source links; no new physics hidden in fitting |
 | P3 | Independent acquisition/holdout evaluation and leakage rejection; retained negatives; reproduce existing Tran2016 limitation |
-| P4 | Conditional multi-condition device/photo qualification adapter only after complete measured protocols are acquired; synthetic demonstrations remain diagnostics |
+| P4A | Reproducible device/photo specification and fixed-input light/dark prediction; synthetic diagnostics only |
+| P4B | Conditional measured device/photo qualification after complete eligible protocols/data are acquired; no automatic promotion from P4A |
 | P5 | Applied measured reference, discretization/identifiability/sensitivity and error-budget checks; model inadequacy may be the outcome |
 | P6 | Strict measured-study reports/bundles with complete source/transform/split/failure evidence and no unrequested optimizer/solver/RNG replay |
 | P7 | v1.7 API/history, tests/docs/installed-distribution and exact-commit release gates; publication and real DOI only after evidence supports the scope |
@@ -145,9 +146,10 @@ physics scope, not a side effect of parameter calibration.
 P0 exact-commit CI/Documentation passed on `fab21a926798e01e940921517acf0fda10006f36`.
 P1 exact-commit CI/Documentation passed on `5496282875a0fef7c55c7912a6e670d7747b7d19`.
 P2 exact-commit CI/Documentation passed on `5768212f3050a8068226fe67b82cede0be0e2a8c`.
-Commit/push P3 and verify exact-commit CI/Documentation. Acquisition review continues;
-P4 measured device/photo integration remains conditional on complete measured
-protocols. No new admitted experimental dataset or CALIBRATED parameter is claimed by P3.
+P3 exact-commit CI/Documentation passed on `ec25f9ac2ad15a280a2711cfb6482e13b51bee01`.
+Commit/push P4A and verify exact-commit CI/Documentation. P4B requires actual admitted
+measured device/photo data; acquisition review continues. No new experimental
+qualification or CALIBRATED parameter is claimed by P4A.
 
 
 ## P1 declared-data admission contracts
@@ -396,3 +398,93 @@ there are still zero newly admitted independent datasets and zero new calibrated
 parameters. P4's experimental device/photo track requires additional data before
 it can claim such qualification; numerical infrastructure alone cannot close that
 experimental acquisition gap.
+
+
+## P4A reproducible device-level electro-optical diagnostic
+
+P4 is separated into P4A software infrastructure and P4B experimental
+qualification. `ncmemsim.device_photo_experiment` adds `SamplePlaneIllumination`,
+`DevicePhotoExperiment`, `DevicePhotoPrediction`, `build_device_photo_experiment`
+and `predict_device_photo_experiment`. P4A reuses the existing owned isothermal
+spectral context, absorption path, photo-transition/occupancy/transport engines
+and pulse/read workflow; it does not add a new physical model or fit a parameter.
+
+```python
+from ncmemsim.device_photo_experiment import (
+    SamplePlaneIllumination, DevicePhotoExperiment, DevicePhotoPrediction,
+    build_device_photo_experiment, predict_device_photo_experiment,
+)
+```
+
+The initial scope is a single monochromatic line, normal incidence, a uniform
+spot declared to cover the whole device, flat-top illumination throughout one
+fixed-voltage program pulse, an explicit timestep/backward-Euler integrator and
+a zero-dwell dark electrostatic read. The explicit initial state and preparation
+evidence are owned snapshots; an empty state is an assumption, not inferred
+experimental preparation. Inputs retain the full device/physics/configuration,
+source, complete passive-layer treatments, optical domain/evidence, pulse/read
+protocol, capture efficiency/weights, device area and model assumptions.
+
+Sample power means incident power at the sample plane before the modeled stack,
+not nominal laser output. For declared uniform spot area A, irradiance is P/A;
+the existing line-spectrum moment computes photon flux from irradiance and
+wavelength. Fluence uses the declared exposure, which must equal the program
+pulse duration. W, m2, nm and s are explicit. Upstream delivery losses must
+already be accounted for in that sample-plane statement; stack attenuation is
+handled once by the existing spectral path. No implicit throughput, spot diameter,
+Gaussian peak/average conversion, duty-cycle or oblique projection is introduced.
+Device area must be positive and no larger than spot area; this inequality does
+not prove alignment or actual coverage, which remain explicit assumptions.
+Incomplete delivery information is not compensated by fitting capture efficiency.
+
+The pipeline links source to per-FG absorption/photon flux, average carrier
+generation and photo-transition rates, occupancy, signed charge and VFB shift.
+The charge sign follows the existing occupancy convention. Charge densities are
+C/m2; the declared device area converts them to total C. Device area does not
+change the per-area simulator or the source irradiance. A matched dark control
+uses the identical device/parameters/pulse/read/initial state with the bound
+source disabled. It reuses the stored alpha path and does not resample an
+illuminated model as a different device. Both the absolute change from the
+initial preparation and the light-minus-dark response contrast are reported.
+That nonlinear response contrast is not stored electrons per absorbed photon
+or a qualification of the assumed capture efficiency.
+
+A zero-dwell read may canonicalize probabilities at numerical roundoff in the
+existing simulator. P4A retains the original programmed and read arrays and times,
+reports their maximum probability difference and rejects changes above the explicit
+1e-12 tolerance. It verifies the actual read-state VFB observable and reuses N6
+source/charge/photo projections on a private comparison view, without editing the
+stored states. Its separate `device-photo-run-evidence-v1` schema does not relax
+or rewrite the existing N6 archive reader. No transient read evolution is modeled.
+
+Prediction archives retain original illuminated and dark state evidence, initial
+preparation, runtime, optical budgets, charge/VFB observables and failures. A dark
+control failure keeps completed illuminated evidence and no invented contrast;
+unrepresentable derived observables can retain completed run sources with a
+failure marker. Readers reconstruct source identities, static optical/charge/read
+projections and contrasts without simulator, optical evaluation or RNG replay.
+Stored trajectories/alpha observations and input delivery statements remain
+authoritative evidence, not authenticated measurements or replayed physics.
+
+```bash
+python examples/phase_p4a_device_photo_reference.py --output device-photo.json
+python examples/phase_p4a_device_photo_reference.py --input device-photo.json --output restored-device-photo.json
+```
+
+The numerical example uses an assumed 1550 nm source, 0.01 W at the sample plane,
+1e-8 m2 uniform spot, 1e-10 m2 device, 2 V/1e-7 s pulse and assumed capture 0.1.
+Tests also exercise dark recovery, zero optical conditions and two/three-FG
+bookkeeping. It is labelled `synthetic_device_photo_diagnostic`, with
+experimental_qualification=false and parameters_fitted=false. This is not a
+measured device reference or a universal convergence timestep. There is no
+new admitted independent device dataset or calibrated parameter.
+
+P4A does not implement Gaussian/partial coverage, time-varying/spectral illumination,
+CV sweep measurement, threshold-voltage extraction, photocurrent, endurance or
+experimental multi-condition capture qualification. Other observables require
+explicit contracts/models. P4B needs admitted measured datasets, complete device
+and pulse/illumination/read protocols, source/uncertainty/initial-preparation
+review, matched controls, frozen parameters and genuine held-out observations.
+Digitized literature data may be usable if that evidence is adequate; a single
+power/wavelength/memory-window number is not an equivalent complete protocol.
+P4A alone does not close the experimental qualification track.

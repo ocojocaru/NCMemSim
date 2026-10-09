@@ -2450,6 +2450,480 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.device_photo_experiment",
+      "source": "ncmemsim/device_photo_experiment.py",
+      "explicit_exports": [
+        "SamplePlaneIllumination",
+        "DevicePhotoExperiment",
+        "DevicePhotoPrediction",
+        "build_device_photo_experiment",
+        "predict_device_photo_experiment"
+      ],
+      "package_import_aliases": {
+        "DeviceState": "ncmemsim.state.DeviceState",
+        "DiscreteLineSpectrum": "ncmemsim.spectral_sources.DiscreteLineSpectrum",
+        "PhotoTransitionConfig": "ncmemsim.photo.PhotoTransitionConfig",
+        "SpectralEvidence": "ncmemsim.spectral_sources.SpectralEvidence",
+        "SpectralPulseProtocol": "ncmemsim.spectral_context.SpectralPulseProtocol",
+        "SpectralSimulationContext": "ncmemsim.spectral_context.SpectralSimulationContext",
+        "_Archive": "ncmemsim.independent_data._Archive",
+        "_canonical": "ncmemsim.independent_data._canonical",
+        "_capture": "ncmemsim.spectral_context._capture",
+        "_charge": "ncmemsim.spectral_reporting._charge",
+        "_constant": "ncmemsim.independent_data._constant",
+        "_keys": "ncmemsim.independent_data._keys",
+        "_match": "ncmemsim.independent_data._match",
+        "_number": "ncmemsim.independent_data._number",
+        "_restore_state": "ncmemsim.thermal_reporting._restore_state",
+        "_run_summary": "ncmemsim.spectral_reporting._run_summary",
+        "_runtime": "ncmemsim.ensemble.execution._runtime",
+        "_state_payload": "ncmemsim.thermal_reporting._state_payload",
+        "_text": "ncmemsim.independent_data._text",
+        "_unique": "ncmemsim.independent_data._unique",
+        "build_spectral_simulation_context": "ncmemsim.spectral_context.build_spectral_simulation_context",
+        "evaluate_spectral_stack": "ncmemsim.spectral_stack.evaluate_spectral_stack",
+        "run_spectral_program_pulse_read": "ncmemsim.spectral_context.run_spectral_program_pulse_read"
+      },
+      "public_source_definitions": [
+        {
+          "name": "SamplePlaneIllumination",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "wavelength_nm",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "sample_power_W",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "uniform_spot_area_m2",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "exposure_time_s",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "SpectralEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "delivery_statement",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "source",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "DevicePhotoExperiment",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "illumination",
+              "annotation": "SamplePlaneIllumination",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "spectral_context",
+              "annotation": "SpectralSimulationContext",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "protocol",
+              "annotation": "SpectralPulseProtocol",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "capture_efficiency",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "initial_state_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "device_area_m2",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "initial_preparation_evidence",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "assumptions",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build_device_photo_experiment",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "name",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "resolution",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "illumination",
+              "kind": "positional_or_keyword",
+              "annotation": "SamplePlaneIllumination",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "protocol",
+              "kind": "positional_or_keyword",
+              "annotation": "SpectralPulseProtocol",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "capture_efficiency",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "initial_state",
+              "kind": "keyword_only",
+              "annotation": "DeviceState",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "device_area_m2",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "initial_preparation_evidence",
+              "kind": "keyword_only",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "assumptions",
+              "kind": "keyword_only",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "direction",
+              "kind": "keyword_only",
+              "annotation": "str",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "passive_layers",
+              "kind": "keyword_only",
+              "annotation": "tuple",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "wavelength_min_nm",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "wavelength_max_nm",
+              "kind": "keyword_only",
+              "annotation": "float",
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "evidence",
+              "kind": "keyword_only",
+              "annotation": "SpectralEvidence",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(name, resolution, illumination: SamplePlaneIllumination, protocol: SpectralPulseProtocol, *, capture_efficiency: float, initial_state: DeviceState, device_area_m2: float, initial_preparation_evidence: str, assumptions: str, direction: str, passive_layers: tuple, wavelength_min_nm: float, wavelength_max_nm: float, evidence: SpectralEvidence)",
+          "decorators": []
+        },
+        {
+          "name": "DevicePhotoPrediction",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "predict_device_photo_experiment",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "experiment",
+              "kind": "positional_or_keyword",
+              "annotation": "DevicePhotoExperiment",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(experiment: DevicePhotoExperiment)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.dtco",
       "source": "ncmemsim/dtco/__init__.py",
       "explicit_exports": [
@@ -39315,6 +39789,11 @@
     "ncmemsim.device_fit.CVCalibrationProtocol",
     "ncmemsim.device_fit.DeviceCVFitResult",
     "ncmemsim.device_fit.fit_single_parameter_cv_dataset",
+    "ncmemsim.device_photo_experiment.DevicePhotoExperiment",
+    "ncmemsim.device_photo_experiment.DevicePhotoPrediction",
+    "ncmemsim.device_photo_experiment.SamplePlaneIllumination",
+    "ncmemsim.device_photo_experiment.build_device_photo_experiment",
+    "ncmemsim.device_photo_experiment.predict_device_photo_experiment",
     "ncmemsim.dtco.BindingScope",
     "ncmemsim.dtco.ConstraintOperator",
     "ncmemsim.dtco.DTCOReport",
