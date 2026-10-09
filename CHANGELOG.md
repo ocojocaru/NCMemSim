@@ -4,6 +4,11 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add assumed Phase P4B OM-2 sequence contracts, state-continuing endpoint holds
+  and dark sweeps, signed common-capacitance crossings, matched-dark controls
+  and strict partial-failure archives; PDFs-only diagnostics do not qualify
+  measured devices or introduce substrate photo-response physics.
+
 - Review the supplied CAS2017 and reference-48 full texts for P4B; preserve
   reported FG permittivity 16.4, flag the possible capacitance decimal error
   separately and retain protocol/parameter-transfer and acquisition gaps.

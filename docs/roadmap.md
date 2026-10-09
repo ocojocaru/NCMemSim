@@ -452,7 +452,9 @@ are not promised by dataset discovery. Current package/citation remain v1.6.0.
 P4B [device/photo protocol review](device_photo_qualification.md) now defines
 OM-2 observable/sequence/source/uncertainty gates from the supplied Palade2018
 article. No measured device dataset, measurement adapter or experimental
-qualification is admitted by this review.
+qualification is admitted by this review. An assumed OM-2 sequence adapter now
+implements state continuation and dark C-V crossing diagnostics using existing
+physics; PDFs-only comparisons do not close P4B experimental qualification.
 
 ### v1.8.0: Phase Q - Multilevel and neuromorphic/in-memory operation
 

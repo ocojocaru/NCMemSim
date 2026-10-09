@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 129 package source modules; 709 explicit export paths; 242 distinct documented Python import paths.
+Coverage: 130 package source modules; 713 explicit export paths; 246 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3566,6 +3566,54 @@ Decorators: `dataclass(frozen=True)`.
 
 - `reviewed_varshni_coefficients() -> tuple[VarshniCoefficientRecord, ...]`
 - `profile_from_reviewed_record(record: VarshniCoefficientRecord, *, name: str, domain: TemperatureDomain, reference_temperature_K: float, reference_gap_eV: float, reference_evidence: ThermalEvidence) -> AnchoredVarshniProfile`
+
+## ncmemsim.om2_sweep
+
+`ncmemsim/om2_sweep.py`
+
+Explicit exports: `OM2SweepProtocol`, `OM2SweepExperiment`, `OM2SweepPrediction`, `run_om2_sweep`
+
+### OM2SweepProtocol
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `lower_voltage_V: float`; required declaration.
+- Field `upper_voltage_V: float`; required declaration.
+- Field `writing_time_s: float`; required declaration.
+- Field `ascending_voltages_V: tuple[float, ...]`; required declaration.
+- Field `descending_voltages_V: tuple[float, ...]`; required declaration.
+- Field `point_dwell_s: float`; required declaration.
+- Field `internal_dt_s: float`; required declaration.
+- Field `reference_capacitance_F_m2: float`; required declaration.
+- Field `sequence_evidence: str`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### OM2SweepExperiment
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `device_photo: DevicePhotoExperiment`; required declaration.
+- Field `protocol: OM2SweepProtocol`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### OM2SweepPrediction
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `run_om2_sweep(experiment: OM2SweepExperiment)`
 
 ## ncmemsim.optics
 

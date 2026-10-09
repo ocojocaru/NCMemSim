@@ -1,7 +1,7 @@
 # P4B device/photo qualification protocol review
 
-Status: protocol specification for source review, not an implemented measurement
-adapter or completed experimental qualification. P4A exact-commit CI and
+Status: protocol specification plus an implemented assumed OM-2 sequence adapter.
+A measured-device/LCR adapter and experimental qualification remain unresolved. P4A exact-commit CI and
 Documentation passed on `723bdd14dde7af7cb26fdc0d66d693967cd89154`.
 Package/citation remain published v1.6.0.
 
@@ -162,9 +162,72 @@ explanation, not an author-confirmed correction. Keep epsilon_r=16.4; retain the
 printed capacitance and flag the possible correction separately. Do not reject
 or replace the reported permittivity merely from this consistency calculation.
 
-The user will check original-data and metadata availability with the authors or
-laboratory. No acquisition is presumed complete. Lamp spectrum/reference plane,
+The user corrected the acquisition premise: only the supplied PDF articles are
+available; original data and author/laboratory clarifications are unavailable. Lamp spectrum/reference plane,
 full APL electrical/read sequence, repetitions/error budget and specimen identities
 remain requested inputs. The Wang2006 candidate remains abstract-only. No
 messages to authors are sent by this software review, and no runtime equation,
 calibration status, numerical preset or package version changes at this checkpoint.
+
+## Exploratory OM-2 sequence adapter
+
+`ncmemsim.om2_sweep` adds `OM2SweepProtocol`, `OM2SweepExperiment`,
+`OM2SweepPrediction` and `run_om2_sweep`. Inputs bind an owned P4A device/photo
+experiment to explicit endpoint holds, ascending/descending voltage grids,
+point dwell, integration timestep and a common absolute capacitance reference
+in F/m2. No fitting, source-data admission or physical equation is added.
+
+```python
+from ncmemsim.om2_sweep import (
+    OM2SweepProtocol, OM2SweepExperiment, OM2SweepPrediction, run_om2_sweep,
+)
+```
+
+The assumed order is negative-endpoint hold, ascending dark sweep,
+positive-endpoint hold, descending dark sweep. Each grid includes both endpoints,
+with its own additional point dwell; those samples are not the hold itself.
+State continues across every step, including sweep-induced charging; no state
+reset occurs between branches. The matched-dark sequence starts from an identical
+copy of the explicit initial state and follows identical voltages and durations.
+Illumination is enabled only for the two writing holds of the illuminated run.
+Source, capture weights and existing owned NC kinetics come from the P4A input.
+Hold duration and upper voltage must match that bound input. Dark measurements
+do not introduce an extra zero-dwell P4A read operation between steps.
+
+The model reports existing quasi-static capacitance, not the measured 1 MHz
+equivalent parallel LCR capacitance. At a caller-declared common capacitance,
+piecewise-linear crossings are found along each ordered branch. Multiple
+crossings/plateaus are ambiguous; no sorting of capacitance, silent selection,
+per-curve normalization or extrapolation is performed. A missing/ambiguous
+crossing gives `not_assessable` and null contrast, even when execution completes.
+The signed crossing window is descending minus ascending; light-minus-dark
+window contrast preserves that sign. It is not automatically physical Vfb or
+the author's extraction criterion.
+
+Archives retain input identities, runtime, every step's original initial/final
+state, timing, light flag, C/Vfb/charge and partial failures. Readers verify the
+state chain, charges, time and static electrostatic projections; they rebuild
+crossings without occupancy integration, optical reevaluation or RNG replay.
+Stored trajectories are retained evidence, not authenticated/replayed dynamics.
+A failure in the dark sequence keeps completed illuminated observations and
+produces no invented contrast. Schema, derived summary and input drift are rejected.
+
+```bash
+python examples/phase_p4b_om2_reference.py --output om2.json
+python examples/phase_p4b_om2_reference.py --input om2.json --output restored-om2.json
+```
+
+The example explicitly uses the assumed P4A 1550 nm line and short numerical
+durations: 1e-7 s holds, 1e-8 s point dwells, endpoint voltages -2/+2 V, nine
+points per branch and backward-Euler integration. Reference is .8 times geometric
+equivalent capacitance. None of these choices reconstructs the tungsten lamp,
+minute-scale programming or an experimental Cfb. Tests cover state continuation,
+matched dark recovery, zero optical effects, two/three FG bookkeeping, unique
+and rejected crossings, archives/failures and a timestep refinement on the same
+sequence. The refinement check is numerical evidence for this example, not
+convergence certification of a published device experiment.
+
+With PDFs only, the software scope can progress, and measured-curve comparisons
+remain exploratory. Substrate photogeneration, RC measurement conversion and
+unknown preparation/error/source metadata remain outside this adapter. P4B's
+experimental qualification is not closed by this implementation.

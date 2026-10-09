@@ -2,7 +2,7 @@
   "schema_version": "device-photo-protocol-planning-review-v1",
   "review_date": "2026-10-09",
   "status": "not_assessable",
-  "implementation_status": "protocol_document_only",
+  "implementation_status": "assumed_OM2_sequence_adapter_implemented; measured qualification remains not_assessable",
   "baseline_commit": "723bdd14dde7af7cb26fdc0d66d693967cd89154",
   "source": {
     "doi": "10.1063/1.5039554",
@@ -92,5 +92,16 @@
       "admitted": false
     }
   ],
-  "author_metadata_acquisition": "user will check availability with authors/laboratory; no data received or messages sent by agent"
+  "author_metadata_acquisition": "PDFs only; user corrected prior answer; original data and laboratory/author clarification unavailable",
+  "exploratory_adapter": {
+    "module": "ncmemsim.om2_sweep",
+    "implemented": true,
+    "input_status": "explicit assumptions",
+    "observable": "signed crossing window at a common absolute reference capacitance",
+    "measurement_model": "existing quasi-static electrostatics; not an LCR parallel RC model or physical Cfb extraction",
+    "sequence": "lower_hold/ascending_dark/upper_hold/descending_dark",
+    "substrate_photogeneration_modeled": false,
+    "parameters_fitted": false,
+    "experimental_qualification": false
+  }
 }

@@ -151,7 +151,9 @@ P4A exact-commit CI/Documentation passed on `723bdd14dde7af7cb26fdc0d66d693967cd
 P4B [protocol and applicability review](device_photo_qualification.md) selects
 Palade2018 OM-2 for comparison development. Full text and selected digitization
 are reviewed; actual data admission, substrate photo-response and C-V measurement
-mapping remain unresolved. No new experimental
+mapping remain unresolved. The [assumed OM-2 sequence adapter](device_photo_qualification.md)
+is implemented for numerical diagnostics with the supplied PDFs as the only
+experimental source; no measured qualification is created. No new experimental
 qualification or CALIBRATED parameter is claimed by P4A.
 
 

@@ -25151,6 +25151,302 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.om2_sweep",
+      "source": "ncmemsim/om2_sweep.py",
+      "explicit_exports": [
+        "OM2SweepProtocol",
+        "OM2SweepExperiment",
+        "OM2SweepPrediction",
+        "run_om2_sweep"
+      ],
+      "package_import_aliases": {
+        "DevicePhotoExperiment": "ncmemsim.device_photo_experiment.DevicePhotoExperiment",
+        "PhotoTransitionConfig": "ncmemsim.photo.PhotoTransitionConfig",
+        "_Archive": "ncmemsim.independent_data._Archive",
+        "_canonical": "ncmemsim.independent_data._canonical",
+        "_keys": "ncmemsim.independent_data._keys",
+        "_match": "ncmemsim.independent_data._match",
+        "_number": "ncmemsim.independent_data._number",
+        "_restore_state": "ncmemsim.thermal_reporting._restore_state",
+        "_runtime": "ncmemsim.ensemble.execution._runtime",
+        "_state_payload": "ncmemsim.thermal_reporting._state_payload",
+        "_text": "ncmemsim.independent_data._text"
+      },
+      "public_source_definitions": [
+        {
+          "name": "OM2SweepProtocol",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "lower_voltage_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "upper_voltage_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "writing_time_s",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "ascending_voltages_V",
+              "annotation": "tuple[float, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "descending_voltages_V",
+              "annotation": "tuple[float, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "point_dwell_s",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "internal_dt_s",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "reference_capacitance_F_m2",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "sequence_evidence",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "OM2SweepExperiment",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "device_photo",
+              "annotation": "DevicePhotoExperiment",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "protocol",
+              "annotation": "OM2SweepProtocol",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "OM2SweepPrediction",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "run_om2_sweep",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "experiment",
+              "kind": "positional_or_keyword",
+              "annotation": "OM2SweepExperiment",
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(experiment: OM2SweepExperiment)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.optics",
       "source": "ncmemsim/optics.py",
       "explicit_exports": null,
@@ -39898,6 +40194,10 @@
     "ncmemsim.materials.temperature.ThermalMaterial",
     "ncmemsim.materials.temperature.profile_from_reviewed_record",
     "ncmemsim.materials.temperature.reviewed_varshni_coefficients",
+    "ncmemsim.om2_sweep.OM2SweepExperiment",
+    "ncmemsim.om2_sweep.OM2SweepPrediction",
+    "ncmemsim.om2_sweep.OM2SweepProtocol",
+    "ncmemsim.om2_sweep.run_om2_sweep",
     "ncmemsim.optics.LightSource",
     "ncmemsim.paired_pulse_protocol.PairedPulseMemoryProtocol",
     "ncmemsim.paired_pulse_protocol.PairedPulseMemoryResult",
