@@ -200,6 +200,8 @@ def create_environment(path: Path, *, inherit: bool = False) -> Path:
 SOURCE_REQUIRED |= {'scripts/validate_independent_data_review.py','docs/independent_data_review.json','scripts/validate_v1_6_release_identity.py','scripts/validate_v1_6_api_review.py','docs/v1_6_api_review.json','docs/v1_6_release_checklist.md','tests/fixtures/archives/v1_6_0_dev/structural_report.json'}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_5_0/'+name for name in ('README.md','CHANGELOG.md','CITATION.cff','ncmemsim/_version.py','docs/index.md','docs/roadmap.md','docs/broadband_optics.md','docs/v1_5_release_checklist.md','.github/workflows/ci.yml','.github/workflows/docs.yml')}
 
+SOURCE_REQUIRED |= {'scripts/validate_v1_7_api_review.py','docs/v1_7_api_review.json','docs/v1_7_release_checklist.md','tests/fixtures/archives/v1_7_preparation/om2_report.json','docs/independent_calibration.md','docs/device_photo_qualification.md','docs/device_photo_protocol_review.json','docs/om2_numerical_study.md','docs/om2_reporting.md','examples/phase_p5a_om2_numerical_study.py','examples/phase_p6a_om2_report.py'}
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--reuse-dependencies", action="store_true",
@@ -261,7 +263,9 @@ def main() -> None:
             run(str(python), '-I', '-c', SPECTRAL_PROBE, str(work), version, cwd=work)
             shutil.copyfile(root / 'tests/fixtures/archives/v1_6_0_dev/structural_report.json', work / 'structural_report.json')
             run(str(python), '-I', '-c', STRUCTURAL_PROBE, str(work), version, cwd=work)
-            results.append({"artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS"})
+            shutil.copyfile(root / 'tests/fixtures/archives/v1_7_preparation/om2_report.json', work / 'om2_report.json')
+            run(str(python), '-I', '-c', INDEPENDENT_PROBE, str(work), version, cwd=work)
+            results.append({"artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
 
@@ -670,6 +674,44 @@ try:load_structural_report_bundle(folder/'a')
 except ValueError:pass
 else:raise AssertionError('coherently rehashed bundle projection must fail')
 print('Installed structural archive/completed pulse/no-replay/export/tamper probe PASS')
+"""
+
+INDEPENDENT_PROBE = r"""import sys,json,hashlib,importlib
+from pathlib import Path
+import numpy as np
+import ncmemsim
+from ncmemsim.om2_reporting import OM2NumericalReport,write_om2_numerical_report,load_om2_numerical_report_bundle
+from ncmemsim.spectral_context import SpectralSimulator
+from ncmemsim.materials.optics.near_edge import GeSnNearEdgeReferenceModel
+work=Path(sys.argv[1]);expected=sys.argv[2]
+assert ncmemsim.__version__==expected
+modules=('ncmemsim.independent_data','ncmemsim.independent_optical_fit','ncmemsim.independent_optical_validation',
+ 'ncmemsim.device_photo_experiment','ncmemsim.om2_sweep','ncmemsim.om2_numerics','ncmemsim.om2_reporting')
+for name in modules:
+    module=importlib.import_module(name)
+    assert Path(module.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()), name
+    assert all(hasattr(module,x) for x in module.__all__)
+def forbidden(*a,**k):raise AssertionError('unexpected solver/optical/RNG replay')
+SpectralSimulator.relax_voltage=forbidden
+GeSnNearEdgeReferenceModel.evaluate=forbidden
+np.random.default_rng=forbidden
+raw=json.loads((work/'om2_report.json').read_text(encoding='utf-8'))
+report=OM2NumericalReport.from_dict(raw)
+assert report.to_dict()==raw and report.study.summary['experimental_qualification'] is False
+assert report.study.summary['reference_selection'][-1]['contrast_V'] is None
+first=write_om2_numerical_report(report,work/('om2-bundle-first-'+Path(sys.prefix).name))
+loaded=load_om2_numerical_report_bundle(first)
+second=write_om2_numerical_report(loaded,work/('om2-bundle-second-'+Path(sys.prefix).name))
+assert all(p.read_bytes()==(second/p.name).read_bytes() for p in first.iterdir())
+target=second/'cases.csv'
+target.write_bytes(target.read_bytes().replace(b'not_assessable',b'assessable'))
+manifest=json.loads((second/'bundle.json').read_text(encoding='utf-8'))
+manifest['files']['cases.csv']=hashlib.sha256(target.read_bytes()).hexdigest()
+(second/'bundle.json').write_text(json.dumps(manifest),encoding='utf-8')
+try:load_om2_numerical_report_bundle(second)
+except ValueError:pass
+else:raise AssertionError('coherently rehashed projection must fail')
+print('Installed independent infrastructure and numerical archive/bundle PASS')
 """
 
 if __name__ == "__main__":

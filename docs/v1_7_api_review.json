@@ -1,0 +1,2464 @@
+{
+  "schema_version": "independent-infrastructure-v1_7-api-review-v1",
+  "status": "pre_identity_review_not_release_approval",
+  "target_release": "1.7.0",
+  "published_baseline": "1.6.0",
+  "package_identity_at_review": "1.6.0",
+  "implementation_source_commit": "9d672ff36a7b64e416be11349c2385198587b617",
+  "approved_release_scope": "calibration infrastructure and synthetic numerical diagnostics; experimental P4B/P5B/P6B deferred",
+  "retained_structural_review_sha256": "48c0ac0f0b39cfeadabdb83107e60390463da3207ef3e8f8b5418ee595594146",
+  "independent_data_review_sha256": "d490bf5b2208a22d6094ae15bd756c2a17672779db4e3e5c868f3e0202874090",
+  "frozen_report_sha256": "062e453cc977cec48114bc17ac3a27f58ee3f6996370d1aa6e36ac9dcad7065f",
+  "archive_scope": "P6A preparation snapshot from package 1.6.0, not a published or dev-version 1.7 archive",
+  "additive_module_qualified_surface": [
+    {
+      "module": "ncmemsim.independent_data",
+      "exports": [
+        "AcquisitionLineage",
+        "UncertaintyBudget",
+        "ExperimentalDataPackage",
+        "IndependentStudySplit",
+        "AcquisitionGap"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.independent_data",
+        "source": "ncmemsim/independent_data.py",
+        "explicit_exports": [
+          "AcquisitionLineage",
+          "UncertaintyBudget",
+          "ExperimentalDataPackage",
+          "IndependentStudySplit",
+          "AcquisitionGap"
+        ],
+        "package_import_aliases": {
+          "DataOrigin": "ncmemsim.workflows.evidence.DataOrigin",
+          "DatasetEvidence": "ncmemsim.workflows.evidence.DatasetEvidence"
+        },
+        "public_source_definitions": [
+          {
+            "name": "AcquisitionLineage",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "study_id",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "specimen_id",
+                "annotation": "str | None",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "acquisition_id",
+                "annotation": "str | None",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "acquisition_roots",
+                "annotation": "tuple[str, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "observation_groups",
+                "annotation": "tuple[str, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "observation_ids",
+                "annotation": "tuple[str, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "observation_artifact_sha256",
+                "annotation": "tuple[str, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "data_kind",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "source_locator",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "source_doi",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "transformations",
+                "annotation": "tuple[str, ...]",
+                "default_expression": "()",
+                "required_in_source": false
+              },
+              {
+                "name": "shared_systematic_ids",
+                "annotation": "tuple[str, ...]",
+                "default_expression": "()",
+                "required_in_source": false
+              },
+              {
+                "name": "redistribution_terms",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "temperature_K",
+                "annotation": "float | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "temperature_standard_uncertainty_K",
+                "annotation": "float | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "material_description",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "specimen_characterization",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "measurement_geometry",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "instrument_and_calibration",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "UncertaintyBudget",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "observable_unit",
+                "annotation": "str | None",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "independent_unit",
+                "annotation": "str | None",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "observable_origin",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "standard_uncertainty",
+                "annotation": "tuple[float, ...] | None",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "independent_policy",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "independent_standard_uncertainty",
+                "annotation": "tuple[float, ...] | None",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "correlation_policy",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "covariance",
+                "annotation": "tuple[tuple[float, ...], ...] | None",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "sources",
+                "annotation": "tuple[str, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "notes",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "missing_components",
+                "annotation": "tuple[str, ...]",
+                "default_expression": "()",
+                "required_in_source": false
+              },
+              {
+                "name": "legacy_uncertainty_role",
+                "annotation": "str",
+                "default_expression": "'unknown'",
+                "required_in_source": false
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "ExperimentalDataPackage",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "name",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "dataset_evidence",
+                "annotation": "DatasetEvidence",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "lineage",
+                "annotation": "AcquisitionLineage",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "uncertainty",
+                "annotation": "UncertaintyBudget",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "applicability",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "reviewer",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "review_notes",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "acquisition_gaps",
+                "annotation": "tuple[str, ...]",
+                "default_expression": "()",
+                "required_in_source": false
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "summary",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "IndependentStudySplit",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "name",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "training",
+                "annotation": "tuple[ExperimentalDataPackage, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "validation",
+                "annotation": "tuple[ExperimentalDataPackage, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "reviewer",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "review_notes",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "shared_systematics_assessment",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "summary",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "AcquisitionGap",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "candidate_id",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "source_url",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "missing_evidence",
+                "annotation": "tuple[str, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "reason",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "decision",
+                "annotation": "str",
+                "default_expression": "'pending'",
+                "required_in_source": false
+              },
+              {
+                "name": "source_doi",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "0d452c9103a0908c9503f2e309ce623fd197b24190e60686144c0d77cb3f2a9a"
+    },
+    {
+      "module": "ncmemsim.independent_optical_fit",
+      "exports": [
+        "OpticalFitSpecification",
+        "OpticalTrainingContext",
+        "OpticalTrainingFitResult",
+        "predict_optical_training",
+        "fit_optical_training"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.independent_optical_fit",
+        "source": "ncmemsim/independent_optical_fit.py",
+        "explicit_exports": [
+          "OpticalFitSpecification",
+          "OpticalTrainingContext",
+          "OpticalTrainingFitResult",
+          "predict_optical_training",
+          "fit_optical_training"
+        ],
+        "package_import_aliases": {
+          "DataOrigin": "ncmemsim.workflows.evidence.DataOrigin",
+          "DeterministicFitResult": "ncmemsim.fitting.DeterministicFitResult",
+          "ExperimentalDataPackage": "ncmemsim.independent_data.ExperimentalDataPackage",
+          "FitParameter": "ncmemsim.fitting.FitParameter",
+          "FitParameterSet": "ncmemsim.fitting.FitParameterSet",
+          "GeSnNearEdgeParameterSet": "ncmemsim.materials.optics.near_edge.GeSnNearEdgeParameterSet",
+          "LeastSquaresConfig": "ncmemsim.fitting.LeastSquaresConfig",
+          "_Archive": "ncmemsim.independent_data._Archive",
+          "_canonical": "ncmemsim.independent_data._canonical",
+          "_encode": "ncmemsim.workflows.evidence._encode",
+          "_keys": "ncmemsim.independent_data._keys",
+          "_match": "ncmemsim.independent_data._match",
+          "_number": "ncmemsim.independent_data._number",
+          "_runtime": "ncmemsim.ensemble.execution._runtime",
+          "_text": "ncmemsim.independent_data._text",
+          "analyze_fit_uncertainty": "ncmemsim.fit_diagnostics.analyze_fit_uncertainty",
+          "direct_gap_gesn_eV": "ncmemsim.materials.optics.models.direct_gap_gesn_eV",
+          "predict_gesn_near_edge_absorption_m_inv": "ncmemsim.materials.optics.near_edge_fit.predict_gesn_near_edge_absorption_m_inv",
+          "run_least_squares_fit": "ncmemsim.fitting.run_least_squares_fit"
+        },
+        "public_source_definitions": [
+          {
+            "name": "OpticalFitSpecification",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "name",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "parameter_set",
+                "annotation": "FitParameterSet",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "solver_config",
+                "annotation": "LeastSquaresConfig",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "wavelength_min_nm",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "wavelength_max_nm",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "sample_form",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "assumption_review",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "OpticalTrainingContext",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "data_package",
+                "annotation": "ExperimentalDataPackage",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "specification",
+                "annotation": "OpticalFitSpecification",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "mode",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "summary",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "predict_optical_training",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "context",
+                "kind": "positional_or_keyword",
+                "annotation": "OpticalTrainingContext",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "values",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": false,
+                "default_expression": "None"
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(context: OpticalTrainingContext, values=None)",
+            "decorators": []
+          },
+          {
+            "name": "OpticalTrainingFitResult",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "record_json",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "summary",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "fit_optical_training",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "context",
+                "kind": "positional_or_keyword",
+                "annotation": "OpticalTrainingContext",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(context: OpticalTrainingContext)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "adc205b33549d172debc25c694c7659d16218f35108077d584b7f1c82046ef96"
+    },
+    {
+      "module": "ncmemsim.independent_optical_validation",
+      "exports": [
+        "OpticalHoldoutCriteria",
+        "OpticalHoldoutPlan",
+        "OpticalHoldoutEvaluation",
+        "review_optical_holdout_admission",
+        "evaluate_optical_holdout"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.independent_optical_validation",
+        "source": "ncmemsim/independent_optical_validation.py",
+        "explicit_exports": [
+          "OpticalHoldoutCriteria",
+          "OpticalHoldoutPlan",
+          "OpticalHoldoutEvaluation",
+          "review_optical_holdout_admission",
+          "evaluate_optical_holdout"
+        ],
+        "package_import_aliases": {
+          "DataOrigin": "ncmemsim.workflows.evidence.DataOrigin",
+          "IndependentStudySplit": "ncmemsim.independent_data.IndependentStudySplit",
+          "OpticalTrainingContext": "ncmemsim.independent_optical_fit.OpticalTrainingContext",
+          "OpticalTrainingFitResult": "ncmemsim.independent_optical_fit.OpticalTrainingFitResult",
+          "_Archive": "ncmemsim.independent_data._Archive",
+          "_canonical": "ncmemsim.independent_data._canonical",
+          "_constant": "ncmemsim.independent_data._constant",
+          "_keys": "ncmemsim.independent_data._keys",
+          "_match": "ncmemsim.independent_data._match",
+          "_number": "ncmemsim.independent_data._number",
+          "_runtime": "ncmemsim.ensemble.execution._runtime",
+          "_text": "ncmemsim.independent_data._text",
+          "_unique": "ncmemsim.independent_data._unique",
+          "predict_optical_training": "ncmemsim.independent_optical_fit.predict_optical_training"
+        },
+        "public_source_definitions": [
+          {
+            "name": "OpticalHoldoutCriteria",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "max_rmse_m_inv",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "max_whitened_rmse",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "max_abs_marginal_standardized_residual",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "min_observations",
+                "annotation": "int",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "require_local_identifiability",
+                "annotation": "bool",
+                "default_expression": "True",
+                "required_in_source": false
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "OpticalHoldoutPlan",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "name",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "training_context",
+                "annotation": "OpticalTrainingContext",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "criteria",
+                "annotation": "OpticalHoldoutCriteria",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "mode",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "predeclaration_evidence",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "review_optical_holdout_admission",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "split",
+                "kind": "positional_or_keyword",
+                "annotation": "IndependentStudySplit",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(split: IndependentStudySplit)",
+            "decorators": []
+          },
+          {
+            "name": "OpticalHoldoutEvaluation",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "record_json",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "summary",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evaluate_optical_holdout",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "plan",
+                "kind": "positional_or_keyword",
+                "annotation": "OpticalHoldoutPlan",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "training_fit",
+                "kind": "positional_or_keyword",
+                "annotation": "OpticalTrainingFitResult",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "split",
+                "kind": "positional_or_keyword",
+                "annotation": "IndependentStudySplit",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(plan: OpticalHoldoutPlan, training_fit: OpticalTrainingFitResult, split: IndependentStudySplit)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "21af93ec16a4d03a5756f2814c8375497d434feb0be7676b181c67cc890c1f09"
+    },
+    {
+      "module": "ncmemsim.device_photo_experiment",
+      "exports": [
+        "SamplePlaneIllumination",
+        "DevicePhotoExperiment",
+        "DevicePhotoPrediction",
+        "build_device_photo_experiment",
+        "predict_device_photo_experiment"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.device_photo_experiment",
+        "source": "ncmemsim/device_photo_experiment.py",
+        "explicit_exports": [
+          "SamplePlaneIllumination",
+          "DevicePhotoExperiment",
+          "DevicePhotoPrediction",
+          "build_device_photo_experiment",
+          "predict_device_photo_experiment"
+        ],
+        "package_import_aliases": {
+          "DeviceState": "ncmemsim.state.DeviceState",
+          "DiscreteLineSpectrum": "ncmemsim.spectral_sources.DiscreteLineSpectrum",
+          "PhotoTransitionConfig": "ncmemsim.photo.PhotoTransitionConfig",
+          "SpectralEvidence": "ncmemsim.spectral_sources.SpectralEvidence",
+          "SpectralPulseProtocol": "ncmemsim.spectral_context.SpectralPulseProtocol",
+          "SpectralSimulationContext": "ncmemsim.spectral_context.SpectralSimulationContext",
+          "_Archive": "ncmemsim.independent_data._Archive",
+          "_canonical": "ncmemsim.independent_data._canonical",
+          "_capture": "ncmemsim.spectral_context._capture",
+          "_charge": "ncmemsim.spectral_reporting._charge",
+          "_constant": "ncmemsim.independent_data._constant",
+          "_keys": "ncmemsim.independent_data._keys",
+          "_match": "ncmemsim.independent_data._match",
+          "_number": "ncmemsim.independent_data._number",
+          "_restore_state": "ncmemsim.thermal_reporting._restore_state",
+          "_run_summary": "ncmemsim.spectral_reporting._run_summary",
+          "_runtime": "ncmemsim.ensemble.execution._runtime",
+          "_state_payload": "ncmemsim.thermal_reporting._state_payload",
+          "_text": "ncmemsim.independent_data._text",
+          "_unique": "ncmemsim.independent_data._unique",
+          "build_spectral_simulation_context": "ncmemsim.spectral_context.build_spectral_simulation_context",
+          "evaluate_spectral_stack": "ncmemsim.spectral_stack.evaluate_spectral_stack",
+          "run_spectral_program_pulse_read": "ncmemsim.spectral_context.run_spectral_program_pulse_read"
+        },
+        "public_source_definitions": [
+          {
+            "name": "SamplePlaneIllumination",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "wavelength_nm",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "sample_power_W",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "uniform_spot_area_m2",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "exposure_time_s",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "evidence",
+                "annotation": "SpectralEvidence",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "delivery_statement",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "source",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "summary",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "DevicePhotoExperiment",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "name",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "illumination",
+                "annotation": "SamplePlaneIllumination",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "spectral_context",
+                "annotation": "SpectralSimulationContext",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "protocol",
+                "annotation": "SpectralPulseProtocol",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "capture_efficiency",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "initial_state_json",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "device_area_m2",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "initial_preparation_evidence",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "assumptions",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "build_device_photo_experiment",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "name",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "resolution",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "illumination",
+                "kind": "positional_or_keyword",
+                "annotation": "SamplePlaneIllumination",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "protocol",
+                "kind": "positional_or_keyword",
+                "annotation": "SpectralPulseProtocol",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "capture_efficiency",
+                "kind": "keyword_only",
+                "annotation": "float",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "initial_state",
+                "kind": "keyword_only",
+                "annotation": "DeviceState",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "device_area_m2",
+                "kind": "keyword_only",
+                "annotation": "float",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "initial_preparation_evidence",
+                "kind": "keyword_only",
+                "annotation": "str",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "assumptions",
+                "kind": "keyword_only",
+                "annotation": "str",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "direction",
+                "kind": "keyword_only",
+                "annotation": "str",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "passive_layers",
+                "kind": "keyword_only",
+                "annotation": "tuple",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "wavelength_min_nm",
+                "kind": "keyword_only",
+                "annotation": "float",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "wavelength_max_nm",
+                "kind": "keyword_only",
+                "annotation": "float",
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "evidence",
+                "kind": "keyword_only",
+                "annotation": "SpectralEvidence",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(name, resolution, illumination: SamplePlaneIllumination, protocol: SpectralPulseProtocol, *, capture_efficiency: float, initial_state: DeviceState, device_area_m2: float, initial_preparation_evidence: str, assumptions: str, direction: str, passive_layers: tuple, wavelength_min_nm: float, wavelength_max_nm: float, evidence: SpectralEvidence)",
+            "decorators": []
+          },
+          {
+            "name": "DevicePhotoPrediction",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "record_json",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "summary",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "data",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, data)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "predict_device_photo_experiment",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "experiment",
+                "kind": "positional_or_keyword",
+                "annotation": "DevicePhotoExperiment",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(experiment: DevicePhotoExperiment)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "ffe528974cd702b6d20786469ffb3399cbf4816b38f7a6e6199937f84ed9b8ee"
+    },
+    {
+      "module": "ncmemsim.om2_sweep",
+      "exports": [
+        "OM2SweepProtocol",
+        "OM2SweepExperiment",
+        "OM2SweepPrediction",
+        "run_om2_sweep"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.om2_sweep",
+        "source": "ncmemsim/om2_sweep.py",
+        "explicit_exports": [
+          "OM2SweepProtocol",
+          "OM2SweepExperiment",
+          "OM2SweepPrediction",
+          "run_om2_sweep"
+        ],
+        "package_import_aliases": {
+          "DevicePhotoExperiment": "ncmemsim.device_photo_experiment.DevicePhotoExperiment",
+          "PhotoTransitionConfig": "ncmemsim.photo.PhotoTransitionConfig",
+          "_Archive": "ncmemsim.independent_data._Archive",
+          "_canonical": "ncmemsim.independent_data._canonical",
+          "_keys": "ncmemsim.independent_data._keys",
+          "_match": "ncmemsim.independent_data._match",
+          "_number": "ncmemsim.independent_data._number",
+          "_restore_state": "ncmemsim.thermal_reporting._restore_state",
+          "_runtime": "ncmemsim.ensemble.execution._runtime",
+          "_state_payload": "ncmemsim.thermal_reporting._state_payload",
+          "_text": "ncmemsim.independent_data._text"
+        },
+        "public_source_definitions": [
+          {
+            "name": "OM2SweepProtocol",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "lower_voltage_V",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "upper_voltage_V",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "writing_time_s",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "ascending_voltages_V",
+                "annotation": "tuple[float, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "descending_voltages_V",
+                "annotation": "tuple[float, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "point_dwell_s",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "internal_dt_s",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "reference_capacitance_F_m2",
+                "annotation": "float",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "sequence_evidence",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "OM2SweepExperiment",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "device_photo",
+                "annotation": "DevicePhotoExperiment",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "protocol",
+                "annotation": "OM2SweepProtocol",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "OM2SweepPrediction",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "record_json",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "summary",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "run_om2_sweep",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "experiment",
+                "kind": "positional_or_keyword",
+                "annotation": "OM2SweepExperiment",
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(experiment: OM2SweepExperiment)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "7663f53b7c0400b109f78e84b706b72bd713f0410ae992e90e14fd384f182aa5"
+    },
+    {
+      "module": "ncmemsim.om2_numerics",
+      "exports": [
+        "OM2NumericalStudy"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.om2_numerics",
+        "source": "ncmemsim/om2_numerics.py",
+        "explicit_exports": [
+          "OM2NumericalStudy"
+        ],
+        "package_import_aliases": {
+          "OM2SweepPrediction": "ncmemsim.om2_sweep.OM2SweepPrediction",
+          "_Archive": "ncmemsim.independent_data._Archive",
+          "_canonical": "ncmemsim.independent_data._canonical",
+          "_constant": "ncmemsim.independent_data._constant",
+          "_keys": "ncmemsim.independent_data._keys",
+          "_match": "ncmemsim.independent_data._match",
+          "_unique": "ncmemsim.independent_data._unique",
+          "canonical_hash": "ncmemsim.hashing.canonical_hash"
+        },
+        "public_source_definitions": [
+          {
+            "name": "specification",
+            "kind": "function",
+            "parameters": [],
+            "return_annotation": null,
+            "source_signature": "()",
+            "decorators": []
+          },
+          {
+            "name": "summarize",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "results",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "spec",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(results, spec)",
+            "decorators": []
+          },
+          {
+            "name": "restore_study",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "raw",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(raw)",
+            "decorators": []
+          },
+          {
+            "name": "OM2NumericalStudy",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "record_json",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "summary",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          }
+        ],
+        "public_assignments": [
+          {
+            "name": "LABELS",
+            "expression": "('dt', 'dt_half', 'dt_quarter', 'capture_zero', 'capture_low', 'capture_high', 'power_zero', 'power_low', 'power_high', 'equal_product', 'reference_low', 'reference_high', 'reference_outside')"
+          }
+        ]
+      },
+      "source_sha256": "4b18b9e8d3d1d8ddda25a493750becbe78d9ee10bd633078d2d93764d1a52085"
+    },
+    {
+      "module": "ncmemsim.om2_reporting",
+      "exports": [
+        "OM2NumericalReport",
+        "build_om2_numerical_report",
+        "write_om2_numerical_report",
+        "load_om2_numerical_report_bundle"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.om2_reporting",
+        "source": "ncmemsim/om2_reporting.py",
+        "explicit_exports": [
+          "OM2NumericalReport",
+          "build_om2_numerical_report",
+          "write_om2_numerical_report",
+          "load_om2_numerical_report_bundle"
+        ],
+        "package_import_aliases": {
+          "LABELS": "ncmemsim.om2_numerics.LABELS",
+          "OM2NumericalStudy": "ncmemsim.om2_numerics.OM2NumericalStudy",
+          "_Archive": "ncmemsim.independent_data._Archive",
+          "_canonical": "ncmemsim.independent_data._canonical",
+          "_constant": "ncmemsim.independent_data._constant",
+          "_keys": "ncmemsim.independent_data._keys",
+          "_match": "ncmemsim.independent_data._match",
+          "_text": "ncmemsim.independent_data._text",
+          "_unique": "ncmemsim.independent_data._unique",
+          "canonical_hash": "ncmemsim.hashing.canonical_hash"
+        },
+        "public_source_definitions": [
+          {
+            "name": "OM2NumericalReport",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Archive"
+            ],
+            "decorators": [
+              "dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "title",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "study",
+                "annotation": "OM2NumericalStudy",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "build_om2_numerical_report",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "title",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "study",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(title, study)",
+            "decorators": []
+          },
+          {
+            "name": "write_om2_numerical_report",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "report",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "destination",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(report, destination)",
+            "decorators": []
+          },
+          {
+            "name": "load_om2_numerical_report_bundle",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "destination",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(destination)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "59455fd3542747099ee5b27fb65cf9b5fd63f3ebc39b5940b008b5ed1f5349ad"
+    }
+  ],
+  "scientific_limits": [
+    "zero new admitted independent measured datasets and zero calibrated parameters",
+    "PDF-only acquisition gaps and experimental P4B/P5B/P6B remain open",
+    "existing physics unchanged; substrate photogeneration and measured C-V/LCR mapping unresolved",
+    "synthetic fitting/holdout/OM-2 checks are numerical evidence, not measured validation",
+    "hashes/projections verify consistency, not authenticity or replayed trajectories"
+  ],
+  "release_policy": "full regression/docs/installed wheel-sdist, Python 3.11-3.13 exact-commit CI; candidate identity and publication pending"
+}

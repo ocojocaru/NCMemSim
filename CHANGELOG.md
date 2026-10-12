@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Prepare Phase P7 pre-identity API/archive and installed-distribution gates
+  for the approved v1.7 infrastructure/numerical scope; experimental P4B/P5B/P6B
+  remain deferred and package/citation identity remains published v1.6.0.
+
 - Add approved Phase P6A owned numerical-study/report contracts, deterministic
   six-file OM-2 bundles, strict byte/source verification and retained synthetic
   scope/failures; preserve P5A archive format and leave P6B measured reports conditional.

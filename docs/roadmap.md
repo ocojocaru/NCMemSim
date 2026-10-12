@@ -459,6 +459,9 @@ qualification is admitted by this review. An assumed OM-2 sequence adapter now
 implements state continuation and dark C-V crossing diagnostics using existing
 physics; PDFs-only comparisons do not close P4B experimental qualification.
 
+P7 pre-identity review prepares the approved v1.7 infrastructure/numerical scope;
+experimental qualification remains deferred. See the [release checklist](v1_7_release_checklist.md).
+
 ### v1.8.0: Phase Q - Multilevel and neuromorphic/in-memory operation
 
 Indicative: explicit pulse sequences, state separation, gradual updates,

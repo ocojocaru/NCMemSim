@@ -7,7 +7,8 @@ acquisition requirements and P1-P7 acceptance sequence are defined here.
 P1 admission/source review, P2 training fit, P3 fixed-parameter holdouts and P4A device/photo diagnostics are implemented. P4B experimental qualification is data-dependent. P5A numerical diagnostics are
 implemented; P5B measured reference remains conditional. P6A numerical reports
 are implemented; P6B measured reports remain conditional and P7 is planned.
-Target release is indicative v1.7.0, conditional on usable independent data.
+Approved v1.7.0 scope is calibration infrastructure and numerical diagnostics.
+Experimental qualification remains conditional on usable independent data.
 Package/citation remain published v1.6.0 with DOI 10.5281/zenodo.23235484.
 No runtime, parameter, preset, fitting or calibration status changes are made by P0.
 
@@ -497,3 +498,10 @@ review, matched controls, frozen parameters and genuine held-out observations.
 Digitized literature data may be usable if that evidence is adequate; a single
 power/wavelength/memory-window number is not an equivalent complete protocol.
 P4A alone does not close the experimental qualification track.
+
+## P7 approved release scope
+
+The user approved a v1.7 infrastructure/numerical-diagnostics release with
+P4B/P5B/P6B experimental gates deferred. [P7 review](v1_7_release_checklist.md)
+begins as a pre-identity checkpoint; it does not claim independent measured
+calibration. Package/citation remain 1.6.0 pending candidate identity preparation.
