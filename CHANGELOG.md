@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Preserve verified spectral archive observations across platform libm roundoff:
+  exact source/path/schema checks, derived binary64 comparisons bounded to
+  16 ULPs, incident-scale cancellation residual checks and unchanged archive hashes.
+
 - Prepare Phase P7 pre-identity API/archive and installed-distribution gates
   for the approved v1.7 infrastructure/numerical scope; experimental P4B/P5B/P6B
   remain deferred and package/citation identity remains published v1.6.0.

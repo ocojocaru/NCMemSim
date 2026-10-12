@@ -32101,6 +32101,7 @@
         "_canonical": "ncmemsim.spectral_sources._canonical",
         "_json_object": "ncmemsim.spectral_absorption._json_object",
         "_keys": "ncmemsim.spectral_sources._keys",
+        "_projection_roundoff_equal": "ncmemsim.spectral_absorption._projection_roundoff_equal",
         "evaluate_spectral_absorption": "ncmemsim.spectral_absorption.evaluate_spectral_absorption"
       },
       "public_source_definitions": [

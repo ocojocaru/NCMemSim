@@ -6,7 +6,7 @@
   "package_identity_at_review": "1.6.0",
   "implementation_source_commit": "9d672ff36a7b64e416be11349c2385198587b617",
   "approved_release_scope": "calibration infrastructure and synthetic numerical diagnostics; experimental P4B/P5B/P6B deferred",
-  "retained_structural_review_sha256": "48c0ac0f0b39cfeadabdb83107e60390463da3207ef3e8f8b5418ee595594146",
+  "retained_structural_review_sha256": "8ea385f1d45a960ee62c1a7a641f9cb7587a590aedb5bc7a13352a359cacc7f0",
   "independent_data_review_sha256": "d490bf5b2208a22d6094ae15bd756c2a17672779db4e3e5c868f3e0202874090",
   "frozen_report_sha256": "062e453cc977cec48114bc17ac3a27f58ee3f6996370d1aa6e36ac9dcad7065f",
   "archive_scope": "P6A preparation snapshot from package 1.6.0, not a published or dev-version 1.7 archive",

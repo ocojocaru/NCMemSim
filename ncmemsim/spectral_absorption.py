@@ -140,6 +140,36 @@ def _projection(source,profile):
         "average_generation_rate_m3_s":aph/profile.thickness_m if profile.thickness_m>0 else 0.0}
 
 
+def _projection_roundoff_equal(stored, rebuilt):
+    """Exact structure/inputs; derived floats within 16 binary64 ULPs.
+
+    Balance residuals use ULPs of incident magnitude because subtraction can
+    produce zero on one platform and a small cancellation residual on another.
+    This is a machine-roundoff bound, not measurement uncertainty.
+    """
+    _canonical(stored); _canonical(rebuilt)  # reject nonfinite/archive-invalid data
+    exact_keys={'profile','evidence','wavelength_nm','effective_alpha_m_inv',
+                'thickness_m','wavelength_min_nm','wavelength_max_nm'}
+    def equal(a,b,parent=None,key=None):
+        if type(a) is not type(b):return False
+        if type(a) is dict:
+            return set(a)==set(b) and all(
+                _canonical(a[k])==_canonical(b[k]) if k in exact_keys else equal(a[k],b[k],b,k)
+                for k in b)
+        if type(a) is list:
+            return len(a)==len(b) and all(equal(x,y) for x,y in zip(a,b))
+        if type(a) is float:
+            if not math.isfinite(a) or not math.isfinite(b):return False
+            scale=max(abs(a),abs(b))
+            incident={'power_balance_residual_W_m2':'incident_irradiance_W_m2',
+                      'photon_balance_residual_m2_s':'incident_photon_flux_m2_s'}.get(key)
+            if incident is not None and parent is not None:
+                scale=max(scale,abs(parent[incident]))
+            return abs(a-b)<=16*math.ulp(scale)
+        return a==b
+    return equal(stored,rebuilt)
+
+
 @dataclass(frozen=True)
 class SpectralAbsorptionResult(_Archive):
     """Source-linked derived evidence; restoration rebuilds integrals, not optics."""
@@ -152,7 +182,8 @@ class SpectralAbsorptionResult(_Archive):
 
     @property
     def summary(self):
-        return _projection(self.source,self.profile)
+        archived=getattr(self,"_restored_summary_json",None)
+        return json.loads(archived) if archived is not None else _projection(self.source,self.profile)
 
     def to_dict(self):
         return {"schema_version":"spectral-absorption-result-v1","source":self.source.to_dict(),
@@ -168,8 +199,11 @@ class SpectralAbsorptionResult(_Archive):
         elif kind=='discrete-line-spectrum-v1':source=DiscreteLineSpectrum.from_dict(data['source'])
         else:raise ValueError("unsupported source schema")
         obj=cls(source,SpectralAbsorptionProfile.from_dict(data['profile']))
-        if _canonical(obj.to_dict())!=_canonical(data):
+        rebuilt=obj.to_dict()
+        if any(_canonical(rebuilt[k])!=_canonical(data[k]) for k in ('schema_version','source','profile')) or not _projection_roundoff_equal(data['summary'],rebuilt['summary']):
             raise ValueError("inconsistent spectral absorption projection")
+        # Preserve verified archived observations exactly, including their hash.
+        object.__setattr__(obj,"_restored_summary_json",_canonical(data['summary']))
         return obj
 
 

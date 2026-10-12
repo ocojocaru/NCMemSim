@@ -695,6 +695,15 @@ def forbidden(*a,**k):raise AssertionError('unexpected solver/optical/RNG replay
 SpectralSimulator.relax_voltage=forbidden
 GeSnNearEdgeReferenceModel.evaluate=forbidden
 np.random.default_rng=forbidden
+# Exercise a correctly rounded alternate expm1 while restoring the Windows
+# preparation archive. Original source observations and hashes must survive.
+import math
+from decimal import Decimal,localcontext
+def alternate_expm1(value):
+    with localcontext() as ctx:
+        ctx.prec=80
+        return float(Decimal.from_float(value).exp()-1)
+math.expm1=alternate_expm1
 raw=json.loads((work/'om2_report.json').read_text(encoding='utf-8'))
 report=OM2NumericalReport.from_dict(raw)
 assert report.to_dict()==raw and report.study.summary['experimental_qualification'] is False

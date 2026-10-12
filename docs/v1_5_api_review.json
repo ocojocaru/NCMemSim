@@ -796,7 +796,7 @@
         ],
         "public_assignments": []
       },
-      "source_sha256": "fa2f76e718a0e330e869982170669187b2f6015bd1928858e581fe69895c7915"
+      "source_sha256": "d2a90308f5d4b4323fefc2f7030d6ab284d54ae2a2e39a769d063e1c19f53e75"
     },
     {
       "module": "ncmemsim.spectral_stack",
@@ -826,6 +826,7 @@
           "_canonical": "ncmemsim.spectral_sources._canonical",
           "_json_object": "ncmemsim.spectral_absorption._json_object",
           "_keys": "ncmemsim.spectral_sources._keys",
+          "_projection_roundoff_equal": "ncmemsim.spectral_absorption._projection_roundoff_equal",
           "evaluate_spectral_absorption": "ncmemsim.spectral_absorption.evaluate_spectral_absorption"
         },
         "public_source_definitions": [
@@ -1145,7 +1146,7 @@
         ],
         "public_assignments": []
       },
-      "source_sha256": "3750888a55775d2ed22611be9d22115b7f83189d3bdbd70dbfc0840ecf1a7722"
+      "source_sha256": "38d14b470759e4b3542a8c2ce314e3de1df3e813d80f16195ebaf841da273e81"
     },
     {
       "module": "ncmemsim.spectral_context",

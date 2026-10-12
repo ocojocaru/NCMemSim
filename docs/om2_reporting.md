@@ -84,3 +84,16 @@ reference before export. --study and --input are mutually exclusive, and output
 must be a new directory. The second command verifies and reexports the bundle
 without occupancy/optical/RNG replay. P6A supplies reproducibility infrastructure;
 it does not close P6B, P4B/P5B or the independent experimental calibration milestone.
+
+## Portable spectral archive verification
+
+Spectral absorption/stack readers verify exact source/profile/path/schema inputs
+and compare only derived floating-point projections within a 16 binary64 ULP
+machine-roundoff bound. Power/photon cancellation residuals use the ULP scale
+of their incident quantity, since subtraction can yield zero on one platform
+and a small residual on another. This is not a measurement-error allowance.
+Nonfinite values, structural/input changes and larger derived changes are rejected.
+After verification the original archived projection is retained as immutable JSON,
+so to_dict, source hashes and bundle bytes remain exactly those of the archive.
+This handles libm expm1 differences between platforms without changing optical
+equations, alpha samples, source values or the frozen P7 archive.
