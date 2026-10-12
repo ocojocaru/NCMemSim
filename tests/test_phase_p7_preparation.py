@@ -1,6 +1,6 @@
 # Copyright 2026 Ovidiu Cojocaru
 # SPDX-License-Identifier: Apache-2.0
-"""P7 pre-identity contracts; no publication or measured-calibration approval."""
+"""P7 candidate contracts; no publication or measured-calibration approval."""
 from pathlib import Path
 import json,shutil
 import pytest
@@ -18,9 +18,9 @@ def review_copy(tmp_path):
     return tmp_path
 
 
-def test_pre_identity_review_retains_published_identity_and_deferred_experiments():
+def test_candidate_review_retains_history_and_deferred_experiments():
     result=gate.validate(ROOT)
-    assert result['package_version']=='1.6.0' and result['target_release']=='1.7.0'
+    assert result['package_version']=='1.7.0' and result['target_release']=='1.7.0'
     assert result['retained_stable_paths']==297 and result['stable_ensemble_exports']==59
     assert result['reviewed_modules']==7 and result['additive_exports']==29
     assert result['experimental_qualification'] is False
@@ -31,7 +31,7 @@ def test_unreviewed_scope_and_sources_rejected(review_copy,fault):
     root=review_copy
     if fault=='source':
         p=root/'ncmemsim/om2_reporting.py';p.write_text(p.read_text(encoding='utf-8')+'# drift\n',encoding='utf-8')
-    elif fault=='version':(root/'ncmemsim/_version.py').write_text('__version__="1.7.0"\n',encoding='utf-8')
+    elif fault=='version':(root/'ncmemsim/_version.py').write_text('__version__="1.6.0"\n',encoding='utf-8')
     elif fault=='checklist':(root/'docs/v1_7_release_checklist.md').write_text('P7 complete',encoding='utf-8')
     elif fault=='roadmap':
         p=root/'docs/roadmap.md';p.write_text(p.read_text(encoding='utf-8').replace('experimental qualification remains deferred','experimentally calibrated'),encoding='utf-8')

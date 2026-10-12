@@ -3,7 +3,7 @@
 Status: protocol specification plus an implemented assumed OM-2 sequence adapter.
 A measured-device/LCR adapter and experimental qualification remain unresolved. P4A exact-commit CI and
 Documentation passed on `723bdd14dde7af7cb26fdc0d66d693967cd89154`.
-Package/citation remain published v1.6.0.
+Prepared candidate is v1.7.0; latest published stable remains v1.6.0.
 
 ## Selected first comparison: OM-2
 

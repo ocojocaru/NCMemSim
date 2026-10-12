@@ -4,6 +4,12 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+## 1.7.0 - 2026-10-12 (prepared candidate)
+
+- Prepare final identity for calibration infrastructure and synthetic numerical
+  diagnostics; experimental qualification remains deferred (P4B/P5B/P6B).
+  Publication, exact-candidate CI and actual version-specific DOI remain pending.
+
 - Preserve verified spectral archive observations across platform libm roundoff:
   exact source/path/schema checks, derived binary64 comparisons bounded to
   16 ULPs, incident-scale cancellation residual checks and unchanged archive hashes.

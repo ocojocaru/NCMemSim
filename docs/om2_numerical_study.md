@@ -4,7 +4,7 @@ P5A implements an assumed numerical reference and sensitivity study. P5B remains
 the measured applied reference, identifiability and uncertainty-validation gate,
 conditional on admitted experimental data. P4B experimental qualification is also
 open. The user approved this split with PDFs as the only available source.
-Package/citation remain published v1.6.0; no scientific preset is promoted.
+Prepared candidate is v1.7.0; latest published stable remains v1.6.0; no scientific preset is promoted.
 
 ## Reproducible scope
 

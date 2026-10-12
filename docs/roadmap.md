@@ -451,7 +451,7 @@ measured protocols. P1 admission/source/uncertainty contracts, explicit acquisit
 are implemented under the approved PDFs-only scope; P5B measured validation
 remains conditional. P6A [numerical reports/bundles](om2_reporting.md) are
 implemented; P6B measured reports remain conditional and P7 is planned. v1.7 delivery and successful calibration
-are not promised by dataset discovery. Current package/citation remain v1.6.0.
+are not promised by dataset discovery. Prepared candidate identity is v1.7.0; latest published stable remains v1.6.0.
 P4B [device/photo protocol review](device_photo_qualification.md) now defines
 OM-2 observable/sequence/source/uncertainty gates from the supplied Palade2018
 article. No measured device dataset, measurement adapter or experimental
@@ -459,7 +459,7 @@ qualification is admitted by this review. An assumed OM-2 sequence adapter now
 implements state continuation and dark C-V crossing diagnostics using existing
 physics; PDFs-only comparisons do not close P4B experimental qualification.
 
-P7 pre-identity review prepares the approved v1.7 infrastructure/numerical scope;
+P7 final candidate prepared with identity 1.7.0 for the approved infrastructure/numerical scope;
 experimental qualification remains deferred. See the [release checklist](v1_7_release_checklist.md).
 
 ### v1.8.0: Phase Q - Multilevel and neuromorphic/in-memory operation

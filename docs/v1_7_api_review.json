@@ -1,14 +1,28 @@
 {
   "schema_version": "independent-infrastructure-v1_7-api-review-v1",
-  "status": "pre_identity_review_not_release_approval",
+  "status": "final_candidate_review_not_release_approval",
   "target_release": "1.7.0",
   "published_baseline": "1.6.0",
-  "package_identity_at_review": "1.6.0",
-  "implementation_source_commit": "9d672ff36a7b64e416be11349c2385198587b617",
+  "package_identity_at_review": "1.7.0",
+  "candidate_date": "2026-10-12",
+  "implementation_source_commit": "795fb82fb1efb77e8c9eee0ca065f161322c13fb",
   "approved_release_scope": "calibration infrastructure and synthetic numerical diagnostics; experimental P4B/P5B/P6B deferred",
   "retained_structural_review_sha256": "8ea385f1d45a960ee62c1a7a641f9cb7587a590aedb5bc7a13352a359cacc7f0",
   "independent_data_review_sha256": "d490bf5b2208a22d6094ae15bd756c2a17672779db4e3e5c868f3e0202874090",
   "frozen_report_sha256": "062e453cc977cec48114bc17ac3a27f58ee3f6996370d1aa6e36ac9dcad7065f",
+  "published_v1_6_snapshot_sha256": {
+    "README.md": "05927fd35a6a4ac627474a49f87b8b2df136a96654c78414a18ffb807d9ede31",
+    "CHANGELOG.md": "3ed02d8e5983535195b846e11dda0cc2e09e5b9696f30c8b93553db3a71bb883",
+    "CITATION.cff": "2e697c8be2dcdad1b63b0dde8526526f8033d24dc528b58bb5a8fc2ecee1ba58",
+    "ncmemsim/_version.py": "f0fdeff7bcd5196b1510d90be8e0ce2a37596fb3fa7c9789a9e1321499703fb1",
+    "docs/index.md": "ec90aa01538590c5fa96e335ba506ef67cc4103dc518fa26d58002426bf89f8a",
+    "docs/roadmap.md": "ed0f0aa779c17efd1c5dfd2a119e51477e470c076d488d93c435aa002ef9dcf8",
+    "docs/archival_citation.md": "7cf874b4a2bde350630f7a6d99b1a3f1f1ff51daec76439e9aea9c45d7ff937c",
+    "docs/strain_confinement.md": "ee5de0eb07b109d7bfb4f63c08a08fad1cccdc0063a182865e6fde4ffa2c2e35",
+    "docs/v1_6_release_checklist.md": "00ead9034bdc7280088dad15a0f027414108a7f5a8458cc42eec74f8c3254700",
+    ".github/workflows/ci.yml": "a70b9ffab9654ac613c10963dd30dfe90e5289bbbf1fdaa5dfb74bd81e24b772",
+    ".github/workflows/docs.yml": "c9b88e31167ee995488443c30f8e1f187d91db603f6d02ee883731cbecf158a2"
+  },
   "archive_scope": "P6A preparation snapshot from package 1.6.0, not a published or dev-version 1.7 archive",
   "additive_module_qualified_surface": [
     {
@@ -2460,5 +2474,5 @@
     "synthetic fitting/holdout/OM-2 checks are numerical evidence, not measured validation",
     "hashes/projections verify consistency, not authenticity or replayed trajectories"
   ],
-  "release_policy": "full regression/docs/installed wheel-sdist, Python 3.11-3.13 exact-commit CI; candidate identity and publication pending"
+  "release_policy": "full regression/docs/installed wheel-sdist, Python 3.11-3.13 exact-final-candidate CI and publication pending"
 }

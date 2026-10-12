@@ -50,3 +50,5 @@ include scripts/validate_v1_6_release_identity.py
 include scripts/validate_independent_data_review.py
 
 include scripts/validate_v1_7_api_review.py
+
+include scripts/validate_v1_7_release_identity.py

@@ -1,7 +1,9 @@
 # v1.7 P7 release preparation checklist
 
-Status: P7 is not complete. This is a pre-identity review checkpoint.
-Target release: 1.7.0. Package/citation remain published 1.6.0; no release approval.
+Status: P7 is not complete; release approval remains pending.
+Final candidate identity: `1.7.0`; Candidate date: `2026-10-12`.
+Latest published stable remains 1.6.0. No version-specific v1.7 DOI or publication is claimed.
+Historical pre-identity verification evidence is retained below.
 
 ## Approved release scope
 
@@ -58,3 +60,21 @@ does not approve publication or close the experimental calibration milestone.
 These results precede the preparation commit. Exact-commit remote CI/Documentation,
 candidate identity, publication and actual v1.7 DOI remain pending. They do not
 close experimental P4B/P5B/P6B or approve release publication.
+
+## Final candidate identity preparation
+
+All six CI jobs and Documentation passed for the portable-reader checkpoint
+795fb82fb1efb77e8c9eee0ca065f161322c13fb. The historical 4463-test run covered
+pre-identity preparation; the subsequent reader correction passed 217 relevant
+tests, installed probes and its own full remote matrix. These are not evidence
+for an uncommitted final candidate; identity and installed version checks are
+rerun here, and its exact new commit must receive CI/Documentation separately.
+Published v1.6 metadata is retained as identity-overlay fixtures on current
+contracts, not a full historical checkout. Existing tags/assets are untouched.
+
+Final identity checks passed locally: 67 current/historical identity and candidate
+tests; seven-module API review and retained v1.6 review; 58 documentation pages,
+10097 local references and zero errors. Wheel and sdist installed separately as
+1.7.0 with all retained and new probes passing; 374 source files audited.
+Local dependencies were inherited. These results precede the new candidate
+commit; its exact-commit clean remote matrix and Documentation remain pending.

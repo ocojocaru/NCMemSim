@@ -3,8 +3,8 @@
 P6A reports the assumed OM-2 numerical study implemented in P5A. P6B remains
 the measured-study report/bundle stage, conditional on admitted experimental
 evidence. P4B/P5B experimental gates remain open. The user approved this split;
-the available experimental sources are the supplied PDFs only. Package/citation
-remain published v1.6.0.
+the available experimental sources are the supplied PDFs only. Prepared candidate is v1.7.0; latest published stable
+remains v1.6.0.
 
 ## Owned source and report contracts
 

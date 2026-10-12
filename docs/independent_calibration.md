@@ -9,7 +9,9 @@ implemented; P5B measured reference remains conditional. P6A numerical reports
 are implemented; P6B measured reports remain conditional and P7 is planned.
 Approved v1.7.0 scope is calibration infrastructure and numerical diagnostics.
 Experimental qualification remains conditional on usable independent data.
-Package/citation remain published v1.6.0 with DOI 10.5281/zenodo.23235484.
+Final candidate identity: `1.7.0`, dated 2026-10-12; not yet published.
+Latest published stable remains v1.6.0 with DOI 10.5281/zenodo.23235484;
+experimental P4B/P5B/P6B remain deferred.
 No runtime, parameter, preset, fitting or calibration status changes are made by P0.
 
 Baseline: `5bef1593e05fffe1d59b6aaf1614f74103c65aba`, the O7 DOI closure.
@@ -167,7 +169,7 @@ qualification or CALIBRATED parameter is claimed by P4A.
 `ncmemsim.independent_data` adds five separate contracts: `AcquisitionLineage`,
 `UncertaintyBudget`, `ExperimentalDataPackage`, `IndependentStudySplit` and
 `AcquisitionGap`. Existing datasets, fit/calibration classes, enums and archive
-readers retain their semantics. Package/citation remain published v1.6.0.
+readers retain their semantics. Prepared candidate is v1.7.0; latest published stable remains v1.6.0.
 
 ```python
 from ncmemsim.independent_data import (
@@ -503,5 +505,5 @@ P4A alone does not close the experimental qualification track.
 
 The user approved a v1.7 infrastructure/numerical-diagnostics release with
 P4B/P5B/P6B experimental gates deferred. [P7 review](v1_7_release_checklist.md)
-begins as a pre-identity checkpoint; it does not claim independent measured
-calibration. Package/citation remain 1.6.0 pending candidate identity preparation.
+has a prepared final candidate identity; it does not claim independent measured
+calibration. Final candidate identity is 1.7.0; release approval, publication and actual v1.7 DOI remain pending.

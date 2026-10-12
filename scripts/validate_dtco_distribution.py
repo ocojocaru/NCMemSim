@@ -202,6 +202,9 @@ SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_5_0/'+name for name in ('README.
 
 SOURCE_REQUIRED |= {'scripts/validate_v1_7_api_review.py','docs/v1_7_api_review.json','docs/v1_7_release_checklist.md','tests/fixtures/archives/v1_7_preparation/om2_report.json','docs/independent_calibration.md','docs/device_photo_qualification.md','docs/device_photo_protocol_review.json','docs/om2_numerical_study.md','docs/om2_reporting.md','examples/phase_p5a_om2_numerical_study.py','examples/phase_p6a_om2_report.py'}
 
+SOURCE_REQUIRED |= {'scripts/validate_v1_7_release_identity.py'}
+SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_6_0/'+name for name in ('README.md','CHANGELOG.md','CITATION.cff','ncmemsim/_version.py','docs/index.md','docs/roadmap.md','docs/archival_citation.md','docs/strain_confinement.md','docs/v1_6_release_checklist.md','.github/workflows/ci.yml','.github/workflows/docs.yml')}
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--reuse-dependencies", action="store_true",
