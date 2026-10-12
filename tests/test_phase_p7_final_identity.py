@@ -19,8 +19,8 @@ def candidate_copy(tmp_path):
 
 def test_candidate_and_retained_v16_identity():
     result=validate(ROOT)
-    assert result['package_version']=='1.7.0' and result['candidate_date']=='2026-10-12'
-    assert result['latest_published_stable']=='1.6.0' and result['version_specific_doi'] is None
+    assert result['package_version']=='1.7.0' and result['citation_date']=='2026-10-12'
+    assert result['latest_published_stable']=='1.7.0' and result['version_specific_doi']=='10.5281/zenodo.23316663'
     assert result['api']['retained_stable_paths']==297 and result['api']['additive_exports']==29
     assert result['api']['experimental_qualification'] is False
 
@@ -31,11 +31,11 @@ def test_candidate_and_retained_v16_identity():
     ('CITATION.cff','2026-10-12','2026-10-08'),
     ('CITATION.cff','23078330','23235484'),
     ('CITATION.cff','Apache-2.0','MIT'),
-    ('README.md','**Final candidate:** `1.7.0`','published v1.7'),
-    ('docs/index.md','not yet published','published'),
+    ('README.md','**Published v1.7.0 status:**','stale'),
+    ('docs/index.md','Published stable release: `1.7.0`','stale'),
     ('docs/roadmap.md','experimental qualification remains deferred','experimental qualification complete'),
-    ('docs/v1_7_release_checklist.md','release approval remains pending','release approved'),
-    ('CHANGELOG.md','(prepared candidate)','(published)')])
+    ('docs/v1_7_release_checklist.md','P7 is complete','P7 incomplete'),
+    ('CHANGELOG.md','## 1.7.0 - 2026-10-12','stale')])
 def test_partial_or_false_candidate_declarations_rejected(candidate_copy,name,old,new):
     p=candidate_copy/name;s=p.read_text(encoding='utf-8');assert old in s
     p.write_text(s.replace(old,new),encoding='utf-8')
@@ -43,9 +43,9 @@ def test_partial_or_false_candidate_declarations_rejected(candidate_copy,name,ol
 
 
 @pytest.mark.parametrize('doi',['10.5281/zenodo.23235484','10.5281/zenodo.23078330','10.0000/unassigned'])
-def test_candidate_cannot_reuse_or_invent_version_doi(candidate_copy,doi):
-    p=candidate_copy/'CITATION.cff';p.write_text(p.read_text(encoding='utf-8')+'\ndoi: '+doi+'\n',encoding='utf-8')
-    with pytest.raises(ValueError,match='unconfirmed'):validate_identity(candidate_copy)
+def test_published_version_cannot_reuse_or_invent_doi(candidate_copy,doi):
+    p=candidate_copy/'CITATION.cff';p.write_text(p.read_text(encoding='utf-8').replace('10.5281/zenodo.23316663',doi),encoding='utf-8')
+    with pytest.raises(ValueError,match='author-confirmed'):validate_identity(candidate_copy)
 
 
 @pytest.mark.parametrize('name,line',[
@@ -55,3 +55,11 @@ def test_candidate_cannot_reuse_or_invent_version_doi(candidate_copy,doi):
 def test_duplicate_identity_rejected(candidate_copy,name,line):
     p=candidate_copy/name;p.write_text(p.read_text(encoding='utf-8')+'\n'+line+'\n',encoding='utf-8')
     with pytest.raises(ValueError):validate_identity(candidate_copy)
+
+
+@pytest.mark.parametrize('fault',['missing','duplicate'])
+def test_one_confirmed_doi_required(candidate_copy,fault):
+    p=candidate_copy/'CITATION.cff';s=p.read_text(encoding='utf-8');line='doi: 10.5281/zenodo.23316663\n'
+    s=s.replace(line,'') if fault=='missing' else s+'\n'+line
+    p.write_text(s,encoding='utf-8')
+    with pytest.raises(ValueError,match='author-confirmed'):validate_identity(candidate_copy)

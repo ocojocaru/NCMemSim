@@ -15,8 +15,8 @@ The published v1.3.0 citation recorded this specific DOI and the separate Concep
 The project author confirmed the v1.4.0 version-specific DOI [10.5281/zenodo.23102549](https://doi.org/10.5281/zenodo.23102549).
 The project author confirmed the v1.5.0 version-specific DOI [10.5281/zenodo.23189313](https://doi.org/10.5281/zenodo.23189313).
 The author confirmed the v1.6.0 version-specific DOI [10.5281/zenodo.23235484](https://doi.org/10.5281/zenodo.23235484).
-The current CITATION.cff describes the prepared v1.7.0 candidate dated 2026-10-12 and retains the separate Concept DOI.
-No version-specific DOI is assigned to this candidate; no publication is claimed.
+The current CITATION.cff describes published v1.7.0 dated 2026-10-12 and records the author-confirmed version DOI [10.5281/zenodo.23316663](https://doi.org/10.5281/zenodo.23316663). Concept DOI remains separate.
+Automated access to the Zenodo record was unavailable; the version DOI was supplied and confirmed by the project author.
 The v1.6.0 citation and its confirmed DOI are retained in historical fixtures.
 The v1.5.0 version-specific DOI remains the identifier of that published release. The published v1.4.0 DOI
 remains independently citable; Concept DOI stays separate in identifiers. Earlier versions remain

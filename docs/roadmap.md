@@ -450,8 +450,8 @@ acquired before fitting. Device/photo qualification remains conditional on compl
 measured protocols. P1 admission/source/uncertainty contracts, explicit acquisition gaps and P2 owned direct/Urbach training fit and P3 fixed-parameter holdout evaluation and P4A fixed-input device/photo diagnostics are implemented. P4B experimental qualification remains conditional. P5A [OM-2 numerical diagnostics](om2_numerical_study.md)
 are implemented under the approved PDFs-only scope; P5B measured validation
 remains conditional. P6A [numerical reports/bundles](om2_reporting.md) are
-implemented; P6B measured reports remain conditional and P7 is planned. v1.7 delivery and successful calibration
-are not promised by dataset discovery. Prepared candidate identity is v1.7.0; latest published stable remains v1.6.0.
+implemented; P6B measured reports remain conditional and P7 is complete for the published infrastructure/numerical scope. v1.7 delivery and successful calibration
+are not promised by dataset discovery. Published identity is v1.7.0; P7 is complete with author-confirmed DOI 10.5281/zenodo.23316663.
 P4B [device/photo protocol review](device_photo_qualification.md) now defines
 OM-2 observable/sequence/source/uncertainty gates from the supplied Palade2018
 article. No measured device dataset, measurement adapter or experimental
@@ -459,7 +459,7 @@ qualification is admitted by this review. An assumed OM-2 sequence adapter now
 implements state continuation and dark C-V crossing diagnostics using existing
 physics; PDFs-only comparisons do not close P4B experimental qualification.
 
-P7 final candidate prepared with identity 1.7.0 for the approved infrastructure/numerical scope;
+P7 is complete for published v1.7.0 infrastructure/numerical scope;
 experimental qualification remains deferred. See the [release checklist](v1_7_release_checklist.md).
 
 ### v1.8.0: Phase Q - Multilevel and neuromorphic/in-memory operation

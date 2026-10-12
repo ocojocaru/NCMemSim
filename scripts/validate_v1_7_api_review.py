@@ -75,10 +75,10 @@ def validate(root):
     if report.study.summary['experimental_qualification'] or report.study.summary['parameters_fitted']:
         raise ValueError('frozen numerical evidence cannot claim calibration')
     for name,markers in {
-        'docs/v1_7_release_checklist.md':('P7 is not complete','Final candidate identity: `1.7.0`','P4B/P5B/P6B','Python 3.11, 3.12 and 3.13'),
-        'docs/roadmap.md':('P7 final candidate prepared','experimental qualification remains deferred')}.items():
+        'docs/v1_7_release_checklist.md':('P7 is complete','Published identity: `1.7.0`','P4B/P5B/P6B','Python 3.11, 3.12 and 3.13'),
+        'docs/roadmap.md':('P7 is complete','experimental qualification remains deferred')}.items():
         if any(x not in (root/name).read_text(encoding='utf-8') for x in markers):raise ValueError('P7 scope marker missing: '+name)
-    return {'status':'final_candidate_review_pass_not_release_approval','target_release':'1.7.0',
+    return {'status':'published_contracts_consistency_pass','target_release':'1.7.0',
         'package_version':_version(root),'retained_stable_paths':297,'stable_ensemble_exports':59,
         'reviewed_modules':len(MODULES),'additive_exports':sum(len(importlib.import_module(m).__all__) for m in MODULES),
         'experimental_qualification':False,'report_hash':report.contract_hash}

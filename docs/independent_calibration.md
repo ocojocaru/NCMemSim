@@ -6,11 +6,11 @@ P0 is complete: repository data/code audit, literature candidate screening,
 acquisition requirements and P1-P7 acceptance sequence are defined here.
 P1 admission/source review, P2 training fit, P3 fixed-parameter holdouts and P4A device/photo diagnostics are implemented. P4B experimental qualification is data-dependent. P5A numerical diagnostics are
 implemented; P5B measured reference remains conditional. P6A numerical reports
-are implemented; P6B measured reports remain conditional and P7 is planned.
+are implemented; P6B measured reports remain conditional and P7 is complete for the published infrastructure/numerical scope.
 Approved v1.7.0 scope is calibration infrastructure and numerical diagnostics.
 Experimental qualification remains conditional on usable independent data.
-Final candidate identity: `1.7.0`, dated 2026-10-12; not yet published.
-Latest published stable remains v1.6.0 with DOI 10.5281/zenodo.23235484;
+Published identity: `1.7.0`, dated 2026-10-12; P7 is complete with
+author-confirmed DOI 10.5281/zenodo.23316663;
 experimental P4B/P5B/P6B remain deferred.
 No runtime, parameter, preset, fitting or calibration status changes are made by P0.
 
@@ -169,7 +169,7 @@ qualification or CALIBRATED parameter is claimed by P4A.
 `ncmemsim.independent_data` adds five separate contracts: `AcquisitionLineage`,
 `UncertaintyBudget`, `ExperimentalDataPackage`, `IndependentStudySplit` and
 `AcquisitionGap`. Existing datasets, fit/calibration classes, enums and archive
-readers retain their semantics. Prepared candidate is v1.7.0; latest published stable remains v1.6.0.
+readers retain their semantics. Published stable release is v1.7.0; P7 is complete for infrastructure/numerical scope.
 
 ```python
 from ncmemsim.independent_data import (
@@ -505,5 +505,5 @@ P4A alone does not close the experimental qualification track.
 
 The user approved a v1.7 infrastructure/numerical-diagnostics release with
 P4B/P5B/P6B experimental gates deferred. [P7 review](v1_7_release_checklist.md)
-has a prepared final candidate identity; it does not claim independent measured
-calibration. Final candidate identity is 1.7.0; release approval, publication and actual v1.7 DOI remain pending.
+is complete for the published infrastructure/numerical scope; it does not claim independent measured
+calibration. Published identity is 1.7.0; P7 is complete after verified release and author-confirmed DOI. Experimental qualification remains deferred.

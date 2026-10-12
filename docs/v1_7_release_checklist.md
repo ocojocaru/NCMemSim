@@ -1,8 +1,9 @@
 # v1.7 P7 release preparation checklist
 
-Status: P7 is not complete; release approval remains pending.
-Final candidate identity: `1.7.0`; Candidate date: `2026-10-12`.
-Latest published stable remains 1.6.0. No version-specific v1.7 DOI or publication is claimed.
+Status: P7 is complete; v1.7.0 is published.
+Published identity: `1.7.0`; Citation date: `2026-10-12`.
+Author-confirmed version DOI: [10.5281/zenodo.23316663](https://doi.org/10.5281/zenodo.23316663).
+Experimental P4B/P5B/P6B remain deferred.
 Historical pre-identity verification evidence is retained below.
 
 ## Approved release scope
@@ -32,7 +33,7 @@ it is not fabricated as a 1.7 development or published-release archive.
 - Offline local --reuse-dependencies is inherited-dependency evidence only;
   it does not replace clean remote installation checks.
 
-## Remaining release steps
+## Publication sequence (completed; historical plan)
 
 1. Commit/push this checkpoint and verify exact-commit CI/Documentation.
 2. Prepare the development/final candidate identity with retained v1.6 citation
@@ -78,3 +79,23 @@ tests; seven-module API review and retained v1.6 review; 58 documentation pages,
 1.7.0 with all retained and new probes passing; 374 source files audited.
 Local dependencies were inherited. These results precede the new candidate
 commit; its exact-commit clean remote matrix and Documentation remain pending.
+
+## Verified publication and DOI closure
+
+PR #10 merged at cf640a37cf474c0cec17c756fabae9be5acab685. All six main CI
+jobs and Documentation passed; the annotated v1.7.0 tag targets that commit.
+All six tag CI jobs and Release passed. GitHub Release was published on
+2026-10-12 at 11:59:41 UTC, publicly, without draft/prerelease flags, with
+ncmemsim-1.7.0-py3-none-any.whl (397155 bytes) and ncmemsim-1.7.0.tar.gz
+(1959959 bytes). The author confirmed version DOI 10.5281/zenodo.23316663;
+automated access to Zenodo was unavailable. Concept DOI remains separate.
+
+Evidence: [main CI](https://github.com/ocojocaru/NCMemSim/actions/runs/38237697412),
+[main Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/38237697399),
+[tag CI](https://github.com/ocojocaru/NCMemSim/actions/runs/38243763912),
+[Release](https://github.com/ocojocaru/NCMemSim/actions/runs/38243764012),
+[published release](https://github.com/ocojocaru/NCMemSim/releases/tag/v1.7.0).
+
+This metadata closure does not move the tag or replace published assets. Its new
+commit needs separate CI/Documentation after push. Experimental qualification
+remains deferred; closing P7 does not close P4B/P5B/P6B.
