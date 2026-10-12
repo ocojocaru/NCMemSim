@@ -41,8 +41,9 @@ Multi-level charge states, gradual programming, retention, optical sensitivity, 
 ### Advanced physics
 
 Trap-assisted transport, an opt-in image-force correction and stochastic
-ensembles are delivered in v1.1-v1.2. Remaining candidates include improved
-barrier shapes, self-consistent carrier statistics, strain, quantum confinement,
+ensembles are delivered in v1.1-v1.2. Opt-in Ge optical strain and kinetic confinement diagnostics are delivered in v1.6.
+Remaining candidates include improved
+barrier shapes, self-consistent carrier statistics, interacting/finite-barrier confinement,
 improved charging/interaction models and hierarchical uncertainty. Opt-in anchored temperature
 properties are delivered in v1.4.
 
@@ -58,8 +59,9 @@ properties are delivered in v1.4.
 - **v1.3:** released explicit MODEL/TAT variability and strict reproducibility bundles;
 - **v1.4:** released temperature-dependent properties and strict thermal reports;
 - **v1.5:** released broadband/sequential multi-FG optics and strict spectral reports;
-- **v1.6 (planned):** separate strain/confinement models; O0 scope established;
-- **Later (indicative):** strain/confinement, independent calibration, neuromorphic
+- **v1.6:** released hydrostatic strain-induced optical shifts, kinetic confinement diagnostics and strict structural reports;
+- **v1.7 (indicative):** independent experimental calibration; P0 repository/literature audit and acquisition requirements established; data admission and outcomes remain conditional;
+- **Later (indicative):** broader structural physics, neuromorphic
   workflows, acceleration and higher-fidelity interoperability; see
   [roadmap](docs/roadmap.md). Major-version changes require a compatibility rationale.
 

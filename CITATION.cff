@@ -2,9 +2,8 @@ cff-version: 1.2.0
 message: "If you use NCMemSim in research, cite the exact software version and this repository."
 title: "NCMemSim: Nanocrystal Memory Simulation Platform"
 type: software
-version: 1.6.0
-date-released: 2026-10-08
-doi: 10.5281/zenodo.23235484
+version: 1.7.0
+date-released: 2026-10-12
 license: Apache-2.0
 identifiers:
   - type: doi
@@ -35,7 +34,10 @@ abstract: >-
   ordered single-pass optical propagation, spectral pulse contexts and strict spectral
   report bundles, opt-in hydrostatic strain-induced optical transition shifts,
   spherical kinetic confinement diagnostics, owned structural optical contexts,
-  strict structural report bundles, validation, and reproducibility tools.
+  strict structural report bundles, declared acquisition/uncertainty admission,
+  owned optical training/holdout adapters, synthetic OM-2 numerical diagnostics
+  and strict report bundles, validation, and reproducibility tools. Independent
+  experimental device qualification remains deferred pending admitted data.
 keywords:
   - nanocrystal memory
   - non-volatile memory

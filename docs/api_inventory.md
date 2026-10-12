@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 125 package source modules; 689 explicit export paths; 222 distinct documented Python import paths.
+Coverage: 132 package source modules; 718 explicit export paths; 251 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -341,6 +341,61 @@ Decorators: `dataclass(frozen=True)`.
 - `evaluate_memory_window_vs_program_voltage_objective(dataset: DeviceObservableDataset, *, program_voltages_V: np.ndarray | Sequence[float], cv_results: Sequence[CVResult], program_pulse_width_s: float) -> DeviceObjectiveEvaluation`
 - `evaluate_memory_window_vs_programming_time_objective(dataset: DeviceObservableDataset, *, programming_times_s: np.ndarray | Sequence[float], cv_results: Sequence[CVResult], program_voltage_V: float) -> DeviceObjectiveEvaluation`
 - `evaluate_retention_objective(dataset: DeviceObservableDataset, result: RetentionResult, *, retention_gate_voltage_V: float) -> DeviceObjectiveEvaluation`
+
+## ncmemsim.device_photo_experiment
+
+`ncmemsim/device_photo_experiment.py`
+
+Explicit exports: `SamplePlaneIllumination`, `DevicePhotoExperiment`, `DevicePhotoPrediction`, `build_device_photo_experiment`, `predict_device_photo_experiment`
+
+### SamplePlaneIllumination
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `wavelength_nm: float`; required declaration.
+- Field `sample_power_W: float`; required declaration.
+- Field `uniform_spot_area_m2: float`; required declaration.
+- Field `exposure_time_s: float`; required declaration.
+- Field `evidence: SpectralEvidence`; required declaration.
+- Field `delivery_statement: str`; required declaration.
+- `source(self)`; `property`.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### DevicePhotoExperiment
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `illumination: SamplePlaneIllumination`; required declaration.
+- Field `spectral_context: SpectralSimulationContext`; required declaration.
+- Field `protocol: SpectralPulseProtocol`; required declaration.
+- Field `capture_efficiency: float`; required declaration.
+- Field `initial_state_json: str`; required declaration.
+- Field `device_area_m2: float`; required declaration.
+- Field `initial_preparation_evidence: str`; required declaration.
+- Field `assumptions: str`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `build_device_photo_experiment(name, resolution, illumination: SamplePlaneIllumination, protocol: SpectralPulseProtocol, *, capture_efficiency: float, initial_state: DeviceState, device_area_m2: float, initial_preparation_evidence: str, assumptions: str, direction: str, passive_layers: tuple, wavelength_min_nm: float, wavelength_max_nm: float, evidence: SpectralEvidence)`
+### DevicePhotoPrediction
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `predict_device_photo_experiment(experiment: DevicePhotoExperiment)`
 
 ## ncmemsim.dtco
 
@@ -2485,6 +2540,208 @@ Explicit exports: `canonical_hash`
 
 - `canonical_hash(value: Any) -> str`
 
+## ncmemsim.independent_data
+
+`ncmemsim/independent_data.py`
+
+Explicit exports: `AcquisitionLineage`, `UncertaintyBudget`, `ExperimentalDataPackage`, `IndependentStudySplit`, `AcquisitionGap`
+
+### AcquisitionLineage
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `study_id: str`; required declaration.
+- Field `specimen_id: str | None`; required declaration.
+- Field `acquisition_id: str | None`; required declaration.
+- Field `acquisition_roots: tuple[str, ...]`; required declaration.
+- Field `observation_groups: tuple[str, ...]`; required declaration.
+- Field `observation_ids: tuple[str, ...]`; required declaration.
+- Field `observation_artifact_sha256: tuple[str, ...]`; required declaration.
+- Field `data_kind: str`; required declaration.
+- Field `source_locator: str`; required declaration.
+- Field `source_doi: str | None`; default expression `None`.
+- Field `transformations: tuple[str, ...]`; default expression `()`.
+- Field `shared_systematic_ids: tuple[str, ...]`; default expression `()`.
+- Field `redistribution_terms: str | None`; default expression `None`.
+- Field `temperature_K: float | None`; default expression `None`.
+- Field `temperature_standard_uncertainty_K: float | None`; default expression `None`.
+- Field `material_description: str | None`; default expression `None`.
+- Field `specimen_characterization: str | None`; default expression `None`.
+- Field `measurement_geometry: str | None`; default expression `None`.
+- Field `instrument_and_calibration: str | None`; default expression `None`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### UncertaintyBudget
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `observable_unit: str | None`; required declaration.
+- Field `independent_unit: str | None`; required declaration.
+- Field `observable_origin: str`; required declaration.
+- Field `standard_uncertainty: tuple[float, ...] | None`; required declaration.
+- Field `independent_policy: str`; required declaration.
+- Field `independent_standard_uncertainty: tuple[float, ...] | None`; required declaration.
+- Field `correlation_policy: str`; required declaration.
+- Field `covariance: tuple[tuple[float, ...], ...] | None`; required declaration.
+- Field `sources: tuple[str, ...]`; required declaration.
+- Field `notes: str`; required declaration.
+- Field `missing_components: tuple[str, ...]`; default expression `()`.
+- Field `legacy_uncertainty_role: str`; default expression `'unknown'`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### ExperimentalDataPackage
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `dataset_evidence: DatasetEvidence`; required declaration.
+- Field `lineage: AcquisitionLineage`; required declaration.
+- Field `uncertainty: UncertaintyBudget`; required declaration.
+- Field `applicability: str`; required declaration.
+- Field `reviewer: str | None`; default expression `None`.
+- Field `review_notes: str | None`; default expression `None`.
+- Field `acquisition_gaps: tuple[str, ...]`; default expression `()`.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### IndependentStudySplit
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `training: tuple[ExperimentalDataPackage, ...]`; required declaration.
+- Field `validation: tuple[ExperimentalDataPackage, ...]`; required declaration.
+- Field `reviewer: str | None`; default expression `None`.
+- Field `review_notes: str | None`; default expression `None`.
+- Field `shared_systematics_assessment: str | None`; default expression `None`.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### AcquisitionGap
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `candidate_id: str`; required declaration.
+- Field `source_url: str`; required declaration.
+- Field `missing_evidence: tuple[str, ...]`; required declaration.
+- Field `reason: str`; required declaration.
+- Field `decision: str`; default expression `'pending'`.
+- Field `source_doi: str | None`; default expression `None`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+
+## ncmemsim.independent_optical_fit
+
+`ncmemsim/independent_optical_fit.py`
+
+Explicit exports: `OpticalFitSpecification`, `OpticalTrainingContext`, `OpticalTrainingFitResult`, `predict_optical_training`, `fit_optical_training`
+
+### OpticalFitSpecification
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `parameter_set: FitParameterSet`; required declaration.
+- Field `solver_config: LeastSquaresConfig`; required declaration.
+- Field `wavelength_min_nm: float`; required declaration.
+- Field `wavelength_max_nm: float`; required declaration.
+- Field `sample_form: str`; required declaration.
+- Field `assumption_review: str`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### OpticalTrainingContext
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `data_package: ExperimentalDataPackage`; required declaration.
+- Field `specification: OpticalFitSpecification`; required declaration.
+- Field `mode: str`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `predict_optical_training(context: OpticalTrainingContext, values=None)`
+### OpticalTrainingFitResult
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `fit_optical_training(context: OpticalTrainingContext)`
+
+## ncmemsim.independent_optical_validation
+
+`ncmemsim/independent_optical_validation.py`
+
+Explicit exports: `OpticalHoldoutCriteria`, `OpticalHoldoutPlan`, `OpticalHoldoutEvaluation`, `review_optical_holdout_admission`, `evaluate_optical_holdout`
+
+### OpticalHoldoutCriteria
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `max_rmse_m_inv: float`; required declaration.
+- Field `max_whitened_rmse: float`; required declaration.
+- Field `max_abs_marginal_standardized_residual: float`; required declaration.
+- Field `min_observations: int`; required declaration.
+- Field `require_local_identifiability: bool`; default expression `True`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### OpticalHoldoutPlan
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `training_context: OpticalTrainingContext`; required declaration.
+- Field `criteria: OpticalHoldoutCriteria`; required declaration.
+- Field `mode: str`; required declaration.
+- Field `predeclaration_evidence: str`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `review_optical_holdout_admission(split: IndependentStudySplit)`
+### OpticalHoldoutEvaluation
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+- `evaluate_optical_holdout(plan: OpticalHoldoutPlan, training_fit: OpticalTrainingFitResult, split: IndependentStudySplit)`
+
 ## ncmemsim.io
 
 `ncmemsim/io.py`
@@ -3309,6 +3566,96 @@ Decorators: `dataclass(frozen=True)`.
 
 - `reviewed_varshni_coefficients() -> tuple[VarshniCoefficientRecord, ...]`
 - `profile_from_reviewed_record(record: VarshniCoefficientRecord, *, name: str, domain: TemperatureDomain, reference_temperature_K: float, reference_gap_eV: float, reference_evidence: ThermalEvidence) -> AnchoredVarshniProfile`
+
+## ncmemsim.om2_numerics
+
+`ncmemsim/om2_numerics.py`
+
+Explicit exports: `OM2NumericalStudy`
+
+- `specification()`
+- `summarize(results, spec)`
+- `restore_study(raw)`
+### OM2NumericalStudy
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+
+## ncmemsim.om2_reporting
+
+`ncmemsim/om2_reporting.py`
+
+Explicit exports: `OM2NumericalReport`, `build_om2_numerical_report`, `write_om2_numerical_report`, `load_om2_numerical_report_bundle`
+
+### OM2NumericalReport
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `title: str`; required declaration.
+- Field `study: OM2NumericalStudy`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `build_om2_numerical_report(title, study)`
+- `write_om2_numerical_report(report, destination)`
+- `load_om2_numerical_report_bundle(destination)`
+
+## ncmemsim.om2_sweep
+
+`ncmemsim/om2_sweep.py`
+
+Explicit exports: `OM2SweepProtocol`, `OM2SweepExperiment`, `OM2SweepPrediction`, `run_om2_sweep`
+
+### OM2SweepProtocol
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `lower_voltage_V: float`; required declaration.
+- Field `upper_voltage_V: float`; required declaration.
+- Field `writing_time_s: float`; required declaration.
+- Field `ascending_voltages_V: tuple[float, ...]`; required declaration.
+- Field `descending_voltages_V: tuple[float, ...]`; required declaration.
+- Field `point_dwell_s: float`; required declaration.
+- Field `internal_dt_s: float`; required declaration.
+- Field `reference_capacitance_F_m2: float`; required declaration.
+- Field `sequence_evidence: str`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### OM2SweepExperiment
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `device_photo: DevicePhotoExperiment`; required declaration.
+- Field `protocol: OM2SweepProtocol`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### OM2SweepPrediction
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `run_om2_sweep(experiment: OM2SweepExperiment)`
 
 ## ncmemsim.optics
 

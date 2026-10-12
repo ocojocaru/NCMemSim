@@ -12,14 +12,11 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 @pytest.fixture
-def candidate_copy(tmp_path):
-    for folder in ('docs','ncmemsim','tests/fixtures'):shutil.copytree(ROOT/folder,tmp_path/folder)
-    for name in ('README.md','CHANGELOG.md','CITATION.cff'):shutil.copyfile(ROOT/name,tmp_path/name)
-    return tmp_path
+def candidate_copy(published_v1_6_copy):
+    return published_v1_6_copy
 
-
-def test_candidate_identity_and_retained_contracts():
-    assert gate.validate(ROOT)=={'status':'candidate_contracts_pass_not_release_approval',
+def test_candidate_identity_and_retained_contracts(published_v1_6_copy):
+    assert gate.validate(published_v1_6_copy)=={'status':'candidate_contracts_pass_not_release_approval',
         'package_version':'1.6.0','citation_version':'1.6.0','latest_published_stable':'1.6.0',
         'retained_stable_paths':297,'stable_ensemble_exports':59,'reviewed_modules':5,'structural_exports':22}
 

@@ -439,11 +439,28 @@ Franz-Keldysh effects, Stark shifts and state filling remain separate candidates
 
 ### v1.7.0: Phase P - Independent experimental calibration
 
-Indicative: independent absorption/device datasets, photo-capture qualification,
-multi-condition fitting, holdout validation and population-based distributions
-where measured data support them. Preserve FITTED/CALIBRATED distinctions and
-negative qualification outcomes. Delivery depends on dataset access and quality;
-it does not promise successful calibration and may be advanced ahead of O.
+P0 is complete: [independent calibration planning](independent_calibration.md)
+and [source/data/literature audit](independent_calibration_audit.json) define
+acquisition, lineage, split and uncertainty requirements. The existing Tran2016
+reference is a same-curve holdout with a retained failed qualification. Additional
+optical/device literature candidates are screened, not admitted or calibrated.
+First scope is an opt-in bulk-Ge optical study using existing equations;
+independent numerical observations and specimen/acquisition provenance must be
+acquired before fitting. Device/photo qualification remains conditional on complete
+measured protocols. P1 admission/source/uncertainty contracts, explicit acquisition gaps and P2 owned direct/Urbach training fit and P3 fixed-parameter holdout evaluation and P4A fixed-input device/photo diagnostics are implemented. P4B experimental qualification remains conditional. P5A [OM-2 numerical diagnostics](om2_numerical_study.md)
+are implemented under the approved PDFs-only scope; P5B measured validation
+remains conditional. P6A [numerical reports/bundles](om2_reporting.md) are
+implemented; P6B measured reports remain conditional and P7 is planned. v1.7 delivery and successful calibration
+are not promised by dataset discovery. Prepared candidate identity is v1.7.0; latest published stable remains v1.6.0.
+P4B [device/photo protocol review](device_photo_qualification.md) now defines
+OM-2 observable/sequence/source/uncertainty gates from the supplied Palade2018
+article. No measured device dataset, measurement adapter or experimental
+qualification is admitted by this review. An assumed OM-2 sequence adapter now
+implements state continuation and dark C-V crossing diagnostics using existing
+physics; PDFs-only comparisons do not close P4B experimental qualification.
+
+P7 final candidate prepared with identity 1.7.0 for the approved infrastructure/numerical scope;
+experimental qualification remains deferred. See the [release checklist](v1_7_release_checklist.md).
 
 ### v1.8.0: Phase Q - Multilevel and neuromorphic/in-memory operation
 

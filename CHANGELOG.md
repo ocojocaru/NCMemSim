@@ -4,6 +4,61 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+## 1.7.0 - 2026-10-12 (prepared candidate)
+
+- Prepare final identity for calibration infrastructure and synthetic numerical
+  diagnostics; experimental qualification remains deferred (P4B/P5B/P6B).
+  Publication, exact-candidate CI and actual version-specific DOI remain pending.
+
+- Preserve verified spectral archive observations across platform libm roundoff:
+  exact source/path/schema checks, derived binary64 comparisons bounded to
+  16 ULPs, incident-scale cancellation residual checks and unchanged archive hashes.
+
+- Prepare Phase P7 pre-identity API/archive and installed-distribution gates
+  for the approved v1.7 infrastructure/numerical scope; experimental P4B/P5B/P6B
+  remain deferred and package/citation identity remains published v1.6.0.
+
+- Add approved Phase P6A owned numerical-study/report contracts, deterministic
+  six-file OM-2 bundles, strict byte/source verification and retained synthetic
+  scope/failures; preserve P5A archive format and leave P6B measured reports conditional.
+
+- Add approved Phase P5A assumed OM-2 timestep/sensitivity reference, retained
+  zero-photo and out-of-range controls, power/capture confounding check and
+  strict no-replay study restoration; P5B measured validation remains conditional.
+
+- Add assumed Phase P4B OM-2 sequence contracts, state-continuing endpoint holds
+  and dark sweeps, signed common-capacitance crossings, matched-dark controls
+  and strict partial-failure archives; PDFs-only diagnostics do not qualify
+  measured devices or introduce substrate photo-response physics.
+
+- Review the supplied CAS2017 and reference-48 full texts for P4B; preserve
+  reported FG permittivity 16.4, flag the possible capacitance decimal error
+  separately and retain protocol/parameter-transfer and acquisition gaps.
+
+- Document Phase P4B Palade2018 OM-2 comparison protocol, full-text/source
+  identity, selected candidate digitization and unresolved measurement/substrate
+  photo-response gates; no experimental admission or runtime change.
+
+- Add Phase P4A owned device/photo experiment and sample-plane delivery
+  contracts, fixed-input illuminated/matched-dark predictions, signed charge/VFB
+  contrasts and original-state read-roundoff audit; no experimental qualification.
+
+- Add Phase P3 frozen optical holdout plans/criteria and fixed-parameter
+  evaluation, source-leakage rejection and retained unassessed/failed outcomes;
+  passing diagnostics do not promote calibration.
+
+- Add Phase P2 owned pure-Ge direct/Urbach training-fit specification/context,
+  explicit standard-error/GLS objectives, retained optimizer failures and strict
+  no-replay result archives; synthetic recovery is not experimental calibration.
+
+- Add Phase P1 immutable acquisition/uncertainty/data-package/split/gap contracts,
+  retained overlap and missing-evidence outcomes, and a source-linked review gate;
+  no new independent dataset or calibrated parameter is admitted.
+
+- Define Phase P0 repository/literature data audit, acquisition/independence and
+  uncertainty requirements, and conditional P1-P7 scope; no runtime, fitting or
+  calibration-status change.
+
 - Record the v1.6.0 Zenodo DOI and close O7 without moving its release tag or replacing assets.
 
 - Prepare Phase O7 v1.6.0.dev0 structural API review, retained release fixtures,

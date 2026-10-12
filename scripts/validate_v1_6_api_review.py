@@ -92,6 +92,9 @@ def validate(root):
 
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--write-review',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--write-review',action='store_true');parser.add_argument('--retained',action='store_true');args=parser.parse_args()
     if args.write_review:(ROOT/'docs/v1_6_api_review.json').write_text(json.dumps(build_review(ROOT),indent=2)+'\n',encoding='utf-8',newline='\n')
-    print(json.dumps(validate(ROOT),indent=2))
+    if args.retained:
+        from scripts.validate_v1_7_api_review import retained_review
+        print(json.dumps(retained_review(ROOT),indent=2))
+    else:print(json.dumps(validate(ROOT),indent=2))

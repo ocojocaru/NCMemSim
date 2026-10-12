@@ -2,6 +2,8 @@
 
 # NCMemSim
 
+Final candidate: `1.7.0` - infrastructure and numerical diagnostics; not yet published. Experimental P4B/P5B/P6B remain deferred.
+
 Published stable release: `1.6.0`, dated 2026-10-08. O7 is complete; CITATION.cff records [10.5281/zenodo.23235484](https://doi.org/10.5281/zenodo.23235484).
 
 Previous stable release: `1.5.0`, dated 2026-10-06. Phase N7 is complete; Version-specific DOI: [10.5281/zenodo.23189313](https://doi.org/10.5281/zenodo.23189313).

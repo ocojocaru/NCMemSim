@@ -9,7 +9,7 @@ import math
 
 from .spectral_sources import (SpectralEvidence, TabulatedSpectrum, DiscreteLineSpectrum,
     _Archive, _keys, _canonical)
-from .spectral_absorption import SpectralAbsorptionProfile, evaluate_spectral_absorption, _json_object
+from .spectral_absorption import SpectralAbsorptionProfile, evaluate_spectral_absorption, _json_object, _projection_roundoff_equal
 
 __all__ = ["SpectralStackLayer", "SpectralStackPath", "SpectralStackResult",
            "bind_spectral_stack_path", "evaluate_spectral_stack"]
@@ -157,7 +157,8 @@ class SpectralStackResult(_Archive):
 
     @property
     def projection(self):
-        return _propagate(self.source,self.path)
+        archived=getattr(self,"_restored_projection_json",None)
+        return json.loads(archived) if archived is not None else _propagate(self.source,self.path)
 
     def to_dict(self):
         return {'schema_version':'spectral-stack-result-v1','source':self.source.to_dict(),
@@ -172,7 +173,10 @@ class SpectralStackResult(_Archive):
         elif kind=='discrete-line-spectrum-v1':source=DiscreteLineSpectrum.from_dict(data['source'])
         else:raise ValueError('unsupported source schema')
         obj=cls(source,SpectralStackPath.from_dict(data['path']))
-        if _canonical(obj.to_dict())!=_canonical(data):raise ValueError('inconsistent stack projection or schema')
+        rebuilt=obj.to_dict()
+        if any(_canonical(rebuilt[k])!=_canonical(data[k]) for k in ('schema_version','source','path')) or not _projection_roundoff_equal(data['projection'],rebuilt['projection']):
+            raise ValueError('inconsistent stack projection or schema')
+        object.__setattr__(obj,"_restored_projection_json",_canonical(data['projection']))
         return obj
 
 

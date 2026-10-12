@@ -14,6 +14,9 @@ NCMemSim is a modular Python framework for the simulation and design–technolog
 > **Published v1.6.0 status:** Phase O is complete; hydrostatic strain-induced optical shifts, kinetic confinement diagnostics and structural reports are published.
 > Version-specific DOI: [10.5281/zenodo.23235484](https://doi.org/10.5281/zenodo.23235484)
 
+> **Final candidate:** `1.7.0` - calibration infrastructure and synthetic numerical diagnostics; not yet published.
+> Experimental P4B/P5B/P6B remain deferred; no new independent measured dataset or calibrated parameter is claimed.
+
 **Current stable release:** `1.6.0` — main/tag CI and Release passed; wheel and sdist published.
 > **Previous stable release:** `1.5.0` — broadband optics and reproducible spectral reports.
 > **Previous stable release:** `1.4.0` — temperature-dependent properties and reproducible thermal reports
