@@ -3,7 +3,10 @@
 ## Q0 status and baseline
 
 Q0 is complete: repository audit, initial scientific scope and Q1-Q7 acceptance
-sequence are defined here. Q0 introduces no runtime implementation, public API,
+sequence are defined here. Q1 declaration contracts are now implemented in
+`ncmemsim.multilevel_contracts`; Q2-Q7 remain pending. The Q0 audit is retained as
+its historical planning snapshot, not updated to imply Q1 existed at Q0.
+Q0 introduced no runtime implementation, public API,
 material law, calibrated parameter or new device family.
 
 Baseline: published v1.7.0, tag commit
@@ -147,7 +150,7 @@ repeated on identical inputs does not represent cycle-to-cycle stochastic noise.
 | Step | Planned deliverable | Acceptance |
 |---|---|---|
 | Q0 (complete) | Audit, scientific boundary, terminology and staged plan | Source-linked planning only; published v1.7 identity and P experimental deferrals retained |
-| Q1 | Immutable step/sequence, readout and reference-mapping contracts | Explicit units, ownership, ordering, applicability, hashes, strict round trips and rejection of ambiguous definitions; no execution by declaration |
+| Q1 (complete) | Immutable step/sequence, readout and reference-mapping contracts | Explicit units, ownership, ordering, applicability, hashes, strict round trips and rejection of ambiguous definitions; no execution by declaration |
 | Q2 | Isolated state-continuing electrical sequence execution | Reproduce single-pulse baseline, correct state/time chain, no input mutation, explicit read semantics and partial-failure retention |
 | Q3 | Multilevel preparation and separation analysis | Common read/margin definitions, retained reversed/collapsed/missing levels and controlled electrical reference with timestep checks |
 | Q4 | Gradual-update analysis and optical sequence integration | Named linearity/asymmetry definitions, valid normalizers, paired dark control, optical budgets, no conductance substitution and controlled update references |
@@ -158,6 +161,92 @@ repeated on identical inputs does not represent cycle-to-cycle stochastic noise.
 Acceptance is not a promise of a particular number of stable levels or a
 favourable update curve. A reproducible negative result remains a valid study
 outcome. Implementation must review each new API/result schema at its own stage.
+
+## Q1 electrical declaration contracts
+
+Q1 adds six module-qualified types, without changing top-level v1 exports:
+
+| Contract | Meaning |
+|---|---|
+| `PulseSequenceEvidence` | Source, locator, declaration kind and notes; experimental qualification remains false even for a measured-source declaration |
+| `ElectricalPulseStep` | Identified program/erase/idle constant-voltage segment, positive duration and resolving timestep, explicitly dark and backward Euler |
+| `DarkReadoutPolicy` | One common signed `delta_vfb_V` read condition, zero dwell, initial/after-step sampling and retained original states |
+| `WeightReferenceMapping` | Fixed ordered readout reference pair, explicit minimum span, preparation/applicability evidence and exact context/readout hashes |
+| `ElectricalPulseSequence` | Nonempty immutable ordered step tuple, unique IDs, fixed readout, total duration and read-count projections |
+| `ElectricalSequenceExperiment` | Owned resolved thermal/electrical context, sequence, copied initial-state JSON and optional matching reference declaration |
+
+Q1 is **declarative**. There is no runner, read execution or normalization method.
+`from_state` captures a request, not a simulated result. Q2 will implement physical
+execution and read audits. Optical steps, source switching and finite-dwell reads
+are rejected by the Q1 electrical schema; optical integration remains for Q4.
+The `program`/`erase` role labels do not guarantee update direction.
+
+Numeric inputs reject booleans, text and non-finite values. A segment timestep
+must not exceed its duration, integration subdivision counts must be finite, and
+sequence duration/absolute initial time must permit representable clock advances.
+Archived schemas, fields, units, read policies and derived counts/durations are
+checked strictly. Duplicate JSON keys, non-finite metadata and mismatched source
+hashes are rejected. Each `to_dict` or `initial_state` access returns independent
+data. Mutating caller-owned states, nested metadata or returned dictionaries does
+not change the captured experiment. Hashes establish consistency, not source
+authenticity or experimental validation.
+
+The reference interval must be finite, ordered and at least `minimum_span_V` wide.
+Invalid reference declarations raise an input error in Q1. A later result with
+missing/insufficient readout evidence will instead be not assessable. No weights
+are clipped and no inferred per-trajectory extrema replace the fixed references.
+The minimum span is a declared numerical/study threshold, not a measured error.
+
+The static read policy records a probability audit with absolute tolerance
+`1e-12` and zero relative tolerance, retaining original states. This numerical
+mass/read audit is neither experimental read noise nor a license to change the
+stored preparation. It does not turn a finite-dwell read into a nondestructive one.
+
+### Executable declaration example
+
+```python
+from ncmemsim import DeviceBuilder, DeviceState
+from ncmemsim.temperature_context import ThermalContext
+from ncmemsim.multilevel_contracts import (
+    PulseSequenceEvidence, ElectricalPulseStep, DarkReadoutPolicy,
+    WeightReferenceMapping, ElectricalPulseSequence, ElectricalSequenceExperiment,
+)
+
+device = DeviceBuilder.v2(n_fgs=1)
+context = ThermalContext.from_nominal(device).resolve()
+evidence = PulseSequenceEvidence(
+    "Q1 synthetic declaration", "documentation example", "synthetic",
+    "Assumed pulse and read references; no measured calibration.",
+)
+readout = DarkReadoutPolicy("common-dark-read", 0.0, evidence)
+sequence = ElectricalPulseSequence(
+    "two writes and an idle",
+    (
+        ElectricalPulseStep("write-1", "program", 2.0, 1e-7, 1e-9),
+        ElectricalPulseStep("idle-1", "idle", 0.0, 2e-8, 1e-9),
+        ElectricalPulseStep("write-2", "program", 2.0, 1e-7, 1e-9),
+    ),
+    readout, evidence,
+)
+references = WeightReferenceMapping(
+    "assumed reference pair", context.context_hash, readout.contract_hash,
+    -0.2, 0.3, 0.01, "declared low preparation", "declared high preparation",
+    "This resolved device and common read condition only", evidence,
+)
+experiment = ElectricalSequenceExperiment.from_state(
+    "Q1 owned request", context, sequence, DeviceState.empty_for_device(device),
+    references,
+)
+restored = ElectricalSequenceExperiment.from_json(experiment.to_json())
+assert restored.contract_hash == experiment.contract_hash
+assert sequence.to_dict()["read_count_if_complete"] == 4
+assert experiment.to_dict()["experimental_qualification"] is False
+```
+
+Static material/context resolution and state validation can occur when capturing
+or restoring a request. They do not advance occupancy, run a retention workflow,
+evaluate optical absorption or draw random samples. Existing optical/structural
+adapters are not accepted as this electrical experiment's context by duck typing.
 
 ## Compatibility and validation ladder
 

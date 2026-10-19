@@ -474,7 +474,10 @@ shift; it is not channel conductance or a circuit-level in-memory computation.
 Completed update-cycle counts are operating-history diagnostics, not physical
 endurance or degradation predictions. Q0 adds no runtime/API or release-identity change.
 
-Q1-Q7 are planned: sequence/read/reference contracts; isolated electrical
+Q1 is implemented: immutable electrical step/sequence and dark-read contracts,
+fixed context/readout-bound weight references, owned initial-state declarations
+and strict archives. Q1 declarations execute no pulse, read or weight evaluation.
+Q2-Q7 remain planned: isolated electrical
 execution; multilevel separation; update metrics and optical integration;
 retention/ensemble analysis; applied references and strict reports; additive
 API/archive and exact-candidate release gates. v1.8.0 is the target, subject to
