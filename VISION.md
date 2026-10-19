@@ -36,7 +36,13 @@ The DTCO layer will explore variables such as dielectric thickness, FG count, NC
 
 ### Neuromorphic and in-memory operation
 
-Multi-level charge states, gradual programming, retention, optical sensitivity, and coupled FG dynamics may support future studies of synaptic weight update, non-linearity, state symmetry, endurance proxies, and multispectral memory functions.
+Phase Q targets explicit pulse sequences, multilevel readout separation, gradual
+updates and retention drift using the existing compact physics. Q0 defines the
+[scope and acceptance sequence](docs/multilevel_operation.md). The first
+neuromorphic quantity is a normalized readout-derived weight proxy, with an
+explicit mapping from signed flat-band shift. Conductance/current, circuit-level
+in-memory computation and physical degradation need separate models. Repeated
+update counts do not establish endurance or lifetime.
 
 ### Advanced physics
 
@@ -60,7 +66,10 @@ properties are delivered in v1.4.
 - **v1.4:** released temperature-dependent properties and strict thermal reports;
 - **v1.5:** released broadband/sequential multi-FG optics and strict spectral reports;
 - **v1.6:** released hydrostatic strain-induced optical shifts, kinetic confinement diagnostics and strict structural reports;
-- **v1.7 (indicative):** independent experimental calibration; P0 repository/literature audit and acquisition requirements established; data admission and outcomes remain conditional;
+- **v1.7:** published calibration infrastructure and synthetic numerical diagnostics;
+  independent experimental P4B/P5B/P6B qualification remains deferred;
+- **v1.8 (target):** Phase Q multilevel and neuromorphic operation; Q0 scope and
+  source audit complete, Q1-Q7 implementation and release acceptance pending;
 - **Later (indicative):** broader structural physics, neuromorphic
   workflows, acceleration and higher-fidelity interoperability; see
   [roadmap](docs/roadmap.md). Major-version changes require a compatibility rationale.
