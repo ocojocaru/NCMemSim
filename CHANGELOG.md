@@ -4,6 +4,11 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase Q1 immutable electrical pulse-step/sequence declarations, common
+  dark readout policy, context-bound weight-reference mapping and owned initial
+  state requests with strict archives and hashes. No sequence execution,
+  conductance mapping or experimental qualification is introduced.
+
 - Define Phase Q0 multilevel and neuromorphic operation scope, source audit,
   explicit pulse/read/weight-proxy boundaries and Q1-Q7 acceptance sequence;
   no runtime, calibration or release-identity change. Enable CI/documentation

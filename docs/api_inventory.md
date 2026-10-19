@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 132 package source modules; 718 explicit export paths; 251 distinct documented Python import paths.
+Coverage: 133 package source modules; 724 explicit export paths; 257 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3566,6 +3566,100 @@ Decorators: `dataclass(frozen=True)`.
 
 - `reviewed_varshni_coefficients() -> tuple[VarshniCoefficientRecord, ...]`
 - `profile_from_reviewed_record(record: VarshniCoefficientRecord, *, name: str, domain: TemperatureDomain, reference_temperature_K: float, reference_gap_eV: float, reference_evidence: ThermalEvidence) -> AnchoredVarshniProfile`
+
+## ncmemsim.multilevel_contracts
+
+`ncmemsim/multilevel_contracts.py`
+
+Explicit exports: `PulseSequenceEvidence`, `ElectricalPulseStep`, `DarkReadoutPolicy`, `WeightReferenceMapping`, `ElectricalPulseSequence`, `ElectricalSequenceExperiment`
+
+### PulseSequenceEvidence
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `source: str`; required declaration.
+- Field `locator: str`; required declaration.
+- Field `data_kind: str`; required declaration.
+- Field `notes: str`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### ElectricalPulseStep
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `step_id: str`; required declaration.
+- Field `role: str`; required declaration.
+- Field `gate_voltage_V: float`; required declaration.
+- Field `duration_s: float`; required declaration.
+- Field `internal_dt_s: float`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### DarkReadoutPolicy
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `condition_id: str`; required declaration.
+- Field `read_voltage_V: float`; required declaration.
+- Field `evidence: PulseSequenceEvidence`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### WeightReferenceMapping
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `context_hash: str`; required declaration.
+- Field `readout_hash: str`; required declaration.
+- Field `low_readout_V: float`; required declaration.
+- Field `high_readout_V: float`; required declaration.
+- Field `minimum_span_V: float`; required declaration.
+- Field `low_preparation: str`; required declaration.
+- Field `high_preparation: str`; required declaration.
+- Field `applicability: str`; required declaration.
+- Field `evidence: PulseSequenceEvidence`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### ElectricalPulseSequence
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `steps: tuple[ElectricalPulseStep, ...]`; required declaration.
+- Field `readout: DarkReadoutPolicy`; required declaration.
+- Field `evidence: PulseSequenceEvidence`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### ElectricalSequenceExperiment
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `context: _ResolvedThermalContext`; required declaration.
+- Field `sequence: ElectricalPulseSequence`; required declaration.
+- Field `initial_state_json: str`; required declaration.
+- Field `weight_reference: WeightReferenceMapping | None`; default expression `None`.
+- `from_state(cls, name, context, sequence, initial_state, weight_reference=None)`; `classmethod`.
+- `initial_state(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
 
 ## ncmemsim.om2_numerics
 
