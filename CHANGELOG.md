@@ -4,6 +4,11 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase Q2 isolated electrical sequence execution with explicit backward
+  Euler stepping, original physical-state continuation, audited dark zero-dwell
+  reads, static source-linked result restoration and retained physical prefixes
+  on setup/step/read failure. No weight evaluation or experimental qualification.
+
 - Add Phase Q1 immutable electrical pulse-step/sequence declarations, common
   dark readout policy, context-bound weight-reference mapping and owned initial
   state requests with strict archives and hashes. No sequence execution,

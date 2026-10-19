@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 133 package source modules; 724 explicit export paths; 257 distinct documented Python import paths.
+Coverage: 134 package source modules; 726 explicit export paths; 257 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3660,6 +3660,26 @@ Decorators: `_dataclass(frozen=True)`.
 - `to_dict(self)`.
 - `from_dict(cls, raw)`; `classmethod`.
 
+
+## ncmemsim.multilevel_execution
+
+`ncmemsim/multilevel_execution.py`
+
+Explicit exports: `ElectricalSequenceResult`, `run_electrical_sequence`
+
+### ElectricalSequenceResult
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `final_state(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `run_electrical_sequence(experiment)`
 
 ## ncmemsim.om2_numerics
 

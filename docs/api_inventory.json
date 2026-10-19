@@ -25757,6 +25757,142 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.multilevel_execution",
+      "source": "ncmemsim/multilevel_execution.py",
+      "explicit_exports": [
+        "ElectricalSequenceResult",
+        "run_electrical_sequence"
+      ],
+      "package_import_aliases": {
+        "_Archive": "ncmemsim.multilevel_contracts._Archive",
+        "_Experiment": "ncmemsim.multilevel_contracts.ElectricalSequenceExperiment",
+        "_canonical": "ncmemsim.multilevel_contracts._canonical",
+        "_charge": "ncmemsim.spectral_reporting._charge",
+        "_keys": "ncmemsim.multilevel_contracts._keys",
+        "_load": "ncmemsim.multilevel_contracts._load",
+        "_match": "ncmemsim.multilevel_contracts._match",
+        "_number": "ncmemsim.multilevel_contracts._number",
+        "_restore_state": "ncmemsim.thermal_reporting._restore_state",
+        "_runtime": "ncmemsim.ensemble.execution._runtime",
+        "_state_payload": "ncmemsim.thermal_reporting._state_payload",
+        "_text": "ncmemsim.multilevel_contracts._text"
+      },
+      "public_source_definitions": [
+        {
+          "name": "ElectricalSequenceResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "final_state",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "run_electrical_sequence",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "experiment",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(experiment)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.om2_numerics",
       "source": "ncmemsim/om2_numerics.py",
       "explicit_exports": [

@@ -4,7 +4,8 @@
 
 Q0 is complete: repository audit, initial scientific scope and Q1-Q7 acceptance
 sequence are defined here. Q1 declaration contracts are now implemented in
-`ncmemsim.multilevel_contracts`; Q2-Q7 remain pending. The Q0 audit is retained as
+`ncmemsim.multilevel_contracts`; Q2 execution and static result archives are now
+implemented in `ncmemsim.multilevel_execution`. Q3-Q7 remain pending. The Q0 audit is retained as
 its historical planning snapshot, not updated to imply Q1 existed at Q0.
 Q0 introduced no runtime implementation, public API,
 material law, calibrated parameter or new device family.
@@ -151,7 +152,7 @@ repeated on identical inputs does not represent cycle-to-cycle stochastic noise.
 |---|---|---|
 | Q0 (complete) | Audit, scientific boundary, terminology and staged plan | Source-linked planning only; published v1.7 identity and P experimental deferrals retained |
 | Q1 (complete) | Immutable step/sequence, readout and reference-mapping contracts | Explicit units, ownership, ordering, applicability, hashes, strict round trips and rejection of ambiguous definitions; no execution by declaration |
-| Q2 | Isolated state-continuing electrical sequence execution | Reproduce single-pulse baseline, correct state/time chain, no input mutation, explicit read semantics and partial-failure retention |
+| Q2 (complete) | Isolated state-continuing electrical sequence execution | Reproduce single-pulse baseline, correct state/time chain, no input mutation, explicit read semantics and partial-failure retention |
 | Q3 | Multilevel preparation and separation analysis | Common read/margin definitions, retained reversed/collapsed/missing levels and controlled electrical reference with timestep checks |
 | Q4 | Gradual-update analysis and optical sequence integration | Named linearity/asymmetry definitions, valid normalizers, paired dark control, optical budgets, no conductance substitution and controlled update references |
 | Q5 | Retention drift and supported ensemble evaluation | Fixed references, independent delay probes, exact sample/coverage accounting, zero-variation baseline and no noise/yield/endurance inference |
@@ -176,8 +177,8 @@ Q1 adds six module-qualified types, without changing top-level v1 exports:
 | `ElectricalSequenceExperiment` | Owned resolved thermal/electrical context, sequence, copied initial-state JSON and optional matching reference declaration |
 
 Q1 is **declarative**. There is no runner, read execution or normalization method.
-`from_state` captures a request, not a simulated result. Q2 will implement physical
-execution and read audits. Optical steps, source switching and finite-dwell reads
+`from_state` captures a request, not a simulated result. Q2 supplies a separate
+runner and result type for physical execution and read audits. Optical steps, source switching and finite-dwell reads
 are rejected by the Q1 electrical schema; optical integration remains for Q4.
 The `program`/`erase` role labels do not guarantee update direction.
 
@@ -247,6 +248,80 @@ Static material/context resolution and state validation can occur when capturing
 or restoring a request. They do not advance occupancy, run a retention workflow,
 evaluate optical absorption or draw random samples. Existing optical/structural
 adapters are not accepted as this electrical experiment's context by duck typing.
+
+## Q2 isolated electrical execution
+
+`ncmemsim.multilevel_execution` exports `run_electrical_sequence` and
+`ElectricalSequenceResult`. The runner accepts only an owned Q1
+`ElectricalSequenceExperiment`, creates its own simulator and executes each
+dark constant-voltage step with its explicit timestep and backward-Euler
+integrator. Existing simulator and single/paired-pulse defaults are unchanged.
+
+An initial dark read precedes the first physical step. Each subsequent read
+has zero dwell and uses the one declared read voltage. The full original
+physical state continues to the next step; an audited read's returned state
+never silently replaces that physical state. Store the physical and returned
+read states separately, including their original arrays and metadata. Per-FG
+charges, occupations and signed compact `delta_vfb_V` refer to the stored read
+state. This is not a C-V crossing window or a voltage difference from the
+initial read. The initial read provides the preparation's own readout.
+
+Read verification checks exact time and state identity/metadata, maximum
+probability-coordinate change against Q1's `1e-12` absolute tolerance, and
+static charge/electrostatic observables recomputed from the read state. Local
+fields/potentials can change because read voltage differs from writing voltage.
+Observable reconstruction uses relative tolerance `1e-12` and absolute tolerance
+`1e-20 C/m2` for per-FG charge or `1e-14` in the stored voltage/dimensionless
+coordinate. These are archive consistency tolerances, not read noise or an
+experimental error budget. No stored state or readout is clipped or rewritten.
+
+### Failures and partial results
+
+Invalid request declarations raise before execution. Runtime failures instead
+produce a result retaining accepted earlier observations and a failure record
+with stage, step index, exception type and message. The first failure stops the
+sequence. Stages are `setup`, `initial_read`, `step` and post-step `read`.
+
+A successful physical step remains in the archive if its subsequent read fails.
+Its `read` is null, and `final_state` still returns that completed physical state.
+A failed/unauditable read has no accepted read observation. A solver exception
+inside a step exposes no claimed final state for that unfinished step. Separate
+requested, attempted and completed step/read counts make both cases visible.
+Setup or initial-read failure retains the declared initial physical state.
+Elapsed physical time follows accepted physical states, not read count.
+
+Result restoration checks schema, source hash, runtime declarations, ordered
+prefix, state/time chain, original read-state audits, failure location and summary.
+It rebuilds static projections without running occupancy integration, optical
+absorption, retention or an RNG. Integrity hashes do not authenticate a laboratory
+measurement or independently prove that an archived trajectory was executed.
+
+### Controlled executable reference
+
+`examples/phase_q2_electrical_sequence_reference.py` starts a one-FG V2 device
+from explicitly assumed P0=0.8, P1=0.2, P2=0. It declares +2 V writing for
+1e-8 s, a 0 V idle for 2e-9 s, another +2 V writing segment for 1e-8 s and
+a -2 V erase segment for 1e-8 s. Each step uses 1e-10 s internal timestep.
+All five reads are dark at 0 V with zero dwell. Role names are declarations,
+not guarantees of a particular sign or magnitude of charge update.
+
+```bash
+python examples/phase_q2_electrical_sequence_reference.py --output q2-result.json
+python examples/phase_q2_electrical_sequence_reference.py --input q2-result.json --output q2-restored.json
+```
+
+The result archive includes the source request, original physical/read states,
+runtime versions, counts, raw readouts and retained failures. It does not compute
+normalized weights, level separation, update linearity or experimental capacity.
+Those analyses belong to Q3-Q5. Strict report bundles remain a Q6 deliverable.
+
+Tests compare direct sequential backward-Euler stepping for 1-3 FGs, a retained
+single-pulse protocol at the same explicitly selected integrator, continuity
+under an extra zero-dwell read, and timestep halving at fixed physical waveform.
+The controlled test fixture uses `1e-6` absolute bounds on occupation/read-voltage
+changes for the refinement comparison. These are example regression thresholds,
+not a convergence proof or measured precision. Numerical comparisons do not
+change the default explicit integrator of historical single-pulse calls.
 
 ## Compatibility and validation ladder
 
