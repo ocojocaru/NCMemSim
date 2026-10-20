@@ -4,6 +4,13 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase Q4 fixed-reference gradual-update analysis with named pulse-index
+  linearity and paired magnitude-asymmetry definitions, explicit assessability,
+  raw updates and unclipped weight proxies. Add owned fixed-spectrum optical
+  sequences, matched dark controls, completed-step optical budgets and strict
+  static archives. Retain wrong-direction synthetic outcomes without favourable
+  scores; no conductance, experimental qualification or total programming-energy claim.
+
 - Add Phase Q3 independent level preparation and declared-order separation
   analysis, explicit interval assumptions, partial/failure accounting and strict
   source-linked archives. Add a synthetic electrical reference and timestep

@@ -6,7 +6,9 @@ Q0 is complete: repository audit, initial scientific scope and Q1-Q7 acceptance
 sequence are defined here. Q1 declaration contracts are now implemented in
 `ncmemsim.multilevel_contracts`; Q2 execution and static result archives are now
 implemented in `ncmemsim.multilevel_execution`. Q3 preparation and separation
-analysis is implemented in `ncmemsim.multilevel_analysis`. Q4-Q7 remain pending. The Q0 audit is retained as
+analysis is implemented in `ncmemsim.multilevel_analysis`. Q4 update metrics and
+fixed-spectrum optical sequences are implemented in `ncmemsim.multilevel_updates`
+and `ncmemsim.multilevel_optical`. Q5-Q7 remain pending. The Q0 audit is retained as
 its historical planning snapshot, not updated to imply Q1 existed at Q0.
 Q0 introduced no runtime implementation, public API,
 material law, calibrated parameter or new device family.
@@ -119,7 +121,7 @@ Crossed levels or insufficient margins fail the criterion; missing observations
 are not assessable. Never invent read noise from timestep differences.
 
 Preserve raw signed updates `R_(k+1) - R_k`, pulse counts, elapsed time, reference
-span, saturation and direction reversals. Q4 will freeze explicit definitions for
+span, saturation and direction reversals. Q4 defines the metrics below for
 linearity deviation and paired update asymmetry, including index alignment,
 normalizers and coverage. A branch with too few reads or insufficient dynamic
 range cannot receive a favourable normalized score. Identical repeated pulses
@@ -155,7 +157,7 @@ repeated on identical inputs does not represent cycle-to-cycle stochastic noise.
 | Q1 (complete) | Immutable step/sequence, readout and reference-mapping contracts | Explicit units, ownership, ordering, applicability, hashes, strict round trips and rejection of ambiguous definitions; no execution by declaration |
 | Q2 (complete) | Isolated state-continuing electrical sequence execution | Reproduce single-pulse baseline, correct state/time chain, no input mutation, explicit read semantics and partial-failure retention |
 | Q3 (complete) | Multilevel preparation and separation analysis | Common read/margin definitions, retained reversed/collapsed/missing levels and controlled electrical reference with timestep checks |
-| Q4 | Gradual-update analysis and optical sequence integration | Named linearity/asymmetry definitions, valid normalizers, paired dark control, optical budgets, no conductance substitution and controlled update references |
+| Q4 (complete) | Gradual-update analysis and optical sequence integration | Named linearity/asymmetry definitions, valid normalizers, paired dark control, optical budgets, no conductance substitution and controlled update references |
 | Q5 | Retention drift and supported ensemble evaluation | Fixed references, independent delay probes, exact sample/coverage accounting, zero-variation baseline and no noise/yield/endurance inference |
 | Q6 | Applied references, strict reports and reproducibility bundles | Electrical/optical normal and negative cases, source-linked states/metrics and no-replay restoration with tamper rejection |
 | Q7 | v1.8 additive API/archive review and release gates | Complete regression, strict docs, clean installed wheel/sdist, supported-Python CI and exact-candidate publication/citation checks |
@@ -180,7 +182,7 @@ Q1 adds six module-qualified types, without changing top-level v1 exports:
 Q1 is **declarative**. There is no runner, read execution or normalization method.
 `from_state` captures a request, not a simulated result. Q2 supplies a separate
 runner and result type for physical execution and read audits. Optical steps, source switching and finite-dwell reads
-are rejected by the Q1 electrical schema; optical integration remains for Q4.
+are rejected by the Q1 electrical schema; Q4 provides a separate optical workflow below.
 The `program`/`erase` role labels do not guarantee update direction.
 
 Numeric inputs reject booleans, text and non-finite values. A segment timestep
@@ -314,8 +316,8 @@ python examples/phase_q2_electrical_sequence_reference.py --input q2-result.json
 The result archive includes the source request, original physical/read states,
 runtime versions, counts, raw readouts and retained failures. It does not compute
 normalized weights, level separation, update linearity or experimental capacity.
-Q3 adds level separation below; weight/update and retention analyses remain
-Q4-Q5 work. Strict report bundles remain a Q6 deliverable.
+Q3 adds level separation and Q4 adds weight/update analysis below; retention
+analysis remains Q5 work. Strict report bundles remain a Q6 deliverable.
 
 Tests compare direct sequential backward-Euler stepping for 1-3 FGs, a retained
 single-pulse protocol at the same explicitly selected integrator, continuity
@@ -380,6 +382,138 @@ readouts with a declared `1e-5 V` absolute regression tolerance. This fixture ch
 is not a general convergence proof or experimental uncertainty estimate.
 Reversed, collapsed, overlapping, missing and failed preparations are tested
 explicitly, including restoration without solver execution.
+
+## Q4 gradual updates and fixed-spectrum optical sequences
+
+### Fixed-reference update analysis
+
+`ncmemsim.multilevel_updates` exports `GradualUpdateAnalysis`,
+`PairedUpdateAnalysis`, `analyze_gradual_updates` and `analyze_paired_updates`.
+Analysis accepts a Q2 electrical result or a Q4 optical result, the exact fixed
+Q1 `WeightReferenceMapping`, an expected signed-readout direction (`increasing`
+or `decreasing`) and a strictly positive `minimum_excursion_V`. Context and dark
+read policy must match the reference; an experiment's declared reference cannot
+be replaced by another one during analysis. Reference endpoints are supplied
+with evidence and applicability, not inferred from the observed trajectory.
+
+All accepted reads remain in physical order. Weights use
+`w_k = (R_k - R_low)/(R_high - R_low)` without clipping, per-branch min/max
+rescaling or sign changes. Out-of-reference read indices are explicit. Raw
+signed updates are `R_(k+1)-R_k`, in V; signed weight updates use the same fixed
+reference span. Read times are absolute physical times in seconds. Requested,
+completed and observed pulse counts distinguish non-idle pulses from idle
+segments; update coverage counts all declared segment boundaries, including
+idle segments. Varying waveforms and illumination schedules remain visible,
+with an explicit `all_steps_identical` flag.
+
+For N segment updates, **endpoint-interpolated pulse-index linearity deviation** is
+`max_k abs((R_k-R_0)/(R_N-R_0) - k/N)`, for k=0 through N. It is dimensionless,
+normalized by the branch endpoint excursion, not the fixed reference span.
+The complete branch needs at least two updates, a net excursion in the declared
+direction, absolute excursion at least `minimum_excursion_V` and representable
+normalization. Otherwise the score is null with a reason. Raw observations and
+partial coverage are retained. Opposite-to-declared-direction updates are counted
+as `direction_reversal_count`; this is not a count of sign changes between two
+successive updates. Exact-zero updates are counted separately and do not by
+themselves prove physical saturation. A nonmonotonic branch can retain a defined
+linearity deviation and its visible opposite-direction count.
+
+**Paired pulse-index magnitude asymmetry** is
+`sum_k abs(abs(delta_w_first_k)-abs(delta_w_second_k)) /
+ sum_k (abs(delta_w_first_k)+abs(delta_w_second_k))`.
+Branches require the same fixed reference, physical context/read policy, opposite
+declared directions and matching segment counts, durations and timesteps. Two
+optical branches additionally share the exact spectral path/source, capture,
+transition weights and assumed illuminated area. Alignment is by the same
+segment index, with no reversed indexing or inferred state matching. Independent
+branches may have different initial states and voltages; full requests retain
+those differences. This is not a state-matched hysteresis metric or a fit.
+Both branches must be assessable and contain no opposite-direction updates.
+Undefined/misaligned branches retain coverage and a null score, never a favourable
+zero. For defined scores, zero means equal paired update magnitudes, and values
+approaching one indicate increasing magnitude mismatch under this definition.
+
+### Explicit optical execution and dark controls
+
+`ncmemsim.multilevel_optical` exports `OpticalSequenceExperiment`,
+`OpticalSequenceResult`, `MatchedOpticalSequenceResult`, `run_optical_sequence`
+and `run_matched_optical_sequence`. An optical request combines an owned Q1
+electrical waveform/initial state/read policy with an exactly matching resolved
+`SpectralSimulationContext`. It adds ordered non-idle illuminated step identities,
+capture efficiency, immutable weights in `(r01,r12,r10,r21)` order and a positive
+uniform illuminated area in m2. This first adapter uses **one fixed spectrum**;
+source switching, finite-dwell reads and changing material contexts are outside
+its scope. Q1/Q2 electrical schemas and their dark execution are unchanged.
+
+The spectral source's irradiance is defined at the entrance of the modelled
+stack, using its declared traversal direction. All passive-layer assumptions and
+FG absorption profiles remain in the context. Existing N4 capture/outgoing-event
+constraints are enforced. Selected physical steps alone receive this source;
+idle, unselected steps and every zero-dwell read are explicitly dark. Each step
+uses backward Euler and continues the original physical state, not a returned
+read state. Source, initial-state, clock, read and failure-prefix checks retain
+the Q2 audit semantics through the new, separately named optical result schema.
+
+The matched runner creates independent light and dark copies of the exact same
+electrical request. The dark branch still runs if the light branch records a
+failure. Contrasts are light minus dark signed readout at the same read index
+and physical time. Matched read counts/fractions expose missing comparisons.
+Disabled sources and zero capture are separate controls: zero capture can still
+have delivered and absorbed optical energy.
+
+Budgets retain irradiance in W/m2, optical power in W for the assumed uniform
+area, exposure in seconds, fluence in J/m2, energy in J and absorbed photon
+fluence per FG in m-2. Incident, total absorbed, FG absorbed, passive absorbed
+and transmitted components are distinguished. These budgets cover only completed
+physical steps, including a step whose subsequent read fails. A failed physical
+step contributes no claimed completed exposure. Scheduled exposure can be nonzero
+with a disabled source, while its power/fluence are zero. This is delivered/
+absorbed optical accounting, not total electrical-plus-optical programming energy
+or an inferred energy per update from FG charge.
+
+Strict archives retain requests, original states and read observations, failures,
+metric definitions and derived counts/budgets. Restoration recomputes static
+state/read projections and inherited spectral consistency checks from stored
+profiles. It does not rerun occupancy integration, resample material absorption,
+fit parameters or draw random samples. Integrity hashes do not authenticate
+measurements or prove a trajectory was physically executed. Strict report/bundle
+exports remain Q6 work.
+
+### Controlled reference and negative outcome
+
+`examples/phase_q4_gradual_update_reference.py` uses one V2 Ge FG, assumed
+transparent passive layers, four 100 ns constant-voltage segments with 1 ns
+internal steps and dark zero-dwell reads at 0 V. The fixed reference interval
+is explicitly assumed to be [-0.1,0] V, with a 1 microvolt minimum branch
+excursion. It is not a measured or newly calibrated reference.
+
+```bash
+python examples/phase_q4_gradual_update_reference.py --output q4-reference.json
+python examples/phase_q4_gradual_update_reference.py --input q4-reference.json --output q4-restored.json
+```
+
+The +6 V branch starts empty and gives about -0.259216 mV net signed update,
+with linearity deviation about `5.79e-5` under the definition above. The -6 V
+branch starts at assumed P0=0.8, P1=0.2 and gives a small negative excursion,
+contrary to its declared increasing-readout direction. That negative outcome is
+retained: its linearity and the paired asymmetry are **not assessable**. Pulse
+role or polarity is not silently reinterpreted as successful potentiation/erase.
+
+The illuminated +6 V branch uses a synthetic 1550 nm line at 1e6 W/m2, capture
+0.1, loading weights `(1,1,0,0)` and assumed uniform area 1e-8 m2. Four exposures
+give 400 ns scheduled exposure, 0.01 W incident optical power and 4 nJ incident
+optical energy. The net signed update is about -1.735945 mV, with final matched
+light-minus-dark contrast about -1.476728 mV. It is not valid to attribute all
+combined electrical/optical charge to photons. These conditional model outputs
+are neither measured synaptic conductance nor experimental qualification.
+
+Tests cover explicit 1-3 FG state continuation against direct spectral stepping
+and the retained single-pulse workflow, paired dark/disabled/zero-capture controls,
+light scheduling, optical balances, injected failures and strict archive tamper
+rejection. Analytic curve tests separately verify linear, nonlinear, collapsed,
+reversed and unequal-magnitude definitions. Halving the optical reference timestep
+at the same physical waveform uses an absolute `1e-5 V` readout regression bound;
+this is a fixture tolerance, not measured noise or a general convergence proof.
 
 ## Compatibility and validation ladder
 

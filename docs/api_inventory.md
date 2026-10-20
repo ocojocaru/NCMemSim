@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 135 package source modules; 731 explicit export paths; 257 distinct documented Python import paths.
+Coverage: 137 package source modules; 740 explicit export paths; 257 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3726,6 +3726,84 @@ Decorators: `_dataclass(frozen=True)`.
 - `from_dict(cls, raw)`; `classmethod`.
 
 - `run_electrical_sequence(experiment)`
+
+## ncmemsim.multilevel_optical
+
+`ncmemsim/multilevel_optical.py`
+
+Explicit exports: `OpticalSequenceExperiment`, `OpticalSequenceResult`, `MatchedOpticalSequenceResult`, `run_optical_sequence`, `run_matched_optical_sequence`
+
+### OpticalSequenceExperiment
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `electrical: _Experiment`; required declaration.
+- Field `spectral_context: _Context`; required declaration.
+- Field `illuminated_step_ids: tuple[str, ...]`; required declaration.
+- Field `capture_efficiency: float`; required declaration.
+- Field `transition_weights: tuple[float, float, float, float]`; required declaration.
+- Field `illuminated_area_m2: float`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### OpticalSequenceResult
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `final_state(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `run_optical_sequence(experiment)`
+### MatchedOpticalSequenceResult
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `run_matched_optical_sequence(experiment)`
+
+## ncmemsim.multilevel_updates
+
+`ncmemsim/multilevel_updates.py`
+
+Explicit exports: `GradualUpdateAnalysis`, `PairedUpdateAnalysis`, `analyze_gradual_updates`, `analyze_paired_updates`
+
+### GradualUpdateAnalysis
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `analyze_gradual_updates(result, reference, *, expected_direction, minimum_excursion_V)`
+### PairedUpdateAnalysis
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `analyze_paired_updates(first, second)`
 
 ## ncmemsim.om2_numerics
 

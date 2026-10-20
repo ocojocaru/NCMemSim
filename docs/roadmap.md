@@ -481,8 +481,10 @@ Q2 is implemented: isolated backward-Euler electrical execution, audited dark
 zero-dwell reads, retained physical prefixes and strict no-replay result archives.
 Q3 is implemented: independent preparations from a common initial state, declared-order
 separation margins, explicit interval assumptions and retained failures/missing levels.
-Q4-Q7 remain planned: update metrics and optical integration;
-retention/ensemble analysis; applied references and strict reports; additive
+Q4 is implemented: fixed-reference gradual-update metrics, explicit pulse-index
+linearity/asymmetry definitions and fixed-spectrum optical sequences with matched
+dark controls, optical budgets and retained unassessable/negative outcomes.
+Q5-Q7 remain planned: retention/ensemble analysis; applied references and strict reports; additive
 API/archive and exact-candidate release gates. v1.8.0 is the target, subject to
 those gates. Published stable identity remains v1.7.0, and P4B/P5B/P6B experimental
 qualification remains deferred.
