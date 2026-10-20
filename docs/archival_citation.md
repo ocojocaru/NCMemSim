@@ -15,12 +15,19 @@ The published v1.3.0 citation recorded this specific DOI and the separate Concep
 The project author confirmed the v1.4.0 version-specific DOI [10.5281/zenodo.23102549](https://doi.org/10.5281/zenodo.23102549).
 The project author confirmed the v1.5.0 version-specific DOI [10.5281/zenodo.23189313](https://doi.org/10.5281/zenodo.23189313).
 The author confirmed the v1.6.0 version-specific DOI [10.5281/zenodo.23235484](https://doi.org/10.5281/zenodo.23235484).
-The current CITATION.cff describes published v1.7.0 dated 2026-10-12 and records the author-confirmed version DOI [10.5281/zenodo.23316663](https://doi.org/10.5281/zenodo.23316663). Concept DOI remains separate.
+The published v1.7.0 citation dated 2026-10-12 records the author-confirmed version DOI [10.5281/zenodo.23316663](https://doi.org/10.5281/zenodo.23316663). Concept DOI remains separate.
 Automated access to the Zenodo record was unavailable; the version DOI was supplied and confirmed by the project author.
 The v1.6.0 citation and its confirmed DOI are retained in historical fixtures.
 The v1.5.0 version-specific DOI remains the identifier of that published release. The published v1.4.0 DOI
 remains independently citable; Concept DOI stays separate in identifiers. Earlier versions remain
 independently citable. This metadata update does not move release tags or replace assets.
+
+## Prepared v1.8.0 citation
+
+Current CITATION.cff describes the prepared final candidate 1.8.0 dated 2026-10-20.
+It carries the Concept DOI as a separate identifier and no top-level version DOI.
+The actual v1.8 version DOI will be recorded only after its Zenodo deposit.
+Published v1.7 citation declarations are retained in historical fixtures.
 
 ## Historical v1.0.0 policy
 

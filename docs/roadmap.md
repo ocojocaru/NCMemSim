@@ -348,10 +348,11 @@ for the governing K0 architecture and scientific contracts.
 
 ## Planned post-v1.2 releases
 
-Planning order approved for staged development; version targets are provisional.
-L is released; M is the immediate cycle. M and N have acceptance targets; O-R remain indicative
-and are reassessed after each release. Experimental dataset discovery begins
-in L and can advance P when suitable independent data become available.
+L-O are published. P is published as v1.7.0 for calibration infrastructure and
+synthetic numerical diagnostics, with experimental qualification still deferred.
+Q is the immediate development cycle, targeting v1.8.0 subject to acceptance.
+R remains indicative. Independent experimental dataset discovery can resume the
+deferred P gates when suitable evidence becomes available.
 
 ### v1.3.0: Phase L - MODEL/TAT variability
 
@@ -464,10 +465,36 @@ experimental qualification remains deferred. See the [release checklist](v1_7_re
 
 ### v1.8.0: Phase Q - Multilevel and neuromorphic/in-memory operation
 
-Indicative: explicit pulse sequences, state separation, gradual updates,
-nonlinearity/asymmetry, retention drift and ensemble variability, with electrical
-and electro-optical references. Endurance proxies must be named and bounded;
-physical degradation prediction requires its own model.
+Q0 is complete: [multilevel operation planning](multilevel_operation.md) and
+[source audit](multilevel_operation_audit.json) define state-continuing electrical
+and electro-optical pulse sequences, common dark readout, multilevel separation,
+gradual-update diagnostics, retention drift and supported ensemble evaluation.
+The first normalized weight is explicitly derived from signed compact flat-band
+shift; it is not channel conductance or a circuit-level in-memory computation.
+Completed update-cycle counts are operating-history diagnostics, not physical
+endurance or degradation predictions. Q0 adds no runtime/API or release-identity change.
+
+Q1 is implemented: immutable electrical step/sequence and dark-read contracts,
+fixed context/readout-bound weight references, owned initial-state declarations
+and strict archives. Q1 declarations execute no pulse, read or weight evaluation.
+Q2 is implemented: isolated backward-Euler electrical execution, audited dark
+zero-dwell reads, retained physical prefixes and strict no-replay result archives.
+Q3 is implemented: independent preparations from a common initial state, declared-order
+separation margins, explicit interval assumptions and retained failures/missing levels.
+Q4 is implemented: fixed-reference gradual-update metrics, explicit pulse-index
+linearity/asymmetry definitions and fixed-spectrum optical sequences with matched
+dark controls, optical budgets and retained unassessable/negative outcomes.
+Q5 is implemented: independent dark retention probes of Q3 prepared levels,
+fixed read/margin definitions, drift and crossing diagnostics, and isolated
+manifest-bound ensembles for supported FG fractions with exact coverage counts.
+Q6 is implemented: typed applied reports for Q2-Q5 results, retained normal/negative
+outcomes, complete source evidence, CSV/Markdown views and strict no-integration
+report bundles with tamper checks. Q7 preparation is implemented: additive API/archive review and installed wheel/sdist
+restoration/reexport gates. Local evidence and exact-new-commit remote-matrix
+requirements are recorded in the v1.8 checklist. Final candidate identity: `1.8.0`,
+dated 2026-10-20; exact-candidate acceptance and publication remain pending. v1.8.0 is the target, subject to
+those gates. Published stable identity remains v1.7.0, and P4B/P5B/P6B experimental
+qualification remains deferred.
 
 ### Phase R: Performance and interoperability (version to be determined)
 

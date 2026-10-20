@@ -25,6 +25,13 @@ NCMemSim is a modular Python framework for the simulation and design–technolog
 > **Previous release status (v1.2.0):** Phase K is complete. K7a/K7b/K7c preparation and the exact-candidate local, branch-remote and `main` CI/Documentation gates passed before release tagging. No experimental-calibration or manufacturing-yield claim is made.
 > **Scientific status:** Phases G/H/I add deterministic and Robust DTCO, immutable workflow evidence and linked reports to the retained simulation/calibration baseline. References remain synthetic/FITTED; device-specific experimental calibration remains study-dependent.
 
+**Prepared final candidate:** `1.8.0`, dated 2026-10-20. Phase Q adds electrical
+and matched optical multilevel diagnostics, bounded retention/ensembles and strict
+reports. Final-candidate CI, PR/main/tag checks and publication remain pending.
+No v1.8 version DOI is assigned yet; CITATION.cff retains the separate Concept DOI.
+Weight proxies are not conductance or circuit MAC; no lifetime/endurance/yield
+or independent experimental qualification is claimed.
+
 ## Why NCMemSim?
 
 Distributed floating-gate memories couple material composition, nanocrystal geometry, dielectric-stack design, local electrostatics, tunnelling barriers, charge-state kinetics, retention, and optical excitation. NCMemSim separates these concerns into testable modules so that a device can be explored reproducibly instead of being hard-coded into one monolithic script.

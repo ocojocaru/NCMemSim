@@ -1,0 +1,163 @@
+{
+  "schema_version": "multilevel-operation-planning-audit-v1",
+  "status": "Q0_scope_defined_no_runtime_changes",
+  "audit_date": "2026-10-19",
+  "baseline_commit": "7056b579428f86647f48edeb9365feef4a47d8d0",
+  "published_tag_commit": "cf640a37cf474c0cec17c756fabae9be5acab685",
+  "current_release": "1.7.0",
+  "current_version_doi": "10.5281/zenodo.23316663",
+  "target_release": "1.8.0_subject_to_Q7_acceptance",
+  "planned_branch": "dev/v1.8-multilevel-neuromorphic",
+  "audit_method": "Repository source inspection; SHA-256 of UTF-8 text with normalized LF. No new simulation, fit, convergence study or measured qualification executed by Q0.",
+  "reviewed_sources": [
+    {
+      "path": "ncmemsim/state.py",
+      "canonical_text_sha256": "72833e6b85f846168d7d8de26b99d3771981d0900403b4d91524c4621bf744db",
+      "decision": "Per-FG state and normalized occupation retained; scalar readout is not full state identity."
+    },
+    {
+      "path": "ncmemsim/simulator.py",
+      "canonical_text_sha256": "76283adca7ae543bf38595220ddd6a483739ced51a59a17857524384be237fb7",
+      "decision": "Reuse explicit voltage stepping and static readout; preserve legacy defaults."
+    },
+    {
+      "path": "ncmemsim/program_protocol.py",
+      "canonical_text_sha256": "43fc7a1ca0b6f073fc93e703c66376b1182923b5fa19f32e7a4cd1f9568bab64",
+      "decision": "Single-pulse baseline retained; no generic pulse-train contract."
+    },
+    {
+      "path": "ncmemsim/paired_pulse_protocol.py",
+      "canonical_text_sha256": "7c877d4f9a50acd5eebca8548bc05d394d835f2da33d6b979958556d43e49eee",
+      "decision": "Independent branches must not become a state-continuing train implicitly."
+    },
+    {
+      "path": "ncmemsim/om2_sweep.py",
+      "canonical_text_sha256": "7663f53b7c0400b109f78e84b706b72bd713f0410ae992e90e14fd384f182aa5",
+      "decision": "Existing specialized state chain and partial-failure archive remain unchanged."
+    },
+    {
+      "path": "ncmemsim/device_photo_experiment.py",
+      "canonical_text_sha256": "ffe528974cd702b6d20786469ffb3399cbf4816b38f7a6e6199937f84ed9b8ee",
+      "decision": "Reuse sample-plane evidence and original-state read-roundoff accounting."
+    },
+    {
+      "path": "ncmemsim/spectral_context.py",
+      "canonical_text_sha256": "dded2ae1d156d7d997173db094c698541dd694a312398ec009bc3b3addac1ed2",
+      "decision": "Explicit source/context binding and dark defaults retained."
+    },
+    {
+      "path": "ncmemsim/temperature_context.py",
+      "canonical_text_sha256": "57cd71a301593d127b43aa9cfc1e43f690359432d4d0cf4fa9c787908874d98c",
+      "decision": "Fixed owned material context for first sequence reference."
+    },
+    {
+      "path": "ncmemsim/structural_optical_context.py",
+      "canonical_text_sha256": "2fcc1ecb52b1192fdeb5d3dcc8c6af401c64d89c17a155ed94374e899cd267a3",
+      "decision": "No automatic optical-context or transport-barrier reinterpretation."
+    },
+    {
+      "path": "ncmemsim/retention.py",
+      "canonical_text_sha256": "843e85cd591547d26a8bbe6e11ec06d91e510c190e039eff62cafc3358bc799e",
+      "decision": "Reuse state evolution; declare actual times/early termination and independent probes."
+    },
+    {
+      "path": "ncmemsim/ensemble/execution.py",
+      "canonical_text_sha256": "a04513fc8ca18e92b209bd8351a0999704b0eb209e280e32567e434a758c8771",
+      "decision": "Isolated realizations and explicit failure denominators retained."
+    },
+    {
+      "path": "ncmemsim/ensemble/model_execution.py",
+      "canonical_text_sha256": "23db67924f74664075f2f9eb0e0150d262a264537326a23413fb0730549a0224",
+      "decision": "Only supported MODEL bindings; no pulse-noise inference."
+    },
+    {
+      "path": "ncmemsim/om2_numerics.py",
+      "canonical_text_sha256": "4b18b9e8d3d1d8ddda25a493750becbe78d9ee10bd633078d2d93764d1a52085",
+      "decision": "Reuse strict evidence patterns without changing existing study schemas."
+    },
+    {
+      "path": "ncmemsim/om2_reporting.py",
+      "canonical_text_sha256": "59455fd3542747099ee5b27fb65cf9b5fd63f3ebc39b5940b008b5ed1f5349ad",
+      "decision": "Reuse strict no-replay report patterns and negative outcome retention."
+    },
+    {
+      "path": "docs/independent_calibration.md",
+      "canonical_text_sha256": "a5402e66c9ca9eb1f63ea8122b846fa262f1b0f590d0f3bbbe3f9c16e9e53ae4",
+      "decision": "Measured qualification stays governed by Phase P."
+    }
+  ],
+  "first_scope": {
+    "sequence": "owned explicit open-loop piecewise-constant electrical steps, followed by owned optical integration",
+    "integrator": "explicitly selected existing backward_euler",
+    "readout": "signed compact delta_vfb_V at a declared common dark zero-dwell read",
+    "weight_proxy": "dimensionless (R-R_low)/(R_high-R_low) with declared finite ordered references, no clipping",
+    "first_context": "fixed device/material/temperature context within a train",
+    "planned_analysis": [
+      "declared-order multilevel margins",
+      "raw signed updates",
+      "explicit linearity/asymmetry definitions",
+      "retention drift with fixed references",
+      "supported ensemble population accounting"
+    ],
+    "cycle_count_meaning": "operating-history count only; no physical endurance or lifetime"
+  },
+  "deferred": [
+    "channel_current_or_conductance_mapping",
+    "circuit_MAC_or_network_training",
+    "STDP",
+    "physical_fatigue_or_breakdown",
+    "terminal_programming_energy_model",
+    "read_noise_model",
+    "pulse_to_pulse_stochasticity",
+    "program_and_verify_feedback",
+    "continuous_waveforms",
+    "new_substrate_photogeneration"
+  ],
+  "experimental_status": {
+    "new_admitted_measured_datasets": 0,
+    "new_calibrated_parameters": 0,
+    "P4B_P5B_P6B": "experimental qualification remains deferred"
+  },
+  "delivery_sequence": [
+    {
+      "stage": "Q0",
+      "status": "complete",
+      "deliverable": "scope and source audit"
+    },
+    {
+      "stage": "Q1",
+      "status": "planned",
+      "deliverable": "sequence/read/reference contracts"
+    },
+    {
+      "stage": "Q2",
+      "status": "planned",
+      "deliverable": "isolated electrical sequence execution"
+    },
+    {
+      "stage": "Q3",
+      "status": "planned",
+      "deliverable": "multilevel preparation and separation"
+    },
+    {
+      "stage": "Q4",
+      "status": "planned",
+      "deliverable": "gradual-update metrics and optical integration"
+    },
+    {
+      "stage": "Q5",
+      "status": "planned",
+      "deliverable": "retention drift and supported ensemble evaluation"
+    },
+    {
+      "stage": "Q6",
+      "status": "planned",
+      "deliverable": "applied references and strict reports"
+    },
+    {
+      "stage": "Q7",
+      "status": "planned",
+      "deliverable": "v1.8 API/archive and release gates"
+    }
+  ]
+}

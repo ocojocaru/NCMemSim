@@ -25151,6 +25151,2416 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.multilevel_analysis",
+      "source": "ncmemsim/multilevel_analysis.py",
+      "explicit_exports": [
+        "MultilevelPreparation",
+        "MultilevelStudyPlan",
+        "MultilevelStudyResult",
+        "analyze_multilevel_results",
+        "run_multilevel_study"
+      ],
+      "package_import_aliases": {
+        "_Archive": "ncmemsim.multilevel_contracts._Archive",
+        "_Evidence": "ncmemsim.multilevel_contracts.PulseSequenceEvidence",
+        "_Experiment": "ncmemsim.multilevel_contracts.ElectricalSequenceExperiment",
+        "_SequenceResult": "ncmemsim.multilevel_execution.ElectricalSequenceResult",
+        "_canonical": "ncmemsim.multilevel_contracts._canonical",
+        "_keys": "ncmemsim.multilevel_contracts._keys",
+        "_load": "ncmemsim.multilevel_contracts._load",
+        "_match": "ncmemsim.multilevel_contracts._match",
+        "_number": "ncmemsim.multilevel_contracts._number",
+        "_run_sequence": "ncmemsim.multilevel_execution.run_electrical_sequence",
+        "_text": "ncmemsim.multilevel_contracts._text"
+      },
+      "public_source_definitions": [
+        {
+          "name": "MultilevelPreparation",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "level_id",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "experiment",
+              "annotation": "_Experiment",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "readout_half_width_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "MultilevelStudyPlan",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "levels",
+              "annotation": "tuple[MultilevelPreparation, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "minimum_margin_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "interval_kind",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "MultilevelStudyResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "analyze_multilevel_results",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "plan",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "results",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(plan, results)",
+          "decorators": []
+        },
+        {
+          "name": "run_multilevel_study",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "plan",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(plan)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.multilevel_contracts",
+      "source": "ncmemsim/multilevel_contracts.py",
+      "explicit_exports": [
+        "PulseSequenceEvidence",
+        "ElectricalPulseStep",
+        "DarkReadoutPolicy",
+        "WeightReferenceMapping",
+        "ElectricalPulseSequence",
+        "ElectricalSequenceExperiment"
+      ],
+      "package_import_aliases": {
+        "_DeviceState": "ncmemsim.state.DeviceState",
+        "_ResolvedThermalContext": "ncmemsim.temperature_context.ResolvedThermalContext",
+        "_restore_state": "ncmemsim.thermal_reporting._restore_state",
+        "_state_payload": "ncmemsim.thermal_reporting._state_payload"
+      },
+      "public_source_definitions": [
+        {
+          "name": "PulseSequenceEvidence",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "source",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "locator",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "data_kind",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "notes",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ElectricalPulseStep",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "step_id",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "role",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "gate_voltage_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "duration_s",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "internal_dt_s",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "DarkReadoutPolicy",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "condition_id",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "read_voltage_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "PulseSequenceEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "WeightReferenceMapping",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "context_hash",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "readout_hash",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "low_readout_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "high_readout_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "minimum_span_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "low_preparation",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "high_preparation",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "applicability",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "PulseSequenceEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ElectricalPulseSequence",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "steps",
+              "annotation": "tuple[ElectricalPulseStep, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "readout",
+              "annotation": "DarkReadoutPolicy",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "PulseSequenceEvidence",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ElectricalSequenceExperiment",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "context",
+              "annotation": "_ResolvedThermalContext",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "sequence",
+              "annotation": "ElectricalPulseSequence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "initial_state_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "weight_reference",
+              "annotation": "WeightReferenceMapping | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "from_state",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "name",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "context",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "sequence",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "initial_state",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "weight_reference",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, name, context, sequence, initial_state, weight_reference=None)",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "initial_state",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.multilevel_ensemble",
+      "source": "ncmemsim/multilevel_ensemble.py",
+      "explicit_exports": [
+        "MultilevelEnsemblePlan",
+        "MultilevelEnsembleResult",
+        "run_multilevel_ensemble"
+      ],
+      "package_import_aliases": {
+        "_Archive": "ncmemsim.multilevel_contracts._Archive",
+        "_Evidence": "ncmemsim.multilevel_contracts.PulseSequenceEvidence",
+        "_Manifest": "ncmemsim.ensemble.sampling.SampleManifest",
+        "_RetentionPlan": "ncmemsim.multilevel_retention.MultilevelRetentionPlan",
+        "_RetentionResult": "ncmemsim.multilevel_retention.MultilevelRetentionResult",
+        "_Study": "ncmemsim.multilevel_analysis.MultilevelStudyPlan",
+        "_apply": "ncmemsim.ensemble.realization.apply_sample_to_context",
+        "_canonical": "ncmemsim.multilevel_contracts._canonical",
+        "_device_payload": "ncmemsim.temperature_context._device_payload",
+        "_keys": "ncmemsim.multilevel_contracts._keys",
+        "_load": "ncmemsim.multilevel_contracts._load",
+        "_match": "ncmemsim.multilevel_contracts._match",
+        "_prepare": "ncmemsim.multilevel_analysis.run_multilevel_study",
+        "_retain": "ncmemsim.multilevel_retention.run_multilevel_retention",
+        "_schedule": "ncmemsim.multilevel_retention._schedule",
+        "_text": "ncmemsim.multilevel_contracts._text"
+      },
+      "public_source_definitions": [
+        {
+          "name": "MultilevelEnsemblePlan",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "study",
+              "annotation": "_Study",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "manifest",
+              "annotation": "_Manifest",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "delays_s",
+              "annotation": "tuple[float, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "retention_voltage_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "internal_dt_s",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "MultilevelEnsembleResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "run_multilevel_ensemble",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "plan",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(plan)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.multilevel_execution",
+      "source": "ncmemsim/multilevel_execution.py",
+      "explicit_exports": [
+        "ElectricalSequenceResult",
+        "run_electrical_sequence"
+      ],
+      "package_import_aliases": {
+        "_Archive": "ncmemsim.multilevel_contracts._Archive",
+        "_Experiment": "ncmemsim.multilevel_contracts.ElectricalSequenceExperiment",
+        "_canonical": "ncmemsim.multilevel_contracts._canonical",
+        "_charge": "ncmemsim.spectral_reporting._charge",
+        "_keys": "ncmemsim.multilevel_contracts._keys",
+        "_load": "ncmemsim.multilevel_contracts._load",
+        "_match": "ncmemsim.multilevel_contracts._match",
+        "_number": "ncmemsim.multilevel_contracts._number",
+        "_restore_state": "ncmemsim.thermal_reporting._restore_state",
+        "_runtime": "ncmemsim.ensemble.execution._runtime",
+        "_state_payload": "ncmemsim.thermal_reporting._state_payload",
+        "_text": "ncmemsim.multilevel_contracts._text"
+      },
+      "public_source_definitions": [
+        {
+          "name": "ElectricalSequenceResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "final_state",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "run_electrical_sequence",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "experiment",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(experiment)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.multilevel_optical",
+      "source": "ncmemsim/multilevel_optical.py",
+      "explicit_exports": [
+        "OpticalSequenceExperiment",
+        "OpticalSequenceResult",
+        "MatchedOpticalSequenceResult",
+        "run_optical_sequence",
+        "run_matched_optical_sequence"
+      ],
+      "package_import_aliases": {
+        "_Archive": "ncmemsim.multilevel_contracts._Archive",
+        "_Config": "ncmemsim.photo.PhotoTransitionConfig",
+        "_Context": "ncmemsim.spectral_context.SpectralSimulationContext",
+        "_ElectricalResult": "ncmemsim.multilevel_execution.ElectricalSequenceResult",
+        "_Experiment": "ncmemsim.multilevel_contracts.ElectricalSequenceExperiment",
+        "_Weights": "ncmemsim.photo.PhotoTransitionWeights",
+        "_canonical": "ncmemsim.multilevel_contracts._canonical",
+        "_capture": "ncmemsim.spectral_context._capture",
+        "_electrical_projection": "ncmemsim.multilevel_execution._projection",
+        "_keys": "ncmemsim.multilevel_contracts._keys",
+        "_load": "ncmemsim.multilevel_contracts._load",
+        "_match": "ncmemsim.multilevel_contracts._match",
+        "_number": "ncmemsim.multilevel_contracts._number",
+        "_perform_read": "ncmemsim.multilevel_execution._perform_read",
+        "_run_dark": "ncmemsim.multilevel_execution.run_electrical_sequence",
+        "_runtime": "ncmemsim.ensemble.execution._runtime",
+        "_state": "ncmemsim.multilevel_execution._state",
+        "_state_payload": "ncmemsim.thermal_reporting._state_payload"
+      },
+      "public_source_definitions": [
+        {
+          "name": "OpticalSequenceExperiment",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "electrical",
+              "annotation": "_Experiment",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "spectral_context",
+              "annotation": "_Context",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "illuminated_step_ids",
+              "annotation": "tuple[str, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "capture_efficiency",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "transition_weights",
+              "annotation": "tuple[float, float, float, float]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "illuminated_area_m2",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "OpticalSequenceResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "final_state",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "run_optical_sequence",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "experiment",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(experiment)",
+          "decorators": []
+        },
+        {
+          "name": "MatchedOpticalSequenceResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "run_matched_optical_sequence",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "experiment",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(experiment)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.multilevel_reporting",
+      "source": "ncmemsim/multilevel_reporting.py",
+      "explicit_exports": [
+        "MultilevelReportCase",
+        "MultilevelReport",
+        "build_multilevel_report",
+        "write_multilevel_report",
+        "load_multilevel_report_bundle"
+      ],
+      "package_import_aliases": {
+        "_Archive": "ncmemsim.multilevel_contracts._Archive",
+        "_Electrical": "ncmemsim.multilevel_execution.ElectricalSequenceResult",
+        "_Ensemble": "ncmemsim.multilevel_ensemble.MultilevelEnsembleResult",
+        "_Evidence": "ncmemsim.multilevel_contracts.PulseSequenceEvidence",
+        "_Matched": "ncmemsim.multilevel_optical.MatchedOpticalSequenceResult",
+        "_Optical": "ncmemsim.multilevel_optical.OpticalSequenceResult",
+        "_Paired": "ncmemsim.multilevel_updates.PairedUpdateAnalysis",
+        "_Retention": "ncmemsim.multilevel_retention.MultilevelRetentionResult",
+        "_Separation": "ncmemsim.multilevel_analysis.MultilevelStudyResult",
+        "_Updates": "ncmemsim.multilevel_updates.GradualUpdateAnalysis",
+        "_canonical": "ncmemsim.multilevel_contracts._canonical",
+        "_keys": "ncmemsim.multilevel_contracts._keys",
+        "_load": "ncmemsim.multilevel_contracts._load",
+        "_match": "ncmemsim.multilevel_contracts._match",
+        "_text": "ncmemsim.multilevel_contracts._text"
+      },
+      "public_source_definitions": [
+        {
+          "name": "MultilevelReportCase",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "kind",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "source_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "from_result",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "name",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "result",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "evidence",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, name, result, evidence)",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "source",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "source_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "MultilevelReport",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "title",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "cases",
+              "annotation": "tuple[MultilevelReportCase, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build_multilevel_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "title",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "cases",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "evidence",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(title, cases, evidence)",
+          "decorators": []
+        },
+        {
+          "name": "write_multilevel_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "report",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(report, destination)",
+          "decorators": []
+        },
+        {
+          "name": "load_multilevel_report_bundle",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(destination)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.multilevel_retention",
+      "source": "ncmemsim/multilevel_retention.py",
+      "explicit_exports": [
+        "MultilevelRetentionPlan",
+        "MultilevelRetentionResult",
+        "run_multilevel_retention",
+        "analyze_multilevel_retention"
+      ],
+      "package_import_aliases": {
+        "_Archive": "ncmemsim.multilevel_contracts._Archive",
+        "_Evidence": "ncmemsim.multilevel_contracts.PulseSequenceEvidence",
+        "_Experiment": "ncmemsim.multilevel_contracts.ElectricalSequenceExperiment",
+        "_Prepared": "ncmemsim.multilevel_analysis.MultilevelStudyResult",
+        "_Reference": "ncmemsim.multilevel_contracts.WeightReferenceMapping",
+        "_Result": "ncmemsim.multilevel_execution.ElectricalSequenceResult",
+        "_Sequence": "ncmemsim.multilevel_contracts.ElectricalPulseSequence",
+        "_Step": "ncmemsim.multilevel_contracts.ElectricalPulseStep",
+        "_StudyPlan": "ncmemsim.multilevel_analysis.MultilevelStudyPlan",
+        "_canonical": "ncmemsim.multilevel_contracts._canonical",
+        "_keys": "ncmemsim.multilevel_contracts._keys",
+        "_load": "ncmemsim.multilevel_contracts._load",
+        "_match": "ncmemsim.multilevel_contracts._match",
+        "_number": "ncmemsim.multilevel_contracts._number",
+        "_run": "ncmemsim.multilevel_execution.run_electrical_sequence"
+      },
+      "public_source_definitions": [
+        {
+          "name": "MultilevelRetentionPlan",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "prepared",
+              "annotation": "_Prepared",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "delays_s",
+              "annotation": "tuple[float, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "retention_voltage_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "internal_dt_s",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "reference",
+              "annotation": "_Reference | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "MultilevelRetentionResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "analyze_multilevel_retention",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "plan",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "probes",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(plan, probes)",
+          "decorators": []
+        },
+        {
+          "name": "run_multilevel_retention",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "plan",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(plan)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.multilevel_updates",
+      "source": "ncmemsim/multilevel_updates.py",
+      "explicit_exports": [
+        "GradualUpdateAnalysis",
+        "PairedUpdateAnalysis",
+        "analyze_gradual_updates",
+        "analyze_paired_updates"
+      ],
+      "package_import_aliases": {
+        "_Archive": "ncmemsim.multilevel_contracts._Archive",
+        "_Electrical": "ncmemsim.multilevel_execution.ElectricalSequenceResult",
+        "_Experiment": "ncmemsim.multilevel_contracts.ElectricalSequenceExperiment",
+        "_Mapping": "ncmemsim.multilevel_contracts.WeightReferenceMapping",
+        "_Optical": "ncmemsim.multilevel_optical.OpticalSequenceResult",
+        "_OpticalExperiment": "ncmemsim.multilevel_optical.OpticalSequenceExperiment",
+        "_canonical": "ncmemsim.multilevel_contracts._canonical",
+        "_keys": "ncmemsim.multilevel_contracts._keys",
+        "_load": "ncmemsim.multilevel_contracts._load",
+        "_match": "ncmemsim.multilevel_contracts._match",
+        "_number": "ncmemsim.multilevel_contracts._number"
+      },
+      "public_source_definitions": [
+        {
+          "name": "GradualUpdateAnalysis",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "analyze_gradual_updates",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "result",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "reference",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "expected_direction",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "minimum_excursion_V",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(result, reference, *, expected_direction, minimum_excursion_V)",
+          "decorators": []
+        },
+        {
+          "name": "PairedUpdateAnalysis",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "analyze_paired_updates",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "first",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "second",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(first, second)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.om2_numerics",
       "source": "ncmemsim/om2_numerics.py",
       "explicit_exports": [
@@ -40499,6 +42909,17 @@
     "ncmemsim.materials.temperature.ThermalMaterial",
     "ncmemsim.materials.temperature.profile_from_reviewed_record",
     "ncmemsim.materials.temperature.reviewed_varshni_coefficients",
+    "ncmemsim.multilevel_contracts.DarkReadoutPolicy",
+    "ncmemsim.multilevel_contracts.ElectricalPulseSequence",
+    "ncmemsim.multilevel_contracts.ElectricalPulseStep",
+    "ncmemsim.multilevel_contracts.ElectricalSequenceExperiment",
+    "ncmemsim.multilevel_contracts.PulseSequenceEvidence",
+    "ncmemsim.multilevel_contracts.WeightReferenceMapping",
+    "ncmemsim.multilevel_reporting.MultilevelReport",
+    "ncmemsim.multilevel_reporting.MultilevelReportCase",
+    "ncmemsim.multilevel_reporting.build_multilevel_report",
+    "ncmemsim.multilevel_reporting.load_multilevel_report_bundle",
+    "ncmemsim.multilevel_reporting.write_multilevel_report",
     "ncmemsim.om2_numerics.OM2NumericalStudy",
     "ncmemsim.om2_reporting.OM2NumericalReport",
     "ncmemsim.om2_reporting.build_om2_numerical_report",

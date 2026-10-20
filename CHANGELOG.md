@@ -4,6 +4,59 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+## 1.8.0 - 2026-10-20
+
+Prepared final candidate; publication and exact-candidate acceptance remain pending.
+P4B/P5B/P6B experimental qualification remains deferred. No version DOI is
+assigned before the actual Zenodo deposit.
+
+- Prepare Phase Q7 v1.8 API/archive review and installed-distribution gates:
+  freeze eight additive multilevel modules, capture an explicitly pre-identity
+  package-1.7.0 archive and add isolated wheel/sdist restoration, deterministic
+  reexport and projection-tamper probes. Published identity remains 1.7.0;
+  final v1.8 candidate identity is prepared; exact-commit acceptance and publication remain pending.
+
+- Add Phase Q6 typed multilevel reports spanning Q2-Q5 electrical/optical
+  trajectories, separation, updates, retention and supported ensembles. Export
+  complete source JSON, scalar observation/metric/failure CSV views, Markdown
+  summaries and strict SHA-256 bundles with static source/projection checks.
+  Include an applied normal/negative reference; preserve undefined outcomes and
+  source-specific denominators without pooling or experimental qualification.
+
+- Add Phase Q5 independent dark retention probes of Q3 prepared levels, fixed
+  read references and margins, signed drift, order-crossing diagnostics and
+  explicit endpoint/failure coverage. Add isolated manifest-bound ensembles for
+  supported FG electrically-active/NC-volume fractions, zero-variation controls
+  and exact requested/assessed denominators. No weight-reference rebinding,
+  cycle-noise, lifetime, endurance or manufacturing-yield inference.
+
+- Add Phase Q4 fixed-reference gradual-update analysis with named pulse-index
+  linearity and paired magnitude-asymmetry definitions, explicit assessability,
+  raw updates and unclipped weight proxies. Add owned fixed-spectrum optical
+  sequences, matched dark controls, completed-step optical budgets and strict
+  static archives. Retain wrong-direction synthetic outcomes without favourable
+  scores; no conductance, experimental qualification or total programming-energy claim.
+
+- Add Phase Q3 independent level preparation and declared-order separation
+  analysis, explicit interval assumptions, partial/failure accounting and strict
+  source-linked archives. Add a synthetic electrical reference and timestep
+  refinement checks; no experimental capacity or conductance claim.
+
+- Add Phase Q2 isolated electrical sequence execution with explicit backward
+  Euler stepping, original physical-state continuation, audited dark zero-dwell
+  reads, static source-linked result restoration and retained physical prefixes
+  on setup/step/read failure. No weight evaluation or experimental qualification.
+
+- Add Phase Q1 immutable electrical pulse-step/sequence declarations, common
+  dark readout policy, context-bound weight-reference mapping and owned initial
+  state requests with strict archives and hashes. No sequence execution,
+  conductance mapping or experimental qualification is introduced.
+
+- Define Phase Q0 multilevel and neuromorphic operation scope, source audit,
+  explicit pulse/read/weight-proxy boundaries and Q1-Q7 acceptance sequence;
+  no runtime, calibration or release-identity change. Enable CI/documentation
+  for the planned v1.8 development branch.
+
 ## 1.7.0 - 2026-10-12
 
 - Prepare final identity for calibration infrastructure and synthetic numerical

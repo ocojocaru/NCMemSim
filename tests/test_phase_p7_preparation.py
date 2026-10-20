@@ -10,16 +10,12 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 @pytest.fixture
-def review_copy(tmp_path):
-    for folder in ('docs','ncmemsim','tests/fixtures','data'):
-        shutil.copytree(ROOT/folder,tmp_path/folder)
-    for name in ('README.md','CHANGELOG.md','CITATION.cff'):
-        shutil.copyfile(ROOT/name,tmp_path/name)
-    return tmp_path
+def review_copy(published_v1_7_copy):
+    return published_v1_7_copy
 
 
-def test_candidate_review_retains_history_and_deferred_experiments():
-    result=gate.validate(ROOT)
+def test_candidate_review_retains_history_and_deferred_experiments(published_v1_7_copy):
+    result=gate.validate(published_v1_7_copy)
     assert result['package_version']=='1.7.0' and result['target_release']=='1.7.0'
     assert result['retained_stable_paths']==297 and result['stable_ensemble_exports']==59
     assert result['reviewed_modules']==7 and result['additive_exports']==29

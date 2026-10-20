@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 132 package source modules; 718 explicit export paths; 251 distinct documented Python import paths.
+Coverage: 140 package source modules; 752 explicit export paths; 262 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3566,6 +3566,352 @@ Decorators: `dataclass(frozen=True)`.
 
 - `reviewed_varshni_coefficients() -> tuple[VarshniCoefficientRecord, ...]`
 - `profile_from_reviewed_record(record: VarshniCoefficientRecord, *, name: str, domain: TemperatureDomain, reference_temperature_K: float, reference_gap_eV: float, reference_evidence: ThermalEvidence) -> AnchoredVarshniProfile`
+
+## ncmemsim.multilevel_analysis
+
+`ncmemsim/multilevel_analysis.py`
+
+Explicit exports: `MultilevelPreparation`, `MultilevelStudyPlan`, `MultilevelStudyResult`, `analyze_multilevel_results`, `run_multilevel_study`
+
+### MultilevelPreparation
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `level_id: str`; required declaration.
+- Field `experiment: _Experiment`; required declaration.
+- Field `readout_half_width_V: float`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### MultilevelStudyPlan
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `levels: tuple[MultilevelPreparation, ...]`; required declaration.
+- Field `minimum_margin_V: float`; required declaration.
+- Field `interval_kind: str`; required declaration.
+- Field `evidence: _Evidence`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### MultilevelStudyResult
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `analyze_multilevel_results(plan, results)`
+- `run_multilevel_study(plan)`
+
+## ncmemsim.multilevel_contracts
+
+`ncmemsim/multilevel_contracts.py`
+
+Explicit exports: `PulseSequenceEvidence`, `ElectricalPulseStep`, `DarkReadoutPolicy`, `WeightReferenceMapping`, `ElectricalPulseSequence`, `ElectricalSequenceExperiment`
+
+### PulseSequenceEvidence
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `source: str`; required declaration.
+- Field `locator: str`; required declaration.
+- Field `data_kind: str`; required declaration.
+- Field `notes: str`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### ElectricalPulseStep
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `step_id: str`; required declaration.
+- Field `role: str`; required declaration.
+- Field `gate_voltage_V: float`; required declaration.
+- Field `duration_s: float`; required declaration.
+- Field `internal_dt_s: float`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### DarkReadoutPolicy
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `condition_id: str`; required declaration.
+- Field `read_voltage_V: float`; required declaration.
+- Field `evidence: PulseSequenceEvidence`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### WeightReferenceMapping
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `context_hash: str`; required declaration.
+- Field `readout_hash: str`; required declaration.
+- Field `low_readout_V: float`; required declaration.
+- Field `high_readout_V: float`; required declaration.
+- Field `minimum_span_V: float`; required declaration.
+- Field `low_preparation: str`; required declaration.
+- Field `high_preparation: str`; required declaration.
+- Field `applicability: str`; required declaration.
+- Field `evidence: PulseSequenceEvidence`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### ElectricalPulseSequence
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `steps: tuple[ElectricalPulseStep, ...]`; required declaration.
+- Field `readout: DarkReadoutPolicy`; required declaration.
+- Field `evidence: PulseSequenceEvidence`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### ElectricalSequenceExperiment
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `context: _ResolvedThermalContext`; required declaration.
+- Field `sequence: ElectricalPulseSequence`; required declaration.
+- Field `initial_state_json: str`; required declaration.
+- Field `weight_reference: WeightReferenceMapping | None`; default expression `None`.
+- `from_state(cls, name, context, sequence, initial_state, weight_reference=None)`; `classmethod`.
+- `initial_state(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+
+## ncmemsim.multilevel_ensemble
+
+`ncmemsim/multilevel_ensemble.py`
+
+Explicit exports: `MultilevelEnsemblePlan`, `MultilevelEnsembleResult`, `run_multilevel_ensemble`
+
+### MultilevelEnsemblePlan
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `study: _Study`; required declaration.
+- Field `manifest: _Manifest`; required declaration.
+- Field `delays_s: tuple[float, ...]`; required declaration.
+- Field `retention_voltage_V: float`; required declaration.
+- Field `internal_dt_s: float`; required declaration.
+- Field `evidence: _Evidence`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### MultilevelEnsembleResult
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `run_multilevel_ensemble(plan)`
+
+## ncmemsim.multilevel_execution
+
+`ncmemsim/multilevel_execution.py`
+
+Explicit exports: `ElectricalSequenceResult`, `run_electrical_sequence`
+
+### ElectricalSequenceResult
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `final_state(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `run_electrical_sequence(experiment)`
+
+## ncmemsim.multilevel_optical
+
+`ncmemsim/multilevel_optical.py`
+
+Explicit exports: `OpticalSequenceExperiment`, `OpticalSequenceResult`, `MatchedOpticalSequenceResult`, `run_optical_sequence`, `run_matched_optical_sequence`
+
+### OpticalSequenceExperiment
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `electrical: _Experiment`; required declaration.
+- Field `spectral_context: _Context`; required declaration.
+- Field `illuminated_step_ids: tuple[str, ...]`; required declaration.
+- Field `capture_efficiency: float`; required declaration.
+- Field `transition_weights: tuple[float, float, float, float]`; required declaration.
+- Field `illuminated_area_m2: float`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### OpticalSequenceResult
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `final_state(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `run_optical_sequence(experiment)`
+### MatchedOpticalSequenceResult
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `run_matched_optical_sequence(experiment)`
+
+## ncmemsim.multilevel_reporting
+
+`ncmemsim/multilevel_reporting.py`
+
+Explicit exports: `MultilevelReportCase`, `MultilevelReport`, `build_multilevel_report`, `write_multilevel_report`, `load_multilevel_report_bundle`
+
+### MultilevelReportCase
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `kind: str`; required declaration.
+- Field `source_json: str`; required declaration.
+- Field `evidence: _Evidence`; required declaration.
+- `from_result(cls, name, result, evidence)`; `classmethod`.
+- `source(self)`; `property`.
+- `source_hash(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### MultilevelReport
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `title: str`; required declaration.
+- Field `cases: tuple[MultilevelReportCase, ...]`; required declaration.
+- Field `evidence: _Evidence`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `build_multilevel_report(title, cases, evidence)`
+- `write_multilevel_report(report, destination)`
+- `load_multilevel_report_bundle(destination)`
+
+## ncmemsim.multilevel_retention
+
+`ncmemsim/multilevel_retention.py`
+
+Explicit exports: `MultilevelRetentionPlan`, `MultilevelRetentionResult`, `run_multilevel_retention`, `analyze_multilevel_retention`
+
+### MultilevelRetentionPlan
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `prepared: _Prepared`; required declaration.
+- Field `delays_s: tuple[float, ...]`; required declaration.
+- Field `retention_voltage_V: float`; required declaration.
+- Field `internal_dt_s: float`; required declaration.
+- Field `evidence: _Evidence`; required declaration.
+- Field `reference: _Reference | None`; default expression `None`.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### MultilevelRetentionResult
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `analyze_multilevel_retention(plan, probes)`
+- `run_multilevel_retention(plan)`
+
+## ncmemsim.multilevel_updates
+
+`ncmemsim/multilevel_updates.py`
+
+Explicit exports: `GradualUpdateAnalysis`, `PairedUpdateAnalysis`, `analyze_gradual_updates`, `analyze_paired_updates`
+
+### GradualUpdateAnalysis
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `analyze_gradual_updates(result, reference, *, expected_direction, minimum_excursion_V)`
+### PairedUpdateAnalysis
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `analyze_paired_updates(first, second)`
 
 ## ncmemsim.om2_numerics
 

@@ -2,9 +2,14 @@
 
 # NCMemSim
 
-Published stable release: `1.7.0`, dated 2026-10-12. P7 is complete for infrastructure and numerical diagnostics; experimental P4B/P5B/P6B remain deferred. CITATION.cff records [10.5281/zenodo.23316663](https://doi.org/10.5281/zenodo.23316663).
+Prepared final candidate: `1.8.0`, dated 2026-10-20. Multilevel pulse sequences,
+matched optical controls, separation/update diagnostics, bounded retention and
+FG-fraction ensembles, and strict source-linked reports are implemented.
+Final-candidate CI and publication remain pending; no v1.8 version DOI is assigned.
 
-Previous published stable release: `1.6.0`, dated 2026-10-08. O7 is complete; CITATION.cff records [10.5281/zenodo.23235484](https://doi.org/10.5281/zenodo.23235484).
+Published stable release: `1.7.0`, dated 2026-10-12. P7 is complete for infrastructure and numerical diagnostics; experimental P4B/P5B/P6B remain deferred. Version-specific DOI: [10.5281/zenodo.23316663](https://doi.org/10.5281/zenodo.23316663).
+
+Previous published stable release: `1.6.0`, dated 2026-10-08. O7 is complete; Version-specific DOI: [10.5281/zenodo.23235484](https://doi.org/10.5281/zenodo.23235484).
 
 Previous stable release: `1.5.0`, dated 2026-10-06. Phase N7 is complete; Version-specific DOI: [10.5281/zenodo.23189313](https://doi.org/10.5281/zenodo.23189313).
 

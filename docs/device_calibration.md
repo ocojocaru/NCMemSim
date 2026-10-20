@@ -4,6 +4,11 @@ NCMemSim v0.11.0 extends the generic fitting and calibration infrastructure
 to electrical and device-level observables while preserving a strict
 distinction between numerical fitting and experimental calibration.
 
+Phase Q [multilevel operation planning](multilevel_operation.md) defines a
+separate future state-continuing pulse-train workflow. The paired program/erase
+branches documented here retain their independent-reference semantics. Q0
+introduces planning only; it does not implement the new sequence workflow.
+
 The device-level workflows are deliberately conservative. They use controlled
 parameter bindings, explicit protocol objects, reproducibility hashes, and
 single-parameter reference fits before any broader multi-parameter calibration

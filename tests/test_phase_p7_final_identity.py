@@ -9,16 +9,12 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 @pytest.fixture
-def candidate_copy(tmp_path):
-    for folder in ('docs','ncmemsim','tests/fixtures','data'):
-        shutil.copytree(ROOT/folder,tmp_path/folder)
-    for name in ('README.md','CHANGELOG.md','CITATION.cff'):
-        shutil.copyfile(ROOT/name,tmp_path/name)
-    return tmp_path
+def candidate_copy(published_v1_7_copy):
+    return published_v1_7_copy
 
 
-def test_candidate_and_retained_v16_identity():
-    result=validate(ROOT)
+def test_candidate_and_retained_v16_identity(published_v1_7_copy):
+    result=validate(published_v1_7_copy)
     assert result['package_version']=='1.7.0' and result['citation_date']=='2026-10-12'
     assert result['latest_published_stable']=='1.7.0' and result['version_specific_doi']=='10.5281/zenodo.23316663'
     assert result['api']['retained_stable_paths']==297 and result['api']['additive_exports']==29
