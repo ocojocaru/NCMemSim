@@ -56,6 +56,7 @@ nav:
       - Stochastic ensembles and variability: stochastic_ensembles.md
       - Model and TAT variability planning: model_variability.md
       - Multilevel and neuromorphic operation planning: multilevel_operation.md
+      - Multilevel reports and bundles: multilevel_reporting.md
       - Materials and provenance: materials.md
       - Temperature-dependent material planning: temperature_properties.md
       - Optical programming: optics.md

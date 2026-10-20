@@ -26740,6 +26740,347 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.multilevel_reporting",
+      "source": "ncmemsim/multilevel_reporting.py",
+      "explicit_exports": [
+        "MultilevelReportCase",
+        "MultilevelReport",
+        "build_multilevel_report",
+        "write_multilevel_report",
+        "load_multilevel_report_bundle"
+      ],
+      "package_import_aliases": {
+        "_Archive": "ncmemsim.multilevel_contracts._Archive",
+        "_Electrical": "ncmemsim.multilevel_execution.ElectricalSequenceResult",
+        "_Ensemble": "ncmemsim.multilevel_ensemble.MultilevelEnsembleResult",
+        "_Evidence": "ncmemsim.multilevel_contracts.PulseSequenceEvidence",
+        "_Matched": "ncmemsim.multilevel_optical.MatchedOpticalSequenceResult",
+        "_Optical": "ncmemsim.multilevel_optical.OpticalSequenceResult",
+        "_Paired": "ncmemsim.multilevel_updates.PairedUpdateAnalysis",
+        "_Retention": "ncmemsim.multilevel_retention.MultilevelRetentionResult",
+        "_Separation": "ncmemsim.multilevel_analysis.MultilevelStudyResult",
+        "_Updates": "ncmemsim.multilevel_updates.GradualUpdateAnalysis",
+        "_canonical": "ncmemsim.multilevel_contracts._canonical",
+        "_keys": "ncmemsim.multilevel_contracts._keys",
+        "_load": "ncmemsim.multilevel_contracts._load",
+        "_match": "ncmemsim.multilevel_contracts._match",
+        "_text": "ncmemsim.multilevel_contracts._text"
+      },
+      "public_source_definitions": [
+        {
+          "name": "MultilevelReportCase",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "kind",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "source_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "from_result",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "name",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "result",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "evidence",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, name, result, evidence)",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "source",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "source_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "MultilevelReport",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "title",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "cases",
+              "annotation": "tuple[MultilevelReportCase, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build_multilevel_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "title",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "cases",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "evidence",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(title, cases, evidence)",
+          "decorators": []
+        },
+        {
+          "name": "write_multilevel_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "report",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(report, destination)",
+          "decorators": []
+        },
+        {
+          "name": "load_multilevel_report_bundle",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(destination)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.multilevel_retention",
       "source": "ncmemsim/multilevel_retention.py",
       "explicit_exports": [
@@ -42574,6 +42915,11 @@
     "ncmemsim.multilevel_contracts.ElectricalSequenceExperiment",
     "ncmemsim.multilevel_contracts.PulseSequenceEvidence",
     "ncmemsim.multilevel_contracts.WeightReferenceMapping",
+    "ncmemsim.multilevel_reporting.MultilevelReport",
+    "ncmemsim.multilevel_reporting.MultilevelReportCase",
+    "ncmemsim.multilevel_reporting.build_multilevel_report",
+    "ncmemsim.multilevel_reporting.load_multilevel_report_bundle",
+    "ncmemsim.multilevel_reporting.write_multilevel_report",
     "ncmemsim.om2_numerics.OM2NumericalStudy",
     "ncmemsim.om2_reporting.OM2NumericalReport",
     "ncmemsim.om2_reporting.build_om2_numerical_report",

@@ -10,7 +10,8 @@ analysis is implemented in `ncmemsim.multilevel_analysis`. Q4 update metrics and
 fixed-spectrum optical sequences are implemented in `ncmemsim.multilevel_updates`
 and `ncmemsim.multilevel_optical`. Q5 independent dark retention and supported
 FG-fraction ensembles are implemented in `ncmemsim.multilevel_retention` and
-`ncmemsim.multilevel_ensemble`. Q6-Q7 remain pending. The Q0 audit is retained as
+`ncmemsim.multilevel_ensemble`. Q6 reports and strict bundles are implemented in
+`ncmemsim.multilevel_reporting`. Q7 remains pending. The Q0 audit is retained as
 its historical planning snapshot, not updated to imply Q1 existed at Q0.
 Q0 introduced no runtime implementation, public API,
 material law, calibrated parameter or new device family.
@@ -161,7 +162,7 @@ repeated on identical inputs does not represent cycle-to-cycle stochastic noise.
 | Q3 (complete) | Multilevel preparation and separation analysis | Common read/margin definitions, retained reversed/collapsed/missing levels and controlled electrical reference with timestep checks |
 | Q4 (complete) | Gradual-update analysis and optical sequence integration | Named linearity/asymmetry definitions, valid normalizers, paired dark control, optical budgets, no conductance substitution and controlled update references |
 | Q5 (complete) | Retention drift and supported ensemble evaluation | Fixed references, independent delay probes, exact sample/coverage accounting, zero-variation baseline and no noise/yield/endurance inference |
-| Q6 | Applied references, strict reports and reproducibility bundles | Electrical/optical normal and negative cases, source-linked states/metrics and no-replay restoration with tamper rejection |
+| Q6 (complete) | Applied references, strict reports and reproducibility bundles | Electrical/optical normal and negative cases, source-linked states/metrics and no-replay restoration with tamper rejection |
 | Q7 | v1.8 additive API/archive review and release gates | Complete regression, strict docs, clean installed wheel/sdist, supported-Python CI and exact-candidate publication/citation checks |
 
 Acceptance is not a promise of a particular number of stable levels or a
@@ -319,7 +320,7 @@ The result archive includes the source request, original physical/read states,
 runtime versions, counts, raw readouts and retained failures. It does not compute
 normalized weights, level separation, update linearity or experimental capacity.
 Q3 adds level separation, Q4 adds weight/update analysis and Q5 adds independent
-retention analysis below. Strict report bundles remain a Q6 deliverable.
+retention analysis below. Q6 provides strict reports and bundles below.
 
 Tests compare direct sequential backward-Euler stepping for 1-3 FGs, a retained
 single-pulse protocol at the same explicitly selected integrator, continuity
@@ -478,8 +479,7 @@ metric definitions and derived counts/budgets. Restoration recomputes static
 state/read projections and inherited spectral consistency checks from stored
 profiles. It does not rerun occupancy integration, resample material absorption,
 fit parameters or draw random samples. Integrity hashes do not authenticate
-measurements or prove a trajectory was physically executed. Strict report/bundle
-exports remain Q6 work.
+measurements or prove a trajectory was physically executed. Q6 provides strict report/bundle exports below.
 
 ### Controlled reference and negative outcome
 
@@ -621,7 +621,7 @@ Restoration validates source hashes, delay/level/sample order, original prepared
 state linkage, supported realization bindings and recomputed static projections.
 Static device binding/context resolution may run; occupancy integration and RNG
 sampling do not. Hashes establish consistency, not experimental authenticity or
-proof of replayed trajectories. Strict report/bundle exports remain Q6 work.
+proof of replayed trajectories. Q6 provides strict report/bundle exports below.
 
 ```bash
 python examples/phase_q5_retention_ensemble_reference.py --output q5-reference.json
@@ -641,6 +641,33 @@ identity, fixed normalization, missing/failed endpoints, order inversions, inter
 overlap and strict tamper rejection. Ensemble tests retain zero-variation identity,
 manifest order, varied realized contexts, invalid samples, partial workflows and
 exact denominators. Static restoration is checked with integration and RNG disabled.
+
+## Q6 applied reports and reproducibility bundles
+
+`ncmemsim.multilevel_reporting` adds typed, ordered reports over the eight Q2-Q5
+result families. It retains source-specific definitions, contexts and denominators;
+it does not pool different studies into a capacity, yield or performance score.
+See [Multilevel reports and bundles](multilevel_reporting.md) for schemas,
+file meanings, source pointers, static restoration and executable usage.
+
+The applied reference combines electrical loading, declared-order separation,
+deliberately reversed levels, gradual updates, a wrong-direction branch and its
+undefined paired metric, fixed-spectrum optical loading with matched dark control,
+independent nominal retention, zero-variation and assumed-fraction ensembles.
+All eleven cases retain their original full source records and hashes. Negative,
+partial and undefined results are not removed to improve the report.
+
+```bash
+python examples/phase_q6_multilevel_report.py --destination q6-report
+python examples/phase_q6_multilevel_report.py --input-bundle q6-report --destination q6-restored
+```
+
+Reporting and loading use existing static result readers; they do not rerun
+occupancy integration or generate new samples. Source generation in the first
+command does execute the declared Q4/Q5 reference workflows. Optional stored
+reference inputs are described in the reporting guide. Bundle tests compare
+re-exported bytes and reject altered source evidence, CSV/Markdown projections,
+manifest hashes and unexpected directory members. Q7 release gates remain open.
 
 ## Compatibility and validation ladder
 

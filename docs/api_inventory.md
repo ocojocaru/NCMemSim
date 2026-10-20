@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 139 package source modules; 747 explicit export paths; 257 distinct documented Python import paths.
+Coverage: 140 package source modules; 752 explicit export paths; 262 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3807,6 +3807,45 @@ Decorators: `_dataclass(frozen=True)`.
 - `from_dict(cls, raw)`; `classmethod`.
 
 - `run_matched_optical_sequence(experiment)`
+
+## ncmemsim.multilevel_reporting
+
+`ncmemsim/multilevel_reporting.py`
+
+Explicit exports: `MultilevelReportCase`, `MultilevelReport`, `build_multilevel_report`, `write_multilevel_report`, `load_multilevel_report_bundle`
+
+### MultilevelReportCase
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `kind: str`; required declaration.
+- Field `source_json: str`; required declaration.
+- Field `evidence: _Evidence`; required declaration.
+- `from_result(cls, name, result, evidence)`; `classmethod`.
+- `source(self)`; `property`.
+- `source_hash(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### MultilevelReport
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `title: str`; required declaration.
+- Field `cases: tuple[MultilevelReportCase, ...]`; required declaration.
+- Field `evidence: _Evidence`; required declaration.
+- `summary(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `build_multilevel_report(title, cases, evidence)`
+- `write_multilevel_report(report, destination)`
+- `load_multilevel_report_bundle(destination)`
 
 ## ncmemsim.multilevel_retention
 

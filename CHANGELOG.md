@@ -4,6 +4,13 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase Q6 typed multilevel reports spanning Q2-Q5 electrical/optical
+  trajectories, separation, updates, retention and supported ensembles. Export
+  complete source JSON, scalar observation/metric/failure CSV views, Markdown
+  summaries and strict SHA-256 bundles with static source/projection checks.
+  Include an applied normal/negative reference; preserve undefined outcomes and
+  source-specific denominators without pooling or experimental qualification.
+
 - Add Phase Q5 independent dark retention probes of Q3 prepared levels, fixed
   read references and margins, signed drift, order-crossing diagnostics and
   explicit endpoint/failure coverage. Add isolated manifest-bound ensembles for
