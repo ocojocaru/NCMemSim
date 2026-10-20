@@ -4,6 +4,12 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Prepare Phase Q7 v1.8 API/archive review and installed-distribution gates:
+  freeze eight additive multilevel modules, capture an explicitly pre-identity
+  package-1.7.0 archive and add isolated wheel/sdist restoration, deterministic
+  reexport and projection-tamper probes. Published identity remains 1.7.0;
+  final v1.8 identity, exact-commit acceptance and publication remain pending.
+
 - Add Phase Q6 typed multilevel reports spanning Q2-Q5 electrical/optical
   trajectories, separation, updates, retention and supported ensembles. Export
   complete source JSON, scalar observation/metric/failure CSV views, Markdown

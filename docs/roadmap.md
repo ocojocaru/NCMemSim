@@ -489,8 +489,9 @@ fixed read/margin definitions, drift and crossing diagnostics, and isolated
 manifest-bound ensembles for supported FG fractions with exact coverage counts.
 Q6 is implemented: typed applied reports for Q2-Q5 results, retained normal/negative
 outcomes, complete source evidence, CSV/Markdown views and strict no-integration
-report bundles with tamper checks. Q7 remains planned: additive API/archive review
-and exact-candidate release gates. v1.8.0 is the target, subject to
+report bundles with tamper checks. Q7 preparation is implemented: additive API/archive review and installed wheel/sdist
+restoration/reexport gates. Local evidence and exact-new-commit remote-matrix
+requirements are recorded in the v1.8 checklist; final identity and publication remain pending. v1.8.0 is the target, subject to
 those gates. Published stable identity remains v1.7.0, and P4B/P5B/P6B experimental
 qualification remains deferred.
 

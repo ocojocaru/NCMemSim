@@ -205,6 +205,10 @@ SOURCE_REQUIRED |= {'scripts/validate_v1_7_api_review.py','docs/v1_7_api_review.
 SOURCE_REQUIRED |= {'scripts/validate_v1_7_release_identity.py'}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_6_0/'+name for name in ('README.md','CHANGELOG.md','CITATION.cff','ncmemsim/_version.py','docs/index.md','docs/roadmap.md','docs/archival_citation.md','docs/strain_confinement.md','docs/v1_6_release_checklist.md','.github/workflows/ci.yml','.github/workflows/docs.yml')}
 
+SOURCE_REQUIRED |= {'scripts/validate_v1_8_api_review.py', 'docs/v1_8_api_review.json', 'docs/v1_8_release_checklist.md',
+    'tests/fixtures/archives/v1_8_preparation/multilevel_report.json', 'docs/multilevel_operation.md',
+    'docs/multilevel_operation_audit.json', 'docs/multilevel_reporting.md', 'examples/phase_q6_multilevel_report.py'}
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--reuse-dependencies", action="store_true",
@@ -268,7 +272,9 @@ def main() -> None:
             run(str(python), '-I', '-c', STRUCTURAL_PROBE, str(work), version, cwd=work)
             shutil.copyfile(root / 'tests/fixtures/archives/v1_7_preparation/om2_report.json', work / 'om2_report.json')
             run(str(python), '-I', '-c', INDEPENDENT_PROBE, str(work), version, cwd=work)
-            results.append({"artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS"})
+            shutil.copyfile(root / 'tests/fixtures/archives/v1_8_preparation/multilevel_report.json', work / 'multilevel_report.json')
+            run(str(python), '-I', '-c', MULTILEVEL_PROBE, str(work), version, cwd=work)
+            results.append({"artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
 
@@ -724,6 +730,59 @@ try:load_om2_numerical_report_bundle(second)
 except ValueError:pass
 else:raise AssertionError('coherently rehashed projection must fail')
 print('Installed independent infrastructure and numerical archive/bundle PASS')
+"""
+
+
+MULTILEVEL_PROBE = r"""import sys, json, hashlib, importlib, math
+from pathlib import Path
+from decimal import Decimal, localcontext
+import numpy as np
+import ncmemsim
+from ncmemsim.multilevel_reporting import MultilevelReport,write_multilevel_report,load_multilevel_report_bundle
+from ncmemsim.temperature_context import ResolvedThermalContext,ThermalSimulator
+from ncmemsim.spectral_context import SpectralSimulator
+from ncmemsim.ensemble import RNGSpec
+import ncmemsim.spectral_absorption as absorption
+work=Path(sys.argv[1]);expected=sys.argv[2]
+assert ncmemsim.__version__==expected
+modules=('multilevel_contracts','multilevel_execution','multilevel_analysis','multilevel_updates',
+ 'multilevel_optical','multilevel_retention','multilevel_ensemble','multilevel_reporting')
+for name in modules:
+    module=importlib.import_module('ncmemsim.'+name)
+    assert Path(module.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()),name
+    assert all(hasattr(module,value) for value in module.__all__)
+def forbidden(*args,**kwargs):raise AssertionError('unexpected multilevel workflow/material/RNG replay')
+ResolvedThermalContext.create_simulator=forbidden
+ThermalSimulator.relax_voltage=forbidden
+SpectralSimulator.relax_voltage=forbidden
+absorption.evaluate_floating_gate_spectrum=forbidden
+RNGSpec.create_generator=forbidden
+np.random.default_rng=forbidden
+def alternate_expm1(value):
+    with localcontext() as context:
+        context.prec=80
+        return float(Decimal.from_float(value).exp()-1)
+math.expm1=alternate_expm1
+raw=json.loads((work/'multilevel_report.json').read_text(encoding='utf-8'))
+report=MultilevelReport.from_dict(raw)
+assert report.to_dict()==raw and report.summary['experimental_qualification'] is False
+assert len({case.kind for case in report.cases})==8
+assert any(row['status']=='failed' for row in report.summary['cases'])
+assert any(row['status']=='not_assessable' for row in report.summary['cases'])
+first=write_multilevel_report(report,work/('multilevel-first-'+Path(sys.prefix).name))
+loaded=load_multilevel_report_bundle(first)
+second=write_multilevel_report(loaded,work/('multilevel-second-'+Path(sys.prefix).name))
+assert all(path.read_bytes()==(second/path.name).read_bytes() for path in first.iterdir())
+target=second/'cases.csv'
+assert b'not_assessable' in target.read_bytes()
+target.write_bytes(target.read_bytes().replace(b'not_assessable',b'assessable'))
+manifest=json.loads((second/'bundle.json').read_text(encoding='utf-8'))
+manifest['files']['cases.csv']=hashlib.sha256(target.read_bytes()).hexdigest()
+(second/'bundle.json').write_text(json.dumps(manifest),encoding='utf-8')
+try:load_multilevel_report_bundle(second)
+except ValueError:pass
+else:raise AssertionError('coherently rehashed multilevel projection must fail')
+print('Installed multilevel API/archive/bundle and negative outcomes PASS')
 """
 
 if __name__ == "__main__":
