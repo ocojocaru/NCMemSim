@@ -25151,6 +25151,308 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.multilevel_analysis",
+      "source": "ncmemsim/multilevel_analysis.py",
+      "explicit_exports": [
+        "MultilevelPreparation",
+        "MultilevelStudyPlan",
+        "MultilevelStudyResult",
+        "analyze_multilevel_results",
+        "run_multilevel_study"
+      ],
+      "package_import_aliases": {
+        "_Archive": "ncmemsim.multilevel_contracts._Archive",
+        "_Evidence": "ncmemsim.multilevel_contracts.PulseSequenceEvidence",
+        "_Experiment": "ncmemsim.multilevel_contracts.ElectricalSequenceExperiment",
+        "_SequenceResult": "ncmemsim.multilevel_execution.ElectricalSequenceResult",
+        "_canonical": "ncmemsim.multilevel_contracts._canonical",
+        "_keys": "ncmemsim.multilevel_contracts._keys",
+        "_load": "ncmemsim.multilevel_contracts._load",
+        "_match": "ncmemsim.multilevel_contracts._match",
+        "_number": "ncmemsim.multilevel_contracts._number",
+        "_run_sequence": "ncmemsim.multilevel_execution.run_electrical_sequence",
+        "_text": "ncmemsim.multilevel_contracts._text"
+      },
+      "public_source_definitions": [
+        {
+          "name": "MultilevelPreparation",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "level_id",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "experiment",
+              "annotation": "_Experiment",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "readout_half_width_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "MultilevelStudyPlan",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "levels",
+              "annotation": "tuple[MultilevelPreparation, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "minimum_margin_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "interval_kind",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "MultilevelStudyResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "analyze_multilevel_results",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "plan",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "results",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(plan, results)",
+          "decorators": []
+        },
+        {
+          "name": "run_multilevel_study",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "plan",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(plan)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.multilevel_contracts",
       "source": "ncmemsim/multilevel_contracts.py",
       "explicit_exports": [

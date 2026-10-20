@@ -479,7 +479,9 @@ fixed context/readout-bound weight references, owned initial-state declarations
 and strict archives. Q1 declarations execute no pulse, read or weight evaluation.
 Q2 is implemented: isolated backward-Euler electrical execution, audited dark
 zero-dwell reads, retained physical prefixes and strict no-replay result archives.
-Q3-Q7 remain planned: multilevel separation; update metrics and optical integration;
+Q3 is implemented: independent preparations from a common initial state, declared-order
+separation margins, explicit interval assumptions and retained failures/missing levels.
+Q4-Q7 remain planned: update metrics and optical integration;
 retention/ensemble analysis; applied references and strict reports; additive
 API/archive and exact-candidate release gates. v1.8.0 is the target, subject to
 those gates. Published stable identity remains v1.7.0, and P4B/P5B/P6B experimental

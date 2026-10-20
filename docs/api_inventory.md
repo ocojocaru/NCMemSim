@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 134 package source modules; 726 explicit export paths; 257 distinct documented Python import paths.
+Coverage: 135 package source modules; 731 explicit export paths; 257 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3566,6 +3566,52 @@ Decorators: `dataclass(frozen=True)`.
 
 - `reviewed_varshni_coefficients() -> tuple[VarshniCoefficientRecord, ...]`
 - `profile_from_reviewed_record(record: VarshniCoefficientRecord, *, name: str, domain: TemperatureDomain, reference_temperature_K: float, reference_gap_eV: float, reference_evidence: ThermalEvidence) -> AnchoredVarshniProfile`
+
+## ncmemsim.multilevel_analysis
+
+`ncmemsim/multilevel_analysis.py`
+
+Explicit exports: `MultilevelPreparation`, `MultilevelStudyPlan`, `MultilevelStudyResult`, `analyze_multilevel_results`, `run_multilevel_study`
+
+### MultilevelPreparation
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `level_id: str`; required declaration.
+- Field `experiment: _Experiment`; required declaration.
+- Field `readout_half_width_V: float`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### MultilevelStudyPlan
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `name: str`; required declaration.
+- Field `levels: tuple[MultilevelPreparation, ...]`; required declaration.
+- Field `minimum_margin_V: float`; required declaration.
+- Field `interval_kind: str`; required declaration.
+- Field `evidence: _Evidence`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### MultilevelStudyResult
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `analyze_multilevel_results(plan, results)`
+- `run_multilevel_study(plan)`
 
 ## ncmemsim.multilevel_contracts
 

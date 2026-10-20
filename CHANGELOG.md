@@ -4,6 +4,11 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase Q3 independent level preparation and declared-order separation
+  analysis, explicit interval assumptions, partial/failure accounting and strict
+  source-linked archives. Add a synthetic electrical reference and timestep
+  refinement checks; no experimental capacity or conductance claim.
+
 - Add Phase Q2 isolated electrical sequence execution with explicit backward
   Euler stepping, original physical-state continuation, audited dark zero-dwell
   reads, static source-linked result restoration and retained physical prefixes

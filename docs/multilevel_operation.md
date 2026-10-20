@@ -5,7 +5,8 @@
 Q0 is complete: repository audit, initial scientific scope and Q1-Q7 acceptance
 sequence are defined here. Q1 declaration contracts are now implemented in
 `ncmemsim.multilevel_contracts`; Q2 execution and static result archives are now
-implemented in `ncmemsim.multilevel_execution`. Q3-Q7 remain pending. The Q0 audit is retained as
+implemented in `ncmemsim.multilevel_execution`. Q3 preparation and separation
+analysis is implemented in `ncmemsim.multilevel_analysis`. Q4-Q7 remain pending. The Q0 audit is retained as
 its historical planning snapshot, not updated to imply Q1 existed at Q0.
 Q0 introduced no runtime implementation, public API,
 material law, calibrated parameter or new device family.
@@ -153,7 +154,7 @@ repeated on identical inputs does not represent cycle-to-cycle stochastic noise.
 | Q0 (complete) | Audit, scientific boundary, terminology and staged plan | Source-linked planning only; published v1.7 identity and P experimental deferrals retained |
 | Q1 (complete) | Immutable step/sequence, readout and reference-mapping contracts | Explicit units, ownership, ordering, applicability, hashes, strict round trips and rejection of ambiguous definitions; no execution by declaration |
 | Q2 (complete) | Isolated state-continuing electrical sequence execution | Reproduce single-pulse baseline, correct state/time chain, no input mutation, explicit read semantics and partial-failure retention |
-| Q3 | Multilevel preparation and separation analysis | Common read/margin definitions, retained reversed/collapsed/missing levels and controlled electrical reference with timestep checks |
+| Q3 (complete) | Multilevel preparation and separation analysis | Common read/margin definitions, retained reversed/collapsed/missing levels and controlled electrical reference with timestep checks |
 | Q4 | Gradual-update analysis and optical sequence integration | Named linearity/asymmetry definitions, valid normalizers, paired dark control, optical budgets, no conductance substitution and controlled update references |
 | Q5 | Retention drift and supported ensemble evaluation | Fixed references, independent delay probes, exact sample/coverage accounting, zero-variation baseline and no noise/yield/endurance inference |
 | Q6 | Applied references, strict reports and reproducibility bundles | Electrical/optical normal and negative cases, source-linked states/metrics and no-replay restoration with tamper rejection |
@@ -313,7 +314,8 @@ python examples/phase_q2_electrical_sequence_reference.py --input q2-result.json
 The result archive includes the source request, original physical/read states,
 runtime versions, counts, raw readouts and retained failures. It does not compute
 normalized weights, level separation, update linearity or experimental capacity.
-Those analyses belong to Q3-Q5. Strict report bundles remain a Q6 deliverable.
+Q3 adds level separation below; weight/update and retention analyses remain
+Q4-Q5 work. Strict report bundles remain a Q6 deliverable.
 
 Tests compare direct sequential backward-Euler stepping for 1-3 FGs, a retained
 single-pulse protocol at the same explicitly selected integrator, continuity
@@ -322,6 +324,62 @@ The controlled test fixture uses `1e-6` absolute bounds on occupation/read-volta
 changes for the refinement comparison. These are example regression thresholds,
 not a convergence proof or measured precision. Numerical comparisons do not
 change the default explicit integrator of historical single-pulse calls.
+
+## Q3 independent preparation and separation
+
+`ncmemsim.multilevel_analysis` provides `MultilevelPreparation`,
+`MultilevelStudyPlan`, `MultilevelStudyResult`, `run_multilevel_study` and
+`analyze_multilevel_results`. Each level executes its own Q2 sequence from an
+independent copy of the same original initial state. The context, dark read
+policy and optional weight reference must match across all levels. Q3 does not
+evaluate normalized weights. Only the final read of a completed preparation is
+accepted as its level readout; an earlier read cannot replace a failed final read.
+Other preparations continue after a level's recorded execution failure.
+
+The plan declares increasing signed `delta_vfb_V` order before analysis. Results
+are never sorted to conceal reversals. For adjacent levels, the signed margin is
+`(R_upper - h_upper) - (R_lower + h_lower)`, in volts. Passing requires a strictly
+positive margin that also meets the declared nonnegative minimum. Equal levels
+therefore fail even when the requested minimum is zero. `deterministic` intervals
+require zero half-widths; `assumed_bounds` permits explicitly assumed nonnegative
+half-widths. Neither choice supplies measured read noise or statistical confidence.
+
+Archives retain the plan, full source-linked Q2 results, raw level observations,
+failures and missing slots. Summaries distinguish completed, failed and missing
+preparations, passed/failed/unassessed pairs and pair-assessment coverage. A known
+failed pair makes the overall criterion fail even if other pairs are unassessed.
+Otherwise incomplete assessment is `not_assessable`. Minimum margin covers only
+assessable pairs. Nonrepresentable margin arithmetic remains unassessed rather
+than being serialized as infinity. Completion of preparations is reported
+separately from assessability or passing the separation criterion.
+
+Strict restoration checks schemas, hashes, result-to-preparation correspondence
+and recomputed static summaries without rerunning integration or an RNG. Hashes
+check integrity; they do not authenticate experimental evidence.
+
+### Controlled electrical reference
+
+`examples/phase_q3_multilevel_reference.py` uses one default V2 FG, a common empty
+initial state and dark zero-dwell reads at 0 V. Three independent +6 V preparations
+last 1 microsecond, 0.5 microseconds and 0.1 microseconds, with 1 ns internal steps.
+The longest pulse is declared first because electron accumulation gives a more
+negative signed readout in this context. The deterministic minimum margin is
+explicitly set to 1 mV, with zero interval half-widths.
+
+```bash
+python examples/phase_q3_multilevel_reference.py --output q3-result.json
+python examples/phase_q3_multilevel_reference.py --input q3-result.json --output q3-restored.json
+```
+
+The controlled run gives approximately -10.1681, -5.04555 and -1.00328 mV.
+Adjacent signed margins are approximately 5.12256 and 4.04227 mV; both pass the
+declared criterion. These are synthetic model results, not experimentally
+resolved levels, storage capacity, manufacturing yield or conductance states.
+Tests halve the internal timestep at the same physical waveform and compare
+readouts with a declared `1e-5 V` absolute regression tolerance. This fixture check
+is not a general convergence proof or experimental uncertainty estimate.
+Reversed, collapsed, overlapping, missing and failed preparations are tested
+explicitly, including restoration without solver execution.
 
 ## Compatibility and validation ladder
 
