@@ -1,6 +1,6 @@
 # Copyright 2026 Ovidiu Cojocaru
 # SPDX-License-Identifier: Apache-2.0
-"""Q7 preparation API/archive review; not final identity or publication approval."""
+"""Q7 final candidate API/archive review; not publication approval."""
 from __future__ import annotations
 import argparse
 import importlib
@@ -10,7 +10,7 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from scripts.validate_api_contract import build_inventory
-from scripts.validate_v1_7_api_review import validate as retained_review
+from scripts.validate_v1_7_api_review import validate_retained as retained_review
 from scripts.validate_v1_5_api_review import _text_hash
 from scripts.validate_v1_4_api_review import _json, _version
 from scripts.validate_v1_2_release_identity import _semantic_json_digest
@@ -19,6 +19,7 @@ MODULES=tuple('ncmemsim.'+name for name in (
     'multilevel_contracts','multilevel_execution','multilevel_analysis','multilevel_updates',
     'multilevel_optical','multilevel_retention','multilevel_ensemble','multilevel_reporting'))
 ARCHIVE='tests/fixtures/archives/v1_8_preparation/multilevel_report.json'
+SNAPSHOTS=('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/independent_calibration.md', 'docs/v1_7_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')
 
 
 def build_review(root):
@@ -31,12 +32,13 @@ def build_review(root):
             raise ValueError('invalid v1.8 exports: '+name)
         surface.append({'module':name,'exports':exports,'source_contract':inventory[name],
                         'source_sha256':_text_hash(root/(name.replace('.','/')+'.py'))})
-    return {'schema_version':'multilevel-v1_8-preparation-api-review-v1',
-        'status':'preparation_review_not_final_identity_or_release_approval',
-        'target_release':'1.8.0','published_baseline':'1.7.0','package_identity_at_review':'1.7.0',
-        'preparation_date':'2026-10-20','implementation_source_commit':'805f201e9b4fd07c0a934f287ee78a5544fe1ed2',
+    return {'schema_version':'multilevel-v1_8-final-candidate-api-review-v1',
+        'status':'final_candidate_review_not_release_approval',
+        'target_release':'1.8.0','published_baseline':'1.7.0','package_identity_at_review':'1.8.0',
+        'candidate_date':'2026-10-20','implementation_source_commit':'ef3db539489f523241a2aada4183deb3a29158c5',
         'approved_scope':'Q1-Q6 electrical/matched optical multilevel diagnostics, bounded retention/ensemble adapters and strict reports',
         'retained_v1_7_review_sha256':_semantic_json_digest(root/'docs/v1_7_api_review.json'),
+        'published_v1_7_snapshot_sha256':{name:_text_hash(root/'tests/fixtures/releases/v1_7_0'/name) for name in SNAPSHOTS},
         'frozen_report_sha256':_semantic_json_digest(root/ARCHIVE),
         'archive_scope':'compact synthetic preparation snapshot from package 1.7.0; not a published or dev-version 1.8 archive',
         'additive_module_qualified_surface':surface,
@@ -49,7 +51,7 @@ def build_review(root):
             'No cycle noise, read noise, universal capacity or manufacturing yield inferred from synthetic diagnostics.',
             'Report cases can share trajectories; case counts are not independent statistical sample counts.',
             'Hashes and static projections verify consistency, not authenticity or replayed trajectories.'],
-        'release_policy':'full regression, docs and separately installed wheel/sdist; exact-commit Python 3.11-3.13 matrix; final identity, PR/main/tag/publication and actual DOI remain pending'}
+        'release_policy':'full regression, docs and separately installed wheel/sdist; exact-commit Python 3.11-3.13 matrix; final identity prepared, exact-candidate acceptance, PR/main/tag/publication and actual DOI remain pending'}
 
 
 def validate(root):
@@ -57,8 +59,8 @@ def validate(root):
         raise ValueError('API inventory drift')
     if _json(root/'docs/v1_8_api_review.json')!=build_review(root):
         raise ValueError('v1.8 review/source/archive drift')
-    if _version(root)!='1.7.0':
-        raise ValueError('Q7 preparation retains published 1.7.0 identity until separately reviewed identity work')
+    from scripts.validate_v1_8_release_identity import validate_identity
+    validate_identity(root)
     previous=retained_review(root)
     if previous['retained_stable_paths']!=297 or previous['stable_ensemble_exports']!=59:
         raise ValueError('retained published surface mismatch')
@@ -72,12 +74,12 @@ def validate(root):
     if 'failed' not in statuses or 'not_assessable' not in statuses or report.summary['experimental_qualification']:
         raise ValueError('negative/undefined archive evidence must remain unqualified')
     markers={
-        'docs/v1_8_release_checklist.md':('Q7 preparation','Published identity remains `1.7.0`','P4B/P5B/P6B','Python 3.11, 3.12 and 3.13'),
+        'docs/v1_8_release_checklist.md':('Final candidate identity: `1.8.0`','Latest published stable: `1.7.0`','P4B/P5B/P6B','Python 3.11, 3.12 and 3.13'),
         'docs/roadmap.md':('Q7 preparation is implemented','experimental qualification remains deferred')}
     for name,words in markers.items():
         if any(word not in (root/name).read_text(encoding='utf-8') for word in words):
             raise ValueError('Q7 scope/checklist marker missing: '+name)
-    return {'status':'preparation_contracts_consistency_pass','target_release':'1.8.0',
+    return {'status':'final_candidate_contracts_consistency_pass','target_release':'1.8.0',
         'package_version':_version(root),'retained_stable_paths':297,'stable_ensemble_exports':59,
         'reviewed_modules':len(MODULES),'additive_exports':sum(len(importlib.import_module(m).__all__) for m in MODULES),
         'archive_case_count':len(report.cases),'report_hash':report.contract_hash,'experimental_qualification':False}

@@ -11,8 +11,8 @@ fixed-spectrum optical sequences are implemented in `ncmemsim.multilevel_updates
 and `ncmemsim.multilevel_optical`. Q5 independent dark retention and supported
 FG-fraction ensembles are implemented in `ncmemsim.multilevel_retention` and
 `ncmemsim.multilevel_ensemble`. Q6 reports and strict bundles are implemented in
-`ncmemsim.multilevel_reporting`. Q7 preparation adds API/archive and installed
-package gates; final identity and publication remain pending. The Q0 audit is retained as
+`ncmemsim.multilevel_reporting`. Q7 final candidate identity is `1.8.0`; API/archive and installed
+package gates are implemented. Exact-candidate CI and publication remain pending. The Q0 audit is retained as
 its historical planning snapshot, not updated to imply Q1 existed at Q0.
 Q0 introduced no runtime implementation, public API,
 material law, calibrated parameter or new device family.
@@ -164,7 +164,7 @@ repeated on identical inputs does not represent cycle-to-cycle stochastic noise.
 | Q4 (complete) | Gradual-update analysis and optical sequence integration | Named linearity/asymmetry definitions, valid normalizers, paired dark control, optical budgets, no conductance substitution and controlled update references |
 | Q5 (complete) | Retention drift and supported ensemble evaluation | Fixed references, independent delay probes, exact sample/coverage accounting, zero-variation baseline and no noise/yield/endurance inference |
 | Q6 (complete) | Applied references, strict reports and reproducibility bundles | Electrical/optical normal and negative cases, source-linked states/metrics and no-replay restoration with tamper rejection |
-| Q7 (preparation) | v1.8 additive API/archive review and release gates | Complete regression, strict docs, clean installed wheel/sdist, supported-Python CI and exact-candidate publication/citation checks |
+| Q7 (final candidate) | v1.8 additive API/archive review and release gates | Complete regression, strict docs, clean installed wheel/sdist, supported-Python CI and exact-candidate publication/citation checks |
 
 Acceptance is not a promise of a particular number of stable levels or a
 favourable update curve. A reproducible negative result remains a valid study

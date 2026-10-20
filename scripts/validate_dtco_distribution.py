@@ -209,6 +209,9 @@ SOURCE_REQUIRED |= {'scripts/validate_v1_8_api_review.py', 'docs/v1_8_api_review
     'tests/fixtures/archives/v1_8_preparation/multilevel_report.json', 'docs/multilevel_operation.md',
     'docs/multilevel_operation_audit.json', 'docs/multilevel_reporting.md', 'examples/phase_q6_multilevel_report.py'}
 
+SOURCE_REQUIRED |= {'scripts/validate_v1_8_release_identity.py'}
+SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_7_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/independent_calibration.md', 'docs/v1_7_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--reuse-dependencies", action="store_true",

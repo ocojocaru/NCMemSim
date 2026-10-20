@@ -24,7 +24,7 @@ def review_copy(tmp_path,monkeypatch):
 
 def test_preparation_review_and_retained_surface():
     result=gate.validate(ROOT)
-    assert result['target_release']=='1.8.0' and result['package_version']=='1.7.0'
+    assert result['target_release']=='1.8.0' and result['package_version']=='1.8.0'
     assert result['reviewed_modules']==8 and result['additive_exports']==34
     assert result['archive_case_count']==9 and result['experimental_qualification'] is False
     assert result['retained_stable_paths']==297 and result['stable_ensemble_exports']==59
@@ -35,7 +35,7 @@ def test_unreviewed_changes_rejected(review_copy,fault):
     root=review_copy
     if fault=='source':
         p=root/'ncmemsim/multilevel_reporting.py';p.write_text(p.read_text(encoding='utf-8')+'# unreviewed drift\n',encoding='utf-8')
-    elif fault=='version':(root/'ncmemsim/_version.py').write_text('__version__="1.8.0"\n',encoding='utf-8')
+    elif fault=='version':(root/'ncmemsim/_version.py').write_text('__version__="1.7.0"\n',encoding='utf-8')
     elif fault=='checklist':(root/'docs/v1_8_release_checklist.md').write_text('published',encoding='utf-8')
     elif fault=='roadmap':
         p=root/'docs/roadmap.md';p.write_text(p.read_text(encoding='utf-8').replace('Q7 preparation is implemented','Q7 published'),encoding='utf-8')

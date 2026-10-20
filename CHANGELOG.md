@@ -4,11 +4,17 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+## 1.8.0 - 2026-10-20
+
+Prepared final candidate; publication and exact-candidate acceptance remain pending.
+P4B/P5B/P6B experimental qualification remains deferred. No version DOI is
+assigned before the actual Zenodo deposit.
+
 - Prepare Phase Q7 v1.8 API/archive review and installed-distribution gates:
   freeze eight additive multilevel modules, capture an explicitly pre-identity
   package-1.7.0 archive and add isolated wheel/sdist restoration, deterministic
   reexport and projection-tamper probes. Published identity remains 1.7.0;
-  final v1.8 identity, exact-commit acceptance and publication remain pending.
+  final v1.8 candidate identity is prepared; exact-commit acceptance and publication remain pending.
 
 - Add Phase Q6 typed multilevel reports spanning Q2-Q5 electrical/optical
   trajectories, separation, updates, retention and supported ensembles. Export

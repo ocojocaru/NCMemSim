@@ -1,7 +1,8 @@
 # v1.8 Q7 release preparation checklist
 
-Status: Q7 preparation; final identity and publication are pending.
-Published identity remains `1.7.0`; target release is `1.8.0`.
+Status: prepared final candidate; exact-candidate acceptance and publication pending.
+Final candidate identity: `1.8.0`; citation date: `2026-10-20`.
+Latest published stable: `1.7.0`. No v1.8 version DOI is assigned yet.
 Experimental P4B/P5B/P6B qualification remains deferred.
 
 ## Approved scope and frozen surface
@@ -61,14 +62,14 @@ versions remain authoritative and are not rewritten on restore.
   63 passed in 28.48 s, covering all 13 affected tests. No unresolved test failure
   remains; this is full-suite coverage plus an environmental retry, not one
   uninterrupted green run. Clean exact-commit CI remains required.
-- Exact-new-commit remote CI/Documentation and final v1.8 identity remain pending.
+- The preparation commit subsequently passed CI/Documentation; see the final
+  candidate checkpoint below for the current identity and pending gates.
 
 ## Publication sequence - pending
 
-1. Complete and record preparation checks; commit/push this checkpoint and verify
-   CI/Documentation on its exact new commit.
-2. Separately prepare the v1.8 development/final identity, retaining published
-   v1.7 citation/release declarations as historical fixtures where needed.
+1. Preparation checks and exact-commit CI/Documentation passed on `ef3db53`.
+2. Final identity 1.8.0 is prepared, retaining published v1.7 citation/release
+   declarations as historical fixtures.
 3. Rerun identity, retained API/archive, full regression, docs and installed-package
    checks for the new candidate; obtain its exact-commit remote matrix.
 4. Review final scope and candidate, create the release PR, merge after green
@@ -78,5 +79,36 @@ versions remain authoritative and are not rewritten on restore.
    are not moved or replaced by metadata closure.
 
 This checklist and the preparation review do not approve release publication or
-close the deferred experimental qualification. Local preparation evidence is recorded above; final identity and exact-new-commit
-CI remain open.
+close the deferred experimental qualification. Local preparation evidence is recorded above; exact-final-candidate CI and
+publication remain open.
+
+## Final candidate checkpoint (2026-10-20)
+
+Preparation commit `ef3db539489f523241a2aada4183deb3a29158c5` has successful CI
+and Documentation. Candidate source and CITATION.cff now use 1.8.0; the latest
+published stable release remains 1.7.0. The 1.7 publication metadata and workflows
+are frozen in `tests/fixtures/releases/v1_7_0`; retained gates check those
+declarations with the current retained runtime contracts. The nine-case
+preparation archive remains package 1.7.0 and is not relabelled.
+
+Candidate local verification (Python 3.13.12):
+
+- Full 4,875-test suite: 4,873 passed in 2,793.99 s; two Q7 review-consistency
+  tests failed because the process had loaded the policy text before its final
+  review update. This was a stale loaded validator, not a runtime physics change.
+- Fresh process on the final sources: all 64 candidate/Q7/retained-v1.7 tests
+  passed in 223.65 s, including both affected tests. No unresolved failure remains.
+  Evidence is full-suite coverage plus this fresh retry, not a single uninterrupted
+  green full-suite run; exact-final-candidate clean remote CI remains required.
+- API/identity validators passed; 297 stable paths and 59 ensemble exports retained.
+- Strict documentation audit passed: 61 pages, 141 complete Python blocks and
+  526 imports. Wheel and sdist separately installed with inherited dependencies:
+  all retained/multilevel probes passed; 406 required source files audited.
+- All 11 declaration snapshots match preparation commit ef3db53 after normalizing
+  text line endings. They capture declarations at that checkpoint, not an entire
+  checkout of the published v1.7 tag.
+
+Its exact new commit still requires
+Python 3.11, 3.12 and 3.13 CI/Documentation, followed by PR/main/tag/publication.
+The actual version-specific DOI is recorded after publication; no previous
+version DOI or Concept DOI is substituted for it.

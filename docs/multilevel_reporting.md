@@ -4,8 +4,9 @@
 
 Q6 packages already typed Q2-Q5 evidence into a reviewable report. It introduces
 no new physical law, fitted parameter, admitted dataset, experimental qualification,
-conductance model or lifetime prediction. Published package/citation identity
-remains v1.7.0 until Q7 release work. The full Phase Q scope and exclusions are
+conductance model or lifetime prediction. The latest published release
+remains v1.7.0; package/citation identity now describes the prepared v1.8.0
+final candidate, with exact-candidate CI and publication pending. The full Phase Q scope and exclusions are
 in [Multilevel and neuromorphic operation](multilevel_operation.md).
 
 Cases retain their own contexts, read policies, reference windows, metric definitions,

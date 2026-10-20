@@ -1,13 +1,26 @@
 {
-  "schema_version": "multilevel-v1_8-preparation-api-review-v1",
-  "status": "preparation_review_not_final_identity_or_release_approval",
+  "schema_version": "multilevel-v1_8-final-candidate-api-review-v1",
+  "status": "final_candidate_review_not_release_approval",
   "target_release": "1.8.0",
   "published_baseline": "1.7.0",
-  "package_identity_at_review": "1.7.0",
-  "preparation_date": "2026-10-20",
-  "implementation_source_commit": "805f201e9b4fd07c0a934f287ee78a5544fe1ed2",
+  "package_identity_at_review": "1.8.0",
+  "candidate_date": "2026-10-20",
+  "implementation_source_commit": "ef3db539489f523241a2aada4183deb3a29158c5",
   "approved_scope": "Q1-Q6 electrical/matched optical multilevel diagnostics, bounded retention/ensemble adapters and strict reports",
   "retained_v1_7_review_sha256": "08f05202a426095276bfb7b4872626619a8f2b40065ff43373b619ec83da82e8",
+  "published_v1_7_snapshot_sha256": {
+    "README.md": "20f605fc0308adea7b9dfd1ee480557b74814c2dbf98425431bcbb1f03015527",
+    "CHANGELOG.md": "f24f96e09f54fc25cd763a2664e5cfcceee65086eff46642ef6e4ab71d903b92",
+    "CITATION.cff": "23ccbd3edb23d15c7fe686f56990ba195161f6b2aaf0366d01af457dfc79985f",
+    "ncmemsim/_version.py": "75a93f5e612beb19dc421599ba507cace070c3749bd9b0397ffda3f33ad4827e",
+    "docs/index.md": "538d1afff3ca29001625f1e8ec506ce922661bd96356e8e9f584de6f91d066b2",
+    "docs/roadmap.md": "8127bfd9b47ef025ee341e0f3ac72c3d6afbc4a64bd298a80cf3bb98bb36b592",
+    "docs/archival_citation.md": "13b9b7c3526ca2114c9e8f7764827a49250f257b2d0260b8b95a11f152840df0",
+    "docs/independent_calibration.md": "a5402e66c9ca9eb1f63ea8122b846fa262f1b0f590d0f3bbbe3f9c16e9e53ae4",
+    "docs/v1_7_release_checklist.md": "2bdbfb997abb9ead02ff8bdcdd36234c5fc0d90ef481ebb8f0aaa07aafc7d7d5",
+    ".github/workflows/ci.yml": "3576f8d44e15beb0af3c736a8ca6a0e0cd3e37aeb12fef805dcb665c4f7d730d",
+    ".github/workflows/docs.yml": "27c936d5416980cb43085d61e7e4fb73c14f0d945ad7f7bdc48254fd7f281a0c"
+  },
   "frozen_report_sha256": "0279307ed825eb00c9b94d2b3fb70ec4edb64e359c8f7dea9c1cca39e3d65880",
   "archive_scope": "compact synthetic preparation snapshot from package 1.7.0; not a published or dev-version 1.8 archive",
   "additive_module_qualified_surface": [
@@ -2514,5 +2527,5 @@
     "Report cases can share trajectories; case counts are not independent statistical sample counts.",
     "Hashes and static projections verify consistency, not authenticity or replayed trajectories."
   ],
-  "release_policy": "full regression, docs and separately installed wheel/sdist; exact-commit Python 3.11-3.13 matrix; final identity, PR/main/tag/publication and actual DOI remain pending"
+  "release_policy": "full regression, docs and separately installed wheel/sdist; exact-commit Python 3.11-3.13 matrix; final identity prepared, exact-candidate acceptance, PR/main/tag/publication and actual DOI remain pending"
 }
