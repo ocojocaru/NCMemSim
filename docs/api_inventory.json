@@ -26059,6 +26059,221 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.multilevel_ensemble",
+      "source": "ncmemsim/multilevel_ensemble.py",
+      "explicit_exports": [
+        "MultilevelEnsemblePlan",
+        "MultilevelEnsembleResult",
+        "run_multilevel_ensemble"
+      ],
+      "package_import_aliases": {
+        "_Archive": "ncmemsim.multilevel_contracts._Archive",
+        "_Evidence": "ncmemsim.multilevel_contracts.PulseSequenceEvidence",
+        "_Manifest": "ncmemsim.ensemble.sampling.SampleManifest",
+        "_RetentionPlan": "ncmemsim.multilevel_retention.MultilevelRetentionPlan",
+        "_RetentionResult": "ncmemsim.multilevel_retention.MultilevelRetentionResult",
+        "_Study": "ncmemsim.multilevel_analysis.MultilevelStudyPlan",
+        "_apply": "ncmemsim.ensemble.realization.apply_sample_to_context",
+        "_canonical": "ncmemsim.multilevel_contracts._canonical",
+        "_device_payload": "ncmemsim.temperature_context._device_payload",
+        "_keys": "ncmemsim.multilevel_contracts._keys",
+        "_load": "ncmemsim.multilevel_contracts._load",
+        "_match": "ncmemsim.multilevel_contracts._match",
+        "_prepare": "ncmemsim.multilevel_analysis.run_multilevel_study",
+        "_retain": "ncmemsim.multilevel_retention.run_multilevel_retention",
+        "_schedule": "ncmemsim.multilevel_retention._schedule",
+        "_text": "ncmemsim.multilevel_contracts._text"
+      },
+      "public_source_definitions": [
+        {
+          "name": "MultilevelEnsemblePlan",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "study",
+              "annotation": "_Study",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "manifest",
+              "annotation": "_Manifest",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "delays_s",
+              "annotation": "tuple[float, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "retention_voltage_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "internal_dt_s",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "MultilevelEnsembleResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "run_multilevel_ensemble",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "plan",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(plan)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.multilevel_execution",
       "source": "ncmemsim/multilevel_execution.py",
       "explicit_exports": [
@@ -26519,6 +26734,244 @@
           ],
           "return_annotation": null,
           "source_signature": "(experiment)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.multilevel_retention",
+      "source": "ncmemsim/multilevel_retention.py",
+      "explicit_exports": [
+        "MultilevelRetentionPlan",
+        "MultilevelRetentionResult",
+        "run_multilevel_retention",
+        "analyze_multilevel_retention"
+      ],
+      "package_import_aliases": {
+        "_Archive": "ncmemsim.multilevel_contracts._Archive",
+        "_Evidence": "ncmemsim.multilevel_contracts.PulseSequenceEvidence",
+        "_Experiment": "ncmemsim.multilevel_contracts.ElectricalSequenceExperiment",
+        "_Prepared": "ncmemsim.multilevel_analysis.MultilevelStudyResult",
+        "_Reference": "ncmemsim.multilevel_contracts.WeightReferenceMapping",
+        "_Result": "ncmemsim.multilevel_execution.ElectricalSequenceResult",
+        "_Sequence": "ncmemsim.multilevel_contracts.ElectricalPulseSequence",
+        "_Step": "ncmemsim.multilevel_contracts.ElectricalPulseStep",
+        "_StudyPlan": "ncmemsim.multilevel_analysis.MultilevelStudyPlan",
+        "_canonical": "ncmemsim.multilevel_contracts._canonical",
+        "_keys": "ncmemsim.multilevel_contracts._keys",
+        "_load": "ncmemsim.multilevel_contracts._load",
+        "_match": "ncmemsim.multilevel_contracts._match",
+        "_number": "ncmemsim.multilevel_contracts._number",
+        "_run": "ncmemsim.multilevel_execution.run_electrical_sequence"
+      },
+      "public_source_definitions": [
+        {
+          "name": "MultilevelRetentionPlan",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "prepared",
+              "annotation": "_Prepared",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "delays_s",
+              "annotation": "tuple[float, ...]",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "retention_voltage_V",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "internal_dt_s",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "evidence",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "reference",
+              "annotation": "_Reference | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "MultilevelRetentionResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "record_json",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "analyze_multilevel_retention",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "plan",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "probes",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(plan, probes)",
+          "decorators": []
+        },
+        {
+          "name": "run_multilevel_retention",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "plan",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(plan)",
           "decorators": []
         }
       ],

@@ -484,7 +484,10 @@ separation margins, explicit interval assumptions and retained failures/missing 
 Q4 is implemented: fixed-reference gradual-update metrics, explicit pulse-index
 linearity/asymmetry definitions and fixed-spectrum optical sequences with matched
 dark controls, optical budgets and retained unassessable/negative outcomes.
-Q5-Q7 remain planned: retention/ensemble analysis; applied references and strict reports; additive
+Q5 is implemented: independent dark retention probes of Q3 prepared levels,
+fixed read/margin definitions, drift and crossing diagnostics, and isolated
+manifest-bound ensembles for supported FG fractions with exact coverage counts.
+Q6-Q7 remain planned: applied references and strict reports; additive
 API/archive and exact-candidate release gates. v1.8.0 is the target, subject to
 those gates. Published stable identity remains v1.7.0, and P4B/P5B/P6B experimental
 qualification remains deferred.

@@ -8,7 +8,9 @@ sequence are defined here. Q1 declaration contracts are now implemented in
 implemented in `ncmemsim.multilevel_execution`. Q3 preparation and separation
 analysis is implemented in `ncmemsim.multilevel_analysis`. Q4 update metrics and
 fixed-spectrum optical sequences are implemented in `ncmemsim.multilevel_updates`
-and `ncmemsim.multilevel_optical`. Q5-Q7 remain pending. The Q0 audit is retained as
+and `ncmemsim.multilevel_optical`. Q5 independent dark retention and supported
+FG-fraction ensembles are implemented in `ncmemsim.multilevel_retention` and
+`ncmemsim.multilevel_ensemble`. Q6-Q7 remain pending. The Q0 audit is retained as
 its historical planning snapshot, not updated to imply Q1 existed at Q0.
 Q0 introduced no runtime implementation, public API,
 material law, calibrated parameter or new device family.
@@ -127,7 +129,7 @@ normalizers and coverage. A branch with too few reads or insufficient dynamic
 range cannot receive a favourable normalized score. Identical repeated pulses
 test gradual updates; any varying amplitudes/durations must remain visible.
 
-Q5 retention probes start from copies of each prepared level and use fixed read
+Q5 retention probes below start from copies of each prepared level and use fixed read
 references and margins. Report signed drift, level crossings and covered times;
 do not simulate successive independent delays by inadvertently accumulating them.
 Ensemble summaries retain attempted, completed, metric-assessable and failed
@@ -158,7 +160,7 @@ repeated on identical inputs does not represent cycle-to-cycle stochastic noise.
 | Q2 (complete) | Isolated state-continuing electrical sequence execution | Reproduce single-pulse baseline, correct state/time chain, no input mutation, explicit read semantics and partial-failure retention |
 | Q3 (complete) | Multilevel preparation and separation analysis | Common read/margin definitions, retained reversed/collapsed/missing levels and controlled electrical reference with timestep checks |
 | Q4 (complete) | Gradual-update analysis and optical sequence integration | Named linearity/asymmetry definitions, valid normalizers, paired dark control, optical budgets, no conductance substitution and controlled update references |
-| Q5 | Retention drift and supported ensemble evaluation | Fixed references, independent delay probes, exact sample/coverage accounting, zero-variation baseline and no noise/yield/endurance inference |
+| Q5 (complete) | Retention drift and supported ensemble evaluation | Fixed references, independent delay probes, exact sample/coverage accounting, zero-variation baseline and no noise/yield/endurance inference |
 | Q6 | Applied references, strict reports and reproducibility bundles | Electrical/optical normal and negative cases, source-linked states/metrics and no-replay restoration with tamper rejection |
 | Q7 | v1.8 additive API/archive review and release gates | Complete regression, strict docs, clean installed wheel/sdist, supported-Python CI and exact-candidate publication/citation checks |
 
@@ -316,8 +318,8 @@ python examples/phase_q2_electrical_sequence_reference.py --input q2-result.json
 The result archive includes the source request, original physical/read states,
 runtime versions, counts, raw readouts and retained failures. It does not compute
 normalized weights, level separation, update linearity or experimental capacity.
-Q3 adds level separation and Q4 adds weight/update analysis below; retention
-analysis remains Q5 work. Strict report bundles remain a Q6 deliverable.
+Q3 adds level separation, Q4 adds weight/update analysis and Q5 adds independent
+retention analysis below. Strict report bundles remain a Q6 deliverable.
 
 Tests compare direct sequential backward-Euler stepping for 1-3 FGs, a retained
 single-pulse protocol at the same explicitly selected integrator, continuity
@@ -514,6 +516,131 @@ rejection. Analytic curve tests separately verify linear, nonlinear, collapsed,
 reversed and unequal-magnitude definitions. Halving the optical reference timestep
 at the same physical waveform uses an absolute `1e-5 V` readout regression bound;
 this is a fixture tolerance, not measured noise or a general convergence proof.
+
+## Q5 independent dark retention and supported ensembles
+
+### Retention plan and original-state ownership
+
+`ncmemsim.multilevel_retention` exports `MultilevelRetentionPlan`,
+`MultilevelRetentionResult`, `run_multilevel_retention` and
+`analyze_multilevel_retention`. This first adapter accepts source-linked Q3
+electrical prepared-level results, a strictly increasing immutable delay tuple
+starting at zero, a fixed dark retention voltage, explicit backward-Euler
+timestep, evidence and an optional fixed Q1 `WeightReferenceMapping`. Optical
+preparations, finite-dwell reads and changing material contexts are outside this
+adapter; Q4 optical workflows retain their separate meaning.
+
+Every positive delay starts from a fresh copy of **that level's original prepared
+physical state**. A 200 ns probe does not start from the end of the 100 ns probe.
+The delay origin is the end of each level's own preparation, not a common absolute
+device age; different preparation durations remain in the source. Zero delay
+reuses the already audited original preparation read and performs no integration.
+Each positive-delay probe is an explicit Q2 dark constant-bias hold and a dark
+zero-dwell endpoint read, retaining the original physical and read states.
+
+The read policy, level order, minimum margin and interval half-widths remain those
+of the original Q3 study. Signed drift is `R_level(delay)-R_level(0)`, in V.
+If requested, weights use the same fixed reference span at all delays, without
+clipping or new min/max normalization. Reference context/read identity must match;
+an existing preparation reference cannot be replaced. A null normalized value
+means unavailable or nonrepresentable normalization, not zero drift or a stable
+state. The normalization status and raw readout remain explicit.
+
+At each requested delay, adjacent margins use the original Q3 formula and order.
+`crossed_pair_count` counts negative adjacent **raw readout gaps at that sampled
+delay**. Interval overlap, equal readouts and an insufficient positive margin can
+fail separation without such a crossing. No event time is interpolated between
+probes. A known failed pair remains failed even if another pair is unassessed.
+Minimum reported margins cover only assessable pairs.
+
+### Missing and failed evidence
+
+A failed or missing preparation has no invented retention endpoint. Its requested
+observations remain unavailable, with preparation failure evidence retained.
+Every eligible probe has its own result slot; explicit missing slots are supported
+by the static analyzer. A failed probe keeps its Q2 prefix and actual elapsed
+physical time but supplies no accepted readout at the requested endpoint. Later
+independent delays and levels continue. In particular, a completed physical hold
+with a failed subsequent read is still an unobserved endpoint.
+
+Counts distinguish all requested observations (including zero-delay reads),
+completed observations, unavailable preparations, all requested positive probes,
+eligible probes, attempted/completed/failed probes and missing probe slots.
+Observation coverage uses all declared level-delay combinations as denominator.
+These are sampled-time coverage diagnostics, not a retention lifetime or a claim
+that separation holds throughout every interval between probes.
+
+### Manifest-bound between-device variation
+
+`ncmemsim.multilevel_ensemble` exports `MultilevelEnsemblePlan`,
+`MultilevelEnsembleResult` and `run_multilevel_ensemble`. The runner consumes an
+already generated Phase K `SampleManifest`, retaining its seed/sampling contract,
+original values, sample IDs, order and provenance. It uses existing sample-domain
+validation and device-binding application; it never draws new samples during
+execution or restoration.
+
+The first supported bindings are existing DEVICE paths
+`('layers', FG_name, 'electrically_active_fraction')` and
+`('layers', FG_name, 'nc_volume_fraction')`. These preserve the probability grid.
+Each realization starts from its own owned device/context and the same declared
+initial probability coordinates; it independently prepares the complete Q3 level
+study and performs the declared retention probes. Thermal laws/settings are retained
+from the nominal context. An exact zero-variation realization preserves the original
+context identity, states, readouts and margins.
+
+Pulse voltages/durations/timesteps, dark read policy, level order, interval widths,
+minimum separation and retention schedule are fixed across samples. Geometry/grid,
+OPERATING and MODEL bindings and optical-source variation are rejected by this
+adapter. It also rejects nominal-context weight-reference declarations rather
+than silently rebinding them to changed device contexts. Ensemble comparisons
+therefore use physical readout/drift/margin in V; fixed-reference normalization
+is available in the nominal retention adapter above. This is an explicit scope
+boundary, not an automatic per-sample calibration.
+
+Requested samples always mean the **entire manifest**. Results distinguish
+attempted, completed, partial, failed and missing samples. A workflow with missing
+or failed endpoints is partial; a constructed study with fully observed but
+collapsed/reversed levels is a completed execution with a failed separation
+criterion. Domain/binding/construction and unexpected workflow failures remain
+source-linked isolated failures; later samples continue.
+
+For each delay, summaries retain all sample identities, fully assessed sample
+counts (every adjacent pair assessable), passed counts, known failed counts and
+not-fully-assessed counts. A known failed partial sample can also be not fully
+assessed; these two counters are deliberately not mutually exclusive. Fractions
+state their denominator: all requested samples or fully assessed samples. With
+no fully assessed sample the latter fraction is null. Passing fractions are
+conditional results under the declared distribution, **not manufacturing yield**.
+Repeated deterministic histories at identical parameters do not model cycle noise,
+read noise, endurance or irreversible degradation.
+
+### Archives and controlled reference
+
+Both adapters retain complete source requests/results and strict summaries.
+Restoration validates source hashes, delay/level/sample order, original prepared
+state linkage, supported realization bindings and recomputed static projections.
+Static device binding/context resolution may run; occupancy integration and RNG
+sampling do not. Hashes establish consistency, not experimental authenticity or
+proof of replayed trajectories. Strict report/bundle exports remain Q6 work.
+
+```bash
+python examples/phase_q5_retention_ensemble_reference.py --output q5-reference.json
+python examples/phase_q5_retention_ensemble_reference.py --input q5-reference.json --output q5-restored.json
+```
+
+The reference uses the Q3 three-level electrical preparation with 10 ns internal
+steps, dark 0 V holds at independent delays 0, 100 and 200 ns, and 10 ns retention
+steps. The nominal-only proxy interval [-20,0] mV is explicitly assumed and fixed.
+Two zero-variation realizations use the nominal FG1 electrically active fraction.
+Two further realizations use an assumed uniform distribution from 80% to 100% of
+that nominal fraction, with explicit seed 1805. These short synthetic probes test
+software semantics; they do not demonstrate a device retention specification.
+
+Tests verify direct dark-step equivalence, independent delay origins, zero-delay
+identity, fixed normalization, missing/failed endpoints, order inversions, interval
+overlap and strict tamper rejection. Ensemble tests retain zero-variation identity,
+manifest order, varied realized contexts, invalid samples, partial workflows and
+exact denominators. Static restoration is checked with integration and RNG disabled.
 
 ## Compatibility and validation ladder
 

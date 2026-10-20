@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 137 package source modules; 740 explicit export paths; 257 distinct documented Python import paths.
+Coverage: 139 package source modules; 747 explicit export paths; 257 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3707,6 +3707,40 @@ Decorators: `_dataclass(frozen=True)`.
 - `from_dict(cls, raw)`; `classmethod`.
 
 
+## ncmemsim.multilevel_ensemble
+
+`ncmemsim/multilevel_ensemble.py`
+
+Explicit exports: `MultilevelEnsemblePlan`, `MultilevelEnsembleResult`, `run_multilevel_ensemble`
+
+### MultilevelEnsemblePlan
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `study: _Study`; required declaration.
+- Field `manifest: _Manifest`; required declaration.
+- Field `delays_s: tuple[float, ...]`; required declaration.
+- Field `retention_voltage_V: float`; required declaration.
+- Field `internal_dt_s: float`; required declaration.
+- Field `evidence: _Evidence`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### MultilevelEnsembleResult
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `run_multilevel_ensemble(plan)`
+
 ## ncmemsim.multilevel_execution
 
 `ncmemsim/multilevel_execution.py`
@@ -3773,6 +3807,41 @@ Decorators: `_dataclass(frozen=True)`.
 - `from_dict(cls, raw)`; `classmethod`.
 
 - `run_matched_optical_sequence(experiment)`
+
+## ncmemsim.multilevel_retention
+
+`ncmemsim/multilevel_retention.py`
+
+Explicit exports: `MultilevelRetentionPlan`, `MultilevelRetentionResult`, `run_multilevel_retention`, `analyze_multilevel_retention`
+
+### MultilevelRetentionPlan
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `prepared: _Prepared`; required declaration.
+- Field `delays_s: tuple[float, ...]`; required declaration.
+- Field `retention_voltage_V: float`; required declaration.
+- Field `internal_dt_s: float`; required declaration.
+- Field `evidence: _Evidence`; required declaration.
+- Field `reference: _Reference | None`; default expression `None`.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### MultilevelRetentionResult
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `record_json: str`; required declaration.
+- `to_dict(self)`.
+- `summary(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `analyze_multilevel_retention(plan, probes)`
+- `run_multilevel_retention(plan)`
 
 ## ncmemsim.multilevel_updates
 

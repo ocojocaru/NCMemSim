@@ -4,6 +4,13 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase Q5 independent dark retention probes of Q3 prepared levels, fixed
+  read references and margins, signed drift, order-crossing diagnostics and
+  explicit endpoint/failure coverage. Add isolated manifest-bound ensembles for
+  supported FG electrically-active/NC-volume fractions, zero-variation controls
+  and exact requested/assessed denominators. No weight-reference rebinding,
+  cycle-noise, lifetime, endurance or manufacturing-yield inference.
+
 - Add Phase Q4 fixed-reference gradual-update analysis with named pulse-index
   linearity and paired magnitude-asymmetry definitions, explicit assessability,
   raw updates and unclipped weight proxies. Add owned fixed-spectrum optical
