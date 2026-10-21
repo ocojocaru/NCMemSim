@@ -4,6 +4,12 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase R3 bounded operation-scoped reuse of immutable validated multilevel
+  source JSON, avoiding duplicate source reconstruction inside one report restore.
+  Preserve changed-source validation, rejection gates and exact scientific/archive
+  projections. Add paired committed-baseline timing/native-memory comparisons and
+  cross-platform gates; no solver, physics, public signature or schema change.
+
 - Add Phase R2 fresh-process serial campaigns with bounded worker timeouts,
   complete warmup/measurement/failure records, environment/source capture and
   full-payload serial repeatability checks. Cover 15 controlled workloads,

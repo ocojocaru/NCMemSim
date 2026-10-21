@@ -9,6 +9,9 @@ import io as _io
 import html as _html
 import hashlib as _hashlib
 import json as _json
+from contextlib import contextmanager as _contextmanager
+from contextvars import ContextVar as _ContextVar
+import sys as _sys
 from .multilevel_contracts import PulseSequenceEvidence as _Evidence, _Archive, _canonical, _load, _keys, _match, _text
 from .multilevel_execution import ElectricalSequenceResult as _Electrical
 from .multilevel_analysis import MultilevelStudyResult as _Separation
@@ -37,6 +40,42 @@ _LIMITS = (
 _FILES = frozenset(('report.json', 'report.md', 'cases.csv', 'observations.csv', 'metrics.csv', 'failures.csv', 'bundle.json'))
 
 
+# Only immutable validated JSON strings are retained, and only for one restore.
+# A changed validator or source text is a different key. Invalid inputs never enter.
+_SOURCE_VALIDATION_CACHE = _ContextVar('multilevel_source_validation_cache', default=None)
+_SOURCE_CACHE_MAX_BYTES = 2 * 1024 * 1024
+_SOURCE_CACHE_MAX_ENTRIES = 16
+
+
+@_contextmanager
+def _source_validation_scope():
+    if _SOURCE_VALIDATION_CACHE.get() is not None:
+        yield
+        return
+    token = _SOURCE_VALIDATION_CACHE.set({'values': {}, 'bytes': 0})
+    try:
+        yield
+    finally:
+        _SOURCE_VALIDATION_CACHE.reset(token)
+
+
+def _validated_source_json(kind, text):
+    validator = _TYPES[kind].from_dict
+    cache = _SOURCE_VALIDATION_CACHE.get()
+    # The normal parser provides the existing error for non-string input.
+    key = (validator, text) if type(text) is str else None
+    if cache is not None and key is not None and key in cache['values']:
+        return cache['values'][key]
+    validated = validator(_load(text)).to_json()
+    if cache is not None and key is not None:
+        size = _sys.getsizeof(key) + _sys.getsizeof(text) + _sys.getsizeof(validated)
+        if (len(cache['values']) < _SOURCE_CACHE_MAX_ENTRIES
+                and cache['bytes'] + size <= _SOURCE_CACHE_MAX_BYTES):
+            cache['values'][key] = validated
+            cache['bytes'] += size
+    return validated
+
+
 @_dataclass(frozen=True)
 class MultilevelReportCase(_Archive):
     """One exactly typed existing result, with explicit case identity and evidence."""
@@ -49,8 +88,7 @@ class MultilevelReportCase(_Archive):
         _text(self.name, 'case name')
         if type(self.kind) is not str or self.kind not in _TYPES or type(self.evidence) is not _Evidence:
             raise ValueError('supported multilevel result kind and typed evidence required')
-        source = _TYPES[self.kind].from_dict(_load(self.source_json))
-        object.__setattr__(self, 'source_json', source.to_json())
+        object.__setattr__(self, 'source_json', _validated_source_json(self.kind, self.source_json))
 
     @classmethod
     def from_result(cls, name, result, evidence):
@@ -119,14 +157,15 @@ class MultilevelReport(_Archive):
 
     @classmethod
     def from_dict(cls, raw):
-        _keys(raw, ('schema_version', 'title', 'cases', 'evidence', 'scientific_status',
-                    'experimental_qualification', 'limitations', 'summary'))
-        if type(raw['cases']) is not list:
-            raise ValueError('archived report case list required')
-        obj = cls(raw['title'], tuple(MultilevelReportCase.from_dict(x) for x in raw['cases']),
-                  _Evidence.from_dict(raw['evidence']))
-        _match(raw, obj.to_dict())
-        return obj
+        with _source_validation_scope():
+            _keys(raw, ('schema_version', 'title', 'cases', 'evidence', 'scientific_status',
+                        'experimental_qualification', 'limitations', 'summary'))
+            if type(raw['cases']) is not list:
+                raise ValueError('archived report case list required')
+            obj = cls(raw['title'], tuple(MultilevelReportCase.from_dict(x) for x in raw['cases']),
+                      _Evidence.from_dict(raw['evidence']))
+            _match(raw, obj.to_dict())
+            return obj
 
 
 def build_multilevel_report(title, cases, evidence):

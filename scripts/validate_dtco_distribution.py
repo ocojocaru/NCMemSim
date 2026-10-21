@@ -212,7 +212,8 @@ SOURCE_REQUIRED |= {'scripts/validate_v1_8_api_review.py', 'docs/v1_8_api_review
 SOURCE_REQUIRED |= {'scripts/validate_v1_8_release_identity.py'}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_7_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/independent_calibration.md', 'docs/v1_7_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
 
-SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_performance_execution.py'}
+SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_performance_execution.py',
+                    'scripts/compare_report_restoration.py', 'tests/test_phase_r3_report_validation_cache.py'}
 
 
 def main() -> None:
@@ -772,6 +773,14 @@ def alternate_expm1(value):
 math.expm1=alternate_expm1
 raw=json.loads((work/'multilevel_report.json').read_text(encoding='utf-8'))
 report=MultilevelReport.from_dict(raw)
+import ncmemsim.multilevel_reporting as scoped_reporting
+assert scoped_reporting._SOURCE_VALIDATION_CACHE.get() is None
+bad_source=json.loads(json.dumps(raw))
+bad_source['cases'][0]['source_hash']='0'*64
+try:MultilevelReport.from_dict(bad_source)
+except ValueError:pass
+else:raise AssertionError('changed source hash must not reuse a prior public validation')
+assert scoped_reporting._SOURCE_VALIDATION_CACHE.get() is None
 assert report.to_dict()==raw and report.summary['experimental_qualification'] is False
 assert len({case.kind for case in report.cases})==8
 assert any(row['status']=='failed' for row in report.summary['cases'])

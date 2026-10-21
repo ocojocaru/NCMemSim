@@ -57,3 +57,5 @@ include scripts/validate_v1_8_api_review.py
 include scripts/validate_v1_8_release_identity.py
 include scripts/run_performance_baseline.py
 include tests/test_phase_r2_performance_execution.py
+include scripts/compare_report_restoration.py
+include tests/test_phase_r3_report_validation_cache.py

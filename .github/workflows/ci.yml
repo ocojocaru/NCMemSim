@@ -79,6 +79,37 @@ jobs:
             ${{ runner.temp }}/performance-memory/
           retention-days: 14
 
+  report-restoration-comparison:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install package and comparison dependencies
+        run: python -m pip install -e ".[dev]"
+      - name: Compare one optimization against committed R2 baseline
+        run: python scripts/compare_report_restoration.py --baseline-commit 6034231ffe34c374c42a43f9ac89a1a4acd7316c --output "${{ runner.temp }}/report-comparison"
+      - name: Retain all paired observations, including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-comparison-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: |
+            ${{ runner.temp }}/report-comparison/
+            !${{ runner.temp }}/report-comparison/baseline-source/
+            !${{ runner.temp }}/report-comparison/baseline.tar
+          retention-days: 14
+
   distributions:
     runs-on: ubuntu-latest
     strategy:
