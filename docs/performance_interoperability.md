@@ -13,7 +13,8 @@ source hashes, exact exploratory inputs/results and measurement limitations.
 The next release version is deliberately undecided. Planned development branch:
 `dev/phase-r-performance-interop`. No package/citation version is changed by R0.
 Acceleration alone is not a reason for a major version; R7 requires a compatibility
-rationale. R1 contracts are implemented; R2-R7 remain planned.
+rationale. R1 contracts and R2 campaigns are implemented; R3-R7 remain planned.
+Cross-platform R2 evidence must be reviewed after exact-commit CI.
 
 No TCAD export or concrete external format is available. The user selected
 requirements definition without assuming a simulator vendor. Phase R introduces
@@ -134,15 +135,15 @@ Full co-simulation, a new PDE solver and larger device families are separate sco
 |---|---|---|
 | R0 (complete) | Audit, exploratory profiles, scope and limitations | Baseline/source identity, original results retained; no optimization or TCAD claim |
 | R1 (complete) | Owned workload/measurement and equivalence contracts | Explicit scopes, repetitions, environment, tolerances and failure policy |
-| R2 | Representative serial baseline campaign | Real workloads, bounded resources, trial distributions, numerical references and host provenance |
+| R2 (implemented; CI evidence pending) | Representative serial baseline campaign | Real workloads, bounded resources, trial distributions, numerical references and host provenance |
 | R3 | One justified optimization | Repeatable end-to-end benefit with equivalent science, failures, order and resource accounting |
 | R4 | Vendor-neutral import/export contracts | Units, coordinates, source identity, applicability and explicit conversion |
 | R5 | Controlled optimization/comparison references | Positive/negative/synthetic cases; external applicability conditional on admitted exports |
 | R6 | Strict performance/comparison reports | Complete source-linked trials, unavailable outcomes and reproducible projections |
 | R7 | Release review | API/archive compatibility, full regression, docs, installed distributions, exact-candidate CI and version rationale |
 
-The immediate next step is R2: representative serial measurements and independent
-numerical references. R1 adds contracts without changing existing runtime APIs,
+The immediate next step is reviewing R2 measurements and exact-commit CI evidence,
+then selecting one justified optimization for R3. R1 adds contracts without changing existing runtime APIs,
 physics, defaults, published archive schemas, package identity or citation DOI.
 
 
@@ -248,3 +249,135 @@ equivalence of omitted physics or state. Hashes identify supplied data and do no
 prove authenticity or calibration. Run the oracle outside the timed region unless
 validation is explicitly part of the scope. Existing scientific archives and the
 R0 exploratory evidence remain unchanged; R6 will address campaign reports.
+
+
+## R2 bounded serial baseline campaigns
+
+`ncmemsim.performance_execution` adds `capture_performance_environment` and
+`run_serial_campaign`; `ncmemsim.performance_workloads` adds
+`execute_performance_workload`. These are additive APIs; legacy benchmark outputs,
+solver defaults, scientific archives and the published 1.8.0 identity are retained.
+
+The source-tree driver `scripts/run_performance_baseline.py` builds the following
+15 owned workloads. Scientific inputs include complete context/solver declarations,
+protocols and states, stored manifests and requested failure indices, or embedded
+archival sources. Each descriptor has a checked logical item count.
+
+| Workloads | Declared logical items per execution | Scope |
+|---|---:|---|
+| V2 trajectories with 1, 2 and 3 floating gates | 1 trajectory each | Full final populations, electrostatic/charge/readout and channel outputs |
+| Independent geometry DTCO | 2 ordered design points | Fresh candidate state and full trajectory per point |
+| DEVICE zero/positive variation | 2 stored samples each | Zero control succeeds; varied case retains one deliberately failed workflow sample |
+| MODEL zero/positive density variation | 2 stored samples each | Closed fixed-field inter-FG transport with full states, step channels and electron-conservation diagnostics |
+| Electrical sequence | 4 dependent steps | Fresh owned experiment and dark readout |
+| Matched optical/dark sequence | 8 dependent steps across two controls | Fixed source and common electrical history |
+| Coupled thermal trajectories at 250/350 K | 1 trajectory each | Anchored Si thermal material context |
+| Independent multilevel retention | 6 level/delay probes | Three stored preparations, two independent delays |
+| Strict archive restoration / bundle export | 9 archived cases each | Static nested validation; export also writes and hashes bundle files |
+
+The DEVICE/MODEL realizations remain serial and manifest-ordered. Sampling happens
+once while preparing inputs, never inside timed execution. Prepared multilevel
+states are also constructed before the campaign. The stored archive retains its
+original package-1.7.0 runtime identity. No historical identity is relabelled.
+Assumed distributions and injected failures are numerical controls, not physical
+failure rates, process yield or experimental calibration.
+
+The registered scope is `end_to_end` within the worker: restoring owned input,
+fresh state, computation, scientific projection and final finite snapshot checks.
+Lazy workload dependency imports are included. Worker/interpreter startup,
+environment/source capture, outer result serialization/transfer and coordinator
+comparison are outside workload elapsed time. Launch-to-response lifecycle time
+is retained separately for each trial; campaign lifecycle also includes cleanup.
+These scopes differ from R0 and must not be used to infer speedups against its
+single-run profiles.
+
+Every campaign uses fresh processes: a separate serial reference, one warmup and
+five measured repetitions by default. This is a cold-process baseline; the warmup
+does not establish resident solver/cache warmup in subsequent fresh processes.
+The default equivalence contract compares the entire finite scientific tree
+exactly against the separate serial reference. It establishes same-host serial
+repeatability, not an independent accuracy proof. A caller may instead supply an
+owned reference and an R1 `EquivalenceContract` together; inputs and rules must
+match the workload. R3 still requires justified tolerances/refinement and review
+of the complete scientific outputs before accepting a changed implementation.
+
+The driver additionally retains paired `dt`/`dt/2` results for the three nominal
+and two thermal trajectories, outside performance timing. Changed workload inputs,
+full results, maximum population difference and signed flat-band voltage
+difference are preserved in `refinement.json`. A two-resolution difference is
+not an exact-solution error bound or proof of convergence. Existing applied
+scientific validation remains necessary. `--skip-refinement` explicitly records
+omission; it is used for separate memory-only observation campaigns.
+
+The default per-worker launch-to-exit limit is 120 seconds; the per-workload total
+scheduling budget is 900 seconds including the reference. Every worker is bounded
+by the lesser of its limit and remaining total budget. Timeout kills/reaps the
+worker. Unstarted remaining indices become `unavailable`; launched failures and
+timeouts remain `failed`. Complete-equivalent statistics require every declared
+warmup and measurement to complete and match, with no observed budget overrun.
+Completed-observation median/min/max/MAD are separately retained even when the
+campaign is incomplete; these diagnostics do not become an accepted baseline.
+Coordinator comparison/serialization/cleanup cannot be preempted by this timer;
+observed campaign overshoot is reported and prevents complete status. Limits are
+not hard RAM/disk caps. Payloads are bounded at 16 MiB and controlled trajectories
+at three FGs, 257 spatial points per FG and 4096 time steps; declared logical items
+are bounded at 64 and MODEL transport steps at 64. Worker logs use files rather
+than unbounded coordinator capture.
+
+Only `none` and `native_memory` instrumentation execute in R2, always with
+`fresh_process` isolation. Native-memory observations use Windows
+`PeakWorkingSetSize` or platform-scaled `getrusage().ru_maxrss`. They include
+imports and the whole process, not only the solver or NumPy workspace. Unsupported
+measurement methods remain explicit failures. These instrumented observations
+are separate from uninstrumented timings. No tracemalloc-to-native-memory
+conversion, hard memory cap or comparison of different trials as one trial occurs.
+
+Environment capture records actual import path, source and distribution metadata
+versions separately, Python/NumPy, OS/CPU and thread settings. The Git commit/dirty
+flag is supplied by the caller (the source driver probes Git); the worker checks
+its environment and normalized package-source tree digest against the coordinator.
+Dirty source observations remain explicitly dirty and are not relabelled as an
+exact clean commit. Hashes demonstrate consistency, not execution authenticity.
+
+Disabled optical diagnostics sometimes use NaN in the existing solver. The R2
+scientific projection preserves these named unavailable optical fields as tagged
+objects; it never converts them to zero. Infinite values retain their signed
+nonfinite tag. NaN in physical states or other outputs fails the workload. State
+normalization and closed MODEL electron-conservation checks remain active.
+
+Run the driver with a new output directory, for example:
+
+```console
+python scripts/run_performance_baseline.py --output results/r2-serial
+python scripts/run_performance_baseline.py --output results/r2-memory --native-memory --skip-refinement --case trajectory-3fg --case strict-restore
+```
+
+Each case JSON contains the separate reference, every trial and scientific result,
+equivalence outcomes, environment and complete/incomplete summary. `index.json`
+links case files by SHA-256; `refinement.json` retains untimed diagnostics. Output
+directories are never overwritten. This is baseline evidence, not the strict R6
+campaign reporting/archive schema, and no speedup is accepted by these APIs.
+
+CI collects the full serial suite and the two separate native-memory cases on
+Ubuntu/Windows with Python 3.11/3.13, retaining artifacts even on failures. It gates
+completion and scientific repeatability, without an absolute timing threshold.
+Cross-host numerical/timing differences require review; host-specific timings
+are not pooled. Remote evidence remains pending until this change is pushed and
+the new jobs finish. Installed wheel/sdist gates separately execute a small fresh-
+process baseline outside the checkout. Local distribution validation may reuse
+dependencies; remote distribution jobs use clean environments.
+
+
+### Local R2 evidence
+
+The [local baseline audit](performance_baseline_audit.json) records 15 separate
+serial references, 15 warmups and 75 measured trials, plus two separate native-
+memory references, two warmups and ten native-memory measurements. All declared
+trials completed and matched their full serial reference. Both native-memory
+references also matched the corresponding uninstrumented scientific results.
+Five paired time-step diagnostics retain population/readout differences without
+claiming convergence. Raw case files remain in the workspace evidence directories,
+linked by SHA-256 in the audit. The observed source tree was dirty on the R1
+commit and is identified by its normalized package digest; it is not an exact-
+commit clean CI result. These are single-host observations. Remote CI evidence
+for the committed R2 change remains required before selecting R3.

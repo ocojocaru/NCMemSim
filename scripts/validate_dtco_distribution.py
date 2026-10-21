@@ -212,6 +212,9 @@ SOURCE_REQUIRED |= {'scripts/validate_v1_8_api_review.py', 'docs/v1_8_api_review
 SOURCE_REQUIRED |= {'scripts/validate_v1_8_release_identity.py'}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_7_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/independent_calibration.md', 'docs/v1_7_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
 
+SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_performance_execution.py'}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--reuse-dependencies", action="store_true",
@@ -806,6 +809,22 @@ assert api.compare_scientific_results(c, w, a, b)['status'] == 'equivalent'
 b['source'] = 'changed'
 assert api.compare_scientific_results(c, w, a, b)['status'] == 'not_equivalent'
 print('Installed performance contracts and equivalence PASS')
+from ncmemsim import DeviceBuilder
+from ncmemsim.temperature_context import ThermalContext
+from ncmemsim.performance_execution import run_serial_campaign
+from ncmemsim.performance_workloads import execute_performance_workload
+import ncmemsim.performance_execution as execution
+assert pathlib.Path(execution.__file__).resolve().is_relative_to(pathlib.Path(sys.argv[1]).resolve())
+w = api.PerformanceWorkload('installed-r2', 'relaxation', {'case': 'trajectory', 'payload': {
+    'context': ThermalContext.from_nominal(DeviceBuilder.v2(1)).to_dict(), 'temperature_K': 300.,
+    'settings': {'voltage_V': 2., 'duration_s': 2e-8, 'dt_s': 1e-8, 'initial_p1': [.2]}}},
+    ('end_to_end',), 'state_chain', 1, 'Synthetic installed R2 probe, declared test source identity')
+r = run_serial_campaign(w, api.MeasurementProtocol(isolation='fresh_process',
+    max_trial_seconds=60., max_total_seconds=240.), source_commit='a'*40, source_dirty=True)
+assert r['summary']['complete'] and r['summary']['equivalent_measurement_count'] == 5
+assert len(r['trials']) == 6
+assert not r['summary']['speedup_accepted']
+print('Installed serial baseline and fresh-process source identity PASS')
 """
 
 if __name__ == "__main__":

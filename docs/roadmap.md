@@ -504,7 +504,9 @@ are available; interoperability starts with vendor-neutral data requirements.
 
 The [Phase R scope and acceptance sequence](performance_interoperability.md) and
 [R0 audit](performance_interoperability_audit.json) retain the historical baseline.
-R1 owned measurement/equivalence contracts are implemented; R2 representative serial baselines are next, followed by R3 one measured optimization,
+R1 owned measurement/equivalence contracts and the R2 serial campaign implementation
+are complete locally; cross-platform R2 evidence is collected by CI after push.
+R3 is next: select one measured optimization only after reviewing these baselines,
 R4 import/export contracts, R5 controlled references, R6 strict reports and R7
 release gates. Scientific equivalence, reproducibility and failure provenance
 must be preserved. Full co-simulation and larger device families are separate

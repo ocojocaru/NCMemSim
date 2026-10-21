@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 141 package source modules; 759 explicit export paths; 267 distinct documented Python import paths.
+Coverage: 143 package source modules; 762 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -4193,6 +4193,23 @@ Constructor: `__init__(self, workload_hash, rules, exact_paths, reference_eviden
 - `from_dict(cls, raw)`; `classmethod`.
 
 - `compare_scientific_results(contract, workload, reference, candidate)`
+
+## ncmemsim.performance_execution
+
+`ncmemsim/performance_execution.py`
+
+Explicit exports: `capture_performance_environment`, `run_serial_campaign`
+
+- `capture_performance_environment(source_commit, source_dirty)`
+- `run_serial_campaign(workload, protocol, *, source_commit, source_dirty, reference=None, equivalence=None)`
+
+## ncmemsim.performance_workloads
+
+`ncmemsim/performance_workloads.py`
+
+Explicit exports: `execute_performance_workload`
+
+- `execute_performance_workload(workload, storage)`
 
 ## ncmemsim.photo
 

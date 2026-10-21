@@ -1,0 +1,1409 @@
+{
+  "schema_version": "phase-r2-local-baseline-audit-v1",
+  "date": "2026-10-21",
+  "status": "local_baseline_complete_cross_platform_ci_pending",
+  "source_commit": "3bb37ac30138ed546f8a93042dba729d962400f3",
+  "source_dirty": true,
+  "source_tree_hash": "9880db652af202dca8897639b6433bc06b718aa8ff8864d4e33d32293d3fba04",
+  "source_files_sha256_utf8_lf": {
+    "ncmemsim/performance_execution.py": "af6c57d285ae90874cc85892ff2e08df7a3d3273a2964f636345d789d4e13e18",
+    "ncmemsim/performance_workloads.py": "d12f48e9b579fb08c26ff68e4a5fa610d1eb14c35edad2a609efc2e4dd291db2",
+    "scripts/run_performance_baseline.py": "677de0f957eae8d0bebc66335fb31fdd21c21d448bab5790570f1508e783dc34",
+    "tests/test_phase_r2_performance_execution.py": "a0797f3d4376c9710604052a144cbfaeddc412775aecc540deea55087bee67c6"
+  },
+  "environment": {
+    "backend_id": "serial-reference",
+    "cpu": "Intel64 Family 6 Model 158 Stepping 10, GenuineIntel",
+    "distribution_version": "1.8.0",
+    "imported_package_path": "J:\\CODE\\devsim_projects\\NCMemSim\\ncmemsim\\__init__.py",
+    "logical_cpu_count": 12,
+    "numpy_version": "2.4.3",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "python_version": "3.13.12",
+    "schema_version": "performance-environment-v1",
+    "source_commit": "3bb37ac30138ed546f8a93042dba729d962400f3",
+    "source_dirty": true,
+    "source_package_version": "1.8.0",
+    "thread_settings": {
+      "MKL_NUM_THREADS": null,
+      "NUMEXPR_NUM_THREADS": null,
+      "OMP_NUM_THREADS": null,
+      "OPENBLAS_NUM_THREADS": null
+    }
+  },
+  "protocols": {
+    "serial": {
+      "budget_policy": "declared_limits_enforced_by_future_executor",
+      "clock": "monotonic_wall",
+      "instrumentation": "none",
+      "isolation": "fresh_process",
+      "max_total_seconds": 900.0,
+      "max_trial_seconds": 120.0,
+      "measured_count": 5,
+      "schema_version": "performance-measurement-protocol-v1",
+      "time_unit": "s",
+      "warmup_count": 1
+    },
+    "native_memory": {
+      "budget_policy": "declared_limits_enforced_by_future_executor",
+      "clock": "monotonic_wall",
+      "instrumentation": "native_memory",
+      "isolation": "fresh_process",
+      "max_total_seconds": 900.0,
+      "max_trial_seconds": 120.0,
+      "measured_count": 5,
+      "schema_version": "performance-measurement-protocol-v1",
+      "time_unit": "s",
+      "warmup_count": 1
+    }
+  },
+  "counts": {
+    "serial_cases": 15,
+    "serial_reference_executions": 15,
+    "serial_warmups": 15,
+    "serial_measurements": 75,
+    "native_cases": 2,
+    "native_reference_executions": 2,
+    "native_warmups": 2,
+    "native_measurements": 10
+  },
+  "cases": [
+    {
+      "case": "trajectory-1fg",
+      "workload_hash": "1e74e90b44e62117879dfe1ffa22d441bdc6d6e76e984025ba499c0653e711ff",
+      "file_sha256": "ee0484793046734be0ead5de878a511a0b85246ecba67ff2f07961c1a68aceb3",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 0.1085196000058204,
+          "min_s": 0.10785250004846603,
+          "max_s": 0.10922799992840737,
+          "median_absolute_deviation_s": 0.0004881999921053648
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 0.1085196000058204,
+          "min_s": 0.10785250004846603,
+          "max_s": 0.10922799992840737,
+          "median_absolute_deviation_s": 0.0004881999921053648
+        },
+        "campaign_lifecycle_seconds": 5.7155052000889555,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "87ca0c9b598bc3e799c5918eb1616417e3c21c7cb4f448af28537c420029da30",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "trajectory-2fg",
+      "workload_hash": "9387a93d66957b73ef2523a764c48aabb2e9bc29050df25fde35410efb6163b9",
+      "file_sha256": "95593a8142bdd6ebda58c331e585978288a33750bcacf86554f80cd601c5573b",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 0.13881879998371005,
+          "min_s": 0.13535530003719032,
+          "max_s": 0.14383660000748932,
+          "median_absolute_deviation_s": 0.002694500028155744
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 0.13881879998371005,
+          "min_s": 0.13535530003719032,
+          "max_s": 0.14383660000748932,
+          "median_absolute_deviation_s": 0.002694500028155744
+        },
+        "campaign_lifecycle_seconds": 5.9423266999656335,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "b4bb3db47abe5b67b7704b2da1b070228504f7e026e56e55a6bfa6ad78b2ea23",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "trajectory-3fg",
+      "workload_hash": "0aacff4f6087907e2c210f90f32883c16e877ec588d7ed4a1c263c03b5f8439b",
+      "file_sha256": "9b07b4a0632ea3fd1aede73f21b7120ac5aa9bced861107f5677707c05711b17",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 0.16808500001206994,
+          "min_s": 0.1670416999841109,
+          "max_s": 0.17952780006453395,
+          "median_absolute_deviation_s": 0.0010433000279590487
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 0.16808500001206994,
+          "min_s": 0.1670416999841109,
+          "max_s": 0.17952780006453395,
+          "median_absolute_deviation_s": 0.0010433000279590487
+        },
+        "campaign_lifecycle_seconds": 5.862833600025624,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "93204ff3ad936cce3621d1d64f17c16494ed71cde439350bf3b7cf114bc74211",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "independent-dtco",
+      "workload_hash": "295dcf45f13e8debff71f7d2246e67d34acecf32042816e80f8b5fd8a842b4fa",
+      "file_sha256": "21d72d3c2218ecd66ffd7366332a4f0507c64983191c653e90f392a07c9c2107",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 0.14933829999063164,
+          "min_s": 0.14489709993358701,
+          "max_s": 0.17571780004072934,
+          "median_absolute_deviation_s": 0.004441200057044625
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 0.14933829999063164,
+          "min_s": 0.14489709993358701,
+          "max_s": 0.17571780004072934,
+          "median_absolute_deviation_s": 0.004441200057044625
+        },
+        "campaign_lifecycle_seconds": 6.038555199978873,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "cd2e943e531d5fa6769d04dde40597372eeea61338234877a8827a350d9dfa38",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "device-zero",
+      "workload_hash": "a131ba88c25eab06a19548d947a3e0aefa2e8bfc2cfee8dd8b174f9a3f288e09",
+      "file_sha256": "e283908f6a3cbca9cd376bb035ef1bf867dbcb1a0925b204025d1106b82a36f6",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 0.20402970002032816,
+          "min_s": 0.20102969999425113,
+          "max_s": 0.21353139996062964,
+          "median_absolute_deviation_s": 0.0005811000009998679
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 0.20402970002032816,
+          "min_s": 0.20102969999425113,
+          "max_s": 0.21353139996062964,
+          "median_absolute_deviation_s": 0.0005811000009998679
+        },
+        "campaign_lifecycle_seconds": 6.738593099988066,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "3ccd87e4b41da4a8d4ca86f1f36d10c5c9a63caa825e4460991eff2119ac2567",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "device-varied",
+      "workload_hash": "82e2a2cd4c052d2aac784e231e617d3ba400ca9aa058c08689d7d529d388ec70",
+      "file_sha256": "3b22fbe5a402cd92b6bd52b9640bd74bd0e78ed848e96f301c44775e5b5af504",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 0.1865010999608785,
+          "min_s": 0.17838890000712126,
+          "max_s": 0.20550869998987764,
+          "median_absolute_deviation_s": 0.007874100003391504
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 0.1865010999608785,
+          "min_s": 0.17838890000712126,
+          "max_s": 0.20550869998987764,
+          "median_absolute_deviation_s": 0.007874100003391504
+        },
+        "campaign_lifecycle_seconds": 6.07327399996575,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "2806c5768707f24e27051da1ed592cf584b3aea4726864210f02985418969bdb",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "model-zero",
+      "workload_hash": "1c6d96634b02231b4f97af60a62af560fb280d9a8a852f43d4536a21aa921b42",
+      "file_sha256": "078e803ac2d32c95dc51ecfcb9af02f7ccf77e0c466f57fb44ac081bb4eeb5b5",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 0.20664340001530945,
+          "min_s": 0.20017860003281385,
+          "max_s": 0.21055620000697672,
+          "median_absolute_deviation_s": 0.003912799991667271
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 0.20664340001530945,
+          "min_s": 0.20017860003281385,
+          "max_s": 0.21055620000697672,
+          "median_absolute_deviation_s": 0.003912799991667271
+        },
+        "campaign_lifecycle_seconds": 6.401256299926899,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "18ebfc8ffcfd435136031c6f35c10569581860294543939e0b41c0819e81bef9",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "model-varied",
+      "workload_hash": "d78d54f506d4a689177337a74819d6c72fbf9b35d802edf6cd913fc0147fe267",
+      "file_sha256": "ddd8e01590191d408346cceee28b301f79b783de378ec20d3a23cd11a2a011c4",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 0.1925323000177741,
+          "min_s": 0.18672880006488413,
+          "max_s": 0.1989102999214083,
+          "median_absolute_deviation_s": 0.004385900101624429
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 0.1925323000177741,
+          "min_s": 0.18672880006488413,
+          "max_s": 0.1989102999214083,
+          "median_absolute_deviation_s": 0.004385900101624429
+        },
+        "campaign_lifecycle_seconds": 6.088216400006786,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "f215ecf40f7ac919f6b7564a0ec48e723b97a6bedb5dd98413119594c8a3261f",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "electrical-sequence",
+      "workload_hash": "27ead22f084636663224024524ddd492417e9288d308fc7a8ff6efb873c39bbb",
+      "file_sha256": "837df9243345987149cc519ba795d6a0f91f3feb994284032f4eb9c7165a3b82",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 0.627773999935016,
+          "min_s": 0.6230505000567064,
+          "max_s": 0.6776571000227705,
+          "median_absolute_deviation_s": 0.004723499878309667
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 0.627773999935016,
+          "min_s": 0.6230505000567064,
+          "max_s": 0.6776571000227705,
+          "median_absolute_deviation_s": 0.004723499878309667
+        },
+        "campaign_lifecycle_seconds": 9.737330200034194,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "24f327e2ae83e5caf1d09e6bf1320c9eb81529603a1ebf7f04f072d2914697b9",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "matched-optical",
+      "workload_hash": "2fd52a764da5c29234a2e82fc0a7662bf58dd11845dcfa2974ec74d6f0b2e994",
+      "file_sha256": "5638ca6931c698ed18f358eec0636f9480ddbe0b0b37a2d17fa303863c4bf71f",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 2.1571363999973983,
+          "min_s": 2.1417685000924394,
+          "max_s": 2.1804274999303743,
+          "median_absolute_deviation_s": 0.014223800040781498
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 2.1571363999973983,
+          "min_s": 2.1417685000924394,
+          "max_s": 2.1804274999303743,
+          "median_absolute_deviation_s": 0.014223800040781498
+        },
+        "campaign_lifecycle_seconds": 20.63186439999845,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "55775d954b56f6615fe29dbf4c1fac0511bef020ec0dd05f156900232ad5bc67",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "thermal-250K",
+      "workload_hash": "0d3c888b559c03d9b621d7fd2a22cd09fe548ca91e305f3e36c5a40cf2374883",
+      "file_sha256": "df8582106d426f394e973200815f5bf43f4477187e8efb5f77aac8cd64727b3c",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 0.1115161000052467,
+          "min_s": 0.10884250001981854,
+          "max_s": 0.1149100000038743,
+          "median_absolute_deviation_s": 0.000937500037252903
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 0.1115161000052467,
+          "min_s": 0.10884250001981854,
+          "max_s": 0.1149100000038743,
+          "median_absolute_deviation_s": 0.000937500037252903
+        },
+        "campaign_lifecycle_seconds": 5.698132599936798,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "738d8cc3a0d0fdcf8fe61093382dc67c86d70907f82c18dea29897bff055a926",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "thermal-350K",
+      "workload_hash": "0754c89646af63ad2873b56d8681aa3bc6d7077a3e7b3caa0e204ea58023113f",
+      "file_sha256": "3bc01c6480ffcdaa6e32ffbbaa6df067a5e44a5dd750c6a2acbe6e30c4a0975c",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 0.1124355000210926,
+          "min_s": 0.11082810000516474,
+          "max_s": 0.12303210003301501,
+          "median_absolute_deviation_s": 0.0016074000159278512
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 0.1124355000210926,
+          "min_s": 0.11082810000516474,
+          "max_s": 0.12303210003301501,
+          "median_absolute_deviation_s": 0.0016074000159278512
+        },
+        "campaign_lifecycle_seconds": 5.728288499987684,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "4fa47e36380e4931fc60cd1396d234c85734e8d145446213b2f0392c7d362634",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "multilevel-retention",
+      "workload_hash": "b400bc1f3bfca6d911e5e2e2b34690bc12725f23f85e41460f29642c138e9022",
+      "file_sha256": "5a7ad1acb12e274f06af86b82774cb05a8f25f13878dd12a0f8a8d0d09f92ea3",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 7.3636822999687865,
+          "min_s": 7.228001199895516,
+          "max_s": 7.621894199983217,
+          "median_absolute_deviation_s": 0.09536029992159456
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 7.3636822999687865,
+          "min_s": 7.228001199895516,
+          "max_s": 7.621894199983217,
+          "median_absolute_deviation_s": 0.09536029992159456
+        },
+        "campaign_lifecycle_seconds": 58.23271249991376,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "0e0bf8ae27a39e79772e9f3772e7441b5acac006182539a8fb8ec68da40dd812",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "strict-restore",
+      "workload_hash": "33ea0006f0fe8a1be266338c5e74d1a39c907b4cc1ea368379afafb4229f53a9",
+      "file_sha256": "e81f928056da5a5d027d7366ef7ee5efbc43705db0a1d7da6d21df943800f17a",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 9.324882099987008,
+          "min_s": 9.28026609995868,
+          "max_s": 9.363429100019857,
+          "median_absolute_deviation_s": 0.03817179996985942
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 9.324882099987008,
+          "min_s": 9.28026609995868,
+          "max_s": 9.363429100019857,
+          "median_absolute_deviation_s": 0.03817179996985942
+        },
+        "campaign_lifecycle_seconds": 75.99667449994013,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "fd25bf8616e17b197ba6b9f5740dc7c0eca56bb34585c617dfbce21ef149dc12",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "strict-export",
+      "workload_hash": "ef114f2161a178dbb71671211b8c0cfd7447d7f0cbe1c2ee8e81a2a96e243657",
+      "file_sha256": "8a287138a4029611daa1adac57cf33ffb852b5c2f58df9b75b9d56b3c52563e6",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 19.360143499914557,
+          "min_s": 18.906447799992748,
+          "max_s": 19.73365280008875,
+          "median_absolute_deviation_s": 0.19062959984876215
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 19.360143499914557,
+          "min_s": 18.906447799992748,
+          "max_s": 19.73365280008875,
+          "median_absolute_deviation_s": 0.19062959984876215
+        },
+        "campaign_lifecycle_seconds": 144.7197469000239,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-serial",
+      "reference_hash": "124d95555371eef23ccac459b5b1ccd40643541a95bd3eb90e3b413cf564cb81",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": null,
+          "kind": "not_measured",
+          "method": null
+        }
+      ]
+    },
+    {
+      "case": "trajectory-3fg",
+      "workload_hash": "0aacff4f6087907e2c210f90f32883c16e877ec588d7ed4a1c263c03b5f8439b",
+      "file_sha256": "00a4d3fa349406f16a8b575aff1e877c1d6ac08f8f9b573f8fb9a3505f66cc5a",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 0.1707693999633193,
+          "min_s": 0.16792479995638132,
+          "max_s": 0.19289710000157356,
+          "median_absolute_deviation_s": 0.0028446000069379807
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 0.1707693999633193,
+          "min_s": 0.16792479995638132,
+          "max_s": 0.19289710000157356,
+          "median_absolute_deviation_s": 0.0028446000069379807
+        },
+        "campaign_lifecycle_seconds": 6.184369900031015,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-native",
+      "reference_hash": "93204ff3ad936cce3621d1d64f17c16494ed71cde439350bf3b7cf114bc74211",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": 53444608,
+          "kind": "process_peak_rss",
+          "method": "Windows GetProcessMemoryInfo PeakWorkingSetSize; whole fresh process including imports"
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": 53530624,
+          "kind": "process_peak_rss",
+          "method": "Windows GetProcessMemoryInfo PeakWorkingSetSize; whole fresh process including imports"
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": 53284864,
+          "kind": "process_peak_rss",
+          "method": "Windows GetProcessMemoryInfo PeakWorkingSetSize; whole fresh process including imports"
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": 53354496,
+          "kind": "process_peak_rss",
+          "method": "Windows GetProcessMemoryInfo PeakWorkingSetSize; whole fresh process including imports"
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": 53977088,
+          "kind": "process_peak_rss",
+          "method": "Windows GetProcessMemoryInfo PeakWorkingSetSize; whole fresh process including imports"
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": 53760000,
+          "kind": "process_peak_rss",
+          "method": "Windows GetProcessMemoryInfo PeakWorkingSetSize; whole fresh process including imports"
+        }
+      ]
+    },
+    {
+      "case": "strict-restore",
+      "workload_hash": "33ea0006f0fe8a1be266338c5e74d1a39c907b4cc1ea368379afafb4229f53a9",
+      "file_sha256": "f52ee45aaa4aee777444dc1f35e1324fdc1c4eb21fbb982d5983fb72606532e9",
+      "summary": {
+        "complete": true,
+        "declared_measurement_count": 5,
+        "completed_measurement_count": 5,
+        "equivalent_measurement_count": 5,
+        "failed_measurement_count": 0,
+        "unavailable_measurement_count": 0,
+        "completed_observation_statistics": {
+          "count": 5,
+          "median_s": 9.523309199954383,
+          "min_s": 9.482491500093602,
+          "max_s": 9.591732000000775,
+          "median_absolute_deviation_s": 0.02383620000910014
+        },
+        "complete_equivalent_statistics": {
+          "count": 5,
+          "median_s": 9.523309199954383,
+          "min_s": 9.482491500093602,
+          "max_s": 9.591732000000775,
+          "median_absolute_deviation_s": 0.02383620000910014
+        },
+        "campaign_lifecycle_seconds": 76.92512730008457,
+        "campaign_budget_exceeded": false,
+        "speedup_accepted": false
+      },
+      "campaign": "phase-r2-native",
+      "reference_hash": "fd25bf8616e17b197ba6b9f5740dc7c0eca56bb34585c617dfbce21ef149dc12",
+      "memory_observations": [
+        {
+          "phase": "warmup",
+          "index": 0,
+          "bytes": 70778880,
+          "kind": "process_peak_rss",
+          "method": "Windows GetProcessMemoryInfo PeakWorkingSetSize; whole fresh process including imports"
+        },
+        {
+          "phase": "measurement",
+          "index": 0,
+          "bytes": 72241152,
+          "kind": "process_peak_rss",
+          "method": "Windows GetProcessMemoryInfo PeakWorkingSetSize; whole fresh process including imports"
+        },
+        {
+          "phase": "measurement",
+          "index": 1,
+          "bytes": 72171520,
+          "kind": "process_peak_rss",
+          "method": "Windows GetProcessMemoryInfo PeakWorkingSetSize; whole fresh process including imports"
+        },
+        {
+          "phase": "measurement",
+          "index": 2,
+          "bytes": 70475776,
+          "kind": "process_peak_rss",
+          "method": "Windows GetProcessMemoryInfo PeakWorkingSetSize; whole fresh process including imports"
+        },
+        {
+          "phase": "measurement",
+          "index": 3,
+          "bytes": 71159808,
+          "kind": "process_peak_rss",
+          "method": "Windows GetProcessMemoryInfo PeakWorkingSetSize; whole fresh process including imports"
+        },
+        {
+          "phase": "measurement",
+          "index": 4,
+          "bytes": 71675904,
+          "kind": "process_peak_rss",
+          "method": "Windows GetProcessMemoryInfo PeakWorkingSetSize; whole fresh process including imports"
+        }
+      ]
+    }
+  ],
+  "refinement": [
+    {
+      "case": "trajectory-1fg",
+      "max_population_absolute_difference": 1.3877787807814457e-16,
+      "signed_vfb_absolute_difference_V": 0.0,
+      "interpretation": "Paired dt/dt/2 diagnostic only; not an accuracy bound or proof of convergence"
+    },
+    {
+      "case": "trajectory-2fg",
+      "max_population_absolute_difference": 5.8885509801598346e-09,
+      "signed_vfb_absolute_difference_V": 5.289833682198264e-09,
+      "interpretation": "Paired dt/dt/2 diagnostic only; not an accuracy bound or proof of convergence"
+    },
+    {
+      "case": "trajectory-3fg",
+      "max_population_absolute_difference": 5.205978537148326e-09,
+      "signed_vfb_absolute_difference_V": 5.960918869618581e-09,
+      "interpretation": "Paired dt/dt/2 diagnostic only; not an accuracy bound or proof of convergence"
+    },
+    {
+      "case": "thermal-250K",
+      "max_population_absolute_difference": 0.01086541636916244,
+      "signed_vfb_absolute_difference_V": 0.0013587194085752374,
+      "interpretation": "Paired dt/dt/2 diagnostic only; not an accuracy bound or proof of convergence"
+    },
+    {
+      "case": "thermal-350K",
+      "max_population_absolute_difference": 0.010360740311258332,
+      "signed_vfb_absolute_difference_V": 0.0013284109639133401,
+      "interpretation": "Paired dt/dt/2 diagnostic only; not an accuracy bound or proof of convergence"
+    }
+  ],
+  "raw_evidence_location": "Workspace outputs/phase-r2-serial and outputs/phase-r2-native; case files linked by SHA-256",
+  "limits": [
+    "Current-host observations; no cross-host speedup or absolute CI timing threshold.",
+    "Fresh-process serial repeatability; existing scientific validation/refinement evidence remains required.",
+    "DEVICE/MODEL varied cases deliberately retain a declared failed sample; matching that negative result is not success of the sample.",
+    "Prepared multilevel inputs and stored manifests are built once outside campaign timing.",
+    "Historical benchmark_results.json and R0 profiling evidence are never overwritten.",
+    "Local source tree was explicitly dirty on the R1 commit; this is not evidence for a clean R2 commit.",
+    "Only two selected cases have native process-memory observations; others remain unmeasured.",
+    "Local timings were collected sequentially without concurrent agent tests/builds, not on an exclusive/controlled host.",
+    "No R0-to-R2 speedup comparison: inputs, scopes and protocols differ.",
+    "Cross-platform/Python CI evidence remains pending; do not pool host timings."
+  ]
+}

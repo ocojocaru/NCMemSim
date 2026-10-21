@@ -4,6 +4,13 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase R2 fresh-process serial campaigns with bounded worker timeouts,
+  complete warmup/measurement/failure records, environment/source capture and
+  full-payload serial repeatability checks. Cover 15 controlled workloads,
+  paired time-step diagnostics, separate native process memory observations,
+  installed wheel/sdist probes and cross-platform CI evidence collection.
+  No solver optimization, accepted speedup or new scientific qualification.
+
 - Add Phase R1 immutable workload, measurement protocol, environment and trial
   declarations with strict JSON restoration and explicit failure/memory accounting.
   Add workload-bound numerical equivalence with observable-specific tolerances,
