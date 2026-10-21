@@ -1,0 +1,460 @@
+{
+  "schema_version": "performance-interoperability-r0-audit-v1",
+  "status": "R0_scope_and_exploratory_audit_complete_no_runtime_changes",
+  "audit_date": "2026-10-21",
+  "baseline_commit": "266de0c3e68341b21ba19126bb963b784b9a3480",
+  "published_tag_commit": "03b35f40606dbd84c1cd6d715eb6de6222466b47",
+  "current_release": "1.8.0",
+  "current_version_doi": "10.5281/zenodo.23510004",
+  "target_release": null,
+  "version_decision": "Deferred until measured implementation and compatibility review; acceleration alone does not justify v2.0.",
+  "planned_branch": "dev/phase-r-performance-interop",
+  "external_data": {
+    "tcad_exports_available": false,
+    "specific_vendor_or_format_selected": false,
+    "user_decision": "Define requirements; no external export files currently available."
+  },
+  "reviewed_sources": [
+    {
+      "path": "ncmemsim/benchmark.py",
+      "canonical_text_sha256": "7d86a433c3429318e5d9eb8a42b1a18c997210b16505de5ae13155af1e73e593",
+      "decision": "Retain public benchmark API. Best elapsed, maximum traced peak and final charge can come from different repeats; no per-repeat distribution or native process memory."
+    },
+    {
+      "path": "scripts/run_benchmarks.py",
+      "canonical_text_sha256": "4707792b202e9927673785454ba93deba4b49e06b138a0e6a9274e6c698a7d5d",
+      "decision": "Default writes the tracked legacy validation artifact. Not used for R0; preserve that historical file."
+    },
+    {
+      "path": "validation/benchmark_results.json",
+      "canonical_text_sha256": "e83f8d86881aaab89ee29f58e27e684877ed4f15bf7728556f1dca2800a9d9d6",
+      "decision": "Historical three-case sample, not a v1.8 performance acceptance baseline."
+    },
+    {
+      "path": "ncmemsim/simulator.py",
+      "canonical_text_sha256": "76283adca7ae543bf38595220ddd6a483739ced51a59a17857524384be237fb7",
+      "decision": "Keep stepping, readout, grid and physical state semantics. Profile the full path before numerical changes."
+    },
+    {
+      "path": "ncmemsim/kinetics.py",
+      "canonical_text_sha256": "db3733dc68b1ff5bc5f78ade1e301d6dbd6d84801356f99022a1c2308c85e535",
+      "decision": "Rates appear in exploratory trajectory profiles; preserve channel accounting and domains."
+    },
+    {
+      "path": "ncmemsim/tunneling.py",
+      "canonical_text_sha256": "c763a6637f9b44c7c91715b7b577e9acf7e6e67f9d275b1b7eabd34c6b62f90a",
+      "decision": "WKB appears in exploratory profiles; any faster implementation needs independent numerical/refinement checks."
+    },
+    {
+      "path": "ncmemsim/dtco/sweep.py",
+      "canonical_text_sha256": "1f4b9096538a42b6f39e1dc0d0b1ca886ff9962e99578429daaf519669017f1c",
+      "decision": "Serial Cartesian reference preserves declared point order and isolated evaluation."
+    },
+    {
+      "path": "ncmemsim/ensemble/execution.py",
+      "canonical_text_sha256": "a04513fc8ca18e92b209bd8351a0999704b0eb209e280e32567e434a758c8771",
+      "decision": "Stored samples and exact failure/coverage denominators precede execution strategy choices."
+    },
+    {
+      "path": "ncmemsim/ensemble/model_execution.py",
+      "canonical_text_sha256": "23db67924f74664075f2f9eb0e0150d262a264537326a23413fb0730549a0224",
+      "decision": "Serial manifest order and failure stage provenance retained. Callback closure state is not an inferred contract."
+    },
+    {
+      "path": "ncmemsim/multilevel_execution.py",
+      "canonical_text_sha256": "dc94718cb39e38d56126dc6b58e392b80a79281efefd80b9d53b1916848712e1",
+      "decision": "Pulse steps form a continuous state chain; do not parallelize dependent steps."
+    },
+    {
+      "path": "ncmemsim/multilevel_retention.py",
+      "canonical_text_sha256": "a62cde0c3f64ba56d9fcfd2f795a8d70d8cc401b10b6f6ee6d4e44cab80e5ed0",
+      "decision": "Delay probes are independently initialized; preserve original preparation/read and margin references."
+    },
+    {
+      "path": "ncmemsim/multilevel_reporting.py",
+      "canonical_text_sha256": "16028bbf65ab59a9fbacf9fd9e68ff8c15231f781490b0984fe056ddd00472e8",
+      "decision": "Nested strict source restoration is a measured cost; validation must not be dropped to obtain a timing gain."
+    },
+    {
+      "path": "ncmemsim/reproducibility.py",
+      "canonical_text_sha256": "40c6ea634ce3f1bcd6f569c1a2b96ed08ba93c03740fea0ad2ab07fc5b1484fb",
+      "decision": "Capture source import/commit and distribution metadata explicitly; timestamps and performance observations are not scientific result identity."
+    },
+    {
+      "path": "ncmemsim/io.py",
+      "canonical_text_sha256": "9396778389fbb4eb191cb17d94fd7d7e998ab725aac25c1d75d58abb318ed70c",
+      "decision": "Existing observable CSV loaders require typed experimental metadata; they do not establish generic TCAD interoperability."
+    },
+    {
+      "path": "examples/phase_q2_electrical_sequence_reference.py",
+      "canonical_text_sha256": "90756a49ca2752edc8ff8a15e26b5d71110336be52667ccdd1a2a7107a17b36d",
+      "decision": "R0 prebuilt four-step electrical exploratory workload."
+    },
+    {
+      "path": "examples/phase_q3_multilevel_reference.py",
+      "canonical_text_sha256": "c1f15c44079bc228a0ad5cad837368c06a60fb23be998768db1027f9fb70b9f0",
+      "decision": "R0 prebuilt three-level preparation exploratory workload."
+    },
+    {
+      "path": "tests/fixtures/archives/v1_8_preparation/multilevel_report.json",
+      "canonical_text_sha256": "4beab3527ef9f89f4fb7005c269dc11131267508710b55cb0cf3a5fe569ed4ca",
+      "decision": "R0 strict restoration workload; preserve captured package 1.7.0 identity, not relabelled 1.8."
+    }
+  ],
+  "exploratory_profile": {
+    "schema_version": "phase-r0-exploratory-profile-v1",
+    "status": "exploratory_not_performance_acceptance",
+    "date": "2026-10-21",
+    "source_commit": "266de0c3e68341b21ba19126bb963b784b9a3480",
+    "source_package_version": "1.8.0",
+    "installed_distribution_metadata_version": "1.8.0",
+    "environment": {
+      "python": "3.13.12",
+      "numpy": "2.4.3",
+      "platform": "Windows-11-10.0.26300-SP0",
+      "machine": "AMD64",
+      "logical_cpu_count": 12,
+      "thread_environment": {
+        "OMP_NUM_THREADS": null,
+        "OPENBLAS_NUM_THREADS": null,
+        "MKL_NUM_THREADS": null,
+        "NUMEXPR_NUM_THREADS": null
+      }
+    },
+    "method": "One uninstrumented run followed by one cProfile run per case in the same process. No warmup protocol, repetitions, memory measurement or speedup baseline. Imports excluded. Cumulative times overlap and cannot be summed. No cross-machine/backend acceptance inferred.",
+    "cases": [
+      {
+        "case": "legacy_v2_3fg",
+        "inputs": {
+          "device_hash": "76e0206090c2eba9e5209bac5377b93865bb6df7c0970052d0cd51bb10fb0dee",
+          "voltage_V": 2.0,
+          "duration_s": 2e-05,
+          "dt_s": 1e-05,
+          "scope": "fresh state, simulator construction, relaxation and selected-output identity hashing; device construction excluded"
+        },
+        "uninstrumented_single_run_s": 0.01926400000229478,
+        "cprofile_single_run_s": 0.03374069998972118,
+        "same_scientific_result_hash": "16fa651023769f5086b3749706e6d6debdb34a0af17c90464b780c369436da1c",
+        "profiled_result_matches": true,
+        "top_cumulative_calls": [
+          {
+            "source": "profile_phase_r0.py",
+            "line": 20,
+            "function": "legacy",
+            "primitive_calls": 1,
+            "total_calls": 1,
+            "self_s": 3.6e-05,
+            "cumulative_s": 0.031086700000000002
+          },
+          {
+            "source": "ncmemsim/simulator.py",
+            "line": 132,
+            "function": "relax_voltage",
+            "primitive_calls": 1,
+            "total_calls": 1,
+            "self_s": 0.00016450000000000001,
+            "cumulative_s": 0.0308373
+          },
+          {
+            "source": "ncmemsim/kinetics.py",
+            "line": 49,
+            "function": "rates",
+            "primitive_calls": 6,
+            "total_calls": 6,
+            "self_s": 0.0010357,
+            "cumulative_s": 0.0258356
+          },
+          {
+            "source": "ncmemsim/tunneling.py",
+            "line": 24,
+            "function": "trapezoidal_wkb",
+            "primitive_calls": 378,
+            "total_calls": 378,
+            "self_s": 0.0068976,
+            "cumulative_s": 0.0249523
+          },
+          {
+            "source": "_function_base_impl.py",
+            "line": 4910,
+            "function": "trapezoid",
+            "primitive_calls": 378,
+            "total_calls": 378,
+            "self_s": 0.0034712000000000002,
+            "cumulative_s": 0.0091077
+          },
+          {
+            "source": "function_base.py",
+            "line": 27,
+            "function": "linspace",
+            "primitive_calls": 408,
+            "total_calls": 408,
+            "self_s": 0.0045402,
+            "cumulative_s": 0.0067606
+          },
+          {
+            "source": "_function_base_impl.py",
+            "line": 1402,
+            "function": "diff",
+            "primitive_calls": 378,
+            "total_calls": 378,
+            "self_s": 0.0032773000000000004,
+            "cumulative_s": 0.0036261
+          }
+        ]
+      },
+      {
+        "case": "q2_electrical_sequence",
+        "inputs": {
+          "experiment_hash": "295da928ae0ed2d74cf621aa3f853316132044c08759335a35666bb2dd3fe3c9",
+          "scope": "execute prebuilt four-step experiment including owned state/read/result processing"
+        },
+        "uninstrumented_single_run_s": 1.215017699985765,
+        "cprofile_single_run_s": 2.054925600066781,
+        "same_scientific_result_hash": "0f953f0c77172637e6d49de697d6fe94824f97e44777e461dcb9e3adae009762",
+        "profiled_result_matches": true,
+        "top_cumulative_calls": [
+          {
+            "source": "profile_phase_r0.py",
+            "line": 31,
+            "function": "<lambda>",
+            "primitive_calls": 1,
+            "total_calls": 1,
+            "self_s": 7.890000000000001e-05,
+            "cumulative_s": 2.0548801
+          },
+          {
+            "source": "ncmemsim/multilevel_execution.py",
+            "line": 221,
+            "function": "run_electrical_sequence",
+            "primitive_calls": 1,
+            "total_calls": 1,
+            "self_s": 0.000248,
+            "cumulative_s": 2.0548012
+          },
+          {
+            "source": "ncmemsim/temperature_context.py",
+            "line": 437,
+            "function": "relax_voltage",
+            "primitive_calls": 9,
+            "total_calls": 9,
+            "self_s": 0.00017600000000000002,
+            "cumulative_s": 1.3479338
+          },
+          {
+            "source": "ncmemsim/simulator.py",
+            "line": 132,
+            "function": "relax_voltage",
+            "primitive_calls": 9,
+            "total_calls": 9,
+            "self_s": 0.0039372,
+            "cumulative_s": 1.3065904000000002
+          },
+          {
+            "source": "ncmemsim/kinetics.py",
+            "line": 49,
+            "function": "rates",
+            "primitive_calls": 325,
+            "total_calls": 325,
+            "self_s": 0.0511387,
+            "cumulative_s": 1.1883488
+          },
+          {
+            "source": "ncmemsim/tunneling.py",
+            "line": 24,
+            "function": "trapezoidal_wkb",
+            "primitive_calls": 20159,
+            "total_calls": 20159,
+            "self_s": 0.3184482,
+            "cumulative_s": 1.125453
+          },
+          {
+            "source": "ncmemsim/workflows/application.py",
+            "line": 129,
+            "function": "_restore_device",
+            "primitive_calls": 175,
+            "total_calls": 175,
+            "self_s": 0.0046007,
+            "cumulative_s": 0.47365860000000004
+          }
+        ]
+      },
+      {
+        "case": "q3_level_preparation",
+        "inputs": {
+          "plan_hash": "c01cc1da29914c91772c5ebfec4a3c25890a491c0d96a3a5cf642a32822774b0",
+          "scope": "execute prebuilt three-level plan with independent preparations"
+        },
+        "uninstrumented_single_run_s": 6.06552439997904,
+        "cprofile_single_run_s": 10.536825699964538,
+        "same_scientific_result_hash": "346aaffbef4d551df85a96a4b68c3e47e32febb94b1e2734a9f9c507052064b3",
+        "profiled_result_matches": true,
+        "top_cumulative_calls": [
+          {
+            "source": "profile_phase_r0.py",
+            "line": 32,
+            "function": "<lambda>",
+            "primitive_calls": 1,
+            "total_calls": 1,
+            "self_s": 1.25e-05,
+            "cumulative_s": 10.5367753
+          },
+          {
+            "source": "ncmemsim/multilevel_analysis.py",
+            "line": 190,
+            "function": "run_multilevel_study",
+            "primitive_calls": 1,
+            "total_calls": 1,
+            "self_s": 0.00028000000000000003,
+            "cumulative_s": 10.5367628
+          },
+          {
+            "source": "ncmemsim/multilevel_analysis.py",
+            "line": 195,
+            "function": "<genexpr>",
+            "primitive_calls": 4,
+            "total_calls": 4,
+            "self_s": 0.0001923,
+            "cumulative_s": 7.8616745
+          },
+          {
+            "source": "ncmemsim/multilevel_execution.py",
+            "line": 221,
+            "function": "run_electrical_sequence",
+            "primitive_calls": 3,
+            "total_calls": 3,
+            "self_s": 0.0003192,
+            "cumulative_s": 7.8614822
+          },
+          {
+            "source": "ncmemsim/temperature_context.py",
+            "line": 437,
+            "function": "relax_voltage",
+            "primitive_calls": 9,
+            "total_calls": 9,
+            "self_s": 0.00017900000000000001,
+            "cumulative_s": 6.520137900000001
+          },
+          {
+            "source": "ncmemsim/simulator.py",
+            "line": 132,
+            "function": "relax_voltage",
+            "primitive_calls": 9,
+            "total_calls": 9,
+            "self_s": 0.0180201,
+            "cumulative_s": 6.479194000000001
+          },
+          {
+            "source": "ncmemsim/kinetics.py",
+            "line": 49,
+            "function": "rates",
+            "primitive_calls": 1606,
+            "total_calls": 1606,
+            "self_s": 0.25542770000000004,
+            "cumulative_s": 5.9140837
+          }
+        ]
+      },
+      {
+        "case": "q7_archive_restore",
+        "inputs": {
+          "file_sha256": "4beab3527ef9f89f4fb7005c269dc11131267508710b55cb0cf3a5fe569ed4ca",
+          "scope": "strict report restoration/static source validation; file I/O and JSON decode excluded"
+        },
+        "uninstrumented_single_run_s": 9.029456799966283,
+        "cprofile_single_run_s": 21.32852149999235,
+        "same_scientific_result_hash": "0279307ed825eb00c9b94d2b3fb70ec4edb64e359c8f7dea9c1cca39e3d65880",
+        "profiled_result_matches": true,
+        "top_cumulative_calls": [
+          {
+            "source": "profile_phase_r0.py",
+            "line": 33,
+            "function": "<lambda>",
+            "primitive_calls": 1,
+            "total_calls": 1,
+            "self_s": 4.6e-06,
+            "cumulative_s": 21.3282579
+          },
+          {
+            "source": "ncmemsim/multilevel_reporting.py",
+            "line": 120,
+            "function": "from_dict",
+            "primitive_calls": 1,
+            "total_calls": 1,
+            "self_s": 0.0010728,
+            "cumulative_s": 21.3282533
+          },
+          {
+            "source": "ncmemsim/multilevel_reporting.py",
+            "line": 75,
+            "function": "from_dict",
+            "primitive_calls": 18,
+            "total_calls": 18,
+            "self_s": 0.0014140000000000001,
+            "cumulative_s": 21.222959600000003
+          },
+          {
+            "source": "ncmemsim/multilevel_reporting.py",
+            "line": 48,
+            "function": "__post_init__",
+            "primitive_calls": 18,
+            "total_calls": 18,
+            "self_s": 0.0020801,
+            "cumulative_s": 21.1238381
+          },
+          {
+            "source": "ncmemsim/multilevel_contracts.py",
+            "line": 358,
+            "function": "from_dict",
+            "primitive_calls": 184,
+            "total_calls": 184,
+            "self_s": 0.0058598,
+            "cumulative_s": 11.9429472
+          },
+          {
+            "source": "ncmemsim/workflows/application.py",
+            "line": 129,
+            "function": "_restore_device",
+            "primitive_calls": 4234,
+            "total_calls": 4234,
+            "self_s": 0.11555990000000001,
+            "cumulative_s": 11.687411500000001
+          },
+          {
+            "source": "ncmemsim/multilevel_reporting.py",
+            "line": 98,
+            "function": "__post_init__",
+            "primitive_calls": 1,
+            "total_calls": 1,
+            "self_s": 2.04e-05,
+            "cumulative_s": 10.7058017
+          }
+        ]
+      }
+    ],
+    "imported_package_relative": "ncmemsim/__init__.py"
+  },
+  "profile_evidence_sha256": "20cdf610fd56f6df092182b5606e740394f4bdf0aa17cbcbdcb9e446d58ebbb5",
+  "observations": [
+    "Trajectory profiles include kinetics/rates and trapezoidal WKB cost.",
+    "Strict report restoration has substantial nested reconstruction/validation cost on this workload.",
+    "No backend, parallel executor, speedup, memory reduction or external comparison is accepted by R0."
+  ],
+  "planned_stages": {
+    "R1": "Owned workload/measurement and numerical-equivalence contracts; repeat protocol and environment identity.",
+    "R2": "Representative serial baseline campaign, separating solver, orchestration, restoration and export costs.",
+    "R3": "One measured optimization with end-to-end benefit, state isolation and unchanged science/failure semantics.",
+    "R4": "Vendor-neutral import/export, units, coordinate/sign conventions and applicability contracts.",
+    "R5": "Controlled equivalence and comparison references; real TCAD applicability conditional on supplied exports/metadata.",
+    "R6": "Strict source-linked performance/comparison reports with reproducibility and unavailable outcomes.",
+    "R7": "API/archive review, full regression, strict docs, distributions, exact-candidate CI and justified release version."
+  },
+  "scientific_limits": [
+    "No new material law, calibrated parameter or independent experimental qualification.",
+    "Synthetic or TCAD comparisons are not independent measured validation.",
+    "Same-result hashes in four instrumented/uninstrumented pairs do not prove backend/platform numerical equivalence.",
+    "R0 timings are exploratory single runs with different scopes; no cross-workload speed ratio, benchmark leaderboard or production performance claim.",
+    "Native memory, repeated timing statistics, optical/DTCO/ensemble scaling and cross-platform coverage remain unmeasured.",
+    "No full TCAD co-simulation, conductance/circuit MAC or larger device family is included."
+  ],
+  "profile_driver_sha256": "af25e2235c954b951e2c70aa2759e2725c73871506a9e5b21ef297044f2f97f0"
+}

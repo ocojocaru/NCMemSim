@@ -4,6 +4,12 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Define Phase R0 performance/interoperability scope, source audit and exploratory
+  trajectory/report-restoration profiles. Plan R1-R7 with numerical equivalence,
+  representative baseline trials, failure provenance and vendor-neutral data
+  requirements. No runtime/API, physics, archive, package/citation version,
+  accepted speedup or external TCAD qualification changes.
+
 ## 1.8.0 - 2026-10-20
 
 Published release; candidate/PR/main/tag CI and Release passed. Q7 is complete.

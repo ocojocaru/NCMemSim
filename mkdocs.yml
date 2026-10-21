@@ -73,6 +73,7 @@ nav:
       - Device-level calibration and pulse protocols: device_calibration.md
       - Validation overview: validation.md
       - Reproducibility and benchmarks: reproducibility.md
+      - Performance and interoperability planning: performance_interoperability.md
       - Phase D6 validation report: Validation_Report.md
   - Project:
       - Visual identity: branding.md

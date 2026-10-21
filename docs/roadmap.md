@@ -497,12 +497,20 @@ qualification remains deferred.
 
 ### Phase R: Performance and interoperability (version to be determined)
 
-Indicative: profile real workflows, then choose justified parallel execution,
-vectorization or backend acceleration with reference numerical equivalence,
-reproducibility and failure provenance. Begin higher-fidelity/TCAD integration
-with explicit import/export and comparison contracts. Full co-simulation and
-larger device families require separate scopes. A v2.0 target requires a justified
-major contract/API change; acceleration alone does not require it.
+R0 is complete: source audit and exploratory profiles distinguish trajectory
+integration/WKB costs from nested report restoration/validation. These are single
+host observations, not an accepted speedup or benchmark campaign. No TCAD exports
+are available; interoperability starts with vendor-neutral data requirements.
+
+The [Phase R scope and acceptance sequence](performance_interoperability.md) and
+[R0 audit](performance_interoperability_audit.json) define planned R1 measurement
+contracts, R2 representative serial baselines, R3 one measured optimization,
+R4 import/export contracts, R5 controlled references, R6 strict reports and R7
+release gates. Scientific equivalence, reproducibility and failure provenance
+must be preserved. Full co-simulation and larger device families are separate
+scopes. Version remains undecided; v2.0 requires a justified major contract/API
+change, and acceleration alone does not require it. Published identity stays
+v1.8.0; experimental P4B/P5B/P6B qualification remains deferred.
 
 Each phase follows scope/contracts, implementation, integration, validation,
 applied reference, reproducible reports and exact-candidate release gates.
