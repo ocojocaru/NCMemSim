@@ -1,6 +1,6 @@
 {
   "schema_version": "multilevel-v1_8-final-candidate-api-review-v1",
-  "status": "final_candidate_review_not_release_approval",
+  "status": "published_contracts_review",
   "target_release": "1.8.0",
   "published_baseline": "1.7.0",
   "package_identity_at_review": "1.8.0",
@@ -2527,5 +2527,5 @@
     "Report cases can share trajectories; case counts are not independent statistical sample counts.",
     "Hashes and static projections verify consistency, not authenticity or replayed trajectories."
   ],
-  "release_policy": "full regression, docs and separately installed wheel/sdist; exact-commit Python 3.11-3.13 matrix; final identity prepared, exact-candidate acceptance, PR/main/tag/publication and actual DOI remain pending"
+  "release_policy": "full regression, docs and separately installed wheel/sdist; exact-commit Python 3.11-3.13 matrix; candidate/PR/main/tag checks and release publication passed; Zenodo DOI 10.5281/zenodo.23510004 verified; P4B/P5B/P6B remain deferred"
 }

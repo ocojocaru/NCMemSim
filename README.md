@@ -18,17 +18,17 @@ NCMemSim is a modular Python framework for the simulation and design–technolog
 > Version-specific DOI: [10.5281/zenodo.23316663](https://doi.org/10.5281/zenodo.23316663)
 > Experimental P4B/P5B/P6B remain deferred; no new independent measured dataset or calibrated parameter is claimed.
 
-**Current stable release:** `1.7.0` — main/tag CI and Release passed; wheel and sdist published.
+**Current stable release:** `1.8.0` — main/tag CI and Release passed; wheel and sdist published.
 > **Previous stable release:** `1.5.0` — broadband optics and reproducible spectral reports.
 > **Previous stable release:** `1.4.0` — temperature-dependent properties and reproducible thermal reports
 > **Published v1.3.0 status:** Phase L is complete; final candidate, main and tag CI passed, and v1.3.0 is published with wheel and sdist.
 > **Previous release status (v1.2.0):** Phase K is complete. K7a/K7b/K7c preparation and the exact-candidate local, branch-remote and `main` CI/Documentation gates passed before release tagging. No experimental-calibration or manufacturing-yield claim is made.
 > **Scientific status:** Phases G/H/I add deterministic and Robust DTCO, immutable workflow evidence and linked reports to the retained simulation/calibration baseline. References remain synthetic/FITTED; device-specific experimental calibration remains study-dependent.
 
-**Prepared final candidate:** `1.8.0`, dated 2026-10-20. Phase Q adds electrical
-and matched optical multilevel diagnostics, bounded retention/ensembles and strict
-reports. Final-candidate CI, PR/main/tag checks and publication remain pending.
-No v1.8 version DOI is assigned yet; CITATION.cff retains the separate Concept DOI.
+**Published v1.8.0 status:** Q7 is complete. Electrical and matched optical
+multilevel diagnostics, bounded retention/ensembles and strict reports are published.
+Candidate/PR/main/tag CI passed; wheel and sdist are published.
+Version-specific DOI: [10.5281/zenodo.23510004](https://doi.org/10.5281/zenodo.23510004). CITATION.cff retains the separate Concept DOI.
 Weight proxies are not conductance or circuit MAC; no lifetime/endurance/yield
 or independent experimental qualification is claimed.
 

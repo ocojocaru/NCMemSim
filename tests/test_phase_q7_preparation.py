@@ -38,7 +38,7 @@ def test_unreviewed_changes_rejected(review_copy,fault):
     elif fault=='version':(root/'ncmemsim/_version.py').write_text('__version__="1.7.0"\n',encoding='utf-8')
     elif fault=='checklist':(root/'docs/v1_8_release_checklist.md').write_text('published',encoding='utf-8')
     elif fault=='roadmap':
-        p=root/'docs/roadmap.md';p.write_text(p.read_text(encoding='utf-8').replace('Q7 preparation is implemented','Q7 published'),encoding='utf-8')
+        p=root/'docs/roadmap.md';p.write_text(p.read_text(encoding='utf-8').replace('Q7 is complete','Q7 incomplete'),encoding='utf-8')
     else:
         filename={'review':'docs/v1_8_api_review.json','archive':gate.ARCHIVE,
                   'retained_review':'docs/v1_7_api_review.json','scope':'docs/v1_8_api_review.json'}[fault]

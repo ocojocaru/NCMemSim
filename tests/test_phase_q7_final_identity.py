@@ -1,6 +1,6 @@
 # Copyright 2026 Ovidiu Cojocaru
 # SPDX-License-Identifier: Apache-2.0
-"""Final candidate identity, historical declarations and unassigned DOI guards."""
+"""Published identity, historical declarations and confirmed DOI guards."""
 from pathlib import Path
 import shutil
 import pytest
@@ -20,8 +20,8 @@ def candidate_copy(tmp_path):
 def test_final_candidate_and_retained_identity():
     result=validate(ROOT)
     assert result['package_version']=='1.8.0' and result['citation_date']=='2026-10-20'
-    assert result['latest_published_stable']=='1.7.0'
-    assert result['version_specific_doi'] is None and result['publication_approved'] is False
+    assert result['latest_published_stable']=='1.8.0'
+    assert result['version_specific_doi']=='10.5281/zenodo.23510004'
     assert result['api']['reviewed_modules']==8 and result['api']['additive_exports']==34
     assert result['api']['retained_stable_paths']==297 and result['api']['experimental_qualification'] is False
 
@@ -32,11 +32,11 @@ def test_final_candidate_and_retained_identity():
     ('CITATION.cff','2026-10-20','2026-10-12'),
     ('CITATION.cff','23078330','23316663'),
     ('CITATION.cff','Apache-2.0','MIT'),
-    ('README.md','**Prepared final candidate:** `1.8.0`','stale'),
-    ('docs/index.md','Prepared final candidate: `1.8.0`','stale'),
-    ('docs/roadmap.md','Final candidate identity: `1.8.0`','stale'),
-    ('docs/multilevel_operation.md','Q7 final candidate identity is `1.8.0`','stale'),
-    ('docs/v1_8_release_checklist.md','Latest published stable: `1.7.0`','published 1.8.0'),
+    ('README.md','**Published v1.8.0 status:**','stale'),
+    ('docs/index.md','Published stable release: `1.8.0`','stale'),
+    ('docs/roadmap.md','Q7 is complete','stale'),
+    ('docs/multilevel_operation.md','published identity is `1.8.0`','stale'),
+    ('docs/v1_8_release_checklist.md','Latest published stable: `1.8.0`','stale'),
     ('CHANGELOG.md','## 1.8.0 - 2026-10-20','stale')])
 def test_partial_identity_rejected(candidate_copy,name,old,new):
     p=candidate_copy/name
@@ -48,8 +48,8 @@ def test_partial_identity_rejected(candidate_copy,name,old,new):
 @pytest.mark.parametrize('doi',['10.5281/zenodo.23316663','10.5281/zenodo.23078330','10.0000/unassigned'])
 def test_no_reused_concept_or_invented_version_doi(candidate_copy,doi):
     p=candidate_copy/'CITATION.cff'
-    p.write_text(p.read_text(encoding='utf-8')+'doi: '+doi+'\n',encoding='utf-8')
-    with pytest.raises(ValueError,match='unassigned'):validate_identity(candidate_copy)
+    p.write_text(p.read_text(encoding='utf-8').replace('10.5281/zenodo.23510004',doi),encoding='utf-8')
+    with pytest.raises(ValueError,match='confirmed'):validate_identity(candidate_copy)
 
 
 @pytest.mark.parametrize('line',['version: 1.8.0','date-released: 2026-10-20','license: Apache-2.0','identifiers:'])
@@ -63,3 +63,12 @@ def test_duplicate_package_version_rejected(candidate_copy):
     p=candidate_copy/'ncmemsim/_version.py'
     p.write_text(p.read_text(encoding='utf-8')+'\n__version__="1.8.0"\n',encoding='utf-8')
     with pytest.raises(ValueError):validate_identity(candidate_copy)
+
+
+@pytest.mark.parametrize('fault',['missing','duplicate'])
+def test_one_confirmed_version_doi_required(candidate_copy,fault):
+    p=candidate_copy/'CITATION.cff'
+    s=p.read_text(encoding='utf-8');line='doi: 10.5281/zenodo.23510004\n'
+    s=s.replace(line,'') if fault=='missing' else s+line
+    p.write_text(s,encoding='utf-8')
+    with pytest.raises(ValueError,match='confirmed'):validate_identity(candidate_copy)

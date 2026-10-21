@@ -22,12 +22,14 @@ The v1.5.0 version-specific DOI remains the identifier of that published release
 remains independently citable; Concept DOI stays separate in identifiers. Earlier versions remain
 independently citable. This metadata update does not move release tags or replace assets.
 
-## Prepared v1.8.0 citation
+## Published v1.8.0 citation
 
-Current CITATION.cff describes the prepared final candidate 1.8.0 dated 2026-10-20.
-It carries the Concept DOI as a separate identifier and no top-level version DOI.
-The actual v1.8 version DOI will be recorded only after its Zenodo deposit.
-Published v1.7 citation declarations are retained in historical fixtures.
+Current CITATION.cff describes published v1.8.0 dated 2026-10-20.
+Version DOI: [10.5281/zenodo.23510004](https://doi.org/10.5281/zenodo.23510004); Concept DOI remains a separate identifier.
+Zenodo API record 23510004 identifies version v1.8.0, publication date 2026-10-20
+and the related GitHub tag URL. This was verified on 2026-10-21.
+Published v1.7 citation declarations remain in historical fixtures. Metadata
+closure does not move the v1.8 tag or replace release assets.
 
 ## Historical v1.0.0 policy
 

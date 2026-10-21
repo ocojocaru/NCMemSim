@@ -489,11 +489,10 @@ fixed read/margin definitions, drift and crossing diagnostics, and isolated
 manifest-bound ensembles for supported FG fractions with exact coverage counts.
 Q6 is implemented: typed applied reports for Q2-Q5 results, retained normal/negative
 outcomes, complete source evidence, CSV/Markdown views and strict no-integration
-report bundles with tamper checks. Q7 preparation is implemented: additive API/archive review and installed wheel/sdist
-restoration/reexport gates. Local evidence and exact-new-commit remote-matrix
-requirements are recorded in the v1.8 checklist. Final candidate identity: `1.8.0`,
-dated 2026-10-20; exact-candidate acceptance and publication remain pending. v1.8.0 is the target, subject to
-those gates. Published stable identity remains v1.7.0, and P4B/P5B/P6B experimental
+report bundles with tamper checks. Q7 is complete: additive API/archive review,
+installed wheel/sdist gates, candidate/PR/main/tag checks and release publication
+passed. Published stable identity: `1.8.0`, dated 2026-10-20; version DOI:
+[10.5281/zenodo.23510004](https://doi.org/10.5281/zenodo.23510004). Evidence is recorded in the v1.8 checklist. P4B/P5B/P6B experimental
 qualification remains deferred.
 
 ### Phase R: Performance and interoperability (version to be determined)

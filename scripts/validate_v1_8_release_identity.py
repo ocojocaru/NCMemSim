@@ -1,6 +1,6 @@
 # Copyright 2026 Ovidiu Cojocaru
 # SPDX-License-Identifier: Apache-2.0
-"""Prepared v1.8 final identity; publication and version DOI remain pending."""
+"""Published v1.8 identity and verified Zenodo version DOI consistency."""
 from pathlib import Path
 import ast
 import re
@@ -14,6 +14,7 @@ from scripts.validate_v1_2_release_identity import _citation_field
 VERSION='1.8.0'
 CANDIDATE_DATE='2026-10-20'
 CONCEPT_DOI='10.5281/zenodo.23078330'
+VERSION_DOI='10.5281/zenodo.23510004'
 
 
 def validate_identity(root):
@@ -28,27 +29,27 @@ def validate_identity(root):
     if _citation_field(citation,'version')!=VERSION or _citation_field(citation,'date-released')!=CANDIDATE_DATE:
         raise ValueError('candidate citation version/date mismatch')
     date.fromisoformat(CANDIDATE_DATE)
-    if re.search(r'(?m)^doi\s*:',citation):
-        raise ValueError('candidate version DOI must remain unassigned until the actual deposit')
+    if len(re.findall(r'(?m)^doi\s*:',citation))!=1 or _citation_field(citation,'doi')!=VERSION_DOI:
+        raise ValueError('published version DOI must match the confirmed Zenodo record')
     concept='identifiers:\n  - type: doi\n    value: '+CONCEPT_DOI+'\n    description: "Concept DOI representing all published versions"'
     if concept not in citation or _citation_field(citation,'license')!='Apache-2.0':
         raise ValueError('Concept DOI/license mismatch')
-    if citation.count(CONCEPT_DOI)!=1 or re.findall(r'10\.\d{4,9}/[^\s"\']+',citation)!=[CONCEPT_DOI]:
-        raise ValueError('only the separate Concept DOI belongs in the prepared citation')
+    if citation.count(CONCEPT_DOI)!=1 or re.findall(r'10\.\d{4,9}/[^\s"\']+',citation)!=[VERSION_DOI,CONCEPT_DOI]:
+        raise ValueError('only confirmed version and separate Concept DOI belong in the published citation')
     markers={
-        'README.md':('**Prepared final candidate:** `1.8.0`','**Current stable release:** `1.7.0`','P4B/P5B/P6B'),
-        'CHANGELOG.md':('## 1.8.0 - 2026-10-20','experimental qualification remains deferred'),
-        'docs/index.md':('Prepared final candidate: `1.8.0`','Published stable release: `1.7.0`'),
-        'docs/archival_citation.md':('prepared final candidate 1.8.0 dated 2026-10-20','no top-level version DOI'),
-        'docs/roadmap.md':('Final candidate identity: `1.8.0`','experimental qualification remains deferred'),
-        'docs/multilevel_operation.md':('Q7 final candidate identity is `1.8.0`','publication remain pending'),
-        'docs/v1_8_release_checklist.md':('Final candidate identity: `1.8.0`','Latest published stable: `1.7.0`','P4B/P5B/P6B','No v1.8 version DOI is assigned yet.')}
+        'README.md':('**Published v1.8.0 status:**','**Current stable release:** `1.8.0`',VERSION_DOI,'P4B/P5B/P6B'),
+        'CHANGELOG.md':('## 1.8.0 - 2026-10-20','experimental qualification remains deferred',VERSION_DOI),
+        'docs/index.md':('Published stable release: `1.8.0`','Q7 is complete',VERSION_DOI),
+        'docs/archival_citation.md':('published v1.8.0 dated 2026-10-20',VERSION_DOI),
+        'docs/roadmap.md':('Q7 is complete','experimental',VERSION_DOI),
+        'docs/multilevel_operation.md':('Q7 is complete','published identity is `1.8.0`',VERSION_DOI),
+        'docs/v1_8_release_checklist.md':('Published identity: `1.8.0`','Latest published stable: `1.8.0`','Q7 is complete','P4B/P5B/P6B',VERSION_DOI,'03b35f40606dbd84c1cd6d715eb6de6222466b47')}
     for name,values in markers.items():
         if any(value not in (root/name).read_text(encoding='utf-8') for value in values):
             raise ValueError('candidate declaration mismatch: '+name)
-    return {'status':'prepared_identity_consistency_pass','package_version':VERSION,
-        'citation_date':CANDIDATE_DATE,'latest_published_stable':'1.7.0',
-        'version_specific_doi':None,'concept_doi':CONCEPT_DOI,'publication_approved':False}
+    return {'status':'published_identity_consistency_pass','package_version':VERSION,
+        'citation_date':CANDIDATE_DATE,'latest_published_stable':'1.8.0',
+        'version_specific_doi':VERSION_DOI,'concept_doi':CONCEPT_DOI}
 
 
 def validate(root):

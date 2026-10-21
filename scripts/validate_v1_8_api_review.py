@@ -1,6 +1,6 @@
 # Copyright 2026 Ovidiu Cojocaru
 # SPDX-License-Identifier: Apache-2.0
-"""Q7 final candidate API/archive review; not publication approval."""
+"""Published Q7 API/archive and scientific-scope consistency review."""
 from __future__ import annotations
 import argparse
 import importlib
@@ -33,7 +33,7 @@ def build_review(root):
         surface.append({'module':name,'exports':exports,'source_contract':inventory[name],
                         'source_sha256':_text_hash(root/(name.replace('.','/')+'.py'))})
     return {'schema_version':'multilevel-v1_8-final-candidate-api-review-v1',
-        'status':'final_candidate_review_not_release_approval',
+        'status':'published_contracts_review',
         'target_release':'1.8.0','published_baseline':'1.7.0','package_identity_at_review':'1.8.0',
         'candidate_date':'2026-10-20','implementation_source_commit':'ef3db539489f523241a2aada4183deb3a29158c5',
         'approved_scope':'Q1-Q6 electrical/matched optical multilevel diagnostics, bounded retention/ensemble adapters and strict reports',
@@ -51,7 +51,7 @@ def build_review(root):
             'No cycle noise, read noise, universal capacity or manufacturing yield inferred from synthetic diagnostics.',
             'Report cases can share trajectories; case counts are not independent statistical sample counts.',
             'Hashes and static projections verify consistency, not authenticity or replayed trajectories.'],
-        'release_policy':'full regression, docs and separately installed wheel/sdist; exact-commit Python 3.11-3.13 matrix; final identity prepared, exact-candidate acceptance, PR/main/tag/publication and actual DOI remain pending'}
+        'release_policy':'full regression, docs and separately installed wheel/sdist; exact-commit Python 3.11-3.13 matrix; candidate/PR/main/tag checks and release publication passed; Zenodo DOI 10.5281/zenodo.23510004 verified; P4B/P5B/P6B remain deferred'}
 
 
 def validate(root):
@@ -74,12 +74,12 @@ def validate(root):
     if 'failed' not in statuses or 'not_assessable' not in statuses or report.summary['experimental_qualification']:
         raise ValueError('negative/undefined archive evidence must remain unqualified')
     markers={
-        'docs/v1_8_release_checklist.md':('Final candidate identity: `1.8.0`','Latest published stable: `1.7.0`','P4B/P5B/P6B','Python 3.11, 3.12 and 3.13'),
-        'docs/roadmap.md':('Q7 preparation is implemented','experimental qualification remains deferred')}
+        'docs/v1_8_release_checklist.md':('Published identity: `1.8.0`','Latest published stable: `1.8.0`','P4B/P5B/P6B','Python 3.11, 3.12 and 3.13'),
+        'docs/roadmap.md':('Q7 is complete','experimental qualification remains deferred')}
     for name,words in markers.items():
         if any(word not in (root/name).read_text(encoding='utf-8') for word in words):
             raise ValueError('Q7 scope/checklist marker missing: '+name)
-    return {'status':'final_candidate_contracts_consistency_pass','target_release':'1.8.0',
+    return {'status':'published_contracts_consistency_pass','target_release':'1.8.0',
         'package_version':_version(root),'retained_stable_paths':297,'stable_ensemble_exports':59,
         'reviewed_modules':len(MODULES),'additive_exports':sum(len(importlib.import_module(m).__all__) for m in MODULES),
         'archive_case_count':len(report.cases),'report_hash':report.contract_hash,'experimental_qualification':False}

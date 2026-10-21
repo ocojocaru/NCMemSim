@@ -1,8 +1,8 @@
 # v1.8 Q7 release preparation checklist
 
-Status: prepared final candidate; exact-candidate acceptance and publication pending.
-Final candidate identity: `1.8.0`; citation date: `2026-10-20`.
-Latest published stable: `1.7.0`. No v1.8 version DOI is assigned yet.
+Status: Q7 is complete; release and Zenodo archival verified.
+Published identity: `1.8.0`; citation date: `2026-10-20`.
+Latest published stable: `1.8.0`. Version DOI: 10.5281/zenodo.23510004.
 Experimental P4B/P5B/P6B qualification remains deferred.
 
 ## Approved scope and frozen surface
@@ -65,22 +65,23 @@ versions remain authoritative and are not rewritten on restore.
 - The preparation commit subsequently passed CI/Documentation; see the final
   candidate checkpoint below for the current identity and pending gates.
 
-## Publication sequence - pending
+## Publication sequence - completed (2026-10-21)
 
-1. Preparation checks and exact-commit CI/Documentation passed on `ef3db53`.
-2. Final identity 1.8.0 is prepared, retaining published v1.7 citation/release
-   declarations as historical fixtures.
-3. Rerun identity, retained API/archive, full regression, docs and installed-package
-   checks for the new candidate; obtain its exact-commit remote matrix.
-4. Review final scope and candidate, create the release PR, merge after green
-   checks, then verify main before creating the annotated v1.8.0 tag.
-5. Verify tag CI and release assets. Record the actual v1.8 version DOI only
-   after its Zenodo deposit; concept DOI stays separate. Published tags/assets
-   are not moved or replaced by metadata closure.
+1. Preparation ef3db53 and final candidate d2049a3 passed CI/Documentation,
+   including Python 3.11, 3.12 and 3.13 test and clean-distribution jobs.
+2. PR #11 passed checks and merged into main at
+   `03b35f40606dbd84c1cd6d715eb6de6222466b47`; main CI/Documentation passed.
+3. Annotated tag v1.8.0 points to that exact commit; tag CI and Release passed.
+4. Published assets: ncmemsim-1.8.0-py3-none-any.whl (429790 bytes;
+   SHA-256 79fdcfcefaeeb7a1393124d833761ca6b67cc9a6aa2008c8d1905b0833fa62d0)
+   and ncmemsim-1.8.0.tar.gz (2216520 bytes;
+   SHA-256 ca793332baf5d415bd489c439ed57808a7f08b5a1e7d049b76326b2dcbc6f7a8).
+5. Zenodo record 23510004 identifies v1.8.0, publication date 2026-10-20 and
+   the GitHub tag; version DOI is 10.5281/zenodo.23510004. Concept DOI stays separate.
 
-This checklist and the preparation review do not approve release publication or
-close the deferred experimental qualification. Local preparation evidence is recorded above; exact-final-candidate CI and
-publication remain open.
+Publication closes Q7 release gates, not experimental P4B/P5B/P6B qualification.
+The following candidate checkpoint is historical evidence, superseded by the
+verified release above. Metadata closure does not move tags or replace assets.
 
 ## Final candidate checkpoint (2026-10-20)
 
