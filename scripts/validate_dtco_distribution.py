@@ -277,7 +277,8 @@ def main() -> None:
             run(str(python), '-I', '-c', INDEPENDENT_PROBE, str(work), version, cwd=work)
             shutil.copyfile(root / 'tests/fixtures/archives/v1_8_preparation/multilevel_report.json', work / 'multilevel_report.json')
             run(str(python), '-I', '-c', MULTILEVEL_PROBE, str(work), version, cwd=work)
-            results.append({"artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
+            run(str(python), '-I', '-c', PERFORMANCE_CONTRACT_PROBE, str(environment), cwd=work)
+            results.append({"installed_performance_contracts": "PASS", "artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
 
@@ -786,6 +787,25 @@ try:load_multilevel_report_bundle(second)
 except ValueError:pass
 else:raise AssertionError('coherently rehashed multilevel projection must fail')
 print('Installed multilevel API/archive/bundle and negative outcomes PASS')
+"""
+
+PERFORMANCE_CONTRACT_PROBE = r"""import pathlib, sys
+import ncmemsim.performance_contracts as api
+assert pathlib.Path(api.__file__).resolve().is_relative_to(pathlib.Path(sys.argv[1]).resolve())
+w = api.PerformanceWorkload('installed', 'relaxation', {'initial': [1, 0]},
+    ('execution',), 'state_chain', 1, 'Synthetic installed contract probe')
+assert api.PerformanceWorkload.from_json(w.to_json()).contract_hash == w.contract_hash
+p = api.MeasurementProtocol()
+assert api.MeasurementProtocol.from_json(p.to_json()).to_dict() == p.to_dict()
+c = api.EquivalenceContract(w.contract_hash,
+    (api.EquivalenceRule('/value', 'synthetic', '1', 1e-9, 0),),
+    ('/source',), 'Synthetic installed probe, not physical qualification')
+a = {'source': 'fixture', 'value': 1.0}
+b = {'source': 'fixture', 'value': 1.0000000001}
+assert api.compare_scientific_results(c, w, a, b)['status'] == 'equivalent'
+b['source'] = 'changed'
+assert api.compare_scientific_results(c, w, a, b)['status'] == 'not_equivalent'
+print('Installed performance contracts and equivalence PASS')
 """
 
 if __name__ == "__main__":

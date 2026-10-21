@@ -13,7 +13,7 @@ source hashes, exact exploratory inputs/results and measurement limitations.
 The next release version is deliberately undecided. Planned development branch:
 `dev/phase-r-performance-interop`. No package/citation version is changed by R0.
 Acceleration alone is not a reason for a major version; R7 requires a compatibility
-rationale. R1-R7 are planned, not implemented or accepted by this document.
+rationale. R1 contracts are implemented; R2-R7 remain planned.
 
 No TCAD export or concrete external format is available. The user selected
 requirements definition without assuming a simulator vendor. Phase R introduces
@@ -133,7 +133,7 @@ Full co-simulation, a new PDE solver and larger device families are separate sco
 | Stage | Deliverable | Acceptance |
 |---|---|---|
 | R0 (complete) | Audit, exploratory profiles, scope and limitations | Baseline/source identity, original results retained; no optimization or TCAD claim |
-| R1 | Owned workload/measurement and equivalence contracts | Explicit scopes, repetitions, environment, tolerances and failure policy |
+| R1 (complete) | Owned workload/measurement and equivalence contracts | Explicit scopes, repetitions, environment, tolerances and failure policy |
 | R2 | Representative serial baseline campaign | Real workloads, bounded resources, trial distributions, numerical references and host provenance |
 | R3 | One justified optimization | Repeatable end-to-end benefit with equivalent science, failures, order and resource accounting |
 | R4 | Vendor-neutral import/export contracts | Units, coordinates, source identity, applicability and explicit conversion |
@@ -141,6 +141,110 @@ Full co-simulation, a new PDE solver and larger device families are separate sco
 | R6 | Strict performance/comparison reports | Complete source-linked trials, unavailable outcomes and reproducible projections |
 | R7 | Release review | API/archive compatibility, full regression, docs, installed distributions, exact-candidate CI and version rationale |
 
-The immediate next step is R1. R0 changes planning/documentation and enables the
-development branch in CI/Documentation. Runtime APIs, defaults, physics, archive
-schemas, package identity and citation DOI remain unchanged.
+The immediate next step is R2: representative serial measurements and independent
+numerical references. R1 adds contracts without changing existing runtime APIs,
+physics, defaults, published archive schemas, package identity or citation DOI.
+
+
+## R1 owned contracts and numerical equivalence
+
+`ncmemsim.performance_contracts` exports seven additive names:
+
+| Contract/API | Responsibility |
+|---|---|
+| `PerformanceWorkload` | Owned scientific inputs, logical item count, scope and dependency declaration |
+| `MeasurementProtocol` | At least one warmup and five measurements; instrumentation, isolation and time budgets |
+| `PerformanceEnvironment` | Declared source/import/version, Python/NumPy, CPU/platform, backend and thread settings |
+| `PerformanceTrial` | One indexed warmup/measurement, status, elapsed seconds, result hash and explicit memory method |
+| `EquivalenceRule` | JSON Pointer, quantity, unit and absolute/relative tolerance for a scalar or numeric array |
+| `EquivalenceContract` | Workload identity, numeric rules, mandatory exact paths and reference evidence |
+| `compare_scientific_results` | Deterministic whole-payload comparison and source/result hashes |
+
+The six contract classes own canonical finite native-JSON snapshots. `to_dict()`
+returns a fresh copy; `to_json()` and `contract_hash` identify the declaration.
+`from_dict()`/`from_json()` reconstruct strictly, rejecting unknown fields, changed
+derived fields, duplicate JSON keys and nonfinite values. Constructors perform no
+simulation, timing, environment probing or external process execution.
+
+Scientific inputs must explicitly include the device/model/solver, grid/time steps,
+initial state, protocol, manifests and random streams relevant to the workload.
+The contract cannot discover omitted inputs or hidden callback state.
+`scientific_input_hash` binds workflow kind and those inputs; the complete contract
+hash additionally binds scope, dependency, count, label and notes. Comparisons bind
+the complete workload hash. Source identity must never be rewritten to force a match.
+
+Scope selects setup, execution, validation, serialization and/or I/O, or the single
+`end_to_end` scope. Sequence steps require `state_chain`; independent work must be
+declared explicitly. R1 validates declarations, not scheduling independence.
+Environment metadata are caller declarations, not certification of actual imports
+or host settings. Import paths must be absolute. Unknown CPU count, distribution
+version or thread settings remain `None`; unknown thread limits do not mean one.
+Declare `OMP_NUM_THREADS`, `OPENBLAS_NUM_THREADS`, `MKL_NUM_THREADS` and
+`NUMEXPR_NUM_THREADS` explicitly, with further relevant settings when applicable.
+
+R1 does not run or aggregate a campaign. R2 must capture the environment, enforce
+the declared per-trial/total budgets, ensure complete unique trial indices and
+retain all warmups, repetitions and failures before computing median/spread.
+Completed trials need elapsed seconds and a result digest. Failed trials retain
+available partial observations and a stage/type/message reason; unavailable trials
+cannot invent measurements. `trial_budget_exceeded` retains over-budget observations.
+`uninstrumented_measurement` describes a completed uninstrumented measured trial;
+it does not establish numerical equivalence, resource acceptance or a speedup.
+
+Memory is `not_measured`, `traced_allocations` (tracemalloc) or `process_peak_rss`
+(native-memory instrumentation in a fresh process), with integer bytes and an
+explicit method. These quantities are not interchangeable. Instrumented timing
+belongs to a separate protocol from uninstrumented timing.
+
+### Synthetic comparison example
+
+The following tolerance is a test-only illustration, not a recommended physical
+accuracy threshold or a measured benchmark. Real references need justified
+observable-specific tolerances and refinement evidence before optimization.
+
+```python
+from ncmemsim.performance_contracts import (
+    PerformanceWorkload, MeasurementProtocol, EquivalenceRule,
+    EquivalenceContract, compare_scientific_results,
+)
+
+workload = PerformanceWorkload(
+    "synthetic-readout", "sequence",
+    {"device": "synthetic", "dt_s": 1e-9, "initial_population": [1.0, 0.0]},
+    ("execution",), "state_chain", 2, "Contract example; no solver execution",
+)
+protocol = MeasurementProtocol()  # declares one warmup and five measurements
+rule = EquivalenceRule("/observations/delta_vfb", "signed_flat_band_shift", "V", 1e-9, 1e-6)
+contract = EquivalenceContract(
+    workload.contract_hash, (rule,), ("/context",),
+    "Synthetic test-only tolerance; no experimental or refinement claim",
+)
+reference = {"context": {"source": "synthetic", "order": [0, 1]},
+             "observations": {"delta_vfb": [0.1, -0.2]}}
+candidate = {"context": {"source": "synthetic", "order": [0, 1]},
+             "observations": {"delta_vfb": [0.10000001, -0.2]}}
+assert compare_scientific_results(contract, workload, reference, candidate)["status"] == "equivalent"
+candidate["context"]["source"] = "changed"
+assert compare_scientific_results(contract, workload, reference, candidate)["status"] == "not_equivalent"
+candidate["context"]["source"] = "synthetic"
+candidate["observations"]["delta_vfb"] = None
+assert compare_scientific_results(contract, workload, reference, candidate)["status"] == "not_assessable"
+```
+
+The comparison applies `abs(candidate-reference) <= atol + rtol*abs(reference)`
+using exact rational arithmetic on supplied finite numbers, avoiding overflow,
+subnormal loss and large-integer rounding in the oracle. It performs no unit
+conversion, interpolation or resampling. Numeric arrays require identical shape
+and order; all other fields require exact values and types. Object key order is
+irrelevant. JSON Pointer escapes are supported; overlapping exact/numeric rules
+are rejected. Mandatory paths must exist; null or empty numeric observations are
+unassessable. A known mismatch takes precedence over unavailable observations,
+which remain listed in the result.
+
+Callers must supply the complete scientific payload: state populations, charge
+conservation diagnostics, signed readouts, channels, order, failure stages and
+denominators, and source metadata. A match of a selected scalar cannot establish
+equivalence of omitted physics or state. Hashes identify supplied data and do not
+prove authenticity or calibration. Run the oracle outside the timed region unless
+validation is explicitly part of the scope. Existing scientific archives and the
+R0 exploratory evidence remain unchanged; R6 will address campaign reports.

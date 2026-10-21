@@ -4,6 +4,12 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase R1 immutable workload, measurement protocol, environment and trial
+  declarations with strict JSON restoration and explicit failure/memory accounting.
+  Add workload-bound numerical equivalence with observable-specific tolerances,
+  exact provenance and retained negative/unassessable outcomes. No benchmark
+  executor, optimization, accepted speedup or TCAD qualification is introduced.
+
 - Define Phase R0 performance/interoperability scope, source audit and exploratory
   trajectory/report-restoration profiles. Plan R1-R7 with numerical equivalence,
   representative baseline trials, failure provenance and vendor-neutral data
