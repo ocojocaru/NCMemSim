@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 144 package source modules; 766 explicit export paths; 267 distinct documented Python import paths.
+Coverage: 145 package source modules; 768 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2773,6 +2773,22 @@ Constructor: `__init__(self, dataset_hash, column, target_quantity, target_unit,
 - `from_dict(cls, raw)`; `classmethod`.
 
 - `convert_interoperability_data(dataset, mapping)`
+
+## ncmemsim.interoperability_comparison
+
+`ncmemsim/interoperability_comparison.py`
+
+Explicit exports: `InteroperabilityComparison`, `compare_interoperability_data`
+
+### InteroperabilityComparison
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, reference, candidate, mappings, target_metadata, applicability_review, axis_atol, axis_rtol, atol, rtol)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `compare_interoperability_data(comparison)`
 
 ## ncmemsim.io
 

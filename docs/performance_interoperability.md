@@ -15,7 +15,8 @@ The next release version is deliberately undecided. Planned development branch:
 Acceleration alone is not a reason for a major version; R7 requires a compatibility
 rationale. R1/R2 are implemented and the exact R2 commit passed cross-platform CI.
 R3 passed exact-commit CI and Documentation on `8c63a0a`. R4 implements owned
-vendor-neutral interchange and explicit conversion; R5-R7 remain planned.
+vendor-neutral interchange and explicit conversion, with exact-commit CI passed
+on `6e7514b`. R5 adds controlled comparisons; R6-R7 remain planned.
 
 No TCAD export or concrete external format is available. The user selected
 requirements definition without assuming a simulator vendor. Phase R introduces
@@ -139,7 +140,7 @@ Full co-simulation, a new PDE solver and larger device families are separate sco
 | R2 (cross-platform evidence reviewed) | Representative serial baseline campaign | Real workloads, bounded resources, trial distributions, numerical references and host provenance |
 | R3 (complete; exact-commit CI passed) | One justified optimization | Repeatable end-to-end benefit with equivalent science, failures, order and resource accounting |
 | R4 (implemented) | Vendor-neutral import/export contracts | Units, coordinates, source identity, applicability and explicit conversion |
-| R5 | Controlled optimization/comparison references | Positive/negative/synthetic cases; external applicability conditional on admitted exports |
+| R5 (implemented) | Controlled optimization/comparison references | Positive/negative/synthetic cases; external applicability conditional on admitted exports |
 | R6 | Strict performance/comparison reports | Complete source-linked trials, unavailable outcomes and reproducible projections |
 | R7 | Release review | API/archive compatibility, full regression, docs, installed distributions, exact-candidate CI and version rationale |
 
@@ -390,6 +391,18 @@ for the committed R2 change remains required before selecting R3.
 The [R4 contract](interoperability.md) specifies strict JSON import/export,
 original-value ownership, source digests, conditions, semantic quantity distinctions,
 explicit units/sign/reference/area conversions and unavailable outcomes. No external
-TCAD export is available. Controlled comparison references follow in R5. The recurring
+TCAD export is available. R5 [controlled comparisons](interoperability_comparison.md)
+add explicit alignment, tolerances and nine synthetic references. The recurring
 R3 measurement is frozen at accepted commit `8c63a0a`; it is historical evidence,
 while current tests, distributions and serial workload gates use the current tree.
+
+
+## R5 controlled comparison references
+
+The [R5 comparison contract and controls](interoperability_comparison.md) bind both
+original sources and four mappings, common condition/applicability declarations
+and axis/observable tolerances. Row masks, acquisition order, negative residuals
+and unavailable outcomes remain visible. A subset match cannot imply complete
+coverage. The nine synthetic cases are software controls, not real TCAD agreement
+or experimental qualification. R3 optimization evidence remains historical and
+unchanged; strict combined reporting/bundles follow in R6.

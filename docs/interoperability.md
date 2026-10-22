@@ -2,8 +2,8 @@
 
 R4 provides a versioned JSON interchange contract and explicit conversion API.
 It does not parse a proprietary TCAD export, establish external agreement, or
-qualify experimental data. No external TCAD file was available. R5 will provide
-controlled comparison references; real comparisons require admitted exports and
+qualify experimental data. No external TCAD file was available. R5 [controlled comparison references](interoperability_comparison.md) preserve
+positive, negative and unavailable outcomes; real comparisons require admitted exports and
 review of their observable definitions and conditions.
 
 ## Owned source, data and mapping

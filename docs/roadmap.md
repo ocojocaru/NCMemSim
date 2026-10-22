@@ -508,8 +508,9 @@ R1/R2 are complete with reviewed Ubuntu/Windows Python 3.11/3.13 evidence on
 `6034231`. R3 operation-scoped report validation reuse passed CI and Documentation
 on `8c63a0a`. Its [paired acceptance review](report_restoration_optimization.md)
 retains local evidence. R4 [vendor-neutral interchange contracts](interoperability.md)
-are implemented with explicit conversions and missing-condition accounting. Next are
-R5 controlled references, R6 strict reports and R7
+passed CI on `6e7514b`. R5 [controlled comparisons](interoperability_comparison.md)
+are implemented with explicit common conditions, tolerance checks, negative and
+unavailable outcomes, and nine synthetic references. Next are R6 strict reports and R7
 release gates. Scientific equivalence, reproducibility and failure provenance
 must be preserved. Full co-simulation and larger device families are separate
 scopes. Version remains undecided; v2.0 requires a justified major contract/API

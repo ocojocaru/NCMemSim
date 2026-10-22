@@ -4,6 +4,12 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase R5 source-bound comparisons with explicit common conditions,
+  row/grid alignment and reference-relative tolerances. Preserve signed residuals,
+  negative/unavailable outcomes and excluded-row denominators. Add nine synthetic
+  interchange/comparison controls and installed wheel/sdist probes; no TCAD
+  agreement, experimental qualification or new solver optimization is claimed.
+
 - Add Phase R4 owned simulated-data source/dataset/mapping contracts, strict JSON
   interchange, explicit dimensional and area conversions, retained original values
   and exclusions, and unavailable outcomes for missing conditions. No external

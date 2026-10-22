@@ -19948,6 +19948,155 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.interoperability_comparison",
+      "source": "ncmemsim/interoperability_comparison.py",
+      "explicit_exports": [
+        "InteroperabilityComparison",
+        "compare_interoperability_data"
+      ],
+      "package_import_aliases": {
+        "_Dataset": "ncmemsim.interoperability.InteroperabilityDataset",
+        "_Mapping": "ncmemsim.interoperability.ObservableMapping",
+        "_Owned": "ncmemsim.performance_contracts._Owned",
+        "_convert": "ncmemsim.interoperability.convert_interoperability_data",
+        "_number": "ncmemsim.interoperability._number",
+        "_restore": "ncmemsim.performance_contracts._restore",
+        "_text": "ncmemsim.performance_contracts._text"
+      },
+      "public_source_definitions": [
+        {
+          "name": "InteroperabilityComparison",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Owned"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": {
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "reference",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "candidate",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "mappings",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "target_metadata",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "applicability_review",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "axis_atol",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "axis_rtol",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "atol",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "rtol",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self, reference, candidate, mappings, target_metadata, applicability_review, axis_atol, axis_rtol, atol, rtol)",
+            "decorators": []
+          },
+          "methods": [
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "compare_interoperability_data",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "comparison",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(comparison)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.io",
       "source": "ncmemsim/io.py",
       "explicit_exports": [

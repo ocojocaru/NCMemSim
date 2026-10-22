@@ -214,7 +214,9 @@ SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_7_0/'+name for name in ('README.
 
 SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_performance_execution.py',
                     'scripts/compare_report_restoration.py', 'tests/test_phase_r3_report_validation_cache.py',
-                    'tests/test_phase_r4_interoperability.py'}
+                    'tests/test_phase_r4_interoperability.py',
+                    'tests/test_phase_r5_interoperability_comparison.py',
+                    'examples/phase_r5_interoperability_reference.py'}
 
 
 def main() -> None:
@@ -284,6 +286,9 @@ def main() -> None:
             run(str(python), '-I', '-c', MULTILEVEL_PROBE, str(work), version, cwd=work)
             run(str(python), '-I', '-c', PERFORMANCE_CONTRACT_PROBE, str(environment), cwd=work)
             run(str(python), '-I', '-c', INTEROPERABILITY_PROBE, cwd=work)
+            shutil.copyfile(root / 'examples/phase_r5_interoperability_reference.py', work / 'r5_reference.py')
+            run(str(python), '-I', str(work / 'r5_reference.py'),
+                '--output', str(work / f'r5-controls-{number}.json'), cwd=work)
             results.append({"installed_performance_contracts": "PASS", "artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
