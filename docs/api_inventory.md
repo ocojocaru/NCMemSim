@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 145 package source modules; 768 explicit export paths; 267 distinct documented Python import paths.
+Coverage: 146 package source modules; 772 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -4250,6 +4250,31 @@ Explicit exports: `capture_performance_environment`, `run_serial_campaign`
 
 - `capture_performance_environment(source_commit, source_dirty)`
 - `run_serial_campaign(workload, protocol, *, source_commit, source_dirty, reference=None, equivalence=None)`
+
+## ncmemsim.performance_reporting
+
+`ncmemsim/performance_reporting.py`
+
+Explicit exports: `PerformanceCampaignArchive`, `PerformanceInteroperabilityReport`, `write_performance_interoperability_report`, `load_performance_interoperability_bundle`
+
+### PerformanceCampaignArchive
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, campaign, evidence_kind, notes)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+### PerformanceInteroperabilityReport
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, title, campaigns, comparisons)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `write_performance_interoperability_report(report, destination)`
+- `load_performance_interoperability_bundle(destination)`
 
 ## ncmemsim.performance_workloads
 

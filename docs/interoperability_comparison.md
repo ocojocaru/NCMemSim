@@ -78,7 +78,7 @@ rows and assessed/matched/mismatched counts. `scope="retained_rows_only"`,
 coverage. `full_coverage` describes absence of exclusions, not successful
 assessment. Unavailable comparisons have zero assessed rows, not zero error.
 These are fresh JSON-compatible projections; strict report/bundle restoration
-follows in R6. Neither `experimental_qualification` nor `external_agreement`
+is provided by [R6 reports](performance_reporting.md). Neither `experimental_qualification` nor `external_agreement`
 is set true by this comparison.
 
 ## Reproducible synthetic controls

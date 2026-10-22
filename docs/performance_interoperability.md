@@ -16,7 +16,8 @@ Acceleration alone is not a reason for a major version; R7 requires a compatibil
 rationale. R1/R2 are implemented and the exact R2 commit passed cross-platform CI.
 R3 passed exact-commit CI and Documentation on `8c63a0a`. R4 implements owned
 vendor-neutral interchange and explicit conversion, with exact-commit CI passed
-on `6e7514b`. R5 adds controlled comparisons; R6-R7 remain planned.
+on `6e7514b`. R5 controlled comparisons passed CI on `0796d4c`. R6 adds strict static serial-
+campaign/comparison reports and reproducible bundles; R7 remains planned.
 
 No TCAD export or concrete external format is available. The user selected
 requirements definition without assuming a simulator vendor. Phase R introduces
@@ -141,7 +142,7 @@ Full co-simulation, a new PDE solver and larger device families are separate sco
 | R3 (complete; exact-commit CI passed) | One justified optimization | Repeatable end-to-end benefit with equivalent science, failures, order and resource accounting |
 | R4 (implemented) | Vendor-neutral import/export contracts | Units, coordinates, source identity, applicability and explicit conversion |
 | R5 (implemented) | Controlled optimization/comparison references | Positive/negative/synthetic cases; external applicability conditional on admitted exports |
-| R6 | Strict performance/comparison reports | Complete source-linked trials, unavailable outcomes and reproducible projections |
+| R6 (implemented) | Strict performance/comparison reports | Complete source-linked trials, unavailable outcomes and reproducible projections |
 | R7 | Release review | API/archive compatibility, full regression, docs, installed distributions, exact-candidate CI and version rationale |
 
 R2 measurements and exact-commit CI evidence have been reviewed. The selected
@@ -405,4 +406,16 @@ and axis/observable tolerances. Row masks, acquisition order, negative residuals
 and unavailable outcomes remain visible. A subset match cannot imply complete
 coverage. The nine synthetic cases are software controls, not real TCAD agreement
 or experimental qualification. R3 optimization evidence remains historical and
-unchanged; strict combined reporting/bundles follow in R6.
+unchanged; R6 [strict reports and bundles](performance_reporting.md) preserve
+serial-campaign accounting and all comparison outcomes.
+
+
+## R6 strict archives and reproducible reports
+
+The [R6 report contract](performance_reporting.md) restores complete indexed R2
+serial campaigns and R5 comparisons without worker/solver/environment replay.
+All source identities, warmups, negative and unavailable results, statistics and
+coverage are retained and statically checked. Timing/native-memory and host
+groups stay separate. New-directory JSON/Markdown/CSV bundles verify regenerated
+projections even against coherently rehashed edits. Synthetic controls remain
+labelled; R3 paired artifacts retain their historical format and acceptance.

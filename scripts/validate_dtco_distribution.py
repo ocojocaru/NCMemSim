@@ -216,7 +216,9 @@ SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_
                     'scripts/compare_report_restoration.py', 'tests/test_phase_r3_report_validation_cache.py',
                     'tests/test_phase_r4_interoperability.py',
                     'tests/test_phase_r5_interoperability_comparison.py',
-                    'examples/phase_r5_interoperability_reference.py'}
+                    'examples/phase_r5_interoperability_reference.py',
+                    'tests/test_phase_r6_performance_reporting.py',
+                    'examples/phase_r6_performance_report.py'}
 
 
 def main() -> None:
@@ -289,6 +291,9 @@ def main() -> None:
             shutil.copyfile(root / 'examples/phase_r5_interoperability_reference.py', work / 'r5_reference.py')
             run(str(python), '-I', str(work / 'r5_reference.py'),
                 '--output', str(work / f'r5-controls-{number}.json'), cwd=work)
+            shutil.copyfile(root / 'examples/phase_r5_interoperability_reference.py', work / 'phase_r5_interoperability_reference.py')
+            shutil.copyfile(root / 'examples/phase_r6_performance_report.py', work / 'phase_r6_performance_report.py')
+            run(str(python), '-I', '-c', PERFORMANCE_REPORT_PROBE, str(work), str(environment), str(number), cwd=work)
             results.append({"installed_performance_contracts": "PASS", "artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
@@ -859,6 +864,29 @@ except ValueError:
 else:
     raise AssertionError('incompatible dimension accepted')
 print('Installed R4 interchange PASS')
+"""
+
+
+PERFORMANCE_REPORT_PROBE = r"""import pathlib,sys
+work=pathlib.Path(sys.argv[1]);sys.path.insert(0,str(work))
+# Only copied example modules live here; no checkout package is exposed.
+import ncmemsim.performance_reporting as api
+assert pathlib.Path(api.__file__).resolve().is_relative_to(pathlib.Path(sys.argv[2]).resolve())
+from phase_r6_performance_report import build_reference_report
+report=build_reference_report(source_commit='0'*40,source_dirty=True,include_observed=True)
+# Zero Git identity is explicitly a caller declaration in this installed-artifact probe.
+left=api.write_performance_interoperability_report(report,work/('r6-left-'+sys.argv[3]))
+right=api.write_performance_interoperability_report(report,work/('r6-right-'+sys.argv[3]))
+assert {p.name:p.read_bytes() for p in left.iterdir()}=={p.name:p.read_bytes() for p in right.iterdir()}
+assert api.load_performance_interoperability_bundle(left).contract_hash==report.contract_hash
+raw=report.to_dict();raw['comparisons'][1]['result']['status']='matched'
+from ncmemsim.performance_contracts import _hash
+raw['comparisons'][1]['result_hash']=_hash(raw['comparisons'][1]['result'])
+try:api.PerformanceInteroperabilityReport.from_dict(raw)
+except ValueError:pass
+else:raise AssertionError('coherently rehashed negative result accepted')
+assert not report.to_dict()['summary']['speedup_accepted']
+print('Installed R6 strict campaign/comparison report, bundle and tamper rejection PASS')
 """
 
 if __name__ == "__main__":

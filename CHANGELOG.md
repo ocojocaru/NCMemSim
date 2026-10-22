@@ -4,6 +4,12 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase R6 strict static serial-campaign archives and combined performance/
+  interchange reports. Recompute source-linked comparisons, trial accounting and
+  statistics; preserve failures, unavailable results and separate timing/memory
+  groups. Add deterministic JSON/Markdown/CSV bundles with strict restoration and
+  coherent-tamper rejection, without solver replay or new qualification claims.
+
 - Add Phase R5 source-bound comparisons with explicit common conditions,
   row/grid alignment and reference-relative tolerances. Preserve signed residuals,
   negative/unavailable outcomes and excluded-row denominators. Add nine synthetic

@@ -510,8 +510,10 @@ on `8c63a0a`. Its [paired acceptance review](report_restoration_optimization.md)
 retains local evidence. R4 [vendor-neutral interchange contracts](interoperability.md)
 passed CI on `6e7514b`. R5 [controlled comparisons](interoperability_comparison.md)
 are implemented with explicit common conditions, tolerance checks, negative and
-unavailable outcomes, and nine synthetic references. Next are R6 strict reports and R7
-release gates. Scientific equivalence, reproducibility and failure provenance
+unavailable outcomes, and nine synthetic references; CI passed on `0796d4c`.
+R6 [strict reports and bundles](performance_reporting.md) are implemented for
+serial campaigns and comparisons, retaining source identities, all trials and
+static projection checks. Next are R7 release gates. Scientific equivalence, reproducibility and failure provenance
 must be preserved. Full co-simulation and larger device families are separate
 scopes. Version remains undecided; v2.0 requires a justified major contract/API
 change, and acceleration alone does not require it. Published identity stays

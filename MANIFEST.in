@@ -63,3 +63,5 @@ include tests/test_phase_r3_report_validation_cache.py
 include tests/test_phase_r4_interoperability.py
 
 include tests/test_phase_r5_interoperability_comparison.py
+
+include tests/test_phase_r6_performance_reporting.py

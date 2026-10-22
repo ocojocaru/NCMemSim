@@ -76,6 +76,7 @@ nav:
       - Performance and interoperability planning: performance_interoperability.md
       - Vendor-neutral data exchange: interoperability.md
       - Controlled interchange comparisons: interoperability_comparison.md
+      - Performance and interchange reports: performance_reporting.md
       - Report restoration optimization: report_restoration_optimization.md
       - Phase D6 validation report: Validation_Report.md
   - Project:
