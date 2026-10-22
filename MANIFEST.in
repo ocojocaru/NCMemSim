@@ -59,3 +59,5 @@ include scripts/run_performance_baseline.py
 include tests/test_phase_r2_performance_execution.py
 include scripts/compare_report_restoration.py
 include tests/test_phase_r3_report_validation_cache.py
+
+include tests/test_phase_r4_interoperability.py

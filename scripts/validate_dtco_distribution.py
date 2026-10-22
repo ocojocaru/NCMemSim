@@ -213,7 +213,8 @@ SOURCE_REQUIRED |= {'scripts/validate_v1_8_release_identity.py'}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_7_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/independent_calibration.md', 'docs/v1_7_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
 
 SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_performance_execution.py',
-                    'scripts/compare_report_restoration.py', 'tests/test_phase_r3_report_validation_cache.py'}
+                    'scripts/compare_report_restoration.py', 'tests/test_phase_r3_report_validation_cache.py',
+                    'tests/test_phase_r4_interoperability.py'}
 
 
 def main() -> None:
@@ -282,6 +283,7 @@ def main() -> None:
             shutil.copyfile(root / 'tests/fixtures/archives/v1_8_preparation/multilevel_report.json', work / 'multilevel_report.json')
             run(str(python), '-I', '-c', MULTILEVEL_PROBE, str(work), version, cwd=work)
             run(str(python), '-I', '-c', PERFORMANCE_CONTRACT_PROBE, str(environment), cwd=work)
+            run(str(python), '-I', '-c', INTEROPERABILITY_PROBE, cwd=work)
             results.append({"installed_performance_contracts": "PASS", "artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
@@ -834,6 +836,24 @@ assert r['summary']['complete'] and r['summary']['equivalent_measurement_count']
 assert len(r['trials']) == 6
 assert not r['summary']['speedup_accepted']
 print('Installed serial baseline and fresh-process source identity PASS')
+"""
+
+
+INTEROPERABILITY_PROBE = r"""from ncmemsim.interoperability import InteroperabilitySource, InteroperabilityDataset, ObservableMapping, convert_interoperability_data
+s=InteroperabilitySource('installed-synthetic', 'a'*64, 'synthetic', '1', {'model':'control'}, 'synthetic only')
+names=('geometry_materials','contacts_bias','temperature_K','history','initial_state','time_conditions','frequency_conditions','area_m2','coordinates','potential_reference','energy_reference','electron_charge_sign','applicability','optical_conditions')
+d=InteroperabilityDataset('installed',s,dict.fromkeys(names),[{'name':'x','quantity':'position','unit':'nm','values':[1.,2.]}],[])
+assert InteroperabilityDataset.from_json(d.to_json()).contract_hash==d.contract_hash
+m=ObservableMapping(d.contract_hash,'x','position','m',1,0.,'none','explicit synthetic conversion')
+r=convert_interoperability_data(d,m)
+assert r['status']=='unavailable' and r['values'] is None and not r['external_agreement']
+try:
+    ObservableMapping.from_json(m.to_json().replace('position','total_charge'))
+except ValueError:
+    pass
+else:
+    raise AssertionError('incompatible dimension accepted')
+print('Installed R4 interchange PASS')
 """
 
 if __name__ == "__main__":

@@ -14,7 +14,8 @@ The next release version is deliberately undecided. Planned development branch:
 `dev/phase-r-performance-interop`. No package/citation version is changed by R0.
 Acceleration alone is not a reason for a major version; R7 requires a compatibility
 rationale. R1/R2 are implemented and the exact R2 commit passed cross-platform CI.
-R3 report-restoration reuse passed local paired acceptance; exact-commit R3 CI remains pending. R4-R7 remain planned.
+R3 passed exact-commit CI and Documentation on `8c63a0a`. R4 implements owned
+vendor-neutral interchange and explicit conversion; R5-R7 remain planned.
 
 No TCAD export or concrete external format is available. The user selected
 requirements definition without assuming a simulator vendor. Phase R introduces
@@ -136,8 +137,8 @@ Full co-simulation, a new PDE solver and larger device families are separate sco
 | R0 (complete) | Audit, exploratory profiles, scope and limitations | Baseline/source identity, original results retained; no optimization or TCAD claim |
 | R1 (complete) | Owned workload/measurement and equivalence contracts | Explicit scopes, repetitions, environment, tolerances and failure policy |
 | R2 (cross-platform evidence reviewed) | Representative serial baseline campaign | Real workloads, bounded resources, trial distributions, numerical references and host provenance |
-| R3 (locally accepted; exact-commit CI pending) | One justified optimization | Repeatable end-to-end benefit with equivalent science, failures, order and resource accounting |
-| R4 | Vendor-neutral import/export contracts | Units, coordinates, source identity, applicability and explicit conversion |
+| R3 (complete; exact-commit CI passed) | One justified optimization | Repeatable end-to-end benefit with equivalent science, failures, order and resource accounting |
+| R4 (implemented) | Vendor-neutral import/export contracts | Units, coordinates, source identity, applicability and explicit conversion |
 | R5 | Controlled optimization/comparison references | Positive/negative/synthetic cases; external applicability conditional on admitted exports |
 | R6 | Strict performance/comparison reports | Complete source-linked trials, unavailable outcomes and reproducible projections |
 | R7 | Release review | API/archive compatibility, full regression, docs, installed distributions, exact-candidate CI and version rationale |
@@ -382,3 +383,13 @@ linked by SHA-256 in the audit. The observed source tree was dirty on the R1
 commit and is identified by its normalized package digest; it is not an exact-
 commit clean CI result. These are single-host observations. Remote CI evidence
 for the committed R2 change remains required before selecting R3.
+
+
+## R4 owned simulated-data interchange
+
+The [R4 contract](interoperability.md) specifies strict JSON import/export,
+original-value ownership, source digests, conditions, semantic quantity distinctions,
+explicit units/sign/reference/area conversions and unavailable outcomes. No external
+TCAD export is available. Controlled comparison references follow in R5. The recurring
+R3 measurement is frozen at accepted commit `8c63a0a`; it is historical evidence,
+while current tests, distributions and serial workload gates use the current tree.

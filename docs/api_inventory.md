@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 143 package source modules; 762 explicit export paths; 267 distinct documented Python import paths.
+Coverage: 144 package source modules; 766 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2741,6 +2741,38 @@ Decorators: `dataclass(frozen=True)`.
 - `from_dict(cls, data)`; `classmethod`.
 
 - `evaluate_optical_holdout(plan: OpticalHoldoutPlan, training_fit: OpticalTrainingFitResult, split: IndependentStudySplit)`
+
+## ncmemsim.interoperability
+
+`ncmemsim/interoperability.py`
+
+Explicit exports: `InteroperabilitySource`, `InteroperabilityDataset`, `ObservableMapping`, `convert_interoperability_data`
+
+### InteroperabilitySource
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, source_id, file_sha256, simulator, simulator_version, models, citation)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+### InteroperabilityDataset
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, dataset_id, source, metadata, columns, exclusions)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+### ObservableMapping
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, dataset_hash, column, target_quantity, target_unit, sign, offset, area_operation, rationale)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `convert_interoperability_data(dataset, mapping)`
 
 ## ncmemsim.io
 

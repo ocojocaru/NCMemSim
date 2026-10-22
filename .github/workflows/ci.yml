@@ -90,6 +90,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          # Historical R3 experiment; current-package gates run in the other jobs.
+          ref: 8c63a0a07a4eebd6273df75cc81da2711c87b765
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
@@ -97,7 +99,7 @@ jobs:
           cache: pip
       - name: Install package and comparison dependencies
         run: python -m pip install -e ".[dev]"
-      - name: Compare one optimization against committed R2 baseline
+      - name: Recheck frozen accepted R3 against committed R2 baseline
         run: python scripts/compare_report_restoration.py --baseline-commit 6034231ffe34c374c42a43f9ac89a1a4acd7316c --output "${{ runner.temp }}/report-comparison"
       - name: Retain all paired observations, including failures
         if: always()

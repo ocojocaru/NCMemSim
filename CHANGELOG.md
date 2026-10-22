@@ -4,6 +4,12 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase R4 owned simulated-data source/dataset/mapping contracts, strict JSON
+  interchange, explicit dimensional and area conversions, retained original values
+  and exclusions, and unavailable outcomes for missing conditions. No external
+  TCAD agreement or experimental qualification is claimed. Freeze the recurring
+  R3 comparison at its accepted commit; current-package gates remain active.
+
 - Add Phase R3 bounded operation-scoped reuse of immutable validated multilevel
   source JSON, avoiding duplicate source reconstruction inside one report restore.
   Preserve changed-source validation, rejection gates and exact scientific/archive

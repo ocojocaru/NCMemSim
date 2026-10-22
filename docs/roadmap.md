@@ -505,10 +505,11 @@ are available; interoperability starts with vendor-neutral data requirements.
 The [Phase R scope and acceptance sequence](performance_interoperability.md) and
 [R0 audit](performance_interoperability_audit.json) retain the historical baseline.
 R1/R2 are complete with reviewed Ubuntu/Windows Python 3.11/3.13 evidence on
-`6034231`. R3 targets bounded operation-scoped reuse in report restoration;
-its [paired acceptance review](report_restoration_optimization.md) separates local
-measurements from exact-commit remote evidence. Next stages are
-R4 import/export contracts, R5 controlled references, R6 strict reports and R7
+`6034231`. R3 operation-scoped report validation reuse passed CI and Documentation
+on `8c63a0a`. Its [paired acceptance review](report_restoration_optimization.md)
+retains local evidence. R4 [vendor-neutral interchange contracts](interoperability.md)
+are implemented with explicit conversions and missing-condition accounting. Next are
+R5 controlled references, R6 strict reports and R7
 release gates. Scientific equivalence, reproducibility and failure provenance
 must be preserved. Full co-simulation and larger device families are separate
 scopes. Version remains undecided; v2.0 requires a justified major contract/API
