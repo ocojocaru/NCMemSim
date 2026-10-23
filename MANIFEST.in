@@ -65,3 +65,6 @@ include tests/test_phase_r4_interoperability.py
 include tests/test_phase_r5_interoperability_comparison.py
 
 include tests/test_phase_r6_performance_reporting.py
+
+include scripts/validate_v1_9_api_review.py
+include tests/test_phase_r7_preparation.py

@@ -4,6 +4,11 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Prepare Phase R7 for target v1.9.0: independently freeze all 140 published
+  v1.8 module surfaces, review six additive modules/20 exports and retain a strict
+  five-campaign/nine-comparison preparation archive. Add source/API/archive and
+  installed-distribution gates; current identity remains 1.8.0 until final review.
+
 - Add Phase R6 strict static serial-campaign archives and combined performance/
   interchange reports. Recompute source-linked comparisons, trial accounting and
   statistics; preserve failures, unavailable results and separate timing/memory

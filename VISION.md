@@ -72,7 +72,7 @@ properties are delivered in v1.4.
   independent experimental P4B/P5B/P6B qualification remains deferred;
 - **v1.8:** published multilevel/neuromorphic diagnostics and strict reports;
   Q7 release and Zenodo archival complete, with experimental P4B/P5B/P6B deferred;
-- **Phase R (version undecided):** R0 audit/exploratory profiling complete;
+- **Phase R (target v1.9.0):** R0 audit/exploratory profiling complete;
   measurement-driven acceleration and vendor-neutral interoperability requirements;
   see [Phase R planning](docs/performance_interoperability.md);
 - **Later (indicative):** broader structural physics, neuromorphic
@@ -82,3 +82,7 @@ properties are delivered in v1.4.
 ## Definition of success
 
 NCMemSim succeeds when another researcher can reproduce a published simulation, inspect each modelling assumption, replace one physical submodel without breaking unrelated components, compare simulation to experiment, and report the exact software and parameter provenance used.
+
+Phase R7 preparation selects a minor additive release: published module surfaces
+and archive semantics are retained. Final-candidate identity, exact-commit gates
+and release/Zenodo closure remain separate steps.

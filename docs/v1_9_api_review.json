@@ -1,0 +1,1639 @@
+{
+  "schema_version": "phase-r-v1.9-preparation-api-review-v1",
+  "status": "preparation_review",
+  "target_release": "1.9.0",
+  "published_baseline": "1.8.0",
+  "package_identity_at_review": "1.8.0",
+  "review_date": "2026-10-23",
+  "implementation_source_commit": "e2af7e7cad2147755c71743e0b20c403b79fc081",
+  "version_rationale": "Minor additive release: six new module-qualified APIs; 140 published module surfaces unchanged; R3 private optimization preserves signatures, defaults and archives. No major-version contract break.",
+  "retained_v1_8_review_sha256": "1ac741ef056c6685f6169683392f68f323062aa0466422bb4493327da865fe6a",
+  "retained_published_surface_sha256": "196a6a216740382dbbd8f06df4429187db703dcb03813603ab7662063b1d4790",
+  "retained_published_module_count": 140,
+  "reviewed_package_sha256": "82a86f593c751953442825f6b1fe73010f560cdae2743eb2123fc2c10795dd8a",
+  "additive_module_qualified_surface": [
+    {
+      "module": "ncmemsim.performance_contracts",
+      "exports": [
+        "PerformanceWorkload",
+        "MeasurementProtocol",
+        "PerformanceEnvironment",
+        "PerformanceTrial",
+        "EquivalenceRule",
+        "EquivalenceContract",
+        "compare_scientific_results"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.performance_contracts",
+        "source": "ncmemsim/performance_contracts.py",
+        "explicit_exports": [
+          "PerformanceWorkload",
+          "MeasurementProtocol",
+          "PerformanceEnvironment",
+          "PerformanceTrial",
+          "EquivalenceRule",
+          "EquivalenceContract",
+          "compare_scientific_results"
+        ],
+        "package_import_aliases": {},
+        "public_source_definitions": [
+          {
+            "name": "PerformanceWorkload",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "workload_id",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "workflow_kind",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "scientific_inputs",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "scope",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "dependency_kind",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "logical_item_count",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "notes",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, workload_id, workflow_kind, scientific_inputs, scope, dependency_kind, logical_item_count, notes)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "scientific_inputs",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "scientific_input_hash",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "MeasurementProtocol",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "warmup_count",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "1"
+                },
+                {
+                  "name": "measured_count",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "5"
+                },
+                {
+                  "name": "instrumentation",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "'none'"
+                },
+                {
+                  "name": "isolation",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "'fresh_state'"
+                },
+                {
+                  "name": "max_trial_seconds",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "60.0"
+                },
+                {
+                  "name": "max_total_seconds",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "600.0"
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, warmup_count=1, measured_count=5, instrumentation='none', isolation='fresh_state', max_trial_seconds=60.0, max_total_seconds=600.0)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "PerformanceEnvironment",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "source_commit",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "source_dirty",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "source_package_version",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "distribution_version",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "imported_package_path",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "python_version",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "numpy_version",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "platform",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "cpu",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "logical_cpu_count",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "thread_settings",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "backend_id",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, source_commit, source_dirty, source_package_version, distribution_version, imported_package_path, python_version, numpy_version, platform, cpu, logical_cpu_count, thread_settings, backend_id)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "PerformanceTrial",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "workload",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "protocol",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "environment",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "phase",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "index",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "status",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "elapsed_seconds",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "result_hash",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "failure",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "memory_kind",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "'not_measured'"
+                },
+                {
+                  "name": "memory_bytes",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "memory_method",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, workload, protocol, environment, phase, index, status, elapsed_seconds, result_hash=None, failure=None, memory_kind='not_measured', memory_bytes=None, memory_method=None)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "EquivalenceRule",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "path",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "quantity",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "unit",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "atol",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "rtol",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, path, quantity, unit, atol, rtol)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "EquivalenceContract",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "workload_hash",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "rules",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "exact_paths",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "reference_evidence",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, workload_hash, rules, exact_paths, reference_evidence)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "compare_scientific_results",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "contract",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "workload",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "reference",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "candidate",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(contract, workload, reference, candidate)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "b9131b295fba96421b0b986565a0c064d3cfd4dbc8db893e209a1fb305697e7f"
+    },
+    {
+      "module": "ncmemsim.performance_execution",
+      "exports": [
+        "capture_performance_environment",
+        "run_serial_campaign"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.performance_execution",
+        "source": "ncmemsim/performance_execution.py",
+        "explicit_exports": [
+          "capture_performance_environment",
+          "run_serial_campaign"
+        ],
+        "package_import_aliases": {
+          "_Environment": "ncmemsim.performance_contracts.PerformanceEnvironment",
+          "_Equivalence": "ncmemsim.performance_contracts.EquivalenceContract",
+          "_Protocol": "ncmemsim.performance_contracts.MeasurementProtocol",
+          "_Trial": "ncmemsim.performance_contracts.PerformanceTrial",
+          "_Workload": "ncmemsim.performance_contracts.PerformanceWorkload",
+          "_canonical": "ncmemsim.performance_contracts._canonical",
+          "_compare": "ncmemsim.performance_contracts.compare_scientific_results",
+          "_hash": "ncmemsim.performance_contracts._hash"
+        },
+        "public_source_definitions": [
+          {
+            "name": "capture_performance_environment",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "source_commit",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "source_dirty",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(source_commit, source_dirty)",
+            "decorators": []
+          },
+          {
+            "name": "run_serial_campaign",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "workload",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "protocol",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "source_commit",
+                "kind": "keyword_only",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "source_dirty",
+                "kind": "keyword_only",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "reference",
+                "kind": "keyword_only",
+                "annotation": null,
+                "required": false,
+                "default_expression": "None"
+              },
+              {
+                "name": "equivalence",
+                "kind": "keyword_only",
+                "annotation": null,
+                "required": false,
+                "default_expression": "None"
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(workload, protocol, *, source_commit, source_dirty, reference=None, equivalence=None)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "af6c57d285ae90874cc85892ff2e08df7a3d3273a2964f636345d789d4e13e18"
+    },
+    {
+      "module": "ncmemsim.performance_workloads",
+      "exports": [
+        "execute_performance_workload"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.performance_workloads",
+        "source": "ncmemsim/performance_workloads.py",
+        "explicit_exports": [
+          "execute_performance_workload"
+        ],
+        "package_import_aliases": {
+          "_Workload": "ncmemsim.performance_contracts.PerformanceWorkload",
+          "_canonical": "ncmemsim.performance_contracts._canonical"
+        },
+        "public_source_definitions": [
+          {
+            "name": "execute_performance_workload",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "workload",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "storage",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(workload, storage)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "d12f48e9b579fb08c26ff68e4a5fa610d1eb14c35edad2a609efc2e4dd291db2"
+    },
+    {
+      "module": "ncmemsim.interoperability",
+      "exports": [
+        "InteroperabilitySource",
+        "InteroperabilityDataset",
+        "ObservableMapping",
+        "convert_interoperability_data"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.interoperability",
+        "source": "ncmemsim/interoperability.py",
+        "explicit_exports": [
+          "InteroperabilitySource",
+          "InteroperabilityDataset",
+          "ObservableMapping",
+          "convert_interoperability_data"
+        ],
+        "package_import_aliases": {
+          "_Owned": "ncmemsim.performance_contracts._Owned",
+          "_canonical": "ncmemsim.performance_contracts._canonical",
+          "_digest": "ncmemsim.performance_contracts._digest",
+          "_restore": "ncmemsim.performance_contracts._restore",
+          "_text": "ncmemsim.performance_contracts._text"
+        },
+        "public_source_definitions": [
+          {
+            "name": "InteroperabilitySource",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "source_id",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "file_sha256",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "simulator",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "simulator_version",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "models",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "citation",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, source_id, file_sha256, simulator, simulator_version, models, citation)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "InteroperabilityDataset",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "dataset_id",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "source",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "metadata",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "columns",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "exclusions",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, dataset_id, source, metadata, columns, exclusions)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "ObservableMapping",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "dataset_hash",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "column",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "target_quantity",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "target_unit",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "sign",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "offset",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "area_operation",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "rationale",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, dataset_hash, column, target_quantity, target_unit, sign, offset, area_operation, rationale)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "convert_interoperability_data",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "dataset",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "mapping",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(dataset, mapping)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "d1d4750ee718f6871e7d37070f40c0e3ac9990e57d0f74f86736944f4123bff1"
+    },
+    {
+      "module": "ncmemsim.interoperability_comparison",
+      "exports": [
+        "InteroperabilityComparison",
+        "compare_interoperability_data"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.interoperability_comparison",
+        "source": "ncmemsim/interoperability_comparison.py",
+        "explicit_exports": [
+          "InteroperabilityComparison",
+          "compare_interoperability_data"
+        ],
+        "package_import_aliases": {
+          "_Dataset": "ncmemsim.interoperability.InteroperabilityDataset",
+          "_Mapping": "ncmemsim.interoperability.ObservableMapping",
+          "_Owned": "ncmemsim.performance_contracts._Owned",
+          "_convert": "ncmemsim.interoperability.convert_interoperability_data",
+          "_number": "ncmemsim.interoperability._number",
+          "_restore": "ncmemsim.performance_contracts._restore",
+          "_text": "ncmemsim.performance_contracts._text"
+        },
+        "public_source_definitions": [
+          {
+            "name": "InteroperabilityComparison",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "reference",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "candidate",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "mappings",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "target_metadata",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "applicability_review",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "axis_atol",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "axis_rtol",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "atol",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "rtol",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, reference, candidate, mappings, target_metadata, applicability_review, axis_atol, axis_rtol, atol, rtol)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "compare_interoperability_data",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "comparison",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(comparison)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "897a702e373ea860da21e0098be5ae9cdc9bef0a362bec2caf3ba9667deb2987"
+    },
+    {
+      "module": "ncmemsim.performance_reporting",
+      "exports": [
+        "PerformanceCampaignArchive",
+        "PerformanceInteroperabilityReport",
+        "write_performance_interoperability_report",
+        "load_performance_interoperability_bundle"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.performance_reporting",
+        "source": "ncmemsim/performance_reporting.py",
+        "explicit_exports": [
+          "PerformanceCampaignArchive",
+          "PerformanceInteroperabilityReport",
+          "write_performance_interoperability_report",
+          "load_performance_interoperability_bundle"
+        ],
+        "package_import_aliases": {
+          "_Comparison": "ncmemsim.interoperability_comparison.InteroperabilityComparison",
+          "_Environment": "ncmemsim.performance_contracts.PerformanceEnvironment",
+          "_Equivalence": "ncmemsim.performance_contracts.EquivalenceContract",
+          "_Owned": "ncmemsim.performance_contracts._Owned",
+          "_Protocol": "ncmemsim.performance_contracts.MeasurementProtocol",
+          "_Trial": "ncmemsim.performance_contracts.PerformanceTrial",
+          "_Workload": "ncmemsim.performance_contracts.PerformanceWorkload",
+          "_canonical": "ncmemsim.performance_contracts._canonical",
+          "_compare": "ncmemsim.performance_contracts.compare_scientific_results",
+          "_compare_data": "ncmemsim.interoperability_comparison.compare_interoperability_data",
+          "_digest": "ncmemsim.performance_contracts._digest",
+          "_hash": "ncmemsim.performance_contracts._hash",
+          "_reject": "ncmemsim.performance_contracts._reject",
+          "_seconds": "ncmemsim.performance_contracts._seconds",
+          "_stats": "ncmemsim.performance_execution._stats",
+          "_text": "ncmemsim.performance_contracts._text",
+          "_unique": "ncmemsim.performance_contracts._unique"
+        },
+        "public_source_definitions": [
+          {
+            "name": "PerformanceCampaignArchive",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "campaign",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "evidence_kind",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "notes",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, campaign, evidence_kind, notes)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "PerformanceInteroperabilityReport",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "title",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "campaigns",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "comparisons",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, title, campaigns, comparisons)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "write_performance_interoperability_report",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "report",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "destination",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(report, destination)",
+            "decorators": []
+          },
+          {
+            "name": "load_performance_interoperability_bundle",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "destination",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(destination)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "0d35a14333890747703e1cb9ddf648fc804bdf1fa145b90056a6bc0dae80788c"
+    }
+  ],
+  "preparation_archive": {
+    "path": "tests/fixtures/archives/v1_9_preparation/performance_report.json",
+    "report_hash": "75fbc26f082f99602c63df5bf2466c0d14575b305483a92ba71060db3948ea28",
+    "observed_source_commit": "e2af7e7cad2147755c71743e0b20c403b79fc081",
+    "observed_source_dirty": false,
+    "source_package_version": "1.8.0",
+    "campaign_count": 5,
+    "comparison_count": 9,
+    "scope": "One actual bounded fresh-process timing campaign, four explicitly synthetic campaign controls, nine R5 synthetic comparison cases; original identities and negative/unavailable outcomes retained."
+  },
+  "reviewed_ci_evidence": {
+    "source_commit": "e2af7e7cad2147755c71743e0b20c403b79fc081",
+    "ci_run": 39772236419,
+    "documentation_run": 39772236453,
+    "conclusion": "success",
+    "test_python_versions": [
+      "3.11",
+      "3.12",
+      "3.13"
+    ],
+    "distribution_python_versions": [
+      "3.11",
+      "3.12",
+      "3.13"
+    ],
+    "serial_baselines": "Ubuntu/Windows x Python 3.11/3.13, current R6 checkout",
+    "paired_comparison": "Historical R3 commit 8c63a0a against R2 commit 6034231; not current-tree speedup evidence"
+  },
+  "scientific_limits": [
+    "No real TCAD export, proprietary adapter or full co-simulation is admitted.",
+    "Synthetic comparisons and declared applicability do not establish external agreement.",
+    "No new independent measured data or fitted physical coefficients; P4B/P5B/P6B remain deferred.",
+    "R3 speedups concern reviewed same-host archive operations only, not a universal solver speedup.",
+    "Timing, native RSS, host and workload scopes remain separate; no pooled performance claim.",
+    "Static archive checks verify consistency, not authenticity or replayed dynamics."
+  ],
+  "release_policy": "Preparation only: exact new-commit CI, final identity review, PR/main/tag checks, release publication and Zenodo archival remain pending. No v1.9 DOI is invented."
+}

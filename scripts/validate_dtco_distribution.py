@@ -218,7 +218,10 @@ SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_
                     'tests/test_phase_r5_interoperability_comparison.py',
                     'examples/phase_r5_interoperability_reference.py',
                     'tests/test_phase_r6_performance_reporting.py',
-                    'examples/phase_r6_performance_report.py'}
+                    'examples/phase_r6_performance_report.py', 'scripts/validate_v1_9_api_review.py',
+                    'tests/test_phase_r7_preparation.py', 'docs/v1_9_api_review.json',
+                    'docs/v1_9_release_checklist.md', 'docs/v1_8_published_surface.json',
+                    'tests/fixtures/archives/v1_9_preparation/performance_report.json'}
 
 
 def main() -> None:
@@ -294,6 +297,8 @@ def main() -> None:
             shutil.copyfile(root / 'examples/phase_r5_interoperability_reference.py', work / 'phase_r5_interoperability_reference.py')
             shutil.copyfile(root / 'examples/phase_r6_performance_report.py', work / 'phase_r6_performance_report.py')
             run(str(python), '-I', '-c', PERFORMANCE_REPORT_PROBE, str(work), str(environment), str(number), cwd=work)
+            shutil.copyfile(root / 'tests/fixtures/archives/v1_9_preparation/performance_report.json', work / 'frozen_performance_report.json')
+            run(str(python), '-I', '-c', PERFORMANCE_ARCHIVE_PROBE, str(work), str(number), cwd=work)
             results.append({"installed_performance_contracts": "PASS", "artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
@@ -887,6 +892,35 @@ except ValueError:pass
 else:raise AssertionError('coherently rehashed negative result accepted')
 assert not report.to_dict()['summary']['speedup_accepted']
 print('Installed R6 strict campaign/comparison report, bundle and tamper rejection PASS')
+"""
+
+
+PERFORMANCE_ARCHIVE_PROBE = r"""import pathlib,sys,json,hashlib
+from ncmemsim.performance_reporting import PerformanceInteroperabilityReport,write_performance_interoperability_report,load_performance_interoperability_bundle
+import ncmemsim.performance_execution as execution
+import ncmemsim.performance_workloads as workloads
+def forbidden(*a,**kw):raise AssertionError('frozen restoration must not execute or probe')
+execution._invoke=forbidden;execution._worker=forbidden
+execution.run_serial_campaign=forbidden;execution.capture_performance_environment=forbidden
+workloads.execute_performance_workload=forbidden
+work=pathlib.Path(sys.argv[1])
+raw=json.loads((work/'frozen_performance_report.json').read_text(encoding='utf-8'))
+report=PerformanceInteroperabilityReport.from_dict(raw)
+assert report.contract_hash=='75fbc26f082f99602c63df5bf2466c0d14575b305483a92ba71060db3948ea28'
+assert report.to_dict()==raw and len(raw['campaigns'])==5 and len(raw['comparisons'])==9
+assert raw['campaigns'][0]['archive']['campaign']['environment']['source_package_version']=='1.8.0'
+left=write_performance_interoperability_report(report,work/('r7-left-'+sys.argv[2]))
+right=write_performance_interoperability_report(report,work/('r7-right-'+sys.argv[2]))
+assert {p.name:p.read_bytes() for p in left.iterdir()}=={p.name:p.read_bytes() for p in right.iterdir()}
+assert load_performance_interoperability_bundle(left).contract_hash==report.contract_hash
+path=left/'trials.csv';path.write_bytes(path.read_bytes()+b'changed\n')
+manifest=json.loads((left/'bundle.json').read_text(encoding='utf-8'))
+manifest['files']['trials.csv']=hashlib.sha256(path.read_bytes()).hexdigest()
+(left/'bundle.json').write_text(json.dumps(manifest),encoding='utf-8')
+try:load_performance_interoperability_bundle(left)
+except ValueError:pass
+else:raise AssertionError('coherently rehashed trial projection accepted')
+print('Installed R7 frozen performance archive, no replay, deterministic export and tamper rejection PASS')
 """
 
 if __name__ == "__main__":

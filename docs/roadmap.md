@@ -495,7 +495,7 @@ passed. Published stable identity: `1.8.0`, dated 2026-10-20; version DOI:
 [10.5281/zenodo.23510004](https://doi.org/10.5281/zenodo.23510004). Evidence is recorded in the v1.8 checklist. P4B/P5B/P6B experimental
 qualification remains deferred.
 
-### Phase R: Performance and interoperability (version to be determined)
+### Phase R: Performance and interoperability (target v1.9.0)
 
 R0 is complete: source audit and exploratory profiles distinguish trajectory
 integration/WKB costs from nested report restoration/validation. These are single
@@ -513,10 +513,13 @@ are implemented with explicit common conditions, tolerance checks, negative and
 unavailable outcomes, and nine synthetic references; CI passed on `0796d4c`.
 R6 [strict reports and bundles](performance_reporting.md) are implemented for
 serial campaigns and comparisons, retaining source identities, all trials and
-static projection checks. Next are R7 release gates. Scientific equivalence, reproducibility and failure provenance
+static projection checks. R7 preparation targets v1.9.0 with an additive API
+review, independently frozen v1.8 surface and installed archive gates; see the
+[v1.9 checklist](v1_9_release_checklist.md). Final-candidate/release gates remain
+pending. Scientific equivalence, reproducibility and failure provenance
 must be preserved. Full co-simulation and larger device families are separate
-scopes. Version remains undecided; v2.0 requires a justified major contract/API
-change, and acceleration alone does not require it. Published identity stays
+scopes. The minor-version decision preserves all 140 published module surfaces;
+no major contract/API break is identified. Published identity stays
 v1.8.0; experimental P4B/P5B/P6B qualification remains deferred.
 
 Each phase follows scope/contracts, implementation, integration, validation,
