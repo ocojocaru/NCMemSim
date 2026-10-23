@@ -15,6 +15,9 @@ def review_copy(tmp_path,monkeypatch):
     for directory in ('docs','ncmemsim'):
         shutil.copytree(ROOT/directory,tmp_path/directory)
     shutil.copyfile(ROOT/'README.md',tmp_path/'README.md')
+    shutil.copyfile(ROOT/'CITATION.cff',tmp_path/'CITATION.cff')
+    shutil.copyfile(ROOT/'CHANGELOG.md',tmp_path/'CHANGELOG.md')
+    shutil.copytree(ROOT/'tests/fixtures/releases/v1_8_0',tmp_path/'tests/fixtures/releases/v1_8_0')
     target=tmp_path/gate.ARCHIVE;target.parent.mkdir(parents=True,exist_ok=True)
     shutil.copyfile(ROOT/gate.ARCHIVE,target)
     monkeypatch.setattr(gate,'validate_published',lambda root:dict(
@@ -24,10 +27,10 @@ def review_copy(tmp_path,monkeypatch):
 
 def test_preparation_validates_real_retained_contracts():
     result=gate.validate(ROOT)
-    assert result['target_release']=='1.9.0' and result['package_version']=='1.8.0'
+    assert result['target_release']=='1.9.0' and result['package_version']=='1.9.0'
     assert result['retained_published_modules']==140 and result['reviewed_modules']==6
     assert result['additive_exports']==20 and result['campaign_count']==5 and result['comparison_count']==9
-    assert result['final_candidate']=='pending' and not result['experimental_qualification']
+    assert result['final_candidate']=='prepared_unpublished' and not result['experimental_qualification']
 
 
 @pytest.mark.parametrize('fault',['review','source','archive','surface','retained_review',
@@ -37,10 +40,10 @@ def test_unreviewed_preparation_drift_rejected(review_copy,fault):
     if fault=='source':
         path=root/'ncmemsim/performance_reporting.py'
         path.write_text(path.read_text(encoding='utf-8')+'# unreviewed source drift\n',encoding='utf-8')
-    elif fault=='version':(root/'ncmemsim/_version.py').write_text('__version__="1.9.0"\n',encoding='utf-8')
+    elif fault=='version':(root/'ncmemsim/_version.py').write_text('__version__="1.8.0"\n',encoding='utf-8')
     elif fault=='checklist':(root/'docs/v1_9_release_checklist.md').write_text('release approved',encoding='utf-8')
     elif fault=='roadmap':
-        path=root/'docs/roadmap.md';path.write_text(path.read_text(encoding='utf-8').replace('R7 preparation','R7 closure'),encoding='utf-8')
+        path=root/'docs/roadmap.md';path.write_text(path.read_text(encoding='utf-8').replace('R7 final candidate','R7 closure'),encoding='utf-8')
     else:
         name={'review':'docs/v1_9_api_review.json','archive':gate.ARCHIVE,'surface':gate.SURFACE,
               'retained_review':'docs/v1_8_api_review.json','scope':'docs/v1_9_api_review.json'}[fault]

@@ -221,7 +221,12 @@ SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_
                     'examples/phase_r6_performance_report.py', 'scripts/validate_v1_9_api_review.py',
                     'tests/test_phase_r7_preparation.py', 'docs/v1_9_api_review.json',
                     'docs/v1_9_release_checklist.md', 'docs/v1_8_published_surface.json',
-                    'tests/fixtures/archives/v1_9_preparation/performance_report.json'}
+                    'tests/fixtures/archives/v1_9_preparation/performance_report.json',
+                    'scripts/validate_v1_9_release_identity.py', 'tests/test_phase_r7_final_identity.py'}
+SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_8_0/'+name for name in (
+    'README.md','CHANGELOG.md','CITATION.cff','ncmemsim/_version.py','docs/index.md','docs/roadmap.md',
+    'docs/archival_citation.md','docs/multilevel_operation.md','docs/v1_8_release_checklist.md',
+    '.github/workflows/ci.yml','.github/workflows/docs.yml')}
 
 
 def main() -> None:

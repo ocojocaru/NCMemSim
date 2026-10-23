@@ -1,6 +1,6 @@
 # Copyright 2026 Ovidiu Cojocaru
 # SPDX-License-Identifier: Apache-2.0
-"""R7 v1.9 preparation: retained published surface, additive API and strict frozen report."""
+"""R7 final v1.9 candidate: retained published surface, additive API and strict frozen report."""
 from __future__ import annotations
 import argparse
 import importlib
@@ -10,7 +10,7 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
 from scripts.validate_api_contract import build_inventory
-from scripts.validate_v1_8_api_review import validate as validate_published
+from scripts.validate_v1_8_api_review import validate_retained as validate_published, PUBLISHED_V18_SNAPSHOTS
 from scripts.validate_v1_4_api_review import _version
 from ncmemsim.performance_contracts import _hash, _unique, _reject
 from ncmemsim.performance_reporting import PerformanceInteroperabilityReport
@@ -91,9 +91,13 @@ def build_review(root):
                             source_sha256=_text_hash(root/(name.replace('.','/')+'.py'))))
     package={p.relative_to(root/'ncmemsim').as_posix():_text_hash(p)
              for p in sorted((root/'ncmemsim').rglob('*.py'))}
-    return dict(schema_version='phase-r-v1.9-preparation-api-review-v1',status='preparation_review',
+    return dict(schema_version='phase-r-v1.9-final-candidate-api-review-v1',status='final_candidate_review',
         target_release='1.9.0',published_baseline='1.8.0',package_identity_at_review=_version(root),
-        review_date='2026-10-23',implementation_source_commit=CAPTURE_COMMIT,
+        review_date='2026-10-23',implementation_source_commit='cc15fef20281ab0d4f305eecfd2b13f08e984a27',
+        candidate_date='2026-10-23',
+        published_v1_8_snapshot_sha256={name:_text_hash(root/'tests/fixtures/releases/v1_8_0'/name) for name in PUBLISHED_V18_SNAPSHOTS},
+        preparation_ci_evidence=dict(source_commit='cc15fef20281ab0d4f305eecfd2b13f08e984a27',
+            ci_run=39953158541,documentation_run=39953158477,conclusion='success'),
         version_rationale='Minor additive release: six new module-qualified APIs; 140 published module surfaces unchanged; R3 private optimization preserves signatures, defaults and archives. No major-version contract break.',
         retained_v1_8_review_sha256=_hash(_json(root/'docs/v1_8_api_review.json')),
         retained_published_surface_sha256=SURFACE_SHA256,retained_published_module_count=len(baseline['modules']),
@@ -114,7 +118,7 @@ def build_review(root):
             'R3 speedups concern reviewed same-host archive operations only, not a universal solver speedup.',
             'Timing, native RSS, host and workload scopes remain separate; no pooled performance claim.',
             'Static archive checks verify consistency, not authenticity or replayed dynamics.'],
-        release_policy='Preparation only: exact new-commit CI, final identity review, PR/main/tag checks, release publication and Zenodo archival remain pending. No v1.9 DOI is invented.')
+        release_policy='Final candidate identity prepared, not yet published: exact candidate CI, PR/main/tag checks, release publication and Zenodo archival remain pending. No v1.9 DOI is invented.')
 
 
 def validate(root):
@@ -123,22 +127,22 @@ def validate(root):
         raise ValueError('source API inventory drift')
     if _json(root/'docs/v1_9_api_review.json')!=build_review(root):
         raise ValueError('v1.9 preparation source/API/archive drift')
-    if _version(root)!='1.8.0':
-        raise ValueError('preparation retains published 1.8.0 identity; final candidate is a separate gate')
+    from scripts.validate_v1_9_release_identity import validate_identity
+    validate_identity(root)
     previous=validate_published(root)
     if (previous['retained_stable_paths'],previous['stable_ensemble_exports'],previous['additive_exports'])!=(297,59,34):
         raise ValueError('published contract retention mismatch')
-    markers={'docs/v1_9_release_checklist.md':('Target release: `1.9.0`','Preparation identity: `1.8.0`',
-                'P4B/P5B/P6B','Python 3.11, 3.12 and 3.13','not a final release candidate'),
-             'docs/roadmap.md':('R7 preparation','v1.9.0','experimental qualification remains deferred')}
+    markers={'docs/v1_9_release_checklist.md':('Target release: `1.9.0`','Final candidate identity: `1.9.0`',
+                'P4B/P5B/P6B','Python 3.11, 3.12 and 3.13','not yet published'),
+             'docs/roadmap.md':('R7 final candidate','v1.9.0','experimental qualification remains deferred')}
     for path,words in markers.items():
         if any(word not in (root/path).read_text(encoding='utf-8') for word in words):
             raise ValueError('R7 scope/checklist marker missing: '+path)
-    return dict(status='r7_preparation_consistency_pass',target_release='1.9.0',package_version=_version(root),
+    return dict(status='r7_final_candidate_consistency_pass',target_release='1.9.0',package_version=_version(root),
         retained_published_modules=140,retained_stable_paths=297,stable_ensemble_exports=59,
         reviewed_modules=len(MODULES),additive_exports=sum(len(importlib.import_module(name).__all__) for name in MODULES),
         report_hash=ARCHIVE_SHA256,campaign_count=5,comparison_count=9,experimental_qualification=False,
-        exact_new_commit_ci='pending after push',final_candidate='pending')
+        exact_new_commit_ci='pending after push',final_candidate='prepared_unpublished')
 
 
 if __name__=='__main__':

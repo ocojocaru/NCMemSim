@@ -10,15 +10,16 @@ Version DOI: [10.5281/zenodo.23510004](https://doi.org/10.5281/zenodo.23510004).
 The [R0 audit](performance_interoperability_audit.json) records normalized UTF-8/LF
 source hashes, exact exploratory inputs/results and measurement limitations.
 
-R7 preparation targets **v1.9.0**, with additive APIs and unchanged published
+R7 final candidate targets **v1.9.0**, with additive APIs and unchanged published
 module surfaces; see the [release checklist](v1_9_release_checklist.md). Development
-branch: `dev/phase-r-performance-interop`. Current package/citation identity stays
-1.8.0 until the separately verified final candidate. R1/R2 are implemented and the exact R2 commit passed cross-platform CI.
+branch: `dev/phase-r-performance-interop`. Final candidate identity: `1.9.0`,
+prepared 2026-10-23 and not yet published. Latest published stable remains 1.8.0. R1/R2 are implemented and the exact R2 commit passed cross-platform CI.
 R3 passed exact-commit CI and Documentation on `8c63a0a`. R4 implements owned
 vendor-neutral interchange and explicit conversion, with exact-commit CI passed
 on `6e7514b`. R5 controlled comparisons passed CI on `0796d4c`. R6 adds strict static serial-
 campaign/comparison reports and reproducible bundles. R7 API/archive preparation
-is implemented; exact new-commit CI and final-candidate/release closure remain pending.
+passed exact preparation CI on `cc15fef`; final candidate identity is prepared.
+Exact-candidate CI, PR/main/tag, release and archival closure remain pending.
 
 No TCAD export or concrete external format is available. The user selected
 requirements definition without assuming a simulator vendor. Phase R introduces
@@ -422,11 +423,12 @@ projections even against coherently rehashed edits. Synthetic controls remain
 labelled; R3 paired artifacts retain their historical format and acceptance.
 
 
-## R7 preparation and target v1.9.0
+## R7 final candidate v1.9.0
 
 The [R7 release checklist](v1_9_release_checklist.md) records the minor-version
 rationale, six additive modules/20 exports, independently pinned compatibility
 for 140 published v1.8 modules and the five-campaign/nine-comparison frozen
 preparation report. The source/review/archive and installed-distribution gates
 are implemented. R6 exact-source CI is recorded separately from new preparation,
-final-candidate, PR/main/tag and archival evidence still to be obtained.
+final-candidate, PR/main/tag and archival evidence still to be obtained. The
+published v1.8 declarations and the original preparation report identities are retained.

@@ -58,5 +58,11 @@ def validate(root):
 
 
 if __name__=='__main__':
-    import json
-    print(json.dumps(validate(ROOT),indent=2))
+    import argparse,json
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--retained',action='store_true')
+    args=parser.parse_args()
+    if args.retained:
+        from scripts.validate_v1_8_api_review import validate_retained
+        result=validate_retained(ROOT)
+    else:result=validate(ROOT)
+    print(json.dumps(result,indent=2))

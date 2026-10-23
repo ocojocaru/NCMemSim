@@ -83,6 +83,6 @@ properties are delivered in v1.4.
 
 NCMemSim succeeds when another researcher can reproduce a published simulation, inspect each modelling assumption, replace one physical submodel without breaking unrelated components, compare simulation to experiment, and report the exact software and parameter provenance used.
 
-Phase R7 preparation selects a minor additive release: published module surfaces
-and archive semantics are retained. Final-candidate identity, exact-commit gates
-and release/Zenodo closure remain separate steps.
+The final v1.9.0 candidate selects a minor additive release: published module surfaces
+and archive semantics are retained. Candidate identity is prepared; exact-commit
+gates and release/Zenodo closure remain pending.

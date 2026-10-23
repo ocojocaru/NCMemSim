@@ -86,3 +86,17 @@ def published_v1_7_copy(tmp_path):
             target.parent.mkdir(parents=True,exist_ok=True)
             shutil.copyfile(source,target)
     return destination
+
+
+@pytest.fixture
+def published_v1_8_copy(tmp_path):
+    destination=tmp_path/'published-v1_8'
+    for folder in ('docs','ncmemsim','tests/fixtures','data'):
+        shutil.copytree(ROOT/folder,destination/folder)
+    snapshots=ROOT/'tests/fixtures/releases/v1_8_0'
+    for source in snapshots.rglob('*'):
+        if source.is_file():
+            target=destination/source.relative_to(snapshots)
+            target.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(source,target)
+    return destination

@@ -28,9 +28,17 @@ NCMemSim is a modular Python framework for the simulation and design–technolog
 **Published v1.8.0 status:** Q7 is complete. Electrical and matched optical
 multilevel diagnostics, bounded retention/ensembles and strict reports are published.
 Candidate/PR/main/tag CI passed; wheel and sdist are published.
-Version-specific DOI: [10.5281/zenodo.23510004](https://doi.org/10.5281/zenodo.23510004). CITATION.cff retains the separate Concept DOI.
+Version-specific DOI: [10.5281/zenodo.23510004](https://doi.org/10.5281/zenodo.23510004). The published v1.8 citation is retained in historical fixtures.
 Weight proxies are not conductance or circuit MAC; no lifetime/endurance/yield
 or independent experimental qualification is claimed.
+
+**Final v1.9.0 candidate:** prepared 2026-10-23, **not yet published**.
+Phase R adds bounded serial performance measurements, vendor-neutral simulated-data
+interchange, controlled comparisons and strict report bundles. The R3 optimization
+is limited to reviewed report-restoration/export workloads; no universal solver
+speedup or external TCAD agreement is claimed. Exact-candidate CI, PR/main/tag,
+release publication and the version-specific DOI remain pending. Current CITATION.cff
+uses 1.9.0 and the separate Concept DOI; the published v1.8 citation remains archived.
 
 ## Why NCMemSim?
 

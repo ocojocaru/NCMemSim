@@ -2,9 +2,8 @@ cff-version: 1.2.0
 message: "If you use NCMemSim in research, cite the exact software version and this repository."
 title: "NCMemSim: Nanocrystal Memory Simulation Platform"
 type: software
-version: 1.8.0
-date-released: 2026-10-20
-doi: 10.5281/zenodo.23510004
+version: 1.9.0
+date-released: 2026-10-23
 license: Apache-2.0
 identifiers:
   - type: doi
@@ -40,7 +39,9 @@ abstract: >-
   and strict report bundles, owned electrical and fixed-spectrum optical pulse
   sequences, multilevel separation, fixed-reference update diagnostics, bounded
   retention and supported FG-fraction ensembles, strict multilevel reports,
-  validation, and reproducibility tools. Independent
+  bounded serial performance measurement, explicit vendor-neutral simulated-data
+  interchange, source-bound controlled comparisons, strict performance/interchange
+  report bundles, validation, and reproducibility tools. Independent
   experimental device qualification remains deferred pending admitted data.
 keywords:
   - nanocrystal memory

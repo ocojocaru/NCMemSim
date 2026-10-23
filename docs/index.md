@@ -2,7 +2,12 @@
 
 # NCMemSim
 
-Published stable release: `1.8.0`, dated 2026-10-20. Q7 is complete; multilevel
+Final candidate: `1.9.0`, prepared 2026-10-23; **not yet published**.
+R7 API/archive and final-identity gates are prepared. Exact-candidate CI, PR/main/tag,
+release publication and the version-specific DOI remain pending. See the
+[v1.9 checklist](v1_9_release_checklist.md). Experimental P4B/P5B/P6B remain deferred.
+
+Latest published stable: `1.8.0`, dated 2026-10-20. Q7 is complete; multilevel
 diagnostics and strict reports are published with wheel and sdist after successful
 candidate/PR/main/tag checks. CITATION.cff records [10.5281/zenodo.23510004](https://doi.org/10.5281/zenodo.23510004).
 Experimental P4B/P5B/P6B remain deferred.

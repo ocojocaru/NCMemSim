@@ -1,11 +1,13 @@
-# v1.9 R7 release preparation checklist
+# v1.9 R7 final candidate checklist
 
-Status: R7 preparation; **not a final release candidate**.
-Target release: `1.9.0`. Preparation identity: `1.8.0`.
+Status: final candidate identity prepared; **not yet published**.
+Target release: `1.9.0`. Final candidate identity: `1.9.0`.
+Citation date: `2026-10-23`.
 Latest published stable: `1.8.0`, tag commit
 `03b35f40606dbd84c1cd6d715eb6de6222466b47`.
 Published DOI: 10.5281/zenodo.23510004; concept DOI: 10.5281/zenodo.23078330.
-No v1.9 DOI or release date has been assigned. Experimental P4B/P5B/P6B
+No version-specific v1.9 DOI has been assigned. The candidate metadata date does
+not establish publication. Experimental P4B/P5B/P6B
 qualification remains deferred.
 
 ## Compatibility and version decision
@@ -55,7 +57,12 @@ plus current serial baselines on Ubuntu/Windows with Python 3.11/3.13. The paire
 comparison job checks the historical accepted R3 commit against R2; it is not a
 new current-tree speedup claim. Existing R0/R2/R3 audits stay historical.
 
-For this preparation change:
+Preparation commit `cc15fef20281ab0d4f305eecfd2b13f08e984a27` passed CI run
+39953158541 and Documentation run 39953158477. These remain separate from
+pending exact-candidate checks. Published v1.8 declarations are frozen at
+`tests/fixtures/releases/v1_8_0` with retained API/identity gates.
+
+For this final candidate change:
 
 - Run the new v1.9 review, retained v1.8 identity/API/archive checks and focused
   R1-R7 regression locally, including source/archive/summary tamper rejection.
@@ -66,12 +73,12 @@ For this preparation change:
   remains pending until the new jobs finish; the green R6 run does not substitute
   for it. The full suite is already configured in CI.
 
-Then prepare the final candidate in a separate step:
+Final identity changes and remaining publication steps:
 
-- Freeze retained published 1.8 identity fixtures before advancing current identity.
-- Update the single-source package version, citation date/version, current docs,
-  changelog and final-identity validation together. Preserve the concept DOI;
-  do not reuse the v1.8 version DOI as a v1.9 DOI.
+- Published 1.8 identity fixtures are frozen before advancing current identity.
+- Single-source package version, citation date/version, current docs, changelog
+  and final-identity validation are prepared together. Concept DOI is retained;
+  the v1.8 version DOI is not reused for this candidate.
 - Review all supported matrix results on the exact final-candidate commit, then
   on the PR and merged main. Use a normal merge preserving the R2/R3 history
   needed by the pinned historical comparison job.

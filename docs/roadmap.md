@@ -513,9 +513,9 @@ are implemented with explicit common conditions, tolerance checks, negative and
 unavailable outcomes, and nine synthetic references; CI passed on `0796d4c`.
 R6 [strict reports and bundles](performance_reporting.md) are implemented for
 serial campaigns and comparisons, retaining source identities, all trials and
-static projection checks. R7 preparation targets v1.9.0 with an additive API
+static projection checks. R7 final candidate v1.9.0 is prepared with an additive API
 review, independently frozen v1.8 surface and installed archive gates; see the
-[v1.9 checklist](v1_9_release_checklist.md). Final-candidate/release gates remain
+[v1.9 checklist](v1_9_release_checklist.md). Exact-candidate CI and release/archival gates remain
 pending. Scientific equivalence, reproducibility and failure provenance
 must be preserved. Full co-simulation and larger device families are separate
 scopes. The minor-version decision preserves all 140 published module surfaces;

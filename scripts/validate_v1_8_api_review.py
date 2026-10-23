@@ -89,10 +89,31 @@ def validate(root):
         'archive_case_count':len(report.cases),'report_hash':report.contract_hash,'experimental_qualification':False}
 
 
+
+PUBLISHED_V18_SNAPSHOTS = ('README.md','CHANGELOG.md','CITATION.cff','ncmemsim/_version.py',
+    'docs/index.md','docs/roadmap.md','docs/archival_citation.md','docs/multilevel_operation.md',
+    'docs/v1_8_release_checklist.md','.github/workflows/ci.yml','.github/workflows/docs.yml')
+
+
+def validate_retained(root):
+    """Validate current retained runtime/API using frozen published v1.8 identity declarations."""
+    import shutil
+    import tempfile
+    with tempfile.TemporaryDirectory(prefix='ncmemsim-v18-review-') as temporary:
+        target=Path(temporary)
+        for folder in ('docs','ncmemsim','tests/fixtures','data'):
+            shutil.copytree(root/folder,target/folder)
+        for name in PUBLISHED_V18_SNAPSHOTS:
+            destination=target/name;destination.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(root/'tests/fixtures/releases/v1_8_0'/name,destination)
+        return validate(target)
+
+
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--write-review',action='store_true')
+    parser.add_argument('--retained',action='store_true')
     args=parser.parse_args()
     if args.write_review:
         (ROOT/'docs/v1_8_api_review.json').write_text(json.dumps(build_review(ROOT),indent=2)+'\n',encoding='utf-8')
-    print(json.dumps(validate(ROOT),indent=2))
+    print(json.dumps(validate_retained(ROOT) if args.retained else validate(ROOT),indent=2))

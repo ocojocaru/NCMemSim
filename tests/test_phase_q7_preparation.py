@@ -11,11 +11,8 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 @pytest.fixture
-def review_copy(tmp_path,monkeypatch):
-    for folder in ('docs','ncmemsim','tests/fixtures'):
-        shutil.copytree(ROOT/folder,tmp_path/folder)
-    for name in ('README.md','CHANGELOG.md','CITATION.cff'):
-        shutil.copyfile(ROOT/name,tmp_path/name)
+def review_copy(published_v1_8_copy,monkeypatch):
+    tmp_path=published_v1_8_copy
     # The retained gate is exercised against the real checkout below. Negative
     # copies isolate the new gate's checks rather than rerunning that entire gate.
     monkeypatch.setattr(gate,'retained_review',lambda root:{'retained_stable_paths':297,'stable_ensemble_exports':59})
@@ -23,7 +20,7 @@ def review_copy(tmp_path,monkeypatch):
 
 
 def test_preparation_review_and_retained_surface():
-    result=gate.validate(ROOT)
+    result=gate.validate_retained(ROOT)
     assert result['target_release']=='1.8.0' and result['package_version']=='1.8.0'
     assert result['reviewed_modules']==8 and result['additive_exports']==34
     assert result['archive_case_count']==9 and result['experimental_qualification'] is False
