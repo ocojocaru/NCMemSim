@@ -734,3 +734,13 @@ Keep historical v0.13.0 and v0.14.0 results above separate from the v1.0.0
 release evidence.
 
 See [distribution and runtime contract review](distribution_contracts.md) for source-content, isolated-installation and legacy manifest identity boundaries.
+
+
+## Phase R performance and interoperability planning
+
+The [R0 scope and audit](performance_interoperability.md) distinguish exploratory
+profiling from repeated uninstrumented performance acceptance. The existing short
+benchmark API and historical results remain intact. Broader serial baselines,
+native-memory measurement, explicit numerical-equivalence criteria and vendor-neutral
+comparison contracts are planned; no faster backend or external TCAD agreement is
+claimed. Current package/citation identity remains the published v1.8.0 release.

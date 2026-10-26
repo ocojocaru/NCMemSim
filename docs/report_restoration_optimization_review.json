@@ -1,0 +1,491 @@
+{
+  "schema_version": "r3-report-restoration-review-v1",
+  "date": "2026-10-21",
+  "status": "locally_accepted_exact_commit_cross_platform_ci_pending",
+  "baseline_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+  "baseline_ci_run": 39588960817,
+  "r2_cross_platform_evidence": [
+    {
+      "artifact": "serial-baseline-ubuntu-latest-py3.11",
+      "source_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+      "source_dirty": false,
+      "serial_cases": 15,
+      "native_cases": 2,
+      "all_complete": true,
+      "environment": {
+        "backend_id": "serial-reference",
+        "cpu": "x86_64",
+        "distribution_version": "1.8.0",
+        "imported_package_path": "/home/runner/work/NCMemSim/NCMemSim/ncmemsim/__init__.py",
+        "logical_cpu_count": 4,
+        "numpy_version": "2.4.6",
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "python_version": "3.11.17",
+        "schema_version": "performance-environment-v1",
+        "source_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+        "source_dirty": false,
+        "source_package_version": "1.8.0",
+        "thread_settings": {
+          "MKL_NUM_THREADS": null,
+          "NUMEXPR_NUM_THREADS": null,
+          "OMP_NUM_THREADS": null,
+          "OPENBLAS_NUM_THREADS": null
+        }
+      },
+      "index_sha256": {
+        "performance-results": "d7c48314f8fe9565b5eaae089964f1ec4e3b480992b0c26520c1f41b579c9ce1",
+        "performance-memory": "bcc8db5f64dbb2e4a2871fb3d4a6f7ce0bac666f5738353bb79e2ef7daf1c6f1"
+      },
+      "selected_case_medians_s": {
+        "strict-restore": 8.218867097000015,
+        "strict-export": 16.399518921000038
+      }
+    },
+    {
+      "artifact": "serial-baseline-ubuntu-latest-py3.13",
+      "source_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+      "source_dirty": false,
+      "serial_cases": 15,
+      "native_cases": 2,
+      "all_complete": true,
+      "environment": {
+        "backend_id": "serial-reference",
+        "cpu": "x86_64",
+        "distribution_version": "1.8.0",
+        "imported_package_path": "/home/runner/work/NCMemSim/NCMemSim/ncmemsim/__init__.py",
+        "logical_cpu_count": 4,
+        "numpy_version": "2.5.4",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+        "python_version": "3.13.16",
+        "schema_version": "performance-environment-v1",
+        "source_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+        "source_dirty": false,
+        "source_package_version": "1.8.0",
+        "thread_settings": {
+          "MKL_NUM_THREADS": null,
+          "NUMEXPR_NUM_THREADS": null,
+          "OMP_NUM_THREADS": null,
+          "OPENBLAS_NUM_THREADS": null
+        }
+      },
+      "index_sha256": {
+        "performance-results": "fe014335e238b6f18ddee2c303f3bfa406dd718e325625eba9a6a8da672dcf61",
+        "performance-memory": "50305dd427466c5e4667bd9ba1f0b9bee68a977c9b4c7e39b441eceb6dff30cf"
+      },
+      "selected_case_medians_s": {
+        "strict-restore": 6.123718096999994,
+        "strict-export": 12.232033575000003
+      }
+    },
+    {
+      "artifact": "serial-baseline-windows-latest-py3.11",
+      "source_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+      "source_dirty": false,
+      "serial_cases": 15,
+      "native_cases": 2,
+      "all_complete": true,
+      "environment": {
+        "backend_id": "serial-reference",
+        "cpu": "AMD64 Family 25 Model 1 Stepping 1, AuthenticAMD",
+        "distribution_version": "1.8.0",
+        "imported_package_path": "D:\\a\\NCMemSim\\NCMemSim\\ncmemsim\\__init__.py",
+        "logical_cpu_count": 4,
+        "numpy_version": "2.4.6",
+        "platform": "Windows-10-10.0.26100-SP0",
+        "python_version": "3.11.9",
+        "schema_version": "performance-environment-v1",
+        "source_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+        "source_dirty": false,
+        "source_package_version": "1.8.0",
+        "thread_settings": {
+          "MKL_NUM_THREADS": null,
+          "NUMEXPR_NUM_THREADS": null,
+          "OMP_NUM_THREADS": null,
+          "OPENBLAS_NUM_THREADS": null
+        }
+      },
+      "index_sha256": {
+        "performance-results": "44702820dd605993447c7fa5ffdd1d6f8e09ee4ca0ee3f94e4b28ac03f167132",
+        "performance-memory": "a08aec9ccf446752b5d399deb97420da96543ff802a80f21f935a4ffc83da27d"
+      },
+      "selected_case_medians_s": {
+        "strict-restore": 9.170472099999984,
+        "strict-export": 18.13692880000002
+      }
+    },
+    {
+      "artifact": "serial-baseline-windows-latest-py3.13",
+      "source_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+      "source_dirty": false,
+      "serial_cases": 15,
+      "native_cases": 2,
+      "all_complete": true,
+      "environment": {
+        "backend_id": "serial-reference",
+        "cpu": "AMD64 Family 25 Model 1 Stepping 1, AuthenticAMD",
+        "distribution_version": "1.8.0",
+        "imported_package_path": "D:\\a\\NCMemSim\\NCMemSim\\ncmemsim\\__init__.py",
+        "logical_cpu_count": 4,
+        "numpy_version": "2.5.4",
+        "platform": "Windows-2025Server-10.0.26100-SP0",
+        "python_version": "3.13.16",
+        "schema_version": "performance-environment-v1",
+        "source_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+        "source_dirty": false,
+        "source_package_version": "1.8.0",
+        "thread_settings": {
+          "MKL_NUM_THREADS": null,
+          "NUMEXPR_NUM_THREADS": null,
+          "OMP_NUM_THREADS": null,
+          "OPENBLAS_NUM_THREADS": null
+        }
+      },
+      "index_sha256": {
+        "performance-results": "daae4715e0ec7dec23825ee123d2122d13b02ebffff1a31c2920b3e8f32e774c",
+        "performance-memory": "e5e4bc21f0b0ea7fb264a9396946819bc9b86d41a9b11c0fb83190441c56deca"
+      },
+      "selected_case_medians_s": {
+        "strict-restore": 8.452970100000016,
+        "strict-export": 16.696024600000044
+      }
+    }
+  ],
+  "runtime_scope": "one private optimization in ncmemsim.multilevel_reporting",
+  "source_sha256_utf8_lf": {
+    "baseline": "16028bbf65ab59a9fbacf9fd9e68ff8c15231f781490b0984fe056ddd00472e8",
+    "candidate": "6a831ee97be3b11b81a703614c7b40e084ec5ba87b8443c64e3c89307f71a2e5"
+  },
+  "mechanism": "operation-scoped reuse of immutable validated source JSON strings keyed by validator and exact text",
+  "cache_bounds": {
+    "entries": 16,
+    "retained_key_string_budget_bytes": 2097152,
+    "note": "Python dictionary/context/validator overhead is additional; no hard RSS cap"
+  },
+  "preserved": [
+    "all outer/case/source schema and projection checks",
+    "changed source forces validation",
+    "invalid input never cached",
+    "context reset after success/failure",
+    "no global cross-call cache",
+    "full scientific payload/archive hashes/bundle bytes",
+    "all public signatures/exports and 1.8.0 identity"
+  ],
+  "predeclared_acceptance": {
+    "minimum_median_workload_speedup": 1.1,
+    "every_measured_pair_faster": true,
+    "median_launch_to_response_improves": true,
+    "science": "exact complete result including bundle file hashes",
+    "native_median_growth_allowed": "max(4 MiB, 10% of baseline process peak)",
+    "observations": "one warmup and five alternating measured baseline/candidate pairs per workload/instrument",
+    "scope": "local selected restore/export cases, not a universal acceleration claim"
+  },
+  "local_tests": {
+    "cache_tamper_and_paired_acceptance_tests": 32,
+    "status": "PASS"
+  },
+  "limits": [
+    "Single optimization; no physics/solver/backend or sampling changes",
+    "Paired measurement and installed distribution evidence must pass before local acceptance",
+    "Exact-commit cross-platform R3 evidence follows user push"
+  ],
+  "local_comparison": {
+    "index_sha256": "4901975f2545b1f5e96df7b06aa82ff7b331460f3b022a059fe419e866599ece",
+    "baseline_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+    "candidate_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+    "candidate_dirty": true,
+    "source_tree_hashes": {
+      "baseline": "9880db652af202dca8897639b6433bc06b718aa8ff8864d4e33d32293d3fba04",
+      "candidate": "7fb16beb8ef251ca7693bb250955c0a748a2cc0bce1408d0c1e9fbc37a6f2913"
+    },
+    "accepted": true,
+    "raw_evidence": "Workspace outputs/phase-r3-paired; response files linked by SHA-256",
+    "observation_count": 48,
+    "measured_observation_count": 40,
+    "cases": [
+      {
+        "case": "strict-restore",
+        "workload_hash": "33ea0006f0fe8a1be266338c5e74d1a39c907b4cc1ea368379afafb4229f53a9",
+        "case_file_sha256": "45ad52347c1d421bf6f29aff333c40104e29a029be1c6caa659f5d78a2ef196d",
+        "summary": {
+          "all_completed_and_exact": true,
+          "workload_timings": {
+            "none": {
+              "baseline": {
+                "count": 5,
+                "median_s": 9.38412539998535,
+                "min_s": 9.227723199990578,
+                "max_s": 9.46850540000014,
+                "median_absolute_deviation_s": 0.0843800000147894,
+                "median_launch_to_response_s": 10.218320399988443
+              },
+              "candidate": {
+                "count": 5,
+                "median_s": 4.924732999992557,
+                "min_s": 4.851889800047502,
+                "max_s": 4.987214799970388,
+                "median_absolute_deviation_s": 0.05106209998484701,
+                "median_launch_to_response_s": 5.7522024998907
+              }
+            },
+            "native_memory": {
+              "baseline": {
+                "count": 5,
+                "median_s": 9.330409100046381,
+                "min_s": 9.197460899944417,
+                "max_s": 9.573971200035885,
+                "median_absolute_deviation_s": 0.06736260000616312,
+                "median_launch_to_response_s": 10.175555600086227
+              },
+              "candidate": {
+                "count": 5,
+                "median_s": 4.981766700046137,
+                "min_s": 4.874544100021012,
+                "max_s": 5.505146099952981,
+                "median_absolute_deviation_s": 0.10722260002512485,
+                "median_launch_to_response_s": 5.799664000049233
+              }
+            }
+          },
+          "paired_workload_speedups": [
+            1.8985557630395946,
+            1.9018822727383946,
+            1.9332792043864901,
+            1.863360970479018,
+            1.9055094763512122
+          ],
+          "median_workload_speedup": 1.9055094763512122,
+          "median_launch_to_response_speedup": 1.776418754413219,
+          "median_native_peak_bytes": {
+            "baseline": 71135232,
+            "candidate": 70971392
+          },
+          "native_memory_accepted": true,
+          "accepted": true
+        },
+        "environments": {
+          "baseline": {
+            "backend_id": "serial-reference",
+            "cpu": "Intel64 Family 6 Model 158 Stepping 10, GenuineIntel",
+            "distribution_version": "0.10.0",
+            "imported_package_path": "C:\\Users\\user\\Documents\\Codex\\2026-09-30\\referenced-chatgpt-conversation-this-is-an\\outputs\\phase-r3-paired\\baseline-source\\ncmemsim\\__init__.py",
+            "logical_cpu_count": 12,
+            "numpy_version": "2.4.3",
+            "platform": "Windows-11-10.0.26300-SP0",
+            "python_version": "3.13.12",
+            "schema_version": "performance-environment-v1",
+            "source_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+            "source_dirty": false,
+            "source_package_version": "1.8.0",
+            "thread_settings": {
+              "MKL_NUM_THREADS": null,
+              "NUMEXPR_NUM_THREADS": null,
+              "OMP_NUM_THREADS": null,
+              "OPENBLAS_NUM_THREADS": null
+            }
+          },
+          "candidate": {
+            "backend_id": "serial-reference",
+            "cpu": "Intel64 Family 6 Model 158 Stepping 10, GenuineIntel",
+            "distribution_version": "1.8.0",
+            "imported_package_path": "J:\\CODE\\devsim_projects\\NCMemSim\\ncmemsim\\__init__.py",
+            "logical_cpu_count": 12,
+            "numpy_version": "2.4.3",
+            "platform": "Windows-11-10.0.26300-SP0",
+            "python_version": "3.13.12",
+            "schema_version": "performance-environment-v1",
+            "source_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+            "source_dirty": true,
+            "source_package_version": "1.8.0",
+            "thread_settings": {
+              "MKL_NUM_THREADS": null,
+              "NUMEXPR_NUM_THREADS": null,
+              "OMP_NUM_THREADS": null,
+              "OPENBLAS_NUM_THREADS": null
+            }
+          }
+        },
+        "native_measured_peak_ranges_bytes": {
+          "baseline": {
+            "min": 70684672,
+            "max": 72065024
+          },
+          "candidate": {
+            "min": 70627328,
+            "max": 72204288
+          }
+        },
+        "response_files_sha256": {
+          "strict-restore\\none\\warmup-0-baseline\\response.json": "19a1d0c2f5b401a0a03b42846e775a3143ac07479dca60ef86e886d60ef4fdad",
+          "strict-restore\\none\\warmup-0-candidate\\response.json": "f8dff5b712110abae7919b3b128515e070e6265ff079ae61cd73248919b84665",
+          "strict-restore\\none\\measurement-0-baseline\\response.json": "3fc82599eda3345fd5ded737975f67503770a701517e84771a75156883167ba7",
+          "strict-restore\\none\\measurement-0-candidate\\response.json": "4fc92d37dec7382382dea84bcece0a8e0d1a774b4ceed9e7ba8898d0c0d25bf9",
+          "strict-restore\\none\\measurement-1-candidate\\response.json": "12972a2b1e073bbc6766151249256baf7e47bef28bba82dda9c25ba9147e7d44",
+          "strict-restore\\none\\measurement-1-baseline\\response.json": "b198312d20740deaa6ea52afbf689b2e3d7d5c271cc6f950fd678b51f3f99bf2",
+          "strict-restore\\none\\measurement-2-baseline\\response.json": "f5332da61b0bde0fa206cdb093eb7228c1bc1fb8b794bbffc744c5ced652841c",
+          "strict-restore\\none\\measurement-2-candidate\\response.json": "2311bab905b72bb610a656c945c3b09fccbd820e51e5b3e6f0177f8241254e11",
+          "strict-restore\\none\\measurement-3-candidate\\response.json": "9de8c19475dbcdc87c177a68e3d40e907015970191659bd0cf5346a1fbb0a670",
+          "strict-restore\\none\\measurement-3-baseline\\response.json": "45f95eac81be37dd6276f936375ba0abee2dbf403b34e0ae7b1502ecca48f90b",
+          "strict-restore\\none\\measurement-4-baseline\\response.json": "67cff3385cb13b1ff47387af249d9a1668ea3421f95a543f91046cda91fc92b3",
+          "strict-restore\\none\\measurement-4-candidate\\response.json": "32dadee0a379fe345d4ff474c4f8fb81e81e89400bf225cb41875d0e70bff76b",
+          "strict-restore\\native_memory\\warmup-0-baseline\\response.json": "bb9d77e3c139c1cb77819093cd77583ca5db057406ee10d4b81508250cd597e0",
+          "strict-restore\\native_memory\\warmup-0-candidate\\response.json": "bb271dbdf42877cf15c3ccd6915c23cee7346667b341e1d511524b2bb26ea5c4",
+          "strict-restore\\native_memory\\measurement-0-baseline\\response.json": "c5e613c656540d3e2f43210b4313663103a2c522f72c7d85843a1d8c8abe8062",
+          "strict-restore\\native_memory\\measurement-0-candidate\\response.json": "46dfd5bd4b3cc3c6c7ceb6306a8af559ca2e477afb9dc82fde7ebf1addcb1af9",
+          "strict-restore\\native_memory\\measurement-1-candidate\\response.json": "796c4daef62632d5548cbc9e9e58ba545d921a689a73e8c36b430b4f42621942",
+          "strict-restore\\native_memory\\measurement-1-baseline\\response.json": "0a0815ec2a768ff242f2cda96b56f5e974499dbe2f100889d65e4d87708df201",
+          "strict-restore\\native_memory\\measurement-2-baseline\\response.json": "51edf465fb7bf1ae2b6f15a03eb178732f84bba7b715e5667e1dab0d52796b6b",
+          "strict-restore\\native_memory\\measurement-2-candidate\\response.json": "972ebb7b99a67e307276df35667acb00d492d99d13be428dcc4ca75cd669a2b2",
+          "strict-restore\\native_memory\\measurement-3-candidate\\response.json": "d4c998a67ed0b1f2e3a723f8e4e6283990c295ea5a395e269abc55d150c1da47",
+          "strict-restore\\native_memory\\measurement-3-baseline\\response.json": "ddd2b2ff6a22dbf502b4f6271e16822e101b7136ccf169b63374a297ba12c62f",
+          "strict-restore\\native_memory\\measurement-4-baseline\\response.json": "25a7e078b5661cb5b52642d60bd328802d389e94deca6333ece90a7c3a91f246",
+          "strict-restore\\native_memory\\measurement-4-candidate\\response.json": "8362cf8f63d82efe49aaf75d0f43a0d9856545e4e7ba902e0cb3310df0dad428"
+        }
+      },
+      {
+        "case": "strict-export",
+        "workload_hash": "ef114f2161a178dbb71671211b8c0cfd7447d7f0cbe1c2ee8e81a2a96e243657",
+        "case_file_sha256": "06ff8d929da86bc301bfe91726c8b2799ae91b741d55f5d6f9c815c618440aa3",
+        "summary": {
+          "all_completed_and_exact": true,
+          "workload_timings": {
+            "none": {
+              "baseline": {
+                "count": 5,
+                "median_s": 18.901854899944738,
+                "min_s": 18.493367500021122,
+                "max_s": 19.713375399936922,
+                "median_absolute_deviation_s": 0.3888428999343887,
+                "median_launch_to_response_s": 19.759568999987096
+              },
+              "candidate": {
+                "count": 5,
+                "median_s": 9.916483900044113,
+                "min_s": 9.899151699966751,
+                "max_s": 10.222015700070187,
+                "median_absolute_deviation_s": 0.01733220007736236,
+                "median_launch_to_response_s": 10.741592100006528
+              }
+            },
+            "native_memory": {
+              "baseline": {
+                "count": 5,
+                "median_s": 18.953575099934824,
+                "min_s": 18.724560200003907,
+                "max_s": 19.196092700003646,
+                "median_absolute_deviation_s": 0.14753329998347908,
+                "median_launch_to_response_s": 19.8337074998999
+              },
+              "candidate": {
+                "count": 5,
+                "median_s": 9.788182999938726,
+                "min_s": 9.7520380000351,
+                "max_s": 9.94724380003754,
+                "median_absolute_deviation_s": 0.03614499990362674,
+                "median_launch_to_response_s": 10.625012299977243
+              }
+            }
+          },
+          "paired_workload_speedups": [
+            1.9068181883553037,
+            1.8681769974373903,
+            1.8668927602381318,
+            1.9306667324297728,
+            1.8730114257132215
+          ],
+          "median_workload_speedup": 1.9061045316536693,
+          "median_launch_to_response_speedup": 1.8395382002985468,
+          "median_native_peak_bytes": {
+            "baseline": 78622720,
+            "candidate": 77553664
+          },
+          "native_memory_accepted": true,
+          "accepted": true
+        },
+        "environments": {
+          "baseline": {
+            "backend_id": "serial-reference",
+            "cpu": "Intel64 Family 6 Model 158 Stepping 10, GenuineIntel",
+            "distribution_version": "0.10.0",
+            "imported_package_path": "C:\\Users\\user\\Documents\\Codex\\2026-09-30\\referenced-chatgpt-conversation-this-is-an\\outputs\\phase-r3-paired\\baseline-source\\ncmemsim\\__init__.py",
+            "logical_cpu_count": 12,
+            "numpy_version": "2.4.3",
+            "platform": "Windows-11-10.0.26300-SP0",
+            "python_version": "3.13.12",
+            "schema_version": "performance-environment-v1",
+            "source_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+            "source_dirty": false,
+            "source_package_version": "1.8.0",
+            "thread_settings": {
+              "MKL_NUM_THREADS": null,
+              "NUMEXPR_NUM_THREADS": null,
+              "OMP_NUM_THREADS": null,
+              "OPENBLAS_NUM_THREADS": null
+            }
+          },
+          "candidate": {
+            "backend_id": "serial-reference",
+            "cpu": "Intel64 Family 6 Model 158 Stepping 10, GenuineIntel",
+            "distribution_version": "1.8.0",
+            "imported_package_path": "J:\\CODE\\devsim_projects\\NCMemSim\\ncmemsim\\__init__.py",
+            "logical_cpu_count": 12,
+            "numpy_version": "2.4.3",
+            "platform": "Windows-11-10.0.26300-SP0",
+            "python_version": "3.13.12",
+            "schema_version": "performance-environment-v1",
+            "source_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+            "source_dirty": true,
+            "source_package_version": "1.8.0",
+            "thread_settings": {
+              "MKL_NUM_THREADS": null,
+              "NUMEXPR_NUM_THREADS": null,
+              "OMP_NUM_THREADS": null,
+              "OPENBLAS_NUM_THREADS": null
+            }
+          }
+        },
+        "native_measured_peak_ranges_bytes": {
+          "baseline": {
+            "min": 77950976,
+            "max": 79372288
+          },
+          "candidate": {
+            "min": 77316096,
+            "max": 78499840
+          }
+        },
+        "response_files_sha256": {
+          "strict-export\\none\\warmup-0-baseline\\response.json": "475ba03a485d25e72b2a46a187d778d53c8d8587c1e22823a48a173961161da6",
+          "strict-export\\none\\warmup-0-candidate\\response.json": "a9fe56cf8a212a97fbd81b383c576681aee2d49a01f46877dfdb05273c23ee3d",
+          "strict-export\\none\\measurement-0-baseline\\response.json": "3e9a1d69ef3fbf13757c22d702060fcdcc48320305e38b934de93376e7a5320b",
+          "strict-export\\none\\measurement-0-candidate\\response.json": "f6fadb1aaf35b6af6b1e4114c7a4fd8855b6b92f441770cc40176b79c47b89c9",
+          "strict-export\\none\\measurement-1-candidate\\response.json": "8725ee60cee0d6f1db0aa608401ba64bb59d9a61b638aa3d8fbd83f8135e291c",
+          "strict-export\\none\\measurement-1-baseline\\response.json": "2ccc8fa9f81f281cff174798b7e61dab3f7bf723c91e94587f9123767669572d",
+          "strict-export\\none\\measurement-2-baseline\\response.json": "64229ed34c5134a7543b96b9582f4c512b7d446d10719805a4f1bdfefa4d3865",
+          "strict-export\\none\\measurement-2-candidate\\response.json": "a995114749fa1ca913b067cde410424c674f1f260bdf7f226d28c2c455f21d30",
+          "strict-export\\none\\measurement-3-candidate\\response.json": "c2fc0ece1e5412f2419c210bbe275c7f7b68f53cf393ee202f77280c079512b3",
+          "strict-export\\none\\measurement-3-baseline\\response.json": "37692038613c319a3e5c8cc217039a3db5f3e308cb0154733a7edf1793e56750",
+          "strict-export\\none\\measurement-4-baseline\\response.json": "79f7ab0127ac4525fff56034e2c7d836b52dd9f2fef0eea2c4e37163519e82de",
+          "strict-export\\none\\measurement-4-candidate\\response.json": "a643f2ff5c16363640be413f17176deab4bc79ec7bf857d22d4794bf272fb26a",
+          "strict-export\\native_memory\\warmup-0-baseline\\response.json": "1e1a875d3dccd002a6dfd1fe1e77463b6b6c3bf351d67ca1a3a9cf8c123c0b16",
+          "strict-export\\native_memory\\warmup-0-candidate\\response.json": "0cd64d2b4cb54635e6a92154a75dbe567238ab67929f945beeea84d1e5e53cf2",
+          "strict-export\\native_memory\\measurement-0-baseline\\response.json": "52717c9bbae9176c1c19b65ad9c824803d621e854f6fd94084ef70c432b2b2ee",
+          "strict-export\\native_memory\\measurement-0-candidate\\response.json": "148f519b69df1a3475fc79e8a7ac7388cd1914f2ee54ba4823f72ecd6eaee648",
+          "strict-export\\native_memory\\measurement-1-candidate\\response.json": "bf494e1a68cfa035f4467a819b780a61c15e4a093bba29ad778168ace036b593",
+          "strict-export\\native_memory\\measurement-1-baseline\\response.json": "d85b2cd363274fc1b4d091f01daca3b7f24f18c41f801015af351686e553ae9a",
+          "strict-export\\native_memory\\measurement-2-baseline\\response.json": "7735f4d57bb94ba72b2951fabc7a10896c68d7d88d61b13bc024fed6c3f68c88",
+          "strict-export\\native_memory\\measurement-2-candidate\\response.json": "4a909aa29b899162e1d9cb6f639847dd2b4afc5696214eaf475f0a26a626ad98",
+          "strict-export\\native_memory\\measurement-3-candidate\\response.json": "9f85cd73033252ce09aa39770d8a56de677f61292c3aa9b20cc8f002ed898f3a",
+          "strict-export\\native_memory\\measurement-3-baseline\\response.json": "fbe1feced36fb2e98dbe3287b33f4ffc280eef05248a02372d3221844593c851",
+          "strict-export\\native_memory\\measurement-4-baseline\\response.json": "ebfe4b3a509c9439fe4070b930a0c783b35efa34dad27dccf11573da0ef4ff62",
+          "strict-export\\native_memory\\measurement-4-candidate\\response.json": "6557bf734e6e1d3d813f3a247048b546779a36955904ed756121c9aab2270083"
+        }
+      }
+    ],
+    "limits": [
+      "Single-host alternating fresh-process observations, not a universal speedup.",
+      "Native memory runs separate from uninstrumented timings; whole-process peaks include imports.",
+      "Workload and lifecycle scopes match R2; baseline files come from a read-only Git archive.",
+      "Candidate dirty state is retained; exact-commit cross-platform evidence follows push."
+    ]
+  }
+}

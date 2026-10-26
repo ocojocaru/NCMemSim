@@ -73,6 +73,12 @@ nav:
       - Device-level calibration and pulse protocols: device_calibration.md
       - Validation overview: validation.md
       - Reproducibility and benchmarks: reproducibility.md
+      - Performance and interoperability planning: performance_interoperability.md
+      - Vendor-neutral data exchange: interoperability.md
+      - Controlled interchange comparisons: interoperability_comparison.md
+      - Performance and interchange reports: performance_reporting.md
+      - v1.9 release preparation: v1_9_release_checklist.md
+      - Report restoration optimization: report_restoration_optimization.md
       - Phase D6 validation report: Validation_Report.md
   - Project:
       - Visual identity: branding.md

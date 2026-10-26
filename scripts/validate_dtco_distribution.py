@@ -212,6 +212,23 @@ SOURCE_REQUIRED |= {'scripts/validate_v1_8_api_review.py', 'docs/v1_8_api_review
 SOURCE_REQUIRED |= {'scripts/validate_v1_8_release_identity.py'}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_7_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/independent_calibration.md', 'docs/v1_7_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
 
+SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_performance_execution.py',
+                    'scripts/compare_report_restoration.py', 'tests/test_phase_r3_report_validation_cache.py',
+                    'tests/test_phase_r4_interoperability.py',
+                    'tests/test_phase_r5_interoperability_comparison.py',
+                    'examples/phase_r5_interoperability_reference.py',
+                    'tests/test_phase_r6_performance_reporting.py',
+                    'examples/phase_r6_performance_report.py', 'scripts/validate_v1_9_api_review.py',
+                    'tests/test_phase_r7_preparation.py', 'docs/v1_9_api_review.json',
+                    'docs/v1_9_release_checklist.md', 'docs/v1_8_published_surface.json',
+                    'tests/fixtures/archives/v1_9_preparation/performance_report.json',
+                    'scripts/validate_v1_9_release_identity.py', 'tests/test_phase_r7_final_identity.py'}
+SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_8_0/'+name for name in (
+    'README.md','CHANGELOG.md','CITATION.cff','ncmemsim/_version.py','docs/index.md','docs/roadmap.md',
+    'docs/archival_citation.md','docs/multilevel_operation.md','docs/v1_8_release_checklist.md',
+    '.github/workflows/ci.yml','.github/workflows/docs.yml')}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--reuse-dependencies", action="store_true",
@@ -277,7 +294,17 @@ def main() -> None:
             run(str(python), '-I', '-c', INDEPENDENT_PROBE, str(work), version, cwd=work)
             shutil.copyfile(root / 'tests/fixtures/archives/v1_8_preparation/multilevel_report.json', work / 'multilevel_report.json')
             run(str(python), '-I', '-c', MULTILEVEL_PROBE, str(work), version, cwd=work)
-            results.append({"artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
+            run(str(python), '-I', '-c', PERFORMANCE_CONTRACT_PROBE, str(environment), cwd=work)
+            run(str(python), '-I', '-c', INTEROPERABILITY_PROBE, cwd=work)
+            shutil.copyfile(root / 'examples/phase_r5_interoperability_reference.py', work / 'r5_reference.py')
+            run(str(python), '-I', str(work / 'r5_reference.py'),
+                '--output', str(work / f'r5-controls-{number}.json'), cwd=work)
+            shutil.copyfile(root / 'examples/phase_r5_interoperability_reference.py', work / 'phase_r5_interoperability_reference.py')
+            shutil.copyfile(root / 'examples/phase_r6_performance_report.py', work / 'phase_r6_performance_report.py')
+            run(str(python), '-I', '-c', PERFORMANCE_REPORT_PROBE, str(work), str(environment), str(number), cwd=work)
+            shutil.copyfile(root / 'tests/fixtures/archives/v1_9_preparation/performance_report.json', work / 'frozen_performance_report.json')
+            run(str(python), '-I', '-c', PERFORMANCE_ARCHIVE_PROBE, str(work), str(number), cwd=work)
+            results.append({"installed_performance_contracts": "PASS", "artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
 
@@ -768,6 +795,14 @@ def alternate_expm1(value):
 math.expm1=alternate_expm1
 raw=json.loads((work/'multilevel_report.json').read_text(encoding='utf-8'))
 report=MultilevelReport.from_dict(raw)
+import ncmemsim.multilevel_reporting as scoped_reporting
+assert scoped_reporting._SOURCE_VALIDATION_CACHE.get() is None
+bad_source=json.loads(json.dumps(raw))
+bad_source['cases'][0]['source_hash']='0'*64
+try:MultilevelReport.from_dict(bad_source)
+except ValueError:pass
+else:raise AssertionError('changed source hash must not reuse a prior public validation')
+assert scoped_reporting._SOURCE_VALIDATION_CACHE.get() is None
 assert report.to_dict()==raw and report.summary['experimental_qualification'] is False
 assert len({case.kind for case in report.cases})==8
 assert any(row['status']=='failed' for row in report.summary['cases'])
@@ -786,6 +821,111 @@ try:load_multilevel_report_bundle(second)
 except ValueError:pass
 else:raise AssertionError('coherently rehashed multilevel projection must fail')
 print('Installed multilevel API/archive/bundle and negative outcomes PASS')
+"""
+
+PERFORMANCE_CONTRACT_PROBE = r"""import pathlib, sys
+import ncmemsim.performance_contracts as api
+assert pathlib.Path(api.__file__).resolve().is_relative_to(pathlib.Path(sys.argv[1]).resolve())
+w = api.PerformanceWorkload('installed', 'relaxation', {'initial': [1, 0]},
+    ('execution',), 'state_chain', 1, 'Synthetic installed contract probe')
+assert api.PerformanceWorkload.from_json(w.to_json()).contract_hash == w.contract_hash
+p = api.MeasurementProtocol()
+assert api.MeasurementProtocol.from_json(p.to_json()).to_dict() == p.to_dict()
+c = api.EquivalenceContract(w.contract_hash,
+    (api.EquivalenceRule('/value', 'synthetic', '1', 1e-9, 0),),
+    ('/source',), 'Synthetic installed probe, not physical qualification')
+a = {'source': 'fixture', 'value': 1.0}
+b = {'source': 'fixture', 'value': 1.0000000001}
+assert api.compare_scientific_results(c, w, a, b)['status'] == 'equivalent'
+b['source'] = 'changed'
+assert api.compare_scientific_results(c, w, a, b)['status'] == 'not_equivalent'
+print('Installed performance contracts and equivalence PASS')
+from ncmemsim import DeviceBuilder
+from ncmemsim.temperature_context import ThermalContext
+from ncmemsim.performance_execution import run_serial_campaign
+from ncmemsim.performance_workloads import execute_performance_workload
+import ncmemsim.performance_execution as execution
+assert pathlib.Path(execution.__file__).resolve().is_relative_to(pathlib.Path(sys.argv[1]).resolve())
+w = api.PerformanceWorkload('installed-r2', 'relaxation', {'case': 'trajectory', 'payload': {
+    'context': ThermalContext.from_nominal(DeviceBuilder.v2(1)).to_dict(), 'temperature_K': 300.,
+    'settings': {'voltage_V': 2., 'duration_s': 2e-8, 'dt_s': 1e-8, 'initial_p1': [.2]}}},
+    ('end_to_end',), 'state_chain', 1, 'Synthetic installed R2 probe, declared test source identity')
+r = run_serial_campaign(w, api.MeasurementProtocol(isolation='fresh_process',
+    max_trial_seconds=60., max_total_seconds=240.), source_commit='a'*40, source_dirty=True)
+assert r['summary']['complete'] and r['summary']['equivalent_measurement_count'] == 5
+assert len(r['trials']) == 6
+assert not r['summary']['speedup_accepted']
+print('Installed serial baseline and fresh-process source identity PASS')
+"""
+
+
+INTEROPERABILITY_PROBE = r"""from ncmemsim.interoperability import InteroperabilitySource, InteroperabilityDataset, ObservableMapping, convert_interoperability_data
+s=InteroperabilitySource('installed-synthetic', 'a'*64, 'synthetic', '1', {'model':'control'}, 'synthetic only')
+names=('geometry_materials','contacts_bias','temperature_K','history','initial_state','time_conditions','frequency_conditions','area_m2','coordinates','potential_reference','energy_reference','electron_charge_sign','applicability','optical_conditions')
+d=InteroperabilityDataset('installed',s,dict.fromkeys(names),[{'name':'x','quantity':'position','unit':'nm','values':[1.,2.]}],[])
+assert InteroperabilityDataset.from_json(d.to_json()).contract_hash==d.contract_hash
+m=ObservableMapping(d.contract_hash,'x','position','m',1,0.,'none','explicit synthetic conversion')
+r=convert_interoperability_data(d,m)
+assert r['status']=='unavailable' and r['values'] is None and not r['external_agreement']
+try:
+    ObservableMapping.from_json(m.to_json().replace('position','total_charge'))
+except ValueError:
+    pass
+else:
+    raise AssertionError('incompatible dimension accepted')
+print('Installed R4 interchange PASS')
+"""
+
+
+PERFORMANCE_REPORT_PROBE = r"""import pathlib,sys
+work=pathlib.Path(sys.argv[1]);sys.path.insert(0,str(work))
+# Only copied example modules live here; no checkout package is exposed.
+import ncmemsim.performance_reporting as api
+assert pathlib.Path(api.__file__).resolve().is_relative_to(pathlib.Path(sys.argv[2]).resolve())
+from phase_r6_performance_report import build_reference_report
+report=build_reference_report(source_commit='0'*40,source_dirty=True,include_observed=True)
+# Zero Git identity is explicitly a caller declaration in this installed-artifact probe.
+left=api.write_performance_interoperability_report(report,work/('r6-left-'+sys.argv[3]))
+right=api.write_performance_interoperability_report(report,work/('r6-right-'+sys.argv[3]))
+assert {p.name:p.read_bytes() for p in left.iterdir()}=={p.name:p.read_bytes() for p in right.iterdir()}
+assert api.load_performance_interoperability_bundle(left).contract_hash==report.contract_hash
+raw=report.to_dict();raw['comparisons'][1]['result']['status']='matched'
+from ncmemsim.performance_contracts import _hash
+raw['comparisons'][1]['result_hash']=_hash(raw['comparisons'][1]['result'])
+try:api.PerformanceInteroperabilityReport.from_dict(raw)
+except ValueError:pass
+else:raise AssertionError('coherently rehashed negative result accepted')
+assert not report.to_dict()['summary']['speedup_accepted']
+print('Installed R6 strict campaign/comparison report, bundle and tamper rejection PASS')
+"""
+
+
+PERFORMANCE_ARCHIVE_PROBE = r"""import pathlib,sys,json,hashlib
+from ncmemsim.performance_reporting import PerformanceInteroperabilityReport,write_performance_interoperability_report,load_performance_interoperability_bundle
+import ncmemsim.performance_execution as execution
+import ncmemsim.performance_workloads as workloads
+def forbidden(*a,**kw):raise AssertionError('frozen restoration must not execute or probe')
+execution._invoke=forbidden;execution._worker=forbidden
+execution.run_serial_campaign=forbidden;execution.capture_performance_environment=forbidden
+workloads.execute_performance_workload=forbidden
+work=pathlib.Path(sys.argv[1])
+raw=json.loads((work/'frozen_performance_report.json').read_text(encoding='utf-8'))
+report=PerformanceInteroperabilityReport.from_dict(raw)
+assert report.contract_hash=='75fbc26f082f99602c63df5bf2466c0d14575b305483a92ba71060db3948ea28'
+assert report.to_dict()==raw and len(raw['campaigns'])==5 and len(raw['comparisons'])==9
+assert raw['campaigns'][0]['archive']['campaign']['environment']['source_package_version']=='1.8.0'
+left=write_performance_interoperability_report(report,work/('r7-left-'+sys.argv[2]))
+right=write_performance_interoperability_report(report,work/('r7-right-'+sys.argv[2]))
+assert {p.name:p.read_bytes() for p in left.iterdir()}=={p.name:p.read_bytes() for p in right.iterdir()}
+assert load_performance_interoperability_bundle(left).contract_hash==report.contract_hash
+path=left/'trials.csv';path.write_bytes(path.read_bytes()+b'changed\n')
+manifest=json.loads((left/'bundle.json').read_text(encoding='utf-8'))
+manifest['files']['trials.csv']=hashlib.sha256(path.read_bytes()).hexdigest()
+(left/'bundle.json').write_text(json.dumps(manifest),encoding='utf-8')
+try:load_performance_interoperability_bundle(left)
+except ValueError:pass
+else:raise AssertionError('coherently rehashed trial projection accepted')
+print('Installed R7 frozen performance archive, no replay, deterministic export and tamper rejection PASS')
 """
 
 if __name__ == "__main__":

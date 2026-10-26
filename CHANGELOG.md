@@ -4,6 +4,63 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+No additional changes recorded.
+
+## 1.9.0 - 2026-10-23 (unpublished candidate)
+
+Final candidate identity is prepared; exact-candidate CI, PR/main/tag checks,
+release publication and version-specific Zenodo archival remain pending.
+The latest published stable is 1.8.0; experimental qualification remains deferred.
+
+- Prepare Phase R7 for target v1.9.0: independently freeze all 140 published
+  v1.8 module surfaces, review six additive modules/20 exports and retain a strict
+  five-campaign/nine-comparison preparation archive. Add source/API/archive and
+  installed-distribution gates. Final candidate identity is 1.9.0; the preparation
+  report retains its original 1.8.0 source identity.
+
+- Add Phase R6 strict static serial-campaign archives and combined performance/
+  interchange reports. Recompute source-linked comparisons, trial accounting and
+  statistics; preserve failures, unavailable results and separate timing/memory
+  groups. Add deterministic JSON/Markdown/CSV bundles with strict restoration and
+  coherent-tamper rejection, without solver replay or new qualification claims.
+
+- Add Phase R5 source-bound comparisons with explicit common conditions,
+  row/grid alignment and reference-relative tolerances. Preserve signed residuals,
+  negative/unavailable outcomes and excluded-row denominators. Add nine synthetic
+  interchange/comparison controls and installed wheel/sdist probes; no TCAD
+  agreement, experimental qualification or new solver optimization is claimed.
+
+- Add Phase R4 owned simulated-data source/dataset/mapping contracts, strict JSON
+  interchange, explicit dimensional and area conversions, retained original values
+  and exclusions, and unavailable outcomes for missing conditions. No external
+  TCAD agreement or experimental qualification is claimed. Freeze the recurring
+  R3 comparison at its accepted commit; current-package gates remain active.
+
+- Add Phase R3 bounded operation-scoped reuse of immutable validated multilevel
+  source JSON, avoiding duplicate source reconstruction inside one report restore.
+  Preserve changed-source validation, rejection gates and exact scientific/archive
+  projections. Add paired committed-baseline timing/native-memory comparisons and
+  cross-platform gates; no solver, physics, public signature or schema change.
+
+- Add Phase R2 fresh-process serial campaigns with bounded worker timeouts,
+  complete warmup/measurement/failure records, environment/source capture and
+  full-payload serial repeatability checks. Cover 15 controlled workloads,
+  paired time-step diagnostics, separate native process memory observations,
+  installed wheel/sdist probes and cross-platform CI evidence collection.
+  No solver optimization, accepted speedup or new scientific qualification.
+
+- Add Phase R1 immutable workload, measurement protocol, environment and trial
+  declarations with strict JSON restoration and explicit failure/memory accounting.
+  Add workload-bound numerical equivalence with observable-specific tolerances,
+  exact provenance and retained negative/unassessable outcomes. No benchmark
+  executor, optimization, accepted speedup or TCAD qualification is introduced.
+
+- Define Phase R0 performance/interoperability scope, source audit and exploratory
+  trajectory/report-restoration profiles. Plan R1-R7 with numerical equivalence,
+  representative baseline trials, failure provenance and vendor-neutral data
+  requirements. No runtime/API, physics, archive, package/citation version,
+  accepted speedup or external TCAD qualification changes.
+
 ## 1.8.0 - 2026-10-20
 
 Published release; candidate/PR/main/tag CI and Release passed. Q7 is complete.

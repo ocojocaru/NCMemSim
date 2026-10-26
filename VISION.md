@@ -36,9 +36,11 @@ The DTCO layer will explore variables such as dielectric thickness, FG count, NC
 
 ### Neuromorphic and in-memory operation
 
-Phase Q targets explicit pulse sequences, multilevel readout separation, gradual
-updates and retention drift using the existing compact physics. Q0 defines the
-[scope and acceptance sequence](docs/multilevel_operation.md). The first
+Published v1.8 provides explicit electrical/matched optical pulse sequences,
+multilevel readout separation, gradual updates and bounded retention diagnostics
+using existing compact physics. The completed Phase Q
+[scope and acceptance sequence](docs/multilevel_operation.md) retains scientific
+limits. The first
 neuromorphic quantity is a normalized readout-derived weight proxy, with an
 explicit mapping from signed flat-band shift. Conductance/current, circuit-level
 in-memory computation and physical degradation need separate models. Repeated
@@ -68,8 +70,11 @@ properties are delivered in v1.4.
 - **v1.6:** released hydrostatic strain-induced optical shifts, kinetic confinement diagnostics and strict structural reports;
 - **v1.7:** published calibration infrastructure and synthetic numerical diagnostics;
   independent experimental P4B/P5B/P6B qualification remains deferred;
-- **v1.8 (target):** Phase Q multilevel and neuromorphic operation; Q0 scope and
-  source audit complete, Q1-Q7 implementation and release acceptance pending;
+- **v1.8:** published multilevel/neuromorphic diagnostics and strict reports;
+  Q7 release and Zenodo archival complete, with experimental P4B/P5B/P6B deferred;
+- **Phase R (target v1.9.0):** R0 audit/exploratory profiling complete;
+  measurement-driven acceleration and vendor-neutral interoperability requirements;
+  see [Phase R planning](docs/performance_interoperability.md);
 - **Later (indicative):** broader structural physics, neuromorphic
   workflows, acceleration and higher-fidelity interoperability; see
   [roadmap](docs/roadmap.md). Major-version changes require a compatibility rationale.
@@ -77,3 +82,7 @@ properties are delivered in v1.4.
 ## Definition of success
 
 NCMemSim succeeds when another researcher can reproduce a published simulation, inspect each modelling assumption, replace one physical submodel without breaking unrelated components, compare simulation to experiment, and report the exact software and parameter provenance used.
+
+The final v1.9.0 candidate selects a minor additive release: published module surfaces
+and archive semantics are retained. Candidate identity is prepared; exact-commit
+gates and release/Zenodo closure remain pending.

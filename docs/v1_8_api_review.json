@@ -7,6 +7,15 @@
   "candidate_date": "2026-10-20",
   "implementation_source_commit": "ef3db539489f523241a2aada4183deb3a29158c5",
   "approved_scope": "Q1-Q6 electrical/matched optical multilevel diagnostics, bounded retention/ensemble adapters and strict reports",
+  "post_release_compatibility_reviews": [
+    {
+      "phase": "R3",
+      "baseline_commit": "6034231ffe34c374c42a43f9ac89a1a4acd7316c",
+      "baseline_multilevel_reporting_sha256": "16028bbf65ab59a9fbacf9fd9e68ff8c15231f781490b0984fe056ddd00472e8",
+      "change": "Bounded operation-scoped immutable source-validation reuse; no public API/archive/scientific change",
+      "evidence": "docs/report_restoration_optimization_review.json"
+    }
+  ],
   "retained_v1_7_review_sha256": "08f05202a426095276bfb7b4872626619a8f2b40065ff43373b619ec83da82e8",
   "published_v1_7_snapshot_sha256": {
     "README.md": "20f605fc0308adea7b9dfd1ee480557b74814c2dbf98425431bcbb1f03015527",
@@ -2514,7 +2523,7 @@
         ],
         "public_assignments": []
       },
-      "source_sha256": "16028bbf65ab59a9fbacf9fd9e68ff8c15231f781490b0984fe056ddd00472e8"
+      "source_sha256": "6a831ee97be3b11b81a703614c7b40e084ec5ba87b8443c64e3c89307f71a2e5"
     }
   ],
   "scientific_limits": [

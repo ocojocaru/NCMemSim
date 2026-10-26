@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 140 package source modules; 752 explicit export paths; 262 distinct documented Python import paths.
+Coverage: 146 package source modules; 772 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2742,6 +2742,54 @@ Decorators: `dataclass(frozen=True)`.
 
 - `evaluate_optical_holdout(plan: OpticalHoldoutPlan, training_fit: OpticalTrainingFitResult, split: IndependentStudySplit)`
 
+## ncmemsim.interoperability
+
+`ncmemsim/interoperability.py`
+
+Explicit exports: `InteroperabilitySource`, `InteroperabilityDataset`, `ObservableMapping`, `convert_interoperability_data`
+
+### InteroperabilitySource
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, source_id, file_sha256, simulator, simulator_version, models, citation)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+### InteroperabilityDataset
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, dataset_id, source, metadata, columns, exclusions)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+### ObservableMapping
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, dataset_hash, column, target_quantity, target_unit, sign, offset, area_operation, rationale)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `convert_interoperability_data(dataset, mapping)`
+
+## ncmemsim.interoperability_comparison
+
+`ncmemsim/interoperability_comparison.py`
+
+Explicit exports: `InteroperabilityComparison`, `compare_interoperability_data`
+
+### InteroperabilityComparison
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, reference, candidate, mappings, target_metadata, applicability_review, axis_atol, axis_rtol, atol, rtol)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `compare_interoperability_data(comparison)`
+
 ## ncmemsim.io
 
 `ncmemsim/io.py`
@@ -4135,6 +4183,106 @@ Decorators: `dataclass`.
 - `to_dict(self) -> dict[str, Any]`.
 
 - `run_paired_pulse_memory_protocol(simulator: Simulator, protocol: PairedPulseMemoryProtocol, *, reference_state: DeviceState | None=None) -> PairedPulseMemoryResult`
+
+## ncmemsim.performance_contracts
+
+`ncmemsim/performance_contracts.py`
+
+Explicit exports: `PerformanceWorkload`, `MeasurementProtocol`, `PerformanceEnvironment`, `PerformanceTrial`, `EquivalenceRule`, `EquivalenceContract`, `compare_scientific_results`
+
+### PerformanceWorkload
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, workload_id, workflow_kind, scientific_inputs, scope, dependency_kind, logical_item_count, notes)`.
+
+- `scientific_inputs(self)`; `property`.
+- `scientific_input_hash(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### MeasurementProtocol
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, warmup_count=1, measured_count=5, instrumentation='none', isolation='fresh_state', max_trial_seconds=60.0, max_total_seconds=600.0)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+### PerformanceEnvironment
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, source_commit, source_dirty, source_package_version, distribution_version, imported_package_path, python_version, numpy_version, platform, cpu, logical_cpu_count, thread_settings, backend_id)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+### PerformanceTrial
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, workload, protocol, environment, phase, index, status, elapsed_seconds, result_hash=None, failure=None, memory_kind='not_measured', memory_bytes=None, memory_method=None)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+### EquivalenceRule
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, path, quantity, unit, atol, rtol)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+### EquivalenceContract
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, workload_hash, rules, exact_paths, reference_evidence)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `compare_scientific_results(contract, workload, reference, candidate)`
+
+## ncmemsim.performance_execution
+
+`ncmemsim/performance_execution.py`
+
+Explicit exports: `capture_performance_environment`, `run_serial_campaign`
+
+- `capture_performance_environment(source_commit, source_dirty)`
+- `run_serial_campaign(workload, protocol, *, source_commit, source_dirty, reference=None, equivalence=None)`
+
+## ncmemsim.performance_reporting
+
+`ncmemsim/performance_reporting.py`
+
+Explicit exports: `PerformanceCampaignArchive`, `PerformanceInteroperabilityReport`, `write_performance_interoperability_report`, `load_performance_interoperability_bundle`
+
+### PerformanceCampaignArchive
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, campaign, evidence_kind, notes)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+### PerformanceInteroperabilityReport
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, title, campaigns, comparisons)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `write_performance_interoperability_report(report, destination)`
+- `load_performance_interoperability_bundle(destination)`
+
+## ncmemsim.performance_workloads
+
+`ncmemsim/performance_workloads.py`
+
+Explicit exports: `execute_performance_workload`
+
+- `execute_performance_workload(workload, storage)`
 
 ## ncmemsim.photo
 

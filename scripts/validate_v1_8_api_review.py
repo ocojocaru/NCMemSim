@@ -37,6 +37,10 @@ def build_review(root):
         'target_release':'1.8.0','published_baseline':'1.7.0','package_identity_at_review':'1.8.0',
         'candidate_date':'2026-10-20','implementation_source_commit':'ef3db539489f523241a2aada4183deb3a29158c5',
         'approved_scope':'Q1-Q6 electrical/matched optical multilevel diagnostics, bounded retention/ensemble adapters and strict reports',
+        'post_release_compatibility_reviews':[{'phase':'R3', 'baseline_commit':'6034231ffe34c374c42a43f9ac89a1a4acd7316c',
+            'baseline_multilevel_reporting_sha256':'16028bbf65ab59a9fbacf9fd9e68ff8c15231f781490b0984fe056ddd00472e8',
+            'change':'Bounded operation-scoped immutable source-validation reuse; no public API/archive/scientific change',
+            'evidence':'docs/report_restoration_optimization_review.json'}],
         'retained_v1_7_review_sha256':_semantic_json_digest(root/'docs/v1_7_api_review.json'),
         'published_v1_7_snapshot_sha256':{name:_text_hash(root/'tests/fixtures/releases/v1_7_0'/name) for name in SNAPSHOTS},
         'frozen_report_sha256':_semantic_json_digest(root/ARCHIVE),
@@ -85,10 +89,31 @@ def validate(root):
         'archive_case_count':len(report.cases),'report_hash':report.contract_hash,'experimental_qualification':False}
 
 
+
+PUBLISHED_V18_SNAPSHOTS = ('README.md','CHANGELOG.md','CITATION.cff','ncmemsim/_version.py',
+    'docs/index.md','docs/roadmap.md','docs/archival_citation.md','docs/multilevel_operation.md',
+    'docs/v1_8_release_checklist.md','.github/workflows/ci.yml','.github/workflows/docs.yml')
+
+
+def validate_retained(root):
+    """Validate current retained runtime/API using frozen published v1.8 identity declarations."""
+    import shutil
+    import tempfile
+    with tempfile.TemporaryDirectory(prefix='ncmemsim-v18-review-') as temporary:
+        target=Path(temporary)
+        for folder in ('docs','ncmemsim','tests/fixtures','data'):
+            shutil.copytree(root/folder,target/folder)
+        for name in PUBLISHED_V18_SNAPSHOTS:
+            destination=target/name;destination.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(root/'tests/fixtures/releases/v1_8_0'/name,destination)
+        return validate(target)
+
+
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--write-review',action='store_true')
+    parser.add_argument('--retained',action='store_true')
     args=parser.parse_args()
     if args.write_review:
         (ROOT/'docs/v1_8_api_review.json').write_text(json.dumps(build_review(ROOT),indent=2)+'\n',encoding='utf-8')
-    print(json.dumps(validate(ROOT),indent=2))
+    print(json.dumps(validate_retained(ROOT) if args.retained else validate(ROOT),indent=2))

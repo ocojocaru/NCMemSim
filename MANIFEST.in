@@ -55,3 +55,19 @@ include scripts/validate_v1_7_release_identity.py
 
 include scripts/validate_v1_8_api_review.py
 include scripts/validate_v1_8_release_identity.py
+include scripts/run_performance_baseline.py
+include tests/test_phase_r2_performance_execution.py
+include scripts/compare_report_restoration.py
+include tests/test_phase_r3_report_validation_cache.py
+
+include tests/test_phase_r4_interoperability.py
+
+include tests/test_phase_r5_interoperability_comparison.py
+
+include tests/test_phase_r6_performance_reporting.py
+
+include scripts/validate_v1_9_api_review.py
+include tests/test_phase_r7_preparation.py
+
+include scripts/validate_v1_9_release_identity.py
+include tests/test_phase_r7_final_identity.py
