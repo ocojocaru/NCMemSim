@@ -1,12 +1,22 @@
 {
   "schema_version": "phase-r-v1.9-final-candidate-api-review-v1",
-  "status": "final_candidate_review",
+  "status": "published_release_review",
   "target_release": "1.9.0",
   "published_baseline": "1.8.0",
   "package_identity_at_review": "1.9.0",
   "review_date": "2026-10-23",
   "implementation_source_commit": "cc15fef20281ab0d4f305eecfd2b13f08e984a27",
   "candidate_date": "2026-10-23",
+  "publication_date": "2026-10-26",
+  "version_doi": "10.5281/zenodo.23664613",
+  "release_commit": "af16961c832aaa3c8009450534f59cfbbc7893ea",
+  "publication_evidence": {
+    "main_ci": 40300701850,
+    "documentation": 40300701878,
+    "tag_ci": 40313404859,
+    "release": 40313404817,
+    "zenodo_record": 23664613
+  },
   "published_v1_8_snapshot_sha256": {
     "README.md": "6c044a41f9fa2c67355f84bcc3201e5f10e8b8cafb2dbcb5f4d71aa3a28ca6b8",
     "CHANGELOG.md": "d70249f4b0cfe88dacf7b784edf949555693bd9926fa9b4f98956ca10fc0282d",
@@ -1655,5 +1665,5 @@
     "Timing, native RSS, host and workload scopes remain separate; no pooled performance claim.",
     "Static archive checks verify consistency, not authenticity or replayed dynamics."
   ],
-  "release_policy": "Final candidate identity prepared, not yet published: exact candidate CI, PR/main/tag checks, release publication and Zenodo archival remain pending. No v1.9 DOI is invented."
+  "release_policy": "Published v1.9.0: candidate/PR/main/tag CI and Release passed; confirmed version DOI is separate from Concept DOI. Metadata follow-up requires its own CI after push."
 }

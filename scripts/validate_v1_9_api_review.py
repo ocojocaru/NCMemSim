@@ -91,10 +91,12 @@ def build_review(root):
                             source_sha256=_text_hash(root/(name.replace('.','/')+'.py'))))
     package={p.relative_to(root/'ncmemsim').as_posix():_text_hash(p)
              for p in sorted((root/'ncmemsim').rglob('*.py'))}
-    return dict(schema_version='phase-r-v1.9-final-candidate-api-review-v1',status='final_candidate_review',
+    return dict(schema_version='phase-r-v1.9-final-candidate-api-review-v1',status='published_release_review',
         target_release='1.9.0',published_baseline='1.8.0',package_identity_at_review=_version(root),
         review_date='2026-10-23',implementation_source_commit='cc15fef20281ab0d4f305eecfd2b13f08e984a27',
-        candidate_date='2026-10-23',
+        candidate_date='2026-10-23',publication_date='2026-10-26',
+        version_doi='10.5281/zenodo.23664613',release_commit='af16961c832aaa3c8009450534f59cfbbc7893ea',
+        publication_evidence=dict(main_ci=40300701850,documentation=40300701878,tag_ci=40313404859,release=40313404817,zenodo_record=23664613),
         published_v1_8_snapshot_sha256={name:_text_hash(root/'tests/fixtures/releases/v1_8_0'/name) for name in PUBLISHED_V18_SNAPSHOTS},
         preparation_ci_evidence=dict(source_commit='cc15fef20281ab0d4f305eecfd2b13f08e984a27',
             ci_run=39953158541,documentation_run=39953158477,conclusion='success'),
@@ -118,7 +120,7 @@ def build_review(root):
             'R3 speedups concern reviewed same-host archive operations only, not a universal solver speedup.',
             'Timing, native RSS, host and workload scopes remain separate; no pooled performance claim.',
             'Static archive checks verify consistency, not authenticity or replayed dynamics.'],
-        release_policy='Final candidate identity prepared, not yet published: exact candidate CI, PR/main/tag checks, release publication and Zenodo archival remain pending. No v1.9 DOI is invented.')
+        release_policy='Published v1.9.0: candidate/PR/main/tag CI and Release passed; confirmed version DOI is separate from Concept DOI. Metadata follow-up requires its own CI after push.')
 
 
 def validate(root):
@@ -132,9 +134,9 @@ def validate(root):
     previous=validate_published(root)
     if (previous['retained_stable_paths'],previous['stable_ensemble_exports'],previous['additive_exports'])!=(297,59,34):
         raise ValueError('published contract retention mismatch')
-    markers={'docs/v1_9_release_checklist.md':('Target release: `1.9.0`','Final candidate identity: `1.9.0`',
-                'P4B/P5B/P6B','Python 3.11, 3.12 and 3.13','not yet published'),
-             'docs/roadmap.md':('R7 final candidate','v1.9.0','experimental qualification remains deferred')}
+    markers={'docs/v1_9_release_checklist.md':('Target release: `1.9.0`','Published identity: `1.9.0`',
+                'P4B/P5B/P6B','Python 3.11, 3.12 and 3.13','R7 is complete'),
+             'docs/roadmap.md':('R7 is complete','v1.9.0','experimental qualification remains deferred')}
     for path,words in markers.items():
         if any(word not in (root/path).read_text(encoding='utf-8') for word in words):
             raise ValueError('R7 scope/checklist marker missing: '+path)
@@ -142,7 +144,7 @@ def validate(root):
         retained_published_modules=140,retained_stable_paths=297,stable_ensemble_exports=59,
         reviewed_modules=len(MODULES),additive_exports=sum(len(importlib.import_module(name).__all__) for name in MODULES),
         report_hash=ARCHIVE_SHA256,campaign_count=5,comparison_count=9,experimental_qualification=False,
-        exact_new_commit_ci='pending after push',final_candidate='prepared_unpublished')
+        exact_new_commit_ci='pending metadata follow-up push',final_candidate='published')
 
 
 if __name__=='__main__':

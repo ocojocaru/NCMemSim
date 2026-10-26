@@ -1,14 +1,11 @@
 # v1.9 R7 final candidate checklist
 
-Status: final candidate identity prepared; **not yet published**.
-Target release: `1.9.0`. Final candidate identity: `1.9.0`.
-Citation date: `2026-10-23`.
-Latest published stable: `1.8.0`, tag commit
-`03b35f40606dbd84c1cd6d715eb6de6222466b47`.
-Published DOI: 10.5281/zenodo.23510004; concept DOI: 10.5281/zenodo.23078330.
-No version-specific v1.9 DOI has been assigned. The candidate metadata date does
-not establish publication. Experimental P4B/P5B/P6B
-qualification remains deferred.
+Status: published v1.9.0; R7 is complete.
+Target release: `1.9.0`. Published identity: `1.9.0`.
+Citation date: `2026-10-26`.
+Latest published stable: `1.9.0`.
+Version DOI: 10.5281/zenodo.23664613; concept DOI: 10.5281/zenodo.23078330.
+Experimental P4B/P5B/P6B qualification remains deferred.
 
 ## Compatibility and version decision
 
@@ -49,7 +46,7 @@ Five campaigns and nine comparisons are statically restored and reexported by
 separately installed wheel/sdist probes, with workers and environment probing
 disabled. Original source identities are never relabelled as a v1.9 runtime.
 
-## Verification and remaining gates
+## Verification and publication evidence
 
 The exact R6 source passed CI run 39772236419 and Documentation run 39772236453.
 That includes full tests and clean distributions on Python 3.11, 3.12 and 3.13,
@@ -59,10 +56,11 @@ new current-tree speedup claim. Existing R0/R2/R3 audits stay historical.
 
 Preparation commit `cc15fef20281ab0d4f305eecfd2b13f08e984a27` passed CI run
 39953158541 and Documentation run 39953158477. These remain separate from
-pending exact-candidate checks. Published v1.8 declarations are frozen at
+separate final-candidate checks. Published v1.8 declarations are frozen at
 `tests/fixtures/releases/v1_8_0` with retained API/identity gates.
 
-For this final candidate change:
+The final candidate passed 355 focused local tests, strict documentation checks
+and installed wheel/sdist probes. The following checklist records the completed gates:
 
 - Run the new v1.9 review, retained v1.8 identity/API/archive checks and focused
   R1-R7 regression locally, including source/archive/summary tamper rejection.
@@ -70,22 +68,24 @@ For this final candidate change:
   probes. Local `--reuse-dependencies` is inherited-dependency evidence only.
 - After the user commits and pushes, require **full exact-commit CI** including
   Python 3.11, 3.12 and 3.13 tests and clean distributions. This new-commit evidence
-  remains pending until the new jobs finish; the green R6 run does not substitute
+  was satisfied by the completed candidate jobs; the green R6 run does not substitute
   for it. The full suite is already configured in CI.
 
-Final identity changes and remaining publication steps:
+Publication completed on 2026-10-26:
 
 - Published 1.8 identity fixtures are frozen before advancing current identity.
 - Single-source package version, citation date/version, current docs, changelog
   and final-identity validation are prepared together. Concept DOI is retained;
   the v1.8 version DOI is not reused for this candidate.
-- Review all supported matrix results on the exact final-candidate commit, then
-  on the PR and merged main. Use a normal merge preserving the R2/R3 history
-  needed by the pinned historical comparison job.
-- Tag only the verified main commit, then verify tag CI, Documentation,
-  distribution assets and GitHub Release publication.
-- Record the actual version-specific Zenodo DOI after archival, update citation
-  metadata and close R7 only after the follow-up commit passes checks.
+- Candidate 2f72e4d passed CI 39986887317 and Documentation 39986887210; PR #12
+  passed CI 40286335177 and Documentation 40286335175.
+- Normal merge af16961c832aaa3c8009450534f59cfbbc7893ea preserves R2/R3 history.
+  Main CI 40300701850 and Documentation 40300701878 passed.
+- Tag v1.9.0 identifies that merge commit. Tag CI 40313404859 and Release
+  40313404817 passed; stable GitHub Release published wheel and sdist.
+- Zenodo record 23664613 confirms v1.9.0, date 2026-10-26 and Concept DOI.
+  Citation and documentation record the actual version DOI. The metadata follow-up
+  commit still requires its own CI/Documentation verification after push.
 
 ## Scientific boundaries
 

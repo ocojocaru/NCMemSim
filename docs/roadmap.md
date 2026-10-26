@@ -513,14 +513,14 @@ are implemented with explicit common conditions, tolerance checks, negative and
 unavailable outcomes, and nine synthetic references; CI passed on `0796d4c`.
 R6 [strict reports and bundles](performance_reporting.md) are implemented for
 serial campaigns and comparisons, retaining source identities, all trials and
-static projection checks. R7 final candidate v1.9.0 is prepared with an additive API
+static projection checks. R7 is complete: v1.9.0 is published with an additive API
 review, independently frozen v1.8 surface and installed archive gates; see the
-[v1.9 checklist](v1_9_release_checklist.md). Exact-candidate CI and release/archival gates remain
-pending. Scientific equivalence, reproducibility and failure provenance
+[v1.9 checklist](v1_9_release_checklist.md). Candidate/PR/main/tag CI, Documentation and Release passed. Published 2026-10-26
+from commit af16961c832aaa3c8009450534f59cfbbc7893ea; version DOI: 10.5281/zenodo.23664613. Scientific equivalence, reproducibility and failure provenance
 must be preserved. Full co-simulation and larger device families are separate
 scopes. The minor-version decision preserves all 140 published module surfaces;
-no major contract/API break is identified. Published identity stays
-v1.8.0; experimental P4B/P5B/P6B qualification remains deferred.
+no major contract/API break is identified. Published identity is
+v1.9.0; experimental P4B/P5B/P6B qualification remains deferred.
 
 Each phase follows scope/contracts, implementation, integration, validation,
 applied reference, reproducible reports and exact-candidate release gates.

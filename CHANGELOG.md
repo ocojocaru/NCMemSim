@@ -6,11 +6,11 @@ All notable changes to NCMemSim are documented in this file.
 
 No additional changes recorded.
 
-## 1.9.0 - 2026-10-23 (unpublished candidate)
+## 1.9.0 - 2026-10-26
 
-Final candidate identity is prepared; exact-candidate CI, PR/main/tag checks,
-release publication and version-specific Zenodo archival remain pending.
-The latest published stable is 1.8.0; experimental qualification remains deferred.
+Published release; candidate/PR/main/tag CI, Documentation and Release passed.
+R7 is complete. Version DOI: 10.5281/zenodo.23664613. Concept DOI remains separate.
+The latest published stable is 1.9.0; experimental qualification remains deferred.
 
 - Prepare Phase R7 for target v1.9.0: independently freeze all 140 published
   v1.8 module surfaces, review six additive modules/20 exports and retain a strict

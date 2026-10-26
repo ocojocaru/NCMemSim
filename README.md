@@ -18,7 +18,7 @@ NCMemSim is a modular Python framework for the simulation and design–technolog
 > Version-specific DOI: [10.5281/zenodo.23316663](https://doi.org/10.5281/zenodo.23316663)
 > Experimental P4B/P5B/P6B remain deferred; no new independent measured dataset or calibrated parameter is claimed.
 
-**Current stable release:** `1.8.0` — main/tag CI and Release passed; wheel and sdist published.
+**Current stable release:** `1.9.0` — main/tag CI and Release passed; wheel and sdist published.
 > **Previous stable release:** `1.5.0` — broadband optics and reproducible spectral reports.
 > **Previous stable release:** `1.4.0` — temperature-dependent properties and reproducible thermal reports
 > **Published v1.3.0 status:** Phase L is complete; final candidate, main and tag CI passed, and v1.3.0 is published with wheel and sdist.
@@ -32,13 +32,15 @@ Version-specific DOI: [10.5281/zenodo.23510004](https://doi.org/10.5281/zenodo.2
 Weight proxies are not conductance or circuit MAC; no lifetime/endurance/yield
 or independent experimental qualification is claimed.
 
-**Final v1.9.0 candidate:** prepared 2026-10-23, **not yet published**.
+**Published v1.9.0 status:** R7 is complete. Published 2026-10-26 after
+successful candidate/PR/main/tag CI, Documentation and Release checks; wheel and
+sdist are available. Version-specific DOI: [10.5281/zenodo.23664613](https://doi.org/10.5281/zenodo.23664613).
 Phase R adds bounded serial performance measurements, vendor-neutral simulated-data
 interchange, controlled comparisons and strict report bundles. The R3 optimization
 is limited to reviewed report-restoration/export workloads; no universal solver
-speedup or external TCAD agreement is claimed. Exact-candidate CI, PR/main/tag,
-release publication and the version-specific DOI remain pending. Current CITATION.cff
-uses 1.9.0 and the separate Concept DOI; the published v1.8 citation remains archived.
+speedup or external TCAD agreement is claimed. Experimental P4B/P5B/P6B remain deferred.
+Current CITATION.cff records the version DOI and separate Concept DOI; historical
+v1.8 citation declarations and preparation report identities remain unchanged.
 
 ## Why NCMemSim?
 

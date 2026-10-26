@@ -10,16 +10,15 @@ Version DOI: [10.5281/zenodo.23510004](https://doi.org/10.5281/zenodo.23510004).
 The [R0 audit](performance_interoperability_audit.json) records normalized UTF-8/LF
 source hashes, exact exploratory inputs/results and measurement limitations.
 
-R7 final candidate targets **v1.9.0**, with additive APIs and unchanged published
+R7 is complete: published **v1.9.0**, with additive APIs and unchanged published
 module surfaces; see the [release checklist](v1_9_release_checklist.md). Development
-branch: `dev/phase-r-performance-interop`. Final candidate identity: `1.9.0`,
-prepared 2026-10-23 and not yet published. Latest published stable remains 1.8.0. R1/R2 are implemented and the exact R2 commit passed cross-platform CI.
+branch: `dev/phase-r-performance-interop`. Published identity: `1.9.0`,
+dated 2026-10-26; version DOI: 10.5281/zenodo.23664613. R1/R2 are implemented and the exact R2 commit passed cross-platform CI.
 R3 passed exact-commit CI and Documentation on `8c63a0a`. R4 implements owned
 vendor-neutral interchange and explicit conversion, with exact-commit CI passed
 on `6e7514b`. R5 controlled comparisons passed CI on `0796d4c`. R6 adds strict static serial-
 campaign/comparison reports and reproducible bundles. R7 API/archive preparation
-passed exact preparation CI on `cc15fef`; final candidate identity is prepared.
-Exact-candidate CI, PR/main/tag, release and archival closure remain pending.
+passed exact preparation CI on `cc15fef`; candidate/PR/main/tag CI, Documentation, Release and Zenodo archival passed.
 
 No TCAD export or concrete external format is available. The user selected
 requirements definition without assuming a simulator vendor. Phase R introduces
@@ -145,7 +144,7 @@ Full co-simulation, a new PDE solver and larger device families are separate sco
 | R4 (implemented) | Vendor-neutral import/export contracts | Units, coordinates, source identity, applicability and explicit conversion |
 | R5 (implemented) | Controlled optimization/comparison references | Positive/negative/synthetic cases; external applicability conditional on admitted exports |
 | R6 (implemented) | Strict performance/comparison reports | Complete source-linked trials, unavailable outcomes and reproducible projections |
-| R7 (preparation implemented; release pending) | Release review | API/archive compatibility, full regression, docs, installed distributions, exact-candidate CI and version rationale |
+| R7 (complete; v1.9.0 published) | Release review | API/archive compatibility, full regression, docs, installed distributions, exact-candidate CI and version rationale |
 
 R2 measurements and exact-commit CI evidence have been reviewed. The selected
 R3 optimization and paired acceptance protocol are recorded in the
@@ -423,12 +422,12 @@ projections even against coherently rehashed edits. Synthetic controls remain
 labelled; R3 paired artifacts retain their historical format and acceptance.
 
 
-## R7 final candidate v1.9.0
+## R7 published v1.9.0
 
 The [R7 release checklist](v1_9_release_checklist.md) records the minor-version
 rationale, six additive modules/20 exports, independently pinned compatibility
 for 140 published v1.8 modules and the five-campaign/nine-comparison frozen
 preparation report. The source/review/archive and installed-distribution gates
 are implemented. R6 exact-source CI is recorded separately from new preparation,
-final-candidate, PR/main/tag and archival evidence still to be obtained. The
+successful final-candidate, PR/main/tag checks and archival evidence. The
 published v1.8 declarations and the original preparation report identities are retained.
