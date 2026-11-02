@@ -4,6 +4,12 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase S1 owned electron barrier provenance, segment/profile and inert
+  evaluation-request contracts, explicit signed eV-to-J conversion, energy-reference
+  and reversal rules, equation review and installed-distribution probes. Preserve
+  all 146 published v1.9 source modules with an independently pinned source/surface
+  baseline; no WKB evaluator or simulator attachment is introduced.
+
 - Define Phase S0 explicit barrier-profile and transport diagnostic scope, with a
   source-hashed audit and conditional S1-S7 acceptance sequence. No runtime or
   material parameter changes; next version remains provisional.

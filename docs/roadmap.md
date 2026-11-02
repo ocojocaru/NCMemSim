@@ -536,7 +536,9 @@ first extension is an isolated ordered piecewise-linear barrier diagnostic with
 explicit energy references, interface discontinuities and per-segment mass.
 Opt-in transport integration is conditional on physical conventions, numerical
 references, conservation and compatibility evidence. S0 changes no simulator
-equations, defaults or material coefficients. Experimental qualification remains deferred.
+equations, defaults or material coefficients. S1 adds owned inert electron barrier
+contracts, explicit U/E and reversal conventions, primary-source equation review
+and predeclared numerical acceptance targets. Evaluation and integration are not implemented. Experimental qualification remains deferred.
 
 ## Delivered extensions and remaining research
 

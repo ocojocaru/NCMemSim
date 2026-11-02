@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 146 package source modules; 772 explicit export paths; 267 distinct documented Python import paths.
+Coverage: 147 package source modules; 777 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -24,6 +24,48 @@ Explicit exports: `__version__`, `BenchmarkRecord`, `CVResult`, `CompactCoupling
 `ncmemsim/_version.py`
 
 No explicit export list; documented entry points need individual approval.
+
+
+## ncmemsim.barrier_contracts
+
+`ncmemsim/barrier_contracts.py`
+
+Explicit exports: `BarrierProvenance`, `BarrierSegment`, `BarrierProfile`, `BarrierEvaluationSpec`, `barrier_energy_eV_to_J`
+
+- `barrier_energy_eV_to_J(energy_eV)`
+### BarrierProvenance
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, parameter_status, source, evidence, applicability, limitations)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+### BarrierSegment
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, segment_id, length_m, start_potential_energy_J, end_potential_energy_J, effective_mass_m0, provenance)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+### BarrierProfile
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, profile_id, segments, incident_energy_J, energy_reference, axis_origin, positive_axis_direction, traversal_direction, source_contact, destination_contact, applicability, limitations)`.
+
+- `total_length_m(self)`; `property`.
+- `reversed(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### BarrierEvaluationSpec
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, profile, exponent_atol, exponent_rtol, reference_scope)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
 
 
 ## ncmemsim.benchmark

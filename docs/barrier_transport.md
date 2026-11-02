@@ -105,3 +105,79 @@ See [transport and retention](transport_retention.md),
 [performance/interoperability](performance_interoperability.md) and the
 [roadmap](roadmap.md). Phase R timing evidence remains historical and scoped;
 new profile diagnostics do not inherit its measured performance claims.
+
+
+## S1 implemented contracts and energy conventions
+
+S1 implements five module-qualified exports in `ncmemsim.barrier_contracts`:
+`BarrierProvenance`, `BarrierSegment`, `BarrierProfile`,
+`BarrierEvaluationSpec` and `barrier_energy_eV_to_J`.
+All contracts own canonical finite native JSON and return independent copies.
+Unknown/missing/duplicate fields, nonfinite values, bool-as-number inputs and
+changed semantic policy fields are rejected. No evaluator is called on construction,
+restoration or reversal. The public package root and existing transport exports
+are unchanged.
+
+Each segment stores the electron potential energies U at its two ends in joules,
+BEFORE subtracting the incident electron energy. A profile declares one global
+incident energy E and a common energy reference for every endpoint. Negative U
+or E is allowed relative to that arbitrary common zero. The S2 evaluator must
+subtract E exactly once. Electrostatic potential (volts) is not an energy:
+the electron contribution is -q times potential, with q the positive elementary
+charge. No automatic voltage/optical-gap-to-barrier conversion is provided.
+
+Segments are ordered along traversal; lengths are positive metres and mass is
+a positive constant ratio to free-electron mass within each segment. At an
+interface, adjacent endpoint energies may differ. These are two one-sided values,
+not a finite-width interpolated ramp. Absolute coordinates are not reconstructed
+from textual origin/direction declarations. `reversed()` swaps segment order,
+segment endpoints, contact labels and traversal direction, retaining the same
+axis declaration, energy zero and E. Reversal twice restores identical JSON.
+It does not recalculate biased electrostatics, contact supply or current.
+
+### Equation review and numerical policy
+
+[Fitzpatrick's WKB notes, equations 338, 342 and 348](https://farside.ph.utexas.edu/teaching/qmech/lectures/node49.html)
+support the smooth-potential, constant-mass forbidden-region exponent and its
+applicability limits. The planned segment diagnostic uses
+
+\[
+B=\frac{2}{\hbar}\sum_i\int_0^{L_i}
+\sqrt{2m_i\max(U_i(s)-E,0)}\,\mathrm{d}s,\qquad \log T=-B.
+\]
+
+Applying independent masses and summing across abrupt interfaces is a declared
+compact action-only model choice, not a derivation of heterostructure transmission
+matching from that reference. Reflections, coherent phases and resonances remain
+excluded. At zero forbidden action the approximation yields T=1 without proving
+unit physical transmission. Near turning points and abrupt interfaces, smooth-WKB
+validity is limited; numerical action accuracy does not remove that model limitation.
+
+The [equation and parameter review](barrier_parameters_review.json) admits no new
+material coefficient. `assumed`, `reported` and `fitted` provenance labels are
+caller declarations; none grants experimental admission. Source, evidence,
+applicability and limitations are required even for synthetic assumptions.
+
+The inert request binds an owned profile and explicit nonnegative exponent
+tolerances (at least one positive). The reviewed S2 controls use dimensionless
+B absolute tolerance 1e-12 and relative tolerance 1e-10 for B in [0, 10000].
+Splitting/reversal controls use 1e-12 absolute and 5e-13 relative tolerance.
+The reference-relative comparison is inclusive. These are prospective numerical
+acceptance targets for analytic controls and independent refinement checks, not
+observed errors or physical uncertainty bounds. S2 must demonstrate them before
+acceptance; failures remain failures. Other inputs receive no implied accuracy guarantee.
+
+The new policy retains finite B and log T if exp(-B) underflows to zero; nonfinite
+derived action must fail rather than clip. S1 stores this policy but computes no
+action, exponent, transmission or current. It does not change the published
+direct-kernel exponential floor or the separate TAT conventions.
+
+### Retained published-source boundary
+
+`docs/v1_9_published_surface.json` is generated from the explicit v1.9 metadata
+commit `26c7d62109ea3b9e0405538c3b3b2c843e1e453d`, not the evolving inventory.
+The v1.9 gate pins its semantic digest and verifies all 146 original module
+sources and public surfaces. Its original package-hash review is computed over
+those original paths; additive S modules are reviewed separately in the current
+inventory/tests. This does not regenerate or weaken the published v1.9 review.
+Current package/citation version remains 1.9.0 while the next version is provisional.

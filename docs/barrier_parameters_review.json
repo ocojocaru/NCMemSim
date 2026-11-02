@@ -1,0 +1,51 @@
+{
+  "schema_version": "phase-s1-barrier-equation-review-v1",
+  "review_date": "2026-11-02",
+  "status": "contracts_only",
+  "primary_sources": [
+    {
+      "title": "Richard Fitzpatrick, WKB Approximation, University of Texas at Austin",
+      "url": "https://farside.ph.utexas.edu/teaching/qmech/lectures/node49.html",
+      "equations": [
+        "338",
+        "342",
+        "348"
+      ],
+      "support": "Constant-mass smooth-potential forbidden-region decay exponent and applicability limits.",
+      "does_not_support": "Abrupt heterostructure interface matching or material-specific barrier/mass values."
+    }
+  ],
+  "selected_model": {
+    "carrier": "electron",
+    "segment_energy": "U in joules, before incident-energy subtraction",
+    "incident_energy": "one global E in joules at the same reference as all U endpoints",
+    "mass": "constant positive m*/m0 within each segment",
+    "interface": "independent one-sided endpoints, no finite interpolation across a discontinuity",
+    "approximation": "sum positive forbidden-region segment actions only; no coherent matching",
+    "electrostatic_sign": "electron energy contribution is -q*potential; no automatic potential conversion",
+    "reversal": "same landscape and same E, segment order and endpoint order reversed; not reverse-bias recomputation",
+    "overflow": "fail, never clip exponent",
+    "underflow": "zero transmission, retain finite exponent and log transmission"
+  },
+  "numerical_acceptance": {
+    "quantity": "dimensionless exponent B=2*S/hbar",
+    "analytic_controls": {
+      "atol": 1e-12,
+      "rtol": 1e-10,
+      "reference_exponent_range": [
+        0,
+        10000
+      ]
+    },
+    "splitting_reversal_controls": {
+      "atol": 1e-12,
+      "rtol": 5e-13
+    },
+    "comparison_rule": "abs(candidate-reference) <= atol + rtol*abs(reference)",
+    "scope": "Predeclared S2/S3 acceptance targets, not measured accuracy; positive homogeneous mass controls, analytic rectangle/linear/turning-point limits and independent refined quadrature required before acceptance.",
+    "outside_scope": "Representable adversarial inputs outside controlled ranges need explicit failure/unavailable diagnostics, not an extrapolated accuracy guarantee."
+  },
+  "material_parameters_admitted": [],
+  "experimental_qualification": false,
+  "implementation_boundary": "S1 stores/validates declarations only; S2 evaluator and S4 attachment are absent."
+}

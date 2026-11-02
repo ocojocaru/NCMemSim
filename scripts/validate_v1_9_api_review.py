@@ -21,6 +21,7 @@ ARCHIVE='tests/fixtures/archives/v1_9_preparation/performance_report.json'
 SURFACE='docs/v1_8_published_surface.json'
 SURFACE_SHA256='196a6a216740382dbbd8f06df4429187db703dcb03813603ab7662063b1d4790'
 ARCHIVE_SHA256='75fbc26f082f99602c63df5bf2466c0d14575b305483a92ba71060db3948ea28'
+PUBLISHED_V19_SURFACE_SHA256='18cc3bbfba2a5ac7e0c510e053dfb20feb48551871778645bd47d22dc73a291e'
 CAPTURE_COMMIT='e2af7e7cad2147755c71743e0b20c403b79fc081'
 EXPECTED_STATUSES={'unit_axis_area_match':'matched','negative_value_mismatch':'mismatched',
     'missing_area':'unavailable','missing_frequency':'unavailable','ordered_grid_mismatch':'unavailable',
@@ -89,8 +90,23 @@ def build_review(root):
             raise ValueError('runtime/source exports disagree: '+name)
         surface.append(dict(module=name,exports=exports,source_contract=inventory[name],
                             source_sha256=_text_hash(root/(name.replace('.','/')+'.py'))))
+    # Freeze the original 146 published sources; new module-qualified APIs are
+    # reviewed separately and cannot silently bless changes to a published source.
+    published=_json(root/'docs/v1_9_published_surface.json')
+    if _hash(published)!=PUBLISHED_V19_SURFACE_SHA256:
+        raise ValueError('published v1.9 source/surface baseline drift')
+    original_paths=set()
+    for item in published['modules']:
+        name=item['module'];path=item['path']
+        current=inventory.get(name)
+        if current is None or _hash(_surface(current))!=item['surface_sha256']:
+            raise ValueError('published v1.9 public surface changed: '+name)
+        if _text_hash(root/path)!=item['source_sha256']:
+            raise ValueError('published v1.9 source changed without separate review: '+name)
+        original_paths.add(path.removeprefix('ncmemsim/'))
     package={p.relative_to(root/'ncmemsim').as_posix():_text_hash(p)
-             for p in sorted((root/'ncmemsim').rglob('*.py'))}
+             for p in sorted((root/'ncmemsim').rglob('*.py'))
+             if p.relative_to(root/'ncmemsim').as_posix() in original_paths}
     return dict(schema_version='phase-r-v1.9-final-candidate-api-review-v1',status='published_release_review',
         target_release='1.9.0',published_baseline='1.8.0',package_identity_at_review=_version(root),
         review_date='2026-10-23',implementation_source_commit='cc15fef20281ab0d4f305eecfd2b13f08e984a27',

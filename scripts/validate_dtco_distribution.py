@@ -210,6 +210,8 @@ SOURCE_REQUIRED |= {'scripts/validate_v1_8_api_review.py', 'docs/v1_8_api_review
     'docs/multilevel_operation_audit.json', 'docs/multilevel_reporting.md', 'examples/phase_q6_multilevel_report.py'}
 
 SOURCE_REQUIRED |= {'scripts/validate_v1_8_release_identity.py'}
+SOURCE_REQUIRED |= {'docs/v1_9_published_surface.json', 'docs/barrier_parameters_review.json',
+                    'docs/barrier_transport.md', 'tests/test_phase_s1_barrier_contracts.py'}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_7_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/independent_calibration.md', 'docs/v1_7_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
 
 SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_performance_execution.py',
@@ -296,6 +298,7 @@ def main() -> None:
             run(str(python), '-I', '-c', MULTILEVEL_PROBE, str(work), version, cwd=work)
             run(str(python), '-I', '-c', PERFORMANCE_CONTRACT_PROBE, str(environment), cwd=work)
             run(str(python), '-I', '-c', INTEROPERABILITY_PROBE, cwd=work)
+            run(str(python), '-I', '-c', BARRIER_CONTRACT_PROBE, cwd=work)
             shutil.copyfile(root / 'examples/phase_r5_interoperability_reference.py', work / 'r5_reference.py')
             run(str(python), '-I', str(work / 'r5_reference.py'),
                 '--output', str(work / f'r5-controls-{number}.json'), cwd=work)
@@ -307,6 +310,23 @@ def main() -> None:
             results.append({"installed_performance_contracts": "PASS", "artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
+
+BARRIER_CONTRACT_PROBE = r'''from pathlib import Path
+import sys
+import ncmemsim.barrier_contracts as barrier
+assert Path(barrier.__file__).resolve().is_relative_to(Path(sys.prefix).resolve())
+p = barrier.BarrierProvenance('assumed', 'installed synthetic control',
+    'no measurement', 'contract only', 'no interface matching')
+s = barrier.BarrierSegment('a', 1e-9, barrier.barrier_energy_eV_to_J(1.), 0., .2, p)
+b = barrier.BarrierProfile('installed', [s], 0., 'common electron energy zero',
+    'left boundary', 'left to right', 'along_positive_axis', 'left', 'right',
+    'inert declaration', 'no physical qualification')
+q = barrier.BarrierEvaluationSpec(b, 1e-12, 1e-10, 'analytic control scope')
+assert barrier.BarrierEvaluationSpec.from_json(q.to_json()).contract_hash == q.contract_hash
+assert b.reversed().reversed().to_json() == b.to_json()
+assert not q.to_dict()['evaluated']
+print('Installed S1 barrier contracts PASS; no WKB execution')
+'''
 
 PROBE = r'''import csv
 import json
