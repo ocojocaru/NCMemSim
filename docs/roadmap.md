@@ -346,12 +346,13 @@ experimental/process-calibration contract.
 See [Stochastic nanocrystal ensembles and device variability](stochastic_ensembles.md)
 for the governing K0 architecture and scientific contracts.
 
-## Planned post-v1.2 releases
+## Post-v1.2 release sequence and current planning
 
 L-O are published. P is published as v1.7.0 for calibration infrastructure and
 synthetic numerical diagnostics, with experimental qualification still deferred.
-Q is the immediate development cycle, targeting v1.8.0 subject to acceptance.
-R remains indicative. Independent experimental dataset discovery can resume the
+Q is published as v1.8.0 and R as v1.9.0. S0 now defines the next planning
+cycle for explicit barrier profiles and transport diagnostics; the next version
+remains provisional. Independent experimental dataset discovery can resume the
 deferred P gates when suitable evidence becomes available.
 
 ### v1.3.0: Phase L - MODEL/TAT variability
@@ -495,7 +496,7 @@ passed. Published stable identity: `1.8.0`, dated 2026-10-20; version DOI:
 [10.5281/zenodo.23510004](https://doi.org/10.5281/zenodo.23510004). Evidence is recorded in the v1.8 checklist. P4B/P5B/P6B experimental
 qualification remains deferred.
 
-### Phase R: Performance and interoperability (target v1.9.0)
+### v1.9.0: Phase R - Performance and interoperability
 
 R0 is complete: source audit and exploratory profiles distinguish trajectory
 integration/WKB costs from nested report restoration/validation. These are single
@@ -525,39 +526,34 @@ v1.9.0; experimental P4B/P5B/P6B qualification remains deferred.
 Each phase follows scope/contracts, implementation, integration, validation,
 applied reference, reproducible reports and exact-candidate release gates.
 
-## Post-v0.10 optical extensions
+## Phase S: Explicit barrier profiles and transport diagnostics
 
-Several optical effects are intentionally outside the current compact model and may be introduced in later revisions:
+S0 is complete as planning/source audit on 2026-11-02. The next version is
+provisional. The [scope and S1-S7 acceptance sequence](barrier_transport.md) and
+[source audit](barrier_transport_audit.json) distinguish the published sampled
+direct WKB kernel from the existing analytic TAT linear kernel. The proposed
+first extension is an isolated ordered piecewise-linear barrier diagnostic with
+explicit energy references, interface discontinuities and per-segment mass.
+Opt-in transport integration is conditional on physical conventions, numerical
+references, conservation and compatibility evidence. S0 changes no simulator
+equations, defaults or material coefficients. Experimental qualification remains deferred.
 
-- further experimental calibration of wavelength-dependent absorption using independent datasets;
-- experimentally calibrated photo-capture efficiencies;
-- broadband and measured optical spectra;
-- strain-dependent direct and indirect band gaps;
-- nanocrystal quantum-confinement corrections;
-- field-dependent absorption, including Franz–Keldysh or related effects;
-- Stark shifts;
-- state filling;
-- improved matrix and effective-medium optical response;
-- sequential optical attenuation through multiple floating gates;
-- wavelength-dependent optical propagation through complete device stacks.
+## Delivered extensions and remaining research
 
-These extensions should preserve the current high-level optical programming API where practical.
+| Direction | Delivered capability | Remaining boundary |
+|---|---|---|
+| Temperature properties | M/v1.4 anchored opt-in material profiles and thermal workflows | Broader measured parameter coverage and additional material laws |
+| Broadband/multispectral optics | N/v1.5 explicit spectra and sequential single-pass attenuation | Measured spectra admission, coherent/full-wave stack propagation and improved matrix/effective-medium response |
+| Strain and confinement | O/v1.6 hydrostatic strain-induced optical shifts and spherical kinetic confinement diagnostics | General strain, finite/interacting confinement, field-dependent absorption, Stark shifts and state filling |
+| Independent calibration | P/v1.7 data/fit/holdout infrastructure and numerical diagnostics | Admitted independent experimental data; P4B/P5B/P6B qualification |
+| Multilevel/neuromorphic | Q/v1.8 pulse sequences, readout-derived proxies, retention/ensemble diagnostics | Physical conductance/current models, circuit MAC, learning rules and degradation/endurance models |
+| Performance/interoperability | R/v1.9 scoped restoration optimization, serial measurements and vendor-neutral comparisons | Additional measured optimizations/backends, actual external exports and higher-fidelity coupling |
+| Transport/barriers | J TAT/image-force compact corrections; S0 source audit and plan | Explicit segment profiles first; self-consistent carrier statistics and larger device families are separate research scopes |
+| Uncertainty | H/K/L bounded propagation, stochastic ensembles and MODEL variability | Broader hierarchical/correlated uncertainty with explicit contracts |
 
-## Longer-term research
-
-Completed extensions include Phase J trap-assisted transport and image-force
-corrections, and Phase K stochastic ensembles and continuous copula correlations.
-Remaining research candidates, subject to the staged plan above, include:
-
-- improved barrier models;
-- self-consistent carrier statistics;
-- temperature-dependent electrical and optical material properties;
-- correlated and hierarchical uncertainty propagation beyond Phase H;
-- neuromorphic and in-memory programming metrics;
-- multispectral memory operation;
-- larger device families;
-- accelerated numerical backends;
-- optional integration with higher-fidelity TCAD workflows.
+Future work must not reintroduce delivered functionality as an unqualified
+roadmap item. Experimental photo-capture calibration and device qualification
+remain data-dependent; synthetic examples do not satisfy those gates.
 
 ## Roadmap principles
 
@@ -576,4 +572,5 @@ The stable API, scientific scope and citation policy are approved, and the full
 regression, strict documentation, clean-distribution and remote Actions gates
 all passed. The preparation branch was promoted to `main` for v1.0.0.
 
-Published identity: `1.6.0`, dated 2026-10-08; O7 is complete. Version DOI: 10.5281/zenodo.23235484.
+Historical v1.0 preparation is complete. Current published identity: `1.9.0`,
+dated 2026-10-26; R7 is complete. Version DOI: 10.5281/zenodo.23664613.

@@ -4,7 +4,11 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
-No additional changes recorded.
+- Define Phase S0 explicit barrier-profile and transport diagnostic scope, with a
+  source-hashed audit and conditional S1-S7 acceptance sequence. No runtime or
+  material parameter changes; next version remains provisional.
+- Reconcile post-v1.9 roadmap and vision: distinguish published M/N/O/Q/R
+  capabilities from remaining research and deferred experimental qualification.
 
 ## 1.9.0 - 2026-10-26
 
