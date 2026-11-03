@@ -4,6 +4,13 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase S4 snapshot-bound opt-in direct inter-FG profile replacements,
+  explicit physical-layer/contact/length checks, preserved legacy diagnostics,
+  link-local numerical failure accounting and the existing conservative update.
+  Disabled paths retain the published baseline. Substrate injection, TAT/image-force
+  composition, automatic field-to-barrier laws and new microscopic current models
+  are outside this first integration.
+
 - Add Phase S3 controlled multilayer references: discontinuities and mass steps,
   segment splitting, same-energy reversal, energy-zero and mass-scaling invariants,
   published-kernel comparisons and nonlinear-profile refinement. Retain the

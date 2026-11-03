@@ -215,7 +215,9 @@ SOURCE_REQUIRED |= {'docs/v1_9_published_surface.json', 'docs/barrier_parameters
                     'tests/test_phase_s2_barrier_evaluation.py', 'docs/barrier_kernel_review.json',
                     'examples/phase_s2_barrier_reference.py',
                     'examples/phase_s3_multilayer_reference.py', 'tests/test_phase_s3_multilayer_reference.py',
-                    'docs/barrier_multilayer_reference.md', 'docs/barrier_multilayer_review.json'}
+                    'docs/barrier_multilayer_reference.md', 'docs/barrier_multilayer_review.json',
+                    'tests/test_phase_s4_barrier_transport.py', 'examples/phase_s4_barrier_transport_reference.py',
+                    'docs/barrier_transport_integration.md', 'docs/barrier_transport_integration_review.json'}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_7_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/independent_calibration.md', 'docs/v1_7_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
 
 SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_performance_execution.py',
@@ -303,6 +305,11 @@ def main() -> None:
             run(str(python), '-I', '-c', PERFORMANCE_CONTRACT_PROBE, str(environment), cwd=work)
             run(str(python), '-I', '-c', INTEROPERABILITY_PROBE, cwd=work)
             run(str(python), '-I', '-c', BARRIER_CONTRACT_PROBE, cwd=work)
+            shutil.copyfile(root / 'examples/phase_s4_barrier_transport_reference.py', work / 's4_reference.py')
+            run(str(python), '-I', str(work / 's4_reference.py'),
+                '--output', str(work / f's4-study-{number}.json'), cwd=work)
+            run(str(python), '-I', '-c', BARRIER_TRANSPORT_PROBE,
+                str(work / f's4-study-{number}.json'), cwd=work)
             shutil.copyfile(root / 'examples/phase_s3_multilayer_reference.py', work / 's3_reference.py')
             run(str(python), '-I', str(work / 's3_reference.py'),
                 '--output', str(work / f's3-study-{number}.json'), cwd=work)
@@ -319,6 +326,25 @@ def main() -> None:
             results.append({"installed_performance_contracts": "PASS", "artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
+
+BARRIER_TRANSPORT_PROBE = r'''import json, sys
+from pathlib import Path
+from ncmemsim.barrier_transport import BarrierTransportContext, BarrierTransportSpec
+raw=json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
+assert raw['experimental_qualification'] is False
+for case in raw['cases'].values():
+    result=case['result']
+    context=BarrierTransportContext.from_dict(result['context'])
+    plan=BarrierTransportSpec.from_dict(result['specification'])
+    assert plan.to_dict()['context_hash']==context.contract_hash
+    assert abs(case['conservation_error_m2'])<=1e-12*case['before_electron_sheet_m2']
+    assert result['links'][-1]['status']=='diagnostic_only'
+assert raw['cases']['active']['result']['links'][0]['status']=='profile_replaced'
+assert raw['cases']['partial_failure']['result']['links'][0]['status']=='failed'
+assert raw['cases']['partial_failure']['result']['links'][0]['selected']['net_electron_flux_m2_s']==0
+assert raw['cases']['underflow']['result']['links'][0]['evaluation']['summary']['attenuation_status']=='transmission_underflow'
+print('Installed S4 snapshot-bound replacement, conservation and partial failures PASS')
+'''
 
 BARRIER_MULTILAYER_PROBE = r'''import json, sys
 from pathlib import Path

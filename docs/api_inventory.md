@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 148 package source modules; 779 explicit export paths; 267 distinct documented Python import paths.
+Coverage: 149 package source modules; 785 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -85,6 +85,93 @@ Constructor: `__init__(self, request)`.
 - `from_dict(cls, raw)`; `classmethod`.
 
 - `evaluate_barrier_profile(request)`
+
+## ncmemsim.barrier_transport
+
+`ncmemsim/barrier_transport.py`
+
+Explicit exports: `BarrierTransportContext`, `BarrierLinkAttachment`, `BarrierTransportSpec`, `ProfiledLinkTransportResult`, `ProfiledTransportStepResult`, `BarrierTransportEngine`
+
+### BarrierTransportContext
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, snapshot)`.
+
+- `snapshot(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+### BarrierLinkAttachment
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, link_id, request, segment_layer_names)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+### BarrierTransportSpec
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, context_hash, attachments=(), enabled=False)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+### ProfiledLinkTransportResult
+
+Bases: none.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `baseline: _Link`; required declaration.
+- Field `selected: _Link`; required declaration.
+- Field `status: str`; required declaration.
+- Field `context: BarrierTransportContext`; required declaration.
+- Field `provider_id: str`; required declaration.
+- Field `specification_hash: str`; required declaration.
+- Field `attachment_hash: str | None`; default expression `None`.
+- Field `evaluation: object | None`; default expression `None`.
+- Field `failure: str | None`; default expression `None`.
+- `link_id(self)`; `property`.
+- `kind(self)`; `property`.
+- `field_V_m(self)`; `property`.
+- `potential_difference_V(self)`; `property`.
+- `transmission(self)`; `property`.
+- `forward_rate_Hz(self)`; `property`.
+- `backward_rate_Hz(self)`; `property`.
+- `net_electron_flux_m2_s(self)`; `property`.
+- `left_fg_index(self)`; `property`.
+- `right_fg_index(self)`; `property`.
+- `to_dict(self)`.
+
+### ProfiledTransportStepResult
+
+Bases: none.
+
+Decorators: `_dataclass(frozen=True)`.
+
+- Field `baseline: _Step`; required declaration.
+- Field `context: BarrierTransportContext`; required declaration.
+- Field `specification: BarrierTransportSpec`; required declaration.
+- Field `provider_id: str`; required declaration.
+- Field `links: tuple[ProfiledLinkTransportResult, ...]`; required declaration.
+- Field `net_electron_flux_by_fg_m2_s: _np.ndarray`; required declaration.
+- `inter_fg_fluxes_m2_s(self)`; `property`.
+- `to_dict(self)`.
+
+### BarrierTransportEngine
+
+Bases: none.
+
+Constructor: `__init__(self, baseline, provider=None, provider_id=None)`.
+
+- `config(self)`; `property`.
+- `tunneling(self)`; `property`.
+- `build_network(self, device)`.
+- `capture_context(self, device, state, field_profile, occupancy_engine)`.
+- `evaluate(self, device, state, field_profile, occupancy_engine)`.
+- `step(self, device, state, field_profile, occupancy_engine, dt_s)`.
+
 
 ## ncmemsim.benchmark
 
