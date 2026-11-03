@@ -181,3 +181,68 @@ sources and public surfaces. Its original package-hash review is computed over
 those original paths; additive S modules are reviewed separately in the current
 inventory/tests. This does not regenerate or weaken the published v1.9 review.
 Current package/citation version remains 1.9.0 while the next version is provisional.
+
+
+## S2 isolated action evaluator
+
+S2 adds `BarrierEvaluationResult` and `evaluate_barrier_profile` in
+`ncmemsim.barrier_evaluation`. The input is an S1 `BarrierEvaluationSpec` or its
+strict dictionary. Every result owns the original request, source hashes, actual
+electron-mass/hbar constants, ordered per-segment diagnostics and aggregate status.
+There is no simulator attachment, rate prefactor, current supply, interface
+matching, new material coefficient or change to the published kernels.
+
+### Stable analytic integration
+
+The endpoint energies relative to E are formed once. Where both are positive,
+the integral uses a rationalized difference of powers. With
+a=sqrt(max(U-E)) and b=sqrt(min(U-E)), the mean square root is
+(2/3) times (a*a+a*b+b*b)/(a+b); the implementation scales by a and uses b/a.
+This avoids cancellation near a flat barrier. A sign crossing contributes only
+the positive linear portion; an entirely nonpositive segment has zero action.
+No finite-width ramp is inserted at a discontinuous interface.
+
+Positive products and quotients are accumulated as binary mantissa/exponent
+factors before the final rounding. This avoids intermediate overflow/underflow
+when the final action is representable. Action (J s) and dimensionless exponent
+are computed independently to avoid propagating an intermediate rounded action.
+If either required positive diagnostic is outside representable range, the segment
+fails explicitly. A tiny physical action is not silently turned into zero.
+
+Each segment retains its two signed U-E endpoint values, domain, action, exponent,
+log-transmission, transmission and failure. Transmission zero due to exp underflow
+is a completed calculation with finite exponent/log retained. Zero forbidden
+action, positive subnormal transmission and transmission rounded to one despite
+positive action have distinct categories. No exponential floor is introduced.
+
+Segments are independent diagnostic evaluations: all are attempted even if another
+fails. Failed rows retain null derived values and a reason. The aggregate is
+unavailable if any segment fails; no partial action is presented as a full result.
+Aggregate overflow is also a failure even when individual segments completed.
+The request tolerances are comparison declarations; they do not claim a measured
+error estimate or change the evaluator formula.
+
+### Result restoration and evidence
+
+Result restoration reconstructs the isolated numeric action and checks diagnostics.
+For portability across math libraries, the fixed budget is four ULP (units in the
+last place) for finite action/exponent. Transmission is checked against exp at
+the stored exponent with four ULP, because a one-ULP exponent change can cause a
+much larger ULP change in a small transmission. Original accepted values and hashes
+are retained. Log-transmission must equal minus the stored exponent; zero values,
+attenuation categories, source identity, constants, policies, failures and counts
+remain constrained. This narrow roundoff budget is independent of caller-declared
+request tolerances. It is consistency checking, not authentication or device replay.
+
+The [S2 kernel review](barrier_kernel_review.json) records source hashes, synthetic
+control inputs and independent references. Tests use a 100-digit Decimal primitive
+for rectangular, linear, near-flat and turning-point limits, plus independent
+adaptive Gauss-Kronrod quadrature at two refinement levels. They apply the S1
+acceptance thresholds without fitting them to observed failures. Same-energy
+reversal/splitting smoke checks do not complete the broader S3 multilayer study.
+
+Run `python examples/phase_s2_barrier_reference.py` for six explicit synthetic
+cases: rectangle, linear, turning point, zero action, transmission underflow and
+a retained numerical-range failure. Optional `--output` creates a new JSON file
+and refuses to replace an existing file. These are isolated numerical controls,
+not experimentally validated device predictions.

@@ -1,7 +1,7 @@
 {
   "schema_version": "phase-s1-barrier-equation-review-v1",
   "review_date": "2026-11-02",
-  "status": "contracts_only",
+  "status": "contracts_and_isolated_action_implemented",
   "primary_sources": [
     {
       "title": "Richard Fitzpatrick, WKB Approximation, University of Texas at Austin",
@@ -43,9 +43,11 @@
     },
     "comparison_rule": "abs(candidate-reference) <= atol + rtol*abs(reference)",
     "scope": "Predeclared S2/S3 acceptance targets, not measured accuracy; positive homogeneous mass controls, analytic rectangle/linear/turning-point limits and independent refined quadrature required before acceptance.",
-    "outside_scope": "Representable adversarial inputs outside controlled ranges need explicit failure/unavailable diagnostics, not an extrapolated accuracy guarantee."
+    "outside_scope": "Representable adversarial inputs outside controlled ranges need explicit failure/unavailable diagnostics, not an extrapolated accuracy guarantee.",
+    "restoration_roundoff": "Fixed four ULP for action and exponent; exp checked at the stored exponent with four ULP. Original accepted values are retained, zeros and attenuation categories remain protected. Request tolerances never relax archive restoration."
   },
   "material_parameters_admitted": [],
   "experimental_qualification": false,
-  "implementation_boundary": "S1 stores/validates declarations only; S2 evaluator and S4 attachment are absent."
+  "implementation_boundary": "S1 inert declarations retained; S2 isolated action implemented. No S4 simulator attachment, current supply or material coefficient admission.",
+  "s2_review_date": "2026-11-03"
 }

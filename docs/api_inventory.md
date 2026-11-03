@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 147 package source modules; 777 explicit export paths; 267 distinct documented Python import paths.
+Coverage: 148 package source modules; 779 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -67,6 +67,24 @@ Constructor: `__init__(self, profile, exponent_atol, exponent_rtol, reference_sc
 
 - `from_dict(cls, raw)`; `classmethod`.
 
+
+## ncmemsim.barrier_evaluation
+
+`ncmemsim/barrier_evaluation.py`
+
+Explicit exports: `BarrierEvaluationResult`, `evaluate_barrier_profile`
+
+### BarrierEvaluationResult
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, request)`.
+
+- `summary(self)`; `property`.
+- `segments(self)`; `property`.
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `evaluate_barrier_profile(request)`
 
 ## ncmemsim.benchmark
 

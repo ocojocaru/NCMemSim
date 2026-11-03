@@ -538,7 +538,9 @@ Opt-in transport integration is conditional on physical conventions, numerical
 references, conservation and compatibility evidence. S0 changes no simulator
 equations, defaults or material coefficients. S1 adds owned inert electron barrier
 contracts, explicit U/E and reversal conventions, primary-source equation review
-and predeclared numerical acceptance targets. Evaluation and integration are not implemented. Experimental qualification remains deferred.
+and predeclared numerical acceptance targets. S2 implements the isolated positive-segment action evaluator with analytic-limit
+and independent quadrature controls, underflow diagnostics and numerical failure
+accounting. Simulator integration remains a conditional S4 decision. Experimental qualification remains deferred.
 
 ## Delivered extensions and remaining research
 

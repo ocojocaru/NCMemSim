@@ -643,6 +643,131 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.barrier_evaluation",
+      "source": "ncmemsim/barrier_evaluation.py",
+      "explicit_exports": [
+        "BarrierEvaluationResult",
+        "evaluate_barrier_profile"
+      ],
+      "package_import_aliases": {
+        "_HBAR": "ncmemsim.constants.HBAR_J_S",
+        "_M0": "ncmemsim.constants.ELECTRON_MASS_KG",
+        "_Owned": "ncmemsim.performance_contracts._Owned",
+        "_Spec": "ncmemsim.barrier_contracts.BarrierEvaluationSpec",
+        "_canonical": "ncmemsim.performance_contracts._canonical"
+      },
+      "public_source_definitions": [
+        {
+          "name": "BarrierEvaluationResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Owned"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": {
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "request",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self, request)",
+            "decorators": []
+          },
+          "methods": [
+            {
+              "name": "summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "segments",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "evaluate_barrier_profile",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "request",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(request)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.benchmark",
       "source": "ncmemsim/benchmark.py",
       "explicit_exports": null,

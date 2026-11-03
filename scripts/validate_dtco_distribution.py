@@ -211,7 +211,9 @@ SOURCE_REQUIRED |= {'scripts/validate_v1_8_api_review.py', 'docs/v1_8_api_review
 
 SOURCE_REQUIRED |= {'scripts/validate_v1_8_release_identity.py'}
 SOURCE_REQUIRED |= {'docs/v1_9_published_surface.json', 'docs/barrier_parameters_review.json',
-                    'docs/barrier_transport.md', 'tests/test_phase_s1_barrier_contracts.py'}
+                    'docs/barrier_transport.md', 'tests/test_phase_s1_barrier_contracts.py',
+                    'tests/test_phase_s2_barrier_evaluation.py', 'docs/barrier_kernel_review.json',
+                    'examples/phase_s2_barrier_reference.py'}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_7_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/independent_calibration.md', 'docs/v1_7_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
 
 SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_performance_execution.py',
@@ -326,6 +328,18 @@ assert barrier.BarrierEvaluationSpec.from_json(q.to_json()).contract_hash == q.c
 assert b.reversed().reversed().to_json() == b.to_json()
 assert not q.to_dict()['evaluated']
 print('Installed S1 barrier contracts PASS; no WKB execution')
+from ncmemsim.barrier_evaluation import evaluate_barrier_profile, BarrierEvaluationResult
+r = evaluate_barrier_profile(q)
+assert r.summary['status'] == 'completed' and r.summary['wkb_exponent'] > 0
+assert BarrierEvaluationResult.from_json(r.to_json()).contract_hash == r.contract_hash
+assert not r.to_dict()['simulator_attachment']
+huge = barrier.BarrierSegment('range-failure', 1e300, 1., 1., .2, p)
+raw = b.to_dict(); raw['segments'] = [huge.to_dict()]
+failed = evaluate_barrier_profile(barrier.BarrierEvaluationSpec(
+    barrier.BarrierProfile.from_dict(raw), 1e-12, 1e-10, 'failure control'))
+assert failed.summary['status'] == 'failed'
+assert failed.summary['transmission'] is None
+print('Installed S2 isolated action and retained numerical failure PASS')
 '''
 
 PROBE = r'''import csv
@@ -524,7 +538,7 @@ report=ModelReport.from_json((work/'model_report.json').read_text(encoding='utf-
 assert sum(s.population.counts['attempted_count'] for s in report.studies)==4
 assert sum(s.population.counts['failed_count'] for s in report.studies)==4
 # A fresh probe process is run for each independently installed artifact.
-first=work/('model-'+str(__import__('os').getpid()))
+first=Path(__import__('tempfile').mkdtemp(prefix='model-', dir=work))/'bundle'
 write_model_report(report,first)
 restored=load_model_report_bundle(first)
 second=Path(str(first)+'-restored')
@@ -576,7 +590,7 @@ except ThermalDomainError:
     pass
 else:
     raise AssertionError('out-of-domain temperature must fail')
-first = work/('thermal-'+str(__import__('os').getpid()))
+first = Path(__import__('tempfile').mkdtemp(prefix='thermal-', dir=work))/'bundle'
 write_thermal_report(report, first)
 restored = load_thermal_report_bundle(first)
 second = Path(str(first)+'-restored')

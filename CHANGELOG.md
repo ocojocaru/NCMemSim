@@ -4,6 +4,14 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase S2 isolated positive-segment WKB action evaluation with stable
+  near-flat algebra and scaled products, finite action/exponent/log-transmission
+  diagnostics, explicit transmission underflow and retained numerical failures.
+  Source-linked results retain accepted original values within a fixed narrow
+  cross-platform roundoff budget; no device current or simulator attachment.
+  Use unique model/thermal probe directories to avoid reused-PID collisions
+  between installed wheel and sdist checks.
+
 - Add Phase S1 owned electron barrier provenance, segment/profile and inert
   evaluation-request contracts, explicit signed eV-to-J conversion, energy-reference
   and reversal rules, equation review and installed-distribution probes. Preserve

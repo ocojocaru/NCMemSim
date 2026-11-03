@@ -1,0 +1,1491 @@
+{
+  "schema_version": "phase-s2-isolated-kernel-review-v1",
+  "review_date": "2026-11-03",
+  "baseline_commit": "cfa459bc38392fa154e56ef113cb4413dfca89d7",
+  "evidence_kind": "synthetic_numerical_controls",
+  "source_sha256": {
+    "ncmemsim/barrier_contracts.py": "970094922b1fd0e266fd1df00c0f59a6a6cae7f95a21cf09b9ef66cf02b0814e",
+    "ncmemsim/barrier_evaluation.py": "973e3800899c3d207f0c37f9f3e94a8a1107244cb00cbac7bf7d97189b358c21"
+  },
+  "constant_values": {
+    "electron_mass_kg": 9.1093837015e-31,
+    "hbar_J_s": 1.054571817e-34
+  },
+  "analytic_controls": [
+    {
+      "label": "rectangle-0.1",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 3e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 1.59481769007474e-11,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 5.272859085000001e-36,
+      "reference_exponent": 0.10000000000000002,
+      "observed_exponent": 0.10000000000000002,
+      "absolute_error": 0.0,
+      "acceptance_limit": 1.1000000000000002e-11,
+      "passed": true,
+      "attenuation_status": "finite_transmission"
+    },
+    {
+      "label": "rectangle-1.0",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 3e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 1.59481769007474e-10,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 5.272859085e-35,
+      "reference_exponent": 1.0,
+      "observed_exponent": 1.0000000000000002,
+      "absolute_error": 2.220446049250313e-16,
+      "acceptance_limit": 1.01e-10,
+      "passed": true,
+      "attenuation_status": "finite_transmission"
+    },
+    {
+      "label": "rectangle-700.0",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 3e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 1.1163723830523179e-07,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 3.6910013595e-32,
+      "reference_exponent": 700.0,
+      "observed_exponent": 700.0000000000001,
+      "absolute_error": 1.1368683772161603e-13,
+      "acceptance_limit": 7.0001e-08,
+      "passed": true,
+      "attenuation_status": "finite_transmission"
+    },
+    {
+      "label": "rectangle-740.0",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 3e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 1.1801650906553075e-07,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 3.9019157229e-32,
+      "reference_exponent": 740.0,
+      "observed_exponent": 739.9999999999999,
+      "absolute_error": 1.1368683772161603e-13,
+      "acceptance_limit": 7.4001e-08,
+      "passed": true,
+      "attenuation_status": "subnormal_transmission"
+    },
+    {
+      "label": "rectangle-746.0",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 3e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 1.189733996795756e-07,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 3.9335528774100004e-32,
+      "reference_exponent": 746.0,
+      "observed_exponent": 746.0000000000001,
+      "absolute_error": 1.1368683772161603e-13,
+      "acceptance_limit": 7.460100000000001e-08,
+      "passed": true,
+      "attenuation_status": "transmission_underflow"
+    },
+    {
+      "label": "rectangle-10000.0",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 3e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 1.5948176900747398e-06,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 5.272859085e-31,
+      "reference_exponent": 10000.0,
+      "observed_exponent": 10000.0,
+      "absolute_error": 0.0,
+      "acceptance_limit": 1.000001e-06,
+      "passed": true,
+      "attenuation_status": "transmission_underflow"
+    },
+    {
+      "label": "near-flat--1e-15",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 2.999999999999997e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 1.5948176900747398e-06,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 5.272859084999998e-31,
+      "reference_exponent": 9999.999999999998,
+      "observed_exponent": 9999.999999999998,
+      "absolute_error": 0.0,
+      "acceptance_limit": 1.000001e-06,
+      "passed": true,
+      "attenuation_status": "transmission_underflow"
+    },
+    {
+      "label": "near-flat-0.0",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 3e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 1.5948176900747398e-06,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 5.272859085e-31,
+      "reference_exponent": 10000.0,
+      "observed_exponent": 10000.0,
+      "absolute_error": 0.0,
+      "acceptance_limit": 1.000001e-06,
+      "passed": true,
+      "attenuation_status": "transmission_underflow"
+    },
+    {
+      "label": "near-flat-1e-15",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 3.0000000000000033e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 1.5948176900747398e-06,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 5.272859085000002e-31,
+      "reference_exponent": 10000.000000000002,
+      "observed_exponent": 10000.0,
+      "absolute_error": 1.8189894035458565e-12,
+      "acceptance_limit": 1.0000010000000002e-06,
+      "passed": true,
+      "attenuation_status": "transmission_underflow"
+    },
+    {
+      "label": "endpoints-3e-19--1e-19",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": -1e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 5e-09,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 8.265614179312388e-34,
+      "reference_exponent": 15.675772946077865,
+      "observed_exponent": 15.675772946077862,
+      "absolute_error": 3.552713678800501e-15,
+      "acceptance_limit": 1.5685772946077868e-09,
+      "passed": true,
+      "attenuation_status": "finite_transmission"
+    },
+    {
+      "label": "endpoints--1e-19-3e-19",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 3e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 5e-09,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": -1e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 8.265614179312388e-34,
+      "reference_exponent": 15.675772946077865,
+      "observed_exponent": 15.675772946077862,
+      "absolute_error": 3.552713678800501e-15,
+      "acceptance_limit": 1.5685772946077868e-09,
+      "passed": true,
+      "attenuation_status": "finite_transmission"
+    },
+    {
+      "label": "endpoints-3e-19-0.0",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 0.0,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 5e-09,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 1.1020818905749851e-33,
+      "reference_exponent": 20.901030594770486,
+      "observed_exponent": 20.901030594770482,
+      "absolute_error": 3.552713678800501e-15,
+      "acceptance_limit": 2.0911030594770485e-09,
+      "passed": true,
+      "attenuation_status": "finite_transmission"
+    },
+    {
+      "label": "endpoints-0.0-3e-19",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 3e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 5e-09,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 0.0
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 1.1020818905749851e-33,
+      "reference_exponent": 20.901030594770486,
+      "observed_exponent": 20.901030594770482,
+      "absolute_error": 3.552713678800501e-15,
+      "acceptance_limit": 2.0911030594770485e-09,
+      "passed": true,
+      "attenuation_status": "finite_transmission"
+    },
+    {
+      "label": "endpoints--1e-19-0.0",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 0.0,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 5e-09,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": -1e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 0.0,
+      "reference_exponent": 0.0,
+      "observed_exponent": 0.0,
+      "absolute_error": 0.0,
+      "acceptance_limit": 1e-12,
+      "passed": true,
+      "attenuation_status": "zero_forbidden_action"
+    },
+    {
+      "label": "discontinuous-two-segment-smoke",
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 1e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 5e-09,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            },
+            {
+              "effective_mass_m0": 0.5,
+              "end_potential_energy_J": 2e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 2e-09,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "0",
+              "start_potential_energy_J": 5e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "reference_method": "100-digit Decimal positive-linear primitive",
+      "reference_action_J_s": 2.455314262951753e-33,
+      "reference_exponent": 46.56514091067831,
+      "observed_exponent": 46.56514091067831,
+      "absolute_error": 0.0,
+      "acceptance_limit": 4.657514091067832e-09,
+      "passed": true,
+      "attenuation_status": "finite_transmission"
+    }
+  ],
+  "quadrature_controls": [
+    {
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 1e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 5e-09,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "method": "adaptive Gauss-Kronrod via scipy.integrate.quad",
+      "refinements": [
+        {
+          "epsabs": 1e-09,
+          "epsrel": 1e-09,
+          "normalized_integral": 0.8075499102701247,
+          "estimated_quadrature_error": 8.965605039158716e-15
+        },
+        {
+          "epsabs": 1e-12,
+          "epsrel": 1e-12,
+          "normalized_integral": 0.8075499102701247,
+          "estimated_quadrature_error": 8.965605039158716e-15
+        }
+      ],
+      "reference_exponent": 25.317938072040054,
+      "observed_exponent": 25.31793807204006,
+      "absolute_error": 7.105427357601002e-15,
+      "acceptance_limit": 2.532793807204005e-09,
+      "passed": true
+    },
+    {
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 3e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 5e-09,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 1e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "method": "adaptive Gauss-Kronrod via scipy.integrate.quad",
+      "refinements": [
+        {
+          "epsabs": 1e-09,
+          "epsrel": 1e-09,
+          "normalized_integral": 0.8075499102701247,
+          "estimated_quadrature_error": 8.965605039158716e-15
+        },
+        {
+          "epsabs": 1e-12,
+          "epsrel": 1e-12,
+          "normalized_integral": 0.8075499102701247,
+          "estimated_quadrature_error": 8.965605039158716e-15
+        }
+      ],
+      "reference_exponent": 25.317938072040054,
+      "observed_exponent": 25.31793807204006,
+      "absolute_error": 7.105427357601002e-15,
+      "acceptance_limit": 2.532793807204005e-09,
+      "passed": true
+    },
+    {
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": -1e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 5e-09,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "method": "adaptive Gauss-Kronrod via scipy.integrate.quad",
+      "refinements": [
+        {
+          "epsabs": 1e-09,
+          "epsrel": 1e-09,
+          "normalized_integral": 0.49999999999999994,
+          "estimated_quadrature_error": 5.551115123125782e-16
+        },
+        {
+          "epsabs": 1e-12,
+          "epsrel": 1e-12,
+          "normalized_integral": 0.49999999999999994,
+          "estimated_quadrature_error": 5.551115123125782e-16
+        }
+      ],
+      "reference_exponent": 15.675772946077862,
+      "observed_exponent": 15.675772946077862,
+      "absolute_error": 0.0,
+      "acceptance_limit": 1.5685772946077863e-09,
+      "passed": true
+    },
+    {
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 3e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 5e-09,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": -1e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "method": "adaptive Gauss-Kronrod via scipy.integrate.quad",
+      "refinements": [
+        {
+          "epsabs": 1e-09,
+          "epsrel": 1e-09,
+          "normalized_integral": 0.49999999999999994,
+          "estimated_quadrature_error": 5.551115123125782e-16
+        },
+        {
+          "epsabs": 1e-12,
+          "epsrel": 1e-12,
+          "normalized_integral": 0.49999999999999994,
+          "estimated_quadrature_error": 5.551115123125782e-16
+        }
+      ],
+      "reference_exponent": 15.675772946077862,
+      "observed_exponent": 15.675772946077862,
+      "absolute_error": 0.0,
+      "acceptance_limit": 1.5685772946077863e-09,
+      "passed": true
+    },
+    {
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 3e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 5e-09,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 0.0
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "method": "adaptive Gauss-Kronrod via scipy.integrate.quad",
+      "refinements": [
+        {
+          "epsabs": 1e-09,
+          "epsrel": 1e-09,
+          "normalized_integral": 0.6666666666666669,
+          "estimated_quadrature_error": 7.401486830834379e-16
+        },
+        {
+          "epsabs": 1e-12,
+          "epsrel": 1e-12,
+          "normalized_integral": 0.6666666666666669,
+          "estimated_quadrature_error": 7.401486830834379e-16
+        }
+      ],
+      "reference_exponent": 20.90103059477049,
+      "observed_exponent": 20.901030594770482,
+      "absolute_error": 7.105427357601002e-15,
+      "acceptance_limit": 2.091103059477049e-09,
+      "passed": true
+    },
+    {
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 0.0,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 5e-09,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "method": "adaptive Gauss-Kronrod via scipy.integrate.quad",
+      "refinements": [
+        {
+          "epsabs": 1e-09,
+          "epsrel": 1e-09,
+          "normalized_integral": 0.6666666666666669,
+          "estimated_quadrature_error": 7.401486830834379e-16
+        },
+        {
+          "epsabs": 1e-12,
+          "epsrel": 1e-12,
+          "normalized_integral": 0.6666666666666669,
+          "estimated_quadrature_error": 7.401486830834379e-16
+        }
+      ],
+      "reference_exponent": 20.90103059477049,
+      "observed_exponent": 20.901030594770482,
+      "absolute_error": 7.105427357601002e-15,
+      "acceptance_limit": 2.091103059477049e-09,
+      "passed": true
+    },
+    {
+      "request": {
+        "approximation": "positive_segment_action_only",
+        "evaluated": false,
+        "exponent_atol": 1e-12,
+        "exponent_convention": "twice_forbidden_action_over_hbar",
+        "exponent_rtol": 1e-10,
+        "interface_matching": false,
+        "overflow_policy": "fail_not_clip",
+        "profile": {
+          "applicability": "analytic test controls",
+          "axis_origin": "left boundary",
+          "carrier": "electron",
+          "destination_contact": "right",
+          "energy_reference": "common electron energy zero",
+          "incident_energy_J": 0.0,
+          "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+          "interface_policy": "independent_one_sided_endpoint_values",
+          "limitations": "no current or experimental qualification",
+          "physical_matching": "not_included",
+          "positive_axis_direction": "left to right",
+          "profile_id": "numerical-control",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "segments": [
+            {
+              "effective_mass_m0": 0.2,
+              "end_potential_energy_J": 3.00000000000003e-19,
+              "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+              "length_m": 5e-09,
+              "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+              "provenance": {
+                "applicability": "isolated action",
+                "evidence": "no measured parameter",
+                "experimental_admission": false,
+                "limitations": "no interface matching",
+                "parameter_status": "assumed",
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "source": "synthetic numerical control"
+              },
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segment_id": "a",
+              "start_potential_energy_J": 3e-19
+            }
+          ],
+          "source_contact": "left",
+          "traversal_direction": "along_positive_axis"
+        },
+        "reference_scope": "predeclared S1 controls",
+        "schema_version": "ncmemsim-explicit-barrier-v1",
+        "simulator_attachment": false,
+        "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+      },
+      "method": "adaptive Gauss-Kronrod via scipy.integrate.quad",
+      "refinements": [
+        {
+          "epsabs": 1e-09,
+          "epsrel": 1e-09,
+          "normalized_integral": 0.9999999999999976,
+          "estimated_quadrature_error": 1.1102230246251539e-14
+        },
+        {
+          "epsabs": 1e-12,
+          "epsrel": 1e-12,
+          "normalized_integral": 0.9999999999999976,
+          "estimated_quadrature_error": 1.1102230246251539e-14
+        }
+      ],
+      "reference_exponent": 31.351545892155805,
+      "observed_exponent": 31.351545892155812,
+      "absolute_error": 7.105427357601002e-15,
+      "acceptance_limit": 3.1361545892155806e-09,
+      "passed": true
+    }
+  ],
+  "summary": {
+    "analytic_control_count": 15,
+    "quadrature_control_count": 7,
+    "all_passed": true,
+    "max_analytic_absolute_exponent_error": 1.8189894035458565e-12,
+    "max_quadrature_absolute_exponent_error": 7.105427357601002e-15
+  },
+  "limits": [
+    "This review is numerical evidence, not an accuracy guarantee for all profiles.",
+    "Abrupt interfaces use action sums only; no coherent matching or resonances.",
+    "No simulator attachment, current or experimental qualification.",
+    "Recorded observed values are historical local observations; portability tests use declared numeric comparisons, not bytewise re-evaluation of these observations."
+  ]
+}
