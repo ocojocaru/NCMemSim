@@ -101,7 +101,7 @@ protect source ownership, source hashes, interval/mass ordering, unchanged legac
 behavior and the distinction between integration, constants and profile-grid error.
 Wheel and sdist checks execute the standalone study against the installed package.
 
-S4 remains conditional: attaching these profiles requires an explicit link-length,
+S4 now implements a limited [snapshot-bound direct inter-FG contract](barrier_transport_integration.md). Attaching profiles requires an explicit link-length,
 orientation, energy-reference, parameter-provenance and no-double-counting contract.
 The published near-flat TAT issue must not be silently fixed under this study.
 The [Phase S plan](barrier_transport.md) and [roadmap](roadmap.md) retain the

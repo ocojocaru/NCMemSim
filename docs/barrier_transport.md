@@ -259,3 +259,16 @@ floor. Smooth-profile refinement remains distinct from integrating each linear
 segment accurately. Negative and unavailable outcomes remain in the evidence;
 there is no claim of universal published-kernel equivalence. S4 attachment remains
 conditional on an explicit link/profile and physical-applicability contract.
+
+
+## S4 scoped opt-in integration
+
+S4 implements the [snapshot-bound integration contract](barrier_transport_integration.md)
+in an additive module. It replaces direct transmission only on explicitly attached
+inter-FG links, using current owned context declarations and per-layer length,
+contact and orientation checks. Default physics and the published transport source
+remain unchanged. A provider must supply the full barrier profile; association with
+a snapshot does not establish physical self-consistency or calibration. S4 reuses
+the existing conservative update and compact directional-rate factors. No substrate
+injection replacement, TAT/image-force composition or automatic barrier generation
+is admitted. S3 negative evidence remains retained and unchanged.

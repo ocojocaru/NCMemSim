@@ -542,7 +542,10 @@ and predeclared numerical acceptance targets. S2 implements the isolated positiv
 and independent quadrature controls, underflow diagnostics and numerical failure
 accounting. S3 adds controlled multilayer references, invariance checks and published-kernel/
 profile-refinement comparisons, retaining mismatches explicitly. Simulator
-integration remains a conditional S4 decision. Experimental qualification remains deferred.
+S4 implements a scoped opt-in wrapper for direct inter-FG replacements at owned
+current snapshots, retaining baseline diagnostics and conservative state evolution.
+Substrate replacement, TAT composition and automatic physical profile generation
+remain outside this integration; see the [S4 contract](barrier_transport_integration.md). Experimental qualification remains deferred.
 
 ## Delivered extensions and remaining research
 
