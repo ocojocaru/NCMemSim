@@ -246,3 +246,16 @@ cases: rectangle, linear, turning point, zero action, transmission underflow and
 a retained numerical-range failure. Optional `--output` creates a new JSON file
 and refuses to replace an existing file. These are isolated numerical controls,
 not experimentally validated device predictions.
+
+
+## S3 controlled multilayer references
+
+S3 is implemented as a [controlled reference study](barrier_multilayer_reference.md),
+with seven source profiles, 48 matched invariance checks and one unavailable
+invariance assessment for a deliberately failed baseline. No S1/S2 or published
+transport source is changed. Comparisons distinguish the old TAT constant set,
+near-flat cancellation, sampled direct-kernel grid error and the legacy exponential
+floor. Smooth-profile refinement remains distinct from integrating each linear
+segment accurately. Negative and unavailable outcomes remain in the evidence;
+there is no claim of universal published-kernel equivalence. S4 attachment remains
+conditional on an explicit link/profile and physical-applicability contract.

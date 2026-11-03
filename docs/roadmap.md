@@ -540,7 +540,9 @@ equations, defaults or material coefficients. S1 adds owned inert electron barri
 contracts, explicit U/E and reversal conventions, primary-source equation review
 and predeclared numerical acceptance targets. S2 implements the isolated positive-segment action evaluator with analytic-limit
 and independent quadrature controls, underflow diagnostics and numerical failure
-accounting. Simulator integration remains a conditional S4 decision. Experimental qualification remains deferred.
+accounting. S3 adds controlled multilayer references, invariance checks and published-kernel/
+profile-refinement comparisons, retaining mismatches explicitly. Simulator
+integration remains a conditional S4 decision. Experimental qualification remains deferred.
 
 ## Delivered extensions and remaining research
 

@@ -54,6 +54,7 @@ nav:
       - Transport and retention: transport_retention.md
       - Advanced transport physics: advanced_transport.md
       - Explicit barrier and transport planning: barrier_transport.md
+      - Controlled multilayer barrier references: barrier_multilayer_reference.md
       - Stochastic ensembles and variability: stochastic_ensembles.md
       - Model and TAT variability planning: model_variability.md
       - Multilevel and neuromorphic operation planning: multilevel_operation.md

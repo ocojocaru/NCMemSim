@@ -4,6 +4,12 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase S3 controlled multilayer references: discontinuities and mass steps,
+  segment splitting, same-energy reversal, energy-zero and mass-scaling invariants,
+  published-kernel comparisons and nonlinear-profile refinement. Retain the
+  near-flat published TAT mismatch, direct-kernel floor and unresolved profile-grid
+  error as evidence; do not change any transport kernel or physical parameter.
+
 - Add Phase S2 isolated positive-segment WKB action evaluation with stable
   near-flat algebra and scaled products, finite action/exponent/log-transmission
   diagnostics, explicit transmission underflow and retained numerical failures.
