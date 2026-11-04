@@ -583,3 +583,13 @@ all passed. The preparation branch was promoted to `main` for v1.0.0.
 
 Historical v1.0 preparation is complete. Current published identity: `1.9.0`,
 dated 2026-10-26; R7 is complete. Version DOI: 10.5281/zenodo.23664613.
+
+## S5 controlled action sensitivity
+
+S5 is implemented as [isolated sensitivity controls](barrier_sensitivity.md):
+separate thickness, potential-energy, mass and incident-energy sweeps, a factorial
+thickness/energy design, independent Decimal references and same-profile subdivision
+checks. All 31 rows are retained, including underflow and one unavailable numerical
+failure. This does not establish device current, physical uncertainty or optimal design.
+S4 attachment rules and all published defaults remain unchanged. S6 reports/bundles
+are the next implementation step; the release version remains provisional.

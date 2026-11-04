@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase S5 isolated barrier sensitivity and factorial thickness/energy controls,
+  independent Decimal references, subdivision invariance and complete failure accounting.
+  No transport default, material law or experimental qualification changes.
+
 - Add Phase S4 snapshot-bound opt-in direct inter-FG profile replacements,
   explicit physical-layer/contact/length checks, preserved legacy diagnostics,
   link-local numerical failure accounting and the existing conservative update.

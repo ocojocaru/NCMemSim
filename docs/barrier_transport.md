@@ -272,3 +272,13 @@ a snapshot does not establish physical self-consistency or calibration. S4 reuse
 the existing conservative update and compact directional-rate factors. No substrate
 injection replacement, TAT/image-force composition or automatic barrier generation
 is admitted. S3 negative evidence remains retained and unchanged.
+
+## S5 controlled action sensitivity
+
+S5 is implemented as [isolated sensitivity controls](barrier_sensitivity.md):
+separate thickness, potential-energy, mass and incident-energy sweeps, a factorial
+thickness/energy design, independent Decimal references and same-profile subdivision
+checks. All 31 rows are retained, including underflow and one unavailable numerical
+failure. This does not establish device current, physical uncertainty or optimal design.
+S4 attachment rules and all published defaults remain unchanged. S6 reports/bundles
+are the next implementation step; the release version remains provisional.

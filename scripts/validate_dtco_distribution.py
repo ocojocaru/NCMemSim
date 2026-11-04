@@ -217,7 +217,9 @@ SOURCE_REQUIRED |= {'docs/v1_9_published_surface.json', 'docs/barrier_parameters
                     'examples/phase_s3_multilayer_reference.py', 'tests/test_phase_s3_multilayer_reference.py',
                     'docs/barrier_multilayer_reference.md', 'docs/barrier_multilayer_review.json',
                     'tests/test_phase_s4_barrier_transport.py', 'examples/phase_s4_barrier_transport_reference.py',
-                    'docs/barrier_transport_integration.md', 'docs/barrier_transport_integration_review.json'}
+                    'docs/barrier_transport_integration.md', 'docs/barrier_transport_integration_review.json',
+                    'docs/barrier_sensitivity.md', 'examples/phase_s5_barrier_sensitivity.py',
+                    'tests/test_phase_s5_barrier_sensitivity.py'}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_7_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/independent_calibration.md', 'docs/v1_7_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
 
 SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_performance_execution.py',
@@ -305,6 +307,11 @@ def main() -> None:
             run(str(python), '-I', '-c', PERFORMANCE_CONTRACT_PROBE, str(environment), cwd=work)
             run(str(python), '-I', '-c', INTEROPERABILITY_PROBE, cwd=work)
             run(str(python), '-I', '-c', BARRIER_CONTRACT_PROBE, cwd=work)
+            shutil.copyfile(root / 'examples/phase_s5_barrier_sensitivity.py', work / 's5_reference.py')
+            run(str(python), '-I', str(work / 's5_reference.py'),
+                '--output', str(work / f's5-study-{number}.json'), cwd=work)
+            run(str(python), '-I', '-c', BARRIER_SENSITIVITY_PROBE,
+                str(work / f's5-study-{number}.json'), cwd=work)
             shutil.copyfile(root / 'examples/phase_s4_barrier_transport_reference.py', work / 's4_reference.py')
             run(str(python), '-I', str(work / 's4_reference.py'),
                 '--output', str(work / f's4-study-{number}.json'), cwd=work)
@@ -326,6 +333,18 @@ def main() -> None:
             results.append({"installed_performance_contracts": "PASS", "artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
+
+BARRIER_SENSITIVITY_PROBE = r'''import json, sys
+from ncmemsim.barrier_evaluation import BarrierEvaluationResult
+data = json.load(open(sys.argv[1], encoding='utf-8'))
+assert data['counts'] == dict(attempted=31, completed=30, failed=1, matched=30, mismatched=0, unavailable=1)
+rows = [data['baseline']]+data['design']+data['controls']+data['subdivision_controls']
+rows += [row for group in data['sweeps'].values() for row in group]
+for row in rows:
+    assert BarrierEvaluationResult.from_dict(row['result']).to_dict() == row['result']
+assert not data['experimental_qualification']
+print('S5 installed sensitivity controls PASS')
+'''
 
 BARRIER_TRANSPORT_PROBE = r'''import json, sys
 from pathlib import Path
