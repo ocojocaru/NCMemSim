@@ -74,8 +74,9 @@ properties are delivered in v1.4.
   Q7 release and Zenodo archival complete, with experimental P4B/P5B/P6B deferred;
 - **v1.9:** published scoped report-restoration optimization, serial performance
   measurements, vendor-neutral interchange/comparisons and strict reports; R7 complete;
-- **Phase S:** S0 explicit barrier-profile/transport audit and S1-S7 plan complete;
-  implementation and next version remain provisional;
+- **Phase S / v1.10 target:** S1-S6 explicit electron barrier profiles, isolated
+  action evaluation, opt-in direct inter-FG integration and strict isolated reports
+  are implemented; S7 compatibility and release preparation is in progress;
   see [Phase S planning](docs/barrier_transport.md);
 - **Later (indicative):** broader structural physics, neuromorphic
   workflows, acceleration and higher-fidelity interoperability; see

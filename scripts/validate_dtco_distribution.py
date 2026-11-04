@@ -221,7 +221,10 @@ SOURCE_REQUIRED |= {'docs/v1_9_published_surface.json', 'docs/barrier_parameters
                     'docs/barrier_sensitivity.md', 'examples/phase_s5_barrier_sensitivity.py',
                     'tests/test_phase_s5_barrier_sensitivity.py',
                     'docs/barrier_reporting.md', 'examples/phase_s6_barrier_report.py',
-                    'tests/test_phase_s6_barrier_reporting.py'}
+                    'tests/test_phase_s6_barrier_reporting.py',
+                    'docs/v1_10_api_review.json','docs/v1_10_release_checklist.md',
+                    'scripts/validate_v1_10_api_review.py','tests/test_phase_s7_preparation.py',
+                    'tests/fixtures/archives/v1_10_preparation/barrier_report.json'}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_7_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/independent_calibration.md', 'docs/v1_7_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
 
 SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_performance_execution.py',
@@ -309,6 +312,8 @@ def main() -> None:
             run(str(python), '-I', '-c', PERFORMANCE_CONTRACT_PROBE, str(environment), cwd=work)
             run(str(python), '-I', '-c', INTEROPERABILITY_PROBE, cwd=work)
             run(str(python), '-I', '-c', BARRIER_CONTRACT_PROBE, cwd=work)
+            shutil.copyfile(root / 'tests/fixtures/archives/v1_10_preparation/barrier_report.json', work / 'frozen_barrier_report.json')
+            run(str(python), '-I', '-c', BARRIER_ARCHIVE_PROBE, str(work), str(number), cwd=work)
             shutil.copyfile(root / 'examples/phase_s5_barrier_sensitivity.py', work / 'phase_s5_barrier_sensitivity.py')
             shutil.copyfile(root / 'examples/phase_s6_barrier_report.py', work / 's6_reference.py')
             run(str(python), '-I', '-c', BARRIER_REPORT_PROBE, str(work), str(number), cwd=work)
@@ -338,6 +343,29 @@ def main() -> None:
             results.append({"installed_performance_contracts": "PASS", "artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
+
+BARRIER_ARCHIVE_PROBE = r'''import json, sys
+from pathlib import Path
+from ncmemsim.barrier_reporting import BarrierStudyReport, write_barrier_study_report, load_barrier_study_bundle
+from ncmemsim.barrier_transport import BarrierTransportEngine
+def forbidden(*args, **kwargs): raise AssertionError('frozen archive attempted device/provider replay')
+BarrierTransportEngine.step=forbidden
+BarrierTransportEngine.evaluate=forbidden
+work=Path(sys.argv[1]); number=sys.argv[2]
+report=BarrierStudyReport.from_json((work/'frozen_barrier_report.json').read_text(encoding='utf-8'))
+assert report.contract_hash=='f7e101d5158f8188e00aa5c0c37a0c1c02424175bc8e91e7be6c93dbe4c7fa7d'
+summary=report.to_dict()['summary']
+assert summary['failed_count']==1 and summary['mismatched_count']==1 and summary['unavailable_count']==2
+a=write_barrier_study_report(report,work/('s7-a-'+number))
+b=write_barrier_study_report(report,work/('s7-b-'+number))
+assert {p.name:p.read_bytes() for p in a.iterdir()}=={p.name:p.read_bytes() for p in b.iterdir()}
+assert load_barrier_study_bundle(a).contract_hash==report.contract_hash
+(a/'report.md').write_bytes(b'changed')
+try: load_barrier_study_bundle(a)
+except ValueError: pass
+else: raise AssertionError('frozen bundle tamper accepted')
+print('Installed S7 frozen barrier archive, no device replay and deterministic bundles PASS')
+'''
 
 BARRIER_REPORT_PROBE = r'''import importlib.util, sys
 from pathlib import Path

@@ -602,3 +602,12 @@ comparisons. Deterministic projections and manifests are checked on restoration,
 without simulator/provider replay. S4 transport histories remain outside this
 isolated-action schema. S7 compatibility and release review is next; version
 selection remains provisional.
+
+## S7 preparation and v1.10 target
+
+S7 preparation selects v1.10.0 as an additive minor target: four new module-qualified
+APIs with 16 exports, retaining all 146 published v1.9 sources/defaults. The
+[release checklist](v1_10_release_checklist.md) and [API review](v1_10_api_review.json)
+pin compatibility and the original clean S6 synthetic archive. Current package and
+citation identity remain 1.9.0; final candidate identity, exact-commit CI, PR/main/tag
+verification and publication are still pending. S7 is not complete.

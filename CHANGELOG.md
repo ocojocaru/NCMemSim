@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Prepare Phase S7 v1.10 additive API/source compatibility review, frozen S6
+  regression archive and installed-distribution gates. Package/citation identity
+  remains 1.9.0 until final candidate preparation; no publication is claimed.
+
 - Add Phase S6 owned isolated barrier reports, strict source/summary restoration,
   retained failed/mismatched/unavailable cases and deterministic JSON/Markdown/CSV
   bundles with manifest and projection verification; no simulator/provider replay.
