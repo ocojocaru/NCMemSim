@@ -611,3 +611,11 @@ APIs with 16 exports, retaining all 146 published v1.9 sources/defaults. The
 pin compatibility and the original clean S6 synthetic archive. Current package and
 citation identity remain 1.9.0; final candidate identity, exact-commit CI, PR/main/tag
 verification and publication are still pending. S7 is not complete.
+
+## S7 final candidate v1.10.0
+
+Final candidate identity is v1.10.0 dated 2026-11-04. The preparation commit
+74ce5e993d458ea30aec259ce1dc70dae86bc513 passed CI 41828989008 and Documentation
+41828989014. Candidate/PR/main/tag validation, release publication and a confirmed
+version DOI remain pending. Latest published stable remains v1.9.0. Historical
+v1.9 identity fixtures and the original S6 archive are retained without relabelling.

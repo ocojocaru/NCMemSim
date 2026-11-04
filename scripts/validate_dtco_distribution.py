@@ -224,7 +224,9 @@ SOURCE_REQUIRED |= {'docs/v1_9_published_surface.json', 'docs/barrier_parameters
                     'tests/test_phase_s6_barrier_reporting.py',
                     'docs/v1_10_api_review.json','docs/v1_10_release_checklist.md',
                     'scripts/validate_v1_10_api_review.py','tests/test_phase_s7_preparation.py',
-                    'tests/fixtures/archives/v1_10_preparation/barrier_report.json'}
+                    'tests/fixtures/archives/v1_10_preparation/barrier_report.json',
+                    'scripts/validate_v1_10_release_identity.py','tests/test_phase_s7_final_identity.py'}
+SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_9_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/performance_interoperability.md', 'docs/v1_9_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_7_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/independent_calibration.md', 'docs/v1_7_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
 
 SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_performance_execution.py',

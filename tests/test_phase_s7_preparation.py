@@ -11,10 +11,11 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def test_real_preparation_gate():
     result=gate.validate(ROOT)
-    assert result['target_release']=='1.10.0' and result['package_version']=='1.9.0'
+    assert result['target_release']=='1.10.0' and result['package_version']=='1.10.0'
     assert result['retained_published_modules']==146
     assert result['reviewed_modules']==4 and result['additive_exports']==16
-    assert not result['final_candidate']
+    assert result['final_candidate']
+    assert gate.build_review(ROOT)['preparation_archive']['capture_package_version']=='1.9.0'
 
 
 @pytest.mark.parametrize('field', ['publication','scientific_limits','version_rationale','preparation_archive'])
@@ -75,3 +76,14 @@ def test_distribution_and_ci_membership():
     assert {gate.ARCHIVE,gate.REVIEW,'docs/v1_10_release_checklist.md',
             'scripts/validate_v1_10_api_review.py','tests/test_phase_s7_preparation.py'} <= SOURCE_REQUIRED
     assert 'python scripts/validate_v1_10_api_review.py' in (ROOT/'.github/workflows/ci.yml').read_text(encoding='utf-8')
+
+
+def test_regenerated_inventory_cannot_approve_unknown_module(monkeypatch):
+    original=gate.build_inventory
+    def altered(root):
+        raw=original(root)
+        raw['modules'].append(dict(raw['modules'][0],module='ncmemsim.unreviewed'))
+        return raw
+    monkeypatch.setattr(gate,'build_inventory',altered)
+    with pytest.raises(ValueError,match='unreviewed additive module set'):
+        gate.build_review(ROOT)

@@ -1,7 +1,8 @@
 # v1.10 S7 preparation checklist
 
-Status: S7 preparation; not a final candidate or a published release.
-Target release: `1.10.0`. Preparation identity: `1.9.0`.
+Status: S7 final candidate; not a published release.
+Target release: `1.10.0`. Candidate identity: `1.10.0`.
+Candidate date: `2026-11-04`. Preparation identity was `1.9.0`.
 Latest published stable remains v1.9.0, DOI 10.5281/zenodo.23664613.
 Concept DOI remains 10.5281/zenodo.23078330. No v1.10 DOI is assigned here.
 Experimental P4B/P5B/P6B qualification remains deferred.
@@ -11,7 +12,7 @@ Experimental P4B/P5B/P6B qualification remains deferred.
 The proposed minor release adds four module-qualified APIs with 16 exports:
 five profile/provenance contracts, two isolated evaluation exports, six explicit
 transport-integration exports and three isolated-report exports. All 146 published
-v1.9 module sources, public surfaces and defaults remain unchanged. The independent
+v1.9 module sources, public surfaces and defaults remain unchanged except the explicitly reviewed package-version literal. The independent
 v1.9 source/surface fence runs before the S review is generated, so regenerating
 the new review cannot silently accept changes to published runtime sources.
 No major-version break is identified. Version 1.10 follows 1.9; it is not version 2.0.
@@ -54,9 +55,10 @@ S2 action consistency checks remain part of restoration.
 - [x] Capture original clean S6 archive and pin all negative/unavailable outcomes.
 - [x] Add API, source, archive and installed-distribution preparation gates.
 - Local focused-test, documentation and wheel/sdist results are recorded separately in the preparation validation evidence.
-- [ ] Commit/push preparation; require exact-commit CI and Documentation success.
+- [x] Preparation commit 74ce5e9: CI 41828989008 and Documentation 41828989014 succeeded.
 - [ ] Require full test and clean distribution matrices on Python 3.11, 3.12 and 3.13.
-- [ ] Prepare final identity, preserving published v1.9 declarations in historical fixtures.
+- [x] Prepare final identity, preserving published v1.9 declarations in historical fixtures.
+- [ ] Commit/push final candidate and require its exact-commit CI and Documentation success.
 - [ ] Review PR; merge and verify the exact main commit.
 - [ ] Create immutable annotated v1.10.0 tag only after main CI succeeds.
 - [ ] Verify tag CI, Release artifacts and the independently assigned version DOI.

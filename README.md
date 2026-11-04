@@ -39,8 +39,15 @@ Phase R adds bounded serial performance measurements, vendor-neutral simulated-d
 interchange, controlled comparisons and strict report bundles. The R3 optimization
 is limited to reviewed report-restoration/export workloads; no universal solver
 speedup or external TCAD agreement is claimed. Experimental P4B/P5B/P6B remain deferred.
-Current CITATION.cff records the version DOI and separate Concept DOI; historical
+The published v1.9 CITATION.cff, including its version DOI, is retained in historical fixtures; historical
 v1.8 citation declarations and preparation report identities remain unchanged.
+
+**Final v1.10.0 candidate:** package identity `1.10.0`, dated 2026-11-04.
+Phase S adds explicit electron barriers, isolated WKB action, opt-in direct inter-FG
+replacements, controlled sensitivity and strict isolated reports. Candidate publication
+is pending; latest published stable remains v1.9.0. CITATION.cff has the separate
+Concept DOI only until a v1.10 version DOI is assigned. P4B/P5B/P6B remain deferred.
+See [the candidate checklist](docs/v1_10_release_checklist.md).
 
 ## Why NCMemSim?
 

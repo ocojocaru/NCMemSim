@@ -180,7 +180,8 @@ The v1.9 gate pins its semantic digest and verifies all 146 original module
 sources and public surfaces. Its original package-hash review is computed over
 those original paths; additive S modules are reviewed separately in the current
 inventory/tests. This does not regenerate or weaken the published v1.9 review.
-Current package/citation version remains 1.9.0 while the next version is provisional.
+The S1 checkpoint retained package/citation version 1.9.0. S7 now prepares the
+1.10.0 final candidate while latest published stable remains 1.9.0.
 
 
 ## S2 isolated action evaluator
@@ -300,3 +301,11 @@ APIs with 16 exports, retaining all 146 published v1.9 sources/defaults. The
 pin compatibility and the original clean S6 synthetic archive. Current package and
 citation identity remain 1.9.0; final candidate identity, exact-commit CI, PR/main/tag
 verification and publication are still pending. S7 is not complete.
+
+## S7 final candidate v1.10.0
+
+Final candidate identity is v1.10.0 dated 2026-11-04. The preparation commit
+74ce5e993d458ea30aec259ce1dc70dae86bc513 passed CI 41828989008 and Documentation
+41828989014. Candidate/PR/main/tag validation, release publication and a confirmed
+version DOI remain pending. Latest published stable remains v1.9.0. Historical
+v1.9 identity fixtures and the original S6 archive are retained without relabelling.

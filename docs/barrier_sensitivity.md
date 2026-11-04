@@ -3,7 +3,7 @@
 S5 implements a reproducible, synthetic study of the isolated S2 electron action.
 It does not attach profiles to a simulator or change the S4 integration contract.
 All parameters are prescribed assumptions; no material coefficient is admitted.
-Package/citation identity remains 1.9.0 pending the S7 release decision.
+The S7 final candidate uses package/citation identity 1.10.0; latest published stable remains 1.9.0.
 
 ## Controlled inputs and outputs
 

@@ -1,12 +1,12 @@
 {
   "schema_version": "phase-s-v1.10-preparation-api-review-v1",
-  "status": "preparation_only",
+  "status": "final_candidate_review",
   "target_release": "1.10.0",
   "published_baseline": "1.9.0",
-  "package_identity_at_review": "1.9.0",
+  "package_identity_at_review": "1.10.0",
   "review_date": "2026-11-04",
   "implementation_source_commit": "8264b7e69ff1985716c226c466640b57c2ed96ac",
-  "version_rationale": "Minor additive release: four module-qualified APIs with 16 exports; all 146 published v1.9 module sources/defaults retained. No major-version contract break.",
+  "version_rationale": "Minor additive release: four module-qualified APIs with 16 exports; all 146 published v1.9 module sources/defaults retained except the reviewed version literal. No major-version contract break.",
   "retained_v1_9_review_sha256": "b2cd064e4275442a2cf9fd67e5ccc4e82e3cfa497d1e1964b5ae364d8e2d3d98",
   "retained_v1_9_surface_sha256": "18cc3bbfba2a5ac7e0c510e053dfb20feb48551871778645bd47d22dc73a291e",
   "retained_published_module_count": 146,
@@ -1599,8 +1599,12 @@
     "No new admitted experimental data, physical uncertainty, yield or lifetime; P4B/P5B/P6B deferred."
   ],
   "publication": {
-    "final_candidate": false,
-    "exact_preparation_commit_ci": "pending user commit/push",
+    "final_candidate": true,
+    "preparation_commit": "74ce5e993d458ea30aec259ce1dc70dae86bc513",
+    "preparation_ci": 41828989008,
+    "preparation_documentation": 41828989014,
+    "preparation_conclusion": "success",
+    "exact_candidate_ci": "pending candidate commit/push",
     "pr_main_tag_release": "not performed",
     "version_doi": null
   }

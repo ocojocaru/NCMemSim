@@ -1,5 +1,12 @@
 # Archival and Citation Policy
 
+## Candidate v1.10.0 citation
+
+Current CITATION.cff describes the final candidate 1.10.0 dated 2026-11-04.
+The version-specific DOI is not assigned; only the Concept DOI remains in identifiers.
+Do not reuse a prior version DOI or invent one. Publication and exact candidate CI
+are pending; latest published stable is v1.9.0. Candidate date is not publication evidence.
+
 ## Current Zenodo archive
 
 The project author confirmed the GitHub/Zenodo archive identifiers:
@@ -24,7 +31,7 @@ independently citable. This metadata update does not move release tags or replac
 
 ## Published v1.9.0 citation
 
-Current CITATION.cff describes published v1.9.0 dated 2026-10-26.
+The historical CITATION.cff describes published v1.9.0 dated 2026-10-26 and is retained in `tests/fixtures/releases/v1_9_0`.
 Version DOI: [10.5281/zenodo.23664613](https://doi.org/10.5281/zenodo.23664613).
 Zenodo API record 23664613 confirms version v1.9.0, publication date 2026-10-26,
 Concept DOI 10.5281/zenodo.23078330 and the related GitHub v1.9.0 tag URL.

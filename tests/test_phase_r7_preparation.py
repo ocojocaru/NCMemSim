@@ -20,13 +20,16 @@ def review_copy(tmp_path,monkeypatch):
     shutil.copytree(ROOT/'tests/fixtures/releases/v1_8_0',tmp_path/'tests/fixtures/releases/v1_8_0')
     target=tmp_path/gate.ARCHIVE;target.parent.mkdir(parents=True,exist_ok=True)
     shutil.copyfile(ROOT/gate.ARCHIVE,target)
-    monkeypatch.setattr(gate,'validate_published',lambda root:dict(
+    for name in gate.PUBLISHED_V19_SNAPSHOTS:
+        destination=tmp_path/name; destination.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copyfile(ROOT/'tests/fixtures/releases/v1_9_0'/name,destination)
+    monkeypatch.setattr(gate,'validate_published' ,lambda root:dict(
         retained_stable_paths=297,stable_ensemble_exports=59,additive_exports=34))
     return tmp_path
 
 
 def test_preparation_validates_real_retained_contracts():
-    result=gate.validate(ROOT)
+    result=gate.validate_retained(ROOT)
     assert result['target_release']=='1.9.0' and result['package_version']=='1.9.0'
     assert result['retained_published_modules']==140 and result['reviewed_modules']==6
     assert result['additive_exports']==20 and result['campaign_count']==5 and result['comparison_count']==9

@@ -55,5 +55,5 @@ manifest. It validates consistency, not authenticity or an adversarial filesyste
 
 The [S5 sensitivity study](barrier_sensitivity.md) remains conditional numerical
 evidence, and [S4 integration](barrier_transport_integration.md) retains its separate
-snapshot/geometry contract. S7 compatibility and release review is next; package
-and citation identity remain 1.9.0 until that decision.
+snapshot/geometry contract. S7 now prepares the final candidate with package/citation identity 1.10.0;
+latest published stable remains 1.9.0, and publication is pending.

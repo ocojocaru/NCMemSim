@@ -2,11 +2,15 @@
 
 All notable changes to NCMemSim are documented in this file.
 
-## Unreleased
+## 1.10.0 - Unreleased
+
+Final candidate dated 2026-11-04; publication and version DOI are pending.
+Independent experimental qualification remains deferred.
 
 - Prepare Phase S7 v1.10 additive API/source compatibility review, frozen S6
   regression archive and installed-distribution gates. Package/citation identity
-  remains 1.9.0 until final candidate preparation; no publication is claimed.
+  was retained at 1.9.0 during preparation; the final candidate uses 1.10.0.
+  No publication is claimed.
 
 - Add Phase S6 owned isolated barrier reports, strict source/summary restoration,
   retained failed/mismatched/unavailable cases and deterministic JSON/Markdown/CSV

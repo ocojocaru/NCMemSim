@@ -163,9 +163,51 @@ def validate(root):
         exact_new_commit_ci='pending metadata follow-up push',final_candidate='published')
 
 
+
+
+PUBLISHED_V19_SNAPSHOTS = ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/performance_interoperability.md', 'docs/v1_9_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')
+PUBLISHED_V19_SNAPSHOT_SHA256 = {'README.md': '79e511062a87356089598a3c3fae9894454532a2304a7a155c80e6814c76c68f', 'CHANGELOG.md': '73a0264ffb369cdb7152ad27ecd97e52dbd84265c27143a5b12917c562ad6a75', 'CITATION.cff': '3f3ca827675e5ee9be4fa8352a60d0e5a4eb2c59d399d443a2bc18cafee8589b', 'ncmemsim/_version.py': '37e4e0cb8665d98f4468cb6437eea266c0b4647f635482ed1172d43c1f87b53e', 'docs/index.md': '9a5baf5ddbbebfc6a5c11c3e95323e49a0d0262594b29ddb241461d0482cbbc7', 'docs/roadmap.md': '2e6bd9a09a7711cd8ad95d1a80c31e237458e60ae11461440e539b6b2aa9ed58', 'docs/archival_citation.md': 'bcc973b421c341353def3026a1432e630466682f4cee96df42a1fd2b56c76219', 'docs/performance_interoperability.md': '3a5c954283a92f535fdf4ad2d47cb824f6ee12fdfe365819bfde9fae6c8002a0', 'docs/v1_9_release_checklist.md': 'f8ab695acb0ffa75e938977802d92d28c15b715b85150c0295d46c3fb0f70ef4', '.github/workflows/ci.yml': '4de241341b3f90577b93e9d5595691543eed313081220005450ba8efee12e7d9', '.github/workflows/docs.yml': '144d18803d11b5ba5d7977d0a4826246e8481e5825f25c7ef3b16a918e72658e'}
+
+
+from contextlib import contextmanager as _contextmanager
+@_contextmanager
+def _published_view(root):
+    """Current runtime with independently pinned historical identity declarations."""
+    import shutil
+    import tempfile
+    root=Path(root)
+    snapshots=root/'tests/fixtures/releases/v1_9_0'
+    for name,digest in PUBLISHED_V19_SNAPSHOT_SHA256.items():
+        if _text_hash(snapshots/name)!=digest:
+            raise ValueError('published v1.9 identity snapshot drift: '+name)
+    old=(snapshots/'ncmemsim/_version.py').read_text(encoding='utf-8')
+    current=(root/'ncmemsim/_version.py').read_text(encoding='utf-8')
+    if current.replace('__version__ = "1.10.0"','__version__ = "1.9.0"')!=old:
+        raise ValueError('unreviewed version source change beyond candidate literal')
+    with tempfile.TemporaryDirectory(prefix='ncmemsim-v19-review-') as temporary:
+        target=Path(temporary)
+        for folder in ('docs','ncmemsim','tests/fixtures','data'):
+            if (root/folder).exists(): shutil.copytree(root/folder,target/folder)
+            else: (target/folder).mkdir(parents=True,exist_ok=True)
+        for name in PUBLISHED_V19_SNAPSHOTS:
+            destination=target/name;destination.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(snapshots/name,destination)
+        yield target
+
+
+def build_retained_review(root):
+    with _published_view(root) as target:
+        return build_review(target)
+
+
+def validate_retained(root):
+    with _published_view(root) as target:
+        return validate(target)
+
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--write-review',action='store_true')
+    parser.add_argument('--retained',action='store_true')
     args=parser.parse_args()
     if args.write_review:
         (ROOT/'docs/v1_9_api_review.json').write_text(json.dumps(build_review(ROOT),indent=2)+'\n',encoding='utf-8')
-    print(json.dumps(validate(ROOT),indent=2))
+    print(json.dumps(validate_retained(ROOT) if args.retained else validate(ROOT),indent=2))

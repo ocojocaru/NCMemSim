@@ -44,10 +44,13 @@ def build_review(root):
     root=Path(root)
     # This independent gate pins all 146 original sources and the published
     # v1.9 surface digest. Regenerating the S review cannot bless old-source drift.
-    if _json(root/'docs/v1_9_api_review.json')!=published.build_review(root):
+    if _json(root/'docs/v1_9_api_review.json')!=published.build_retained_review(root):
         raise ValueError('retained v1.9 review drift')
     report=_archive(root)
     inventory={m['module']:m for m in build_inventory(root)['modules']}
+    expected={row['module'] for row in _json(root/'docs/v1_9_published_surface.json')['modules']} | set(MODULES)
+    if set(inventory)!=expected:
+        raise ValueError('unreviewed additive module set')
     surface=[]
     for name in MODULES:
         module=importlib.import_module(name); exports=list(module.__all__)
@@ -60,10 +63,10 @@ def build_review(root):
     if sum(len(row['exports']) for row in surface)!=16:
         raise ValueError('unreviewed S export count')
     return dict(schema_version='phase-s-v1.10-preparation-api-review-v1',
-        status='preparation_only',target_release='1.10.0',published_baseline='1.9.0',
+        status='final_candidate_review',target_release='1.10.0',published_baseline='1.9.0',
         package_identity_at_review=_version(root),review_date='2026-11-04',
         implementation_source_commit=CAPTURE_COMMIT,
-        version_rationale='Minor additive release: four module-qualified APIs with 16 exports; all 146 published v1.9 module sources/defaults retained. No major-version contract break.',
+        version_rationale='Minor additive release: four module-qualified APIs with 16 exports; all 146 published v1.9 module sources/defaults retained except the reviewed version literal. No major-version contract break.',
         retained_v1_9_review_sha256=_hash(_json(root/'docs/v1_9_api_review.json')),
         retained_v1_9_surface_sha256=published.PUBLISHED_V19_SURFACE_SHA256,
         retained_published_module_count=146,
@@ -79,8 +82,9 @@ def build_review(root):
             'S6 archives isolated action diagnostics, not S4 simulator/provider histories.',
             'S3 negative/unavailable reference evidence remains retained; no universal legacy-kernel equivalence.',
             'No new admitted experimental data, physical uncertainty, yield or lifetime; P4B/P5B/P6B deferred.'],
-        publication=dict(final_candidate=False,exact_preparation_commit_ci='pending user commit/push',
-            pr_main_tag_release='not performed',version_doi=None))
+        publication=dict(final_candidate=True,preparation_commit='74ce5e993d458ea30aec259ce1dc70dae86bc513',
+            preparation_ci=41828989008,preparation_documentation=41828989014,preparation_conclusion='success',
+            exact_candidate_ci='pending candidate commit/push',pr_main_tag_release='not performed',version_doi=None))
 
 
 def validate(root):
@@ -89,16 +93,16 @@ def validate(root):
         raise ValueError('API inventory drift')
     if _json(root/REVIEW)!=build_review(root):
         raise ValueError('v1.10 preparation review/source drift')
-    if _version(root)!='1.9.0':
-        raise ValueError('preparation must retain published 1.9.0 identity')
+    if _version(root)!='1.10.0':
+        raise ValueError('final candidate identity must be 1.10.0')
     checklist=(root/'docs/v1_10_release_checklist.md').read_text(encoding='utf-8')
-    for marker in ('Target release: `1.10.0`','Preparation identity: `1.9.0`',
-                   'Python 3.11, 3.12 and 3.13','P4B/P5B/P6B','not a final candidate'):
+    for marker in ('Target release: `1.10.0`','Candidate identity: `1.10.0`',
+                   'Python 3.11, 3.12 and 3.13','P4B/P5B/P6B','not a published release'):
         if marker not in checklist: raise ValueError('S7 checklist marker missing')
-    return dict(status='s7_preparation_consistency_pass',target_release='1.10.0',
-        package_version='1.9.0',retained_published_modules=146,reviewed_modules=4,
+    return dict(status='s7_final_candidate_consistency_pass',target_release='1.10.0',
+        package_version='1.10.0',retained_published_modules=146,reviewed_modules=4,
         additive_exports=16,report_hash=ARCHIVE_SHA256,archive_summary=EXPECTED_SUMMARY,
-        final_candidate=False,remote_exact_commit_ci='pending user commit/push')
+        final_candidate=True,remote_exact_commit_ci='pending candidate commit/push')
 
 
 if __name__=='__main__':

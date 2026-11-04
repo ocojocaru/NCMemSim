@@ -68,6 +68,8 @@ include tests/test_phase_r6_performance_reporting.py
 
 include scripts/validate_v1_9_api_review.py
 include scripts/validate_v1_10_api_review.py
+include scripts/validate_v1_10_release_identity.py
+include tests/test_phase_s7_final_identity.py
 include tests/test_phase_s7_preparation.py
 include tests/test_phase_s1_barrier_contracts.py
 include tests/test_phase_s2_barrier_evaluation.py
