@@ -593,3 +593,12 @@ checks. All 31 rows are retained, including underflow and one unavailable numeri
 failure. This does not establish device current, physical uncertainty or optimal design.
 S4 attachment rules and all published defaults remain unchanged. S6 reports/bundles
 are the next implementation step; the release version remains provisional.
+
+## S6 isolated action reports
+
+S6 implements [strict barrier reports and bundles](barrier_reporting.md), retaining
+original S2 requests/results, caller settings/references, all failures and negative
+comparisons. Deterministic projections and manifests are checked on restoration,
+without simulator/provider replay. S4 transport histories remain outside this
+isolated-action schema. S7 compatibility and release review is next; version
+selection remains provisional.

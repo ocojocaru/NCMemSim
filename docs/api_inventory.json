@@ -768,6 +768,130 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.barrier_reporting",
+      "source": "ncmemsim/barrier_reporting.py",
+      "explicit_exports": [
+        "BarrierStudyReport",
+        "write_barrier_study_report",
+        "load_barrier_study_bundle"
+      ],
+      "package_import_aliases": {
+        "_Owned": "ncmemsim.performance_contracts._Owned",
+        "_Result": "ncmemsim.barrier_evaluation.BarrierEvaluationResult",
+        "_canonical": "ncmemsim.performance_contracts._canonical",
+        "_hash": "ncmemsim.performance_contracts._hash",
+        "_reject": "ncmemsim.performance_contracts._reject",
+        "_text": "ncmemsim.performance_contracts._text",
+        "_unique": "ncmemsim.performance_contracts._unique"
+      },
+      "public_source_definitions": [
+        {
+          "name": "BarrierStudyReport",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Owned"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": {
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "title",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "cases",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self, title, cases)",
+            "decorators": []
+          },
+          "methods": [
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "write_barrier_study_report",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "report",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(report, destination)",
+          "decorators": []
+        },
+        {
+          "name": "load_barrier_study_bundle",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(destination)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.barrier_transport",
       "source": "ncmemsim/barrier_transport.py",
       "explicit_exports": [

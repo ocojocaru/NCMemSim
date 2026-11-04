@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase S6 owned isolated barrier reports, strict source/summary restoration,
+  retained failed/mismatched/unavailable cases and deterministic JSON/Markdown/CSV
+  bundles with manifest and projection verification; no simulator/provider replay.
+
 - Add Phase S5 isolated barrier sensitivity and factorial thickness/energy controls,
   independent Decimal references, subdivision invariance and complete failure accounting.
   No transport default, material law or experimental qualification changes.

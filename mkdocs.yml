@@ -57,6 +57,7 @@ nav:
       - Controlled multilayer barrier references: barrier_multilayer_reference.md
       - Opt-in barrier transport integration: barrier_transport_integration.md
       - Controlled barrier sensitivity: barrier_sensitivity.md
+      - Isolated barrier reports: barrier_reporting.md
       - Stochastic ensembles and variability: stochastic_ensembles.md
       - Model and TAT variability planning: model_variability.md
       - Multilevel and neuromorphic operation planning: multilevel_operation.md

@@ -72,6 +72,7 @@ include tests/test_phase_s2_barrier_evaluation.py
 include tests/test_phase_s3_multilayer_reference.py
 include tests/test_phase_s4_barrier_transport.py
 include tests/test_phase_s5_barrier_sensitivity.py
+include tests/test_phase_s6_barrier_reporting.py
 include tests/test_phase_r7_preparation.py
 
 include scripts/validate_v1_9_release_identity.py

@@ -219,7 +219,9 @@ SOURCE_REQUIRED |= {'docs/v1_9_published_surface.json', 'docs/barrier_parameters
                     'tests/test_phase_s4_barrier_transport.py', 'examples/phase_s4_barrier_transport_reference.py',
                     'docs/barrier_transport_integration.md', 'docs/barrier_transport_integration_review.json',
                     'docs/barrier_sensitivity.md', 'examples/phase_s5_barrier_sensitivity.py',
-                    'tests/test_phase_s5_barrier_sensitivity.py'}
+                    'tests/test_phase_s5_barrier_sensitivity.py',
+                    'docs/barrier_reporting.md', 'examples/phase_s6_barrier_report.py',
+                    'tests/test_phase_s6_barrier_reporting.py'}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_7_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/independent_calibration.md', 'docs/v1_7_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
 
 SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_performance_execution.py',
@@ -307,6 +309,9 @@ def main() -> None:
             run(str(python), '-I', '-c', PERFORMANCE_CONTRACT_PROBE, str(environment), cwd=work)
             run(str(python), '-I', '-c', INTEROPERABILITY_PROBE, cwd=work)
             run(str(python), '-I', '-c', BARRIER_CONTRACT_PROBE, cwd=work)
+            shutil.copyfile(root / 'examples/phase_s5_barrier_sensitivity.py', work / 'phase_s5_barrier_sensitivity.py')
+            shutil.copyfile(root / 'examples/phase_s6_barrier_report.py', work / 's6_reference.py')
+            run(str(python), '-I', '-c', BARRIER_REPORT_PROBE, str(work), str(number), cwd=work)
             shutil.copyfile(root / 'examples/phase_s5_barrier_sensitivity.py', work / 's5_reference.py')
             run(str(python), '-I', str(work / 's5_reference.py'),
                 '--output', str(work / f's5-study-{number}.json'), cwd=work)
@@ -333,6 +338,28 @@ def main() -> None:
             results.append({"installed_performance_contracts": "PASS", "artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
+
+BARRIER_REPORT_PROBE = r'''import importlib.util, sys
+from pathlib import Path
+from ncmemsim.barrier_reporting import BarrierStudyReport, write_barrier_study_report, load_barrier_study_bundle
+work = Path(sys.argv[1]); number = sys.argv[2]
+for name, filename in [('phase_s5_barrier_sensitivity','phase_s5_barrier_sensitivity.py'), ('s6','s6_reference.py')]:
+    spec = importlib.util.spec_from_file_location(name, work/filename)
+    module = importlib.util.module_from_spec(spec); sys.modules[name] = module; spec.loader.exec_module(module)
+report = module.build_report(); raw = report.to_dict()
+assert raw['summary']['failed_count'] == 1 and raw['summary']['unavailable_count'] == 2
+assert raw['summary']['mismatched_count'] == 1 and raw['summary']['matched_count'] == 30
+assert BarrierStudyReport.from_json(report.to_json()).contract_hash == report.contract_hash
+a = write_barrier_study_report(report, work/('s6-a-'+number))
+b = write_barrier_study_report(report, work/('s6-b-'+number))
+assert {p.name:p.read_bytes() for p in a.iterdir()} == {p.name:p.read_bytes() for p in b.iterdir()}
+assert load_barrier_study_bundle(a).contract_hash == report.contract_hash
+(a/'cases.csv').write_bytes(b'changed')
+try: load_barrier_study_bundle(a)
+except ValueError: pass
+else: raise AssertionError('tampered projection accepted')
+print('Installed S6 strict barrier reports, deterministic bundles and tamper rejection PASS')
+'''
 
 BARRIER_SENSITIVITY_PROBE = r'''import json, sys
 from ncmemsim.barrier_evaluation import BarrierEvaluationResult
