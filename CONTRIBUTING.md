@@ -107,3 +107,13 @@ Participation is governed by `CODE_OF_CONDUCT.md`. By contributing, you agree th
 ## Copyright and license notices
 
 Project Python sources use copyright notices and `SPDX-License-Identifier: Apache-2.0` headers. Preserve existing attribution when editing a file. For newly authored files, identify the applicable copyright holder; do not attribute third-party code to the project author. Keep third-party notices and applicable license terms intact. The complete project license is in `LICENSE`, with project attribution in `NOTICE`.
+
+
+## Keep release documentation consistent
+
+Use [platform status](docs/platform_status.md) for current capability/release scope.
+When releasing an extension, review global absence/future-work claims in the scope,
+physics, architecture, optics, workflows, API and developer pages. Distinguish a
+retained default from a new opt-in path. Do not relabel historical observations,
+fixtures, source-pinned reviews or test counts as current evidence. Update the
+documentation inventory and validate rendered links/examples before committing.

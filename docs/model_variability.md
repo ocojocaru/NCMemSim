@@ -1,5 +1,7 @@
 # Model and trap-assisted transport variability
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## L0 status and baseline
 
 Planning baseline: published v1.2.0, commit b9d2ff77136217af5b3b5a4b5a4780af5d75d6d5.

@@ -1,5 +1,7 @@
 # Scientific workflow integration — Phase I / v0.14.0
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Status and baseline
 
 I0 started `0.14.0.dev0` from published v0.13.0 commit

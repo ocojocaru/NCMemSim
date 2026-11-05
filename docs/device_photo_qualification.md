@@ -1,5 +1,7 @@
 # P4B device/photo qualification protocol review
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 Status: protocol specification plus an implemented assumed OM-2 sequence adapter.
 A measured-device/LCR adapter and experimental qualification remain unresolved. P4A exact-commit CI and
 Documentation passed on `723bdd14dde7af7cb26fdc0d66d693967cd89154`.

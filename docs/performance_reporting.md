@@ -1,5 +1,7 @@
 # Performance and interchange reports - Phase R6
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 R6 provides strict static archives of R2 serial performance campaigns and R5
 interchange comparisons. R5 CI and Documentation passed on
 `0796d4c4f673d09160bbf26dc8d14b10d6d83ce9`. No package/citation version changes.

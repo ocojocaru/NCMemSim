@@ -1,5 +1,7 @@
 # P5A OM-2 numerical diagnostics
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 P5A implements an assumed numerical reference and sensitivity study. P5B remains
 the measured applied reference, identifiability and uncertainty-validation gate,
 conditional on admitted experimental data. P4B experimental qualification is also

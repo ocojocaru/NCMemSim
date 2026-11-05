@@ -1,5 +1,7 @@
 # API compatibility preparation
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 This policy defines the v1.0 API using the published v0.14.0 baseline. It does
 not declare every importable implementation detail stable. The approved
 204-path manifest is the supported v1.0.0 public surface.

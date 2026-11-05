@@ -1,5 +1,7 @@
 # Scientific workflows
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 NCMemSim v1.0.0 supports reproducible electrical, optical, electro-optical,
 retention, sweep, C-V, validation, and provenance workflows.
 
@@ -764,31 +766,11 @@ relevant.
 
 ## 23. Multi-FG optical workflow
 
-In v0.10.0, every floating gate evaluates its optical response using the same
-incident source.
-
-The current implementation does not propagate transmitted optical flux
-sequentially from one FG to the next.
-
-Therefore the present model behaves conceptually as:
-
-```text
-source -> FG0
-source -> FG1
-source -> FG2
-```
-
-rather than:
-
-```text
-source -> FG0 -> attenuated source -> FG1 -> attenuated source -> FG2
-```
-
-Sequential optical attenuation through multi-FG stacks is a future model
-extension.
-
-This limitation should be stated when interpreting multi-FG optical
-simulations.
+The retained default monochromatic path gives each FG the same incident source.
+For sequential attenuation use the published [spectral context](broadband_optics.md),
+which propagates the declared spectrum through ordered passive and active layers.
+Keep layer order, source normalization, losses and accounting explicit. This route
+does not add coherent interference or silently change a default `LightSource` run.
 
 ## 24. Validate a simulation
 
@@ -1027,13 +1009,12 @@ The v0.10.0 optical workflows do not yet model:
 - Franz-Keldysh effects;
 - Stark shifts;
 - state filling;
-- explicit strain-dependent absorption;
-- nanocrystal quantum-confinement corrections;
-- sequential attenuation through multiple floating gates;
 - experimentally calibrated absolute absorption amplitudes;
 - experimentally calibrated photo-capture efficiency.
 
-These are model-scope limitations, not execution errors.
+These remaining limits are distinct from the implemented opt-in
+[structural](strain_confinement.md) and [sequential spectral](broadband_optics.md)
+workflows. They are model-scope limits, not execution errors.
 
 ## 34. Useful executable examples
 

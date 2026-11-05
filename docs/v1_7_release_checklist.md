@@ -1,5 +1,7 @@
 # v1.7 P7 release preparation checklist
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 Status: P7 is complete; v1.7.0 is published.
 Published identity: `1.7.0`; Citation date: `2026-10-12`.
 Author-confirmed version DOI: [10.5281/zenodo.23316663](https://doi.org/10.5281/zenodo.23316663).

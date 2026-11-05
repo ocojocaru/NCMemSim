@@ -1,5 +1,7 @@
 # Result contracts reviewed from v0.14.0
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 These are observed contracts of the v0.14.0 implementation, checked during
 [compatibility preparation](api_compatibility.md). They do not establish
 experimental calibration or freeze every candidate API for v1.0.

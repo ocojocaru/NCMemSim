@@ -1,5 +1,7 @@
 # Device and state model
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Ordered layer stack
 
 A device is represented by `ncmemsim.Device`, which owns an ordered list of `Layer` and `FloatingGateLayer` objects. Each layer stores its physical thickness and role. The ordering defines the one-dimensional coordinate used by the electrostatic and transport engines.

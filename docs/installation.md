@@ -1,5 +1,7 @@
 # Installation
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ### Requirements
 
 - Python 3.11 or newer

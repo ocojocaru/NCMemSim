@@ -89,4 +89,5 @@ NCMemSim succeeds when another researcher can reproduce a published simulation, 
 Published v1.10.0 is a minor additive release with retained published module
 surfaces/defaults and archive semantics, except the reviewed version literal.
 Release and Zenodo archival are complete; independent experimental qualification
-remains deferred. Metadata-follow-up CI is required separately after commit/push.
+remains deferred. Metadata closure 46ec695 passed CI and Documentation.
+See [current platform status](docs/platform_status.md) for the maintained capability map.

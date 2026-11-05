@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-NCMemSim is pre-1.0 research software. Security and correctness fixes are applied to the latest published release and to the `main` development branch.
+NCMemSim is scientific research software with published stable 1.x releases. Security and correctness fixes are applied to the latest published release and to the `main` development branch.
 
 ## Reporting a vulnerability
 

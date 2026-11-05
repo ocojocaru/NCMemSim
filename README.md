@@ -50,6 +50,9 @@ replacements, controlled sensitivity and strict isolated reports. P4B/P5B/P6B re
 deferred. CITATION.cff records this confirmed version DOI and separate Concept DOI.
 See [the release checklist](docs/v1_10_release_checklist.md).
 
+For a consolidated capability/limitations matrix, see [current platform status](docs/platform_status.md)
+and the [documentation inventory](docs/documentation_status.md).
+
 ## Why NCMemSim?
 
 Distributed floating-gate memories couple material composition, nanocrystal geometry, dielectric-stack design, local electrostatics, tunnelling barriers, charge-state kinetics, retention, and optical excitation. NCMemSim separates these concerns into testable modules so that a device can be explored reproducibly instead of being hard-coded into one monolithic script.

@@ -1,5 +1,7 @@
 # Distribution and reproducibility contract review
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 This audit was performed from the v0.14.0 baseline and is retained as the
 v1.0.0 distribution contract. It changes release-validation tooling and
 documentation, not simulation algorithms.
@@ -7,7 +9,8 @@ documentation, not simulation algorithms.
 ## Source and installed-package inventories
 
 The distribution gate now requires every existing ncmemsim Python source module,
-not just the DTCO/workflow subset: currently 84 files. The checkout inventory is
+not just the DTCO/workflow subset. The original audit counted 84 files;
+the current inventory is discovered dynamically rather than fixed to that count. The checkout inventory is
 the comparator. Wheel presence is checked before installation; exact installed
 execution is still required at final-version preparation. Presence alone is not
 a byte comparison of every wheel file or a guarantee of dependency compatibility.

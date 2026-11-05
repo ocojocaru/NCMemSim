@@ -1,5 +1,7 @@
 # Clean installed distribution evidence
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 This final candidate gate records clean installed-distribution validation for the v1.0 stability-preparation branch.
 
 - Source branch: `prep/v1.0-stability`

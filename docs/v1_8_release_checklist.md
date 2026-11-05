@@ -1,5 +1,7 @@
 # v1.8 Q7 release preparation checklist
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 Status: Q7 is complete; release and Zenodo archival verified.
 Published identity: `1.8.0`; citation date: `2026-10-20`.
 Latest published stable: `1.8.0`. Version DOI: 10.5281/zenodo.23510004.

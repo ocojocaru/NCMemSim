@@ -1,5 +1,7 @@
 # Controlled barrier sensitivity - Phase S5
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 S5 implements a reproducible, synthetic study of the isolated S2 electron action.
 It does not attach profiles to a simulator or change the S4 integration contract.
 All parameters are prescribed assumptions; no material coefficient is admitted.

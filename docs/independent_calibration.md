@@ -1,5 +1,7 @@
 # Independent experimental calibration planning
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## P0 status and scope
 
 P0 is complete: repository data/code audit, literature candidate screening,

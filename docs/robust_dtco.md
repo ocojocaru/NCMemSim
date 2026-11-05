@@ -1,5 +1,7 @@
 # Robust DTCO — Phase H / v0.13.0
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Status and baseline
 
 H0 starts v0.13.0 at `0.13.0.dev0` from the published v0.12.0 commit

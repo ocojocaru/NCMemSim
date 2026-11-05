@@ -1,5 +1,7 @@
 # Final candidate gates
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 The v1.0 review gates are approved and the final candidate checks are complete for the release promoted to `main`.
 
 Required final checks:

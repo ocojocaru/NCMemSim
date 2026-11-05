@@ -1,5 +1,7 @@
 # Roadmap
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Completed foundation
 
 ### v0.1.0–v0.3.0: Phases A–C
@@ -57,7 +59,7 @@ The v0.10.0 validation suite contains 194 tests and covers Phases A through E6.
 
 The optical implementation is intentionally compact. Absolute absorption amplitudes and photo-capture efficiencies remain provisional unless independently calibrated.
 
-## Current and planned scientific releases
+## Delivered scientific releases
 
 ### v0.11.0: Experimental fitting and calibration
 
@@ -350,9 +352,8 @@ for the governing K0 architecture and scientific contracts.
 
 L-O are published. P is published as v1.7.0 for calibration infrastructure and
 synthetic numerical diagnostics, with experimental qualification still deferred.
-Q is published as v1.8.0 and R as v1.9.0. S0 now defines the next planning
-cycle for explicit barrier profiles and transport diagnostics; the next version
-remains provisional. Independent experimental dataset discovery can resume the
+Q is published as v1.8.0, R as v1.9.0 and S as v1.10.0. S0-S7 are complete
+for the explicit electron-barrier and scoped direct inter-FG transport release. Independent experimental dataset discovery can resume the
 deferred P gates when suitable evidence becomes available.
 
 ### v1.3.0: Phase L - MODEL/TAT variability
@@ -528,24 +529,16 @@ applied reference, reproducible reports and exact-candidate release gates.
 
 ## Phase S: Explicit barrier profiles and transport diagnostics
 
-S0 is complete as planning/source audit on 2026-11-02. The next version is
-provisional. The [scope and S1-S7 acceptance sequence](barrier_transport.md) and
-[source audit](barrier_transport_audit.json) distinguish the published sampled
-direct WKB kernel from the existing analytic TAT linear kernel. The proposed
-first extension is an isolated ordered piecewise-linear barrier diagnostic with
-explicit energy references, interface discontinuities and per-segment mass.
-Opt-in transport integration is conditional on physical conventions, numerical
-references, conservation and compatibility evidence. S0 changes no simulator
-equations, defaults or material coefficients. S1 adds owned inert electron barrier
-contracts, explicit U/E and reversal conventions, primary-source equation review
-and predeclared numerical acceptance targets. S2 implements the isolated positive-segment action evaluator with analytic-limit
-and independent quadrature controls, underflow diagnostics and numerical failure
-accounting. S3 adds controlled multilayer references, invariance checks and published-kernel/
-profile-refinement comparisons, retaining mismatches explicitly. Simulator
-S4 implements a scoped opt-in wrapper for direct inter-FG replacements at owned
-current snapshots, retaining baseline diagnostics and conservative state evolution.
-Substrate replacement, TAT composition and automatic physical profile generation
-remain outside this integration; see the [S4 contract](barrier_transport_integration.md). Experimental qualification remains deferred.
+S0-S7 are complete and published as v1.10.0. The [governing contract](barrier_transport.md)
+and [source audit](barrier_transport_audit.json) retain the original checkpoints.
+S1 owns profile/provenance declarations; S2 evaluates isolated action and attenuation;
+S3 retains multilayer numerical/legacy comparisons, including negative evidence;
+S4 adds explicit snapshot-bound direct inter-FG replacements; S5 separates parameter
+sensitivity from numerical error; S6 provides strict isolated-action reports/bundles;
+S7 records API compatibility, release and confirmed Zenodo archival.
+Substrate injection replacement, TAT/image-force composition, automatic profile
+generation, microscopic carrier supply and experimental qualification remain outside
+this release. Published kernels/defaults are retained except the reviewed version literal.
 
 ## Delivered extensions and remaining research
 
@@ -557,7 +550,7 @@ remain outside this integration; see the [S4 contract](barrier_transport_integra
 | Independent calibration | P/v1.7 data/fit/holdout infrastructure and numerical diagnostics | Admitted independent experimental data; P4B/P5B/P6B qualification |
 | Multilevel/neuromorphic | Q/v1.8 pulse sequences, readout-derived proxies, retention/ensemble diagnostics | Physical conductance/current models, circuit MAC, learning rules and degradation/endurance models |
 | Performance/interoperability | R/v1.9 scoped restoration optimization, serial measurements and vendor-neutral comparisons | Additional measured optimizations/backends, actual external exports and higher-fidelity coupling |
-| Transport/barriers | J TAT/image-force compact corrections; S0 source audit and plan | Explicit segment profiles first; self-consistent carrier statistics and larger device families are separate research scopes |
+| Transport/barriers | J opt-in TAT/image-force corrections; S/v1.10 explicit profiles, isolated action, scoped inter-FG integration and reports | Microscopic supply/statistics, broader physical coupling and larger device families require separate contracts |
 | Uncertainty | H/K/L bounded propagation, stochastic ensembles and MODEL variability | Broader hierarchical/correlated uncertainty with explicit contracts |
 
 Future work must not reintroduce delivered functionality as an unqualified
@@ -581,8 +574,8 @@ The stable API, scientific scope and citation policy are approved, and the full
 regression, strict documentation, clean-distribution and remote Actions gates
 all passed. The preparation branch was promoted to `main` for v1.0.0.
 
-Historical v1.0 preparation is complete. Current published identity: `1.9.0`,
-dated 2026-10-26; R7 is complete. Version DOI: 10.5281/zenodo.23664613.
+Historical v1.0 preparation is complete. Current published identity: `1.10.0`,
+dated 2026-11-05; S7 is complete. Version DOI: 10.5281/zenodo.23973765.
 
 ## S5 controlled action sensitivity
 
@@ -591,8 +584,8 @@ separate thickness, potential-energy, mass and incident-energy sweeps, a factori
 thickness/energy design, independent Decimal references and same-profile subdivision
 checks. All 31 rows are retained, including underflow and one unavailable numerical
 failure. This does not establish device current, physical uncertainty or optimal design.
-S4 attachment rules and all published defaults remain unchanged. S6 reports/bundles
-are the next implementation step; the release version remains provisional.
+S4 attachment rules and published defaults remain unchanged. S6 reports/bundles
+are implemented and S7 is complete in published v1.10.0.
 
 ## S6 isolated action reports
 
@@ -600,17 +593,16 @@ S6 implements [strict barrier reports and bundles](barrier_reporting.md), retain
 original S2 requests/results, caller settings/references, all failures and negative
 comparisons. Deterministic projections and manifests are checked on restoration,
 without simulator/provider replay. S4 transport histories remain outside this
-isolated-action schema. S7 compatibility and release review is next; version
-selection remains provisional.
+isolated-action schema. S7 compatibility and release review is complete for v1.10.0.
 
 ## S7 preparation and v1.10 target
 
 S7 preparation selects v1.10.0 as an additive minor target: four new module-qualified
 APIs with 16 exports, retaining all 146 published v1.9 sources/defaults. The
 [release checklist](v1_10_release_checklist.md) and [API review](v1_10_api_review.json)
-pin compatibility and the original clean S6 synthetic archive. Current package and
-citation identity remain 1.9.0; final candidate identity, exact-commit CI, PR/main/tag
-verification and publication are still pending. S7 is not complete.
+pin compatibility and the original clean S6 synthetic archive. Preparation kept
+identity 1.9.0; the final v1.10.0 candidate, PR/main/tag gates and publication
+subsequently passed. S7 is complete; original capture identities are unchanged.
 
 ## Published v1.10.0 - S7 is complete
 
@@ -620,5 +612,6 @@ checks. Main CI 41984009951, Documentation 41984009977, tag CI 41990896215 and
 Release 41990896217 succeeded. Wheel and sdist are published. Confirmed version DOI:
 [10.5281/zenodo.23973765](https://doi.org/10.5281/zenodo.23973765).
 Historical v1.9 fixtures and the original S6 archive retain their identities.
-Independent experimental qualification remains deferred. The metadata follow-up
-requires its own CI after commit/push; release tags and artifacts are not replaced.
+Independent experimental qualification remains deferred. Metadata closure commit
+46ec695 passed CI 42000134152 and Documentation 42000134173. The release tag and
+assets remain unchanged; this later documentation consolidation needs its own CI.

@@ -1,5 +1,7 @@
 # Glossary and notation
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 This page defines the principal terms, symbols, abbreviations, and conventions
 used in the NCMemSim v0.10.0 documentation.
 
@@ -868,7 +870,7 @@ Hash associated with the serialized simulation configuration.
 A versioned software state whose tests, documentation, and release artifacts
 have been verified.
 
-The `v0.10.0` release remains the historical Phase E optical baseline; `v0.11.0` adds experimental fitting, diagnostics, and calibration qualification; the current `v0.12.0` release adds deterministic DTCO sweeps, metrics, Pareto fronts, grid sensitivity and reproducible reports.
+The `v0.10.0` release remains the historical Phase E optical baseline; `v0.11.0` adds experimental fitting, diagnostics, and calibration qualification; `v0.12.0` introduced deterministic DTCO sweeps, metrics, Pareto fronts, grid sensitivity and reproducible reports.
 
 ## Common units
 

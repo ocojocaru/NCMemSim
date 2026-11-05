@@ -1,5 +1,7 @@
 # P6A OM-2 numerical reports and bundles
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 P6A reports the assumed OM-2 numerical study implemented in P5A. P6B remains
 the measured-study report/bundle stage, conditional on admitted experimental
 evidence. P4B/P5B experimental gates remain open. The user approved this split;

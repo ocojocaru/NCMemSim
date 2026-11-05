@@ -1,5 +1,7 @@
 # Strict documentation audit evidence
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 The v1.0.0 release retains the strict documentation audit gate first recorded
 on `prep/v1.0-stability` for commit
 `95405f4b6188c6609d3c1b38b609e7627ded2beb`.

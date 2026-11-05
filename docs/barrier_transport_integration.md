@@ -1,5 +1,7 @@
 # Opt-in explicit barrier transport - Phase S4
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Accepted first scope
 
 S4 implements six module-qualified exports in `ncmemsim.barrier_transport`:
@@ -8,7 +10,8 @@ S4 implements six module-qualified exports in `ncmemsim.barrier_transport`:
 `BarrierTransportEngine`. Existing package-root/transport exports, source modules,
 defaults, citation identity and old archives are unchanged. The baseline is S3
 commit `47887342540c4b140ab8f991b9f5cfbde59a82be`, with successful CI/Documentation.
-Current package identity remains 1.9.0; the next version is still provisional.
+The S4 implementation checkpoint used identity 1.9.0. This opt-in integration
+is now published in v1.10.0; the reference evidence keeps its original identity.
 
 The wrapper accepts a plain published `TransportEngine`/`TunnelingEngine` and,
 optionally, a provider callable with a nonempty declared identifier. No provider

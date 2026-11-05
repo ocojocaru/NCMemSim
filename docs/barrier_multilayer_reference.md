@@ -1,11 +1,13 @@
 # Controlled multilayer barrier references - Phase S3
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Scope and evidence
 
 S3 implements controlled synthetic studies of the isolated S2 action evaluator.
 The baseline is S2 commit `78313d539ead19bd06f1cfc774f0d683b19cb7a8`, whose
-CI and Documentation passed before this study. Package identity remains 1.9.0;
-the next release version remains provisional. S3 introduces no transport kernel,
+CI and Documentation passed before this study. Its checkpoint identity was
+1.9.0; the study is now included in published v1.10.0. S3 introduces no transport kernel,
 material coefficient, simulator attachment or experimental qualification.
 
 Run `python examples/phase_s3_multilayer_reference.py` to print the study, or add

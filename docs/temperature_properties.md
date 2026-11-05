@@ -1,5 +1,7 @@
 # Temperature-dependent material properties — Phase M
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## M0 status and baseline
 
 M0 is complete: code-temperature audit, selected property families, ownership,

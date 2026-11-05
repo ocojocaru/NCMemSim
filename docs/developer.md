@@ -1,5 +1,7 @@
 # Developer guide
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 This guide describes the development conventions for the stable NCMemSim v1
 line and the `1.2.0` Phase K release. It records the
 requirements for extending the simulator without losing physical traceability,
@@ -362,28 +364,12 @@ Do not repair conservation errors only in post-processing.
 
 ## Multi-FG optical behaviour
 
-In v0.10.0, each floating gate evaluates optical absorption using the same
-incident source.
-
-The current model does not yet propagate the transmitted optical flux
-sequentially through multiple floating gates.
-
-Therefore code that assumes
-
-```text
-source -> FG0 -> attenuated flux -> FG1 -> attenuated flux -> FG2
-```
-
-would constitute a new physical feature and must not be introduced as a minor
-implementation detail.
-
-Such a change would require new:
-
-- optical propagation logic;
-- API semantics;
-- tests;
-- documentation;
-- regression baselines.
+Preserve the retained default independent-FG monochromatic behavior. Sequential
+single-pass attenuation is implemented through the explicit spectral modules and
+contexts introduced in v1.5; see [broadband optics](broadband_optics.md). Extend that
+route with declared ordering, normalization and conservation tests, rather than
+silently applying attenuation to the old default. Coherent/full-wave propagation
+would require its own equations, ownership, API and validation contracts.
 
 ## Extending the public API
 

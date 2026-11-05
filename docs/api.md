@@ -1,5 +1,7 @@
 # Public API overview
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 The stable public import surface for NCMemSim v1.0.0 is defined primarily in
 `ncmemsim/__init__.py`, with optical material models exposed from
 `ncmemsim.materials.optics`.
@@ -8,7 +10,7 @@ Experimental-data, fitting, diagnostic, and calibration APIs are exposed
 from their dedicated v0.11.0 modules.
 
 The following groups summarize the principal public objects.
-Compatibility preparation and remaining v1.0 gates are described in
+The completed v1.0 compatibility policy is retained in
 [API compatibility preparation](api_compatibility.md).
 
 ## Version
@@ -853,3 +855,24 @@ retains the evaluated context, bracketing values/rates, normalized log secants,
 identifiability status, limitations and an integrity hash. Density and capture
 cross section are marked structurally confounded by the compact active-path
 factor. See [J5 controlled validation](advanced_transport.md#j5-controlled-validation-and-local-sensitivity).
+
+
+## Published additive APIs through v1.10
+
+The root API is not an exhaustive list of all module-qualified public contracts.
+The generated [source inventory](api_inventory.md) is the complete current source
+reference; stability guarantees remain those of each explicit release review.
+
+| Release | Public extension | Reference |
+|---|---|---|
+| v1.2-v1.3 | Stochastic ensembles and explicit MODEL variability | [Ensembles](stochastic_ensembles.md), [MODEL](model_variability.md) |
+| v1.4 | Anchored material-temperature profiles, thermal contexts/DTCO/reports | [Temperature](temperature_properties.md) |
+| v1.5 | Spectral sources, absorption/stack/context/report modules | [Broadband optics](broadband_optics.md) |
+| v1.6 | Structural profiles, hydrostatic strain shifts, confinement and contexts/reports | [Structural diagnostics](strain_confinement.md) |
+| v1.7 | Independent data, fit/holdout, device/photo and OM-2 infrastructure | [Independent calibration](independent_calibration.md) |
+| v1.8 | Electrical/optical multilevel sequences, analysis, retention/ensembles/reports | [Multilevel](multilevel_operation.md) |
+| v1.9 | Performance contracts/execution/workloads, interchange/comparisons/reports | [Performance/interchange](performance_interoperability.md) |
+| v1.10 | barrier_contracts, barrier_evaluation, barrier_transport, barrier_reporting | [Barriers](barrier_transport.md), [16-export review](v1_10_api_review.json) |
+
+All new mechanisms require their explicit contexts/attachments. Published defaults
+and archived source identities are not silently promoted to those new paths.

@@ -1,5 +1,7 @@
 # NCMemSim v0.10.0 Verification and Validation Report
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 ## Scope
 
 Version 0.10.0 extends the verified Phase A-D6 electrical framework with the

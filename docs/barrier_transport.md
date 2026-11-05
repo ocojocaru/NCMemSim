@@ -1,15 +1,18 @@
 # Explicit barrier profiles and transport diagnostics - Phase S
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## S0 status and purpose
 
 S0 is complete as a source audit and development contract, dated 2026-11-02.
-No new transport kernel, material parameter or simulator integration is implemented.
+S0 itself introduced no runtime changes. S1-S7 were subsequently implemented
+and published as v1.10.0; stage-specific design decisions below retain their scope.
 The published baseline is v1.9.0, release commit
 `af16961c832aaa3c8009450534f59cfbbc7893ea`, metadata closure
 `26c7d62109ea3b9e0405538c3b3b2c843e1e453d`, version DOI
 [10.5281/zenodo.23664613](https://doi.org/10.5281/zenodo.23664613).
 Development branch: `dev/phase-s-barrier-transport`.
-The next version remains provisional until compatibility and scope are reviewed.
+The S0 version decision was provisional; S7 selected and published v1.10.0.
 S0 does not select v2.0 or change package/citation identity.
 
 Phase S investigates explicit, ordered, piecewise-linear barrier-energy profiles
@@ -281,8 +284,8 @@ separate thickness, potential-energy, mass and incident-energy sweeps, a factori
 thickness/energy design, independent Decimal references and same-profile subdivision
 checks. All 31 rows are retained, including underflow and one unavailable numerical
 failure. This does not establish device current, physical uncertainty or optimal design.
-S4 attachment rules and all published defaults remain unchanged. S6 reports/bundles
-are the next implementation step; the release version remains provisional.
+S4 attachment rules and published defaults remain unchanged. S6 reports/bundles
+are implemented and S7 is complete in published v1.10.0.
 
 ## S6 isolated action reports
 
@@ -290,17 +293,16 @@ S6 implements [strict barrier reports and bundles](barrier_reporting.md), retain
 original S2 requests/results, caller settings/references, all failures and negative
 comparisons. Deterministic projections and manifests are checked on restoration,
 without simulator/provider replay. S4 transport histories remain outside this
-isolated-action schema. S7 compatibility and release review is next; version
-selection remains provisional.
+isolated-action schema. S7 compatibility and release review is complete for v1.10.0.
 
 ## S7 preparation and v1.10 target
 
 S7 preparation selects v1.10.0 as an additive minor target: four new module-qualified
 APIs with 16 exports, retaining all 146 published v1.9 sources/defaults. The
 [release checklist](v1_10_release_checklist.md) and [API review](v1_10_api_review.json)
-pin compatibility and the original clean S6 synthetic archive. Current package and
-citation identity remain 1.9.0; final candidate identity, exact-commit CI, PR/main/tag
-verification and publication are still pending. S7 is not complete.
+pin compatibility and the original clean S6 synthetic archive. Preparation kept
+identity 1.9.0; the final v1.10.0 candidate, PR/main/tag gates and publication
+subsequently passed. S7 is complete; original capture identities are unchanged.
 
 ## Published v1.10.0 - S7 is complete
 
@@ -310,5 +312,6 @@ checks. Main CI 41984009951, Documentation 41984009977, tag CI 41990896215 and
 Release 41990896217 succeeded. Wheel and sdist are published. Confirmed version DOI:
 [10.5281/zenodo.23973765](https://doi.org/10.5281/zenodo.23973765).
 Historical v1.9 fixtures and the original S6 archive retain their identities.
-Independent experimental qualification remains deferred. The metadata follow-up
-requires its own CI after commit/push; release tags and artifacts are not replaced.
+Independent experimental qualification remains deferred. Metadata closure commit
+46ec695 passed CI 42000134152 and Documentation 42000134173. The release tag and
+assets remain unchanged; this later documentation consolidation needs its own CI.

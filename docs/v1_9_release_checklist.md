@@ -1,5 +1,7 @@
 # v1.9 R7 final candidate checklist
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 Status: published v1.9.0; R7 is complete.
 Target release: `1.9.0`. Published identity: `1.9.0`.
 Citation date: `2026-10-26`.

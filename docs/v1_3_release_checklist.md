@@ -1,5 +1,7 @@
 # v1.3 Phase L7 candidate and release checklist
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 ## Published v1.3.0 evidence
 
 Status: L7 complete; v1.3.0 published on 2026-10-01.

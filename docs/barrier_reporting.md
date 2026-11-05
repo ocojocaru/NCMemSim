@@ -1,5 +1,7 @@
 # Isolated barrier reports and reproducibility bundles - S6
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 S6 adds three module-qualified exports in `ncmemsim.barrier_reporting`:
 `BarrierStudyReport`, `write_barrier_study_report`, `load_barrier_study_bundle`.
 Existing package-root and transport exports remain unchanged. The schema archives

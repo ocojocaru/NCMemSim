@@ -1,5 +1,7 @@
 ![NCMemSim — Nanocrystal Memory Simulation Platform](assets/banner.svg)
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 # NCMemSim
 
 Latest published stable: `1.10.0`, dated 2026-11-05. S7 is complete.

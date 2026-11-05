@@ -1,5 +1,7 @@
 # Transport and retention
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Transport graph
 
 The transport layer represents the device as nodes and links:

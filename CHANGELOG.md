@@ -2,6 +2,12 @@
 
 All notable changes to NCMemSim are documented in this file.
 
+## Unreleased
+
+- Consolidate documentation against published v1.10.0: current capability map,
+  delivered/research roadmap, explicit default/opt-in boundaries and scoped
+  historical evidence. No runtime, parameter, archive or release-identity change.
+
 ## 1.10.0 - 2026-11-05
 
 Published after successful candidate/PR/main/tag CI and Release checks.

@@ -1,5 +1,7 @@
 # Multilevel and neuromorphic operation - Phase Q
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Q0 status and baseline
 
 Q0 is complete: repository audit, initial scientific scope and Q1-Q7 acceptance

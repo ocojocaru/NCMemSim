@@ -1,5 +1,7 @@
 # Performance and interoperability - Phase R
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## R0 status and baseline
 
 R0 is complete: source audit, exploratory profiling and R1-R7 acceptance sequence.

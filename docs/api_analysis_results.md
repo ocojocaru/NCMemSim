@@ -1,5 +1,7 @@
 # Fitting, qualification and DTCO result contracts
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 Reviewed on the v0.14.0 code retained by `prep/v1.0-stability`. This page records
 existing behavior; no fitting algorithm, simulator default, failure policy or
 provenance rule changes. The [source inventory](api_inventory.md) lists exact

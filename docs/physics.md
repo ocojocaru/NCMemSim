@@ -1,5 +1,7 @@
 # Physics model
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Overview
 
 NCMemSim v1.0.0 implements a compact multiphysics model for distributed
@@ -456,18 +458,18 @@ optical absorption will need to be revised explicitly.
 
 ## Multi-floating-gate optical assumption
 
-The current multi-FG optical implementation evaluates each floating gate using
-the same incident optical source.
+The retained default monochromatic `LightSource` path evaluates each FG with the
+same incident source independently. That default is preserved for compatibility.
+Published v1.5 adds explicit spectral sources and ordered single-pass propagation:
 
-It does not yet propagate the transmitted spectrum sequentially through the
-complete multilayer stack.
+```text
+spectral source -> passive/FG layers in declared order -> transmitted output
+```
 
-Therefore, for multiple floating gates, the current implementation does not
-model optical shadowing or attenuation of downstream floating gates by
-upstream floating gates.
-
-This is an explicit compact-model assumption rather than an implicit numerical
-approximation.
+Use the [broadband/spectral context](broadband_optics.md) for sequential attenuation,
+per-layer active/passive absorption and photon/energy accounting. It is an opt-in
+route, not an implicit change to the default optical model. Coherent interference,
+multiple scattering and a full-wave/effective-medium solver remain outside scope.
 
 ## SWIR validation
 

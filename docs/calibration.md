@@ -1,5 +1,7 @@
 # Experimental Fitting and Calibration
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 NCMemSim v0.11.0 separates parameter fitting from calibration
 qualification.
 

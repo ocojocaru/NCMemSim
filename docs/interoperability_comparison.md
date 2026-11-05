@@ -1,5 +1,7 @@
 # Controlled interchange comparisons - Phase R5
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 R5 adds source-bound comparisons and nine synthetic reference cases on top of the
 [R4 interchange contract](interoperability.md). CI and Documentation passed for
 R4 commit `6e7514bf0ed54f26bc94857faaba563626ad92b0`. The R3 optimization and its

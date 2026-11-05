@@ -1,5 +1,7 @@
 # Stochastic nanocrystal ensembles and device variability
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Status and purpose
 
 This page records the completed Phase K contract for NCMemSim v1.2.0.

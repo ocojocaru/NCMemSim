@@ -1,5 +1,7 @@
 # Electrostatics and local fields
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Compact coupling model
 
 For a charged multi-FG stack, NCMemSim evaluates the contribution of every FG to the flat-band shift. The implementation exposes the result through `CouplingResult`, including:

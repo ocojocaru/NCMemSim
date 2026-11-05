@@ -1,5 +1,7 @@
 # Report restoration optimization - Phase R3
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Selection and R2 evidence
 
 The [R3 review](report_restoration_optimization_review.json) records the decision,
@@ -98,8 +100,9 @@ Dedicated CI jobs compare the committed R2 sources with the exact candidate on
 Ubuntu/Windows and Python 3.11/3.13, retaining paired artifacts even on failure.
 CI acceptance is distinct from local acceptance of a dirty working tree. R3
 introduces no calibrated parameter, experimental qualification or TCAD agreement;
-P4B/P5B/P6B remain deferred. R4 vendor-neutral import/export is the next planned stage
-after review of the exact-commit R3 evidence.
+P4B/P5B/P6B remain deferred. R4-R6 vendor-neutral import/export, controlled comparisons and reports were
+subsequently implemented and published in v1.9. The measurements below remain
+historical R3 observations, not timings of the current v1.10 tree.
 
 
 ## Local paired results

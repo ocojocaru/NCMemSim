@@ -1,5 +1,7 @@
 # Scientific scope and assumptions
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Purpose
 
 NCMemSim is a compact scientific simulator for nanocrystal floating-gate
@@ -126,13 +128,16 @@ In particular, the current release does not explicitly include:
 - full Poisson-Schrodinger self-consistency;
 - multidimensional electrostatics;
 - coherent quantum transport;
-- explicit trap-assisted tunnelling;
-- explicit defect-mediated transport;
-- image-force barrier lowering as an independent physical model;
+- a universal microscopic defect-transport or spatial image-potential solver;
 - non-parabolic-band transport;
 - detailed interface-state distributions;
 - mobile ionic charge;
 - full semiconductor carrier-statistics coupling.
+
+Opt-in compact TAT/image-force corrections are implemented; see
+[advanced transport](advanced_transport.md). Explicit barrier profiles and direct
+inter-FG replacements are available through [Phase S](barrier_transport.md). These
+are separate reviewed approximations, not the microscopic solvers excluded above.
 
 Some omitted effects may be represented indirectly through effective fitted
 parameters, but such use must be documented as an effective-model
@@ -247,7 +252,7 @@ model.
 The implementation does not yet include:
 
 - detailed effective-medium electrodynamics;
-- matrix absorption;
+- an automatically inferred matrix optical-response law;
 - multiple optical scattering;
 - interference in the multilayer stack;
 - complete wavelength-dependent refractive-index propagation.
@@ -300,26 +305,28 @@ reinterpretation of the existing optical parameters.
 
 ## Multi-FG optical propagation
 
-For devices containing multiple floating gates, each floating gate currently
-receives the same incident optical source independently.
+The retained default monochromatic `LightSource` path evaluates each FG with the
+same incident source independently. That default is preserved for compatibility.
+Published v1.5 adds explicit spectral sources and ordered single-pass propagation:
 
-Sequential propagation of the transmitted optical flux through the complete
-stack is not yet implemented.
+```text
+spectral source -> passive/FG layers in declared order -> transmitted output
+```
 
-Consequently, the current model does not represent optical shadowing or
-progressive attenuation of downstream floating gates by upstream floating
-gates.
-
-This assumption should be stated when interpreting optical simulations of
-multi-FG structures.
+Use the [broadband/spectral context](broadband_optics.md) for sequential attenuation,
+per-layer active/passive absorption and photon/energy accounting. It is an opt-in
+route, not an implicit change to the default optical model. Coherent interference,
+multiple scattering and a full-wave/effective-medium solver remain outside scope.
 
 ## Strain and quantum confinement
 
 The current optical model does not explicitly calculate strain-dependent band
 structure for a particular fabricated GeSn layer or nanocrystal ensemble.
 
-It also does not include an explicit nanocrystal quantum-confinement correction
-to the optical gaps.
+The retained default does not apply structural corrections automatically.
+Opt-in [structural profiles](strain_confinement.md) implement hydrostatic
+strain-induced transition shifts and spherical kinetic confinement of optical
+gaps. These are not a general strain band-structure or interacting finite-barrier model.
 
 These effects can become important depending on:
 
@@ -471,7 +478,7 @@ using NCMemSim v0.12.0 for claims such as:
 Version v1.0.0 preserves the electrical/optical and fitting/calibration
 baselines, nominal/Robust DTCO and linked scientific workflow evidence.
 
-Its validation suite contains:
+The historical v1.0 preparation validation record contains:
 
 ```text
 more than 2200 tests
@@ -479,7 +486,9 @@ more than 2200 tests
 
 and covers retained Phases A–F, 717 Phase G/H and 192 Phase I cases.
 
-The prepared commit must pass the supported Python 3.11–3.13 CI matrix before tagging.
+Those are historical preparation counts, not the v1.10 suite size. Current
+release and metadata closure passed supported-runtime CI; see
+[current status](platform_status.md). Every new commit still requires its own CI.
 
 Phase I final preparation verifies clean installed wheel/source workflows and
 strict documentation locally; remote gates and publication follow the prepared commit.
@@ -496,13 +505,13 @@ The next development stages are expected to focus on:
 
 - calibrated optical absorption;
 - calibrated photo-capture parameters;
-- strain-dependent optical models;
-- nanocrystal quantum-confinement corrections;
+- broader strain-dependent optical models beyond implemented hydrostatic shifts;
+- confinement beyond the implemented spherical kinetic approximation;
 - field-dependent optical response;
-- sequential optical propagation through multi-FG stacks;
+- coherent/full-wave propagation beyond implemented sequential single-pass optics;
 - correlated and experimentally qualified uncertainty models beyond the
   implemented independent bounded DTCO marginals;
 - adaptive optimization beyond deterministic Cartesian grids.
 
-These capabilities are roadmap items and should not be described as available
-until they are implemented, tested, and documented.
+These remaining research directions are distinct from the shipped opt-in
+extensions. See the delivered/research split in the [roadmap](roadmap.md).

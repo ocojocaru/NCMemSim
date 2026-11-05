@@ -39,6 +39,8 @@ extra_javascript:
 
 nav:
   - Home: index.md
+  - Current platform status: platform_status.md
+  - Documentation map: documentation_status.md
   - Getting started:
       - Installation: installation.md
       - Quick start: quickstart.md
@@ -91,21 +93,21 @@ nav:
   - Software reference:
       - Architecture: architecture.md
       - Public API: api.md
-      - API compatibility preparation: api_compatibility.md
+      - API compatibility policy (v1.0 baseline): api_compatibility.md
       - API source inventory: api_inventory.md
       - Result contract review: api_results.md
       - Analysis result contracts: api_analysis_results.md
       - Archive compatibility: api_archives.md
       - Scientific default review: scientific_defaults.md
       - Distribution contract review: distribution_contracts.md
-      - v1.0 readiness: release_readiness.md
-      - Final candidate gates: final_candidate_gates.md
-      - Remote final gate evidence: final_candidate_remote_evidence.md
-      - Full local regression evidence: final_candidate_local_regression.md
-      - Strict documentation evidence: final_candidate_strict_documentation.md
-      - Clean distribution evidence: final_candidate_clean_distributions.md
-      - Archival and citation plan: archival_citation.md
-      - Stable API proposal: stable_api_proposal.md
+      - Historical v1.0 readiness: release_readiness.md
+      - Historical v1.0 candidate gates: final_candidate_gates.md
+      - Historical remote gate evidence: final_candidate_remote_evidence.md
+      - Historical local regression evidence: final_candidate_local_regression.md
+      - Historical strict documentation evidence: final_candidate_strict_documentation.md
+      - Historical clean distribution evidence: final_candidate_clean_distributions.md
+      - Archival and citation policy: archival_citation.md
+      - Historical approved v1.0 API manifest: stable_api_proposal.md
       - Developer guide: developer.md
       - Roadmap: roadmap.md
-      - Software design specification: NCMemSim_v6_Software_Design_Specification_Rev1.md
+      - Historical design specification (Rev1): NCMemSim_v6_Software_Design_Specification_Rev1.md

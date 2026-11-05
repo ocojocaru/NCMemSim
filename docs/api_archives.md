@@ -1,5 +1,7 @@
 # Archive schema compatibility preparation
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 This review uses the published v0.14.0 archives as fixtures and defines the
 reader compatibility contract retained by v1.0.0.
 

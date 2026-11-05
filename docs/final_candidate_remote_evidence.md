@@ -1,5 +1,7 @@
 # Remote final candidate gate evidence
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 This page records the remote Actions gates confirmed green after the stability
 branch was promoted to `main`, at commit
 `f56e29aff9b1965d462b3a1404ebfd85bf47e05f`.

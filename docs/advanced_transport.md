@@ -1,5 +1,7 @@
 # Advanced transport physics
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Status and purpose
 
 This page defines the Phase J development contract for NCMemSim v1.1.0.
@@ -581,7 +583,7 @@ transport equation or modify the J4/J5 scientific contracts.
 
 J7a keeps the approved v1.0 contract immutable and reviews only the additive Phase J surface. The published v1.0.0 `ncmemsim.transport.__all__` contained 13 names; the completed J1-J6 package surface contains those same 13 names plus 44 explicit additions. The exact review snapshot is stored in `docs/v1_1_api_review.json` and checked by `scripts/validate_v1_1_api_review.py`.
 
-The 44 explicit Phase J package exports remain public, but J7a deliberately does not freeze all of them. Thirty-four configuration, aggregate evaluator/result, integration, sensitivity and reporting paths are proposed for v1.1 stabilization at canonical `ncmemsim.transport.<name>` paths. Ten lower-level barrier-profile, single-species and numerical helper paths remain public provisional. This is not release approval: the final v1.1 contract remains subject to J7 local and remote candidate gates. Direct implementation modules (`traps`, `tat`, `barrier_corrections`, `integration`, `validation`, and `reporting`) remain importable source interfaces but are not separately selected as stable aliases. Underscore-prefixed and non-exported helpers remain internal unless already protected by the frozen v1.0 contract.
+The 44 explicit Phase J package exports remain public, but J7a deliberately does not freeze all of them. Thirty-four configuration, aggregate evaluator/result, integration, sensitivity and reporting paths were selected for v1.1 stabilization at canonical `ncmemsim.transport.<name>` paths. Ten lower-level barrier-profile, single-species and numerical helper paths remain public provisional. The v1.1 release subsequently passed the J7 local/remote gates; the review retains its original API selection and does not stabilize every implementation helper. Direct implementation modules (`traps`, `tat`, `barrier_corrections`, `integration`, `validation`, and `reporting`) remain importable source interfaces but are not separately selected as stable aliases. Underscore-prefixed and non-exported helpers remain internal unless already protected by the frozen v1.0 contract.
 
 The result review retains the scientific boundaries already established in J1-J6: TAT evaluator outputs are conditional pathway frequencies rather than device leakage current density; integrated results distinguish disabled/not-attached zero contribution from failed mechanisms; local sensitivity retains density/capture-cross-section structural confounding; and report hashes establish consistency rather than calibration, device prediction or manufacturing yield.
 
@@ -607,9 +609,9 @@ J0 does not introduce or approve:
 
 These items require separate equations, provenance, tests, and review.
 
-## J0 acceptance state
+## Historical J0 acceptance state
 
-J0 is complete when the development version and documentation consistently
+The original J0 acceptance required that the development version and documentation consistently
 identify `1.1.0.dev0`, the latest stable citation remains `1.0.0`, the new page
 is present in navigation and source-distribution inventory, the workflow policy
 does not run expensive Actions for ordinary development pushes, and focused

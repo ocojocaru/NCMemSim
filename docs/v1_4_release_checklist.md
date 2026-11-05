@@ -1,5 +1,7 @@
 # v1.4 Phase M7 candidate and release checklist
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 Status: M7 complete; v1.4.0 published.
 Published identity: `1.4.0`; citation date: `2026-10-02`.
 Version-specific DOI: [10.5281/zenodo.23102549](https://doi.org/10.5281/zenodo.23102549) (confirmed by the project author).

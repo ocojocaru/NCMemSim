@@ -1,5 +1,7 @@
 # Software architecture
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Overview
 
 NCMemSim uses a modular architecture that separates:
@@ -592,33 +594,18 @@ retention calculations.
 
 ## Multi-FG optical architecture
 
-In v0.10.0, optical absorption is evaluated independently for each floating
-gate using the same incident source.
-
-The current architecture does not yet propagate transmitted optical flux
-sequentially from one floating gate to the next.
-
-Conceptually, the present model is:
+The retained default monochromatic `LightSource` path evaluates each FG with the
+same incident source independently. That default is preserved for compatibility.
+Published v1.5 adds explicit spectral sources and ordered single-pass propagation:
 
 ```text
-                    LightSource
-                 /      |       \
-                v       v        v
-              FG0     FG1      FG2
-                |       |        |
-                v       v        v
-             photo    photo    photo
-             rates    rates    rates
+spectral source -> passive/FG layers in declared order -> transmitted output
 ```
 
-rather than:
-
-```text
-LightSource -> FG0 -> transmitted flux -> FG1 -> transmitted flux -> FG2
-```
-
-Sequential multilayer optical propagation is therefore a future architectural
-extension.
+Use the [broadband/spectral context](broadband_optics.md) for sequential attenuation,
+per-layer active/passive absorption and photon/energy accounting. It is an opt-in
+route, not an implicit change to the default optical model. Coherent interference,
+multiple scattering and a full-wave/effective-medium solver remain outside scope.
 
 ## Validation architecture
 
@@ -758,13 +745,13 @@ pipeline is experiment specification → Cartesian sweep → metrics/constraints
 Further extension points include:
 - calibrated optical absorption;
 - calibrated photo-capture efficiency;
-- strain-dependent GeSn optical properties;
-- nanocrystal quantum-confinement corrections;
+- strain-dependent properties beyond implemented hydrostatic optical shifts;
+- confinement beyond implemented spherical kinetic diagnostics;
 - field-dependent optical response;
 - state-filling effects;
-- sequential optical attenuation through multi-FG stacks;
-- uncertainty propagation through design studies;
-- adaptive exploration and robust multi-objective optimization.
+- coherent/full-wave propagation beyond implemented sequential single-pass optics;
+- hierarchical/correlated uncertainty beyond supported bounded propagation and ensembles;
+- adaptive exploration beyond the implemented grid-based DTCO/Robust DTCO workflows.
 
 New capabilities should enter through explicit model interfaces rather than by
 silently modifying unrelated kernels.

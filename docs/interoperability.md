@@ -1,5 +1,7 @@
 # Vendor-neutral simulated-data exchange - Phase R4
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 R4 provides a versioned JSON interchange contract and explicit conversion API.
 It does not parse a proprietary TCAD export, establish external agreement, or
 qualify experimental data. No external TCAD file was available. R5 [controlled comparison references](interoperability_comparison.md) preserve

@@ -1,5 +1,7 @@
 # Scientific defaults, units and parameter provenance review
 
+> **Historical evidence/contract:** Version-specific counts, decisions and gates below retain their original scope. They do not describe outstanding v1.10 release work. See [current platform status](platform_status.md).
+
 This review records the v0.14.0 behavior approved and retained for v1.0.0. Values
 below are compatibility baselines, not newly validated physical constants or
 recommended parameters for a particular experimental device. No algorithms,

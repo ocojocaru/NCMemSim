@@ -1,5 +1,7 @@
 # Reproducibility, validation, and benchmarking
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 NCMemSim v0.10.0 treats reproducibility as part of the scientific model rather
 than as a post-processing task.
 
@@ -736,11 +738,17 @@ release evidence.
 See [distribution and runtime contract review](distribution_contracts.md) for source-content, isolated-installation and legacy manifest identity boundaries.
 
 
-## Phase R performance and interoperability planning
+## Published performance, interchange and barrier evidence
 
-The [R0 scope and audit](performance_interoperability.md) distinguish exploratory
-profiling from repeated uninstrumented performance acceptance. The existing short
-benchmark API and historical results remain intact. Broader serial baselines,
-native-memory measurement, explicit numerical-equivalence criteria and vendor-neutral
-comparison contracts are planned; no faster backend or external TCAD agreement is
-claimed. Current package/citation identity remains the published v1.8.0 release.
+Phase R is published in v1.9: bounded serial/native-memory observations,
+equivalence declarations, vendor-neutral interchange/comparisons and strict
+reports. [R3 optimization](report_restoration_optimization.md) retains its original
+same-host source identities; the historical CI job is pinned to that experiment.
+It is not current-tree or universal solver-speedup evidence. Actual TCAD agreement
+is not established by synthetic comparisons.
+
+Published v1.10 adds explicit barrier studies and [isolated-action reports](barrier_reporting.md).
+Their restoration checks compact S2 diagnostics but does not replay the simulator
+or a profile provider. The original S6 preparation archive keeps its 1.9.0 capture
+identity. [Current release status](platform_status.md) is separate from all historical
+observations and archive identities.

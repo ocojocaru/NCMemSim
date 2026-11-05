@@ -1,5 +1,7 @@
 # v1.10 S7 published release checklist
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 Status: published v1.10.0; S7 is complete.
 Target release: `1.10.0`. Published identity: `1.10.0`.
 Candidate date: `2026-11-04`. Preparation identity was `1.9.0`.
@@ -63,10 +65,11 @@ S2 action consistency checks remain part of restoration.
 - [x] Create immutable annotated v1.10.0 tag only after main CI succeeds.
 - [x] Verify tag CI, Release artifacts and the independently assigned version DOI.
 - [x] Record confirmed DOI and close S7 publication/archival scope.
-- [ ] Commit/push metadata follow-up and require its own CI/Documentation success.
+- [x] Metadata closure 46ec695 passed CI 42000134152 and Documentation 42000134173.
 
 The historical R3 performance job remains pinned; it is not Phase S speedup evidence.
 Publication evidence: PR #13; merge/tag commit ba1b9ea9563f3786fb4af96215606b103a2925a2;
 main CI 41984009951; Documentation 41984009977; tag CI 41990896215;
 Release 41990896217; Zenodo record 23973765. Published assets and tags are immutable.
-Metadata-follow-up CI is pending until its separate commit/push exists.
+Metadata-follow-up CI completed successfully on 46ec695. Later documentation
+changes require a new exact-commit CI/Documentation run.

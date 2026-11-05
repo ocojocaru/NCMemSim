@@ -1,5 +1,7 @@
 # Multilevel reports and bundles - Phase Q6
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Scope and scientific status
 
 Q6 packages already typed Q2-Q5 evidence into a reviewable report. It introduces

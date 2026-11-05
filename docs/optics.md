@@ -1,5 +1,7 @@
 # Optical Programming
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 NCMemSim v0.10.0 introduces compact wavelength-dependent optical modelling and photo-assisted programming for Ge/GeSn nanocrystal nonvolatile-memory structures.
 
 ## Phase O planning
@@ -334,17 +336,17 @@ The v0.10.0 optical model does not yet include:
 - Stark shifts;
 - voltage-dependent optical absorption;
 - state filling;
-- explicit strain-dependent absorption;
-- nanocrystal quantum-confinement corrections;
-- sequential optical attenuation through multiple floating gates;
 - experimentally calibrated photo-capture efficiencies.
 
-These effects can be added in later model revisions without changing the high-level optical programming API.
+Published opt-in structural contexts add hydrostatic strain-induced optical
+shifts and spherical kinetic confinement; spectral contexts add sequential
+attenuation. See [structural diagnostics](strain_confinement.md) and
+[broadband optics](broadband_optics.md). They do not change default optical semantics.
 
 The v0.11.0 near-edge reference model improves the traceability of the
-bulk-like direct and Urbach absorption baseline, but it does not remove
-the nanocrystal-, strain-, field-, propagation-, or
-photo-capture-calibration limitations listed above.
+bulk-like direct and Urbach absorption baseline. That evaluator alone does not
+apply the separate structural/spectral contexts or establish field-dependent
+absorption or device-specific photo-capture calibration.
 
 The first Tran digitized fitting workflow also remains explicitly
 `NOT_CALIBRATED`; it must not be used to claim absolute experimental

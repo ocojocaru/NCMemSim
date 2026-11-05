@@ -1,13 +1,15 @@
 # Device-Level Calibration and Pulse Protocols
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 NCMemSim v0.11.0 extends the generic fitting and calibration infrastructure
 to electrical and device-level observables while preserving a strict
 distinction between numerical fitting and experimental calibration.
 
 Phase Q [multilevel operation planning](multilevel_operation.md) defines a
-separate future state-continuing pulse-train workflow. The paired program/erase
-branches documented here retain their independent-reference semantics. Q0
-introduces planning only; it does not implement the new sequence workflow.
+separate state-continuing pulse-train workflow, implemented and published in
+v1.8. The paired program/erase branches documented here retain their independent-
+reference semantics; they are not implicitly converted to a continuing sequence.
 
 The device-level workflows are deliberately conservative. They use controlled
 parameter bindings, explicit protocol objects, reproducibility hashes, and

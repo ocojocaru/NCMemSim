@@ -1,5 +1,7 @@
 # Materials and parameter provenance
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 ## Material objects
 
 NCMemSim distinguishes bulk/dielectric `Material` objects from
@@ -323,4 +325,5 @@ The existing material values and defaults remain unchanged.
 the opt-in v1.4 scope: Si substrate gap/intrinsic density and bulk-Ge optical
 Gamma/L gaps. Existing optical temperature metadata alone does not shift gaps,
 and device temperature does not automatically resolve optical material properties.
-New thermal laws and evaluator contexts begin in M1-M2.
+M1-M6 implement the opt-in contracts, thermal laws, owned evaluator contexts,
+DTCO and reports; these are published in v1.4 and retained in v1.10.

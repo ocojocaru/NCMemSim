@@ -1,5 +1,7 @@
 # Quick start
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 This guide introduces the main NCMemSim v1.0.0 workflows:
 
 1. build a nanocrystal-memory device;
@@ -627,7 +629,7 @@ After completing this quick start:
 
 ## Scientific interpretation
 
-NCMemSim v1.0.0 is a software-verified compact physical simulator with explicit experimental-data fitting and calibration-qualification infrastructure.
+NCMemSim v1.10.0 retains the software-verified compact simulator foundation with explicit experimental-data fitting and calibration-qualification infrastructure.
 
 The electrical and optical workflows can be used for controlled mechanism
 studies, parameter sweeps, spectral comparisons, retention studies, and

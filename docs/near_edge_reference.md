@@ -1,5 +1,7 @@
 # GeSn Near-Edge Reference Model
 
+> **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
+
 NCMemSim v0.11.0 introduces a literature-anchored near-edge optical
 reference model for bulk-like Ge\(_{1-x}\)Sn\(_x\).
 
@@ -38,6 +40,12 @@ It does not currently include:
 - state filling;
 - indirect absorption calibration;
 - sequential optical attenuation through multi-floating-gate stacks.
+
+The list above describes this near-edge evaluator, not the entire platform.
+Separate [structural contexts](strain_confinement.md) and
+[spectral propagation](broadband_optics.md) are available, subject to their explicit
+composition/applicability contracts; they do not broaden this reference model
+or qualify GeSn nanocrystal parameters automatically.
 
 ## Primary literature reference
 
