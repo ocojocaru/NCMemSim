@@ -2,14 +2,14 @@
 
 # NCMemSim
 
-Final candidate: `1.10.0`, dated 2026-11-04; publication and version DOI pending.
-See the [v1.10 checklist](v1_10_release_checklist.md).
+Latest published stable: `1.10.0`, dated 2026-11-05. S7 is complete.
+Explicit electron barrier diagnostics, opt-in direct inter-FG integration and strict
+isolated reports are published with wheel and sdist. Version DOI:
+[10.5281/zenodo.23973765](https://doi.org/10.5281/zenodo.23973765).
+See the [v1.10 checklist](v1_10_release_checklist.md). P4B/P5B/P6B remain deferred.
 
-Latest published stable: `1.9.0`, dated 2026-10-26. R7 is complete.
-Performance diagnostics, simulated-data interchange, controlled comparisons and
-strict reports are published with wheel and sdist after successful candidate/PR/main/tag
-checks. The historical v1.9 citation records [10.5281/zenodo.23664613](https://doi.org/10.5281/zenodo.23664613).
-See the [v1.9 checklist](v1_9_release_checklist.md). Experimental P4B/P5B/P6B remain deferred.
+Previous published stable: `1.9.0`, dated 2026-10-26. R7 is complete;
+version DOI: [10.5281/zenodo.23664613](https://doi.org/10.5281/zenodo.23664613).
 
 Previous published stable: `1.8.0`, dated 2026-10-20. Q7 is complete;
 version DOI: [10.5281/zenodo.23510004](https://doi.org/10.5281/zenodo.23510004).

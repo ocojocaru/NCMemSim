@@ -612,10 +612,13 @@ pin compatibility and the original clean S6 synthetic archive. Current package a
 citation identity remain 1.9.0; final candidate identity, exact-commit CI, PR/main/tag
 verification and publication are still pending. S7 is not complete.
 
-## S7 final candidate v1.10.0
+## Published v1.10.0 - S7 is complete
 
-Final candidate identity is v1.10.0 dated 2026-11-04. The preparation commit
-74ce5e993d458ea30aec259ce1dc70dae86bc513 passed CI 41828989008 and Documentation
-41828989014. Candidate/PR/main/tag validation, release publication and a confirmed
-version DOI remain pending. Latest published stable remains v1.9.0. Historical
-v1.9 identity fixtures and the original S6 archive are retained without relabelling.
+Published 2026-11-05 at tag v1.10.0, commit
+`ba1b9ea9563f3786fb4af96215606b103a2925a2`, after successful candidate/PR/main/tag
+checks. Main CI 41984009951, Documentation 41984009977, tag CI 41990896215 and
+Release 41990896217 succeeded. Wheel and sdist are published. Confirmed version DOI:
+[10.5281/zenodo.23973765](https://doi.org/10.5281/zenodo.23973765).
+Historical v1.9 fixtures and the original S6 archive retain their identities.
+Independent experimental qualification remains deferred. The metadata follow-up
+requires its own CI after commit/push; release tags and artifacts are not replaced.

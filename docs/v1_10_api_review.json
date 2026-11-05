@@ -1,6 +1,6 @@
 {
   "schema_version": "phase-s-v1.10-preparation-api-review-v1",
-  "status": "final_candidate_review",
+  "status": "published_release_review",
   "target_release": "1.10.0",
   "published_baseline": "1.9.0",
   "package_identity_at_review": "1.10.0",
@@ -1604,8 +1604,20 @@
     "preparation_ci": 41828989008,
     "preparation_documentation": 41828989014,
     "preparation_conclusion": "success",
-    "exact_candidate_ci": "pending candidate commit/push",
-    "pr_main_tag_release": "not performed",
-    "version_doi": null
+    "exact_candidate_ci": "success",
+    "candidate_commit": "19954dd822b34ce1f40d287aeb51553ee5ce5c45",
+    "candidate_ci": 41843881225,
+    "candidate_documentation": 41843881379,
+    "pr": 13,
+    "pr_ci": 41852306641,
+    "release_commit": "ba1b9ea9563f3786fb4af96215606b103a2925a2",
+    "main_ci": 41984009951,
+    "main_documentation": 41984009977,
+    "tag_ci": 41990896215,
+    "release": 41990896217,
+    "publication_date": "2026-11-05",
+    "pr_main_tag_release": "success",
+    "version_doi": "10.5281/zenodo.23973765",
+    "metadata_followup_ci": "pending metadata commit/push"
   }
 }

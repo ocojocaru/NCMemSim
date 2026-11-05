@@ -74,9 +74,9 @@ properties are delivered in v1.4.
   Q7 release and Zenodo archival complete, with experimental P4B/P5B/P6B deferred;
 - **v1.9:** published scoped report-restoration optimization, serial performance
   measurements, vendor-neutral interchange/comparisons and strict reports; R7 complete;
-- **Phase S / v1.10 target:** S1-S6 explicit electron barrier profiles, isolated
+- **v1.10:** published S1-S6 explicit electron barrier profiles, isolated
   action evaluation, opt-in direct inter-FG integration and strict isolated reports
-  are implemented; S7 compatibility and release preparation is in progress;
+  are available; S7 release and Zenodo archival are complete;
   see [Phase S planning](docs/barrier_transport.md);
 - **Later (indicative):** broader structural physics, neuromorphic
   workflows, acceleration and higher-fidelity interoperability; see
@@ -86,7 +86,7 @@ properties are delivered in v1.4.
 
 NCMemSim succeeds when another researcher can reproduce a published simulation, inspect each modelling assumption, replace one physical submodel without breaking unrelated components, compare simulation to experiment, and report the exact software and parameter provenance used.
 
-Published v1.9.0 is a minor additive release with retained published module surfaces
-and archive semantics. Release and Zenodo archival are complete. Phase S must
-justify any next-version decision from compatibility evidence, not from a feature
-label alone. S0 introduces no runtime or parameter changes.
+Published v1.10.0 is a minor additive release with retained published module
+surfaces/defaults and archive semantics, except the reviewed version literal.
+Release and Zenodo archival are complete; independent experimental qualification
+remains deferred. Metadata-follow-up CI is required separately after commit/push.

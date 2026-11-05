@@ -18,7 +18,7 @@ NCMemSim is a modular Python framework for the simulation and design–technolog
 > Version-specific DOI: [10.5281/zenodo.23316663](https://doi.org/10.5281/zenodo.23316663)
 > Experimental P4B/P5B/P6B remain deferred; no new independent measured dataset or calibrated parameter is claimed.
 
-**Current stable release:** `1.9.0` — main/tag CI and Release passed; wheel and sdist published.
+**Current stable release:** `1.10.0` — main/tag CI and Release passed; wheel and sdist published.
 > **Previous stable release:** `1.5.0` — broadband optics and reproducible spectral reports.
 > **Previous stable release:** `1.4.0` — temperature-dependent properties and reproducible thermal reports
 > **Published v1.3.0 status:** Phase L is complete; final candidate, main and tag CI passed, and v1.3.0 is published with wheel and sdist.
@@ -42,12 +42,13 @@ speedup or external TCAD agreement is claimed. Experimental P4B/P5B/P6B remain d
 The published v1.9 CITATION.cff, including its version DOI, is retained in historical fixtures; historical
 v1.8 citation declarations and preparation report identities remain unchanged.
 
-**Final v1.10.0 candidate:** package identity `1.10.0`, dated 2026-11-04.
+**Published v1.10.0 status:** S7 is complete. Published 2026-11-05 after
+candidate/PR/main/tag CI, Documentation and Release checks; wheel and sdist are available.
+Version-specific DOI: [10.5281/zenodo.23973765](https://doi.org/10.5281/zenodo.23973765).
 Phase S adds explicit electron barriers, isolated WKB action, opt-in direct inter-FG
-replacements, controlled sensitivity and strict isolated reports. Candidate publication
-is pending; latest published stable remains v1.9.0. CITATION.cff has the separate
-Concept DOI only until a v1.10 version DOI is assigned. P4B/P5B/P6B remain deferred.
-See [the candidate checklist](docs/v1_10_release_checklist.md).
+replacements, controlled sensitivity and strict isolated reports. P4B/P5B/P6B remain
+deferred. CITATION.cff records this confirmed version DOI and separate Concept DOI.
+See [the release checklist](docs/v1_10_release_checklist.md).
 
 ## Why NCMemSim?
 

@@ -2,9 +2,10 @@
 
 All notable changes to NCMemSim are documented in this file.
 
-## 1.10.0 - Unreleased
+## 1.10.0 - 2026-11-05
 
-Final candidate dated 2026-11-04; publication and version DOI are pending.
+Published after successful candidate/PR/main/tag CI and Release checks.
+Version DOI: [10.5281/zenodo.23973765](https://doi.org/10.5281/zenodo.23973765). S7 is complete.
 Independent experimental qualification remains deferred.
 
 - Prepare Phase S7 v1.10 additive API/source compatibility review, frozen S6

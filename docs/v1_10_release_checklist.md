@@ -1,10 +1,10 @@
-# v1.10 S7 preparation checklist
+# v1.10 S7 published release checklist
 
-Status: S7 final candidate; not a published release.
-Target release: `1.10.0`. Candidate identity: `1.10.0`.
+Status: published v1.10.0; S7 is complete.
+Target release: `1.10.0`. Published identity: `1.10.0`.
 Candidate date: `2026-11-04`. Preparation identity was `1.9.0`.
-Latest published stable remains v1.9.0, DOI 10.5281/zenodo.23664613.
-Concept DOI remains 10.5281/zenodo.23078330. No v1.10 DOI is assigned here.
+Latest published stable: `1.10.0`, dated 2026-11-05. Version DOI: 10.5281/zenodo.23973765.
+Concept DOI remains 10.5281/zenodo.23078330. The version DOI is confirmed through the Zenodo API.
 Experimental P4B/P5B/P6B qualification remains deferred.
 
 ## Compatibility and version rationale
@@ -56,15 +56,17 @@ S2 action consistency checks remain part of restoration.
 - [x] Add API, source, archive and installed-distribution preparation gates.
 - Local focused-test, documentation and wheel/sdist results are recorded separately in the preparation validation evidence.
 - [x] Preparation commit 74ce5e9: CI 41828989008 and Documentation 41828989014 succeeded.
-- [ ] Require full test and clean distribution matrices on Python 3.11, 3.12 and 3.13.
+- [x] Require full test and clean distribution matrices on Python 3.11, 3.12 and 3.13.
 - [x] Prepare final identity, preserving published v1.9 declarations in historical fixtures.
-- [ ] Commit/push final candidate and require its exact-commit CI and Documentation success.
-- [ ] Review PR; merge and verify the exact main commit.
-- [ ] Create immutable annotated v1.10.0 tag only after main CI succeeds.
-- [ ] Verify tag CI, Release artifacts and the independently assigned version DOI.
-- [ ] Record confirmed DOI and close S7 with separate metadata-follow-up CI.
+- [x] Commit/push final candidate and require its exact-commit CI and Documentation success.
+- [x] Review PR; merge and verify the exact main commit.
+- [x] Create immutable annotated v1.10.0 tag only after main CI succeeds.
+- [x] Verify tag CI, Release artifacts and the independently assigned version DOI.
+- [x] Record confirmed DOI and close S7 publication/archival scope.
+- [ ] Commit/push metadata follow-up and require its own CI/Documentation success.
 
-The historical R3 performance job stays pinned to its original experiment and is
-not a Phase S speedup claim. No tag, merge, release or DOI publication is performed
-by this preparation step. Local validation evidence lives outside the repository;
-the checkbox for exact-commit remote results remains pending until that commit exists.
+The historical R3 performance job remains pinned; it is not Phase S speedup evidence.
+Publication evidence: PR #13; merge/tag commit ba1b9ea9563f3786fb4af96215606b103a2925a2;
+main CI 41984009951; Documentation 41984009977; tag CI 41990896215;
+Release 41990896217; Zenodo record 23973765. Published assets and tags are immutable.
+Metadata-follow-up CI is pending until its separate commit/push exists.

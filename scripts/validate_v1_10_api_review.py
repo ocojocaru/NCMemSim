@@ -63,7 +63,7 @@ def build_review(root):
     if sum(len(row['exports']) for row in surface)!=16:
         raise ValueError('unreviewed S export count')
     return dict(schema_version='phase-s-v1.10-preparation-api-review-v1',
-        status='final_candidate_review',target_release='1.10.0',published_baseline='1.9.0',
+        status='published_release_review',target_release='1.10.0',published_baseline='1.9.0',
         package_identity_at_review=_version(root),review_date='2026-11-04',
         implementation_source_commit=CAPTURE_COMMIT,
         version_rationale='Minor additive release: four module-qualified APIs with 16 exports; all 146 published v1.9 module sources/defaults retained except the reviewed version literal. No major-version contract break.',
@@ -84,7 +84,12 @@ def build_review(root):
             'No new admitted experimental data, physical uncertainty, yield or lifetime; P4B/P5B/P6B deferred.'],
         publication=dict(final_candidate=True,preparation_commit='74ce5e993d458ea30aec259ce1dc70dae86bc513',
             preparation_ci=41828989008,preparation_documentation=41828989014,preparation_conclusion='success',
-            exact_candidate_ci='pending candidate commit/push',pr_main_tag_release='not performed',version_doi=None))
+            exact_candidate_ci='success',candidate_commit='19954dd822b34ce1f40d287aeb51553ee5ce5c45',
+            candidate_ci=41843881225,candidate_documentation=41843881379,pr=13,pr_ci=41852306641,
+            release_commit='ba1b9ea9563f3786fb4af96215606b103a2925a2',main_ci=41984009951,
+            main_documentation=41984009977,tag_ci=41990896215,release=41990896217,
+            publication_date='2026-11-05',pr_main_tag_release='success',version_doi='10.5281/zenodo.23973765',
+            metadata_followup_ci='pending metadata commit/push'))
 
 
 def validate(root):
@@ -96,13 +101,13 @@ def validate(root):
     if _version(root)!='1.10.0':
         raise ValueError('final candidate identity must be 1.10.0')
     checklist=(root/'docs/v1_10_release_checklist.md').read_text(encoding='utf-8')
-    for marker in ('Target release: `1.10.0`','Candidate identity: `1.10.0`',
-                   'Python 3.11, 3.12 and 3.13','P4B/P5B/P6B','not a published release'):
+    for marker in ('Target release: `1.10.0`','Published identity: `1.10.0`',
+                   'Python 3.11, 3.12 and 3.13','P4B/P5B/P6B','S7 is complete'):
         if marker not in checklist: raise ValueError('S7 checklist marker missing')
     return dict(status='s7_final_candidate_consistency_pass',target_release='1.10.0',
         package_version='1.10.0',retained_published_modules=146,reviewed_modules=4,
         additive_exports=16,report_hash=ARCHIVE_SHA256,archive_summary=EXPECTED_SUMMARY,
-        final_candidate=True,remote_exact_commit_ci='pending candidate commit/push')
+        final_candidate=True,release_published=True,remote_exact_commit_ci='pending metadata commit/push')
 
 
 if __name__=='__main__':
