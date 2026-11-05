@@ -67,6 +67,16 @@ include tests/test_phase_r5_interoperability_comparison.py
 include tests/test_phase_r6_performance_reporting.py
 
 include scripts/validate_v1_9_api_review.py
+include scripts/validate_v1_10_api_review.py
+include scripts/validate_v1_10_release_identity.py
+include tests/test_phase_s7_final_identity.py
+include tests/test_phase_s7_preparation.py
+include tests/test_phase_s1_barrier_contracts.py
+include tests/test_phase_s2_barrier_evaluation.py
+include tests/test_phase_s3_multilayer_reference.py
+include tests/test_phase_s4_barrier_transport.py
+include tests/test_phase_s5_barrier_sensitivity.py
+include tests/test_phase_s6_barrier_reporting.py
 include tests/test_phase_r7_preparation.py
 
 include scripts/validate_v1_9_release_identity.py

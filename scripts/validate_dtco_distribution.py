@@ -210,6 +210,23 @@ SOURCE_REQUIRED |= {'scripts/validate_v1_8_api_review.py', 'docs/v1_8_api_review
     'docs/multilevel_operation_audit.json', 'docs/multilevel_reporting.md', 'examples/phase_q6_multilevel_report.py'}
 
 SOURCE_REQUIRED |= {'scripts/validate_v1_8_release_identity.py'}
+SOURCE_REQUIRED |= {'docs/v1_9_published_surface.json', 'docs/barrier_parameters_review.json',
+                    'docs/barrier_transport.md', 'tests/test_phase_s1_barrier_contracts.py',
+                    'tests/test_phase_s2_barrier_evaluation.py', 'docs/barrier_kernel_review.json',
+                    'examples/phase_s2_barrier_reference.py',
+                    'examples/phase_s3_multilayer_reference.py', 'tests/test_phase_s3_multilayer_reference.py',
+                    'docs/barrier_multilayer_reference.md', 'docs/barrier_multilayer_review.json',
+                    'tests/test_phase_s4_barrier_transport.py', 'examples/phase_s4_barrier_transport_reference.py',
+                    'docs/barrier_transport_integration.md', 'docs/barrier_transport_integration_review.json',
+                    'docs/barrier_sensitivity.md', 'examples/phase_s5_barrier_sensitivity.py',
+                    'tests/test_phase_s5_barrier_sensitivity.py',
+                    'docs/barrier_reporting.md', 'examples/phase_s6_barrier_report.py',
+                    'tests/test_phase_s6_barrier_reporting.py',
+                    'docs/v1_10_api_review.json','docs/v1_10_release_checklist.md',
+                    'scripts/validate_v1_10_api_review.py','tests/test_phase_s7_preparation.py',
+                    'tests/fixtures/archives/v1_10_preparation/barrier_report.json',
+                    'scripts/validate_v1_10_release_identity.py','tests/test_phase_s7_final_identity.py'}
+SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_9_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/performance_interoperability.md', 'docs/v1_9_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
 SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_7_0/'+name for name in ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py', 'docs/index.md', 'docs/roadmap.md', 'docs/archival_citation.md', 'docs/independent_calibration.md', 'docs/v1_7_release_checklist.md', '.github/workflows/ci.yml', '.github/workflows/docs.yml')}
 
 SOURCE_REQUIRED |= {'scripts/run_performance_baseline.py', 'tests/test_phase_r2_performance_execution.py',
@@ -296,6 +313,27 @@ def main() -> None:
             run(str(python), '-I', '-c', MULTILEVEL_PROBE, str(work), version, cwd=work)
             run(str(python), '-I', '-c', PERFORMANCE_CONTRACT_PROBE, str(environment), cwd=work)
             run(str(python), '-I', '-c', INTEROPERABILITY_PROBE, cwd=work)
+            run(str(python), '-I', '-c', BARRIER_CONTRACT_PROBE, cwd=work)
+            shutil.copyfile(root / 'tests/fixtures/archives/v1_10_preparation/barrier_report.json', work / 'frozen_barrier_report.json')
+            run(str(python), '-I', '-c', BARRIER_ARCHIVE_PROBE, str(work), str(number), cwd=work)
+            shutil.copyfile(root / 'examples/phase_s5_barrier_sensitivity.py', work / 'phase_s5_barrier_sensitivity.py')
+            shutil.copyfile(root / 'examples/phase_s6_barrier_report.py', work / 's6_reference.py')
+            run(str(python), '-I', '-c', BARRIER_REPORT_PROBE, str(work), str(number), cwd=work)
+            shutil.copyfile(root / 'examples/phase_s5_barrier_sensitivity.py', work / 's5_reference.py')
+            run(str(python), '-I', str(work / 's5_reference.py'),
+                '--output', str(work / f's5-study-{number}.json'), cwd=work)
+            run(str(python), '-I', '-c', BARRIER_SENSITIVITY_PROBE,
+                str(work / f's5-study-{number}.json'), cwd=work)
+            shutil.copyfile(root / 'examples/phase_s4_barrier_transport_reference.py', work / 's4_reference.py')
+            run(str(python), '-I', str(work / 's4_reference.py'),
+                '--output', str(work / f's4-study-{number}.json'), cwd=work)
+            run(str(python), '-I', '-c', BARRIER_TRANSPORT_PROBE,
+                str(work / f's4-study-{number}.json'), cwd=work)
+            shutil.copyfile(root / 'examples/phase_s3_multilayer_reference.py', work / 's3_reference.py')
+            run(str(python), '-I', str(work / 's3_reference.py'),
+                '--output', str(work / f's3-study-{number}.json'), cwd=work)
+            run(str(python), '-I', '-c', BARRIER_MULTILAYER_PROBE,
+                str(work / f's3-study-{number}.json'), cwd=work)
             shutil.copyfile(root / 'examples/phase_r5_interoperability_reference.py', work / 'r5_reference.py')
             run(str(python), '-I', str(work / 'r5_reference.py'),
                 '--output', str(work / f'r5-controls-{number}.json'), cwd=work)
@@ -307,6 +345,128 @@ def main() -> None:
             results.append({"installed_performance_contracts": "PASS", "artifact": artifact.name, "installed_workflow": "PASS", "installed_thermal": "PASS", "installed_spectral": "PASS", "installed_structural": "PASS", "installed_independent_numerical": "PASS", "installed_multilevel": "PASS"})
         print(json.dumps({"distributions": results, "audited_source_files": source_count,
                           "dependency_mode": "inherited" if args.reuse_dependencies else "clean"}, indent=2))
+
+BARRIER_ARCHIVE_PROBE = r'''import json, sys
+from pathlib import Path
+from ncmemsim.barrier_reporting import BarrierStudyReport, write_barrier_study_report, load_barrier_study_bundle
+from ncmemsim.barrier_transport import BarrierTransportEngine
+def forbidden(*args, **kwargs): raise AssertionError('frozen archive attempted device/provider replay')
+BarrierTransportEngine.step=forbidden
+BarrierTransportEngine.evaluate=forbidden
+work=Path(sys.argv[1]); number=sys.argv[2]
+report=BarrierStudyReport.from_json((work/'frozen_barrier_report.json').read_text(encoding='utf-8'))
+assert report.contract_hash=='f7e101d5158f8188e00aa5c0c37a0c1c02424175bc8e91e7be6c93dbe4c7fa7d'
+summary=report.to_dict()['summary']
+assert summary['failed_count']==1 and summary['mismatched_count']==1 and summary['unavailable_count']==2
+a=write_barrier_study_report(report,work/('s7-a-'+number))
+b=write_barrier_study_report(report,work/('s7-b-'+number))
+assert {p.name:p.read_bytes() for p in a.iterdir()}=={p.name:p.read_bytes() for p in b.iterdir()}
+assert load_barrier_study_bundle(a).contract_hash==report.contract_hash
+(a/'report.md').write_bytes(b'changed')
+try: load_barrier_study_bundle(a)
+except ValueError: pass
+else: raise AssertionError('frozen bundle tamper accepted')
+print('Installed S7 frozen barrier archive, no device replay and deterministic bundles PASS')
+'''
+
+BARRIER_REPORT_PROBE = r'''import importlib.util, sys
+from pathlib import Path
+from ncmemsim.barrier_reporting import BarrierStudyReport, write_barrier_study_report, load_barrier_study_bundle
+work = Path(sys.argv[1]); number = sys.argv[2]
+for name, filename in [('phase_s5_barrier_sensitivity','phase_s5_barrier_sensitivity.py'), ('s6','s6_reference.py')]:
+    spec = importlib.util.spec_from_file_location(name, work/filename)
+    module = importlib.util.module_from_spec(spec); sys.modules[name] = module; spec.loader.exec_module(module)
+report = module.build_report(); raw = report.to_dict()
+assert raw['summary']['failed_count'] == 1 and raw['summary']['unavailable_count'] == 2
+assert raw['summary']['mismatched_count'] == 1 and raw['summary']['matched_count'] == 30
+assert BarrierStudyReport.from_json(report.to_json()).contract_hash == report.contract_hash
+a = write_barrier_study_report(report, work/('s6-a-'+number))
+b = write_barrier_study_report(report, work/('s6-b-'+number))
+assert {p.name:p.read_bytes() for p in a.iterdir()} == {p.name:p.read_bytes() for p in b.iterdir()}
+assert load_barrier_study_bundle(a).contract_hash == report.contract_hash
+(a/'cases.csv').write_bytes(b'changed')
+try: load_barrier_study_bundle(a)
+except ValueError: pass
+else: raise AssertionError('tampered projection accepted')
+print('Installed S6 strict barrier reports, deterministic bundles and tamper rejection PASS')
+'''
+
+BARRIER_SENSITIVITY_PROBE = r'''import json, sys
+from ncmemsim.barrier_evaluation import BarrierEvaluationResult
+data = json.load(open(sys.argv[1], encoding='utf-8'))
+assert data['counts'] == dict(attempted=31, completed=30, failed=1, matched=30, mismatched=0, unavailable=1)
+rows = [data['baseline']]+data['design']+data['controls']+data['subdivision_controls']
+rows += [row for group in data['sweeps'].values() for row in group]
+for row in rows:
+    assert BarrierEvaluationResult.from_dict(row['result']).to_dict() == row['result']
+assert not data['experimental_qualification']
+print('S5 installed sensitivity controls PASS')
+'''
+
+BARRIER_TRANSPORT_PROBE = r'''import json, sys
+from pathlib import Path
+from ncmemsim.barrier_transport import BarrierTransportContext, BarrierTransportSpec
+raw=json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
+assert raw['experimental_qualification'] is False
+for case in raw['cases'].values():
+    result=case['result']
+    context=BarrierTransportContext.from_dict(result['context'])
+    plan=BarrierTransportSpec.from_dict(result['specification'])
+    assert plan.to_dict()['context_hash']==context.contract_hash
+    assert abs(case['conservation_error_m2'])<=1e-12*case['before_electron_sheet_m2']
+    assert result['links'][-1]['status']=='diagnostic_only'
+assert raw['cases']['active']['result']['links'][0]['status']=='profile_replaced'
+assert raw['cases']['partial_failure']['result']['links'][0]['status']=='failed'
+assert raw['cases']['partial_failure']['result']['links'][0]['selected']['net_electron_flux_m2_s']==0
+assert raw['cases']['underflow']['result']['links'][0]['evaluation']['summary']['attenuation_status']=='transmission_underflow'
+print('Installed S4 snapshot-bound replacement, conservation and partial failures PASS')
+'''
+
+BARRIER_MULTILAYER_PROBE = r'''import json, sys
+from pathlib import Path
+from ncmemsim.barrier_evaluation import BarrierEvaluationResult
+raw = json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
+assert raw['summary']['profile_count'] == 7
+assert raw['summary']['completed_profiles'] == 6 and raw['summary']['failed_profiles'] == 1
+assert raw['summary']['invariant_counts'] == {'matched':48, 'mismatched':0, 'unavailable':1}
+assert raw['summary']['published_kernel_equivalence_claim'] is False
+assert raw['experimental_qualification'] is False and raw['simulator_attachment'] is False
+for case in raw['profiles'].values():
+    assert BarrierEvaluationResult.from_dict(case['result']).to_dict() == case['result']
+assert raw['smooth_profile_refinement']['refinement_observed']
+assert not raw['smooth_profile_refinement']['last_level_meets_s1_tolerance']
+assert raw['summary']['published_tat_numeric_mismatches'] == ['near_flat']
+print('Installed S3 multilayer references and retained negative/unavailable evidence PASS')
+'''
+
+BARRIER_CONTRACT_PROBE = r'''from pathlib import Path
+import sys
+import ncmemsim.barrier_contracts as barrier
+assert Path(barrier.__file__).resolve().is_relative_to(Path(sys.prefix).resolve())
+p = barrier.BarrierProvenance('assumed', 'installed synthetic control',
+    'no measurement', 'contract only', 'no interface matching')
+s = barrier.BarrierSegment('a', 1e-9, barrier.barrier_energy_eV_to_J(1.), 0., .2, p)
+b = barrier.BarrierProfile('installed', [s], 0., 'common electron energy zero',
+    'left boundary', 'left to right', 'along_positive_axis', 'left', 'right',
+    'inert declaration', 'no physical qualification')
+q = barrier.BarrierEvaluationSpec(b, 1e-12, 1e-10, 'analytic control scope')
+assert barrier.BarrierEvaluationSpec.from_json(q.to_json()).contract_hash == q.contract_hash
+assert b.reversed().reversed().to_json() == b.to_json()
+assert not q.to_dict()['evaluated']
+print('Installed S1 barrier contracts PASS; no WKB execution')
+from ncmemsim.barrier_evaluation import evaluate_barrier_profile, BarrierEvaluationResult
+r = evaluate_barrier_profile(q)
+assert r.summary['status'] == 'completed' and r.summary['wkb_exponent'] > 0
+assert BarrierEvaluationResult.from_json(r.to_json()).contract_hash == r.contract_hash
+assert not r.to_dict()['simulator_attachment']
+huge = barrier.BarrierSegment('range-failure', 1e300, 1., 1., .2, p)
+raw = b.to_dict(); raw['segments'] = [huge.to_dict()]
+failed = evaluate_barrier_profile(barrier.BarrierEvaluationSpec(
+    barrier.BarrierProfile.from_dict(raw), 1e-12, 1e-10, 'failure control'))
+assert failed.summary['status'] == 'failed'
+assert failed.summary['transmission'] is None
+print('Installed S2 isolated action and retained numerical failure PASS')
+'''
 
 PROBE = r'''import csv
 import json
@@ -504,7 +664,7 @@ report=ModelReport.from_json((work/'model_report.json').read_text(encoding='utf-
 assert sum(s.population.counts['attempted_count'] for s in report.studies)==4
 assert sum(s.population.counts['failed_count'] for s in report.studies)==4
 # A fresh probe process is run for each independently installed artifact.
-first=work/('model-'+str(__import__('os').getpid()))
+first=Path(__import__('tempfile').mkdtemp(prefix='model-', dir=work))/'bundle'
 write_model_report(report,first)
 restored=load_model_report_bundle(first)
 second=Path(str(first)+'-restored')
@@ -556,7 +716,7 @@ except ThermalDomainError:
     pass
 else:
     raise AssertionError('out-of-domain temperature must fail')
-first = work/('thermal-'+str(__import__('os').getpid()))
+first = Path(__import__('tempfile').mkdtemp(prefix='thermal-', dir=work))/'bundle'
 write_thermal_report(report, first)
 restored = load_thermal_report_bundle(first)
 second = Path(str(first)+'-restored')

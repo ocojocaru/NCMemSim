@@ -2,7 +2,7 @@
 
 ## Mission
 
-NCMemSim exists to make the physics, assumptions, and numerical consequences of nanocrystal-memory design explicit, reproducible, and extensible. Its mission is to connect device architecture, material composition, charge-state kinetics, electrostatics, transport, retention, and eventually optical excitation within one transparent research framework.
+NCMemSim exists to make the physics, assumptions, and numerical consequences of nanocrystal-memory design explicit, reproducible, and extensible. Its mission is to connect device architecture, material composition, charge-state kinetics, electrostatics, transport, retention, and optical excitation within one transparent research framework.
 
 ## Scientific vision
 
@@ -24,7 +24,7 @@ The primary device class is a Ge/GeSn nanocrystal floating-gate stack embedded i
 
 NCMemSim v0.10.0 establishes the optical-programming foundation with monochromatic light sources, wavelength-dependent Ge/GeSn absorption, absorbed-photon calculations, photo-assisted charge-state transitions, and coupled electro-optical programming.
 
-The current implementation is intentionally compact. Future development will focus on experimental calibration, broadband and measured spectra, strain and nanocrystal-confinement corrections, field-dependent optical response, and more complete optical propagation through multi-floating-gate structures.
+The current implementation is intentionally compact. Published v1.5 delivers broadband/sequential multi-FG optics and v1.6 delivers opt-in strain and kinetic confinement diagnostics. Remaining work includes independent experimental calibration, measured-spectrum admission, field-dependent optical response and propagation beyond the current single-pass approximation.
 
 ### Experimental fitting
 
@@ -72,9 +72,12 @@ properties are delivered in v1.4.
   independent experimental P4B/P5B/P6B qualification remains deferred;
 - **v1.8:** published multilevel/neuromorphic diagnostics and strict reports;
   Q7 release and Zenodo archival complete, with experimental P4B/P5B/P6B deferred;
-- **Phase R (target v1.9.0):** R0 audit/exploratory profiling complete;
-  measurement-driven acceleration and vendor-neutral interoperability requirements;
-  see [Phase R planning](docs/performance_interoperability.md);
+- **v1.9:** published scoped report-restoration optimization, serial performance
+  measurements, vendor-neutral interchange/comparisons and strict reports; R7 complete;
+- **Phase S / v1.10 target:** S1-S6 explicit electron barrier profiles, isolated
+  action evaluation, opt-in direct inter-FG integration and strict isolated reports
+  are implemented; S7 compatibility and release preparation is in progress;
+  see [Phase S planning](docs/barrier_transport.md);
 - **Later (indicative):** broader structural physics, neuromorphic
   workflows, acceleration and higher-fidelity interoperability; see
   [roadmap](docs/roadmap.md). Major-version changes require a compatibility rationale.
@@ -83,6 +86,7 @@ properties are delivered in v1.4.
 
 NCMemSim succeeds when another researcher can reproduce a published simulation, inspect each modelling assumption, replace one physical submodel without breaking unrelated components, compare simulation to experiment, and report the exact software and parameter provenance used.
 
-The final v1.9.0 candidate selects a minor additive release: published module surfaces
-and archive semantics are retained. Candidate identity is prepared; exact-commit
-gates and release/Zenodo closure remain pending.
+Published v1.9.0 is a minor additive release with retained published module surfaces
+and archive semantics. Release and Zenodo archival are complete. Phase S must
+justify any next-version decision from compatibility evidence, not from a feature
+label alone. S0 introduces no runtime or parameter changes.

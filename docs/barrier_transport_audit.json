@@ -1,0 +1,63 @@
+{
+  "schema_version": "phase-s0-source-audit-v1",
+  "audit_date": "2026-11-02",
+  "status": "planning_only",
+  "baseline_version": "1.9.0",
+  "baseline_commit": "26c7d62109ea3b9e0405538c3b3b2c843e1e453d",
+  "release_commit": "af16961c832aaa3c8009450534f59cfbbc7893ea",
+  "next_version": null,
+  "proposed_branch": "dev/phase-s-barrier-transport",
+  "hash_policy": "SHA256 of UTF-8 source normalized to LF",
+  "source_files": [
+    {
+      "path": "ncmemsim/tunneling.py",
+      "sha256": "c763a6637f9b44c7c91715b7b577e9acf7e6e67f9d275b1b7eabd34c6b62f90a"
+    },
+    {
+      "path": "ncmemsim/kinetics.py",
+      "sha256": "db3733dc68b1ff5bc5f78ade1e301d6dbd6d84801356f99022a1c2308c85e535"
+    },
+    {
+      "path": "ncmemsim/transport/network.py",
+      "sha256": "c2f8b60e4fd7ecaf0633a0cae8767c08fdb66771326ad18160db13eb7f41a73b"
+    },
+    {
+      "path": "ncmemsim/transport/engine.py",
+      "sha256": "addf847cb3c236853b5be7da51832a10f0064e8f3637076dcee84b95bff04809"
+    },
+    {
+      "path": "ncmemsim/transport/tat.py",
+      "sha256": "10d6150a612136ce062e1dd8419d3afea52c4b8d8b681d6e56ecc9f5db6f1633"
+    },
+    {
+      "path": "ncmemsim/transport/barrier_corrections.py",
+      "sha256": "212adae3eec118b315c7dde3015fd36d03ef7a76a24704ebd804bd74c2aa7ffe"
+    },
+    {
+      "path": "ncmemsim/materials/band_alignment/barriers.py",
+      "sha256": "3490f7a8d658617a43a8db80f0464d3563ef1f186c43cff08cfcc9c91c6d2952"
+    }
+  ],
+  "observations": [
+    "Direct WKB uses sampled linear forbidden energy and exponential argument floor -700.",
+    "TAT already has a separate analytic positive-linear-barrier action and zero-underflow policy.",
+    "Network links retain dielectric names but one barrier and effective mass.",
+    "Transport transmission uses field magnitude; directional rates use signed potential difference.",
+    "Substrate link is diagnostic; occupancy kinetics already handles injection.",
+    "J3 correction lowers TAT interface heights; it is not a resolved image potential."
+  ],
+  "proposed_scope": "Explicit ordered piecewise-linear electron barrier diagnostics with per-segment mass; optional integration only after acceptance.",
+  "unresolved_decisions": [
+    "Energy reference and incident-energy subtraction",
+    "Interface discontinuity representation and coordinate reversal",
+    "Numerical tolerances and near-flat/turning-point stability",
+    "Finite-action and transmission-underflow policy",
+    "Primary-source equation review and material parameter provenance",
+    "Opt-in integration feasibility and no-double-counting rules",
+    "Minor versus major release rationale after compatibility review"
+  ],
+  "new_physics_implemented": false,
+  "new_parameters_admitted": false,
+  "experimental_qualification": false,
+  "acceptance_document": "docs/barrier_transport.md"
+}

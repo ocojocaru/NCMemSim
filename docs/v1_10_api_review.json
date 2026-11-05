@@ -1,0 +1,1611 @@
+{
+  "schema_version": "phase-s-v1.10-preparation-api-review-v1",
+  "status": "final_candidate_review",
+  "target_release": "1.10.0",
+  "published_baseline": "1.9.0",
+  "package_identity_at_review": "1.10.0",
+  "review_date": "2026-11-04",
+  "implementation_source_commit": "8264b7e69ff1985716c226c466640b57c2ed96ac",
+  "version_rationale": "Minor additive release: four module-qualified APIs with 16 exports; all 146 published v1.9 module sources/defaults retained except the reviewed version literal. No major-version contract break.",
+  "retained_v1_9_review_sha256": "b2cd064e4275442a2cf9fd67e5ccc4e82e3cfa497d1e1964b5ae364d8e2d3d98",
+  "retained_v1_9_surface_sha256": "18cc3bbfba2a5ac7e0c510e053dfb20feb48551871778645bd47d22dc73a291e",
+  "retained_published_module_count": 146,
+  "additive_module_qualified_surface": [
+    {
+      "module": "ncmemsim.barrier_contracts",
+      "exports": [
+        "BarrierProvenance",
+        "BarrierSegment",
+        "BarrierProfile",
+        "BarrierEvaluationSpec",
+        "barrier_energy_eV_to_J"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.barrier_contracts",
+        "source": "ncmemsim/barrier_contracts.py",
+        "explicit_exports": [
+          "BarrierProvenance",
+          "BarrierSegment",
+          "BarrierProfile",
+          "BarrierEvaluationSpec",
+          "barrier_energy_eV_to_J"
+        ],
+        "package_import_aliases": {
+          "_Owned": "ncmemsim.performance_contracts._Owned",
+          "_Q": "ncmemsim.constants.ELEMENTARY_CHARGE_C",
+          "_choice": "ncmemsim.performance_contracts._choice",
+          "_restore": "ncmemsim.performance_contracts._restore",
+          "_text": "ncmemsim.performance_contracts._text"
+        },
+        "public_source_definitions": [
+          {
+            "name": "barrier_energy_eV_to_J",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "energy_eV",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(energy_eV)",
+            "decorators": []
+          },
+          {
+            "name": "BarrierProvenance",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "parameter_status",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "source",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "evidence",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "applicability",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "limitations",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, parameter_status, source, evidence, applicability, limitations)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "BarrierSegment",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "segment_id",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "length_m",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "start_potential_energy_J",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "end_potential_energy_J",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "effective_mass_m0",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "provenance",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, segment_id, length_m, start_potential_energy_J, end_potential_energy_J, effective_mass_m0, provenance)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "BarrierProfile",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "profile_id",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "segments",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "incident_energy_J",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "energy_reference",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "axis_origin",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "positive_axis_direction",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "traversal_direction",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "source_contact",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "destination_contact",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "applicability",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "limitations",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, profile_id, segments, incident_energy_J, energy_reference, axis_origin, positive_axis_direction, traversal_direction, source_contact, destination_contact, applicability, limitations)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "total_length_m",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "reversed",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "BarrierEvaluationSpec",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "profile",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "exponent_atol",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "exponent_rtol",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "reference_scope",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, profile, exponent_atol, exponent_rtol, reference_scope)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "970094922b1fd0e266fd1df00c0f59a6a6cae7f95a21cf09b9ef66cf02b0814e"
+    },
+    {
+      "module": "ncmemsim.barrier_evaluation",
+      "exports": [
+        "BarrierEvaluationResult",
+        "evaluate_barrier_profile"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.barrier_evaluation",
+        "source": "ncmemsim/barrier_evaluation.py",
+        "explicit_exports": [
+          "BarrierEvaluationResult",
+          "evaluate_barrier_profile"
+        ],
+        "package_import_aliases": {
+          "_HBAR": "ncmemsim.constants.HBAR_J_S",
+          "_M0": "ncmemsim.constants.ELECTRON_MASS_KG",
+          "_Owned": "ncmemsim.performance_contracts._Owned",
+          "_Spec": "ncmemsim.barrier_contracts.BarrierEvaluationSpec",
+          "_canonical": "ncmemsim.performance_contracts._canonical"
+        },
+        "public_source_definitions": [
+          {
+            "name": "BarrierEvaluationResult",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "request",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, request)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "summary",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "segments",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evaluate_barrier_profile",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "request",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(request)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "973e3800899c3d207f0c37f9f3e94a8a1107244cb00cbac7bf7d97189b358c21"
+    },
+    {
+      "module": "ncmemsim.barrier_transport",
+      "exports": [
+        "BarrierTransportContext",
+        "BarrierLinkAttachment",
+        "BarrierTransportSpec",
+        "ProfiledLinkTransportResult",
+        "ProfiledTransportStepResult",
+        "BarrierTransportEngine"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.barrier_transport",
+        "source": "ncmemsim/barrier_transport.py",
+        "explicit_exports": [
+          "BarrierTransportContext",
+          "BarrierLinkAttachment",
+          "BarrierTransportSpec",
+          "ProfiledLinkTransportResult",
+          "ProfiledTransportStepResult",
+          "BarrierTransportEngine"
+        ],
+        "package_import_aliases": {
+          "_Direct": "ncmemsim.transport.engine.TransportEngine",
+          "_Evaluation": "ncmemsim.barrier_evaluation.BarrierEvaluationResult",
+          "_FieldProfile": "ncmemsim.fieldsolver.FieldProfile",
+          "_Link": "ncmemsim.transport.rates.LinkTransportResult",
+          "_Occupancy": "ncmemsim.kinetics.OccupancyEngine",
+          "_Owned": "ncmemsim.performance_contracts._Owned",
+          "_Request": "ncmemsim.barrier_contracts.BarrierEvaluationSpec",
+          "_Step": "ncmemsim.transport.rates.TransportStepResult",
+          "_Tunneling": "ncmemsim.tunneling.TunnelingEngine",
+          "_canonical": "ncmemsim.performance_contracts._canonical",
+          "_digest": "ncmemsim.performance_contracts._digest",
+          "_evaluate_profile": "ncmemsim.barrier_evaluation.evaluate_barrier_profile",
+          "_restore": "ncmemsim.performance_contracts._restore",
+          "_text": "ncmemsim.performance_contracts._text"
+        },
+        "public_source_definitions": [
+          {
+            "name": "BarrierTransportContext",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "snapshot",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, snapshot)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "snapshot",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "BarrierLinkAttachment",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "link_id",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "request",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "segment_layer_names",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, link_id, request, segment_layer_names)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "BarrierTransportSpec",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "context_hash",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "attachments",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "()"
+                },
+                {
+                  "name": "enabled",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "False"
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, context_hash, attachments=(), enabled=False)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "ProfiledLinkTransportResult",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [],
+            "decorators": [
+              "_dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "baseline",
+                "annotation": "_Link",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "selected",
+                "annotation": "_Link",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "status",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "context",
+                "annotation": "BarrierTransportContext",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "provider_id",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "specification_hash",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "attachment_hash",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "evaluation",
+                "annotation": "object | None",
+                "default_expression": "None",
+                "required_in_source": false
+              },
+              {
+                "name": "failure",
+                "annotation": "str | None",
+                "default_expression": "None",
+                "required_in_source": false
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "link_id",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "kind",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "field_V_m",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "potential_difference_V",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "transmission",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "forward_rate_Hz",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "backward_rate_Hz",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "net_electron_flux_m2_s",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "left_fg_index",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "right_fg_index",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              }
+            ]
+          },
+          {
+            "name": "ProfiledTransportStepResult",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [],
+            "decorators": [
+              "_dataclass(frozen=True)"
+            ],
+            "declared_fields": [
+              {
+                "name": "baseline",
+                "annotation": "_Step",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "context",
+                "annotation": "BarrierTransportContext",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "specification",
+                "annotation": "BarrierTransportSpec",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "provider_id",
+                "annotation": "str",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "links",
+                "annotation": "tuple[ProfiledLinkTransportResult, ...]",
+                "default_expression": null,
+                "required_in_source": true
+              },
+              {
+                "name": "net_electron_flux_by_fg_m2_s",
+                "annotation": "_np.ndarray",
+                "default_expression": null,
+                "required_in_source": true
+              }
+            ],
+            "constructor": null,
+            "methods": [
+              {
+                "name": "inter_fg_fluxes_m2_s",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "to_dict",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": []
+              }
+            ]
+          },
+          {
+            "name": "BarrierTransportEngine",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "baseline",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "provider",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                },
+                {
+                  "name": "provider_id",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": false,
+                  "default_expression": "None"
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, baseline, provider=None, provider_id=None)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "config",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "tunneling",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self)",
+                "decorators": [
+                  "property"
+                ]
+              },
+              {
+                "name": "build_network",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "device",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self, device)",
+                "decorators": []
+              },
+              {
+                "name": "capture_context",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "device",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "state",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "field_profile",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "occupancy_engine",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self, device, state, field_profile, occupancy_engine)",
+                "decorators": []
+              },
+              {
+                "name": "evaluate",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "device",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "state",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "field_profile",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "occupancy_engine",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self, device, state, field_profile, occupancy_engine)",
+                "decorators": []
+              },
+              {
+                "name": "step",
+                "parameters": [
+                  {
+                    "name": "self",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "device",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "state",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "field_profile",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "occupancy_engine",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "dt_s",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(self, device, state, field_profile, occupancy_engine, dt_s)",
+                "decorators": []
+              }
+            ]
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "7429cf73c8697eacceb8cfebc1a8ab3392e51ead933fa24c6323f8357dbcbcca"
+    },
+    {
+      "module": "ncmemsim.barrier_reporting",
+      "exports": [
+        "BarrierStudyReport",
+        "write_barrier_study_report",
+        "load_barrier_study_bundle"
+      ],
+      "source_contract": {
+        "module": "ncmemsim.barrier_reporting",
+        "source": "ncmemsim/barrier_reporting.py",
+        "explicit_exports": [
+          "BarrierStudyReport",
+          "write_barrier_study_report",
+          "load_barrier_study_bundle"
+        ],
+        "package_import_aliases": {
+          "_Owned": "ncmemsim.performance_contracts._Owned",
+          "_Result": "ncmemsim.barrier_evaluation.BarrierEvaluationResult",
+          "_canonical": "ncmemsim.performance_contracts._canonical",
+          "_hash": "ncmemsim.performance_contracts._hash",
+          "_reject": "ncmemsim.performance_contracts._reject",
+          "_text": "ncmemsim.performance_contracts._text",
+          "_unique": "ncmemsim.performance_contracts._unique"
+        },
+        "public_source_definitions": [
+          {
+            "name": "BarrierStudyReport",
+            "kind": "class",
+            "class_assignments": [],
+            "bases": [
+              "_Owned"
+            ],
+            "decorators": [],
+            "declared_fields": [],
+            "constructor": {
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "title",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "cases",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, title, cases)",
+              "decorators": []
+            },
+            "methods": [
+              {
+                "name": "from_dict",
+                "parameters": [
+                  {
+                    "name": "cls",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  },
+                  {
+                    "name": "raw",
+                    "kind": "positional_or_keyword",
+                    "annotation": null,
+                    "required": true,
+                    "default_expression": null
+                  }
+                ],
+                "return_annotation": null,
+                "source_signature": "(cls, raw)",
+                "decorators": [
+                  "classmethod"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "write_barrier_study_report",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "report",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "destination",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(report, destination)",
+            "decorators": []
+          },
+          {
+            "name": "load_barrier_study_bundle",
+            "kind": "function",
+            "parameters": [
+              {
+                "name": "destination",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(destination)",
+            "decorators": []
+          }
+        ],
+        "public_assignments": []
+      },
+      "source_sha256": "ea13278d1fd67a8d20b0c2811f1a148a66bb17f1b6a736e54584a65270864d33"
+    }
+  ],
+  "preparation_archive": {
+    "path": "tests/fixtures/archives/v1_10_preparation/barrier_report.json",
+    "report_hash": "f7e101d5158f8188e00aa5c0c37a0c1c02424175bc8e91e7be6c93dbe4c7fa7d",
+    "capture_source_commit": "8264b7e69ff1985716c226c466640b57c2ed96ac",
+    "capture_source_dirty": false,
+    "capture_package_version": "1.9.0",
+    "evidence_kind": "synthetic_isolated_action_controls",
+    "summary": {
+      "attempted_count": 33,
+      "completed_count": 32,
+      "failed_count": 1,
+      "matched_count": 30,
+      "mismatched_count": 1,
+      "unavailable_count": 2,
+      "transmission_underflow_count": 1,
+      "experimental_qualification": false,
+      "model_uncertainty_estimated": false
+    }
+  },
+  "scientific_limits": [
+    "Piecewise-linear electron action only; no coherent interface matching, resonances or current supply model.",
+    "S4 replaces direct inter-FG transmission only on explicit snapshot/geometry-bound attachments.",
+    "No substrate injection replacement, TAT/image-force composition or automatic field-to-barrier law.",
+    "S6 archives isolated action diagnostics, not S4 simulator/provider histories.",
+    "S3 negative/unavailable reference evidence remains retained; no universal legacy-kernel equivalence.",
+    "No new admitted experimental data, physical uncertainty, yield or lifetime; P4B/P5B/P6B deferred."
+  ],
+  "publication": {
+    "final_candidate": true,
+    "preparation_commit": "74ce5e993d458ea30aec259ce1dc70dae86bc513",
+    "preparation_ci": 41828989008,
+    "preparation_documentation": 41828989014,
+    "preparation_conclusion": "success",
+    "exact_candidate_ci": "pending candidate commit/push",
+    "pr_main_tag_release": "not performed",
+    "version_doi": null
+  }
+}

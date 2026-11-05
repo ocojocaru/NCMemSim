@@ -58,6 +58,16 @@ def validate(root):
     return {**validate_identity(root),'api':review(root)}
 
 
+
+def validate_retained(root):
+    from scripts.validate_v1_9_api_review import _published_view
+    with _published_view(root) as target:
+        return validate(target)
+
+
 if __name__=='__main__':
     import json
-    print(json.dumps(validate(ROOT),indent=2))
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__); parser.add_argument('--retained',action='store_true')
+    args=parser.parse_args()
+    print(json.dumps(validate_retained(ROOT) if args.retained else validate(ROOT),indent=2))

@@ -100,3 +100,12 @@ def published_v1_8_copy(tmp_path):
             target.parent.mkdir(parents=True,exist_ok=True)
             shutil.copyfile(source,target)
     return destination
+
+
+@pytest.fixture
+def published_v1_9_copy(tmp_path):
+    destination=tmp_path/'published-v1_9'
+    from scripts.validate_v1_9_api_review import _published_view
+    with _published_view(ROOT) as source:
+        shutil.copytree(source,destination)
+    return destination

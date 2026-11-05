@@ -1,0 +1,3183 @@
+{
+  "schema_version": "phase-s3-multilayer-review-v1",
+  "review_date": "2026-11-03",
+  "baseline_commit": "78313d539ead19bd06f1cfc774f0d683b19cb7a8",
+  "hash_policy": "SHA256 of UTF-8 text normalized to LF",
+  "source_sha256": {
+    "examples/phase_s3_multilayer_reference.py": "4cbf28d6f19d501bde6f205d0b945067f9edd056eb6d64b028459f4f721bf30e",
+    "ncmemsim/barrier_contracts.py": "970094922b1fd0e266fd1df00c0f59a6a6cae7f95a21cf09b9ef66cf02b0814e",
+    "ncmemsim/barrier_evaluation.py": "973e3800899c3d207f0c37f9f3e94a8a1107244cb00cbac7bf7d97189b358c21",
+    "ncmemsim/tunneling.py": "c763a6637f9b44c7c91715b7b577e9acf7e6e67f9d275b1b7eabd34c6b62f90a",
+    "ncmemsim/transport/tat.py": "10d6150a612136ce062e1dd8419d3afea52c4b8d8b681d6e56ecc9f5db6f1633",
+    "ncmemsim/constants.py": "78f2910f7dd075d0b117ee7f378beef180a098a91d50bd70ae2a78f37c582baa"
+  },
+  "study": {
+    "schema_version": "phase-s3-multilayer-reference-v1",
+    "evidence_kind": "synthetic_numerical_study",
+    "tolerances": {
+      "exponent_atol": 1e-12,
+      "exponent_rtol": 1e-10,
+      "invariant_rtol": 5e-13
+    },
+    "profiles": {
+      "homogeneous_linear": {
+        "request": {
+          "approximation": "positive_segment_action_only",
+          "evaluated": false,
+          "exponent_atol": 1e-12,
+          "exponent_convention": "twice_forbidden_action_over_hbar",
+          "exponent_rtol": 1e-10,
+          "interface_matching": false,
+          "overflow_policy": "fail_not_clip",
+          "profile": {
+            "applicability": "controlled numerical study",
+            "axis_origin": "left physical boundary",
+            "carrier": "electron",
+            "destination_contact": "right contact",
+            "energy_reference": "one common electron energy zero",
+            "incident_energy_J": 0.0,
+            "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+            "interface_policy": "independent_one_sided_endpoint_values",
+            "limitations": "action-only compact approximation, not a device prediction",
+            "physical_matching": "not_included",
+            "positive_axis_direction": "left to right",
+            "profile_id": "homogeneous-linear",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "segments": [
+              {
+                "effective_mass_m0": 0.2,
+                "end_potential_energy_J": 1e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 5e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "0",
+                "start_potential_energy_J": 3e-19
+              }
+            ],
+            "source_contact": "left contact",
+            "traversal_direction": "along_positive_axis"
+          },
+          "reference_scope": "predeclared S1 controls",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "simulator_attachment": false,
+          "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+        },
+        "result": {
+          "approximation": "positive_segment_action_only",
+          "constants": {
+            "electron_mass_kg": 9.1093837015e-31,
+            "hbar_J_s": 1.054571817e-34
+          },
+          "evaluated": true,
+          "experimental_qualification": false,
+          "interface_matching": false,
+          "method": "scaled_positive_linear_action_v1",
+          "profile_hash": "670959bf99cb6eb62b2ce073e3261eab841057e5fabc8ca29a065cdc5b2ac942",
+          "request": {
+            "approximation": "positive_segment_action_only",
+            "evaluated": false,
+            "exponent_atol": 1e-12,
+            "exponent_convention": "twice_forbidden_action_over_hbar",
+            "exponent_rtol": 1e-10,
+            "interface_matching": false,
+            "overflow_policy": "fail_not_clip",
+            "profile": {
+              "applicability": "controlled numerical study",
+              "axis_origin": "left physical boundary",
+              "carrier": "electron",
+              "destination_contact": "right contact",
+              "energy_reference": "one common electron energy zero",
+              "incident_energy_J": 0.0,
+              "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+              "interface_policy": "independent_one_sided_endpoint_values",
+              "limitations": "action-only compact approximation, not a device prediction",
+              "physical_matching": "not_included",
+              "positive_axis_direction": "left to right",
+              "profile_id": "homogeneous-linear",
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segments": [
+                {
+                  "effective_mass_m0": 0.2,
+                  "end_potential_energy_J": 1e-19,
+                  "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                  "length_m": 5e-09,
+                  "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                  "provenance": {
+                    "applicability": "isolated electron action only",
+                    "evidence": "no measured coefficient",
+                    "experimental_admission": false,
+                    "limitations": "no interface matching, current supply or experimental qualification",
+                    "parameter_status": "assumed",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "source": "synthetic S3 numerical study"
+                  },
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "segment_id": "0",
+                  "start_potential_energy_J": 3e-19
+                }
+              ],
+              "source_contact": "left contact",
+              "traversal_direction": "along_positive_axis"
+            },
+            "reference_scope": "predeclared S1 controls",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "simulator_attachment": false,
+            "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+          },
+          "request_hash": "d757dbdf608b0684f7bd4b400bfa981fae39d22e79488bf6c8c62af7e75d04c3",
+          "restoration_policy": "four_ulp_action_exponent_and_exp_at_stored_exponent",
+          "schema_version": "ncmemsim-barrier-evaluation-v1",
+          "segments": [
+            {
+              "action_J_s": 1.3349791977662381e-33,
+              "attenuation_status": "finite_transmission",
+              "domain": "fully_forbidden",
+              "end_forbidden_energy_J": 1e-19,
+              "failure": null,
+              "log_transmission": -25.31793807204006,
+              "segment_id": "0",
+              "start_forbidden_energy_J": 3e-19,
+              "status": "completed",
+              "transmission": 1.0105532477126279e-11,
+              "wkb_exponent": 25.31793807204006
+            }
+          ],
+          "simulator_attachment": false,
+          "summary": {
+            "action_J_s": 1.3349791977662381e-33,
+            "attempted_segment_count": 1,
+            "attenuation_status": "finite_transmission",
+            "completed_segment_count": 1,
+            "failed_segment_count": 0,
+            "failure": null,
+            "log_transmission": -25.31793807204006,
+            "status": "completed",
+            "transmission": 1.0105532477126279e-11,
+            "wkb_exponent": 25.31793807204006
+          }
+        },
+        "decimal_reference": {
+          "status": "available",
+          "action_J_s": 1.3349791977662381e-33,
+          "wkb_exponent": 25.317938072040057,
+          "reason": null
+        },
+        "comparison": {
+          "status": "matched",
+          "absolute_error": 3.552713678800501e-15,
+          "acceptance_limit": 2.5327938072040056e-09
+        }
+      },
+      "mass_step": {
+        "request": {
+          "approximation": "positive_segment_action_only",
+          "evaluated": false,
+          "exponent_atol": 1e-12,
+          "exponent_convention": "twice_forbidden_action_over_hbar",
+          "exponent_rtol": 1e-10,
+          "interface_matching": false,
+          "overflow_policy": "fail_not_clip",
+          "profile": {
+            "applicability": "controlled numerical study",
+            "axis_origin": "left physical boundary",
+            "carrier": "electron",
+            "destination_contact": "right contact",
+            "energy_reference": "one common electron energy zero",
+            "incident_energy_J": 0.0,
+            "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+            "interface_policy": "independent_one_sided_endpoint_values",
+            "limitations": "action-only compact approximation, not a device prediction",
+            "physical_matching": "not_included",
+            "positive_axis_direction": "left to right",
+            "profile_id": "mass-step",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "segments": [
+              {
+                "effective_mass_m0": 0.2,
+                "end_potential_energy_J": 2e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 2e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "0",
+                "start_potential_energy_J": 3e-19
+              },
+              {
+                "effective_mass_m0": 0.5,
+                "end_potential_energy_J": 1e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 3e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "1",
+                "start_potential_energy_J": 2e-19
+              }
+            ],
+            "source_contact": "left contact",
+            "traversal_direction": "along_positive_axis"
+          },
+          "reference_scope": "predeclared S1 controls",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "simulator_attachment": false,
+          "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+        },
+        "result": {
+          "approximation": "positive_segment_action_only",
+          "constants": {
+            "electron_mass_kg": 9.1093837015e-31,
+            "hbar_J_s": 1.054571817e-34
+          },
+          "evaluated": true,
+          "experimental_qualification": false,
+          "interface_matching": false,
+          "method": "scaled_positive_linear_action_v1",
+          "profile_hash": "34653fd552f91e1e670ba335fbe30adb9a795d0fb268a5b8b907304bcd6d56ae",
+          "request": {
+            "approximation": "positive_segment_action_only",
+            "evaluated": false,
+            "exponent_atol": 1e-12,
+            "exponent_convention": "twice_forbidden_action_over_hbar",
+            "exponent_rtol": 1e-10,
+            "interface_matching": false,
+            "overflow_policy": "fail_not_clip",
+            "profile": {
+              "applicability": "controlled numerical study",
+              "axis_origin": "left physical boundary",
+              "carrier": "electron",
+              "destination_contact": "right contact",
+              "energy_reference": "one common electron energy zero",
+              "incident_energy_J": 0.0,
+              "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+              "interface_policy": "independent_one_sided_endpoint_values",
+              "limitations": "action-only compact approximation, not a device prediction",
+              "physical_matching": "not_included",
+              "positive_axis_direction": "left to right",
+              "profile_id": "mass-step",
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segments": [
+                {
+                  "effective_mass_m0": 0.2,
+                  "end_potential_energy_J": 2e-19,
+                  "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                  "length_m": 2e-09,
+                  "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                  "provenance": {
+                    "applicability": "isolated electron action only",
+                    "evidence": "no measured coefficient",
+                    "experimental_admission": false,
+                    "limitations": "no interface matching, current supply or experimental qualification",
+                    "parameter_status": "assumed",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "source": "synthetic S3 numerical study"
+                  },
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "segment_id": "0",
+                  "start_potential_energy_J": 3e-19
+                },
+                {
+                  "effective_mass_m0": 0.5,
+                  "end_potential_energy_J": 1e-19,
+                  "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                  "length_m": 3e-09,
+                  "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                  "provenance": {
+                    "applicability": "isolated electron action only",
+                    "evidence": "no measured coefficient",
+                    "experimental_admission": false,
+                    "limitations": "no interface matching, current supply or experimental qualification",
+                    "parameter_status": "assumed",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "source": "synthetic S3 numerical study"
+                  },
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "segment_id": "1",
+                  "start_potential_energy_J": 2e-19
+                }
+              ],
+              "source_contact": "left contact",
+              "traversal_direction": "along_positive_axis"
+            },
+            "reference_scope": "predeclared S1 controls",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "simulator_attachment": false,
+            "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+          },
+          "request_hash": "eec2ba330e52b3d13075238d325f41a4d60b669281ba598e029732447d702204",
+          "restoration_policy": "four_ulp_action_exponent_and_exp_at_stored_exponent",
+          "schema_version": "ncmemsim-barrier-evaluation-v1",
+          "segments": [
+            {
+              "action_J_s": 6.026213922445105e-34,
+              "attenuation_status": "finite_transmission",
+              "domain": "fully_forbidden",
+              "end_forbidden_energy_J": 2e-19,
+              "failure": null,
+              "log_transmission": -11.428740698927866,
+              "segment_id": "0",
+              "start_forbidden_energy_J": 3e-19,
+              "status": "completed",
+              "transmission": 1.0878298692612417e-05,
+              "wkb_exponent": 11.428740698927866
+            },
+            {
+              "action_J_s": 1.1037028116556217e-33,
+              "attenuation_status": "finite_transmission",
+              "domain": "fully_forbidden",
+              "end_forbidden_energy_J": 1e-19,
+              "failure": null,
+              "log_transmission": -20.93177143298571,
+              "segment_id": "1",
+              "start_forbidden_energy_J": 2e-19,
+              "status": "completed",
+              "transmission": 8.117964918447626e-10,
+              "wkb_exponent": 20.93177143298571
+            }
+          ],
+          "simulator_attachment": false,
+          "summary": {
+            "action_J_s": 1.706324203900132e-33,
+            "attempted_segment_count": 2,
+            "attenuation_status": "finite_transmission",
+            "completed_segment_count": 2,
+            "failed_segment_count": 0,
+            "failure": null,
+            "log_transmission": -32.36051213191357,
+            "status": "completed",
+            "transmission": 8.830964715902243e-15,
+            "wkb_exponent": 32.36051213191357
+          }
+        },
+        "decimal_reference": {
+          "status": "available",
+          "action_J_s": 1.7063242039001318e-33,
+          "wkb_exponent": 32.360512131913566,
+          "reason": null
+        },
+        "comparison": {
+          "status": "matched",
+          "absolute_error": 7.105427357601002e-15,
+          "acceptance_limit": 3.2370512131913566e-09
+        }
+      },
+      "energy_step": {
+        "request": {
+          "approximation": "positive_segment_action_only",
+          "evaluated": false,
+          "exponent_atol": 1e-12,
+          "exponent_convention": "twice_forbidden_action_over_hbar",
+          "exponent_rtol": 1e-10,
+          "interface_matching": false,
+          "overflow_policy": "fail_not_clip",
+          "profile": {
+            "applicability": "controlled numerical study",
+            "axis_origin": "left physical boundary",
+            "carrier": "electron",
+            "destination_contact": "right contact",
+            "energy_reference": "one common electron energy zero",
+            "incident_energy_J": 0.0,
+            "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+            "interface_policy": "independent_one_sided_endpoint_values",
+            "limitations": "action-only compact approximation, not a device prediction",
+            "physical_matching": "not_included",
+            "positive_axis_direction": "left to right",
+            "profile_id": "energy-step",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "segments": [
+              {
+                "effective_mass_m0": 0.2,
+                "end_potential_energy_J": 2e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 2e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "0",
+                "start_potential_energy_J": 3e-19
+              },
+              {
+                "effective_mass_m0": 0.2,
+                "end_potential_energy_J": 1e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 3e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "1",
+                "start_potential_energy_J": 5e-19
+              }
+            ],
+            "source_contact": "left contact",
+            "traversal_direction": "along_positive_axis"
+          },
+          "reference_scope": "predeclared S1 controls",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "simulator_attachment": false,
+          "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+        },
+        "result": {
+          "approximation": "positive_segment_action_only",
+          "constants": {
+            "electron_mass_kg": 9.1093837015e-31,
+            "hbar_J_s": 1.054571817e-34
+          },
+          "evaluated": true,
+          "experimental_qualification": false,
+          "interface_matching": false,
+          "method": "scaled_positive_linear_action_v1",
+          "profile_hash": "915d6ea6937a14384649b7c95c59828d0411eb0c20380b3bdeb37eb8c4f240e5",
+          "request": {
+            "approximation": "positive_segment_action_only",
+            "evaluated": false,
+            "exponent_atol": 1e-12,
+            "exponent_convention": "twice_forbidden_action_over_hbar",
+            "exponent_rtol": 1e-10,
+            "interface_matching": false,
+            "overflow_policy": "fail_not_clip",
+            "profile": {
+              "applicability": "controlled numerical study",
+              "axis_origin": "left physical boundary",
+              "carrier": "electron",
+              "destination_contact": "right contact",
+              "energy_reference": "one common electron energy zero",
+              "incident_energy_J": 0.0,
+              "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+              "interface_policy": "independent_one_sided_endpoint_values",
+              "limitations": "action-only compact approximation, not a device prediction",
+              "physical_matching": "not_included",
+              "positive_axis_direction": "left to right",
+              "profile_id": "energy-step",
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segments": [
+                {
+                  "effective_mass_m0": 0.2,
+                  "end_potential_energy_J": 2e-19,
+                  "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                  "length_m": 2e-09,
+                  "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                  "provenance": {
+                    "applicability": "isolated electron action only",
+                    "evidence": "no measured coefficient",
+                    "experimental_admission": false,
+                    "limitations": "no interface matching, current supply or experimental qualification",
+                    "parameter_status": "assumed",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "source": "synthetic S3 numerical study"
+                  },
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "segment_id": "0",
+                  "start_potential_energy_J": 3e-19
+                },
+                {
+                  "effective_mass_m0": 0.2,
+                  "end_potential_energy_J": 1e-19,
+                  "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                  "length_m": 3e-09,
+                  "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                  "provenance": {
+                    "applicability": "isolated electron action only",
+                    "evidence": "no measured coefficient",
+                    "experimental_admission": false,
+                    "limitations": "no interface matching, current supply or experimental qualification",
+                    "parameter_status": "assumed",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "source": "synthetic S3 numerical study"
+                  },
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "segment_id": "1",
+                  "start_potential_energy_J": 5e-19
+                }
+              ],
+              "source_contact": "left contact",
+              "traversal_direction": "along_positive_axis"
+            },
+            "reference_scope": "predeclared S1 controls",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "simulator_attachment": false,
+            "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+          },
+          "request_hash": "c8c11f488c9050f48df3a4ae3e96af0a3aceaf0068101ad90bedf85476609af6",
+          "restoration_policy": "four_ulp_action_exponent_and_exp_at_stored_exponent",
+          "schema_version": "ncmemsim-barrier-evaluation-v1",
+          "segments": [
+            {
+              "action_J_s": 6.026213922445105e-34,
+              "attenuation_status": "finite_transmission",
+              "domain": "fully_forbidden",
+              "end_forbidden_energy_J": 2e-19,
+              "failure": null,
+              "log_transmission": -11.428740698927866,
+              "segment_id": "0",
+              "start_forbidden_energy_J": 3e-19,
+              "status": "completed",
+              "transmission": 1.0878298692612417e-05,
+              "wkb_exponent": 11.428740698927866
+            },
+            {
+              "action_J_s": 9.716431106595536e-34,
+              "attenuation_status": "finite_transmission",
+              "domain": "fully_forbidden",
+              "end_forbidden_energy_J": 1e-19,
+              "failure": null,
+              "log_transmission": -18.427253506994745,
+              "segment_id": "1",
+              "start_forbidden_energy_J": 5e-19,
+              "status": "completed",
+              "transmission": 9.934487903170644e-09,
+              "wkb_exponent": 18.427253506994745
+            }
+          ],
+          "simulator_attachment": false,
+          "summary": {
+            "action_J_s": 1.574264502904064e-33,
+            "attempted_segment_count": 2,
+            "attenuation_status": "finite_transmission",
+            "completed_segment_count": 2,
+            "failed_segment_count": 0,
+            "failure": null,
+            "log_transmission": -29.855994205922613,
+            "status": "completed",
+            "transmission": 1.080703267688349e-13,
+            "wkb_exponent": 29.855994205922613
+          }
+        },
+        "decimal_reference": {
+          "status": "available",
+          "action_J_s": 1.574264502904064e-33,
+          "wkb_exponent": 29.855994205922613,
+          "reason": null
+        },
+        "comparison": {
+          "status": "matched",
+          "absolute_error": 0.0,
+          "acceptance_limit": 2.9865994205922612e-09
+        }
+      },
+      "allowed_interval": {
+        "request": {
+          "approximation": "positive_segment_action_only",
+          "evaluated": false,
+          "exponent_atol": 1e-12,
+          "exponent_convention": "twice_forbidden_action_over_hbar",
+          "exponent_rtol": 1e-10,
+          "interface_matching": false,
+          "overflow_policy": "fail_not_clip",
+          "profile": {
+            "applicability": "controlled numerical study",
+            "axis_origin": "left physical boundary",
+            "carrier": "electron",
+            "destination_contact": "right contact",
+            "energy_reference": "one common electron energy zero",
+            "incident_energy_J": 0.0,
+            "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+            "interface_policy": "independent_one_sided_endpoint_values",
+            "limitations": "action-only compact approximation, not a device prediction",
+            "physical_matching": "not_included",
+            "positive_axis_direction": "left to right",
+            "profile_id": "allowed-interval",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "segments": [
+              {
+                "effective_mass_m0": 0.2,
+                "end_potential_energy_J": -1e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 2e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "0",
+                "start_potential_energy_J": 3e-19
+              },
+              {
+                "effective_mass_m0": 0.3,
+                "end_potential_energy_J": -1e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 1e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "1",
+                "start_potential_energy_J": -1e-19
+              },
+              {
+                "effective_mass_m0": 0.4,
+                "end_potential_energy_J": 2e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 2e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "2",
+                "start_potential_energy_J": -1e-19
+              }
+            ],
+            "source_contact": "left contact",
+            "traversal_direction": "along_positive_axis"
+          },
+          "reference_scope": "predeclared S1 controls",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "simulator_attachment": false,
+          "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+        },
+        "result": {
+          "approximation": "positive_segment_action_only",
+          "constants": {
+            "electron_mass_kg": 9.1093837015e-31,
+            "hbar_J_s": 1.054571817e-34
+          },
+          "evaluated": true,
+          "experimental_qualification": false,
+          "interface_matching": false,
+          "method": "scaled_positive_linear_action_v1",
+          "profile_hash": "c3880dbd3c71b509075df1770ec4c2321afdf04ff9284252b3edfdcb2ea7053e",
+          "request": {
+            "approximation": "positive_segment_action_only",
+            "evaluated": false,
+            "exponent_atol": 1e-12,
+            "exponent_convention": "twice_forbidden_action_over_hbar",
+            "exponent_rtol": 1e-10,
+            "interface_matching": false,
+            "overflow_policy": "fail_not_clip",
+            "profile": {
+              "applicability": "controlled numerical study",
+              "axis_origin": "left physical boundary",
+              "carrier": "electron",
+              "destination_contact": "right contact",
+              "energy_reference": "one common electron energy zero",
+              "incident_energy_J": 0.0,
+              "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+              "interface_policy": "independent_one_sided_endpoint_values",
+              "limitations": "action-only compact approximation, not a device prediction",
+              "physical_matching": "not_included",
+              "positive_axis_direction": "left to right",
+              "profile_id": "allowed-interval",
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segments": [
+                {
+                  "effective_mass_m0": 0.2,
+                  "end_potential_energy_J": -1e-19,
+                  "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                  "length_m": 2e-09,
+                  "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                  "provenance": {
+                    "applicability": "isolated electron action only",
+                    "evidence": "no measured coefficient",
+                    "experimental_admission": false,
+                    "limitations": "no interface matching, current supply or experimental qualification",
+                    "parameter_status": "assumed",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "source": "synthetic S3 numerical study"
+                  },
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "segment_id": "0",
+                  "start_potential_energy_J": 3e-19
+                },
+                {
+                  "effective_mass_m0": 0.3,
+                  "end_potential_energy_J": -1e-19,
+                  "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                  "length_m": 1e-09,
+                  "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                  "provenance": {
+                    "applicability": "isolated electron action only",
+                    "evidence": "no measured coefficient",
+                    "experimental_admission": false,
+                    "limitations": "no interface matching, current supply or experimental qualification",
+                    "parameter_status": "assumed",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "source": "synthetic S3 numerical study"
+                  },
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "segment_id": "1",
+                  "start_potential_energy_J": -1e-19
+                },
+                {
+                  "effective_mass_m0": 0.4,
+                  "end_potential_energy_J": 2e-19,
+                  "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                  "length_m": 2e-09,
+                  "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                  "provenance": {
+                    "applicability": "isolated electron action only",
+                    "evidence": "no measured coefficient",
+                    "experimental_admission": false,
+                    "limitations": "no interface matching, current supply or experimental qualification",
+                    "parameter_status": "assumed",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "source": "synthetic S3 numerical study"
+                  },
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "segment_id": "2",
+                  "start_potential_energy_J": -1e-19
+                }
+              ],
+              "source_contact": "left contact",
+              "traversal_direction": "along_positive_axis"
+            },
+            "reference_scope": "predeclared S1 controls",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "simulator_attachment": false,
+            "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+          },
+          "request_hash": "339861e9745d7e94b9a54c117c28d420b0a324c5706b447480764367a1d6d461",
+          "restoration_policy": "four_ulp_action_exponent_and_exp_at_stored_exponent",
+          "schema_version": "ncmemsim-barrier-evaluation-v1",
+          "segments": [
+            {
+              "action_J_s": 3.3062456717249557e-34,
+              "attenuation_status": "finite_transmission",
+              "domain": "interior_turning_point",
+              "end_forbidden_energy_J": -1e-19,
+              "failure": null,
+              "log_transmission": -6.270309178431146,
+              "segment_id": "0",
+              "start_forbidden_energy_J": 3e-19,
+              "status": "completed",
+              "transmission": 0.0018916436373761889,
+              "wkb_exponent": 6.270309178431146
+            },
+            {
+              "action_J_s": 0.0,
+              "attenuation_status": "zero_forbidden_action",
+              "domain": "no_forbidden_region",
+              "end_forbidden_energy_J": -1e-19,
+              "failure": null,
+              "log_transmission": -0.0,
+              "segment_id": "1",
+              "start_forbidden_energy_J": -1e-19,
+              "status": "completed",
+              "transmission": 1.0,
+              "wkb_exponent": 0.0
+            },
+            {
+              "action_J_s": 3.3935321396932232e-34,
+              "attenuation_status": "finite_transmission",
+              "domain": "interior_turning_point",
+              "end_forbidden_energy_J": 2e-19,
+              "failure": null,
+              "log_transmission": -6.435848341456718,
+              "segment_id": "2",
+              "start_forbidden_energy_J": -1e-19,
+              "status": "completed",
+              "transmission": 0.0016030481931529324,
+              "wkb_exponent": 6.435848341456718
+            }
+          ],
+          "simulator_attachment": false,
+          "summary": {
+            "action_J_s": 6.699777811418179e-34,
+            "attempted_segment_count": 3,
+            "attenuation_status": "finite_transmission",
+            "completed_segment_count": 3,
+            "failed_segment_count": 0,
+            "failure": null,
+            "log_transmission": -12.706157519887864,
+            "status": "completed",
+            "transmission": 3.032395914985143e-06,
+            "wkb_exponent": 12.706157519887864
+          }
+        },
+        "decimal_reference": {
+          "status": "available",
+          "action_J_s": 6.6997778114181785e-34,
+          "wkb_exponent": 12.706157519887864,
+          "reason": null
+        },
+        "comparison": {
+          "status": "matched",
+          "absolute_error": 0.0,
+          "acceptance_limit": 1.2716157519887865e-09
+        }
+      },
+      "zero_action": {
+        "request": {
+          "approximation": "positive_segment_action_only",
+          "evaluated": false,
+          "exponent_atol": 1e-12,
+          "exponent_convention": "twice_forbidden_action_over_hbar",
+          "exponent_rtol": 1e-10,
+          "interface_matching": false,
+          "overflow_policy": "fail_not_clip",
+          "profile": {
+            "applicability": "controlled numerical study",
+            "axis_origin": "left physical boundary",
+            "carrier": "electron",
+            "destination_contact": "right contact",
+            "energy_reference": "one common electron energy zero",
+            "incident_energy_J": 0.0,
+            "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+            "interface_policy": "independent_one_sided_endpoint_values",
+            "limitations": "action-only compact approximation, not a device prediction",
+            "physical_matching": "not_included",
+            "positive_axis_direction": "left to right",
+            "profile_id": "zero-action",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "segments": [
+              {
+                "effective_mass_m0": 0.2,
+                "end_potential_energy_J": 0.0,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 2e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "0",
+                "start_potential_energy_J": -2e-19
+              },
+              {
+                "effective_mass_m0": 0.5,
+                "end_potential_energy_J": -1e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 3e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "1",
+                "start_potential_energy_J": -1e-19
+              }
+            ],
+            "source_contact": "left contact",
+            "traversal_direction": "along_positive_axis"
+          },
+          "reference_scope": "predeclared S1 controls",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "simulator_attachment": false,
+          "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+        },
+        "result": {
+          "approximation": "positive_segment_action_only",
+          "constants": {
+            "electron_mass_kg": 9.1093837015e-31,
+            "hbar_J_s": 1.054571817e-34
+          },
+          "evaluated": true,
+          "experimental_qualification": false,
+          "interface_matching": false,
+          "method": "scaled_positive_linear_action_v1",
+          "profile_hash": "80eea06e3f3dc502ee124c12b7013123af5eb93ae15d3e054bb6f2deb7b5ff8e",
+          "request": {
+            "approximation": "positive_segment_action_only",
+            "evaluated": false,
+            "exponent_atol": 1e-12,
+            "exponent_convention": "twice_forbidden_action_over_hbar",
+            "exponent_rtol": 1e-10,
+            "interface_matching": false,
+            "overflow_policy": "fail_not_clip",
+            "profile": {
+              "applicability": "controlled numerical study",
+              "axis_origin": "left physical boundary",
+              "carrier": "electron",
+              "destination_contact": "right contact",
+              "energy_reference": "one common electron energy zero",
+              "incident_energy_J": 0.0,
+              "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+              "interface_policy": "independent_one_sided_endpoint_values",
+              "limitations": "action-only compact approximation, not a device prediction",
+              "physical_matching": "not_included",
+              "positive_axis_direction": "left to right",
+              "profile_id": "zero-action",
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segments": [
+                {
+                  "effective_mass_m0": 0.2,
+                  "end_potential_energy_J": 0.0,
+                  "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                  "length_m": 2e-09,
+                  "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                  "provenance": {
+                    "applicability": "isolated electron action only",
+                    "evidence": "no measured coefficient",
+                    "experimental_admission": false,
+                    "limitations": "no interface matching, current supply or experimental qualification",
+                    "parameter_status": "assumed",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "source": "synthetic S3 numerical study"
+                  },
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "segment_id": "0",
+                  "start_potential_energy_J": -2e-19
+                },
+                {
+                  "effective_mass_m0": 0.5,
+                  "end_potential_energy_J": -1e-19,
+                  "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                  "length_m": 3e-09,
+                  "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                  "provenance": {
+                    "applicability": "isolated electron action only",
+                    "evidence": "no measured coefficient",
+                    "experimental_admission": false,
+                    "limitations": "no interface matching, current supply or experimental qualification",
+                    "parameter_status": "assumed",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "source": "synthetic S3 numerical study"
+                  },
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "segment_id": "1",
+                  "start_potential_energy_J": -1e-19
+                }
+              ],
+              "source_contact": "left contact",
+              "traversal_direction": "along_positive_axis"
+            },
+            "reference_scope": "predeclared S1 controls",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "simulator_attachment": false,
+            "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+          },
+          "request_hash": "bc1630ebd67e22ac2dcb9af9bbad6d2d5e24f3eaa7fd466dbdcd3d0c07508019",
+          "restoration_policy": "four_ulp_action_exponent_and_exp_at_stored_exponent",
+          "schema_version": "ncmemsim-barrier-evaluation-v1",
+          "segments": [
+            {
+              "action_J_s": 0.0,
+              "attenuation_status": "zero_forbidden_action",
+              "domain": "no_forbidden_region",
+              "end_forbidden_energy_J": 0.0,
+              "failure": null,
+              "log_transmission": -0.0,
+              "segment_id": "0",
+              "start_forbidden_energy_J": -2e-19,
+              "status": "completed",
+              "transmission": 1.0,
+              "wkb_exponent": 0.0
+            },
+            {
+              "action_J_s": 0.0,
+              "attenuation_status": "zero_forbidden_action",
+              "domain": "no_forbidden_region",
+              "end_forbidden_energy_J": -1e-19,
+              "failure": null,
+              "log_transmission": -0.0,
+              "segment_id": "1",
+              "start_forbidden_energy_J": -1e-19,
+              "status": "completed",
+              "transmission": 1.0,
+              "wkb_exponent": 0.0
+            }
+          ],
+          "simulator_attachment": false,
+          "summary": {
+            "action_J_s": 0.0,
+            "attempted_segment_count": 2,
+            "attenuation_status": "zero_forbidden_action",
+            "completed_segment_count": 2,
+            "failed_segment_count": 0,
+            "failure": null,
+            "log_transmission": -0.0,
+            "status": "completed",
+            "transmission": 1.0,
+            "wkb_exponent": 0.0
+          }
+        },
+        "decimal_reference": {
+          "status": "available",
+          "action_J_s": 0.0,
+          "wkb_exponent": 0.0,
+          "reason": null
+        },
+        "comparison": {
+          "status": "matched",
+          "absolute_error": 0.0,
+          "acceptance_limit": 1e-12
+        }
+      },
+      "underflow": {
+        "request": {
+          "approximation": "positive_segment_action_only",
+          "evaluated": false,
+          "exponent_atol": 1e-12,
+          "exponent_convention": "twice_forbidden_action_over_hbar",
+          "exponent_rtol": 1e-10,
+          "interface_matching": false,
+          "overflow_policy": "fail_not_clip",
+          "profile": {
+            "applicability": "controlled numerical study",
+            "axis_origin": "left physical boundary",
+            "carrier": "electron",
+            "destination_contact": "right contact",
+            "energy_reference": "one common electron energy zero",
+            "incident_energy_J": 0.0,
+            "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+            "interface_policy": "independent_one_sided_endpoint_values",
+            "limitations": "action-only compact approximation, not a device prediction",
+            "physical_matching": "not_included",
+            "positive_axis_direction": "left to right",
+            "profile_id": "underflow",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "segments": [
+              {
+                "effective_mass_m0": 0.2,
+                "end_potential_energy_J": 3e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 5e-06,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "0",
+                "start_potential_energy_J": 3e-19
+              },
+              {
+                "effective_mass_m0": 0.3,
+                "end_potential_energy_J": 3e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 5e-06,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "1",
+                "start_potential_energy_J": 3e-19
+              }
+            ],
+            "source_contact": "left contact",
+            "traversal_direction": "along_positive_axis"
+          },
+          "reference_scope": "predeclared S1 controls",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "simulator_attachment": false,
+          "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+        },
+        "result": {
+          "approximation": "positive_segment_action_only",
+          "constants": {
+            "electron_mass_kg": 9.1093837015e-31,
+            "hbar_J_s": 1.054571817e-34
+          },
+          "evaluated": true,
+          "experimental_qualification": false,
+          "interface_matching": false,
+          "method": "scaled_positive_linear_action_v1",
+          "profile_hash": "7bef32fb9205b4af35f98ae7c4c01c3cc520aa896823f069207cdd12c9caf5ff",
+          "request": {
+            "approximation": "positive_segment_action_only",
+            "evaluated": false,
+            "exponent_atol": 1e-12,
+            "exponent_convention": "twice_forbidden_action_over_hbar",
+            "exponent_rtol": 1e-10,
+            "interface_matching": false,
+            "overflow_policy": "fail_not_clip",
+            "profile": {
+              "applicability": "controlled numerical study",
+              "axis_origin": "left physical boundary",
+              "carrier": "electron",
+              "destination_contact": "right contact",
+              "energy_reference": "one common electron energy zero",
+              "incident_energy_J": 0.0,
+              "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+              "interface_policy": "independent_one_sided_endpoint_values",
+              "limitations": "action-only compact approximation, not a device prediction",
+              "physical_matching": "not_included",
+              "positive_axis_direction": "left to right",
+              "profile_id": "underflow",
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segments": [
+                {
+                  "effective_mass_m0": 0.2,
+                  "end_potential_energy_J": 3e-19,
+                  "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                  "length_m": 5e-06,
+                  "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                  "provenance": {
+                    "applicability": "isolated electron action only",
+                    "evidence": "no measured coefficient",
+                    "experimental_admission": false,
+                    "limitations": "no interface matching, current supply or experimental qualification",
+                    "parameter_status": "assumed",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "source": "synthetic S3 numerical study"
+                  },
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "segment_id": "0",
+                  "start_potential_energy_J": 3e-19
+                },
+                {
+                  "effective_mass_m0": 0.3,
+                  "end_potential_energy_J": 3e-19,
+                  "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                  "length_m": 5e-06,
+                  "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                  "provenance": {
+                    "applicability": "isolated electron action only",
+                    "evidence": "no measured coefficient",
+                    "experimental_admission": false,
+                    "limitations": "no interface matching, current supply or experimental qualification",
+                    "parameter_status": "assumed",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "source": "synthetic S3 numerical study"
+                  },
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "segment_id": "1",
+                  "start_potential_energy_J": 3e-19
+                }
+              ],
+              "source_contact": "left contact",
+              "traversal_direction": "along_positive_axis"
+            },
+            "reference_scope": "predeclared S1 controls",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "simulator_attachment": false,
+            "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+          },
+          "request_hash": "6769ae2dae42dc52df681a08c90b02cbb1b4e6bf8df44e065f8105ab15a90b36",
+          "restoration_policy": "four_ulp_action_exponent_and_exp_at_stored_exponent",
+          "schema_version": "ncmemsim-barrier-evaluation-v1",
+          "segments": [
+            {
+              "action_J_s": 1.653122835862478e-30,
+              "attenuation_status": "transmission_underflow",
+              "domain": "fully_forbidden",
+              "end_forbidden_energy_J": 3e-19,
+              "failure": null,
+              "log_transmission": -31351.545892155737,
+              "segment_id": "0",
+              "start_forbidden_energy_J": 3e-19,
+              "status": "completed",
+              "transmission": 0.0,
+              "wkb_exponent": 31351.545892155737
+            },
+            {
+              "action_J_s": 2.0246537150028894e-30,
+              "attenuation_status": "transmission_underflow",
+              "domain": "fully_forbidden",
+              "end_forbidden_energy_J": 3e-19,
+              "failure": null,
+              "log_transmission": -38397.645041615775,
+              "segment_id": "1",
+              "start_forbidden_energy_J": 3e-19,
+              "status": "completed",
+              "transmission": 0.0,
+              "wkb_exponent": 38397.645041615775
+            }
+          ],
+          "simulator_attachment": false,
+          "summary": {
+            "action_J_s": 3.6777765508653675e-30,
+            "attempted_segment_count": 2,
+            "attenuation_status": "transmission_underflow",
+            "completed_segment_count": 2,
+            "failed_segment_count": 0,
+            "failure": null,
+            "log_transmission": -69749.19093377152,
+            "status": "completed",
+            "transmission": 0.0,
+            "wkb_exponent": 69749.19093377152
+          }
+        },
+        "decimal_reference": {
+          "status": "available",
+          "action_J_s": 3.677776550865367e-30,
+          "wkb_exponent": 69749.1909337715,
+          "reason": null
+        },
+        "comparison": {
+          "status": "matched",
+          "absolute_error": 1.4551915228366852e-11,
+          "acceptance_limit": 6.974920093377151e-06
+        }
+      },
+      "partial_numeric_failure": {
+        "request": {
+          "approximation": "positive_segment_action_only",
+          "evaluated": false,
+          "exponent_atol": 1e-12,
+          "exponent_convention": "twice_forbidden_action_over_hbar",
+          "exponent_rtol": 1e-10,
+          "interface_matching": false,
+          "overflow_policy": "fail_not_clip",
+          "profile": {
+            "applicability": "controlled numerical study",
+            "axis_origin": "left physical boundary",
+            "carrier": "electron",
+            "destination_contact": "right contact",
+            "energy_reference": "one common electron energy zero",
+            "incident_energy_J": 0.0,
+            "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+            "interface_policy": "independent_one_sided_endpoint_values",
+            "limitations": "action-only compact approximation, not a device prediction",
+            "physical_matching": "not_included",
+            "positive_axis_direction": "left to right",
+            "profile_id": "partial-failure",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "segments": [
+              {
+                "effective_mass_m0": 0.2,
+                "end_potential_energy_J": 1.0,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 1e+300,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "0",
+                "start_potential_energy_J": 1.0
+              },
+              {
+                "effective_mass_m0": 0.3,
+                "end_potential_energy_J": 1e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 2e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "1",
+                "start_potential_energy_J": 3e-19
+              }
+            ],
+            "source_contact": "left contact",
+            "traversal_direction": "along_positive_axis"
+          },
+          "reference_scope": "predeclared S1 controls",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "simulator_attachment": false,
+          "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+        },
+        "result": {
+          "approximation": "positive_segment_action_only",
+          "constants": {
+            "electron_mass_kg": 9.1093837015e-31,
+            "hbar_J_s": 1.054571817e-34
+          },
+          "evaluated": true,
+          "experimental_qualification": false,
+          "interface_matching": false,
+          "method": "scaled_positive_linear_action_v1",
+          "profile_hash": "68812b86b26c0f30d149fc18529927f6a4edf1ab61ca56409865cf348a0dba5b",
+          "request": {
+            "approximation": "positive_segment_action_only",
+            "evaluated": false,
+            "exponent_atol": 1e-12,
+            "exponent_convention": "twice_forbidden_action_over_hbar",
+            "exponent_rtol": 1e-10,
+            "interface_matching": false,
+            "overflow_policy": "fail_not_clip",
+            "profile": {
+              "applicability": "controlled numerical study",
+              "axis_origin": "left physical boundary",
+              "carrier": "electron",
+              "destination_contact": "right contact",
+              "energy_reference": "one common electron energy zero",
+              "incident_energy_J": 0.0,
+              "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+              "interface_policy": "independent_one_sided_endpoint_values",
+              "limitations": "action-only compact approximation, not a device prediction",
+              "physical_matching": "not_included",
+              "positive_axis_direction": "left to right",
+              "profile_id": "partial-failure",
+              "schema_version": "ncmemsim-explicit-barrier-v1",
+              "segments": [
+                {
+                  "effective_mass_m0": 0.2,
+                  "end_potential_energy_J": 1.0,
+                  "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                  "length_m": 1e+300,
+                  "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                  "provenance": {
+                    "applicability": "isolated electron action only",
+                    "evidence": "no measured coefficient",
+                    "experimental_admission": false,
+                    "limitations": "no interface matching, current supply or experimental qualification",
+                    "parameter_status": "assumed",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "source": "synthetic S3 numerical study"
+                  },
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "segment_id": "0",
+                  "start_potential_energy_J": 1.0
+                },
+                {
+                  "effective_mass_m0": 0.3,
+                  "end_potential_energy_J": 1e-19,
+                  "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                  "length_m": 2e-09,
+                  "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                  "provenance": {
+                    "applicability": "isolated electron action only",
+                    "evidence": "no measured coefficient",
+                    "experimental_admission": false,
+                    "limitations": "no interface matching, current supply or experimental qualification",
+                    "parameter_status": "assumed",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "source": "synthetic S3 numerical study"
+                  },
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "segment_id": "1",
+                  "start_potential_energy_J": 3e-19
+                }
+              ],
+              "source_contact": "left contact",
+              "traversal_direction": "along_positive_axis"
+            },
+            "reference_scope": "predeclared S1 controls",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "simulator_attachment": false,
+            "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+          },
+          "request_hash": "13817a8c991a7320fde27fe472eee8a7847a13393d570eaa136e2f8ca26d706c",
+          "restoration_policy": "four_ulp_action_exponent_and_exp_at_stored_exponent",
+          "schema_version": "ncmemsim-barrier-evaluation-v1",
+          "segments": [
+            {
+              "action_J_s": null,
+              "attenuation_status": "unavailable",
+              "domain": "fully_forbidden",
+              "end_forbidden_energy_J": 1.0,
+              "failure": "positive_quantity_overflow",
+              "log_transmission": null,
+              "segment_id": "0",
+              "start_forbidden_energy_J": 1.0,
+              "status": "failed",
+              "transmission": null,
+              "wkb_exponent": null
+            },
+            {
+              "action_J_s": 6.5400357035146315e-34,
+              "attenuation_status": "finite_transmission",
+              "domain": "fully_forbidden",
+              "end_forbidden_energy_J": 1e-19,
+              "failure": null,
+              "log_transmission": -12.403205923176367,
+              "segment_id": "1",
+              "start_forbidden_energy_J": 3e-19,
+              "status": "completed",
+              "transmission": 4.105405971255131e-06,
+              "wkb_exponent": 12.403205923176367
+            }
+          ],
+          "simulator_attachment": false,
+          "summary": {
+            "action_J_s": null,
+            "attempted_segment_count": 2,
+            "attenuation_status": "unavailable",
+            "completed_segment_count": 1,
+            "failed_segment_count": 1,
+            "failure": "segment_numeric_range_failure",
+            "log_transmission": null,
+            "status": "failed",
+            "transmission": null,
+            "wkb_exponent": null
+          }
+        },
+        "decimal_reference": {
+          "status": "unavailable",
+          "action_J_s": null,
+          "wkb_exponent": null,
+          "reason": "reference_outside_finite_output_range"
+        },
+        "comparison": {
+          "status": "unavailable",
+          "absolute_error": null,
+          "acceptance_limit": null
+        }
+      }
+    },
+    "invariants": [
+      {
+        "source": "homogeneous_linear",
+        "operation": "split_each_original_segment",
+        "factor": 2,
+        "request_hash": "7629bdbaf07a17474f5b62a21a6f802ad59dc857940c9a3231b423ee4c67e1f4",
+        "candidate_exponent": 25.317938072040057,
+        "reference_exponent": 25.31793807204006,
+        "status": "matched",
+        "absolute_error": 3.552713678800501e-15,
+        "acceptance_limit": 1.365896903602003e-11
+      },
+      {
+        "source": "homogeneous_linear",
+        "operation": "split_each_original_segment",
+        "factor": 3,
+        "request_hash": "31de3ca5869f95bb7dd804db2260f2d7a7c1e5ff573579c8d53c3d0125c8d012",
+        "candidate_exponent": 25.317938072040057,
+        "reference_exponent": 25.31793807204006,
+        "status": "matched",
+        "absolute_error": 3.552713678800501e-15,
+        "acceptance_limit": 1.365896903602003e-11
+      },
+      {
+        "source": "homogeneous_linear",
+        "operation": "split_each_original_segment",
+        "factor": 7,
+        "request_hash": "3e2468bb25718a345affdf4c93f67eba692f81dd1445799dc74b01f7b5866d4f",
+        "candidate_exponent": 25.31793807204006,
+        "reference_exponent": 25.31793807204006,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.365896903602003e-11
+      },
+      {
+        "source": "homogeneous_linear",
+        "operation": "split_each_original_segment",
+        "factor": 16,
+        "request_hash": "f70c8648f1dd0e5637a3cddb69fcd8601b1e6b964f0c86b818f84f383f81bfcf",
+        "candidate_exponent": 25.317938072040057,
+        "reference_exponent": 25.31793807204006,
+        "status": "matched",
+        "absolute_error": 3.552713678800501e-15,
+        "acceptance_limit": 1.365896903602003e-11
+      },
+      {
+        "source": "homogeneous_linear",
+        "operation": "same_energy_reversal",
+        "factor": null,
+        "request_hash": "9c15f45d2f337084ddf3a37c9e399af55cf962b57d297505b835bd9791d7020f",
+        "candidate_exponent": 25.31793807204006,
+        "reference_exponent": 25.31793807204006,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.365896903602003e-11
+      },
+      {
+        "source": "homogeneous_linear",
+        "operation": "uniform_mass_scaling",
+        "factor": 0.25,
+        "request_hash": "dadcb239a9bf5c3c93ad802c183d5be2b2b76afc21a4492e199708a30ab707be",
+        "candidate_exponent": 12.65896903602003,
+        "reference_exponent": 12.65896903602003,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 7.329484518010015e-12
+      },
+      {
+        "source": "homogeneous_linear",
+        "operation": "uniform_mass_scaling",
+        "factor": 4.0,
+        "request_hash": "bdf66a849b9e96f84ec356c6b4ade85bad3bb433a9a4be108677555ea9ebe861",
+        "candidate_exponent": 50.63587614408012,
+        "reference_exponent": 50.63587614408012,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 2.631793807204006e-11
+      },
+      {
+        "source": "homogeneous_linear",
+        "operation": "common_energy_zero_shift",
+        "factor": 1e-19,
+        "request_hash": "5ba426780ff28f514eed7dbc9b4b850fff9237e12ac0c75672aac30d9e81adc6",
+        "candidate_exponent": 25.31793807204006,
+        "reference_exponent": 25.31793807204006,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.365896903602003e-11
+      },
+      {
+        "source": "mass_step",
+        "operation": "split_each_original_segment",
+        "factor": 2,
+        "request_hash": "d9a6926b17f603d4dea82ba8afc6c37800a53b0f6ca003070eea6fe8d07eb19b",
+        "candidate_exponent": 32.36051213191357,
+        "reference_exponent": 32.36051213191357,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.7180256065956786e-11
+      },
+      {
+        "source": "mass_step",
+        "operation": "split_each_original_segment",
+        "factor": 3,
+        "request_hash": "92d7eafb400cc14437ebf7c5ebd1183d8e3b764ffdcee074af81d5f624a48a13",
+        "candidate_exponent": 32.36051213191357,
+        "reference_exponent": 32.36051213191357,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.7180256065956786e-11
+      },
+      {
+        "source": "mass_step",
+        "operation": "split_each_original_segment",
+        "factor": 7,
+        "request_hash": "95a1c5b3bd8cb157611c68e5ee2db66a13b51d0dc97cfb0cf50d496fc783ab92",
+        "candidate_exponent": 32.36051213191357,
+        "reference_exponent": 32.36051213191357,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.7180256065956786e-11
+      },
+      {
+        "source": "mass_step",
+        "operation": "split_each_original_segment",
+        "factor": 16,
+        "request_hash": "a5b0bc9f8fd7967e686a921b2e81dd02d86045086c3cafe5abb50db382e98abc",
+        "candidate_exponent": 32.36051213191357,
+        "reference_exponent": 32.36051213191357,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.7180256065956786e-11
+      },
+      {
+        "source": "mass_step",
+        "operation": "same_energy_reversal",
+        "factor": null,
+        "request_hash": "c87a4f5971e2dbcf3ea60647c392ac8e5e7a0b48b7e9504239f620369baeb7c8",
+        "candidate_exponent": 32.36051213191357,
+        "reference_exponent": 32.36051213191357,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.7180256065956786e-11
+      },
+      {
+        "source": "mass_step",
+        "operation": "uniform_mass_scaling",
+        "factor": 0.25,
+        "request_hash": "54bfbf5a1074101999ec4ffe2f967214ae2e0042ea8596d0118bde27c748d9c5",
+        "candidate_exponent": 16.180256065956787,
+        "reference_exponent": 16.180256065956787,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 9.090128032978393e-12
+      },
+      {
+        "source": "mass_step",
+        "operation": "uniform_mass_scaling",
+        "factor": 4.0,
+        "request_hash": "a775642da000fbdb97f47cd97c733033b304e4f876c86b2478e80d0331e962a9",
+        "candidate_exponent": 64.72102426382715,
+        "reference_exponent": 64.72102426382715,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 3.3360512131913575e-11
+      },
+      {
+        "source": "mass_step",
+        "operation": "common_energy_zero_shift",
+        "factor": 1e-19,
+        "request_hash": "d535968a1cc5dd19b094abe57f3fdc0f83ce0cf2cf9ce8ae9c3de25c30d7a315",
+        "candidate_exponent": 32.36051213191357,
+        "reference_exponent": 32.36051213191357,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.7180256065956786e-11
+      },
+      {
+        "source": "energy_step",
+        "operation": "split_each_original_segment",
+        "factor": 2,
+        "request_hash": "d795e53f6d1732c5e3f05ab4a59906bc3e33d87d777100a3dfa0ab830379fae4",
+        "candidate_exponent": 29.855994205922613,
+        "reference_exponent": 29.855994205922613,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.5927997102961307e-11
+      },
+      {
+        "source": "energy_step",
+        "operation": "split_each_original_segment",
+        "factor": 3,
+        "request_hash": "8bf6b7b2a6ddf67c3edea894b9322ba04448f99562571fc1ab04840c44421d9c",
+        "candidate_exponent": 29.85599420592262,
+        "reference_exponent": 29.855994205922613,
+        "status": "matched",
+        "absolute_error": 7.105427357601002e-15,
+        "acceptance_limit": 1.5927997102961307e-11
+      },
+      {
+        "source": "energy_step",
+        "operation": "split_each_original_segment",
+        "factor": 7,
+        "request_hash": "cd3f39e414df6a67ffce4c9ae52c5c30ff03a63c3467298174469c2f7c182b1a",
+        "candidate_exponent": 29.855994205922613,
+        "reference_exponent": 29.855994205922613,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.5927997102961307e-11
+      },
+      {
+        "source": "energy_step",
+        "operation": "split_each_original_segment",
+        "factor": 16,
+        "request_hash": "ebfd6148e2d76603ad8b7ad1eb3aa9ab2808e6f0ed0f32fd2d12b4e58aaa2a87",
+        "candidate_exponent": 29.855994205922617,
+        "reference_exponent": 29.855994205922613,
+        "status": "matched",
+        "absolute_error": 3.552713678800501e-15,
+        "acceptance_limit": 1.5927997102961307e-11
+      },
+      {
+        "source": "energy_step",
+        "operation": "same_energy_reversal",
+        "factor": null,
+        "request_hash": "03136675036b34d039d186da99a83858f324d4386f19848eaaa172cc28cd77e2",
+        "candidate_exponent": 29.855994205922613,
+        "reference_exponent": 29.855994205922613,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.5927997102961307e-11
+      },
+      {
+        "source": "energy_step",
+        "operation": "uniform_mass_scaling",
+        "factor": 0.25,
+        "request_hash": "9d029a2b0f6be37ab139e8268b3656ca385b0bf174b878d27eab1d0e6ead96fa",
+        "candidate_exponent": 14.927997102961307,
+        "reference_exponent": 14.927997102961307,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 8.463998551480654e-12
+      },
+      {
+        "source": "energy_step",
+        "operation": "uniform_mass_scaling",
+        "factor": 4.0,
+        "request_hash": "d9584f63d2291909bd5cfe776b216b23cbfa7b75667ef7ff499b0e5f5dedb3da",
+        "candidate_exponent": 59.711988411845226,
+        "reference_exponent": 59.711988411845226,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 3.085599420592262e-11
+      },
+      {
+        "source": "energy_step",
+        "operation": "common_energy_zero_shift",
+        "factor": 1e-19,
+        "request_hash": "afdd5c418b1bdb99303727e08bf343e04d148d6c36c848af89086d09c3169b94",
+        "candidate_exponent": 29.855994205922613,
+        "reference_exponent": 29.855994205922613,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.5927997102961307e-11
+      },
+      {
+        "source": "allowed_interval",
+        "operation": "split_each_original_segment",
+        "factor": 2,
+        "request_hash": "b7b70dd69d4b9be5e7726a8a4490b40f09ad43c9d73eb1bec18cdbd15acd5482",
+        "candidate_exponent": 12.706157519887865,
+        "reference_exponent": 12.706157519887864,
+        "status": "matched",
+        "absolute_error": 1.7763568394002505e-15,
+        "acceptance_limit": 7.353078759943932e-12
+      },
+      {
+        "source": "allowed_interval",
+        "operation": "split_each_original_segment",
+        "factor": 3,
+        "request_hash": "6b20efebc4232cb6aed0036ef761cfc93213af6055a99773e773e91321308d25",
+        "candidate_exponent": 12.706157519887867,
+        "reference_exponent": 12.706157519887864,
+        "status": "matched",
+        "absolute_error": 3.552713678800501e-15,
+        "acceptance_limit": 7.353078759943932e-12
+      },
+      {
+        "source": "allowed_interval",
+        "operation": "split_each_original_segment",
+        "factor": 7,
+        "request_hash": "d07f4c917999605c1b304a34139eb3d5a3778f93f54e25d29077085bfaab5a48",
+        "candidate_exponent": 12.706157519887864,
+        "reference_exponent": 12.706157519887864,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 7.353078759943932e-12
+      },
+      {
+        "source": "allowed_interval",
+        "operation": "split_each_original_segment",
+        "factor": 16,
+        "request_hash": "ff86ddd021dd4dba3f1b902b1ece80852aab49ace2ba8a7d45a37f731b7a0195",
+        "candidate_exponent": 12.706157519887864,
+        "reference_exponent": 12.706157519887864,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 7.353078759943932e-12
+      },
+      {
+        "source": "allowed_interval",
+        "operation": "same_energy_reversal",
+        "factor": null,
+        "request_hash": "3db540c7aa10b660af2091a8f04517731a046d3abd1822c6796852cab6e7183d",
+        "candidate_exponent": 12.706157519887864,
+        "reference_exponent": 12.706157519887864,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 7.353078759943932e-12
+      },
+      {
+        "source": "allowed_interval",
+        "operation": "uniform_mass_scaling",
+        "factor": 0.25,
+        "request_hash": "134098f14fcdc619e2b31b1ed9648fe0f0a3bb397e3fe05bc3c0f2f09074044d",
+        "candidate_exponent": 6.353078759943932,
+        "reference_exponent": 6.353078759943932,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 4.176539379971966e-12
+      },
+      {
+        "source": "allowed_interval",
+        "operation": "uniform_mass_scaling",
+        "factor": 4.0,
+        "request_hash": "362af92fe49caf87a7324387d582b829278a880036c0527d9b54ae6c397fd541",
+        "candidate_exponent": 25.412315039775727,
+        "reference_exponent": 25.412315039775727,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.3706157519887863e-11
+      },
+      {
+        "source": "allowed_interval",
+        "operation": "common_energy_zero_shift",
+        "factor": 1e-19,
+        "request_hash": "6432e8de9e176a9a63f6c553ba7a2cfd7833a18a41d0f38b8f4e432aef95baf1",
+        "candidate_exponent": 12.706157519887864,
+        "reference_exponent": 12.706157519887864,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 7.353078759943932e-12
+      },
+      {
+        "source": "zero_action",
+        "operation": "split_each_original_segment",
+        "factor": 2,
+        "request_hash": "1876d538d756c6bbd41853c0e299a09620258f0f3c07c3ef6d7310fa652eb4b3",
+        "candidate_exponent": 0.0,
+        "reference_exponent": 0.0,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1e-12
+      },
+      {
+        "source": "zero_action",
+        "operation": "split_each_original_segment",
+        "factor": 3,
+        "request_hash": "ad00d9e75e43f329effc9a287be651a519cf6be2c1d22bdac9aa71de71fdac1a",
+        "candidate_exponent": 0.0,
+        "reference_exponent": 0.0,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1e-12
+      },
+      {
+        "source": "zero_action",
+        "operation": "split_each_original_segment",
+        "factor": 7,
+        "request_hash": "dea1976cae1f2135de6edb1394ec11b51674ee974c74fa08f97435ff0b133f7b",
+        "candidate_exponent": 0.0,
+        "reference_exponent": 0.0,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1e-12
+      },
+      {
+        "source": "zero_action",
+        "operation": "split_each_original_segment",
+        "factor": 16,
+        "request_hash": "db2c17360048d6ef652a5c8b7ae91353048cfe0a5aecb4a526aedd68b2d729a6",
+        "candidate_exponent": 0.0,
+        "reference_exponent": 0.0,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1e-12
+      },
+      {
+        "source": "zero_action",
+        "operation": "same_energy_reversal",
+        "factor": null,
+        "request_hash": "574330815d90c716b62f36d56e15df098a9526e8fb9bccedfa122f93ca8e0492",
+        "candidate_exponent": 0.0,
+        "reference_exponent": 0.0,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1e-12
+      },
+      {
+        "source": "zero_action",
+        "operation": "uniform_mass_scaling",
+        "factor": 0.25,
+        "request_hash": "8029944f026f5c8e832d048d44bb4f742c4c7c461f21e12ba4d314cca365570a",
+        "candidate_exponent": 0.0,
+        "reference_exponent": 0.0,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1e-12
+      },
+      {
+        "source": "zero_action",
+        "operation": "uniform_mass_scaling",
+        "factor": 4.0,
+        "request_hash": "6261f1fab9ee90404659a48e70df5cb975e2967dfc41960232dab9da8a0c075f",
+        "candidate_exponent": 0.0,
+        "reference_exponent": 0.0,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1e-12
+      },
+      {
+        "source": "zero_action",
+        "operation": "common_energy_zero_shift",
+        "factor": 1e-19,
+        "request_hash": "79104b9c53ac62f191c6fbf24e993bf34267a4d112933713ede7e7a28b9ea31b",
+        "candidate_exponent": 0.0,
+        "reference_exponent": 0.0,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1e-12
+      },
+      {
+        "source": "underflow",
+        "operation": "split_each_original_segment",
+        "factor": 2,
+        "request_hash": "2650a9d96cf82f65ab2ee90982c5d9a9df05df147cb79bb3720471e8ebf04927",
+        "candidate_exponent": 69749.19093377152,
+        "reference_exponent": 69749.19093377152,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 3.487559546688576e-08
+      },
+      {
+        "source": "underflow",
+        "operation": "split_each_original_segment",
+        "factor": 3,
+        "request_hash": "0638544547e2da7cbd90450d76b63575361d7b36dd3580103920e0c368483f72",
+        "candidate_exponent": 69749.19093377152,
+        "reference_exponent": 69749.19093377152,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 3.487559546688576e-08
+      },
+      {
+        "source": "underflow",
+        "operation": "split_each_original_segment",
+        "factor": 7,
+        "request_hash": "1f97dc4214e5153339b12b4155da621869168a8aea6016899a700da452d91ceb",
+        "candidate_exponent": 69749.19093377152,
+        "reference_exponent": 69749.19093377152,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 3.487559546688576e-08
+      },
+      {
+        "source": "underflow",
+        "operation": "split_each_original_segment",
+        "factor": 16,
+        "request_hash": "2f5279cbbda69853320b8e03bcf42b4f1dde8ee7ed1abd0252230ef364068874",
+        "candidate_exponent": 69749.19093377152,
+        "reference_exponent": 69749.19093377152,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 3.487559546688576e-08
+      },
+      {
+        "source": "underflow",
+        "operation": "same_energy_reversal",
+        "factor": null,
+        "request_hash": "81b3567167d7abb76ee7c1b94b51f7ba83860b7b102543059c848a63dde551fd",
+        "candidate_exponent": 69749.19093377152,
+        "reference_exponent": 69749.19093377152,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 3.487559546688576e-08
+      },
+      {
+        "source": "underflow",
+        "operation": "uniform_mass_scaling",
+        "factor": 0.25,
+        "request_hash": "bb8f90b344bf53c141029f66be94d4f6a501cf9fd441cbd5c35f12c90814a0ac",
+        "candidate_exponent": 34874.59546688576,
+        "reference_exponent": 34874.59546688576,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 1.743829773344288e-08
+      },
+      {
+        "source": "underflow",
+        "operation": "uniform_mass_scaling",
+        "factor": 4.0,
+        "request_hash": "21a487b9813f2eace0ffa8c2a9162fad331514375d222f3e8ea206be05945ea2",
+        "candidate_exponent": 139498.38186754304,
+        "reference_exponent": 139498.38186754304,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 6.975019093377152e-08
+      },
+      {
+        "source": "underflow",
+        "operation": "common_energy_zero_shift",
+        "factor": 1e-19,
+        "request_hash": "e64e620d23978475d81aaf18d03519a3d953e69ca0e6ac3398a84b061f2c4577",
+        "candidate_exponent": 69749.19093377152,
+        "reference_exponent": 69749.19093377152,
+        "status": "matched",
+        "absolute_error": 0.0,
+        "acceptance_limit": 3.487559546688576e-08
+      },
+      {
+        "source": "partial_numeric_failure",
+        "operation": "not_assessed_failed_baseline",
+        "factor": null,
+        "request_hash": "13817a8c991a7320fde27fe472eee8a7847a13393d570eaa136e2f8ca26d706c",
+        "candidate_exponent": null,
+        "reference_exponent": null,
+        "status": "unavailable",
+        "absolute_error": null,
+        "acceptance_limit": null
+      }
+    ],
+    "published_kernel_comparisons": [
+      {
+        "label": "rectangle",
+        "inputs": {
+          "length_m": 5e-09,
+          "field_V_m": 0.0,
+          "barrier_eV": 1.78,
+          "injection_energy_eV": 0.1,
+          "effective_mass_m0": 0.15
+        },
+        "request": {
+          "approximation": "positive_segment_action_only",
+          "evaluated": false,
+          "exponent_atol": 1e-12,
+          "exponent_convention": "twice_forbidden_action_over_hbar",
+          "exponent_rtol": 1e-10,
+          "interface_matching": false,
+          "overflow_policy": "fail_not_clip",
+          "profile": {
+            "applicability": "controlled numerical study",
+            "axis_origin": "left physical boundary",
+            "carrier": "electron",
+            "destination_contact": "right contact",
+            "energy_reference": "one common electron energy zero",
+            "incident_energy_J": 1.602176634e-20,
+            "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+            "interface_policy": "independent_one_sided_endpoint_values",
+            "limitations": "action-only compact approximation, not a device prediction",
+            "physical_matching": "not_included",
+            "positive_axis_direction": "left to right",
+            "profile_id": "rectangle",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "segments": [
+              {
+                "effective_mass_m0": 0.15,
+                "end_potential_energy_J": 2.85187440852e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 5e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "0",
+                "start_potential_energy_J": 2.85187440852e-19
+              }
+            ],
+            "source_contact": "left contact",
+            "traversal_direction": "along_positive_axis"
+          },
+          "reference_scope": "predeclared S1 controls",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "simulator_attachment": false,
+          "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+        },
+        "modern_summary": {
+          "action_J_s": 1.3560789270179485e-33,
+          "attempted_segment_count": 1,
+          "attenuation_status": "finite_transmission",
+          "completed_segment_count": 1,
+          "failed_segment_count": 0,
+          "failure": null,
+          "log_transmission": -25.718095347468374,
+          "status": "completed",
+          "transmission": 6.772875704584756e-12,
+          "wkb_exponent": 25.718095347468374
+        },
+        "decimal_reference_exponent": 25.71809534746837,
+        "modern_comparison": {
+          "status": "matched",
+          "absolute_error": 3.552713678800501e-15,
+          "acceptance_limit": 2.572809534746837e-09
+        },
+        "direct_constants": {
+          "electron_mass_kg": 9.1093837015e-31,
+          "hbar_J_s": 1.054571817e-34
+        },
+        "direct_grid_refinements": [
+          {
+            "integration_points": 80,
+            "transmission": 6.772875704584828e-12,
+            "effective_exponent_from_transmission": 25.718095347468363,
+            "floor_limited": false,
+            "comparison": {
+              "status": "matched",
+              "absolute_error": 7.105427357601002e-15,
+              "acceptance_limit": 2.572809534746837e-09
+            }
+          },
+          {
+            "integration_points": 160,
+            "transmission": 6.77287570458478e-12,
+            "effective_exponent_from_transmission": 25.71809534746837,
+            "floor_limited": false,
+            "comparison": {
+              "status": "matched",
+              "absolute_error": 0.0,
+              "acceptance_limit": 2.572809534746837e-09
+            }
+          },
+          {
+            "integration_points": 320,
+            "transmission": 6.772875704584731e-12,
+            "effective_exponent_from_transmission": 25.718095347468378,
+            "floor_limited": false,
+            "comparison": {
+              "status": "matched",
+              "absolute_error": 7.105427357601002e-15,
+              "acceptance_limit": 2.572809534746837e-09
+            }
+          },
+          {
+            "integration_points": 640,
+            "transmission": 6.77287570458478e-12,
+            "effective_exponent_from_transmission": 25.71809534746837,
+            "floor_limited": false,
+            "comparison": {
+              "status": "matched",
+              "absolute_error": 0.0,
+              "acceptance_limit": 2.572809534746837e-09
+            }
+          },
+          {
+            "integration_points": 1280,
+            "transmission": 6.77287570458478e-12,
+            "effective_exponent_from_transmission": 25.71809534746837,
+            "floor_limited": false,
+            "comparison": {
+              "status": "matched",
+              "absolute_error": 0.0,
+              "acceptance_limit": 2.572809534746837e-09
+            }
+          },
+          {
+            "integration_points": 2560,
+            "transmission": 6.772875704584731e-12,
+            "effective_exponent_from_transmission": 25.718095347468378,
+            "floor_limited": false,
+            "comparison": {
+              "status": "matched",
+              "absolute_error": 7.105427357601002e-15,
+              "acceptance_limit": 2.572809534746837e-09
+            }
+          }
+        ],
+        "tat": {
+          "electron_mass_kg": 9.1093837139e-31,
+          "hbar_J_s": 1.054571817e-34,
+          "transmission": 6.772875586031233e-12,
+          "exponent": 25.718095364972537,
+          "own_constant_reference_exponent": 25.71809536497254,
+          "expected_mass_constant_exponent_ratio": 1.0000000006806167,
+          "raw_difference_from_modern": 1.7504163452031207e-08,
+          "own_constant_comparison": {
+            "status": "matched",
+            "absolute_error": 3.552713678800501e-15,
+            "acceptance_limit": 2.572809536497254e-09
+          }
+        }
+      },
+      {
+        "label": "trapezoid",
+        "inputs": {
+          "length_m": 5e-09,
+          "field_V_m": 100000000.0,
+          "barrier_eV": 1.78,
+          "injection_energy_eV": 0.1,
+          "effective_mass_m0": 0.15
+        },
+        "request": {
+          "approximation": "positive_segment_action_only",
+          "evaluated": false,
+          "exponent_atol": 1e-12,
+          "exponent_convention": "twice_forbidden_action_over_hbar",
+          "exponent_rtol": 1e-10,
+          "interface_matching": false,
+          "overflow_policy": "fail_not_clip",
+          "profile": {
+            "applicability": "controlled numerical study",
+            "axis_origin": "left physical boundary",
+            "carrier": "electron",
+            "destination_contact": "right contact",
+            "energy_reference": "one common electron energy zero",
+            "incident_energy_J": 1.602176634e-20,
+            "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+            "interface_policy": "independent_one_sided_endpoint_values",
+            "limitations": "action-only compact approximation, not a device prediction",
+            "physical_matching": "not_included",
+            "positive_axis_direction": "left to right",
+            "profile_id": "trapezoid",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "segments": [
+              {
+                "effective_mass_m0": 0.15,
+                "end_potential_energy_J": 2.0507860915199998e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 5e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "0",
+                "start_potential_energy_J": 2.85187440852e-19
+              }
+            ],
+            "source_contact": "left contact",
+            "traversal_direction": "along_positive_axis"
+          },
+          "reference_scope": "predeclared S1 controls",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "simulator_attachment": false,
+          "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+        },
+        "modern_summary": {
+          "action_J_s": 1.249515681726588e-33,
+          "attempted_segment_count": 1,
+          "attenuation_status": "finite_transmission",
+          "completed_segment_count": 1,
+          "failed_segment_count": 0,
+          "failure": null,
+          "log_transmission": -23.69711880374645,
+          "status": "completed",
+          "transmission": 5.1106020699749046e-11,
+          "wkb_exponent": 23.69711880374645
+        },
+        "decimal_reference_exponent": 23.69711880374645,
+        "modern_comparison": {
+          "status": "matched",
+          "absolute_error": 0.0,
+          "acceptance_limit": 2.3707118803746447e-09
+        },
+        "direct_constants": {
+          "electron_mass_kg": 9.1093837015e-31,
+          "hbar_J_s": 1.054571817e-34
+        },
+        "direct_grid_refinements": [
+          {
+            "integration_points": 80,
+            "transmission": 5.1106525264946146e-11,
+            "effective_exponent_from_transmission": 23.697108930884124,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 9.872862325011056e-06,
+              "acceptance_limit": 2.3707118803746447e-09
+            }
+          },
+          {
+            "integration_points": 160,
+            "transmission": 5.1106145259014086e-11,
+            "effective_exponent_from_transmission": 23.69711636647758,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 2.437268868504816e-06,
+              "acceptance_limit": 2.3707118803746447e-09
+            }
+          },
+          {
+            "integration_points": 320,
+            "transmission": 5.110605164461656e-11,
+            "effective_exponent_from_transmission": 23.697118198243267,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 6.055031818164025e-07,
+              "acceptance_limit": 2.3707118803746447e-09
+            }
+          },
+          {
+            "integration_points": 640,
+            "transmission": 5.1106028411770166e-11,
+            "effective_exponent_from_transmission": 23.69711865284406,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 1.5090238747461626e-07,
+              "acceptance_limit": 2.3707118803746447e-09
+            }
+          },
+          {
+            "integration_points": 1280,
+            "transmission": 5.11060226247407e-11,
+            "effective_exponent_from_transmission": 23.697118766079818,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 3.7666630703370174e-08,
+              "acceptance_limit": 2.3707118803746447e-09
+            }
+          },
+          {
+            "integration_points": 2560,
+            "transmission": 5.110602118062084e-11,
+            "effective_exponent_from_transmission": 23.69711879433715,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 9.409298229456908e-09,
+              "acceptance_limit": 2.3707118803746447e-09
+            }
+          }
+        ],
+        "tat": {
+          "electron_mass_kg": 9.1093837139e-31,
+          "hbar_J_s": 1.054571817e-34,
+          "transmission": 5.11060198754771e-11,
+          "exponent": 23.697118819875115,
+          "own_constant_reference_exponent": 23.697118819875104,
+          "expected_mass_constant_exponent_ratio": 1.0000000006806167,
+          "raw_difference_from_modern": 1.6128666402437375e-08,
+          "own_constant_comparison": {
+            "status": "matched",
+            "absolute_error": 1.0658141036401503e-14,
+            "acceptance_limit": 2.3707118819875104e-09
+          }
+        }
+      },
+      {
+        "label": "turning_point",
+        "inputs": {
+          "length_m": 5e-09,
+          "field_V_m": 1000000000.0,
+          "barrier_eV": 1.78,
+          "injection_energy_eV": 0.1,
+          "effective_mass_m0": 0.15
+        },
+        "request": {
+          "approximation": "positive_segment_action_only",
+          "evaluated": false,
+          "exponent_atol": 1e-12,
+          "exponent_convention": "twice_forbidden_action_over_hbar",
+          "exponent_rtol": 1e-10,
+          "interface_matching": false,
+          "overflow_policy": "fail_not_clip",
+          "profile": {
+            "applicability": "controlled numerical study",
+            "axis_origin": "left physical boundary",
+            "carrier": "electron",
+            "destination_contact": "right contact",
+            "energy_reference": "one common electron energy zero",
+            "incident_energy_J": 1.602176634e-20,
+            "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+            "interface_policy": "independent_one_sided_endpoint_values",
+            "limitations": "action-only compact approximation, not a device prediction",
+            "physical_matching": "not_included",
+            "positive_axis_direction": "left to right",
+            "profile_id": "turning_point",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "segments": [
+              {
+                "effective_mass_m0": 0.15,
+                "end_potential_energy_J": -5.159008761479999e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 5e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "0",
+                "start_potential_energy_J": 2.85187440852e-19
+              }
+            ],
+            "source_contact": "left contact",
+            "traversal_direction": "along_positive_axis"
+          },
+          "reference_scope": "predeclared S1 controls",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "simulator_attachment": false,
+          "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+        },
+        "modern_summary": {
+          "action_J_s": 3.0376167965202046e-34,
+          "attempted_segment_count": 1,
+          "attenuation_status": "finite_transmission",
+          "completed_segment_count": 1,
+          "failed_segment_count": 0,
+          "failure": null,
+          "log_transmission": -5.760853357832917,
+          "status": "completed",
+          "transmission": 0.003148423719703815,
+          "wkb_exponent": 5.760853357832917
+        },
+        "decimal_reference_exponent": 5.760853357832916,
+        "modern_comparison": {
+          "status": "matched",
+          "absolute_error": 8.881784197001252e-16,
+          "acceptance_limit": 5.770853357832917e-10
+        },
+        "direct_constants": {
+          "electron_mass_kg": 9.1093837015e-31,
+          "hbar_J_s": 1.054571817e-34
+        },
+        "direct_grid_refinements": [
+          {
+            "integration_points": 80,
+            "transmission": 0.0031375914988850274,
+            "effective_exponent_from_transmission": 5.764299811958223,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 0.0034464541253065306,
+              "acceptance_limit": 5.770853357832917e-10
+            }
+          },
+          {
+            "integration_points": 160,
+            "transmission": 0.0031424418076766757,
+            "effective_exponent_from_transmission": 5.762755135514869,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 0.0019017776819527654,
+              "acceptance_limit": 5.770853357832917e-10
+            }
+          },
+          {
+            "integration_points": 320,
+            "transmission": 0.0031464590188022682,
+            "effective_exponent_from_transmission": 5.761477579457674,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 0.0006242216247578369,
+              "acceptance_limit": 5.770853357832917e-10
+            }
+          },
+          {
+            "integration_points": 640,
+            "transmission": 0.003148597695530375,
+            "effective_exponent_from_transmission": 5.760798101286962,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 5.525654595395224e-05,
+              "acceptance_limit": 5.770853357832917e-10
+            }
+          },
+          {
+            "integration_points": 1280,
+            "transmission": 0.0031485519447226463,
+            "effective_exponent_from_transmission": 5.760812631927123,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 4.072590579351498e-05,
+              "acceptance_limit": 5.770853357832917e-10
+            }
+          },
+          {
+            "integration_points": 2560,
+            "transmission": 0.0031485193004106016,
+            "effective_exponent_from_transmission": 5.760823000020725,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 3.0357812191184053e-05,
+              "acceptance_limit": 5.770853357832917e-10
+            }
+          }
+        ],
+        "tat": {
+          "electron_mass_kg": 9.1093837139e-31,
+          "hbar_J_s": 1.054571817e-34,
+          "transmission": 0.0031484237073590537,
+          "exponent": 5.760853361753851,
+          "own_constant_reference_exponent": 5.760853361753849,
+          "expected_mass_constant_exponent_ratio": 1.0000000006806167,
+          "raw_difference_from_modern": 3.920933799861359e-09,
+          "own_constant_comparison": {
+            "status": "matched",
+            "absolute_error": 1.7763568394002505e-15,
+            "acceptance_limit": 5.770853361753849e-10
+          }
+        }
+      },
+      {
+        "label": "ascending_linear",
+        "inputs": {
+          "length_m": 5e-09,
+          "field_V_m": -100000000.0,
+          "barrier_eV": 1.78,
+          "injection_energy_eV": 0.1,
+          "effective_mass_m0": 0.15
+        },
+        "request": {
+          "approximation": "positive_segment_action_only",
+          "evaluated": false,
+          "exponent_atol": 1e-12,
+          "exponent_convention": "twice_forbidden_action_over_hbar",
+          "exponent_rtol": 1e-10,
+          "interface_matching": false,
+          "overflow_policy": "fail_not_clip",
+          "profile": {
+            "applicability": "controlled numerical study",
+            "axis_origin": "left physical boundary",
+            "carrier": "electron",
+            "destination_contact": "right contact",
+            "energy_reference": "one common electron energy zero",
+            "incident_energy_J": 1.602176634e-20,
+            "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+            "interface_policy": "independent_one_sided_endpoint_values",
+            "limitations": "action-only compact approximation, not a device prediction",
+            "physical_matching": "not_included",
+            "positive_axis_direction": "left to right",
+            "profile_id": "ascending_linear",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "segments": [
+              {
+                "effective_mass_m0": 0.15,
+                "end_potential_energy_J": 3.65296272552e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 5e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "0",
+                "start_potential_energy_J": 2.85187440852e-19
+              }
+            ],
+            "source_contact": "left contact",
+            "traversal_direction": "along_positive_axis"
+          },
+          "reference_scope": "predeclared S1 controls",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "simulator_attachment": false,
+          "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+        },
+        "modern_summary": {
+          "action_J_s": 1.4524603548306382e-33,
+          "attempted_segment_count": 1,
+          "attenuation_status": "finite_transmission",
+          "completed_segment_count": 1,
+          "failed_segment_count": 0,
+          "failure": null,
+          "log_transmission": -27.545973283498782,
+          "status": "completed",
+          "transmission": 1.0887691439265073e-12,
+          "wkb_exponent": 27.545973283498782
+        },
+        "decimal_reference_exponent": 27.54597328349878,
+        "modern_comparison": {
+          "status": "matched",
+          "absolute_error": 3.552713678800501e-15,
+          "acceptance_limit": 2.755597328349878e-09
+        },
+        "direct_constants": {
+          "electron_mass_kg": 9.1093837015e-31,
+          "hbar_J_s": 1.054571817e-34
+        },
+        "direct_grid_refinements": [
+          {
+            "integration_points": 80,
+            "transmission": 1.0887759394157303e-12,
+            "effective_exponent_from_transmission": 27.54596704207648,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 6.241422298103316e-06,
+              "acceptance_limit": 2.755597328349878e-09
+            }
+          },
+          {
+            "integration_points": 160,
+            "transmission": 1.0887708214934906e-12,
+            "effective_exponent_from_transmission": 27.54597174270779,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 1.5407909899067818e-06,
+              "acceptance_limit": 2.755597328349878e-09
+            }
+          },
+          {
+            "integration_points": 320,
+            "transmission": 1.0887695606927743e-12,
+            "effective_exponent_from_transmission": 27.54597290071223,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 3.8278654912460297e-07,
+              "acceptance_limit": 2.755597328349878e-09
+            }
+          },
+          {
+            "integration_points": 640,
+            "transmission": 1.0887692477922115e-12,
+            "effective_exponent_from_transmission": 27.545973188101424,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 9.539735401631333e-08,
+              "acceptance_limit": 2.755597328349878e-09
+            }
+          },
+          {
+            "integration_points": 1280,
+            "transmission": 1.0887691698523476e-12,
+            "effective_exponent_from_transmission": 27.54597325968672,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 2.381205987944668e-08,
+              "acceptance_limit": 2.755597328349878e-09
+            }
+          },
+          {
+            "integration_points": 2560,
+            "transmission": 1.088769150402904e-12,
+            "effective_exponent_from_transmission": 27.545973277550416,
+            "floor_limited": false,
+            "comparison": {
+              "status": "mismatched",
+              "absolute_error": 5.948361803120861e-09,
+              "acceptance_limit": 2.755597328349878e-09
+            }
+          }
+        ],
+        "tat": {
+          "electron_mass_kg": 9.1093837139e-31,
+          "hbar_J_s": 1.054571817e-34,
+          "transmission": 1.0887691235140115e-12,
+          "exponent": 27.545973302247013,
+          "own_constant_reference_exponent": 27.54597330224703,
+          "expected_mass_constant_exponent_ratio": 1.0000000006806167,
+          "raw_difference_from_modern": 1.8748231411791494e-08,
+          "own_constant_comparison": {
+            "status": "matched",
+            "absolute_error": 1.7763568394002505e-14,
+            "acceptance_limit": 2.755597330224703e-09
+          }
+        }
+      },
+      {
+        "label": "near_flat",
+        "inputs": {
+          "length_m": 5e-09,
+          "field_V_m": 0.00035600000000000003,
+          "barrier_eV": 1.78,
+          "injection_energy_eV": 0.1,
+          "effective_mass_m0": 0.15
+        },
+        "request": {
+          "approximation": "positive_segment_action_only",
+          "evaluated": false,
+          "exponent_atol": 1e-12,
+          "exponent_convention": "twice_forbidden_action_over_hbar",
+          "exponent_rtol": 1e-10,
+          "interface_matching": false,
+          "overflow_policy": "fail_not_clip",
+          "profile": {
+            "applicability": "controlled numerical study",
+            "axis_origin": "left physical boundary",
+            "carrier": "electron",
+            "destination_contact": "right contact",
+            "energy_reference": "one common electron energy zero",
+            "incident_energy_J": 1.602176634e-20,
+            "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+            "interface_policy": "independent_one_sided_endpoint_values",
+            "limitations": "action-only compact approximation, not a device prediction",
+            "physical_matching": "not_included",
+            "positive_axis_direction": "left to right",
+            "profile_id": "near_flat",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "segments": [
+              {
+                "effective_mass_m0": 0.15,
+                "end_potential_energy_J": 2.851874408517148e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 5e-09,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "0",
+                "start_potential_energy_J": 2.85187440852e-19
+              }
+            ],
+            "source_contact": "left contact",
+            "traversal_direction": "along_positive_axis"
+          },
+          "reference_scope": "predeclared S1 controls",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "simulator_attachment": false,
+          "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+        },
+        "modern_summary": {
+          "action_J_s": 1.3560789270175895e-33,
+          "attempted_segment_count": 1,
+          "attenuation_status": "finite_transmission",
+          "completed_segment_count": 1,
+          "failed_segment_count": 0,
+          "failure": null,
+          "log_transmission": -25.718095347461567,
+          "status": "completed",
+          "transmission": 6.772875704630859e-12,
+          "wkb_exponent": 25.718095347461567
+        },
+        "decimal_reference_exponent": 25.71809534746156,
+        "modern_comparison": {
+          "status": "matched",
+          "absolute_error": 7.105427357601002e-15,
+          "acceptance_limit": 2.572809534746156e-09
+        },
+        "direct_constants": {
+          "electron_mass_kg": 9.1093837015e-31,
+          "hbar_J_s": 1.054571817e-34
+        },
+        "direct_grid_refinements": [
+          {
+            "integration_points": 80,
+            "transmission": 6.772875704630931e-12,
+            "effective_exponent_from_transmission": 25.718095347461556,
+            "floor_limited": false,
+            "comparison": {
+              "status": "matched",
+              "absolute_error": 3.552713678800501e-15,
+              "acceptance_limit": 2.572809534746156e-09
+            }
+          },
+          {
+            "integration_points": 160,
+            "transmission": 6.7728757046309065e-12,
+            "effective_exponent_from_transmission": 25.71809534746156,
+            "floor_limited": false,
+            "comparison": {
+              "status": "matched",
+              "absolute_error": 0.0,
+              "acceptance_limit": 2.572809534746156e-09
+            }
+          },
+          {
+            "integration_points": 320,
+            "transmission": 6.7728757046309065e-12,
+            "effective_exponent_from_transmission": 25.71809534746156,
+            "floor_limited": false,
+            "comparison": {
+              "status": "matched",
+              "absolute_error": 0.0,
+              "acceptance_limit": 2.572809534746156e-09
+            }
+          },
+          {
+            "integration_points": 640,
+            "transmission": 6.772875704630883e-12,
+            "effective_exponent_from_transmission": 25.718095347461563,
+            "floor_limited": false,
+            "comparison": {
+              "status": "matched",
+              "absolute_error": 3.552713678800501e-15,
+              "acceptance_limit": 2.572809534746156e-09
+            }
+          },
+          {
+            "integration_points": 1280,
+            "transmission": 6.7728757046309065e-12,
+            "effective_exponent_from_transmission": 25.71809534746156,
+            "floor_limited": false,
+            "comparison": {
+              "status": "matched",
+              "absolute_error": 0.0,
+              "acceptance_limit": 2.572809534746156e-09
+            }
+          },
+          {
+            "integration_points": 2560,
+            "transmission": 6.7728757046309065e-12,
+            "effective_exponent_from_transmission": 25.71809534746156,
+            "floor_limited": false,
+            "comparison": {
+              "status": "matched",
+              "absolute_error": 0.0,
+              "acceptance_limit": 2.572809534746156e-09
+            }
+          }
+        ],
+        "tat": {
+          "electron_mass_kg": 9.1093837139e-31,
+          "hbar_J_s": 1.054571817e-34,
+          "transmission": 6.7610148099837336e-12,
+          "exponent": 25.71984811732045,
+          "own_constant_reference_exponent": 25.718095364965727,
+          "expected_mass_constant_exponent_ratio": 1.0000000006806167,
+          "raw_difference_from_modern": 0.001752769858882175,
+          "own_constant_comparison": {
+            "status": "mismatched",
+            "absolute_error": 0.0017527523547222756,
+            "acceptance_limit": 2.572809536496573e-09
+          }
+        }
+      },
+      {
+        "label": "legacy_floor",
+        "inputs": {
+          "length_m": 1e-05,
+          "field_V_m": 0.0,
+          "barrier_eV": 1.78,
+          "injection_energy_eV": 0.1,
+          "effective_mass_m0": 0.15
+        },
+        "request": {
+          "approximation": "positive_segment_action_only",
+          "evaluated": false,
+          "exponent_atol": 1e-12,
+          "exponent_convention": "twice_forbidden_action_over_hbar",
+          "exponent_rtol": 1e-10,
+          "interface_matching": false,
+          "overflow_policy": "fail_not_clip",
+          "profile": {
+            "applicability": "controlled numerical study",
+            "axis_origin": "left physical boundary",
+            "carrier": "electron",
+            "destination_contact": "right contact",
+            "energy_reference": "one common electron energy zero",
+            "incident_energy_J": 1.602176634e-20,
+            "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+            "interface_policy": "independent_one_sided_endpoint_values",
+            "limitations": "action-only compact approximation, not a device prediction",
+            "physical_matching": "not_included",
+            "positive_axis_direction": "left to right",
+            "profile_id": "legacy_floor",
+            "schema_version": "ncmemsim-explicit-barrier-v1",
+            "segments": [
+              {
+                "effective_mass_m0": 0.15,
+                "end_potential_energy_J": 2.85187440852e-19,
+                "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                "length_m": 1e-05,
+                "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                "provenance": {
+                  "applicability": "isolated electron action only",
+                  "evidence": "no measured coefficient",
+                  "experimental_admission": false,
+                  "limitations": "no interface matching, current supply or experimental qualification",
+                  "parameter_status": "assumed",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "source": "synthetic S3 numerical study"
+                },
+                "schema_version": "ncmemsim-explicit-barrier-v1",
+                "segment_id": "0",
+                "start_potential_energy_J": 2.85187440852e-19
+              }
+            ],
+            "source_contact": "left contact",
+            "traversal_direction": "along_positive_axis"
+          },
+          "reference_scope": "predeclared S1 controls",
+          "schema_version": "ncmemsim-explicit-barrier-v1",
+          "simulator_attachment": false,
+          "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+        },
+        "modern_summary": {
+          "action_J_s": 2.7121578540358973e-30,
+          "attempted_segment_count": 1,
+          "attenuation_status": "transmission_underflow",
+          "completed_segment_count": 1,
+          "failed_segment_count": 0,
+          "failure": null,
+          "log_transmission": -51436.190694936755,
+          "status": "completed",
+          "transmission": 0.0,
+          "wkb_exponent": 51436.190694936755
+        },
+        "decimal_reference_exponent": 51436.19069493675,
+        "modern_comparison": {
+          "status": "matched",
+          "absolute_error": 7.275957614183426e-12,
+          "acceptance_limit": 5.143620069493675e-06
+        },
+        "direct_constants": {
+          "electron_mass_kg": 9.1093837015e-31,
+          "hbar_J_s": 1.054571817e-34
+        },
+        "direct_grid_refinements": [
+          {
+            "integration_points": 80,
+            "transmission": 9.85967654375977e-305,
+            "effective_exponent_from_transmission": 700.0,
+            "floor_limited": true,
+            "comparison": {
+              "status": "floor_limited",
+              "absolute_error": null,
+              "acceptance_limit": null
+            }
+          },
+          {
+            "integration_points": 160,
+            "transmission": 9.85967654375977e-305,
+            "effective_exponent_from_transmission": 700.0,
+            "floor_limited": true,
+            "comparison": {
+              "status": "floor_limited",
+              "absolute_error": null,
+              "acceptance_limit": null
+            }
+          },
+          {
+            "integration_points": 320,
+            "transmission": 9.85967654375977e-305,
+            "effective_exponent_from_transmission": 700.0,
+            "floor_limited": true,
+            "comparison": {
+              "status": "floor_limited",
+              "absolute_error": null,
+              "acceptance_limit": null
+            }
+          },
+          {
+            "integration_points": 640,
+            "transmission": 9.85967654375977e-305,
+            "effective_exponent_from_transmission": 700.0,
+            "floor_limited": true,
+            "comparison": {
+              "status": "floor_limited",
+              "absolute_error": null,
+              "acceptance_limit": null
+            }
+          },
+          {
+            "integration_points": 1280,
+            "transmission": 9.85967654375977e-305,
+            "effective_exponent_from_transmission": 700.0,
+            "floor_limited": true,
+            "comparison": {
+              "status": "floor_limited",
+              "absolute_error": null,
+              "acceptance_limit": null
+            }
+          },
+          {
+            "integration_points": 2560,
+            "transmission": 9.85967654375977e-305,
+            "effective_exponent_from_transmission": 700.0,
+            "floor_limited": true,
+            "comparison": {
+              "status": "floor_limited",
+              "absolute_error": null,
+              "acceptance_limit": null
+            }
+          }
+        ],
+        "tat": {
+          "electron_mass_kg": 9.1093837139e-31,
+          "hbar_J_s": 1.054571817e-34,
+          "transmission": 0.0,
+          "exponent": 51436.190729945076,
+          "own_constant_reference_exponent": 51436.19072994508,
+          "expected_mass_constant_exponent_ratio": 1.0000000006806167,
+          "raw_difference_from_modern": 3.500832099234685e-05,
+          "own_constant_comparison": {
+            "status": "matched",
+            "absolute_error": 7.275957614183426e-12,
+            "acceptance_limit": 5.143620072994509e-06
+          }
+        }
+      }
+    ],
+    "smooth_profile_refinement": {
+      "law": "U(s)-E = height_J * (1 + curvature * (s/length_m)^2)",
+      "length_m": 5e-09,
+      "height_J": 2e-19,
+      "effective_mass_m0": 0.2,
+      "curvature": 3.0,
+      "reference_method": "100-digit Decimal quadratic integral with logarithmic/asinh primitive",
+      "reference_exponent": 35.33026191933633,
+      "levels": [
+        {
+          "segment_count": 1,
+          "request_hash": "f1bd77782a0e7a7493aa47d923bcd04fd575b63b3197249f746c9dd2ae6d43b8",
+          "observed_exponent": 39.819780043157095,
+          "absolute_error": 4.4895181238207655,
+          "piecewise_linear_decimal_reference_exponent": 39.819780043157095,
+          "piecewise_linear_comparison": {
+            "status": "matched",
+            "absolute_error": 0.0,
+            "acceptance_limit": 3.98297800431571e-09
+          },
+          "comparison_to_smooth_reference": {
+            "status": "mismatched",
+            "absolute_error": 4.4895181238207655,
+            "acceptance_limit": 3.534026191933633e-09
+          }
+        },
+        {
+          "segment_count": 2,
+          "request_hash": "aaef6f0856663bcbd35c368408ae8caa2b6ee8b8f45c6ba2ae547463f9d83429",
+          "observed_exponent": 36.52067256313208,
+          "absolute_error": 1.190410643795751,
+          "piecewise_linear_decimal_reference_exponent": 36.52067256313208,
+          "piecewise_linear_comparison": {
+            "status": "matched",
+            "absolute_error": 0.0,
+            "acceptance_limit": 3.653067256313208e-09
+          },
+          "comparison_to_smooth_reference": {
+            "status": "mismatched",
+            "absolute_error": 1.190410643795751,
+            "acceptance_limit": 3.534026191933633e-09
+          }
+        },
+        {
+          "segment_count": 4,
+          "request_hash": "368e17bb9493e417055b4452e93002d5bfcf11f375d746f997f21ccbf20fa47a",
+          "observed_exponent": 35.63268873349568,
+          "absolute_error": 0.3024268141593467,
+          "piecewise_linear_decimal_reference_exponent": 35.63268873349568,
+          "piecewise_linear_comparison": {
+            "status": "matched",
+            "absolute_error": 0.0,
+            "acceptance_limit": 3.5642688733495677e-09
+          },
+          "comparison_to_smooth_reference": {
+            "status": "mismatched",
+            "absolute_error": 0.3024268141593467,
+            "acceptance_limit": 3.534026191933633e-09
+          }
+        },
+        {
+          "segment_count": 8,
+          "request_hash": "7e2e1d0343f3e8d947ae8b4495613f87a9a46f34617102ffbe6f3e45f320d4bc",
+          "observed_exponent": 35.40618484922208,
+          "absolute_error": 0.07592292988574911,
+          "piecewise_linear_decimal_reference_exponent": 35.40618484922208,
+          "piecewise_linear_comparison": {
+            "status": "matched",
+            "absolute_error": 0.0,
+            "acceptance_limit": 3.541618484922208e-09
+          },
+          "comparison_to_smooth_reference": {
+            "status": "mismatched",
+            "absolute_error": 0.07592292988574911,
+            "acceptance_limit": 3.534026191933633e-09
+          }
+        },
+        {
+          "segment_count": 16,
+          "request_hash": "354fd82496da2df5eaefa503b024a23572243a1ece3b951a25bd05dd1ca094bc",
+          "observed_exponent": 35.349262696453195,
+          "absolute_error": 0.01900077711686521,
+          "piecewise_linear_decimal_reference_exponent": 35.349262696453195,
+          "piecewise_linear_comparison": {
+            "status": "matched",
+            "absolute_error": 0.0,
+            "acceptance_limit": 3.5359262696453194e-09
+          },
+          "comparison_to_smooth_reference": {
+            "status": "mismatched",
+            "absolute_error": 0.01900077711686521,
+            "acceptance_limit": 3.534026191933633e-09
+          }
+        },
+        {
+          "segment_count": 32,
+          "request_hash": "1b0f15d504e49a428fc7ddd2d7acf55c28c25431b0c1c78a9a4a1244a42d462b",
+          "observed_exponent": 35.33501337088642,
+          "absolute_error": 0.004751451550092156,
+          "piecewise_linear_decimal_reference_exponent": 35.33501337088642,
+          "piecewise_linear_comparison": {
+            "status": "matched",
+            "absolute_error": 0.0,
+            "acceptance_limit": 3.5345013370886422e-09
+          },
+          "comparison_to_smooth_reference": {
+            "status": "mismatched",
+            "absolute_error": 0.004751451550092156,
+            "acceptance_limit": 3.534026191933633e-09
+          }
+        },
+        {
+          "segment_count": 64,
+          "request_hash": "25b255bdfe4a01e579800d36f5d82fdd731dc761e2c9d60d7fc97fe8ee704a12",
+          "observed_exponent": 35.33144986087366,
+          "absolute_error": 0.0011879415373314828,
+          "piecewise_linear_decimal_reference_exponent": 35.33144986087366,
+          "piecewise_linear_comparison": {
+            "status": "matched",
+            "absolute_error": 0.0,
+            "acceptance_limit": 3.5341449860873663e-09
+          },
+          "comparison_to_smooth_reference": {
+            "status": "mismatched",
+            "absolute_error": 0.0011879415373314828,
+            "acceptance_limit": 3.534026191933633e-09
+          }
+        }
+      ],
+      "refinement_observed": true,
+      "last_level_meets_s1_tolerance": false,
+      "meaning": "Profile approximation error, not an error in integrating each linear segment."
+    },
+    "summary": {
+      "profile_count": 7,
+      "completed_profiles": 6,
+      "failed_profiles": 1,
+      "invariant_counts": {
+        "matched": 48,
+        "mismatched": 0,
+        "unavailable": 1
+      },
+      "published_tat_numeric_mismatches": [
+        "near_flat"
+      ],
+      "legacy_floor_cases": [
+        "legacy_floor"
+      ],
+      "published_kernel_equivalence_claim": false,
+      "experimental_qualification": false
+    },
+    "simulator_attachment": false,
+    "experimental_qualification": false,
+    "limitations": [
+      "All material values are assumed synthetic controls.",
+      "Action sums do not model coherent interface matching or well resonances.",
+      "Reversal is at the same incident energy; it is not reverse-bias current.",
+      "Published kernels and their constants are unchanged; mismatches remain evidence.",
+      "Refining a sampled nonlinear profile changes its approximation, unlike splitting an existing linear segment."
+    ]
+  },
+  "interpretation": "Historical local numerical observations. Reassess against declared analytic tolerances on other hosts; do not require bytewise equivalence of host math results.",
+  "acceptance_boundary": "S3 establishes controlled numerical references with retained negative evidence, not blanket equivalence of published kernels or physical validation of interface scattering."
+}

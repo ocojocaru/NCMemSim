@@ -1,0 +1,3013 @@
+{
+  "schema_version": "phase-s4-integration-review-v1",
+  "review_date": "2026-11-03",
+  "baseline_commit": "47887342540c4b140ab8f991b9f5cfbde59a82be",
+  "source_sha256": {
+    "ncmemsim/barrier_transport.py": "7429cf73c8697eacceb8cfebc1a8ab3392e51ead933fa24c6323f8357dbcbcca",
+    "examples/phase_s4_barrier_transport_reference.py": "b5d14d6718def837de960fbbbf94fb0e2cee0ac6c38f70ebe1b6e4e043e81a46",
+    "ncmemsim/barrier_contracts.py": "970094922b1fd0e266fd1df00c0f59a6a6cae7f95a21cf09b9ef66cf02b0814e",
+    "ncmemsim/barrier_evaluation.py": "973e3800899c3d207f0c37f9f3e94a8a1107244cb00cbac7bf7d97189b358c21",
+    "ncmemsim/transport/engine.py": "addf847cb3c236853b5be7da51832a10f0064e8f3637076dcee84b95bff04809",
+    "ncmemsim/transport/integration.py": "e00473efb462cfb0b6bf9d9030a71777d8c38ba0f2301f0daf6e6e091badf2e6",
+    "ncmemsim/kinetics.py": "db3733dc68b1ff5bc5f78ade1e301d6dbd6d84801356f99022a1c2308c85e535",
+    "ncmemsim/state.py": "72833e6b85f846168d7d8de26b99d3771981d0900403b4d91524c4621bf744db",
+    "ncmemsim/fieldsolver.py": "0d806d57b2ff5c44cb9dc18df4ca008111367ab19a85083ac6d8253ed08ff40d"
+  },
+  "hash_policy": "SHA256 of UTF-8 text normalized to LF",
+  "contexts": {
+    "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051": {
+      "meaning": "current_runtime_declarations_not_authentication",
+      "schema_version": "ncmemsim-barrier-transport-v1",
+      "snapshot": {
+        "device": {
+          "architecture": "V2",
+          "full_declaration": {
+            "architecture": "V2",
+            "gate_work_function_eV": 4.8,
+            "layers": [
+              {
+                "material": {
+                  "bandgap_eV": 8.9,
+                  "electron_affinity_eV": 0.95,
+                  "electron_effective_mass_m0": null,
+                  "eps_r": 3.9,
+                  "hole_effective_mass_m0": null,
+                  "metadata": {
+                    "parameter_set": "default-v1"
+                  },
+                  "name": "SiO2",
+                  "properties": {
+                    "bandgap_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "E_g",
+                      "unit": "eV",
+                      "value": 8.9
+                    },
+                    "electron_affinity_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "chi",
+                      "unit": "eV",
+                      "value": 0.95
+                    },
+                    "eps_r": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "epsilon_r",
+                      "unit": "1",
+                      "value": 3.9
+                    }
+                  }
+                },
+                "metadata": {},
+                "name": "control_sio2",
+                "role": "control_dielectric",
+                "thickness_nm": 20.0
+              },
+              {
+                "electrically_active_fraction": 0.22,
+                "grid_points": 31,
+                "matrix_material": {
+                  "bandgap_eV": 8.9,
+                  "electron_affinity_eV": 0.95,
+                  "electron_effective_mass_m0": null,
+                  "eps_r": 3.9,
+                  "hole_effective_mass_m0": null,
+                  "metadata": {
+                    "parameter_set": "default-v1"
+                  },
+                  "name": "SiO2",
+                  "properties": {
+                    "bandgap_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "E_g",
+                      "unit": "eV",
+                      "value": 8.9
+                    },
+                    "electron_affinity_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "chi",
+                      "unit": "eV",
+                      "value": 0.95
+                    },
+                    "eps_r": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "epsilon_r",
+                      "unit": "1",
+                      "value": 3.9
+                    }
+                  }
+                },
+                "metadata": {},
+                "name": "FG1",
+                "nc_diameter_nm": 5.0,
+                "nc_material": {
+                  "bandgap_eV": 0.66,
+                  "effective_mass_m0": 0.12,
+                  "electron_affinity_eV": 4.0,
+                  "eps_r_nc": 16.0,
+                  "metadata": {
+                    "parameter_set": "default-v1",
+                    "parameter_status": "provisional/default"
+                  },
+                  "model_name": "GeModel",
+                  "model_version": "default-v1",
+                  "name": "Ge",
+                  "phi_barrier_erase_eV": 2.8,
+                  "phi_barrier_prog_eV": 2.8,
+                  "properties": {
+                    "bandgap_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "E_g",
+                      "unit": "eV",
+                      "value": 0.66
+                    },
+                    "effective_mass_m0": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "m_e^*",
+                      "unit": "m0",
+                      "value": 0.12
+                    },
+                    "electron_affinity_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "chi",
+                      "unit": "eV",
+                      "value": 4.0
+                    },
+                    "eps_r": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "epsilon_r",
+                      "unit": "1",
+                      "value": 16.0
+                    },
+                    "phi_barrier_erase_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "Phi_erase",
+                      "unit": "eV",
+                      "value": 2.8
+                    },
+                    "phi_barrier_prog_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "Phi_prog",
+                      "unit": "eV",
+                      "value": 2.8
+                    }
+                  },
+                  "sn_fraction": 0.0
+                },
+                "nc_volume_fraction": 0.6,
+                "spatial_profile": "uniform",
+                "thickness_nm": 12.0
+              },
+              {
+                "material": {
+                  "bandgap_eV": 8.9,
+                  "electron_affinity_eV": 0.95,
+                  "electron_effective_mass_m0": null,
+                  "eps_r": 3.9,
+                  "hole_effective_mass_m0": null,
+                  "metadata": {
+                    "parameter_set": "default-v1"
+                  },
+                  "name": "SiO2",
+                  "properties": {
+                    "bandgap_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "E_g",
+                      "unit": "eV",
+                      "value": 8.9
+                    },
+                    "electron_affinity_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "chi",
+                      "unit": "eV",
+                      "value": 0.95
+                    },
+                    "eps_r": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "epsilon_r",
+                      "unit": "1",
+                      "value": 3.9
+                    }
+                  }
+                },
+                "metadata": {},
+                "name": "inter_fg1_sio2",
+                "role": "interlayer_dielectric",
+                "thickness_nm": 1.0
+              },
+              {
+                "electrically_active_fraction": 0.22,
+                "grid_points": 31,
+                "matrix_material": {
+                  "bandgap_eV": 8.9,
+                  "electron_affinity_eV": 0.95,
+                  "electron_effective_mass_m0": null,
+                  "eps_r": 3.9,
+                  "hole_effective_mass_m0": null,
+                  "metadata": {
+                    "parameter_set": "default-v1"
+                  },
+                  "name": "SiO2",
+                  "properties": {
+                    "bandgap_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "E_g",
+                      "unit": "eV",
+                      "value": 8.9
+                    },
+                    "electron_affinity_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "chi",
+                      "unit": "eV",
+                      "value": 0.95
+                    },
+                    "eps_r": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "epsilon_r",
+                      "unit": "1",
+                      "value": 3.9
+                    }
+                  }
+                },
+                "metadata": {},
+                "name": "FG2",
+                "nc_diameter_nm": 5.0,
+                "nc_material": {
+                  "bandgap_eV": 0.66,
+                  "effective_mass_m0": 0.12,
+                  "electron_affinity_eV": 4.0,
+                  "eps_r_nc": 16.0,
+                  "metadata": {
+                    "parameter_set": "default-v1",
+                    "parameter_status": "provisional/default"
+                  },
+                  "model_name": "GeModel",
+                  "model_version": "default-v1",
+                  "name": "Ge",
+                  "phi_barrier_erase_eV": 2.8,
+                  "phi_barrier_prog_eV": 2.8,
+                  "properties": {
+                    "bandgap_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "E_g",
+                      "unit": "eV",
+                      "value": 0.66
+                    },
+                    "effective_mass_m0": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "m_e^*",
+                      "unit": "m0",
+                      "value": 0.12
+                    },
+                    "electron_affinity_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "chi",
+                      "unit": "eV",
+                      "value": 4.0
+                    },
+                    "eps_r": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "epsilon_r",
+                      "unit": "1",
+                      "value": 16.0
+                    },
+                    "phi_barrier_erase_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "Phi_erase",
+                      "unit": "eV",
+                      "value": 2.8
+                    },
+                    "phi_barrier_prog_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "Phi_prog",
+                      "unit": "eV",
+                      "value": 2.8
+                    }
+                  },
+                  "sn_fraction": 0.0
+                },
+                "nc_volume_fraction": 0.6,
+                "spatial_profile": "uniform",
+                "thickness_nm": 12.0
+              },
+              {
+                "material": {
+                  "bandgap_eV": 8.9,
+                  "electron_affinity_eV": 0.95,
+                  "electron_effective_mass_m0": null,
+                  "eps_r": 3.9,
+                  "hole_effective_mass_m0": null,
+                  "metadata": {
+                    "parameter_set": "default-v1"
+                  },
+                  "name": "SiO2",
+                  "properties": {
+                    "bandgap_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "E_g",
+                      "unit": "eV",
+                      "value": 8.9
+                    },
+                    "electron_affinity_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "chi",
+                      "unit": "eV",
+                      "value": 0.95
+                    },
+                    "eps_r": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "epsilon_r",
+                      "unit": "1",
+                      "value": 3.9
+                    }
+                  }
+                },
+                "metadata": {},
+                "name": "inter_fg2_sio2",
+                "role": "interlayer_dielectric",
+                "thickness_nm": 1.0
+              },
+              {
+                "electrically_active_fraction": 0.22,
+                "grid_points": 31,
+                "matrix_material": {
+                  "bandgap_eV": 8.9,
+                  "electron_affinity_eV": 0.95,
+                  "electron_effective_mass_m0": null,
+                  "eps_r": 3.9,
+                  "hole_effective_mass_m0": null,
+                  "metadata": {
+                    "parameter_set": "default-v1"
+                  },
+                  "name": "SiO2",
+                  "properties": {
+                    "bandgap_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "E_g",
+                      "unit": "eV",
+                      "value": 8.9
+                    },
+                    "electron_affinity_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "chi",
+                      "unit": "eV",
+                      "value": 0.95
+                    },
+                    "eps_r": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "epsilon_r",
+                      "unit": "1",
+                      "value": 3.9
+                    }
+                  }
+                },
+                "metadata": {},
+                "name": "FG3",
+                "nc_diameter_nm": 5.0,
+                "nc_material": {
+                  "bandgap_eV": 0.66,
+                  "effective_mass_m0": 0.12,
+                  "electron_affinity_eV": 4.0,
+                  "eps_r_nc": 16.0,
+                  "metadata": {
+                    "parameter_set": "default-v1",
+                    "parameter_status": "provisional/default"
+                  },
+                  "model_name": "GeModel",
+                  "model_version": "default-v1",
+                  "name": "Ge",
+                  "phi_barrier_erase_eV": 2.8,
+                  "phi_barrier_prog_eV": 2.8,
+                  "properties": {
+                    "bandgap_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "E_g",
+                      "unit": "eV",
+                      "value": 0.66
+                    },
+                    "effective_mass_m0": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "m_e^*",
+                      "unit": "m0",
+                      "value": 0.12
+                    },
+                    "electron_affinity_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "chi",
+                      "unit": "eV",
+                      "value": 4.0
+                    },
+                    "eps_r": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "epsilon_r",
+                      "unit": "1",
+                      "value": 16.0
+                    },
+                    "phi_barrier_erase_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "Phi_erase",
+                      "unit": "eV",
+                      "value": 2.8
+                    },
+                    "phi_barrier_prog_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "Phi_prog",
+                      "unit": "eV",
+                      "value": 2.8
+                    }
+                  },
+                  "sn_fraction": 0.0
+                },
+                "nc_volume_fraction": 0.6,
+                "spatial_profile": "uniform",
+                "thickness_nm": 12.0
+              },
+              {
+                "material": {
+                  "bandgap_eV": 8.9,
+                  "electron_affinity_eV": 0.95,
+                  "electron_effective_mass_m0": null,
+                  "eps_r": 3.9,
+                  "hole_effective_mass_m0": null,
+                  "metadata": {
+                    "parameter_set": "default-v1"
+                  },
+                  "name": "SiO2",
+                  "properties": {
+                    "bandgap_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "E_g",
+                      "unit": "eV",
+                      "value": 8.9
+                    },
+                    "electron_affinity_eV": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "chi",
+                      "unit": "eV",
+                      "value": 0.95
+                    },
+                    "eps_r": {
+                      "provenance": {
+                        "doi": null,
+                        "notes": "Replace or calibrate before quantitative publication.",
+                        "parameter_set": "default-v1",
+                        "reported_uncertainty": null,
+                        "source": "NCMemSim provisional parameter set",
+                        "status": "assumed",
+                        "uncertainty_unit": null
+                      },
+                      "symbol": "epsilon_r",
+                      "unit": "1",
+                      "value": 3.9
+                    }
+                  }
+                },
+                "metadata": {},
+                "name": "tunnel_sio2",
+                "role": "tunnel_dielectric",
+                "thickness_nm": 8.0
+              }
+            ],
+            "metadata": {},
+            "name": "V2_Ge_3FG",
+            "substrate_doping_m3": 1e+21,
+            "temperature_K": 300.0
+          },
+          "gate_work_function_eV": 4.8,
+          "layers": [
+            {
+              "eps_r": 3.9,
+              "material": "SiO2",
+              "name": "control_sio2",
+              "role": "control_dielectric",
+              "thickness_nm": 20.0,
+              "type": "layer"
+            },
+            {
+              "electrically_active_fraction": 0.22,
+              "grid_points": 31,
+              "matrix_material": "SiO2",
+              "name": "FG1",
+              "nc_diameter_nm": 5.0,
+              "nc_material": "Ge",
+              "nc_volume_fraction": 0.6,
+              "sn_fraction": 0.0,
+              "spatial_profile": "uniform",
+              "thickness_nm": 12.0,
+              "type": "floating_gate"
+            },
+            {
+              "eps_r": 3.9,
+              "material": "SiO2",
+              "name": "inter_fg1_sio2",
+              "role": "interlayer_dielectric",
+              "thickness_nm": 1.0,
+              "type": "layer"
+            },
+            {
+              "electrically_active_fraction": 0.22,
+              "grid_points": 31,
+              "matrix_material": "SiO2",
+              "name": "FG2",
+              "nc_diameter_nm": 5.0,
+              "nc_material": "Ge",
+              "nc_volume_fraction": 0.6,
+              "sn_fraction": 0.0,
+              "spatial_profile": "uniform",
+              "thickness_nm": 12.0,
+              "type": "floating_gate"
+            },
+            {
+              "eps_r": 3.9,
+              "material": "SiO2",
+              "name": "inter_fg2_sio2",
+              "role": "interlayer_dielectric",
+              "thickness_nm": 1.0,
+              "type": "layer"
+            },
+            {
+              "electrically_active_fraction": 0.22,
+              "grid_points": 31,
+              "matrix_material": "SiO2",
+              "name": "FG3",
+              "nc_diameter_nm": 5.0,
+              "nc_material": "Ge",
+              "nc_volume_fraction": 0.6,
+              "sn_fraction": 0.0,
+              "spatial_profile": "uniform",
+              "thickness_nm": 12.0,
+              "type": "floating_gate"
+            },
+            {
+              "eps_r": 3.9,
+              "material": "SiO2",
+              "name": "tunnel_sio2",
+              "role": "tunnel_dielectric",
+              "thickness_nm": 8.0,
+              "type": "layer"
+            }
+          ],
+          "metadata": {},
+          "name": "V2_Ge_3FG",
+          "number_of_fgs": 3,
+          "substrate_doping_m3": 1e+21,
+          "temperature_K": 300.0,
+          "total_thickness_nm": 66.0
+        },
+        "field_profile": {
+          "electric_field_V_m": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "gate_side_displacement_C_m2": 0.0,
+          "local_fields_by_fg_V_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "local_potentials_by_fg_V": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "potential_V": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "segment_layer_names": [
+            "control_sio2",
+            "FG1",
+            "FG1",
+            "inter_fg1_sio2",
+            "FG2",
+            "FG2",
+            "inter_fg2_sio2",
+            "FG3",
+            "FG3",
+            "tunnel_sio2"
+          ],
+          "z_nm": [
+            0.0,
+            20.0,
+            26.0,
+            32.0,
+            33.00000000000001,
+            39.00000000000001,
+            45.00000000000001,
+            46.00000000000001,
+            52.00000000000001,
+            58.00000000000001,
+            66.00000000000001
+          ]
+        },
+        "network": {
+          "links": [
+            {
+              "barrier_eV": 0.25,
+              "dielectric_layers": [
+                "inter_fg1_sio2"
+              ],
+              "effective_mass_m0": 0.15,
+              "kind": "inter_fg",
+              "left_fg_index": 0,
+              "left_node_id": "fg:FG1",
+              "length_m": 1e-09,
+              "link_id": "FG1<->FG2",
+              "right_fg_index": 1,
+              "right_node_id": "fg:FG2"
+            },
+            {
+              "barrier_eV": 0.25,
+              "dielectric_layers": [
+                "inter_fg2_sio2"
+              ],
+              "effective_mass_m0": 0.15,
+              "kind": "inter_fg",
+              "left_fg_index": 1,
+              "left_node_id": "fg:FG2",
+              "length_m": 1e-09,
+              "link_id": "FG2<->FG3",
+              "right_fg_index": 2,
+              "right_node_id": "fg:FG3"
+            },
+            {
+              "barrier_eV": 0.25,
+              "dielectric_layers": [
+                "tunnel_sio2"
+              ],
+              "effective_mass_m0": 0.15,
+              "kind": "substrate",
+              "left_fg_index": 2,
+              "left_node_id": "fg:FG3",
+              "length_m": 8e-09,
+              "link_id": "FG3<->substrate",
+              "right_fg_index": null,
+              "right_node_id": "substrate"
+            }
+          ],
+          "nodes": [
+            {
+              "fg_index": null,
+              "kind": "gate",
+              "node_id": "gate",
+              "z_nm": 0.0
+            },
+            {
+              "fg_index": 0,
+              "kind": "floating_gate",
+              "node_id": "fg:FG1",
+              "z_nm": 26.0
+            },
+            {
+              "fg_index": 1,
+              "kind": "floating_gate",
+              "node_id": "fg:FG2",
+              "z_nm": 39.0
+            },
+            {
+              "fg_index": 2,
+              "kind": "floating_gate",
+              "node_id": "fg:FG3",
+              "z_nm": 52.0
+            },
+            {
+              "fg_index": null,
+              "kind": "substrate",
+              "node_id": "substrate",
+              "z_nm": 66.0
+            }
+          ]
+        },
+        "occupancy_config": {
+          "kinetics": {
+            "capacitance_eps_r": 8.0,
+            "density_profile": "front_loaded",
+            "nu0_Hz": 1000000000000.0,
+            "nu1_Hz": 10000000000.0,
+            "nu2_Hz": 3000000000.0
+          },
+          "tunneling": {
+            "activation_beta_V_inv": 0.8,
+            "field_coupling_factor": 0.8,
+            "injection_energy_eV": 0.1,
+            "integration_points": 160,
+            "oxide_effective_mass_m0": 0.15
+          }
+        },
+        "sheet_sites_m2": [
+          2.420173726632597e+16,
+          2.420173726632597e+16,
+          2.420173726632597e+16
+        ],
+        "state": {
+          "floating_gates": [
+            {
+              "P0": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "P1": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "P2": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "fg_id": 0,
+              "layer_name": "FG1",
+              "local_field_V_m": null,
+              "local_potential_V": null,
+              "metadata": {},
+              "z_center_nm": 26.0
+            },
+            {
+              "P0": [
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4,
+                0.4
+              ],
+              "P1": [
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6,
+                0.6
+              ],
+              "P2": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "fg_id": 1,
+              "layer_name": "FG2",
+              "local_field_V_m": null,
+              "local_potential_V": null,
+              "metadata": {},
+              "z_center_nm": 39.0
+            },
+            {
+              "P0": [
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9
+              ],
+              "P1": [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              "P2": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "fg_id": 2,
+              "layer_name": "FG3",
+              "local_field_V_m": null,
+              "local_potential_V": null,
+              "metadata": {},
+              "z_center_nm": 52.0
+            }
+          ],
+          "metadata": {},
+          "time_s": 0.0
+        },
+        "transport_config": {
+          "attempt_frequency_Hz": 10000000000000.0,
+          "default_barrier_eV": 0.25,
+          "direction_beta_V_inv": 8.0,
+          "effective_mass_m0": 0.15,
+          "enabled": true,
+          "include_substrate_diagnostics": true,
+          "max_transfer_fraction_per_step": 0.5
+        },
+        "tunneling_config": {
+          "activation_beta_V_inv": 0.8,
+          "field_coupling_factor": 0.8,
+          "injection_energy_eV": 0.1,
+          "integration_points": 160,
+          "oxide_effective_mass_m0": 0.15
+        }
+      }
+    }
+  },
+  "reference": {
+    "schema_version": "phase-s4-barrier-transport-reference-v1",
+    "evidence_kind": "synthetic_fixed_profile_integration_controls",
+    "cases": {
+      "disabled": {
+        "result": {
+          "schema_version": "ncmemsim-barrier-transport-v1",
+          "specification": {
+            "additional_mechanisms": "unsupported",
+            "attachments": [],
+            "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051",
+            "direction_policy": "same_energy_action_with_legacy_directional_rate_factors",
+            "enabled": false,
+            "failure_policy": "zero_selected_flux_no_fallback",
+            "field_policy": "explicit_current_snapshot_profile_no_automatic_tilt",
+            "schema_version": "ncmemsim-barrier-transport-v1"
+          },
+          "provider_id": "synthetic-s4-disabled",
+          "baseline": {
+            "links": [
+              {
+                "link_id": "FG1<->FG2",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.040848597081796e+28,
+                "left_fg_index": 0,
+                "right_fg_index": 1
+              },
+              {
+                "link_id": "FG2<->FG3",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.3010607463522462e+28,
+                "left_fg_index": 1,
+                "right_fg_index": 2
+              },
+              {
+                "link_id": "FG3<->substrate",
+                "kind": "substrate",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 4.571810162056911e-06,
+                "forward_rate_Hz": 22859050.810284555,
+                "backward_rate_Hz": 22859050.810284555,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 2,
+                "right_fg_index": null
+              }
+            ],
+            "net_electron_flux_by_fg_m2_s": [
+              -1.040848597081796e+28,
+              -2.602121492704502e+27,
+              1.3010607463522462e+28
+            ]
+          },
+          "links": [
+            {
+              "baseline": {
+                "link_id": "FG1<->FG2",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.040848597081796e+28,
+                "left_fg_index": 0,
+                "right_fg_index": 1
+              },
+              "selected": {
+                "link_id": "FG1<->FG2",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.040848597081796e+28,
+                "left_fg_index": 0,
+                "right_fg_index": 1
+              },
+              "provider_id": "synthetic-s4-disabled",
+              "specification_hash": "bba2b869865bf90a02948414ea6d6f247f67f1a959948743b4e71a5a00d00dea",
+              "status": "disabled",
+              "attachment_hash": null,
+              "evaluation": null,
+              "failure": null,
+              "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+            },
+            {
+              "baseline": {
+                "link_id": "FG2<->FG3",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.3010607463522462e+28,
+                "left_fg_index": 1,
+                "right_fg_index": 2
+              },
+              "selected": {
+                "link_id": "FG2<->FG3",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.3010607463522462e+28,
+                "left_fg_index": 1,
+                "right_fg_index": 2
+              },
+              "provider_id": "synthetic-s4-disabled",
+              "specification_hash": "bba2b869865bf90a02948414ea6d6f247f67f1a959948743b4e71a5a00d00dea",
+              "status": "disabled",
+              "attachment_hash": null,
+              "evaluation": null,
+              "failure": null,
+              "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+            },
+            {
+              "baseline": {
+                "link_id": "FG3<->substrate",
+                "kind": "substrate",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 4.571810162056911e-06,
+                "forward_rate_Hz": 22859050.810284555,
+                "backward_rate_Hz": 22859050.810284555,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 2,
+                "right_fg_index": null
+              },
+              "selected": {
+                "link_id": "FG3<->substrate",
+                "kind": "substrate",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 4.571810162056911e-06,
+                "forward_rate_Hz": 22859050.810284555,
+                "backward_rate_Hz": 22859050.810284555,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 2,
+                "right_fg_index": null
+              },
+              "provider_id": "synthetic-s4-disabled",
+              "specification_hash": "bba2b869865bf90a02948414ea6d6f247f67f1a959948743b4e71a5a00d00dea",
+              "status": "diagnostic_only",
+              "attachment_hash": null,
+              "evaluation": null,
+              "failure": null,
+              "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+            }
+          ],
+          "net_electron_flux_by_fg_m2_s": [
+            -1.040848597081796e+28,
+            -2.602121492704502e+27,
+            1.3010607463522462e+28
+          ],
+          "experimental_qualification": false,
+          "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+        },
+        "before_electron_sheet_m2": 4.114295335275415e+16,
+        "after_electron_sheet_m2": 4.114295335275416e+16,
+        "conservation_error_m2": 8.0,
+        "final_mean_occupations": [
+          0.25,
+          0.050000000000000086,
+          0.5500000000000002
+        ]
+      },
+      "active": {
+        "result": {
+          "schema_version": "ncmemsim-barrier-transport-v1",
+          "specification": {
+            "additional_mechanisms": "unsupported",
+            "attachments": [
+              {
+                "link_id": "FG1<->FG2",
+                "mode": "replace_direct_inter_fg",
+                "request": {
+                  "approximation": "positive_segment_action_only",
+                  "evaluated": false,
+                  "exponent_atol": 1e-12,
+                  "exponent_convention": "twice_forbidden_action_over_hbar",
+                  "exponent_rtol": 1e-10,
+                  "interface_matching": false,
+                  "overflow_policy": "fail_not_clip",
+                  "profile": {
+                    "applicability": "prescribed synthetic per-snapshot barrier",
+                    "axis_origin": "fg:FG1",
+                    "carrier": "electron",
+                    "destination_contact": "fg:FG2",
+                    "energy_reference": "synthetic common electron energy zero",
+                    "incident_energy_J": 0.0,
+                    "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+                    "interface_policy": "independent_one_sided_endpoint_values",
+                    "limitations": "same incident energy for both directions; not a device current model",
+                    "physical_matching": "not_included",
+                    "positive_axis_direction": "network_left_to_right",
+                    "profile_id": "snapshot-profile-FG1<->FG2",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "segments": [
+                      {
+                        "effective_mass_m0": 0.2,
+                        "end_potential_energy_J": 3e-20,
+                        "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                        "length_m": 1e-09,
+                        "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                        "provenance": {
+                          "applicability": "direct inter-FG replacement with unchanged heuristic supply factors",
+                          "evidence": "prescribed profile at each captured snapshot, no measurement",
+                          "experimental_admission": false,
+                          "limitations": "fixed synthetic energies; no calibrated field response or interface matching",
+                          "parameter_status": "assumed",
+                          "schema_version": "ncmemsim-explicit-barrier-v1",
+                          "source": "synthetic S4 control provider"
+                        },
+                        "schema_version": "ncmemsim-explicit-barrier-v1",
+                        "segment_id": "inter_fg1_sio2",
+                        "start_potential_energy_J": 4e-20
+                      }
+                    ],
+                    "source_contact": "fg:FG1",
+                    "traversal_direction": "along_positive_axis"
+                  },
+                  "reference_scope": "S4 synthetic integration controls",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "simulator_attachment": false,
+                  "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+                },
+                "schema_version": "ncmemsim-barrier-transport-v1",
+                "segment_layer_names": [
+                  "inter_fg1_sio2"
+                ]
+              },
+              {
+                "link_id": "FG2<->FG3",
+                "mode": "replace_direct_inter_fg",
+                "request": {
+                  "approximation": "positive_segment_action_only",
+                  "evaluated": false,
+                  "exponent_atol": 1e-12,
+                  "exponent_convention": "twice_forbidden_action_over_hbar",
+                  "exponent_rtol": 1e-10,
+                  "interface_matching": false,
+                  "overflow_policy": "fail_not_clip",
+                  "profile": {
+                    "applicability": "prescribed synthetic per-snapshot barrier",
+                    "axis_origin": "fg:FG2",
+                    "carrier": "electron",
+                    "destination_contact": "fg:FG3",
+                    "energy_reference": "synthetic common electron energy zero",
+                    "incident_energy_J": 0.0,
+                    "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+                    "interface_policy": "independent_one_sided_endpoint_values",
+                    "limitations": "same incident energy for both directions; not a device current model",
+                    "physical_matching": "not_included",
+                    "positive_axis_direction": "network_left_to_right",
+                    "profile_id": "snapshot-profile-FG2<->FG3",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "segments": [
+                      {
+                        "effective_mass_m0": 0.2,
+                        "end_potential_energy_J": 3e-20,
+                        "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                        "length_m": 1e-09,
+                        "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                        "provenance": {
+                          "applicability": "direct inter-FG replacement with unchanged heuristic supply factors",
+                          "evidence": "prescribed profile at each captured snapshot, no measurement",
+                          "experimental_admission": false,
+                          "limitations": "fixed synthetic energies; no calibrated field response or interface matching",
+                          "parameter_status": "assumed",
+                          "schema_version": "ncmemsim-explicit-barrier-v1",
+                          "source": "synthetic S4 control provider"
+                        },
+                        "schema_version": "ncmemsim-explicit-barrier-v1",
+                        "segment_id": "inter_fg2_sio2",
+                        "start_potential_energy_J": 4e-20
+                      }
+                    ],
+                    "source_contact": "fg:FG2",
+                    "traversal_direction": "along_positive_axis"
+                  },
+                  "reference_scope": "S4 synthetic integration controls",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "simulator_attachment": false,
+                  "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+                },
+                "schema_version": "ncmemsim-barrier-transport-v1",
+                "segment_layer_names": [
+                  "inter_fg2_sio2"
+                ]
+              }
+            ],
+            "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051",
+            "direction_policy": "same_energy_action_with_legacy_directional_rate_factors",
+            "enabled": true,
+            "failure_policy": "zero_selected_flux_no_fallback",
+            "field_policy": "explicit_current_snapshot_profile_no_automatic_tilt",
+            "schema_version": "ncmemsim-barrier-transport-v1"
+          },
+          "provider_id": "synthetic-s4-active",
+          "baseline": {
+            "links": [
+              {
+                "link_id": "FG1<->FG2",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.040848597081796e+28,
+                "left_fg_index": 0,
+                "right_fg_index": 1
+              },
+              {
+                "link_id": "FG2<->FG3",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.3010607463522462e+28,
+                "left_fg_index": 1,
+                "right_fg_index": 2
+              },
+              {
+                "link_id": "FG3<->substrate",
+                "kind": "substrate",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 4.571810162056911e-06,
+                "forward_rate_Hz": 22859050.810284555,
+                "backward_rate_Hz": 22859050.810284555,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 2,
+                "right_fg_index": null
+              }
+            ],
+            "net_electron_flux_by_fg_m2_s": [
+              -1.040848597081796e+28,
+              -2.602121492704502e+27,
+              1.3010607463522462e+28
+            ]
+          },
+          "links": [
+            {
+              "baseline": {
+                "link_id": "FG1<->FG2",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.040848597081796e+28,
+                "left_fg_index": 0,
+                "right_fg_index": 1
+              },
+              "selected": {
+                "link_id": "FG1<->FG2",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.11766777366236195,
+                "forward_rate_Hz": 588338868311.8097,
+                "backward_rate_Hz": 588338868311.8097,
+                "net_electron_flux_m2_s": 5.695529085779985e+27,
+                "left_fg_index": 0,
+                "right_fg_index": 1
+              },
+              "provider_id": "synthetic-s4-active",
+              "specification_hash": "4c73edfe45daafe964e89418a3a7fe43a503bd25ac48804b236627acc69961d3",
+              "status": "profile_replaced",
+              "attachment_hash": "9f4372a6d0b395891f8ce4114198c9a72a90e52d63553aaa71ff223798c29581",
+              "evaluation": {
+                "approximation": "positive_segment_action_only",
+                "constants": {
+                  "electron_mass_kg": 9.1093837015e-31,
+                  "hbar_J_s": 1.054571817e-34
+                },
+                "evaluated": true,
+                "experimental_qualification": false,
+                "interface_matching": false,
+                "method": "scaled_positive_linear_action_v1",
+                "profile_hash": "ca29b2f34a2f61b420bf79656fded88f30c82382681f5ee70ea90954625e50f5",
+                "request": {
+                  "approximation": "positive_segment_action_only",
+                  "evaluated": false,
+                  "exponent_atol": 1e-12,
+                  "exponent_convention": "twice_forbidden_action_over_hbar",
+                  "exponent_rtol": 1e-10,
+                  "interface_matching": false,
+                  "overflow_policy": "fail_not_clip",
+                  "profile": {
+                    "applicability": "prescribed synthetic per-snapshot barrier",
+                    "axis_origin": "fg:FG1",
+                    "carrier": "electron",
+                    "destination_contact": "fg:FG2",
+                    "energy_reference": "synthetic common electron energy zero",
+                    "incident_energy_J": 0.0,
+                    "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+                    "interface_policy": "independent_one_sided_endpoint_values",
+                    "limitations": "same incident energy for both directions; not a device current model",
+                    "physical_matching": "not_included",
+                    "positive_axis_direction": "network_left_to_right",
+                    "profile_id": "snapshot-profile-FG1<->FG2",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "segments": [
+                      {
+                        "effective_mass_m0": 0.2,
+                        "end_potential_energy_J": 3e-20,
+                        "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                        "length_m": 1e-09,
+                        "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                        "provenance": {
+                          "applicability": "direct inter-FG replacement with unchanged heuristic supply factors",
+                          "evidence": "prescribed profile at each captured snapshot, no measurement",
+                          "experimental_admission": false,
+                          "limitations": "fixed synthetic energies; no calibrated field response or interface matching",
+                          "parameter_status": "assumed",
+                          "schema_version": "ncmemsim-explicit-barrier-v1",
+                          "source": "synthetic S4 control provider"
+                        },
+                        "schema_version": "ncmemsim-explicit-barrier-v1",
+                        "segment_id": "inter_fg1_sio2",
+                        "start_potential_energy_J": 4e-20
+                      }
+                    ],
+                    "source_contact": "fg:FG1",
+                    "traversal_direction": "along_positive_axis"
+                  },
+                  "reference_scope": "S4 synthetic integration controls",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "simulator_attachment": false,
+                  "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+                },
+                "request_hash": "b99dd2eea8a54c68cf87fec88c39c78861a1b8b61d619c15b620a1300b2b59f7",
+                "restoration_policy": "four_ulp_action_exponent_and_exp_at_stored_exponent",
+                "schema_version": "ncmemsim-barrier-evaluation-v1",
+                "segments": [
+                  {
+                    "action_J_s": 1.1283338969797394e-34,
+                    "attenuation_status": "finite_transmission",
+                    "domain": "fully_forbidden",
+                    "end_forbidden_energy_J": 3e-20,
+                    "failure": null,
+                    "log_transmission": -2.1398901028657766,
+                    "segment_id": "inter_fg1_sio2",
+                    "start_forbidden_energy_J": 4e-20,
+                    "status": "completed",
+                    "transmission": 0.11766777366236195,
+                    "wkb_exponent": 2.1398901028657766
+                  }
+                ],
+                "simulator_attachment": false,
+                "summary": {
+                  "action_J_s": 1.1283338969797394e-34,
+                  "attempted_segment_count": 1,
+                  "attenuation_status": "finite_transmission",
+                  "completed_segment_count": 1,
+                  "failed_segment_count": 0,
+                  "failure": null,
+                  "log_transmission": -2.1398901028657766,
+                  "status": "completed",
+                  "transmission": 0.11766777366236195,
+                  "wkb_exponent": 2.1398901028657766
+                }
+              },
+              "failure": null,
+              "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+            },
+            {
+              "baseline": {
+                "link_id": "FG2<->FG3",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.3010607463522462e+28,
+                "left_fg_index": 1,
+                "right_fg_index": 2
+              },
+              "selected": {
+                "link_id": "FG2<->FG3",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.11766777366236195,
+                "forward_rate_Hz": 588338868311.8097,
+                "backward_rate_Hz": 588338868311.8097,
+                "net_electron_flux_m2_s": 7.119411357224987e+27,
+                "left_fg_index": 1,
+                "right_fg_index": 2
+              },
+              "provider_id": "synthetic-s4-active",
+              "specification_hash": "4c73edfe45daafe964e89418a3a7fe43a503bd25ac48804b236627acc69961d3",
+              "status": "profile_replaced",
+              "attachment_hash": "281c4e3a90161a0ebd054cdc2aec47ffaccc4606b5a7db3eebba5e57c7df74de",
+              "evaluation": {
+                "approximation": "positive_segment_action_only",
+                "constants": {
+                  "electron_mass_kg": 9.1093837015e-31,
+                  "hbar_J_s": 1.054571817e-34
+                },
+                "evaluated": true,
+                "experimental_qualification": false,
+                "interface_matching": false,
+                "method": "scaled_positive_linear_action_v1",
+                "profile_hash": "4c4ccaa43163f9018c54d91191e1fe08d37257cd8bca38127d6824058405069c",
+                "request": {
+                  "approximation": "positive_segment_action_only",
+                  "evaluated": false,
+                  "exponent_atol": 1e-12,
+                  "exponent_convention": "twice_forbidden_action_over_hbar",
+                  "exponent_rtol": 1e-10,
+                  "interface_matching": false,
+                  "overflow_policy": "fail_not_clip",
+                  "profile": {
+                    "applicability": "prescribed synthetic per-snapshot barrier",
+                    "axis_origin": "fg:FG2",
+                    "carrier": "electron",
+                    "destination_contact": "fg:FG3",
+                    "energy_reference": "synthetic common electron energy zero",
+                    "incident_energy_J": 0.0,
+                    "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+                    "interface_policy": "independent_one_sided_endpoint_values",
+                    "limitations": "same incident energy for both directions; not a device current model",
+                    "physical_matching": "not_included",
+                    "positive_axis_direction": "network_left_to_right",
+                    "profile_id": "snapshot-profile-FG2<->FG3",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "segments": [
+                      {
+                        "effective_mass_m0": 0.2,
+                        "end_potential_energy_J": 3e-20,
+                        "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                        "length_m": 1e-09,
+                        "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                        "provenance": {
+                          "applicability": "direct inter-FG replacement with unchanged heuristic supply factors",
+                          "evidence": "prescribed profile at each captured snapshot, no measurement",
+                          "experimental_admission": false,
+                          "limitations": "fixed synthetic energies; no calibrated field response or interface matching",
+                          "parameter_status": "assumed",
+                          "schema_version": "ncmemsim-explicit-barrier-v1",
+                          "source": "synthetic S4 control provider"
+                        },
+                        "schema_version": "ncmemsim-explicit-barrier-v1",
+                        "segment_id": "inter_fg2_sio2",
+                        "start_potential_energy_J": 4e-20
+                      }
+                    ],
+                    "source_contact": "fg:FG2",
+                    "traversal_direction": "along_positive_axis"
+                  },
+                  "reference_scope": "S4 synthetic integration controls",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "simulator_attachment": false,
+                  "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+                },
+                "request_hash": "a1e407f0f9e1c69e1497b8a39ca4e1382dbeeac1ec1625903fc82fae7dcb50bd",
+                "restoration_policy": "four_ulp_action_exponent_and_exp_at_stored_exponent",
+                "schema_version": "ncmemsim-barrier-evaluation-v1",
+                "segments": [
+                  {
+                    "action_J_s": 1.1283338969797394e-34,
+                    "attenuation_status": "finite_transmission",
+                    "domain": "fully_forbidden",
+                    "end_forbidden_energy_J": 3e-20,
+                    "failure": null,
+                    "log_transmission": -2.1398901028657766,
+                    "segment_id": "inter_fg2_sio2",
+                    "start_forbidden_energy_J": 4e-20,
+                    "status": "completed",
+                    "transmission": 0.11766777366236195,
+                    "wkb_exponent": 2.1398901028657766
+                  }
+                ],
+                "simulator_attachment": false,
+                "summary": {
+                  "action_J_s": 1.1283338969797394e-34,
+                  "attempted_segment_count": 1,
+                  "attenuation_status": "finite_transmission",
+                  "completed_segment_count": 1,
+                  "failed_segment_count": 0,
+                  "failure": null,
+                  "log_transmission": -2.1398901028657766,
+                  "status": "completed",
+                  "transmission": 0.11766777366236195,
+                  "wkb_exponent": 2.1398901028657766
+                }
+              },
+              "failure": null,
+              "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+            },
+            {
+              "baseline": {
+                "link_id": "FG3<->substrate",
+                "kind": "substrate",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 4.571810162056911e-06,
+                "forward_rate_Hz": 22859050.810284555,
+                "backward_rate_Hz": 22859050.810284555,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 2,
+                "right_fg_index": null
+              },
+              "selected": {
+                "link_id": "FG3<->substrate",
+                "kind": "substrate",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 4.571810162056911e-06,
+                "forward_rate_Hz": 22859050.810284555,
+                "backward_rate_Hz": 22859050.810284555,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 2,
+                "right_fg_index": null
+              },
+              "provider_id": "synthetic-s4-active",
+              "specification_hash": "4c73edfe45daafe964e89418a3a7fe43a503bd25ac48804b236627acc69961d3",
+              "status": "diagnostic_only",
+              "attachment_hash": null,
+              "evaluation": null,
+              "failure": null,
+              "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+            }
+          ],
+          "net_electron_flux_by_fg_m2_s": [
+            -5.695529085779985e+27,
+            -1.4238822714450023e+27,
+            7.119411357224987e+27
+          ],
+          "experimental_qualification": false,
+          "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+        },
+        "before_electron_sheet_m2": 4.114295335275415e+16,
+        "after_electron_sheet_m2": 4.114295335275416e+16,
+        "conservation_error_m2": 8.0,
+        "final_mean_occupations": [
+          0.25,
+          0.050000000000000086,
+          0.5500000000000002
+        ]
+      },
+      "partial_failure": {
+        "result": {
+          "schema_version": "ncmemsim-barrier-transport-v1",
+          "specification": {
+            "additional_mechanisms": "unsupported",
+            "attachments": [
+              {
+                "link_id": "FG1<->FG2",
+                "mode": "replace_direct_inter_fg",
+                "request": {
+                  "approximation": "positive_segment_action_only",
+                  "evaluated": false,
+                  "exponent_atol": 1e-12,
+                  "exponent_convention": "twice_forbidden_action_over_hbar",
+                  "exponent_rtol": 1e-10,
+                  "interface_matching": false,
+                  "overflow_policy": "fail_not_clip",
+                  "profile": {
+                    "applicability": "prescribed synthetic per-snapshot barrier",
+                    "axis_origin": "fg:FG1",
+                    "carrier": "electron",
+                    "destination_contact": "fg:FG2",
+                    "energy_reference": "synthetic common electron energy zero",
+                    "incident_energy_J": 0.0,
+                    "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+                    "interface_policy": "independent_one_sided_endpoint_values",
+                    "limitations": "same incident energy for both directions; not a device current model",
+                    "physical_matching": "not_included",
+                    "positive_axis_direction": "network_left_to_right",
+                    "profile_id": "snapshot-profile-FG1<->FG2",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "segments": [
+                      {
+                        "effective_mass_m0": 1e+308,
+                        "end_potential_energy_J": 1e+308,
+                        "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                        "length_m": 1e-09,
+                        "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                        "provenance": {
+                          "applicability": "direct inter-FG replacement with unchanged heuristic supply factors",
+                          "evidence": "prescribed profile at each captured snapshot, no measurement",
+                          "experimental_admission": false,
+                          "limitations": "fixed synthetic energies; no calibrated field response or interface matching",
+                          "parameter_status": "assumed",
+                          "schema_version": "ncmemsim-explicit-barrier-v1",
+                          "source": "synthetic S4 control provider"
+                        },
+                        "schema_version": "ncmemsim-explicit-barrier-v1",
+                        "segment_id": "inter_fg1_sio2",
+                        "start_potential_energy_J": 1e+308
+                      }
+                    ],
+                    "source_contact": "fg:FG1",
+                    "traversal_direction": "along_positive_axis"
+                  },
+                  "reference_scope": "S4 synthetic integration controls",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "simulator_attachment": false,
+                  "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+                },
+                "schema_version": "ncmemsim-barrier-transport-v1",
+                "segment_layer_names": [
+                  "inter_fg1_sio2"
+                ]
+              },
+              {
+                "link_id": "FG2<->FG3",
+                "mode": "replace_direct_inter_fg",
+                "request": {
+                  "approximation": "positive_segment_action_only",
+                  "evaluated": false,
+                  "exponent_atol": 1e-12,
+                  "exponent_convention": "twice_forbidden_action_over_hbar",
+                  "exponent_rtol": 1e-10,
+                  "interface_matching": false,
+                  "overflow_policy": "fail_not_clip",
+                  "profile": {
+                    "applicability": "prescribed synthetic per-snapshot barrier",
+                    "axis_origin": "fg:FG2",
+                    "carrier": "electron",
+                    "destination_contact": "fg:FG3",
+                    "energy_reference": "synthetic common electron energy zero",
+                    "incident_energy_J": 0.0,
+                    "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+                    "interface_policy": "independent_one_sided_endpoint_values",
+                    "limitations": "same incident energy for both directions; not a device current model",
+                    "physical_matching": "not_included",
+                    "positive_axis_direction": "network_left_to_right",
+                    "profile_id": "snapshot-profile-FG2<->FG3",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "segments": [
+                      {
+                        "effective_mass_m0": 0.2,
+                        "end_potential_energy_J": 3e-20,
+                        "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                        "length_m": 1e-09,
+                        "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                        "provenance": {
+                          "applicability": "direct inter-FG replacement with unchanged heuristic supply factors",
+                          "evidence": "prescribed profile at each captured snapshot, no measurement",
+                          "experimental_admission": false,
+                          "limitations": "fixed synthetic energies; no calibrated field response or interface matching",
+                          "parameter_status": "assumed",
+                          "schema_version": "ncmemsim-explicit-barrier-v1",
+                          "source": "synthetic S4 control provider"
+                        },
+                        "schema_version": "ncmemsim-explicit-barrier-v1",
+                        "segment_id": "inter_fg2_sio2",
+                        "start_potential_energy_J": 4e-20
+                      }
+                    ],
+                    "source_contact": "fg:FG2",
+                    "traversal_direction": "along_positive_axis"
+                  },
+                  "reference_scope": "S4 synthetic integration controls",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "simulator_attachment": false,
+                  "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+                },
+                "schema_version": "ncmemsim-barrier-transport-v1",
+                "segment_layer_names": [
+                  "inter_fg2_sio2"
+                ]
+              }
+            ],
+            "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051",
+            "direction_policy": "same_energy_action_with_legacy_directional_rate_factors",
+            "enabled": true,
+            "failure_policy": "zero_selected_flux_no_fallback",
+            "field_policy": "explicit_current_snapshot_profile_no_automatic_tilt",
+            "schema_version": "ncmemsim-barrier-transport-v1"
+          },
+          "provider_id": "synthetic-s4-partial_failure",
+          "baseline": {
+            "links": [
+              {
+                "link_id": "FG1<->FG2",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.040848597081796e+28,
+                "left_fg_index": 0,
+                "right_fg_index": 1
+              },
+              {
+                "link_id": "FG2<->FG3",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.3010607463522462e+28,
+                "left_fg_index": 1,
+                "right_fg_index": 2
+              },
+              {
+                "link_id": "FG3<->substrate",
+                "kind": "substrate",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 4.571810162056911e-06,
+                "forward_rate_Hz": 22859050.810284555,
+                "backward_rate_Hz": 22859050.810284555,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 2,
+                "right_fg_index": null
+              }
+            ],
+            "net_electron_flux_by_fg_m2_s": [
+              -1.040848597081796e+28,
+              -2.602121492704502e+27,
+              1.3010607463522462e+28
+            ]
+          },
+          "links": [
+            {
+              "baseline": {
+                "link_id": "FG1<->FG2",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.040848597081796e+28,
+                "left_fg_index": 0,
+                "right_fg_index": 1
+              },
+              "selected": {
+                "link_id": "FG1<->FG2",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.0,
+                "forward_rate_Hz": 0.0,
+                "backward_rate_Hz": 0.0,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 0,
+                "right_fg_index": 1
+              },
+              "provider_id": "synthetic-s4-partial_failure",
+              "specification_hash": "bff0d6c1d23e96f70dbfa2fb45ddf478a4ec6c4bf390bc97420748dd78f12ca0",
+              "status": "failed",
+              "attachment_hash": "c30f96dd3361164101c3a0c49a2fc48a5674af2ea0cf68951093bf6a035bc748",
+              "evaluation": {
+                "approximation": "positive_segment_action_only",
+                "constants": {
+                  "electron_mass_kg": 9.1093837015e-31,
+                  "hbar_J_s": 1.054571817e-34
+                },
+                "evaluated": true,
+                "experimental_qualification": false,
+                "interface_matching": false,
+                "method": "scaled_positive_linear_action_v1",
+                "profile_hash": "10d93d28297ec1701d8eee2f08cd96dcad8b7499c7d2985303dfdf362811b02d",
+                "request": {
+                  "approximation": "positive_segment_action_only",
+                  "evaluated": false,
+                  "exponent_atol": 1e-12,
+                  "exponent_convention": "twice_forbidden_action_over_hbar",
+                  "exponent_rtol": 1e-10,
+                  "interface_matching": false,
+                  "overflow_policy": "fail_not_clip",
+                  "profile": {
+                    "applicability": "prescribed synthetic per-snapshot barrier",
+                    "axis_origin": "fg:FG1",
+                    "carrier": "electron",
+                    "destination_contact": "fg:FG2",
+                    "energy_reference": "synthetic common electron energy zero",
+                    "incident_energy_J": 0.0,
+                    "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+                    "interface_policy": "independent_one_sided_endpoint_values",
+                    "limitations": "same incident energy for both directions; not a device current model",
+                    "physical_matching": "not_included",
+                    "positive_axis_direction": "network_left_to_right",
+                    "profile_id": "snapshot-profile-FG1<->FG2",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "segments": [
+                      {
+                        "effective_mass_m0": 1e+308,
+                        "end_potential_energy_J": 1e+308,
+                        "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                        "length_m": 1e-09,
+                        "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                        "provenance": {
+                          "applicability": "direct inter-FG replacement with unchanged heuristic supply factors",
+                          "evidence": "prescribed profile at each captured snapshot, no measurement",
+                          "experimental_admission": false,
+                          "limitations": "fixed synthetic energies; no calibrated field response or interface matching",
+                          "parameter_status": "assumed",
+                          "schema_version": "ncmemsim-explicit-barrier-v1",
+                          "source": "synthetic S4 control provider"
+                        },
+                        "schema_version": "ncmemsim-explicit-barrier-v1",
+                        "segment_id": "inter_fg1_sio2",
+                        "start_potential_energy_J": 1e+308
+                      }
+                    ],
+                    "source_contact": "fg:FG1",
+                    "traversal_direction": "along_positive_axis"
+                  },
+                  "reference_scope": "S4 synthetic integration controls",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "simulator_attachment": false,
+                  "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+                },
+                "request_hash": "43901a058b2796599dcb4bb56684fc5f9d840a58248a9bab7d7cda0bfadbba11",
+                "restoration_policy": "four_ulp_action_exponent_and_exp_at_stored_exponent",
+                "schema_version": "ncmemsim-barrier-evaluation-v1",
+                "segments": [
+                  {
+                    "action_J_s": null,
+                    "attenuation_status": "unavailable",
+                    "domain": "fully_forbidden",
+                    "end_forbidden_energy_J": 1e+308,
+                    "failure": "positive_quantity_overflow",
+                    "log_transmission": null,
+                    "segment_id": "inter_fg1_sio2",
+                    "start_forbidden_energy_J": 1e+308,
+                    "status": "failed",
+                    "transmission": null,
+                    "wkb_exponent": null
+                  }
+                ],
+                "simulator_attachment": false,
+                "summary": {
+                  "action_J_s": null,
+                  "attempted_segment_count": 1,
+                  "attenuation_status": "unavailable",
+                  "completed_segment_count": 0,
+                  "failed_segment_count": 1,
+                  "failure": "segment_numeric_range_failure",
+                  "log_transmission": null,
+                  "status": "failed",
+                  "transmission": null,
+                  "wkb_exponent": null
+                }
+              },
+              "failure": "segment_numeric_range_failure",
+              "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+            },
+            {
+              "baseline": {
+                "link_id": "FG2<->FG3",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.3010607463522462e+28,
+                "left_fg_index": 1,
+                "right_fg_index": 2
+              },
+              "selected": {
+                "link_id": "FG2<->FG3",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.11766777366236195,
+                "forward_rate_Hz": 588338868311.8097,
+                "backward_rate_Hz": 588338868311.8097,
+                "net_electron_flux_m2_s": 7.119411357224987e+27,
+                "left_fg_index": 1,
+                "right_fg_index": 2
+              },
+              "provider_id": "synthetic-s4-partial_failure",
+              "specification_hash": "bff0d6c1d23e96f70dbfa2fb45ddf478a4ec6c4bf390bc97420748dd78f12ca0",
+              "status": "profile_replaced",
+              "attachment_hash": "281c4e3a90161a0ebd054cdc2aec47ffaccc4606b5a7db3eebba5e57c7df74de",
+              "evaluation": {
+                "approximation": "positive_segment_action_only",
+                "constants": {
+                  "electron_mass_kg": 9.1093837015e-31,
+                  "hbar_J_s": 1.054571817e-34
+                },
+                "evaluated": true,
+                "experimental_qualification": false,
+                "interface_matching": false,
+                "method": "scaled_positive_linear_action_v1",
+                "profile_hash": "4c4ccaa43163f9018c54d91191e1fe08d37257cd8bca38127d6824058405069c",
+                "request": {
+                  "approximation": "positive_segment_action_only",
+                  "evaluated": false,
+                  "exponent_atol": 1e-12,
+                  "exponent_convention": "twice_forbidden_action_over_hbar",
+                  "exponent_rtol": 1e-10,
+                  "interface_matching": false,
+                  "overflow_policy": "fail_not_clip",
+                  "profile": {
+                    "applicability": "prescribed synthetic per-snapshot barrier",
+                    "axis_origin": "fg:FG2",
+                    "carrier": "electron",
+                    "destination_contact": "fg:FG3",
+                    "energy_reference": "synthetic common electron energy zero",
+                    "incident_energy_J": 0.0,
+                    "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+                    "interface_policy": "independent_one_sided_endpoint_values",
+                    "limitations": "same incident energy for both directions; not a device current model",
+                    "physical_matching": "not_included",
+                    "positive_axis_direction": "network_left_to_right",
+                    "profile_id": "snapshot-profile-FG2<->FG3",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "segments": [
+                      {
+                        "effective_mass_m0": 0.2,
+                        "end_potential_energy_J": 3e-20,
+                        "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                        "length_m": 1e-09,
+                        "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                        "provenance": {
+                          "applicability": "direct inter-FG replacement with unchanged heuristic supply factors",
+                          "evidence": "prescribed profile at each captured snapshot, no measurement",
+                          "experimental_admission": false,
+                          "limitations": "fixed synthetic energies; no calibrated field response or interface matching",
+                          "parameter_status": "assumed",
+                          "schema_version": "ncmemsim-explicit-barrier-v1",
+                          "source": "synthetic S4 control provider"
+                        },
+                        "schema_version": "ncmemsim-explicit-barrier-v1",
+                        "segment_id": "inter_fg2_sio2",
+                        "start_potential_energy_J": 4e-20
+                      }
+                    ],
+                    "source_contact": "fg:FG2",
+                    "traversal_direction": "along_positive_axis"
+                  },
+                  "reference_scope": "S4 synthetic integration controls",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "simulator_attachment": false,
+                  "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+                },
+                "request_hash": "a1e407f0f9e1c69e1497b8a39ca4e1382dbeeac1ec1625903fc82fae7dcb50bd",
+                "restoration_policy": "four_ulp_action_exponent_and_exp_at_stored_exponent",
+                "schema_version": "ncmemsim-barrier-evaluation-v1",
+                "segments": [
+                  {
+                    "action_J_s": 1.1283338969797394e-34,
+                    "attenuation_status": "finite_transmission",
+                    "domain": "fully_forbidden",
+                    "end_forbidden_energy_J": 3e-20,
+                    "failure": null,
+                    "log_transmission": -2.1398901028657766,
+                    "segment_id": "inter_fg2_sio2",
+                    "start_forbidden_energy_J": 4e-20,
+                    "status": "completed",
+                    "transmission": 0.11766777366236195,
+                    "wkb_exponent": 2.1398901028657766
+                  }
+                ],
+                "simulator_attachment": false,
+                "summary": {
+                  "action_J_s": 1.1283338969797394e-34,
+                  "attempted_segment_count": 1,
+                  "attenuation_status": "finite_transmission",
+                  "completed_segment_count": 1,
+                  "failed_segment_count": 0,
+                  "failure": null,
+                  "log_transmission": -2.1398901028657766,
+                  "status": "completed",
+                  "transmission": 0.11766777366236195,
+                  "wkb_exponent": 2.1398901028657766
+                }
+              },
+              "failure": null,
+              "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+            },
+            {
+              "baseline": {
+                "link_id": "FG3<->substrate",
+                "kind": "substrate",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 4.571810162056911e-06,
+                "forward_rate_Hz": 22859050.810284555,
+                "backward_rate_Hz": 22859050.810284555,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 2,
+                "right_fg_index": null
+              },
+              "selected": {
+                "link_id": "FG3<->substrate",
+                "kind": "substrate",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 4.571810162056911e-06,
+                "forward_rate_Hz": 22859050.810284555,
+                "backward_rate_Hz": 22859050.810284555,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 2,
+                "right_fg_index": null
+              },
+              "provider_id": "synthetic-s4-partial_failure",
+              "specification_hash": "bff0d6c1d23e96f70dbfa2fb45ddf478a4ec6c4bf390bc97420748dd78f12ca0",
+              "status": "diagnostic_only",
+              "attachment_hash": null,
+              "evaluation": null,
+              "failure": null,
+              "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+            }
+          ],
+          "net_electron_flux_by_fg_m2_s": [
+            0.0,
+            -7.119411357224987e+27,
+            7.119411357224987e+27
+          ],
+          "experimental_qualification": false,
+          "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+        },
+        "before_electron_sheet_m2": 4.114295335275415e+16,
+        "after_electron_sheet_m2": 4.114295335275414e+16,
+        "conservation_error_m2": -8.0,
+        "final_mean_occupations": [
+          0.4047619047619049,
+          0.0,
+          0.4452380952380951
+        ]
+      },
+      "underflow": {
+        "result": {
+          "schema_version": "ncmemsim-barrier-transport-v1",
+          "specification": {
+            "additional_mechanisms": "unsupported",
+            "attachments": [
+              {
+                "link_id": "FG1<->FG2",
+                "mode": "replace_direct_inter_fg",
+                "request": {
+                  "approximation": "positive_segment_action_only",
+                  "evaluated": false,
+                  "exponent_atol": 1e-12,
+                  "exponent_convention": "twice_forbidden_action_over_hbar",
+                  "exponent_rtol": 1e-10,
+                  "interface_matching": false,
+                  "overflow_policy": "fail_not_clip",
+                  "profile": {
+                    "applicability": "prescribed synthetic per-snapshot barrier",
+                    "axis_origin": "fg:FG1",
+                    "carrier": "electron",
+                    "destination_contact": "fg:FG2",
+                    "energy_reference": "synthetic common electron energy zero",
+                    "incident_energy_J": 0.0,
+                    "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+                    "interface_policy": "independent_one_sided_endpoint_values",
+                    "limitations": "same incident energy for both directions; not a device current model",
+                    "physical_matching": "not_included",
+                    "positive_axis_direction": "network_left_to_right",
+                    "profile_id": "snapshot-profile-FG1<->FG2",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "segments": [
+                      {
+                        "effective_mass_m0": 0.2,
+                        "end_potential_energy_J": 1e-12,
+                        "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                        "length_m": 1e-09,
+                        "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                        "provenance": {
+                          "applicability": "direct inter-FG replacement with unchanged heuristic supply factors",
+                          "evidence": "prescribed profile at each captured snapshot, no measurement",
+                          "experimental_admission": false,
+                          "limitations": "fixed synthetic energies; no calibrated field response or interface matching",
+                          "parameter_status": "assumed",
+                          "schema_version": "ncmemsim-explicit-barrier-v1",
+                          "source": "synthetic S4 control provider"
+                        },
+                        "schema_version": "ncmemsim-explicit-barrier-v1",
+                        "segment_id": "inter_fg1_sio2",
+                        "start_potential_energy_J": 1e-12
+                      }
+                    ],
+                    "source_contact": "fg:FG1",
+                    "traversal_direction": "along_positive_axis"
+                  },
+                  "reference_scope": "S4 synthetic integration controls",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "simulator_attachment": false,
+                  "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+                },
+                "schema_version": "ncmemsim-barrier-transport-v1",
+                "segment_layer_names": [
+                  "inter_fg1_sio2"
+                ]
+              },
+              {
+                "link_id": "FG2<->FG3",
+                "mode": "replace_direct_inter_fg",
+                "request": {
+                  "approximation": "positive_segment_action_only",
+                  "evaluated": false,
+                  "exponent_atol": 1e-12,
+                  "exponent_convention": "twice_forbidden_action_over_hbar",
+                  "exponent_rtol": 1e-10,
+                  "interface_matching": false,
+                  "overflow_policy": "fail_not_clip",
+                  "profile": {
+                    "applicability": "prescribed synthetic per-snapshot barrier",
+                    "axis_origin": "fg:FG2",
+                    "carrier": "electron",
+                    "destination_contact": "fg:FG3",
+                    "energy_reference": "synthetic common electron energy zero",
+                    "incident_energy_J": 0.0,
+                    "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+                    "interface_policy": "independent_one_sided_endpoint_values",
+                    "limitations": "same incident energy for both directions; not a device current model",
+                    "physical_matching": "not_included",
+                    "positive_axis_direction": "network_left_to_right",
+                    "profile_id": "snapshot-profile-FG2<->FG3",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "segments": [
+                      {
+                        "effective_mass_m0": 0.2,
+                        "end_potential_energy_J": 1e-12,
+                        "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                        "length_m": 1e-09,
+                        "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                        "provenance": {
+                          "applicability": "direct inter-FG replacement with unchanged heuristic supply factors",
+                          "evidence": "prescribed profile at each captured snapshot, no measurement",
+                          "experimental_admission": false,
+                          "limitations": "fixed synthetic energies; no calibrated field response or interface matching",
+                          "parameter_status": "assumed",
+                          "schema_version": "ncmemsim-explicit-barrier-v1",
+                          "source": "synthetic S4 control provider"
+                        },
+                        "schema_version": "ncmemsim-explicit-barrier-v1",
+                        "segment_id": "inter_fg2_sio2",
+                        "start_potential_energy_J": 1e-12
+                      }
+                    ],
+                    "source_contact": "fg:FG2",
+                    "traversal_direction": "along_positive_axis"
+                  },
+                  "reference_scope": "S4 synthetic integration controls",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "simulator_attachment": false,
+                  "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+                },
+                "schema_version": "ncmemsim-barrier-transport-v1",
+                "segment_layer_names": [
+                  "inter_fg2_sio2"
+                ]
+              }
+            ],
+            "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051",
+            "direction_policy": "same_energy_action_with_legacy_directional_rate_factors",
+            "enabled": true,
+            "failure_policy": "zero_selected_flux_no_fallback",
+            "field_policy": "explicit_current_snapshot_profile_no_automatic_tilt",
+            "schema_version": "ncmemsim-barrier-transport-v1"
+          },
+          "provider_id": "synthetic-s4-underflow",
+          "baseline": {
+            "links": [
+              {
+                "link_id": "FG1<->FG2",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.040848597081796e+28,
+                "left_fg_index": 0,
+                "right_fg_index": 1
+              },
+              {
+                "link_id": "FG2<->FG3",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.3010607463522462e+28,
+                "left_fg_index": 1,
+                "right_fg_index": 2
+              },
+              {
+                "link_id": "FG3<->substrate",
+                "kind": "substrate",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 4.571810162056911e-06,
+                "forward_rate_Hz": 22859050.810284555,
+                "backward_rate_Hz": 22859050.810284555,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 2,
+                "right_fg_index": null
+              }
+            ],
+            "net_electron_flux_by_fg_m2_s": [
+              -1.040848597081796e+28,
+              -2.602121492704502e+27,
+              1.3010607463522462e+28
+            ]
+          },
+          "links": [
+            {
+              "baseline": {
+                "link_id": "FG1<->FG2",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.040848597081796e+28,
+                "left_fg_index": 0,
+                "right_fg_index": 1
+              },
+              "selected": {
+                "link_id": "FG1<->FG2",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.0,
+                "forward_rate_Hz": 0.0,
+                "backward_rate_Hz": 0.0,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 0,
+                "right_fg_index": 1
+              },
+              "provider_id": "synthetic-s4-underflow",
+              "specification_hash": "fe856fee8eeac31fac934e9664b1405408c44c0f0aa57fd01e5dcd35801ce9a9",
+              "status": "profile_replaced",
+              "attachment_hash": "e02e3180a9e43ab07dd8751c48bc36e4127b289662920af60f2dca5197dfcd1c",
+              "evaluation": {
+                "approximation": "positive_segment_action_only",
+                "constants": {
+                  "electron_mass_kg": 9.1093837015e-31,
+                  "hbar_J_s": 1.054571817e-34
+                },
+                "evaluated": true,
+                "experimental_qualification": false,
+                "interface_matching": false,
+                "method": "scaled_positive_linear_action_v1",
+                "profile_hash": "a3ed2db25558bbc7926c263b6981232c70673d583beba529bf9cfec71a2abc19",
+                "request": {
+                  "approximation": "positive_segment_action_only",
+                  "evaluated": false,
+                  "exponent_atol": 1e-12,
+                  "exponent_convention": "twice_forbidden_action_over_hbar",
+                  "exponent_rtol": 1e-10,
+                  "interface_matching": false,
+                  "overflow_policy": "fail_not_clip",
+                  "profile": {
+                    "applicability": "prescribed synthetic per-snapshot barrier",
+                    "axis_origin": "fg:FG1",
+                    "carrier": "electron",
+                    "destination_contact": "fg:FG2",
+                    "energy_reference": "synthetic common electron energy zero",
+                    "incident_energy_J": 0.0,
+                    "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+                    "interface_policy": "independent_one_sided_endpoint_values",
+                    "limitations": "same incident energy for both directions; not a device current model",
+                    "physical_matching": "not_included",
+                    "positive_axis_direction": "network_left_to_right",
+                    "profile_id": "snapshot-profile-FG1<->FG2",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "segments": [
+                      {
+                        "effective_mass_m0": 0.2,
+                        "end_potential_energy_J": 1e-12,
+                        "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                        "length_m": 1e-09,
+                        "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                        "provenance": {
+                          "applicability": "direct inter-FG replacement with unchanged heuristic supply factors",
+                          "evidence": "prescribed profile at each captured snapshot, no measurement",
+                          "experimental_admission": false,
+                          "limitations": "fixed synthetic energies; no calibrated field response or interface matching",
+                          "parameter_status": "assumed",
+                          "schema_version": "ncmemsim-explicit-barrier-v1",
+                          "source": "synthetic S4 control provider"
+                        },
+                        "schema_version": "ncmemsim-explicit-barrier-v1",
+                        "segment_id": "inter_fg1_sio2",
+                        "start_potential_energy_J": 1e-12
+                      }
+                    ],
+                    "source_contact": "fg:FG1",
+                    "traversal_direction": "along_positive_axis"
+                  },
+                  "reference_scope": "S4 synthetic integration controls",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "simulator_attachment": false,
+                  "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+                },
+                "request_hash": "4b463f67cd1752573087a9d8d23df838fff3ea35c176b524c28bbecb888e7b7c",
+                "restoration_policy": "four_ulp_action_exponent_and_exp_at_stored_exponent",
+                "schema_version": "ncmemsim-barrier-evaluation-v1",
+                "segments": [
+                  {
+                    "action_J_s": 6.036351116858596e-31,
+                    "attenuation_status": "transmission_underflow",
+                    "domain": "fully_forbidden",
+                    "end_forbidden_energy_J": 1e-12,
+                    "failure": null,
+                    "log_transmission": -11447.965931861416,
+                    "segment_id": "inter_fg1_sio2",
+                    "start_forbidden_energy_J": 1e-12,
+                    "status": "completed",
+                    "transmission": 0.0,
+                    "wkb_exponent": 11447.965931861416
+                  }
+                ],
+                "simulator_attachment": false,
+                "summary": {
+                  "action_J_s": 6.036351116858596e-31,
+                  "attempted_segment_count": 1,
+                  "attenuation_status": "transmission_underflow",
+                  "completed_segment_count": 1,
+                  "failed_segment_count": 0,
+                  "failure": null,
+                  "log_transmission": -11447.965931861416,
+                  "status": "completed",
+                  "transmission": 0.0,
+                  "wkb_exponent": 11447.965931861416
+                }
+              },
+              "failure": null,
+              "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+            },
+            {
+              "baseline": {
+                "link_id": "FG2<->FG3",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.21503592606346117,
+                "forward_rate_Hz": 1075179630317.3058,
+                "backward_rate_Hz": 1075179630317.3058,
+                "net_electron_flux_m2_s": 1.3010607463522462e+28,
+                "left_fg_index": 1,
+                "right_fg_index": 2
+              },
+              "selected": {
+                "link_id": "FG2<->FG3",
+                "kind": "inter_fg",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 0.0,
+                "forward_rate_Hz": 0.0,
+                "backward_rate_Hz": 0.0,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 1,
+                "right_fg_index": 2
+              },
+              "provider_id": "synthetic-s4-underflow",
+              "specification_hash": "fe856fee8eeac31fac934e9664b1405408c44c0f0aa57fd01e5dcd35801ce9a9",
+              "status": "profile_replaced",
+              "attachment_hash": "9922a64340d28a7ecd596c4e56a74365c026e818e4fad18ba409f04d93a5ae8a",
+              "evaluation": {
+                "approximation": "positive_segment_action_only",
+                "constants": {
+                  "electron_mass_kg": 9.1093837015e-31,
+                  "hbar_J_s": 1.054571817e-34
+                },
+                "evaluated": true,
+                "experimental_qualification": false,
+                "interface_matching": false,
+                "method": "scaled_positive_linear_action_v1",
+                "profile_hash": "b276ae74c7001524fa6d22f339d4cb138d7030ca0333382d733ad823218b9ec0",
+                "request": {
+                  "approximation": "positive_segment_action_only",
+                  "evaluated": false,
+                  "exponent_atol": 1e-12,
+                  "exponent_convention": "twice_forbidden_action_over_hbar",
+                  "exponent_rtol": 1e-10,
+                  "interface_matching": false,
+                  "overflow_policy": "fail_not_clip",
+                  "profile": {
+                    "applicability": "prescribed synthetic per-snapshot barrier",
+                    "axis_origin": "fg:FG2",
+                    "carrier": "electron",
+                    "destination_contact": "fg:FG3",
+                    "energy_reference": "synthetic common electron energy zero",
+                    "incident_energy_J": 0.0,
+                    "incident_energy_policy": "subtract_once_from_each_potential_endpoint",
+                    "interface_policy": "independent_one_sided_endpoint_values",
+                    "limitations": "same incident energy for both directions; not a device current model",
+                    "physical_matching": "not_included",
+                    "positive_axis_direction": "network_left_to_right",
+                    "profile_id": "snapshot-profile-FG2<->FG3",
+                    "schema_version": "ncmemsim-explicit-barrier-v1",
+                    "segments": [
+                      {
+                        "effective_mass_m0": 0.2,
+                        "end_potential_energy_J": 1e-12,
+                        "energy_semantics": "electron_potential_energy_before_incident_subtraction",
+                        "length_m": 1e-09,
+                        "mass_semantics": "constant_within_segment_ratio_to_free_electron_mass",
+                        "provenance": {
+                          "applicability": "direct inter-FG replacement with unchanged heuristic supply factors",
+                          "evidence": "prescribed profile at each captured snapshot, no measurement",
+                          "experimental_admission": false,
+                          "limitations": "fixed synthetic energies; no calibrated field response or interface matching",
+                          "parameter_status": "assumed",
+                          "schema_version": "ncmemsim-explicit-barrier-v1",
+                          "source": "synthetic S4 control provider"
+                        },
+                        "schema_version": "ncmemsim-explicit-barrier-v1",
+                        "segment_id": "inter_fg2_sio2",
+                        "start_potential_energy_J": 1e-12
+                      }
+                    ],
+                    "source_contact": "fg:FG2",
+                    "traversal_direction": "along_positive_axis"
+                  },
+                  "reference_scope": "S4 synthetic integration controls",
+                  "schema_version": "ncmemsim-explicit-barrier-v1",
+                  "simulator_attachment": false,
+                  "underflow_policy": "zero_transmission_retain_finite_exponent_and_log"
+                },
+                "request_hash": "d4f769703b96983da117b2c3258e172134820b10bf83d97f0ac9dd16df127721",
+                "restoration_policy": "four_ulp_action_exponent_and_exp_at_stored_exponent",
+                "schema_version": "ncmemsim-barrier-evaluation-v1",
+                "segments": [
+                  {
+                    "action_J_s": 6.036351116858596e-31,
+                    "attenuation_status": "transmission_underflow",
+                    "domain": "fully_forbidden",
+                    "end_forbidden_energy_J": 1e-12,
+                    "failure": null,
+                    "log_transmission": -11447.965931861416,
+                    "segment_id": "inter_fg2_sio2",
+                    "start_forbidden_energy_J": 1e-12,
+                    "status": "completed",
+                    "transmission": 0.0,
+                    "wkb_exponent": 11447.965931861416
+                  }
+                ],
+                "simulator_attachment": false,
+                "summary": {
+                  "action_J_s": 6.036351116858596e-31,
+                  "attempted_segment_count": 1,
+                  "attenuation_status": "transmission_underflow",
+                  "completed_segment_count": 1,
+                  "failed_segment_count": 0,
+                  "failure": null,
+                  "log_transmission": -11447.965931861416,
+                  "status": "completed",
+                  "transmission": 0.0,
+                  "wkb_exponent": 11447.965931861416
+                }
+              },
+              "failure": null,
+              "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+            },
+            {
+              "baseline": {
+                "link_id": "FG3<->substrate",
+                "kind": "substrate",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 4.571810162056911e-06,
+                "forward_rate_Hz": 22859050.810284555,
+                "backward_rate_Hz": 22859050.810284555,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 2,
+                "right_fg_index": null
+              },
+              "selected": {
+                "link_id": "FG3<->substrate",
+                "kind": "substrate",
+                "field_V_m": 0.0,
+                "potential_difference_V": 0.0,
+                "transmission": 4.571810162056911e-06,
+                "forward_rate_Hz": 22859050.810284555,
+                "backward_rate_Hz": 22859050.810284555,
+                "net_electron_flux_m2_s": 0.0,
+                "left_fg_index": 2,
+                "right_fg_index": null
+              },
+              "provider_id": "synthetic-s4-underflow",
+              "specification_hash": "fe856fee8eeac31fac934e9664b1405408c44c0f0aa57fd01e5dcd35801ce9a9",
+              "status": "diagnostic_only",
+              "attachment_hash": null,
+              "evaluation": null,
+              "failure": null,
+              "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+            }
+          ],
+          "net_electron_flux_by_fg_m2_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "experimental_qualification": false,
+          "context_hash": "6221b01ab404234a2f9077c9890aa724114819d36843d1f34cc705d3ae6c5051"
+        },
+        "before_electron_sheet_m2": 4.114295335275415e+16,
+        "after_electron_sheet_m2": 4.114295335275415e+16,
+        "conservation_error_m2": 0.0,
+        "final_mean_occupations": [
+          0.5,
+          0.3000000000000001,
+          0.05000000000000002
+        ]
+      }
+    },
+    "profile_law": "Prescribed synthetic energies, rebound to each current context; not inferred from device bias.",
+    "material_parameters_admitted": false,
+    "experimental_qualification": false
+  },
+  "geometry_tolerance": {
+    "relative": 1e-12,
+    "absolute_m": 0.0
+  },
+  "conservation_control": {
+    "relative_tolerance": 1e-12,
+    "quantity": "total electron sheet density, m^-2"
+  },
+  "interpretation": "Historical local synthetic integration controls. Per-link context payloads deduplicated by owned context hash. Source-associated profiles are not proof of physical self-consistency.",
+  "provider_boundary": "Ordinary trusted, side-effect-free Python callback; no executable provider is serialized. Its identifier is caller-declared provenance, not authentication.",
+  "experimental_qualification": false,
+  "additional_mechanisms": "unsupported",
+  "current_model": "Existing compact directional-rate/supply heuristic retained; not a new microscopic current model."
+}

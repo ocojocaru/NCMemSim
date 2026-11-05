@@ -11,6 +11,12 @@ The transport layer represents the device as nodes and links:
 
 `NodeKind` distinguishes physical node types. The current multi-FG model creates nearest-neighbour FG-to-FG links. Substrate exchange remains governed by the occupancy kinetics engine, while substrate links may be retained for diagnostics.
 
+## Phase S planning
+
+The [explicit barrier-profile plan](barrier_transport.md) audits the published
+WKB paths and proposes isolated segment diagnostics before conditional opt-in
+integration. S0 changes no transport defaults or equations.
+
 ## WKB transmission
 
 For a one-dimensional barrier, the compact engine evaluates a WKB-type transmission

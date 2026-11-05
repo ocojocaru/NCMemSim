@@ -1,0 +1,883 @@
+{
+  "schema_version": "published-v1.9-source-surface-v1",
+  "source_commit": "26c7d62109ea3b9e0405538c3b3b2c843e1e453d",
+  "package_version": "1.9.0",
+  "modules": [
+    {
+      "module": "ncmemsim",
+      "path": "ncmemsim/__init__.py",
+      "source_sha256": "bbe5aa675854ecd0473116f864760b53004f2beeb43e81f3ddf49238baa41407",
+      "surface_sha256": "2bd0adef1570dcb8ef6f802aaf07998aeec45d21937726a1f4ac1a362f3b3bde"
+    },
+    {
+      "module": "ncmemsim._version",
+      "path": "ncmemsim/_version.py",
+      "source_sha256": "37e4e0cb8665d98f4468cb6437eea266c0b4647f635482ed1172d43c1f87b53e",
+      "surface_sha256": "291ff295351593fc58a92fb57e9be5767e5d59d5eaaf291f200197f6f6a52648"
+    },
+    {
+      "module": "ncmemsim.benchmark",
+      "path": "ncmemsim/benchmark.py",
+      "source_sha256": "7d86a433c3429318e5d9eb8a42b1a18c997210b16505de5ae13155af1e73e593",
+      "surface_sha256": "d25fe3e6014a78d8aa700a1d8e70fd2a4cb911b128a521c376aa1f1878518a3a"
+    },
+    {
+      "module": "ncmemsim.builder",
+      "path": "ncmemsim/builder.py",
+      "source_sha256": "77606a7d21b19384f40b8d083db419d2f26392a92233e53f05db830abf0950b9",
+      "surface_sha256": "1e54c0343f597ae94a7f632be1a6dfb604e3b7e63b5aeb54268fa7cf8cda1801"
+    },
+    {
+      "module": "ncmemsim.calibration",
+      "path": "ncmemsim/calibration.py",
+      "source_sha256": "4e0f92a198883f83720bc966a4db72adbba462ecb0e1065a6d52e0b0428bd1ff",
+      "surface_sha256": "c004fb6d8a9fe1472d5a641fb53c2200c31c0c3b1062d3dc0136d389f369a03a"
+    },
+    {
+      "module": "ncmemsim.composition",
+      "path": "ncmemsim/composition.py",
+      "source_sha256": "ccfff33b7d66b7eec61a1386dac66ce2bfdd880afa633fd77372675b85041ca6",
+      "surface_sha256": "47a91b669809186f5ef6bfdb9bb06cda51af0541386a064fd89efc3df2dab159"
+    },
+    {
+      "module": "ncmemsim.constants",
+      "path": "ncmemsim/constants.py",
+      "source_sha256": "78f2910f7dd075d0b117ee7f378beef180a098a91d50bd70ae2a78f37c582baa",
+      "surface_sha256": "f1c861af3529bac65fa786f3ca7ce6aae305e00d32a157971fc097951e239162"
+    },
+    {
+      "module": "ncmemsim.coupling",
+      "path": "ncmemsim/coupling.py",
+      "source_sha256": "6f28b44833e223cf75590bcc5a27659d51ff669b5d7b604c0d48fcb0f35bc7b1",
+      "surface_sha256": "1494d91198dbedd344ebf87db65014ba0471fe2d378056756f5ffb9b85b069f2"
+    },
+    {
+      "module": "ncmemsim.device",
+      "path": "ncmemsim/device.py",
+      "source_sha256": "321563992be1350e194784e4b28aa34cc1a06fe71bf799cde673d53151f825d1",
+      "surface_sha256": "ab8f65382b60281bd3c3a60ece918ce70a01acfbc1c3b57e5f85c70faa8cb6e2"
+    },
+    {
+      "module": "ncmemsim.device_calibration",
+      "path": "ncmemsim/device_calibration.py",
+      "source_sha256": "6e579bc37b68bd15892cde864dfef40ede720e76338d6216ba1af737ddfdc378",
+      "surface_sha256": "63d8cfc0efe8ee10f16cb10e65680abcc5c99e5e088dd2038b393cefa1ed6d95"
+    },
+    {
+      "module": "ncmemsim.device_fit",
+      "path": "ncmemsim/device_fit.py",
+      "source_sha256": "9da1c488d2c0d26f8b7d91cf60e6d8fa6157771ce63232ec9d95d5ee08f31d9e",
+      "surface_sha256": "91dac411a815d7ec996b76b1e8072fc75ae249d75229ac2cbdb023aa58e88a72"
+    },
+    {
+      "module": "ncmemsim.device_objectives",
+      "path": "ncmemsim/device_objectives.py",
+      "source_sha256": "c4a5d99c6f3a13b132d3b62b089fcc6e94ccaf5607571c78fa8cf97ccf92b124",
+      "surface_sha256": "f3c9aae18100889e60f6cc11f9cab6a43401184c9103b5c36273236e19c10213"
+    },
+    {
+      "module": "ncmemsim.device_photo_experiment",
+      "path": "ncmemsim/device_photo_experiment.py",
+      "source_sha256": "ffe528974cd702b6d20786469ffb3399cbf4816b38f7a6e6199937f84ed9b8ee",
+      "surface_sha256": "fafd754f37c4eb824e5eef516bb46f57d01d1864d51a8492984852af477a0bb6"
+    },
+    {
+      "module": "ncmemsim.dtco",
+      "path": "ncmemsim/dtco/__init__.py",
+      "source_sha256": "c68a1a51f72697f2306b05e8914173494639d1ebb22127a31a3ad0e5e77b0b8e",
+      "surface_sha256": "98e3f7780ece5acd567c555129108612756ad83a3a7b442d7756e2d0adbfeb5d"
+    },
+    {
+      "module": "ncmemsim.dtco.binding",
+      "path": "ncmemsim/dtco/binding.py",
+      "source_sha256": "f449f978c03b0c7e29303b3b15683716ef38494abd6bc29e10aa284d7a6bf4c0",
+      "surface_sha256": "eca5e3f092bf2f446294084423d4987920e9be9ed7db153826f41c3182dbe8da"
+    },
+    {
+      "module": "ncmemsim.dtco.metrics",
+      "path": "ncmemsim/dtco/metrics.py",
+      "source_sha256": "c02e90780b739e88df0216b3993ca4db3d081e10b5a1e73651054f9452c17b89",
+      "surface_sha256": "01cc865d6c95d0b40d2eb099b25fed6832eb4bb514d0f49022366233a77aa240"
+    },
+    {
+      "module": "ncmemsim.dtco.operating",
+      "path": "ncmemsim/dtco/operating.py",
+      "source_sha256": "530c6b992a102ef087b344af0e69236d7a28d90bab825d46af57c78ff4ad048f",
+      "surface_sha256": "ffbcaa883f3cb0ebfa7da835d74cfdd2c8818cb0b585b101a2dc2ff2e95fa7a2"
+    },
+    {
+      "module": "ncmemsim.dtco.pareto",
+      "path": "ncmemsim/dtco/pareto.py",
+      "source_sha256": "6e21cdb81d8b15e35be42f7fb670d2d4f69d56c3a08785849971f729c3139e95",
+      "surface_sha256": "a01f9e3aae147f44d88f11e8f4be591ba17005146b99e82a84af97db3748de92"
+    },
+    {
+      "module": "ncmemsim.dtco.propagation",
+      "path": "ncmemsim/dtco/propagation.py",
+      "source_sha256": "e6870a42fb3d2e1973685b539ca4f21a095d5006b424be408adc9fbc01c1d86f",
+      "surface_sha256": "4fe339beac5f24553b7e32dc53e37dca04f88995b175ed074465e70e9c5290dc"
+    },
+    {
+      "module": "ncmemsim.dtco.reporting",
+      "path": "ncmemsim/dtco/reporting.py",
+      "source_sha256": "ba32aea397953a3604e6712b055e611ae68f2dfd384d6ff1cc50cb2654f52dfb",
+      "surface_sha256": "f0f9c87c183f49c58a9ed31210057fcc778775b54718f2422a3642338e8846d2"
+    },
+    {
+      "module": "ncmemsim.dtco.robust",
+      "path": "ncmemsim/dtco/robust.py",
+      "source_sha256": "3fbb404882acb1a04ef96c91b9820eeadfe4aa9887e57e9af0652d3330cf89f0",
+      "surface_sha256": "da213c850b7d7ddb0a92dd93c00791f35b75b5269161fb3ac27a838d103e21cb"
+    },
+    {
+      "module": "ncmemsim.dtco.robust_reporting",
+      "path": "ncmemsim/dtco/robust_reporting.py",
+      "source_sha256": "14bf47984d88626a6be6496a093e398a9abf1f759b9517d9608b691db276fefc",
+      "surface_sha256": "5e589e8aaf498170735c7a9b4f1041f3dfbf8a9832f7dadc05a5a1a452584a43"
+    },
+    {
+      "module": "ncmemsim.dtco.sample_analysis",
+      "path": "ncmemsim/dtco/sample_analysis.py",
+      "source_sha256": "367e81033fb2ead492dee12d7df7d473cb7c8eac01cf87ec606451eb490221ba",
+      "surface_sha256": "3417de5a2c2bd1af11fcb8b15f66d5de0a0622224c357d0e8fff9482e135f11f"
+    },
+    {
+      "module": "ncmemsim.dtco.sampling",
+      "path": "ncmemsim/dtco/sampling.py",
+      "source_sha256": "7b46def74215a30af713c2f6997082db789b66c02ceea648f38604477b86adef",
+      "surface_sha256": "5e4915483abe2ff9e236c7483848fccb88c593720d3852891745f8deeed282c3"
+    },
+    {
+      "module": "ncmemsim.dtco.sensitivity",
+      "path": "ncmemsim/dtco/sensitivity.py",
+      "source_sha256": "8eb4b4e4c853a8c10a2aef502a8494984d125777bd044651450edd3b408a53a7",
+      "surface_sha256": "274c268d67c61aabf06ca7ff82c39784ed0f0f04d7cfd30baef98ca684d7296b"
+    },
+    {
+      "module": "ncmemsim.dtco.spec",
+      "path": "ncmemsim/dtco/spec.py",
+      "source_sha256": "fe0c33995f80a2e32505d0e1644f0d4ba625c48ee52b622577828f1d95ea7e39",
+      "surface_sha256": "9faf30a395aec9abba206ea85be75bf08cc368cce3f94f76eb5415398f6819d0"
+    },
+    {
+      "module": "ncmemsim.dtco.sweep",
+      "path": "ncmemsim/dtco/sweep.py",
+      "source_sha256": "1f4b9096538a42b6f39e1dc0d0b1ca886ff9962e99578429daaf519669017f1c",
+      "surface_sha256": "682f616682f7cb59d4591260399e9c0c78f28dfa78f5d8c0e31d34a868a5f22a"
+    },
+    {
+      "module": "ncmemsim.dtco.variation",
+      "path": "ncmemsim/dtco/variation.py",
+      "source_sha256": "d19a4286a621d41af2961a2712adb4eccb23aa7381c711602e584f9f4af5e60e",
+      "surface_sha256": "2f95c29341a65fe74d842d5eb13d20cb27a9d27fdb414189e6aec744e0ae37bc"
+    },
+    {
+      "module": "ncmemsim.electro_optical_program_protocol",
+      "path": "ncmemsim/electro_optical_program_protocol.py",
+      "source_sha256": "a37de68affdd8e2edebc92f203647f8262997a9bc1443a1068917d24f50a2815",
+      "surface_sha256": "fbf0a7bc3e12acd447e4bedc772e6e7f64a4dc4bb1a95dd620023ff26844c730"
+    },
+    {
+      "module": "ncmemsim.electrostatics",
+      "path": "ncmemsim/electrostatics.py",
+      "source_sha256": "1929c097e7a67ca92d534577167547da0c6dc52fb0132ad9f35da409c0a2359f",
+      "surface_sha256": "4bb4bc8726919b415ef7fee4bf87be63028f423a3439df5335cc04e5aea70abc"
+    },
+    {
+      "module": "ncmemsim.ensemble",
+      "path": "ncmemsim/ensemble/__init__.py",
+      "source_sha256": "2d88465bb29c7ef000b995b38c16675c17ff2acfdf30b12616668b9d046671c4",
+      "surface_sha256": "582056e2e6deef2bcb1adf66f2d91c0b1dc9aed145463dfd3426ea6f407e571c"
+    },
+    {
+      "module": "ncmemsim.ensemble._serialization",
+      "path": "ncmemsim/ensemble/_serialization.py",
+      "source_sha256": "652611a259182ad4cac715bcac2fb0327875441d41983ccbef5041f29f64acd7",
+      "surface_sha256": "7704e1daf6ac248a10ff7cf468669a4aef91865713a617a3b5756bb92b83b1a5"
+    },
+    {
+      "module": "ncmemsim.ensemble.correlation",
+      "path": "ncmemsim/ensemble/correlation.py",
+      "source_sha256": "6c934dfc6df8032a338d835b00ea5471b197cb53fb1a58c4b04dcaf29564d936",
+      "surface_sha256": "c1c69fa1eaf8320c140ea12209b16135b3968d431b7610ae6d89aaf793b603e4"
+    },
+    {
+      "module": "ncmemsim.ensemble.distributions",
+      "path": "ncmemsim/ensemble/distributions.py",
+      "source_sha256": "87a985b312923f27c2e7304247106d0c99f73ecd7d5ee35b2e25c4e3c59ff5d0",
+      "surface_sha256": "63f78098a8e3d65465268e9de9ef882a98696f4a3860cbe2a93cb95ed4b4e52d"
+    },
+    {
+      "module": "ncmemsim.ensemble.dtco",
+      "path": "ncmemsim/ensemble/dtco.py",
+      "source_sha256": "ffa15b21c62af0c3a258b04c273776de4d84eac0ba47bbf74bedf6ebbb75d84e",
+      "surface_sha256": "9b537b1b4389c4ee3ed2fe574fc736d9dc4e4f3132c882f132e6693650558dca"
+    },
+    {
+      "module": "ncmemsim.ensemble.execution",
+      "path": "ncmemsim/ensemble/execution.py",
+      "source_sha256": "a04513fc8ca18e92b209bd8351a0999704b0eb209e280e32567e434a758c8771",
+      "surface_sha256": "6534f094ec2bcfeed89cb6a58be04edec216d3e6ca8715273cbf2be06d76bef2"
+    },
+    {
+      "module": "ncmemsim.ensemble.feasibility",
+      "path": "ncmemsim/ensemble/feasibility.py",
+      "source_sha256": "15da7596ee3c455f4dce80d537494f71f0891d7ae10d2d5d6dab77c2a96f9152",
+      "surface_sha256": "0d99ef89d968ea51a3e21b45c345827d3ff40469f6923edb42df1fae5d193c91"
+    },
+    {
+      "module": "ncmemsim.ensemble.metrics",
+      "path": "ncmemsim/ensemble/metrics.py",
+      "source_sha256": "16631e289a1ab297a55e5c2c245e225d66be20ca54d728d0fce895d6963772af",
+      "surface_sha256": "4e7ed0987ba83f04d7b0f893a6a6d83695c196982ad8d9e0f62f316450fa3cc6"
+    },
+    {
+      "module": "ncmemsim.ensemble.model_analysis",
+      "path": "ncmemsim/ensemble/model_analysis.py",
+      "source_sha256": "26b22672d84dbb48f6f37309252db6b887c9106501bea4e53d2adfa2697d968a",
+      "surface_sha256": "0f75afeab7bbbd55fbb6a9c1a199a9365aeb0a9f514ae03d03c15cb19aad29e3"
+    },
+    {
+      "module": "ncmemsim.ensemble.model_contracts",
+      "path": "ncmemsim/ensemble/model_contracts.py",
+      "source_sha256": "ffe09868a30d2512a91a4e05933c57b86870a4094ce03bcf7469c3c0711f79ac",
+      "surface_sha256": "c8856b56e8150874d04a1bebc4c715dc62a5d13e808bb0608ea54d678c4cd154"
+    },
+    {
+      "module": "ncmemsim.ensemble.model_dtco",
+      "path": "ncmemsim/ensemble/model_dtco.py",
+      "source_sha256": "947a33b69dbd7ac0ff3f034608e7407befaf6fb7a9f31e4c6f13764e8a45e919",
+      "surface_sha256": "652f04df397c52f3f5b93d585395bdedc5a36dbd10ca86ae06b88dc9292c2777"
+    },
+    {
+      "module": "ncmemsim.ensemble.model_execution",
+      "path": "ncmemsim/ensemble/model_execution.py",
+      "source_sha256": "23db67924f74664075f2f9eb0e0150d262a264537326a23413fb0730549a0224",
+      "surface_sha256": "81a89ebf62704fe88f98153777c36b15ed0cb398083ee511cba53375cae566ae"
+    },
+    {
+      "module": "ncmemsim.ensemble.model_reporting",
+      "path": "ncmemsim/ensemble/model_reporting.py",
+      "source_sha256": "f4188e4743917c7dc655746e11c72b6a722e6b558d136b6580da94427eab4e3e",
+      "surface_sha256": "33637a5aac846e578b79c88ac9a0f228dad8ca38983e897ce10b0638756c6748"
+    },
+    {
+      "module": "ncmemsim.ensemble.model_sampling",
+      "path": "ncmemsim/ensemble/model_sampling.py",
+      "source_sha256": "839a6269f7554f89533ebd641f09484146d4e8793d9f91536e0a71d4b8ad1ccb",
+      "surface_sha256": "0e9c20aaae885d312ae3fd5f1eb269decac9b0436ede13f987a259a554f44f3d"
+    },
+    {
+      "module": "ncmemsim.ensemble.realization",
+      "path": "ncmemsim/ensemble/realization.py",
+      "source_sha256": "d528d81cf541914aa3de12b7ef8d238f8c48f5d40d398930bb4d96de01a308cc",
+      "surface_sha256": "d1021136b32267036f649f63e9808beeba35aaac42bf7e36cddc9e118c2129bd"
+    },
+    {
+      "module": "ncmemsim.ensemble.reporting",
+      "path": "ncmemsim/ensemble/reporting.py",
+      "source_sha256": "b5de1c0ab3ffb55d88012c3289ae641247a004c38ab11c42a556ac7a42f70677",
+      "surface_sha256": "69d88778dfbd9e33906dc62da00e04fd778f26cca63a1411e71135438b1ea0ae"
+    },
+    {
+      "module": "ncmemsim.ensemble.rng",
+      "path": "ncmemsim/ensemble/rng.py",
+      "source_sha256": "1db653a117a23a0c12bc5a93ef08d6339e91c7319bc91438d6aeed2e1c2c82ef",
+      "surface_sha256": "ce62b5a4dce1e636413873230f37e786618ed46cb5ee6152a83a6b99efd29e82"
+    },
+    {
+      "module": "ncmemsim.ensemble.sampling",
+      "path": "ncmemsim/ensemble/sampling.py",
+      "source_sha256": "0e92facc10a3e716dde77413e367a366e09b37cd0b11b43ecd226c8e8f3460c6",
+      "surface_sha256": "5f7b0c3fe5a4b3759044f02a6d88029d6cedc9622a423c8e0b25c1c8090137ac"
+    },
+    {
+      "module": "ncmemsim.ensemble.spec",
+      "path": "ncmemsim/ensemble/spec.py",
+      "source_sha256": "a889a22c9d0f5f5081bf8b5795c519a1169f5ce5c3bf30c8e81063d2c40c1c7a",
+      "surface_sha256": "c9a2a545f2116af2a784588d4b89b8e203254ed498db673e23eb123ba67739c3"
+    },
+    {
+      "module": "ncmemsim.ensemble.specification",
+      "path": "ncmemsim/ensemble/specification.py",
+      "source_sha256": "418c00acaacab04ca53d841bf993e5b44c54799f9f96e88ad4f0b58156dabaff",
+      "surface_sha256": "b668eee2e57a78e14047094e1aac8b0af16b7a8936cd967230a3000303bd4951"
+    },
+    {
+      "module": "ncmemsim.ensemble.statistics",
+      "path": "ncmemsim/ensemble/statistics.py",
+      "source_sha256": "df057033673647c75e67beee20c34a1d4579da6b12f34f7706858cfcdec4f4a4",
+      "surface_sha256": "5ca570201aa7ba25f8472c28f14fc19c0af627826af71f8960b66d349f46215e"
+    },
+    {
+      "module": "ncmemsim.experimental",
+      "path": "ncmemsim/experimental.py",
+      "source_sha256": "7c7e4b0109011c320420c13c36e470e936a6542aa1cdc6b1118d2ced61ac98ce",
+      "surface_sha256": "c9f849dbf4fd2bdb9f53cf72e8a4b612b8e94ffd2705ee8fe345e9f5159054b1"
+    },
+    {
+      "module": "ncmemsim.fieldsolver",
+      "path": "ncmemsim/fieldsolver.py",
+      "source_sha256": "0d806d57b2ff5c44cb9dc18df4ca008111367ab19a85083ac6d8253ed08ff40d",
+      "surface_sha256": "0a6017f3c43cdb71c6bc3230cc62c467c36d105f589d6ceb92f724cf868c64eb"
+    },
+    {
+      "module": "ncmemsim.fit_diagnostics",
+      "path": "ncmemsim/fit_diagnostics.py",
+      "source_sha256": "aeee909f1de1935c7b3deef47d05b9648cff17d36a714d9b8453842f446d73a1",
+      "surface_sha256": "6359751d511a6e50144dbf2fb39407612ca96027b268659a1fa14d0d33b33292"
+    },
+    {
+      "module": "ncmemsim.fitting",
+      "path": "ncmemsim/fitting.py",
+      "source_sha256": "ca0ddcd0764c3e1cde8b1c0f0c59f892b6faa8089f910546426821471f3f6636",
+      "surface_sha256": "991c52740f1e91c305393810985e2946abcaa0169508825415de14810f1e2230"
+    },
+    {
+      "module": "ncmemsim.golden",
+      "path": "ncmemsim/golden.py",
+      "source_sha256": "92b279732080ccf408c9b625b23c038121a5ca863fcaadb19fdd2235fde1c48d",
+      "surface_sha256": "3ccabe4d967714fe87404340ae9962547411791a8c475e62735b491a0f4bcc6d"
+    },
+    {
+      "module": "ncmemsim.hashing",
+      "path": "ncmemsim/hashing.py",
+      "source_sha256": "5c2de9532c30bb8323b9d4837f23e0adc133842a15752b21bf448d5b37cc3f10",
+      "surface_sha256": "d850e35aac8ca2a76f37f97c3505d546d1fff68abca352a0481c22856fca0c5e"
+    },
+    {
+      "module": "ncmemsim.independent_data",
+      "path": "ncmemsim/independent_data.py",
+      "source_sha256": "0d452c9103a0908c9503f2e309ce623fd197b24190e60686144c0d77cb3f2a9a",
+      "surface_sha256": "e9d58bda82ac38507eec7a03038cbc63182ba64d25b2ddf5d8558e1a62d3888b"
+    },
+    {
+      "module": "ncmemsim.independent_optical_fit",
+      "path": "ncmemsim/independent_optical_fit.py",
+      "source_sha256": "adc205b33549d172debc25c694c7659d16218f35108077d584b7f1c82046ef96",
+      "surface_sha256": "59e33650763263ce95e31b6ad4cb28d4d70a75eac9a593217295908f63473039"
+    },
+    {
+      "module": "ncmemsim.independent_optical_validation",
+      "path": "ncmemsim/independent_optical_validation.py",
+      "source_sha256": "21af93ec16a4d03a5756f2814c8375497d434feb0be7676b181c67cc890c1f09",
+      "surface_sha256": "8cf3e72bc54c157e4088d2a7db1b043cc795025814976ab0b6766a31fae6f7f3"
+    },
+    {
+      "module": "ncmemsim.interoperability",
+      "path": "ncmemsim/interoperability.py",
+      "source_sha256": "d1d4750ee718f6871e7d37070f40c0e3ac9990e57d0f74f86736944f4123bff1",
+      "surface_sha256": "535b2da5e9321ccc9b9a76583cdf7e2d5d12922b775da6f17e087eb8d5f4cc6f"
+    },
+    {
+      "module": "ncmemsim.interoperability_comparison",
+      "path": "ncmemsim/interoperability_comparison.py",
+      "source_sha256": "897a702e373ea860da21e0098be5ae9cdc9bef0a362bec2caf3ba9667deb2987",
+      "surface_sha256": "e1afa196f6b17beb6e669ffe095a576365db332ae4528ee0b95add5df22f5be7"
+    },
+    {
+      "module": "ncmemsim.io",
+      "path": "ncmemsim/io.py",
+      "source_sha256": "9396778389fbb4eb191cb17d94fd7d7e998ab725aac25c1d75d58abb318ed70c",
+      "surface_sha256": "fc1154c6d011fc097484813a8db0161ef24dc9f1f5b4274543a8c3aea3066afc"
+    },
+    {
+      "module": "ncmemsim.kinetics",
+      "path": "ncmemsim/kinetics.py",
+      "source_sha256": "db3733dc68b1ff5bc5f78ade1e301d6dbd6d84801356f99022a1c2308c85e535",
+      "surface_sha256": "f1aa565c3f61abde0f418b14a8b5a14fc126cff4b5f8d2095ac522381fb7ce9f"
+    },
+    {
+      "module": "ncmemsim.layers",
+      "path": "ncmemsim/layers.py",
+      "source_sha256": "01a0ac9eb97dbdc2b815bf2c1f06fbabfe922b8c4a7737dd286e6b8381a6bc5d",
+      "surface_sha256": "e9b891e9d9abbee060349c7daccfb31467c436232908da3b28f9a825fb232b37"
+    },
+    {
+      "module": "ncmemsim.materials",
+      "path": "ncmemsim/materials/__init__.py",
+      "source_sha256": "51ca0348e78a588459e5ba1cbbce1d7a0f949f4fdf795615106eaefd6b7ae7b8",
+      "surface_sha256": "dc0083648e8244e299829e00990f1b59c75d8ac00ae4d66ac176282af68fa567"
+    },
+    {
+      "module": "ncmemsim.materials.band_alignment",
+      "path": "ncmemsim/materials/band_alignment/__init__.py",
+      "source_sha256": "3a895c7c8cac0b07a35433d52b68aed480776b99c061eed701a665fa56983296",
+      "surface_sha256": "c8620b017dabb1bf1161e7cc370d8c7794e0db587581963d5cb06467a1e38aab"
+    },
+    {
+      "module": "ncmemsim.materials.band_alignment.barriers",
+      "path": "ncmemsim/materials/band_alignment/barriers.py",
+      "source_sha256": "3490f7a8d658617a43a8db80f0464d3563ef1f186c43cff08cfcc9c91c6d2952",
+      "surface_sha256": "3c8d44ae8868b053e95cbcfd7e3bae304b5e9fd1cda171a19a0fdd197d76b49c"
+    },
+    {
+      "module": "ncmemsim.materials.base",
+      "path": "ncmemsim/materials/base.py",
+      "source_sha256": "96909b67dea2be50a505e0b52123667ef395cdcabbb3394d49516ffcd0bc97e2",
+      "surface_sha256": "cbc223676ec9819bac9c80229bb055e85c1df237ebbc3a689b96e8b992ffa440"
+    },
+    {
+      "module": "ncmemsim.materials.database",
+      "path": "ncmemsim/materials/database.py",
+      "source_sha256": "ed5c5a7647752e49b7e7c9621d137b0fb965ef74ea82af2ec070189ba7478c7c",
+      "surface_sha256": "2c939ff3da560c5cb39437fbc2a609d0bd5920531b94765d83c35e4df4d123e6"
+    },
+    {
+      "module": "ncmemsim.materials.interpolation",
+      "path": "ncmemsim/materials/interpolation.py",
+      "source_sha256": "36136b760ed3a89d431e43401eb2971155f2f91265350ddff652c7796ca87d96",
+      "surface_sha256": "82eab73ec677001f84f541a72b764f31a6de94fbfe421d68280c9ced86d38a1e"
+    },
+    {
+      "module": "ncmemsim.materials.models",
+      "path": "ncmemsim/materials/models/__init__.py",
+      "source_sha256": "602ea46f536a6a18dde16b9b5c2bb64b65718ff176b838e3dcac06367fb91c9e",
+      "surface_sha256": "76c67275c943dadfed47628e6f9a90788c4855e19daa108ef31f4c82c6e166cf"
+    },
+    {
+      "module": "ncmemsim.materials.models.ge",
+      "path": "ncmemsim/materials/models/ge.py",
+      "source_sha256": "f921b385f836ecd36ab564e0570d03d4b6f5794a350bb0ddb31ebd8d4fce1cb5",
+      "surface_sha256": "1d3441c26e101e16e492792548eae8c58176ae3cc5d40158d0aac9bcb127e008"
+    },
+    {
+      "module": "ncmemsim.materials.models.gesn",
+      "path": "ncmemsim/materials/models/gesn.py",
+      "source_sha256": "88242949c35e8ff01617508931f08ab53a13283e4c5cd5a5bc195227294f313b",
+      "surface_sha256": "251c67356af6f307a816cc12dd2e3106f22400db3315f435ce9a8995c2fa4279"
+    },
+    {
+      "module": "ncmemsim.materials.optics",
+      "path": "ncmemsim/materials/optics/__init__.py",
+      "source_sha256": "80c76f7384ff78e61612d777f4233f44a30c1ffb7f50a869a82e2e43d9b5d50a",
+      "surface_sha256": "5164e93c47d7573b04215fcac79497bba4ed0d3ebcd970dead9eb0ec76298aa7"
+    },
+    {
+      "module": "ncmemsim.materials.optics.domain",
+      "path": "ncmemsim/materials/optics/domain.py",
+      "source_sha256": "a6d813da53236059f9c34021dc56df315f1869be4c7e0b40b8098981a2f9fa96",
+      "surface_sha256": "9ab80aaa72480ad492fcf19edcbd5297b882fdfe232ec3f70605a157a741a108"
+    },
+    {
+      "module": "ncmemsim.materials.optics.models",
+      "path": "ncmemsim/materials/optics/models.py",
+      "source_sha256": "080838feb8e5176aead1204b30c9a28121593c23a07f67eca983beb90d8afd2c",
+      "surface_sha256": "08218f00f563447e3d054f7c762dfc468233bc156bdf231b1ad7a0693acab941"
+    },
+    {
+      "module": "ncmemsim.materials.optics.near_edge",
+      "path": "ncmemsim/materials/optics/near_edge.py",
+      "source_sha256": "65a78f2620ea77ebbf109ebebcb972e63dbd0a8ce2585362e1785671dc9e3819",
+      "surface_sha256": "f7db5fa39fe1edb90c08d15ab223aa34a8b5de00391f39c43a124aeb66a38e29"
+    },
+    {
+      "module": "ncmemsim.materials.optics.near_edge_calibration",
+      "path": "ncmemsim/materials/optics/near_edge_calibration.py",
+      "source_sha256": "25c642418e6e0199694b69c1d177d2b064d0728678128941ca802286e1a46c30",
+      "surface_sha256": "0adb23b158fd4866cb5cb8b8944ed956acbb441e48acbbc46389d860488bac5f"
+    },
+    {
+      "module": "ncmemsim.materials.optics.near_edge_fit",
+      "path": "ncmemsim/materials/optics/near_edge_fit.py",
+      "source_sha256": "09ccf5674e1aeaafd47ace64db14e31498a5c27118b682db7406a5c7662a0ac6",
+      "surface_sha256": "76ff8b9a6ff3b16ca6b2e14f0f79c961e9ac05aab019ad595a4b5169bc6636ff"
+    },
+    {
+      "module": "ncmemsim.materials.presets",
+      "path": "ncmemsim/materials/presets.py",
+      "source_sha256": "84c2503709a795869127c286bda98fe130d82b2d4b308a1b07d5186c1a4fa90c",
+      "surface_sha256": "3c47bc83779556c87b5959cee8b8f506686f4e386b1f3459a7f546b746f9685d"
+    },
+    {
+      "module": "ncmemsim.materials.provenance",
+      "path": "ncmemsim/materials/provenance.py",
+      "source_sha256": "73b4d955a0f8ada1e4968a1f0ab596c96bbe0f3bee4b55c3023f34154a97e52f",
+      "surface_sha256": "0e458953af871681914286e77b1392274cfcf044560223f66cb7c0927d505ff1"
+    },
+    {
+      "module": "ncmemsim.materials.registry",
+      "path": "ncmemsim/materials/registry.py",
+      "source_sha256": "54370715eb4c6724bf3f6dca9d8c5f5ca7fc42fd6819b6f6cf5643ae28af013f",
+      "surface_sha256": "b6795587dc923e441dab77b2293f16561ee597bc7d0a8259222790b20bcc27e1"
+    },
+    {
+      "module": "ncmemsim.materials.structural",
+      "path": "ncmemsim/materials/structural.py",
+      "source_sha256": "b642060fa14137b78d0fc7367c2279cfbbbbcb12c22b133b762e61523d115459",
+      "surface_sha256": "9083794e480715655cba5897d44733a6788ccebc74f908e0bffda3b6c9f9336c"
+    },
+    {
+      "module": "ncmemsim.materials.structural_confinement",
+      "path": "ncmemsim/materials/structural_confinement.py",
+      "source_sha256": "e2efa5354fef9978e945b4a9bb05a89a873ca221e051b67afc1aa21e2a4f5ba1",
+      "surface_sha256": "ccd883c01fb6dec9e80f5b7e6558df30fd1412a9045416828c106d0507b82515"
+    },
+    {
+      "module": "ncmemsim.materials.structural_strain",
+      "path": "ncmemsim/materials/structural_strain.py",
+      "source_sha256": "fb17a3c8865f8ca9d2dac55c3d8a88b8b72d22c0320db38d988284ba7a8f3a02",
+      "surface_sha256": "a5e4e774ed9c9089597da2ec3a67e13bf5c2457cd5ebc74d42d87e50e53c03fa"
+    },
+    {
+      "module": "ncmemsim.materials.temperature",
+      "path": "ncmemsim/materials/temperature.py",
+      "source_sha256": "4dcc5f0645cfe60e070bdab839859d6756acdd20ca8758e67d9ecb63c6c43159",
+      "surface_sha256": "5365c7e62e16e2ba3a8ef021e385500175aa216e3a107d1f7d790b3f4bd70589"
+    },
+    {
+      "module": "ncmemsim.multilevel_analysis",
+      "path": "ncmemsim/multilevel_analysis.py",
+      "source_sha256": "fd28bd362236be76bb1e46f97ab7b6c5e2b5aef155bd4acee9d8a119a62c1def",
+      "surface_sha256": "608e47b25fee8d5ae7c76a6ae8c1a75787a84b178d3d7610a7639152580e062d"
+    },
+    {
+      "module": "ncmemsim.multilevel_contracts",
+      "path": "ncmemsim/multilevel_contracts.py",
+      "source_sha256": "e31128f87e95eb9d2e18d3e4b14e9e0bc6bc8b9d55f613af0da48769b2a821f0",
+      "surface_sha256": "475f82be86c7bc7c9ff7fc7e1449539a53bebe0917d24c5c5b594ed34709b720"
+    },
+    {
+      "module": "ncmemsim.multilevel_ensemble",
+      "path": "ncmemsim/multilevel_ensemble.py",
+      "source_sha256": "f93f67f661cf52defa8c590213fa0e688d2b77ed5e9e38533c42f29a844af57c",
+      "surface_sha256": "e80d9a1a803c51a1ea49ee0fd4858b64c15734f0b63c3252e168bb09b2ac65b0"
+    },
+    {
+      "module": "ncmemsim.multilevel_execution",
+      "path": "ncmemsim/multilevel_execution.py",
+      "source_sha256": "dc94718cb39e38d56126dc6b58e392b80a79281efefd80b9d53b1916848712e1",
+      "surface_sha256": "0aa9b13612409b680dcbe82074dc40e6d38900bf446adc5beb119e9e1478c711"
+    },
+    {
+      "module": "ncmemsim.multilevel_optical",
+      "path": "ncmemsim/multilevel_optical.py",
+      "source_sha256": "8be2a61656fb14a59dd70805a2e32429f02d37fd9f199f63a1bbf3d0a5d71828",
+      "surface_sha256": "325579b88b679595f63582972fecca14e4fc4c85483861485deb289974018e13"
+    },
+    {
+      "module": "ncmemsim.multilevel_reporting",
+      "path": "ncmemsim/multilevel_reporting.py",
+      "source_sha256": "6a831ee97be3b11b81a703614c7b40e084ec5ba87b8443c64e3c89307f71a2e5",
+      "surface_sha256": "5ab8aff86dc81990891a5cc9ae525e3d69181b506216512d8677fc3301ba6399"
+    },
+    {
+      "module": "ncmemsim.multilevel_retention",
+      "path": "ncmemsim/multilevel_retention.py",
+      "source_sha256": "a62cde0c3f64ba56d9fcfd2f795a8d70d8cc401b10b6f6ee6d4e44cab80e5ed0",
+      "surface_sha256": "6ac16cdda04e7dac231b872aa1514c8a555b357b1b531a8b26177df9f0e5b1e5"
+    },
+    {
+      "module": "ncmemsim.multilevel_updates",
+      "path": "ncmemsim/multilevel_updates.py",
+      "source_sha256": "d52632201479e4fb37fe992e949e4f20ffbf4ec172cedce84e122b0afa13798b",
+      "surface_sha256": "60e26ae5e5aede31691f464a81cae163a11384d6e44a52373b2f19f77e86a22c"
+    },
+    {
+      "module": "ncmemsim.om2_numerics",
+      "path": "ncmemsim/om2_numerics.py",
+      "source_sha256": "4b18b9e8d3d1d8ddda25a493750becbe78d9ee10bd633078d2d93764d1a52085",
+      "surface_sha256": "4424085717022fa965754525e4e497a6599fe080de6e780da6db1fe050875f24"
+    },
+    {
+      "module": "ncmemsim.om2_reporting",
+      "path": "ncmemsim/om2_reporting.py",
+      "source_sha256": "59455fd3542747099ee5b27fb65cf9b5fd63f3ebc39b5940b008b5ed1f5349ad",
+      "surface_sha256": "30bdeacb5bee0a8c81dbbb9ca68bdc525555d4b8beedb44d502f78d829cf99d1"
+    },
+    {
+      "module": "ncmemsim.om2_sweep",
+      "path": "ncmemsim/om2_sweep.py",
+      "source_sha256": "7663f53b7c0400b109f78e84b706b72bd713f0410ae992e90e14fd384f182aa5",
+      "surface_sha256": "1dc9f332aed968d035210592ae1a7a2ded9905d166eca77a38032b93a4d781bf"
+    },
+    {
+      "module": "ncmemsim.optics",
+      "path": "ncmemsim/optics.py",
+      "source_sha256": "8a2cf82681274cacc5151d60024148b390f0a920c0f19b9b121ee79237b17681",
+      "surface_sha256": "f5770ae2b5a5928a6ebd43708373c9b6fc4be15342f384273b4ffc9f63f693ce"
+    },
+    {
+      "module": "ncmemsim.paired_pulse_protocol",
+      "path": "ncmemsim/paired_pulse_protocol.py",
+      "source_sha256": "7c877d4f9a50acd5eebca8548bc05d394d835f2da33d6b979958556d43e49eee",
+      "surface_sha256": "f6a7fc92611cc28e18433c9d7c2ad41ab93864f0169571d8f2ef749d4a7d1ffb"
+    },
+    {
+      "module": "ncmemsim.performance_contracts",
+      "path": "ncmemsim/performance_contracts.py",
+      "source_sha256": "b9131b295fba96421b0b986565a0c064d3cfd4dbc8db893e209a1fb305697e7f",
+      "surface_sha256": "5a362f2318ed05012ef72a3b43a69ce25a191df519bb01718fa1f2f8fb9b43fa"
+    },
+    {
+      "module": "ncmemsim.performance_execution",
+      "path": "ncmemsim/performance_execution.py",
+      "source_sha256": "af6c57d285ae90874cc85892ff2e08df7a3d3273a2964f636345d789d4e13e18",
+      "surface_sha256": "e4e907fc2d6dfb67cf1b17c01e9040cc85ff330344ed5e30d5ba832a1905cd28"
+    },
+    {
+      "module": "ncmemsim.performance_reporting",
+      "path": "ncmemsim/performance_reporting.py",
+      "source_sha256": "0d35a14333890747703e1cb9ddf648fc804bdf1fa145b90056a6bc0dae80788c",
+      "surface_sha256": "e91c96ae6d6079dd7d13ecadff69d104ae928d7c68913f2bc0aef0c368a5cc96"
+    },
+    {
+      "module": "ncmemsim.performance_workloads",
+      "path": "ncmemsim/performance_workloads.py",
+      "source_sha256": "d12f48e9b579fb08c26ff68e4a5fa610d1eb14c35edad2a609efc2e4dd291db2",
+      "surface_sha256": "8dc19b306bcd151a5b98f6ee722bb0507564fe00df4d35987b01b7425cb9dca3"
+    },
+    {
+      "module": "ncmemsim.photo",
+      "path": "ncmemsim/photo.py",
+      "source_sha256": "b9aef62319556ab8a49d5caee48e8aa3d1d8b7e9ed83699f797b64b8116f26ba",
+      "surface_sha256": "85709f4c0f65d408104f0d5bf26071da49b97ff4090eda78ff0c538c07037ab0"
+    },
+    {
+      "module": "ncmemsim.photo_calibration",
+      "path": "ncmemsim/photo_calibration.py",
+      "source_sha256": "0fab82700472d249de765c7e1df982e0e86efd333c0dc838db75ee5b68583ab6",
+      "surface_sha256": "1542339f779265ca4f3c65e4fee6102d6cd9081587ba2cc4cfe88788917dd5bf"
+    },
+    {
+      "module": "ncmemsim.photo_program_fit",
+      "path": "ncmemsim/photo_program_fit.py",
+      "source_sha256": "6520568ec1de53b9bf5acf566278901e846e89539448dc74a94b70d566b1239c",
+      "surface_sha256": "b1f7a14894a849effbf2efa350428de525edcee4d7fed66a87e8e5a291f58064"
+    },
+    {
+      "module": "ncmemsim.physics",
+      "path": "ncmemsim/physics.py",
+      "source_sha256": "0bf3e8e7bc8a0b32b0bae24d4e2f583abb4d16e0e85ab654940f582afa513b37",
+      "surface_sha256": "23961983416b962d3b98af13b6180cb994c9df550afb37e2f5d76e982e77199f"
+    },
+    {
+      "module": "ncmemsim.plotting",
+      "path": "ncmemsim/plotting.py",
+      "source_sha256": "6834ad8493f72becef1b8f4e8e22f76f51f38d546a8b79b8889e4d9a9094fcf9",
+      "surface_sha256": "4b8913c9622cb52dedac363fc599b6b301da3c35a73cf146e768ccac266357d9"
+    },
+    {
+      "module": "ncmemsim.program_fit",
+      "path": "ncmemsim/program_fit.py",
+      "source_sha256": "bedf222ccc32ab14f317008900527d8b95af1aebadda9ed435a3cec0db3c8ab2",
+      "surface_sha256": "ee070a83e720be7c30ff8ff6628508905b89a1eab2f7e91d04d8eeaf5c231514"
+    },
+    {
+      "module": "ncmemsim.program_protocol",
+      "path": "ncmemsim/program_protocol.py",
+      "source_sha256": "43fc7a1ca0b6f073fc93e703c66376b1182923b5fa19f32e7a4cd1f9568bab64",
+      "surface_sha256": "5d867d6f8790e997a86c43cfa383cde118eeaa5229f86b8c231426981ac51bf3"
+    },
+    {
+      "module": "ncmemsim.pulse_memory_fit",
+      "path": "ncmemsim/pulse_memory_fit.py",
+      "source_sha256": "3d3fd231a90951db526fb1ff57b02ac80ab66b8feae4293d50b4f2f756352916",
+      "surface_sha256": "04b00be20d7b7cb23cc8d04d9943f64ebfff1590db400cb75d867e21363f4a37"
+    },
+    {
+      "module": "ncmemsim.reference",
+      "path": "ncmemsim/reference.py",
+      "source_sha256": "5d54fa44ddb1da2ffa830c33d612169b24c776353fbc638557a7a238e5c0b87c",
+      "surface_sha256": "ef801bf1d5ec5040f7e711f1654e81bd7636f57baa3951028f6ae7033c926a18"
+    },
+    {
+      "module": "ncmemsim.reproducibility",
+      "path": "ncmemsim/reproducibility.py",
+      "source_sha256": "40c6ea634ce3f1bcd6f569c1a2b96ed08ba93c03740fea0ad2ab07fc5b1484fb",
+      "surface_sha256": "7bf32e945db11b8f4a2e9387f4fbea29e5715f4349feabbe0c8408be6a119383"
+    },
+    {
+      "module": "ncmemsim.retention",
+      "path": "ncmemsim/retention.py",
+      "source_sha256": "843e85cd591547d26a8bbe6e11ec06d91e510c190e039eff62cafc3358bc799e",
+      "surface_sha256": "b8ac00932f1d57788a525ac0f9ab6263ea584dd5f0b8423eef88ea939fd19bfb"
+    },
+    {
+      "module": "ncmemsim.retention_fit",
+      "path": "ncmemsim/retention_fit.py",
+      "source_sha256": "b1e7d3dd05354ac1ed26c8a16a0eaddaa2af382b61489894c1fb8dac280b16ee",
+      "surface_sha256": "171623649485e941493c90d8c484c97d791440380c429f00e158ef7419c23860"
+    },
+    {
+      "module": "ncmemsim.simulator",
+      "path": "ncmemsim/simulator.py",
+      "source_sha256": "76283adca7ae543bf38595220ddd6a483739ced51a59a17857524384be237fb7",
+      "surface_sha256": "e506ced499f93eac8d0a2a452d76dd7aad2713ec5132dcc033f0dabcb53fca27"
+    },
+    {
+      "module": "ncmemsim.spectral_absorption",
+      "path": "ncmemsim/spectral_absorption.py",
+      "source_sha256": "d2a90308f5d4b4323fefc2f7030d6ab284d54ae2a2e39a769d063e1c19f53e75",
+      "surface_sha256": "b67fd96a9e83608d3bdb43addd67947a016c9dbb86cdbe68b623ba05b860bff9"
+    },
+    {
+      "module": "ncmemsim.spectral_context",
+      "path": "ncmemsim/spectral_context.py",
+      "source_sha256": "dded2ae1d156d7d997173db094c698541dd694a312398ec009bc3b3addac1ed2",
+      "surface_sha256": "665a4be55e942e53b57a8ad7f162727ed86792c2d651422a405f0b96af566c3d"
+    },
+    {
+      "module": "ncmemsim.spectral_reporting",
+      "path": "ncmemsim/spectral_reporting.py",
+      "source_sha256": "3a8b990c64a2553c317083280729555d2e80900ad9d6a0db888f08e12803a016",
+      "surface_sha256": "64a35192df2ba5e8bf25601a58a12da3102ca83dcb4670ebf9470df10cbb04fe"
+    },
+    {
+      "module": "ncmemsim.spectral_sources",
+      "path": "ncmemsim/spectral_sources.py",
+      "source_sha256": "1f3ca387079210c749c429065911fe8cc86fd23ea94864b670167c745a0f6a02",
+      "surface_sha256": "a1c4c9ebfc7be96b3cef106617c3e8f5bc0495c2eaa68fdb9f77870484e2a097"
+    },
+    {
+      "module": "ncmemsim.spectral_stack",
+      "path": "ncmemsim/spectral_stack.py",
+      "source_sha256": "38d14b470759e4b3542a8c2ce314e3de1df3e813d80f16195ebaf841da273e81",
+      "surface_sha256": "c71410920ad2751b04d82349d99683ce6af3ec5bee798ed1a0549b9b6498801c"
+    },
+    {
+      "module": "ncmemsim.state",
+      "path": "ncmemsim/state.py",
+      "source_sha256": "72833e6b85f846168d7d8de26b99d3771981d0900403b4d91524c4621bf744db",
+      "surface_sha256": "5bae0bea6793d0dacc21166462db2c4aade229d605738c79374a96ddd9b0db55"
+    },
+    {
+      "module": "ncmemsim.structural_optical_context",
+      "path": "ncmemsim/structural_optical_context.py",
+      "source_sha256": "2fcc1ecb52b1192fdeb5d3dcc8c6af401c64d89c17a155ed94374e899cd267a3",
+      "surface_sha256": "3a4ca6ccce39793847fd808dd4f6ec41a24ed687f20bfe4c630b632425fc26c4"
+    },
+    {
+      "module": "ncmemsim.structural_reporting",
+      "path": "ncmemsim/structural_reporting.py",
+      "source_sha256": "98dd8f15a9006abd48be8c7ad93bc52b702f731ed345600be1f3f40bc2d50fa6",
+      "surface_sha256": "a6413a83ebe7442b5d1171c9bf7691c97891d908f50705a05e5e652b3bb5f87f"
+    },
+    {
+      "module": "ncmemsim.temperature_context",
+      "path": "ncmemsim/temperature_context.py",
+      "source_sha256": "57cd71a301593d127b43aa9cfc1e43f690359432d4d0cf4fa9c787908874d98c",
+      "surface_sha256": "4fd0d83ff94d2e1c6e21982638aa6344410f68b62cb6d51aaccd43b95a3bd3f9"
+    },
+    {
+      "module": "ncmemsim.thermal_dtco",
+      "path": "ncmemsim/thermal_dtco.py",
+      "source_sha256": "df8c631b4ac416b9fe6391b19608e45587fecfc137c351e8c46df0709c208a7f",
+      "surface_sha256": "89bab29ce3d191feab8f98100c40511310106cd6e07440dd8baf91bfe2ca669a"
+    },
+    {
+      "module": "ncmemsim.thermal_reporting",
+      "path": "ncmemsim/thermal_reporting.py",
+      "source_sha256": "7aeec97b4dd6f5334ed1994b68b41d70ecb82280331d2316e739b781de4d372e",
+      "surface_sha256": "bb7b7c0ab11fe7baf61d8a227b8e2ea4e9af26bed449ae2962f584ae6405bf84"
+    },
+    {
+      "module": "ncmemsim.transport",
+      "path": "ncmemsim/transport/__init__.py",
+      "source_sha256": "e5eb3db8701807ede2618977274df5c1348811564d66c73e2b24a21f015eb9d6",
+      "surface_sha256": "3b448673418ef8a13482178aa7532e6a895692dda0f8de0675e5a9e4723ec8fc"
+    },
+    {
+      "module": "ncmemsim.transport.barrier_corrections",
+      "path": "ncmemsim/transport/barrier_corrections.py",
+      "source_sha256": "212adae3eec118b315c7dde3015fd36d03ef7a76a24704ebd804bd74c2aa7ffe",
+      "surface_sha256": "2206b6d129dca8e03252e87e241a6397c75f00b7474cd31db6ed41e1a134166d"
+    },
+    {
+      "module": "ncmemsim.transport.base",
+      "path": "ncmemsim/transport/base.py",
+      "source_sha256": "3d30f54814c311a93efc6077ec117f03c421b5d0103669c50da61e32e69dd2ee",
+      "surface_sha256": "722d0485928ad9e31dd94be6a61b4a1e463c73a8058f38cdfcddd6e6a83a1d98"
+    },
+    {
+      "module": "ncmemsim.transport.engine",
+      "path": "ncmemsim/transport/engine.py",
+      "source_sha256": "addf847cb3c236853b5be7da51832a10f0064e8f3637076dcee84b95bff04809",
+      "surface_sha256": "e9d0326e2a63db8dc957444611687b9c8bfbf4b1b28c8118fbbb5510c1f719b8"
+    },
+    {
+      "module": "ncmemsim.transport.integration",
+      "path": "ncmemsim/transport/integration.py",
+      "source_sha256": "e00473efb462cfb0b6bf9d9030a71777d8c38ba0f2301f0daf6e6e091badf2e6",
+      "surface_sha256": "38ae02c2e2b5336fdf1f43e01059cebc9dbfa744cdd150d8d2ce51457176b786"
+    },
+    {
+      "module": "ncmemsim.transport.link",
+      "path": "ncmemsim/transport/link.py",
+      "source_sha256": "0f84d630e7594b1094e82409498e0af0ede57894595ebc928140dac9f43bc27b",
+      "surface_sha256": "a59853abd4630475f3ee3cea6e1a872fcd9f96e96a27424a4afe24b6cfb175c6"
+    },
+    {
+      "module": "ncmemsim.transport.network",
+      "path": "ncmemsim/transport/network.py",
+      "source_sha256": "c2f8b60e4fd7ecaf0633a0cae8767c08fdb66771326ad18160db13eb7f41a73b",
+      "surface_sha256": "56e5e07d3577e3ef5464fdfe2bd0c144a0318aac19f50159fb8b5fbdd2f4df63"
+    },
+    {
+      "module": "ncmemsim.transport.rates",
+      "path": "ncmemsim/transport/rates.py",
+      "source_sha256": "73cec8a5f1b641796b850f82b07a1acf0f03acbcce994350ac27514479e6e46f",
+      "surface_sha256": "4d12d20619960dfd491eb193126859473716c373282b499aae0f1a7944a24267"
+    },
+    {
+      "module": "ncmemsim.transport.reporting",
+      "path": "ncmemsim/transport/reporting.py",
+      "source_sha256": "7da99de30dd5f55a0198ce35feba01a07372cf765c3d26bc5aeacb079570dc30",
+      "surface_sha256": "468e67a9553bafbdadffe7904512287173bdea912bf684bae91cf546ae03edca"
+    },
+    {
+      "module": "ncmemsim.transport.tat",
+      "path": "ncmemsim/transport/tat.py",
+      "source_sha256": "10d6150a612136ce062e1dd8419d3afea52c4b8d8b681d6e56ecc9f5db6f1633",
+      "surface_sha256": "9f08af30ec644106e706ad08ee21aae29ff4c5832b8e6f245c84f309f0bbe4dc"
+    },
+    {
+      "module": "ncmemsim.transport.traps",
+      "path": "ncmemsim/transport/traps.py",
+      "source_sha256": "c4df5d51377625c4dd9065a9e9d897276b1268284d6259ef203404605313193b",
+      "surface_sha256": "f8151909b35432740ba5c1ec3fbaba2745168027cc522bf54e59d9260bd01f8c"
+    },
+    {
+      "module": "ncmemsim.transport.validation",
+      "path": "ncmemsim/transport/validation.py",
+      "source_sha256": "2f66f9acac578051a2913f88e3df245e709a2cfbc31fb215e3695d748a061d50",
+      "surface_sha256": "ad3fa3fe1a5360e4fe6996affbbd0aced79279b780be08b72f4637a18c138857"
+    },
+    {
+      "module": "ncmemsim.tunneling",
+      "path": "ncmemsim/tunneling.py",
+      "source_sha256": "c763a6637f9b44c7c91715b7b577e9acf7e6e67f9d275b1b7eabd34c6b62f90a",
+      "surface_sha256": "fb369a11ad718686b8cc872b2add415ca19b4d9723cf4f3b53aa148fb44bc1b1"
+    },
+    {
+      "module": "ncmemsim.validation",
+      "path": "ncmemsim/validation.py",
+      "source_sha256": "87727788f128f6cc5fb119a8f954e7da79e28a01eacf8e753efea97245992016",
+      "surface_sha256": "f096296a471633ee16d1f6db1a84a4af391b89b6ee45ec12b76986033f1d77fa"
+    },
+    {
+      "module": "ncmemsim.workflows",
+      "path": "ncmemsim/workflows/__init__.py",
+      "source_sha256": "a41e2bdcc6f93530ed1e6de2a3b8356425023b56f07fc9a36b97fea7d716315e",
+      "surface_sha256": "3f32da7d420a46e3f32e1658b634843144449e2dba7dffe0c6087f16914debec"
+    },
+    {
+      "module": "ncmemsim.workflows.application",
+      "path": "ncmemsim/workflows/application.py",
+      "source_sha256": "7142aac8240c74bf67f329e0a6c3602b7b89273c5569e0528c5693db6dd28ac7",
+      "surface_sha256": "a2e3701f99cae9e9749667f9030068ba949a49b815b5efa20bd292f86c578190"
+    },
+    {
+      "module": "ncmemsim.workflows.evidence",
+      "path": "ncmemsim/workflows/evidence.py",
+      "source_sha256": "557ea89be406cb1cb4aa0b3b7305c8e8efb675558776c8474afdf2bf41e80f07",
+      "surface_sha256": "3f22166f620b7183a8e4b7e05f38c769ef864055ab534c48cb42adf2e395bf88"
+    },
+    {
+      "module": "ncmemsim.workflows.reporting",
+      "path": "ncmemsim/workflows/reporting.py",
+      "source_sha256": "d171ab7d53c3c11fb4511f2a9be681db33ea522836095725e72645b3b52e35fb",
+      "surface_sha256": "398e5541a8e1d258055e4e55c5e8cf4792a9f5f4b7ecf51e499005c01ef078fe"
+    }
+  ]
+}

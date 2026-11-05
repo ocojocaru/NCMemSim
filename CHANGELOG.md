@@ -2,9 +2,56 @@
 
 All notable changes to NCMemSim are documented in this file.
 
-## Unreleased
+## 1.10.0 - Unreleased
 
-No additional changes recorded.
+Final candidate dated 2026-11-04; publication and version DOI are pending.
+Independent experimental qualification remains deferred.
+
+- Prepare Phase S7 v1.10 additive API/source compatibility review, frozen S6
+  regression archive and installed-distribution gates. Package/citation identity
+  was retained at 1.9.0 during preparation; the final candidate uses 1.10.0.
+  No publication is claimed.
+
+- Add Phase S6 owned isolated barrier reports, strict source/summary restoration,
+  retained failed/mismatched/unavailable cases and deterministic JSON/Markdown/CSV
+  bundles with manifest and projection verification; no simulator/provider replay.
+
+- Add Phase S5 isolated barrier sensitivity and factorial thickness/energy controls,
+  independent Decimal references, subdivision invariance and complete failure accounting.
+  No transport default, material law or experimental qualification changes.
+
+- Add Phase S4 snapshot-bound opt-in direct inter-FG profile replacements,
+  explicit physical-layer/contact/length checks, preserved legacy diagnostics,
+  link-local numerical failure accounting and the existing conservative update.
+  Disabled paths retain the published baseline. Substrate injection, TAT/image-force
+  composition, automatic field-to-barrier laws and new microscopic current models
+  are outside this first integration.
+
+- Add Phase S3 controlled multilayer references: discontinuities and mass steps,
+  segment splitting, same-energy reversal, energy-zero and mass-scaling invariants,
+  published-kernel comparisons and nonlinear-profile refinement. Retain the
+  near-flat published TAT mismatch, direct-kernel floor and unresolved profile-grid
+  error as evidence; do not change any transport kernel or physical parameter.
+
+- Add Phase S2 isolated positive-segment WKB action evaluation with stable
+  near-flat algebra and scaled products, finite action/exponent/log-transmission
+  diagnostics, explicit transmission underflow and retained numerical failures.
+  Source-linked results retain accepted original values within a fixed narrow
+  cross-platform roundoff budget; no device current or simulator attachment.
+  Use unique model/thermal probe directories to avoid reused-PID collisions
+  between installed wheel and sdist checks.
+
+- Add Phase S1 owned electron barrier provenance, segment/profile and inert
+  evaluation-request contracts, explicit signed eV-to-J conversion, energy-reference
+  and reversal rules, equation review and installed-distribution probes. Preserve
+  all 146 published v1.9 source modules with an independently pinned source/surface
+  baseline; no WKB evaluator or simulator attachment is introduced.
+
+- Define Phase S0 explicit barrier-profile and transport diagnostic scope, with a
+  source-hashed audit and conditional S1-S7 acceptance sequence. No runtime or
+  material parameter changes; next version remains provisional.
+- Reconcile post-v1.9 roadmap and vision: distinguish published M/N/O/Q/R
+  capabilities from remaining research and deferred experimental qualification.
 
 ## 1.9.0 - 2026-10-26
 

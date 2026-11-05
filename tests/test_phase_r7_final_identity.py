@@ -4,17 +4,13 @@
 from pathlib import Path
 import shutil
 import pytest
-from scripts.validate_v1_9_release_identity import validate,validate_identity
+from scripts.validate_v1_9_release_identity import validate_retained as validate,validate_identity
 ROOT=Path(__file__).resolve().parents[1]
 
 
 @pytest.fixture
-def candidate_copy(tmp_path):
-    for folder in ('docs','ncmemsim'):
-        shutil.copytree(ROOT/folder,tmp_path/folder)
-    for name in ('README.md','CHANGELOG.md','CITATION.cff'):
-        shutil.copyfile(ROOT/name,tmp_path/name)
-    return tmp_path
+def candidate_copy(published_v1_9_copy):
+    return published_v1_9_copy
 
 
 def test_candidate_identity_and_retained_api():
