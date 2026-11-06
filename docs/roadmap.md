@@ -615,3 +615,16 @@ Historical v1.9 fixtures and the original S6 archive retain their identities.
 Independent experimental qualification remains deferred. Metadata closure commit
 46ec695 passed CI 42000134152 and Documentation 42000134173. The release tag and
 assets remain unchanged; this later documentation consolidation needs its own CI.
+
+## Phase T: finite-barrier confinement (T0)
+
+T0 defines the [finite spherical-well scope](finite_confinement.md) and
+[source/literature audit](finite_confinement_audit.json) after clean documentation
+commit b9ede096aa6c1e6f1094ebbab375f5d32db65d6b. The first target is an isolated
+single-carrier l=0 ground state with finite exterior potential, separate inside/
+outside masses and the full radial envelope matching condition. No-bound-state
+outcomes must remain distinct from numerical failures. Pair corrections and
+optical integration follow only after explicit acceptance gates; no Coulomb,
+multiband or material qualification is implied. T1-T7 are defined in that scope.
+No new API, solver, preset or release version is introduced by T0. Latest published
+stable remains v1.10.0; independent experimental P4B/P5B/P6B remain deferred.

@@ -1,0 +1,83 @@
+{
+  "schema_version": "phase-t0-finite-confinement-source-audit-v1",
+  "audit_date": "2026-11-06",
+  "status": "planning_and_literature_audit_only",
+  "baseline_commit": "b9ede096aa6c1e6f1094ebbab375f5d32db65d6b",
+  "source_hash_policy": "UTF-8 text normalized to LF; no BOM added",
+  "source_sha256": {
+    "ncmemsim/materials/structural.py": "b642060fa14137b78d0fc7367c2279cfbbbbcb12c22b133b762e61523d115459",
+    "ncmemsim/materials/structural_confinement.py": "e2efa5354fef9978e945b4a9bb05a89a873ca221e051b67afc1aa21e2a4f5ba1",
+    "ncmemsim/materials/structural_strain.py": "fb17a3c8865f8ca9d2dac55c3d8a88b8b72d22c0320db38d988284ba7a8f3a02",
+    "ncmemsim/materials/base.py": "96909b67dea2be50a505e0b52123667ef395cdcabbb3394d49516ffcd0bc97e2",
+    "ncmemsim/layers.py": "01a0ac9eb97dbdc2b815bf2c1f06fbabfe922b8c4a7737dd286e6b8381a6bc5d",
+    "ncmemsim/kinetics.py": "db3733dc68b1ff5bc5f78ade1e301d6dbd6d84801356f99022a1c2308c85e535",
+    "ncmemsim/structural_optical_context.py": "2fcc1ecb52b1192fdeb5d3dcc8c6af401c64d89c17a155ed94374e899cd267a3",
+    "ncmemsim/structural_reporting.py": "98dd8f15a9006abd48be8c7ad93bc52b702f731ed345600be1f3f40bc2d50fa6",
+    "ncmemsim/temperature_context.py": "57cd71a301593d127b43aa9cfc1e43f690359432d4d0cf4fa9c787908874d98c",
+    "tests/test_phase_o3_kinetic_confinement.py": "55585da946d5300cba6a9f6b942dc7bb9305256b811fa4ca79f9944ae9b19758"
+  },
+  "published_identity": "1.10.0",
+  "next_version": null,
+  "runtime_implementation_added": false,
+  "approved_material_presets": [],
+  "experimental_qualification": false,
+  "current_model": {
+    "geometry": "sphere",
+    "barrier": "infinite",
+    "energy": "h^2/(8*m*R^2)",
+    "masses": "independent electron/hole scalar m0 declarations",
+    "domain": "Ge only",
+    "gap_targets": [
+      "optical_gamma_gap",
+      "optical_l_gap"
+    ],
+    "interaction": "kinetic only"
+  },
+  "proposed_model": {
+    "scope": "isolated single-carrier l=0 ground state first",
+    "potential": "0 inside; explicit V0>=0 outside in an infinite homogeneous host",
+    "mass": "explicit positive inside/outside isotropic constants per carrier",
+    "hamiltonian": "-hbar^2/2 div((1/m) grad) + U",
+    "matching": "F and (1/m)dF/dr continuous; for u=rF match (u_prime-u/R)/m",
+    "eigencondition": "x*cot(x) + beta*y + beta - 1 = 0",
+    "beta": "m_in/m_out",
+    "rho": "R*sqrt(2*m_in*V0)/hbar",
+    "x": "R*sqrt(2*m_in*E)/hbar",
+    "y": "sqrt((rho^2-x^2)/beta)",
+    "bound_domain": "0<E<V0; 0<x<min(pi,rho)",
+    "equal_mass_threshold": "rho>pi/2; equality is not a normalizable bound state",
+    "unequal_mass_threshold": "rho_c*cot(rho_c)+beta-1=0, rho_c in (0,pi)",
+    "planned_outcomes": [
+      "bound",
+      "no_bound_state",
+      "threshold_unresolved",
+      "numerical_failure"
+    ]
+  },
+  "references": [
+    {
+      "identifier": "10.1103/PhysRev.152.683",
+      "url": "https://doi.org/10.1103/PhysRev.152.683",
+      "inspected": "publisher metadata/abstract only",
+      "fulltext_access": "authorization error"
+    },
+    {
+      "identifier": "arXiv:cond-mat/9902310",
+      "url": "https://arxiv.org/pdf/cond-mat/9902310",
+      "inspected": "author full text section II equations 1, 7-13; screenshot unavailable",
+      "role": "finite spherical mass-step matching framework; no numerical material parameters adopted"
+    },
+    {
+      "identifier": "arXiv:cond-mat/0609193",
+      "url": "https://arxiv.org/abs/cond-mat/0609193",
+      "inspected": "abstract only",
+      "role": "multiband scope warning; Si/SiO2 is not Ge qualification"
+    }
+  ],
+  "pending_review": [
+    "units/serialization and predeclared numerical thresholds in T1",
+    "Ge/host electron/hole masses and offsets with independent provenance",
+    "valley/hole branch and radius/temperature applicability",
+    "conditional optical composition and no-double-counting contract"
+  ]
+}

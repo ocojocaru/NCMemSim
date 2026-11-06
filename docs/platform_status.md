@@ -57,4 +57,6 @@ contracts, source hashes and original fixtures retain their original scope. They
 are not current total test counts or claims that a previously completed stage is
 still pending. See the [documentation inventory](documentation_status.md).
 The [roadmap](roadmap.md) separates delivered work from remaining research.
-No next release version or Phase T is assigned by this documentation update.
+Subsequent [Phase T0 planning](finite_confinement.md) selects finite-barrier
+confinement as the next research direction. It is not implemented or part of the
+published v1.10.0 runtime. The next release version remains undecided.

@@ -4,6 +4,10 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Define Phase T0 finite-barrier spherical confinement scope, source/literature
+  audit, mass-discontinuity matching and staged validation requirements.
+  No solver, API, material preset, simulator change or release-version selection.
+
 - Consolidate documentation against published v1.10.0: current capability map,
   delivered/research roadmap, explicit default/opt-in boundaries and scoped
   historical evidence. No runtime, parameter, archive or release-identity change.
