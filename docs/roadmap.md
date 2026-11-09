@@ -631,4 +631,6 @@ stable remains v1.10.0; independent experimental P4B/P5B/P6B remain deferred.
 
 T1 adds the isolated request, per-input evidence and prospective numerical policy.
 T2 implements isolated ground-state evaluation and validates it against independent
-roots and a refined radial grid. T3 covers controlled carrier and pair studies.
+roots and a refined radial grid. T3 adds a controlled comparison of finite and
+infinite barriers, with separate radius, depth and mass sweeps and explicit
+unavailable pair sums. T4 remains the conditional optical integration stage.

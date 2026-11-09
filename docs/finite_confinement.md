@@ -107,6 +107,31 @@ discretized radial eigenproblem with domain/grid refinement, not only a second c
 to the production equation. An exterior cutoff belongs to the independent numerical
 reference and needs convergence evidence; it is not the production host model.
 
+## T3 controlled carrier and pair study
+
+Run from the repository root to produce a JSON record of the controlled cases.
+
+```shell
+python examples/phase_t3_finite_confinement_reference.py --output outputs/t3_reference.json
+```
+
+The electron baseline uses a radius of 2 nm, a well depth of 0.8 eV and
+inside/outside masses of 0.2 times the free electron mass. Four sweeps vary
+radius, well depth, inside mass and outside mass individually. The
+infinite-barrier comparison uses the same radius and inside mass, with
+energy `h²/(8 m_in R²)` relative to the well bottom. The 10,000 eV
+depth is an artificial limit check. The 0.05 eV control has no bound state.
+Energies are exported in joules alongside the original requests, solver
+status and, for bound states, penetration depth and interior/exterior probabilities.
+
+The pair study uses the same radii (1, 2 and 4 nm) for both carriers.
+The hole fixture uses a depth of 0.15 eV and inside/outside masses of 0.4
+times the free electron mass. At 1 nm the electron has a bound state and
+the hole has none, so the finite kinetic sum is unavailable. The 2 and
+4 nm cases retain both carrier energies and their sum. All inputs are synthetic.
+The pair sums describe independent-particle kinetic confinement only.
+Optical transition energies and excitonic effects remain outside the study.
+
 ## Optical interpretation and integration gate
 
 Only if both explicit electron and hole problems have accepted bound states may

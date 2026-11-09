@@ -4,6 +4,9 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add the Phase T3 synthetic finite/infinite spherical-well study with
+  separate radius, depth and mass sweeps and explicit unavailable pair sums.
+
 - Add the Phase T2 isolated finite spherical-well ground-state evaluator,
   threshold classification, bracketing diagnostics and exterior normalization.
 
