@@ -49,6 +49,10 @@ def build_review(root):
     report=_archive(root)
     inventory={m['module']:m for m in build_inventory(root)['modules']}
     expected={row['module'] for row in _json(root/'docs/v1_9_published_surface.json')['modules']} | set(MODULES)
+    # Admit the named T1 extension separately from the published v1.10 review.
+    t1_path = root / 'ncmemsim/materials/finite_confinement_contracts.py'
+    if t1_path.is_file():
+        expected.add('ncmemsim.materials.finite_confinement_contracts')
     if set(inventory)!=expected:
         raise ValueError('unreviewed additive module set')
     surface=[]

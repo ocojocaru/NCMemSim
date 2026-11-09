@@ -628,3 +628,6 @@ optical integration follow only after explicit acceptance gates; no Coulomb,
 multiband or material qualification is implied. T1-T7 are defined in that scope.
 No new API, solver, preset or release version is introduced by T0. Latest published
 stable remains v1.10.0; independent experimental P4B/P5B/P6B remain deferred.
+
+T1 adds the isolated request, per-input evidence and prospective numerical policy.
+T2 covers ground-state evaluation and comparison against independent references.

@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 150 package source modules; 788 explicit export paths; 267 distinct documented Python import paths.
+Coverage: 151 package source modules; 790 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3154,6 +3154,37 @@ Decorators: `dataclass(frozen=True)`.
 No explicit export list; documented entry points need individual approval.
 
 - `get_base_property(material: str, property_name: str) -> MaterialProperty`
+
+## ncmemsim.materials.finite_confinement_contracts
+
+`ncmemsim/materials/finite_confinement_contracts.py`
+
+Explicit exports: `FiniteConfinementRequest`, `confinement_depth_eV_to_J`
+
+- `confinement_depth_eV_to_J(depth_eV)`
+### FiniteConfinementRequest
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True, slots=True)`.
+
+- Field `carrier: str`; required declaration.
+- Field `dot_material: str`; required declaration.
+- Field `host_material: str`; required declaration.
+- Field `radius_m: float`; required declaration.
+- Field `inside_mass_m0: float`; required declaration.
+- Field `outside_mass_m0: float`; required declaration.
+- Field `depth_J: float`; required declaration.
+- Field `temperature_K: float`; required declaration.
+- Field `radius_evidence: _Evidence`; required declaration.
+- Field `inside_mass_evidence: _Evidence`; required declaration.
+- Field `outside_mass_evidence: _Evidence`; required declaration.
+- Field `depth_evidence: _Evidence`; required declaration.
+- Field `applicability: _Evidence`; required declaration.
+- `numerical_policy(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
 
 ## ncmemsim.materials.interpolation
 

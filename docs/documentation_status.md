@@ -98,7 +98,7 @@ of every physical equation. Technical examples retain their original meaning.
 | [validation.md](validation.md) | Maintained reference with current-release context |
 | [Validation_Report.md](Validation_Report.md) | Historical evidence/contract, explicitly scoped |
 | [workflows.md](workflows.md) | Maintained reference with current-release context |
-| [finite_confinement.md](finite_confinement.md) | Post-v1.10 T0 planning; no runtime implementation |
+| [finite_confinement.md](finite_confinement.md) | Post-v1.10 T0 planning and T1 contract reference |
 | documentation_status.md | This documentation inventory |
 
 ## Root documentation

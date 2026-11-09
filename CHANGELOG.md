@@ -4,6 +4,9 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase T1 single-carrier finite-well declarations, per-input evidence
+  and a versioned numerical acceptance policy for the T2 ground-state solver.
+
 - Define Phase T0 finite-barrier spherical confinement scope, source/literature
   audit, mass-discontinuity matching and staged validation requirements.
   No solver, API, material preset, simulator change or release-version selection.
