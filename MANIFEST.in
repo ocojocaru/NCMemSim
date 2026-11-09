@@ -72,6 +72,7 @@ include scripts/validate_v1_10_release_identity.py
 include tests/test_phase_s7_final_identity.py
 include tests/test_phase_s7_preparation.py
 include tests/test_phase_t1_finite_confinement.py
+include tests/test_phase_t2_finite_confinement.py
 include tests/test_phase_s1_barrier_contracts.py
 include tests/test_phase_s2_barrier_evaluation.py
 include tests/test_phase_s3_multilayer_reference.py

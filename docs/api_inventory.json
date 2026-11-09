@@ -23061,6 +23061,164 @@
       ]
     },
     {
+      "module": "ncmemsim.materials.finite_confinement",
+      "source": "ncmemsim/materials/finite_confinement.py",
+      "explicit_exports": [
+        "FiniteConfinementResult",
+        "evaluate_finite_confinement"
+      ],
+      "package_import_aliases": {
+        "_HBAR": "ncmemsim.constants.HBAR_J_S",
+        "_M0": "ncmemsim.constants.ELECTRON_MASS_KG",
+        "_Request": "ncmemsim.materials.finite_confinement_contracts.FiniteConfinementRequest",
+        "_product": "ncmemsim.barrier_evaluation._product"
+      },
+      "public_source_definitions": [
+        {
+          "name": "FiniteConfinementResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "_dataclass(frozen=True, slots=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "request",
+              "annotation": "_Request",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "status",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "reason",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "rho",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "beta",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "threshold_residual",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "x_bracket",
+              "annotation": "tuple[float, float] | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "depth_fraction_bracket",
+              "annotation": "tuple[float, float] | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "iterations",
+              "annotation": "int",
+              "default_expression": "0",
+              "required_in_source": false
+            },
+            {
+              "name": "x",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "y",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "scaled_matching_residual",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "energy_J",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "penetration_depth_m",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "inside_probability",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "outside_probability",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "evaluate_finite_confinement",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "request",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(request)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.materials.finite_confinement_contracts",
       "source": "ncmemsim/materials/finite_confinement_contracts.py",
       "explicit_exports": [

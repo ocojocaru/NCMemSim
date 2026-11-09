@@ -57,6 +57,6 @@ contracts, source hashes and original fixtures retain their original scope. They
 are not current total test counts or claims that a previously completed stage is
 still pending. See the [documentation inventory](documentation_status.md).
 The [roadmap](roadmap.md) separates delivered work from remaining research.
-Post-v1.10 development adds [Phase T0 planning and T1 declarations](finite_confinement.md)
-for finite-barrier confinement. T2 covers the ground-state calculation. The next
+Post-v1.10 development includes the [Phase T1 declarations and T2 evaluator](finite_confinement.md)
+for isolated finite-barrier ground states. The next
 release version remains undecided.

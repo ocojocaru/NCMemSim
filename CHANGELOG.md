@@ -4,6 +4,9 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add the Phase T2 isolated finite spherical-well ground-state evaluator,
+  threshold classification, bracketing diagnostics and exterior normalization.
+
 - Add Phase T1 single-carrier finite-well declarations, per-input evidence
   and a versioned numerical acceptance policy for the T2 ground-state solver.
 

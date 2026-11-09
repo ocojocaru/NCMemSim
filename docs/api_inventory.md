@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 151 package source modules; 790 explicit export paths; 267 distinct documented Python import paths.
+Coverage: 152 package source modules; 792 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3154,6 +3154,38 @@ Decorators: `dataclass(frozen=True)`.
 No explicit export list; documented entry points need individual approval.
 
 - `get_base_property(material: str, property_name: str) -> MaterialProperty`
+
+## ncmemsim.materials.finite_confinement
+
+`ncmemsim/materials/finite_confinement.py`
+
+Explicit exports: `FiniteConfinementResult`, `evaluate_finite_confinement`
+
+### FiniteConfinementResult
+
+Bases: none.
+
+Decorators: `_dataclass(frozen=True, slots=True)`.
+
+- Field `request: _Request`; required declaration.
+- Field `status: str`; required declaration.
+- Field `reason: str | None`; default expression `None`.
+- Field `rho: float | None`; default expression `None`.
+- Field `beta: float | None`; default expression `None`.
+- Field `threshold_residual: float | None`; default expression `None`.
+- Field `x_bracket: tuple[float, float] | None`; default expression `None`.
+- Field `depth_fraction_bracket: tuple[float, float] | None`; default expression `None`.
+- Field `iterations: int`; default expression `0`.
+- Field `x: float | None`; default expression `None`.
+- Field `y: float | None`; default expression `None`.
+- Field `scaled_matching_residual: float | None`; default expression `None`.
+- Field `energy_J: float | None`; default expression `None`.
+- Field `penetration_depth_m: float | None`; default expression `None`.
+- Field `inside_probability: float | None`; default expression `None`.
+- Field `outside_probability: float | None`; default expression `None`.
+- `to_dict(self)`.
+
+- `evaluate_finite_confinement(request)`
 
 ## ncmemsim.materials.finite_confinement_contracts
 
