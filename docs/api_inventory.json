@@ -18745,6 +18745,224 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.finite_confinement_context",
+      "source": "ncmemsim/finite_confinement_context.py",
+      "explicit_exports": [
+        "FiniteConfinementOpticalBinding",
+        "FiniteConfinementOpticalContext"
+      ],
+      "package_import_aliases": {
+        "ELEMENTARY_CHARGE_C": "ncmemsim.constants.ELEMENTARY_CHARGE_C",
+        "FiniteConfinementRequest": "ncmemsim.materials.finite_confinement_contracts.FiniteConfinementRequest",
+        "GapKind": "ncmemsim.materials.temperature.GapKind",
+        "ParameterProvenance": "ncmemsim.materials.provenance.ParameterProvenance",
+        "ParameterStatus": "ncmemsim.materials.provenance.ParameterStatus",
+        "StructuralOpticalContext": "ncmemsim.structural_optical_context.StructuralOpticalContext",
+        "_Archive": "ncmemsim.materials.structural._Archive",
+        "_StructuralOpticalModel": "ncmemsim.structural_optical_context._StructuralOpticalModel",
+        "_canonical": "ncmemsim.spectral_sources._canonical",
+        "_keys": "ncmemsim.materials.structural._keys",
+        "_match": "ncmemsim.materials.structural._match",
+        "_number": "ncmemsim.materials.structural._number",
+        "_text": "ncmemsim.materials.structural._text",
+        "evaluate_finite_confinement": "ncmemsim.materials.finite_confinement.evaluate_finite_confinement"
+      },
+      "public_source_definitions": [
+        {
+          "name": "FiniteConfinementOpticalBinding",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "layer_name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "gap_kind",
+              "annotation": "GapKind",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "hole_branch",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "electron",
+              "annotation": "FiniteConfinementRequest",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "hole",
+              "annotation": "FiniteConfinementRequest",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "FiniteConfinementOpticalContext",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "structural_context",
+              "annotation": "StructuralOpticalContext",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "bindings",
+              "annotation": "tuple[FiniteConfinementOpticalBinding, ...]",
+              "default_expression": "()",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "projection",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "optical_model",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "layer_name",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, layer_name)",
+              "decorators": []
+            }
+          ]
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.fit_diagnostics",
       "source": "ncmemsim/fit_diagnostics.py",
       "explicit_exports": [

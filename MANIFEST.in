@@ -74,6 +74,8 @@ include tests/test_phase_s7_preparation.py
 include tests/test_phase_t1_finite_confinement.py
 include tests/test_phase_t2_finite_confinement.py
 include tests/test_phase_t3_finite_confinement_reference.py
+include tests/test_phase_o4_structural_optical_context.py
+include tests/test_phase_t4_finite_confinement_context.py
 include tests/test_phase_s1_barrier_contracts.py
 include tests/test_phase_s2_barrier_evaluation.py
 include tests/test_phase_s3_multilayer_reference.py

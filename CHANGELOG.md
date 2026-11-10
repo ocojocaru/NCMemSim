@@ -4,6 +4,9 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add the Phase T4 opt-in Ge optical context for explicit finite-well
+  electron and hole pairs, with per-transition replacement of O3 confinement.
+
 - Add the Phase T3 synthetic finite/infinite spherical-well study with
   separate radius, depth and mass sweeps and explicit unavailable pair sums.
 

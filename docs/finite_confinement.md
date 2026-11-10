@@ -148,6 +148,30 @@ retain their current owners. Ge Gamma/L, hole-branch and radius applicability mu
 be explicit; no automatic GeSn, multivalley or multiband promotion is allowed.
 Disabled behavior and every published O/S archive must retain its meaning.
 
+## T4 opt-in Ge optical context
+
+`FiniteConfinementOpticalContext` wraps a valid `StructuralOpticalContext`.
+Each `FiniteConfinementOpticalBinding` names one floating gate, a Gamma or
+L gap target, the hole branch and explicit electron and hole requests.
+Both requests must declare Ge, the same host and the radius and temperature
+of the resolved device. Use the exact diameter-derived radius from the
+structural projection when building requests. The branch label records
+the caller's applicability choice. It does not select effective masses or offsets.
+
+For a selected transition, the new context takes the thermal baseline and
+hydrostatic strain contribution from the existing structural owner. It uses
+the finite electron and hole kinetic sum as the sole confinement contribution.
+Other targets keep their existing results. An empty binding tuple delegates
+to the existing optical evaluator. If either carrier lacks an accepted bound
+state, construction fails with the two statuses. A change in radius requires
+updated requests, and any change in the inputs requires a rebuilt context and
+optical model. The JSON reader rebuilds the projection from the source contracts.
+
+Use `context.optical_model(layer_name)` for explicit wavelength evaluation.
+The published O4 context and spectral workflow retain their original schemas.
+T5 covers controlled optical and spectral studies. T4 supplies no calibrated
+material presets or excitonic correction.
+
 ## Primary references and access limits
 
 - [BenDaniel and Duke, Phys. Rev. 152, 683 (1966)](https://doi.org/10.1103/PhysRev.152.683):

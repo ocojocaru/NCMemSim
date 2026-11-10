@@ -633,4 +633,5 @@ T1 adds the isolated request, per-input evidence and prospective numerical polic
 T2 implements isolated ground-state evaluation and validates it against independent
 roots and a refined radial grid. T3 adds a controlled comparison of finite and
 infinite barriers, with separate radius, depth and mass sweeps and explicit
-unavailable pair sums. T4 remains the conditional optical integration stage.
+unavailable pair sums. T4 adds opt-in Ge optical composition with one
+confinement term per transition. T5 covers controlled optical and spectral studies.

@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 152 package source modules; 792 explicit export paths; 267 distinct documented Python import paths.
+Coverage: 153 package source modules; 794 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2549,6 +2549,40 @@ Decorators: `dataclass(frozen=True)`.
 Bases: none.
 
 - `solve(self, device, applied_voltage_V: float, qfg_by_fg_C_m2=None) -> FieldProfile`.
+
+
+## ncmemsim.finite_confinement_context
+
+`ncmemsim/finite_confinement_context.py`
+
+Explicit exports: `FiniteConfinementOpticalBinding`, `FiniteConfinementOpticalContext`
+
+### FiniteConfinementOpticalBinding
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `layer_name: str`; required declaration.
+- Field `gap_kind: GapKind`; required declaration.
+- Field `hole_branch: str`; required declaration.
+- Field `electron: FiniteConfinementRequest`; required declaration.
+- Field `hole: FiniteConfinementRequest`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### FiniteConfinementOpticalContext
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `structural_context: StructuralOpticalContext`; required declaration.
+- Field `bindings: tuple[FiniteConfinementOpticalBinding, ...]`; default expression `()`.
+- `projection(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+- `optical_model(self, layer_name)`.
 
 
 ## ncmemsim.fit_diagnostics

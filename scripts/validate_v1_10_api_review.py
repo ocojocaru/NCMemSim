@@ -53,6 +53,8 @@ def build_review(root):
     for name in ('finite_confinement_contracts', 'finite_confinement'):
         if (root / 'ncmemsim' / 'materials' / (name + '.py')).is_file():
             expected.add('ncmemsim.materials.' + name)
+    if (root / 'ncmemsim' / 'finite_confinement_context.py').is_file():
+        expected.add('ncmemsim.finite_confinement_context')
     if set(inventory)!=expected:
         raise ValueError('unreviewed additive module set')
     surface=[]
