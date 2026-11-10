@@ -169,8 +169,30 @@ optical model. The JSON reader rebuilds the projection from the source contracts
 
 Use `context.optical_model(layer_name)` for explicit wavelength evaluation.
 The published O4 context and spectral workflow retain their original schemas.
-T5 covers controlled optical and spectral studies. T4 supplies no calibrated
-material presets or excitonic correction.
+T4 supplies no calibrated material presets or excitonic correction.
+
+## T5 controlled optical and spectral study
+
+```shell
+python examples/phase_t5_finite_confinement_optical_study.py --output outputs/t5_study.json
+```
+
+The reference compares the O3 infinite barrier and T4 finite barrier for the
+Gamma gap of one synthetic Ge floating gate at 300 K. Both paths use the same
+thermal baseline, L gap, inside carrier masses, 12 nm layer thickness and
+0.2 nanocrystal volume fraction. Fixed-wavelength results include the resolved
+gaps and total nanocrystal absorption coefficient. The existing spectral
+sampler applies volume-fraction scaling and Beer–Lambert attenuation to that
+layer and reports absorbed and transmitted irradiance and photon flux.
+
+The numerical study samples the same flat 1 W/m² spectrum from 1200 to 1850 nm
+on grids of 16, 32, 64 and 128 intervals. It holds all model inputs fixed.
+The sensitivity study uses the 128-interval grid and changes either the
+radius from 4 to 2 nm or the electron well depth from 0.8 to 0.4 eV.
+A zero-depth hole control records the carrier outcomes and an unavailable
+finite optical result, alongside its independent infinite-barrier comparison.
+All parameters and the light source are synthetic. Device photoresponse,
+stack propagation and experimental calibration are outside this study.
 
 ## Primary references and access limits
 

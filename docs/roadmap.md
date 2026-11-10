@@ -634,4 +634,6 @@ T2 implements isolated ground-state evaluation and validates it against independ
 roots and a refined radial grid. T3 adds a controlled comparison of finite and
 infinite barriers, with separate radius, depth and mass sweeps and explicit
 unavailable pair sums. T4 adds opt-in Ge optical composition with one
-confinement term per transition. T5 covers controlled optical and spectral studies.
+confinement term per transition. T5 compares single-wavelength and single-layer
+spectral responses, with separate grid refinement and input sensitivity.
+T6 covers strict reports and reproducibility bundles.

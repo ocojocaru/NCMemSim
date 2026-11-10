@@ -57,6 +57,6 @@ contracts, source hashes and original fixtures retain their original scope. They
 are not current total test counts or claims that a previously completed stage is
 still pending. See the [documentation inventory](documentation_status.md).
 The [roadmap](roadmap.md) separates delivered work from remaining research.
-Post-v1.10 development includes the [Phase T1–T4 contracts, solver, studies and opt-in Ge optical context](finite_confinement.md)
+Post-v1.10 development includes the [Phase T1–T5 finite-confinement contracts, solver, optical context and studies](finite_confinement.md)
 for isolated finite-barrier ground states. The next
 release version remains undecided.

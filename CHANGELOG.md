@@ -4,6 +4,9 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add the Phase T5 synthetic Ge optical and single-layer spectral study,
+  separating wavelength-grid refinement from confinement parameter sensitivity.
+
 - Add the Phase T4 opt-in Ge optical context for explicit finite-well
   electron and hole pairs, with per-transition replacement of O3 confinement.
 
