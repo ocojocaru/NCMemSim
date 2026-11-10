@@ -18963,6 +18963,133 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.finite_confinement_reporting",
+      "source": "ncmemsim/finite_confinement_reporting.py",
+      "explicit_exports": [
+        "FiniteConfinementStudyReport",
+        "write_finite_confinement_study_bundle",
+        "load_finite_confinement_study_bundle"
+      ],
+      "package_import_aliases": {
+        "_Owned": "ncmemsim.performance_contracts._Owned",
+        "_Request": "ncmemsim.materials.finite_confinement_contracts.FiniteConfinementRequest",
+        "_bytes": "ncmemsim.barrier_reporting._bytes",
+        "_canonical": "ncmemsim.performance_contracts._canonical",
+        "_evaluate": "ncmemsim.materials.finite_confinement.evaluate_finite_confinement",
+        "_hash": "ncmemsim.performance_contracts._hash",
+        "_reject": "ncmemsim.performance_contracts._reject",
+        "_table": "ncmemsim.barrier_reporting._table",
+        "_text": "ncmemsim.performance_contracts._text",
+        "_unique": "ncmemsim.performance_contracts._unique"
+      },
+      "public_source_definitions": [
+        {
+          "name": "FiniteConfinementStudyReport",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Owned"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": {
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "title",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "cases",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self, title, cases)",
+            "decorators": []
+          },
+          "methods": [
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "write_finite_confinement_study_bundle",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "report",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(report, destination)",
+          "decorators": []
+        },
+        {
+          "name": "load_finite_confinement_study_bundle",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(destination)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.fit_diagnostics",
       "source": "ncmemsim/fit_diagnostics.py",
       "explicit_exports": [

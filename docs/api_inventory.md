@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 153 package source modules; 794 explicit export paths; 267 distinct documented Python import paths.
+Coverage: 154 package source modules; 797 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2584,6 +2584,23 @@ Decorators: `dataclass(frozen=True)`.
 - `from_dict(cls, data)`; `classmethod`.
 - `optical_model(self, layer_name)`.
 
+
+## ncmemsim.finite_confinement_reporting
+
+`ncmemsim/finite_confinement_reporting.py`
+
+Explicit exports: `FiniteConfinementStudyReport`, `write_finite_confinement_study_bundle`, `load_finite_confinement_study_bundle`
+
+### FiniteConfinementStudyReport
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, title, cases)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `write_finite_confinement_study_bundle(report, destination)`
+- `load_finite_confinement_study_bundle(destination)`
 
 ## ncmemsim.fit_diagnostics
 

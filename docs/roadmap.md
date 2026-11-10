@@ -636,4 +636,5 @@ infinite barriers, with separate radius, depth and mass sweeps and explicit
 unavailable pair sums. T4 adds opt-in Ge optical composition with one
 confinement term per transition. T5 compares single-wavelength and single-layer
 spectral responses, with separate grid refinement and input sensitivity.
-T6 covers strict reports and reproducibility bundles.
+T6 adds strict isolated finite-well reports and reproducibility bundles.
+T7 covers compatibility checks and the release decision.

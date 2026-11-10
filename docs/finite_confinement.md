@@ -298,7 +298,28 @@ over the two intervals gives the dimensionless weights
 0.5 - sin(2x)/(4x) and sin(x)^2/(2y). The result reports the two normalized
 probabilities, penetration length R/y and the original request and its hash.
 The result dictionary records the physical constants and the retained bracket.
-Strict result restoration is scheduled for T6.
+## T6 strict reports and reproducibility bundles
+
+```shell
+python examples/phase_t6_finite_confinement_report.py --output outputs/t6_bundle
+```
+
+`FiniteConfinementStudyReport` takes ordered cases. Each case records a unique
+label, JSON settings, one carrier result or a matched electron–hole pair, and
+one optional energy reference per carrier. A reference declares an energy and
+absolute tolerance in joules and a description. The report retains the original
+request, numerical policy, evidence, bracket, energy and exterior diagnostics.
+Every carrier status is counted. A pair has a kinetic sum only when both
+carriers have accepted bound states and the sum is representable.
+
+The writer creates a new directory with `report.json`, `report.md`, `cases.csv`,
+`carriers.csv` and the SHA-256 manifest `bundle.json`. The reader repeats only
+the isolated well calculations from the archived requests, requires exact
+diagnostic agreement, and regenerates and checks each projection. Restoration
+requires a numerically compatible runtime. The manifest checks consistency
+and provides no signature or proof of provenance. T5 optical and spectral
+outputs retain their study format. This bundle does not replay those outputs
+or qualify a device experimentally.
 
 Validation uses all 18 predeclared T1 threshold and depth cases. Decimal
 logarithmic-derivative matching supplies independent interior roots and tail

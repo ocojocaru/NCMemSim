@@ -98,7 +98,7 @@ of every physical equation. Technical examples retain their original meaning.
 | [validation.md](validation.md) | Maintained reference with current-release context |
 | [Validation_Report.md](Validation_Report.md) | Historical evidence/contract, explicitly scoped |
 | [workflows.md](workflows.md) | Maintained reference with current-release context |
-| [finite_confinement.md](finite_confinement.md) | Post-v1.10 planning, contracts, isolated ground-state evaluation, opt-in Ge optical composition and controlled optical and spectral studies |
+| [finite_confinement.md](finite_confinement.md) | Post-v1.10 planning, contracts, isolated ground-state evaluation, opt-in Ge optical composition controlled optical and spectral studies, and strict finite-well reporting |
 | documentation_status.md | This documentation inventory |
 
 ## Root documentation

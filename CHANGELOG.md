@@ -4,6 +4,9 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add Phase T6 strict finite-well study reports and deterministic bundles
+  with carrier outcomes, pair sums, analytic references and diagnostic replay.
+
 - Add the Phase T5 synthetic Ge optical and single-layer spectral study,
   separating wavelength-grid refinement from confinement parameter sensitivity.
 
