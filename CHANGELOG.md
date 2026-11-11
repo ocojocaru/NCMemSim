@@ -4,6 +4,8 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Prepare v1.11.0 with Phase T API compatibility and installed-bundle checks.
+
 - Add Phase T6 strict finite-well study reports and deterministic bundles
   with carrier outcomes, pair sums, analytic references and diagnostic replay.
 

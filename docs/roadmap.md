@@ -638,3 +638,4 @@ confinement term per transition. T5 compares single-wavelength and single-layer
 spectral responses, with separate grid refinement and input sensitivity.
 T6 adds strict isolated finite-well reports and reproducibility bundles.
 T7 covers compatibility checks and the release decision.
+The [T7 release checklist](v1_11_release_checklist.md) targets v1.11.0.
