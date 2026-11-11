@@ -58,5 +58,5 @@ are not current total test counts or claims that a previously completed stage is
 still pending. See the [documentation inventory](documentation_status.md).
 The [roadmap](roadmap.md) separates delivered work from remaining research.
 Post-v1.10 development includes the [Phase T1–T6 finite-confinement solver, optical context, studies and reports](finite_confinement.md)
-for isolated finite-barrier ground states. The next
-release version remains undecided.
+for isolated finite-barrier ground states. The v1.11.0 candidate includes these extensions.
+See the [release checklist](v1_11_release_checklist.md).

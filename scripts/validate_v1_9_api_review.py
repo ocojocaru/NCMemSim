@@ -182,7 +182,10 @@ def _published_view(root):
             raise ValueError('published v1.9 identity snapshot drift: '+name)
     old=(snapshots/'ncmemsim/_version.py').read_text(encoding='utf-8')
     current=(root/'ncmemsim/_version.py').read_text(encoding='utf-8')
-    if current.replace('__version__ = "1.10.0"','__version__ = "1.9.0"')!=old:
+    if not any(
+        current.replace(f'__version__ = "{version}"', '__version__ = "1.9.0"') == old
+        for version in ('1.10.0', '1.11.0')
+    ):
         raise ValueError('unreviewed version source change beyond candidate literal')
     with tempfile.TemporaryDirectory(prefix='ncmemsim-v19-review-') as temporary:
         target=Path(temporary)

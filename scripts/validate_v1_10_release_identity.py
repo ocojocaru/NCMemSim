@@ -3,6 +3,7 @@
 """Published v1.10.0 identity and confirmed Zenodo archival."""
 from pathlib import Path
 import ast
+from hashlib import sha256
 from datetime import date
 import re
 import sys
@@ -13,6 +14,18 @@ VERSION='1.10.0'
 CANDIDATE_DATE='2026-11-05'
 VERSION_DOI='10.5281/zenodo.23973765'
 CONCEPT_DOI='10.5281/zenodo.23078330'
+PUBLISHED_SNAPSHOT = Path('tests/fixtures/releases/v1_10_0')
+# Published metadata closure 46ec695aba82978e1bb115bb5647f7fed69f0898.
+PUBLISHED_HASHES = {
+    'ncmemsim/_version.py': '5902c282291346a2803f1bc91def6815eb435bf161baa51454a2a099e9e4f497',
+    'CITATION.cff': '9660901b99d4bfda732b00631be50f42afd29b4c816348de13473dc7b6f75976',
+    'README.md': 'ee41ad207cf551c4be88dd7b59192a5c3d2519daa883eb6b85bad90fdf7cfed3',
+    'CHANGELOG.md': '5a04a8dde6233cdd177080ac983e54e971c4bd1c3dd95712d75c47a5f7c9cf04',
+    'docs/index.md': 'b965a6807281d163bde442c391865d14f377fff68c73b82a81b56df151c6f3c9',
+    'docs/archival_citation.md': 'fc8ba55cff99700fb35f3aa06669e943f2b607baefb64bd29a24f3d71a7de5e1',
+    'docs/roadmap.md': '333cf6a24ddbbe5ce4775a391fbc97ea1831d670c501919c34e786661c8c6ff0',
+    'docs/v1_10_release_checklist.md': '6e6a95e816084ff135f791e175c9e4787b2abd37c006ed885e961f6a60fdc440',
+}
 
 
 def validate_identity(root):
@@ -53,7 +66,12 @@ def validate_identity(root):
 
 def validate(root):
     from scripts.validate_v1_10_api_review import validate as review
-    return {**validate_identity(root),'api':review(root)}
+    snapshot = Path(root) / PUBLISHED_SNAPSHOT
+    for name, expected in PUBLISHED_HASHES.items():
+        content = (snapshot / name).read_text(encoding='utf-8')
+        if sha256(content.encode('utf-8')).hexdigest() != expected:
+            raise ValueError('published v1.10 snapshot drift: ' + name)
+    return {**validate_identity(snapshot), 'api': review(root)}
 
 
 if __name__=='__main__':

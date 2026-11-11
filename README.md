@@ -47,8 +47,12 @@ candidate/PR/main/tag CI, Documentation and Release checks; wheel and sdist are 
 Version-specific DOI: [10.5281/zenodo.23973765](https://doi.org/10.5281/zenodo.23973765).
 Phase S adds explicit electron barriers, isolated WKB action, opt-in direct inter-FG
 replacements, controlled sensitivity and strict isolated reports. P4B/P5B/P6B remain
-deferred. CITATION.cff records this confirmed version DOI and separate Concept DOI.
+deferred. The published version citation is retained in the historical fixtures.
 See [the release checklist](docs/v1_10_release_checklist.md).
+
+**v1.11.0 release candidate** adds finite spherical-well confinement, opt-in Ge
+optical composition and reproducible confinement reports. The citation uses
+the Concept DOI pending archival.
 
 For a consolidated capability/limitations matrix, see [current platform status](docs/platform_status.md)
 and the [documentation inventory](docs/documentation_status.md).

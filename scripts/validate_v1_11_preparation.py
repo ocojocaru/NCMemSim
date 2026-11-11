@@ -39,6 +39,7 @@ def validate():
         cwd=ROOT, text=True,
     ).splitlines()
     expected = {f"A\t{name.replace('.', '/')}.py" for name in EXPORTS}
+    expected.add('M\tncmemsim/_version.py')
     if set(changes) != expected:
         raise ValueError(f'unexpected runtime source changes since v1.10.0: {changes}')
     for name, expected_exports in EXPORTS.items():
