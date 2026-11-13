@@ -10,6 +10,10 @@ isolated reports are published with wheel and sdist. Version DOI:
 [10.5281/zenodo.23973765](https://doi.org/10.5281/zenodo.23973765).
 See the [v1.10 checklist](v1_10_release_checklist.md). P4B/P5B/P6B remain deferred.
 
+**v1.11.0 release candidate** adds finite spherical-well confinement, opt-in Ge
+optical composition and reproducible confinement reports. The citation uses
+the Concept DOI pending archival.
+
 Previous published stable: `1.9.0`, dated 2026-10-26. R7 is complete;
 version DOI: [10.5281/zenodo.23664613](https://doi.org/10.5281/zenodo.23664613).
 

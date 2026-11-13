@@ -4,6 +4,34 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+## 1.11.0 - 2026-11-11
+
+Release candidate for Phase T. The version DOI is pending archival.
+
+- Prepare v1.11.0 with Phase T API compatibility and installed-bundle checks.
+
+- Add Phase T6 strict finite-well study reports and deterministic bundles
+  with carrier outcomes, pair sums, analytic references and diagnostic replay.
+
+- Add the Phase T5 synthetic Ge optical and single-layer spectral study,
+  separating wavelength-grid refinement from confinement parameter sensitivity.
+
+- Add the Phase T4 opt-in Ge optical context for explicit finite-well
+  electron and hole pairs, with per-transition replacement of O3 confinement.
+
+- Add the Phase T3 synthetic finite/infinite spherical-well study with
+  separate radius, depth and mass sweeps and explicit unavailable pair sums.
+
+- Add the Phase T2 isolated finite spherical-well ground-state evaluator,
+  threshold classification, bracketing diagnostics and exterior normalization.
+
+- Add Phase T1 single-carrier finite-well declarations, per-input evidence
+  and a versioned numerical acceptance policy for the T2 ground-state solver.
+
+- Define Phase T0 finite-barrier spherical confinement scope, source/literature
+  audit, mass-discontinuity matching and staged validation requirements.
+  No solver, API, material preset, simulator change or release-version selection.
+
 - Consolidate documentation against published v1.10.0: current capability map,
   delivered/research roadmap, explicit default/opt-in boundaries and scoped
   historical evidence. No runtime, parameter, archive or release-identity change.

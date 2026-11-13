@@ -49,6 +49,13 @@ def build_review(root):
     report=_archive(root)
     inventory={m['module']:m for m in build_inventory(root)['modules']}
     expected={row['module'] for row in _json(root/'docs/v1_9_published_surface.json')['modules']} | set(MODULES)
+    # Track the named Phase T modules separately from the published v1.10 review.
+    for name in ('finite_confinement_contracts', 'finite_confinement'):
+        if (root / 'ncmemsim' / 'materials' / (name + '.py')).is_file():
+            expected.add('ncmemsim.materials.' + name)
+    for name in ('finite_confinement_context', 'finite_confinement_reporting'):
+        if (root / 'ncmemsim' / (name + '.py')).is_file():
+            expected.add('ncmemsim.' + name)
     if set(inventory)!=expected:
         raise ValueError('unreviewed additive module set')
     surface=[]
@@ -64,7 +71,7 @@ def build_review(root):
         raise ValueError('unreviewed S export count')
     return dict(schema_version='phase-s-v1.10-preparation-api-review-v1',
         status='published_release_review',target_release='1.10.0',published_baseline='1.9.0',
-        package_identity_at_review=_version(root),review_date='2026-11-04',
+        package_identity_at_review='1.10.0',review_date='2026-11-04',
         implementation_source_commit=CAPTURE_COMMIT,
         version_rationale='Minor additive release: four module-qualified APIs with 16 exports; all 146 published v1.9 module sources/defaults retained except the reviewed version literal. No major-version contract break.',
         retained_v1_9_review_sha256=_hash(_json(root/'docs/v1_9_api_review.json')),
@@ -98,8 +105,8 @@ def validate(root):
         raise ValueError('API inventory drift')
     if _json(root/REVIEW)!=build_review(root):
         raise ValueError('v1.10 preparation review/source drift')
-    if _version(root)!='1.10.0':
-        raise ValueError('final candidate identity must be 1.10.0')
+    if _version(root) not in ('1.10.0', '1.11.0'):
+        raise ValueError('unreviewed package identity for the retained v1.10 review')
     checklist=(root/'docs/v1_10_release_checklist.md').read_text(encoding='utf-8')
     for marker in ('Target release: `1.10.0`','Published identity: `1.10.0`',
                    'Python 3.11, 3.12 and 3.13','P4B/P5B/P6B','S7 is complete'):

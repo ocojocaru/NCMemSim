@@ -2,6 +2,12 @@
 
 > **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
 
+## Next confinement work
+
+[Phase T0](finite_confinement.md) plans a separate finite-barrier spherical
+model. The published O3 infinite-barrier profile/evaluator and its archives remain
+unchanged; T0 does not implement or attach the finite solver.
+
 ## O0 status and baseline
 
 O0 is complete: source audit, separated mechanism scope, ownership and O1-O7

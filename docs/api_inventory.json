@@ -18745,6 +18745,351 @@
       "public_assignments": []
     },
     {
+      "module": "ncmemsim.finite_confinement_context",
+      "source": "ncmemsim/finite_confinement_context.py",
+      "explicit_exports": [
+        "FiniteConfinementOpticalBinding",
+        "FiniteConfinementOpticalContext"
+      ],
+      "package_import_aliases": {
+        "ELEMENTARY_CHARGE_C": "ncmemsim.constants.ELEMENTARY_CHARGE_C",
+        "FiniteConfinementRequest": "ncmemsim.materials.finite_confinement_contracts.FiniteConfinementRequest",
+        "GapKind": "ncmemsim.materials.temperature.GapKind",
+        "ParameterProvenance": "ncmemsim.materials.provenance.ParameterProvenance",
+        "ParameterStatus": "ncmemsim.materials.provenance.ParameterStatus",
+        "StructuralOpticalContext": "ncmemsim.structural_optical_context.StructuralOpticalContext",
+        "_Archive": "ncmemsim.materials.structural._Archive",
+        "_StructuralOpticalModel": "ncmemsim.structural_optical_context._StructuralOpticalModel",
+        "_canonical": "ncmemsim.spectral_sources._canonical",
+        "_keys": "ncmemsim.materials.structural._keys",
+        "_match": "ncmemsim.materials.structural._match",
+        "_number": "ncmemsim.materials.structural._number",
+        "_text": "ncmemsim.materials.structural._text",
+        "evaluate_finite_confinement": "ncmemsim.materials.finite_confinement.evaluate_finite_confinement"
+      },
+      "public_source_definitions": [
+        {
+          "name": "FiniteConfinementOpticalBinding",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "layer_name",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "gap_kind",
+              "annotation": "GapKind",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "hole_branch",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "electron",
+              "annotation": "FiniteConfinementRequest",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "hole",
+              "annotation": "FiniteConfinementRequest",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "FiniteConfinementOpticalContext",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "dataclass(frozen=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "structural_context",
+              "annotation": "StructuralOpticalContext",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "bindings",
+              "annotation": "tuple[FiniteConfinementOpticalBinding, ...]",
+              "default_expression": "()",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "projection",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "data",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, data)",
+              "decorators": [
+                "classmethod"
+              ]
+            },
+            {
+              "name": "optical_model",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "layer_name",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self, layer_name)",
+              "decorators": []
+            }
+          ]
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.finite_confinement_reporting",
+      "source": "ncmemsim/finite_confinement_reporting.py",
+      "explicit_exports": [
+        "FiniteConfinementStudyReport",
+        "write_finite_confinement_study_bundle",
+        "load_finite_confinement_study_bundle"
+      ],
+      "package_import_aliases": {
+        "_Owned": "ncmemsim.performance_contracts._Owned",
+        "_Request": "ncmemsim.materials.finite_confinement_contracts.FiniteConfinementRequest",
+        "_bytes": "ncmemsim.barrier_reporting._bytes",
+        "_canonical": "ncmemsim.performance_contracts._canonical",
+        "_evaluate": "ncmemsim.materials.finite_confinement.evaluate_finite_confinement",
+        "_hash": "ncmemsim.performance_contracts._hash",
+        "_reject": "ncmemsim.performance_contracts._reject",
+        "_table": "ncmemsim.barrier_reporting._table",
+        "_text": "ncmemsim.performance_contracts._text",
+        "_unique": "ncmemsim.performance_contracts._unique"
+      },
+      "public_source_definitions": [
+        {
+          "name": "FiniteConfinementStudyReport",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Owned"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": {
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "title",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "cases",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self, title, cases)",
+            "decorators": []
+          },
+          "methods": [
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "write_finite_confinement_study_bundle",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "report",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(report, destination)",
+          "decorators": []
+        },
+        {
+          "name": "load_finite_confinement_study_bundle",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(destination)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.fit_diagnostics",
       "source": "ncmemsim/fit_diagnostics.py",
       "explicit_exports": [
@@ -23059,6 +23404,350 @@
           "expression": "{'Ge': {'eps_r': MaterialProperty(16.0, '1', DEFAULT_ASSUMED, 'epsilon_r'), 'bandgap_eV': MaterialProperty(0.66, 'eV', DEFAULT_ASSUMED, 'E_g'), 'electron_affinity_eV': MaterialProperty(4.0, 'eV', DEFAULT_ASSUMED, 'chi'), 'effective_mass_m0': MaterialProperty(0.12, 'm0', DEFAULT_ASSUMED, 'm_e^*')}, 'alpha-Sn': {'eps_r': MaterialProperty(24.0, '1', DEFAULT_ASSUMED, 'epsilon_r'), 'bandgap_eV': MaterialProperty(-0.41, 'eV', DEFAULT_ASSUMED, 'E_g'), 'electron_affinity_eV': MaterialProperty(4.18, 'eV', DEFAULT_ASSUMED, 'chi'), 'effective_mass_m0': MaterialProperty(0.03, 'm0', DEFAULT_ASSUMED, 'm_e^*')}, 'Si': {'eps_r': MaterialProperty(11.7, '1', DEFAULT_ASSUMED, 'epsilon_r'), 'bandgap_eV': MaterialProperty(1.12, 'eV', DEFAULT_ASSUMED, 'E_g'), 'electron_affinity_eV': MaterialProperty(4.05, 'eV', DEFAULT_ASSUMED, 'chi')}, 'SiO2': {'eps_r': MaterialProperty(3.9, '1', DEFAULT_ASSUMED, 'epsilon_r'), 'bandgap_eV': MaterialProperty(8.9, 'eV', DEFAULT_ASSUMED, 'E_g'), 'electron_affinity_eV': MaterialProperty(0.95, 'eV', DEFAULT_ASSUMED, 'chi')}, 'HfO2': {'eps_r': MaterialProperty(25.0, '1', DEFAULT_ASSUMED, 'epsilon_r'), 'bandgap_eV': MaterialProperty(5.7, 'eV', DEFAULT_ASSUMED, 'E_g'), 'electron_affinity_eV': MaterialProperty(2.0, 'eV', DEFAULT_ASSUMED, 'chi')}}"
         }
       ]
+    },
+    {
+      "module": "ncmemsim.materials.finite_confinement",
+      "source": "ncmemsim/materials/finite_confinement.py",
+      "explicit_exports": [
+        "FiniteConfinementResult",
+        "evaluate_finite_confinement"
+      ],
+      "package_import_aliases": {
+        "_HBAR": "ncmemsim.constants.HBAR_J_S",
+        "_M0": "ncmemsim.constants.ELECTRON_MASS_KG",
+        "_Request": "ncmemsim.materials.finite_confinement_contracts.FiniteConfinementRequest",
+        "_product": "ncmemsim.barrier_evaluation._product"
+      },
+      "public_source_definitions": [
+        {
+          "name": "FiniteConfinementResult",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [],
+          "decorators": [
+            "_dataclass(frozen=True, slots=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "request",
+              "annotation": "_Request",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "status",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "reason",
+              "annotation": "str | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "rho",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "beta",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "threshold_residual",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "x_bracket",
+              "annotation": "tuple[float, float] | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "depth_fraction_bracket",
+              "annotation": "tuple[float, float] | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "iterations",
+              "annotation": "int",
+              "default_expression": "0",
+              "required_in_source": false
+            },
+            {
+              "name": "x",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "y",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "scaled_matching_residual",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "energy_J",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "penetration_depth_m",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "inside_probability",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            },
+            {
+              "name": "outside_probability",
+              "annotation": "float | None",
+              "default_expression": "None",
+              "required_in_source": false
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            }
+          ]
+        },
+        {
+          "name": "evaluate_finite_confinement",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "request",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(request)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
+      "module": "ncmemsim.materials.finite_confinement_contracts",
+      "source": "ncmemsim/materials/finite_confinement_contracts.py",
+      "explicit_exports": [
+        "FiniteConfinementRequest",
+        "confinement_depth_eV_to_J"
+      ],
+      "package_import_aliases": {
+        "_Archive": "ncmemsim.materials.structural._Archive",
+        "_Evidence": "ncmemsim.materials.structural.StructuralEvidence",
+        "_energy_eV_to_J": "ncmemsim.barrier_contracts.barrier_energy_eV_to_J",
+        "_keys": "ncmemsim.materials.structural._keys",
+        "_match": "ncmemsim.materials.structural._match",
+        "_number": "ncmemsim.materials.temperature._number",
+        "_text": "ncmemsim.materials.temperature._text"
+      },
+      "public_source_definitions": [
+        {
+          "name": "confinement_depth_eV_to_J",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "depth_eV",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(depth_eV)",
+          "decorators": []
+        },
+        {
+          "name": "FiniteConfinementRequest",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Archive"
+          ],
+          "decorators": [
+            "_dataclass(frozen=True, slots=True)"
+          ],
+          "declared_fields": [
+            {
+              "name": "carrier",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "dot_material",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "host_material",
+              "annotation": "str",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "radius_m",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "inside_mass_m0",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "outside_mass_m0",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "depth_J",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "temperature_K",
+              "annotation": "float",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "radius_evidence",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "inside_mass_evidence",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "outside_mass_evidence",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "depth_evidence",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            },
+            {
+              "name": "applicability",
+              "annotation": "_Evidence",
+              "default_expression": null,
+              "required_in_source": true
+            }
+          ],
+          "constructor": null,
+          "methods": [
+            {
+              "name": "numerical_policy",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": [
+                "property"
+              ]
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(self)",
+              "decorators": []
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        }
+      ],
+      "public_assignments": []
     },
     {
       "module": "ncmemsim.materials.interpolation",

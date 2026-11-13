@@ -78,6 +78,9 @@ properties are delivered in v1.4.
   action evaluation, opt-in direct inter-FG integration and strict isolated reports
   are available; S7 release and Zenodo archival are complete;
   see [Phase S planning](docs/barrier_transport.md);
+- **Phase T:** finite-barrier spherical confinement selected for the next
+  development cycle; T0 defines scope/equations/validation, with no new runtime
+  implementation or selected release version. See [T0](docs/finite_confinement.md).
 - **Later (indicative):** broader structural physics, neuromorphic
   workflows, acceleration and higher-fidelity interoperability; see
   [roadmap](docs/roadmap.md). Major-version changes require a compatibility rationale.

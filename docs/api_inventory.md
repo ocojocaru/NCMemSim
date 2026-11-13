@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 150 package source modules; 788 explicit export paths; 267 distinct documented Python import paths.
+Coverage: 154 package source modules; 797 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -2551,6 +2551,57 @@ Bases: none.
 - `solve(self, device, applied_voltage_V: float, qfg_by_fg_C_m2=None) -> FieldProfile`.
 
 
+## ncmemsim.finite_confinement_context
+
+`ncmemsim/finite_confinement_context.py`
+
+Explicit exports: `FiniteConfinementOpticalBinding`, `FiniteConfinementOpticalContext`
+
+### FiniteConfinementOpticalBinding
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `layer_name: str`; required declaration.
+- Field `gap_kind: GapKind`; required declaration.
+- Field `hole_branch: str`; required declaration.
+- Field `electron: FiniteConfinementRequest`; required declaration.
+- Field `hole: FiniteConfinementRequest`; required declaration.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+
+### FiniteConfinementOpticalContext
+
+Bases: `_Archive`.
+
+Decorators: `dataclass(frozen=True)`.
+
+- Field `structural_context: StructuralOpticalContext`; required declaration.
+- Field `bindings: tuple[FiniteConfinementOpticalBinding, ...]`; default expression `()`.
+- `projection(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, data)`; `classmethod`.
+- `optical_model(self, layer_name)`.
+
+
+## ncmemsim.finite_confinement_reporting
+
+`ncmemsim/finite_confinement_reporting.py`
+
+Explicit exports: `FiniteConfinementStudyReport`, `write_finite_confinement_study_bundle`, `load_finite_confinement_study_bundle`
+
+### FiniteConfinementStudyReport
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, title, cases)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `write_finite_confinement_study_bundle(report, destination)`
+- `load_finite_confinement_study_bundle(destination)`
+
 ## ncmemsim.fit_diagnostics
 
 `ncmemsim/fit_diagnostics.py`
@@ -3154,6 +3205,69 @@ Decorators: `dataclass(frozen=True)`.
 No explicit export list; documented entry points need individual approval.
 
 - `get_base_property(material: str, property_name: str) -> MaterialProperty`
+
+## ncmemsim.materials.finite_confinement
+
+`ncmemsim/materials/finite_confinement.py`
+
+Explicit exports: `FiniteConfinementResult`, `evaluate_finite_confinement`
+
+### FiniteConfinementResult
+
+Bases: none.
+
+Decorators: `_dataclass(frozen=True, slots=True)`.
+
+- Field `request: _Request`; required declaration.
+- Field `status: str`; required declaration.
+- Field `reason: str | None`; default expression `None`.
+- Field `rho: float | None`; default expression `None`.
+- Field `beta: float | None`; default expression `None`.
+- Field `threshold_residual: float | None`; default expression `None`.
+- Field `x_bracket: tuple[float, float] | None`; default expression `None`.
+- Field `depth_fraction_bracket: tuple[float, float] | None`; default expression `None`.
+- Field `iterations: int`; default expression `0`.
+- Field `x: float | None`; default expression `None`.
+- Field `y: float | None`; default expression `None`.
+- Field `scaled_matching_residual: float | None`; default expression `None`.
+- Field `energy_J: float | None`; default expression `None`.
+- Field `penetration_depth_m: float | None`; default expression `None`.
+- Field `inside_probability: float | None`; default expression `None`.
+- Field `outside_probability: float | None`; default expression `None`.
+- `to_dict(self)`.
+
+- `evaluate_finite_confinement(request)`
+
+## ncmemsim.materials.finite_confinement_contracts
+
+`ncmemsim/materials/finite_confinement_contracts.py`
+
+Explicit exports: `FiniteConfinementRequest`, `confinement_depth_eV_to_J`
+
+- `confinement_depth_eV_to_J(depth_eV)`
+### FiniteConfinementRequest
+
+Bases: `_Archive`.
+
+Decorators: `_dataclass(frozen=True, slots=True)`.
+
+- Field `carrier: str`; required declaration.
+- Field `dot_material: str`; required declaration.
+- Field `host_material: str`; required declaration.
+- Field `radius_m: float`; required declaration.
+- Field `inside_mass_m0: float`; required declaration.
+- Field `outside_mass_m0: float`; required declaration.
+- Field `depth_J: float`; required declaration.
+- Field `temperature_K: float`; required declaration.
+- Field `radius_evidence: _Evidence`; required declaration.
+- Field `inside_mass_evidence: _Evidence`; required declaration.
+- Field `outside_mass_evidence: _Evidence`; required declaration.
+- Field `depth_evidence: _Evidence`; required declaration.
+- Field `applicability: _Evidence`; required declaration.
+- `numerical_policy(self)`; `property`.
+- `to_dict(self)`.
+- `from_dict(cls, raw)`; `classmethod`.
+
 
 ## ncmemsim.materials.interpolation
 

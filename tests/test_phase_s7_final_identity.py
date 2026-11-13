@@ -4,17 +4,14 @@
 from pathlib import Path
 import shutil
 import pytest
-from scripts.validate_v1_10_release_identity import validate, validate_identity
+from scripts.validate_v1_10_release_identity import PUBLISHED_SNAPSHOT, validate, validate_identity
 from scripts import validate_v1_9_api_review as historical
 ROOT=Path(__file__).resolve().parents[1]
 
 
 @pytest.fixture
 def candidate_copy(tmp_path):
-    for folder in ('docs','ncmemsim'):
-        shutil.copytree(ROOT/folder,tmp_path/folder)
-    for name in ('README.md','CITATION.cff','CHANGELOG.md'):
-        shutil.copyfile(ROOT/name,tmp_path/name)
+    shutil.copytree(ROOT / PUBLISHED_SNAPSHOT, tmp_path, dirs_exist_ok=True)
     return tmp_path
 
 

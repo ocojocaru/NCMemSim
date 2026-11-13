@@ -319,6 +319,13 @@ def main() -> None:
             shutil.copyfile(root / 'examples/phase_s5_barrier_sensitivity.py', work / 'phase_s5_barrier_sensitivity.py')
             shutil.copyfile(root / 'examples/phase_s6_barrier_report.py', work / 's6_reference.py')
             run(str(python), '-I', '-c', BARRIER_REPORT_PROBE, str(work), str(number), cwd=work)
+            examples = work / 'examples'
+            examples.mkdir(exist_ok=True)
+            for name in ('phase_t3_finite_confinement_reference.py',
+                         'phase_t6_finite_confinement_report.py'):
+                shutil.copyfile(root / 'examples' / name, examples / name)
+            run(str(python), '-I', str(examples / 'phase_t6_finite_confinement_report.py'),
+                '--output', str(work / f't6-bundle-{number}'), cwd=work)
             shutil.copyfile(root / 'examples/phase_s5_barrier_sensitivity.py', work / 's5_reference.py')
             run(str(python), '-I', str(work / 's5_reference.py'),
                 '--output', str(work / f's5-study-{number}.json'), cwd=work)
