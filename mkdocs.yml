@@ -63,6 +63,7 @@ nav:
       - Finite-barrier confinement planning: finite_confinement.md
       - v1.10 release preparation: v1_10_release_checklist.md
       - v1.11 release preparation: v1_11_release_checklist.md
+      - Electron–hole Coulomb interaction: electron_hole_coulomb.md
       - Stochastic ensembles and variability: stochastic_ensembles.md
       - Model and TAT variability planning: model_variability.md
       - Multilevel and neuromorphic operation planning: multilevel_operation.md

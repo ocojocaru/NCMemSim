@@ -640,3 +640,9 @@ T6 adds strict isolated finite-well reports and reproducibility bundles.
 T7 covers compatibility checks and the release decision.
 The [T7 release checklist](v1_11_release_checklist.md) records the Phase T7 release. v1.11.0 was published 2026-11-16 from
 commit `77c4c982084383791511eb45fa128974e26b0044`. Version DOI [10.5281/zenodo.24273310](https://doi.org/10.5281/zenodo.24273310).
+
+## Phase U: electron–hole Coulomb interaction (U0)
+
+[U0](electron_hole_coulomb.md) defines the first-order direct Coulomb correction
+for two bound finite-well states under uniform dielectric screening. U1 will
+fix the numerical policy and implement the isolated evaluator.
