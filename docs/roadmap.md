@@ -646,3 +646,5 @@ commit `77c4c982084383791511eb45fa128974e26b0044`. Version DOI [10.5281/zenodo.2
 [U0](electron_hole_coulomb.md) defines the first-order direct Coulomb correction
 for two bound finite-well states under uniform dielectric screening. U1 adds
 the isolated evaluator, independent radial quadrature checks and a tail bound.
+U2 compares the direct energy shift with the continuum separation and
+records the limits of this diagnostic for optical applicability.

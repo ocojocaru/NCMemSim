@@ -4,6 +4,8 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add a synthetic Coulomb perturbation scale study using carrier continuum separations.
+
 - Add an isolated first-order electron–hole Coulomb correction under explicit uniform screening.
 
 ## 1.11.0 - 2026-11-16

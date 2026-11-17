@@ -85,3 +85,22 @@ Production quadrature uses Gauss–Legendre rules of order 16, 32, 64 and
 in the subdivision. The accepted change between successive orders plus
 the tail bound must be at most 10⁻⁸ times the coefficient. The refinement
 change is an error estimate. The tail bound follows from the omitted probability.
+
+
+## U2 perturbation scale study
+
+```shell
+python examples/phase_u2_coulomb_applicability.py --output outputs/u2_study.json
+```
+
+The study compares the magnitude of the first-order diagonal energy shift
+with the smaller of the two continuum separations, each given by V₀ − E.
+The radius, hole depth and permittivity controls each vary one input from the
+baseline. A zero-depth hole supplies an unavailable control.
+
+The first unperturbed excitation can lie below the continuum threshold.
+A ratio of one or greater flags a correction at least as large as the
+continuum separation. Ratios below one are inconclusive. Perturbative
+applicability also depends on the discrete spectrum and off-diagonal coupling
+matrix elements. A later optical integration decision needs those inputs
+or independent evidence for the approximation over the proposed domain.
