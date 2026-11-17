@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 154 package source modules; 797 explicit export paths; 267 distinct documented Python import paths.
+Coverage: 155 package source modules; 798 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -3205,6 +3205,14 @@ Decorators: `dataclass(frozen=True)`.
 No explicit export list; documented entry points need individual approval.
 
 - `get_base_property(material: str, property_name: str) -> MaterialProperty`
+
+## ncmemsim.materials.electron_hole_coulomb
+
+`ncmemsim/materials/electron_hole_coulomb.py`
+
+Explicit exports: `evaluate_electron_hole_coulomb`
+
+- `evaluate_electron_hole_coulomb(electron, hole, *, relative_permittivity, screening_evidence)`
 
 ## ncmemsim.materials.finite_confinement
 

@@ -63,3 +63,25 @@ scaling each well depth as 1/R². Record a numerical failure when the requested
 accuracy cannot be established. These tolerances describe numerical agreement
 for the declared model. A later applicability review must assess perturbation
 size against relevant level separations before any optical integration.
+
+
+## U1 evaluator
+
+Pass matched finite-well requests to `evaluate_electron_hole_coulomb` in
+`ncmemsim.materials.electron_hole_coulomb`, with an explicit relative
+permittivity and structural evidence for the screening choice. The evaluator
+solves each request and records both outcomes. An unavailable carrier leaves
+the correction undefined. Quadrature or energy range failures return a
+distinct numerical failure status.
+
+The reference grid specifies (mass ratio, dimensionless depth parameter)
+for electron and hole respectively. It includes (1, 4) and (1, 4) for
+identical wells, (0.25, 4) and (2, 3) for unequal masses, and (1, 1.6)
+and (1, 1.7) for substantial exterior probability. Nested adaptive integration
+of both radial variables provides an independent integration reference.
+
+Production quadrature uses Gauss–Legendre rules of order 16, 32, 64 and
+128 at most, with the interface and both exterior decay scales represented
+in the subdivision. The accepted change between successive orders plus
+the tail bound must be at most 10⁻⁸ times the coefficient. The refinement
+change is an error estimate. The tail bound follows from the omitted probability.
