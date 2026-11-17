@@ -4,6 +4,8 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Resolve the excitation gap and total orbital angular momentum zero sector for the equal-mass Coulomb controls.
+
 - Add a synthetic Coulomb perturbation scale study using carrier continuum separations.
 
 - Add an isolated first-order electron–hole Coulomb correction under explicit uniform screening.

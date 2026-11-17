@@ -648,3 +648,5 @@ for two bound finite-well states under uniform dielectric screening. U1 adds
 the isolated evaluator, independent radial quadrature checks and a tail bound.
 U2 compares the direct energy shift with the continuum separation and
 records the limits of this diagnostic for optical applicability.
+U3 resolves the excitation scale in the equal-mass controls and checks the
+total orbital angular momentum zero sector.

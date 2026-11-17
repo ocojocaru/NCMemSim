@@ -104,3 +104,30 @@ continuum separation. Ratios below one are inconclusive. Perturbative
 applicability also depends on the discrete spectrum and off-diagonal coupling
 matrix elements. A later optical integration decision needs those inputs
 or independent evidence for the approximation over the proposed domain.
+
+
+## U3 excitation scales and angular momentum
+
+```shell
+python examples/phase_u3_coulomb_spectral_gap.py --output outputs/u3_study.json
+```
+
+U3 reuses the five U2 cases. Each carrier has equal inside and outside masses.
+The matching thresholds for the first ℓ = 1 bound state and second ℓ = 0 state
+are ρ = π and ρ = 3π/2, respectively. The first ℓ = 1 branch lies below
+the second ℓ = 0 branch because its hard-wall wave number is below 3π/2.
+Higher angular channels have a larger centrifugal term. The example solves
+the excited branches or uses the continuum threshold when a branch is
+unavailable. See the [finite spherical well derivation](https://bingweb.binghamton.edu/~suzuki/QuantumMechanicsII/5-4_Finite_spherical_well.pdf)
+and [spherical Bessel recurrences](https://dlmf.nist.gov/10.51).
+
+The full unperturbed pair gap is the smaller single-carrier excitation gap.
+The direct Coulomb operator is rotationally invariant. From the ground pair
+it couples only within total orbital angular momentum L = 0. In that sector
+the first excitation is either a radial excitation in one carrier, including
+its continuum threshold, or an ℓ = 1 excitation in both carriers coupled to
+L = 0. Higher equal-ℓ channels have higher onset energies.
+
+The ratio of the diagonal shift to either gap remains a comparison of energy
+scales. Computing off-diagonal couplings or comparing against an interacting
+pair solution would provide a separate perturbation accuracy check.
