@@ -18,7 +18,7 @@ NCMemSim is a modular Python framework for the simulation and design–technolog
 > Version-specific DOI: [10.5281/zenodo.23316663](https://doi.org/10.5281/zenodo.23316663)
 > Experimental P4B/P5B/P6B remain deferred; no new independent measured dataset or calibrated parameter is claimed.
 
-**Current stable release:** `1.10.0` — main/tag CI and Release passed; wheel and sdist published.
+**Current stable release:** `1.11.0` — main/tag CI and Release passed; wheel and sdist published.
 > **Previous stable release:** `1.5.0` — broadband optics and reproducible spectral reports.
 > **Previous stable release:** `1.4.0` — temperature-dependent properties and reproducible thermal reports
 > **Published v1.3.0 status:** Phase L is complete; final candidate, main and tag CI passed, and v1.3.0 is published with wheel and sdist.
@@ -50,9 +50,9 @@ replacements, controlled sensitivity and strict isolated reports. P4B/P5B/P6B re
 deferred. The published version citation is retained in the historical fixtures.
 See [the release checklist](docs/v1_10_release_checklist.md).
 
-**v1.11.0 release candidate** adds finite spherical-well confinement, opt-in Ge
-optical composition and reproducible confinement reports. The citation uses
-the Concept DOI pending archival.
+**Published v1.11.0 status:** T7 is complete. Published 2026-11-16.
+Phase T adds finite spherical-well confinement, opt-in Ge optical
+composition and reproducible confinement reports. Version DOI [10.5281/zenodo.24273310](https://doi.org/10.5281/zenodo.24273310).
 
 For a consolidated capability/limitations matrix, see [current platform status](docs/platform_status.md)
 and the [documentation inventory](docs/documentation_status.md).

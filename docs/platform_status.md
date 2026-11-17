@@ -1,13 +1,13 @@
-# Platform status - NCMemSim v1.10.0
+# Platform status - NCMemSim v1.11.0
 
 Documentation consolidated on 2026-11-05 against published v1.10.0 and metadata
 closure commit `46ec695aba82978e1bb115bb5647f7fed69f0898`.
-Latest stable: **1.10.0**, published 2026-11-05. Phase S7 is complete.
-[GitHub release](https://github.com/ocojocaru/NCMemSim/releases/tag/v1.10.0)
+Latest stable: **1.11.0**, published 2026-11-16. Phase T7 is complete.
+[GitHub release](https://github.com/ocojocaru/NCMemSim/releases/tag/v1.11.0)
 contains wheel and sdist. Version DOI:
-[10.5281/zenodo.23973765](https://doi.org/10.5281/zenodo.23973765).
+[10.5281/zenodo.24273310](https://doi.org/10.5281/zenodo.24273310).
 [Concept DOI](https://doi.org/10.5281/zenodo.23078330) remains separate.
-Main CI 42000134152 and Documentation 42000134173 passed on the closure commit.
+Main CI 43410045044 and Documentation 43410044878 passed on the v1.11.0 merge commit.
 The immutable release tag points to `ba1b9ea9563f3786fb4af96215606b103a2925a2`;
 later metadata/documentation commits do not move that tag or replace its assets.
 
@@ -58,5 +58,5 @@ are not current total test counts or claims that a previously completed stage is
 still pending. See the [documentation inventory](documentation_status.md).
 The [roadmap](roadmap.md) separates delivered work from remaining research.
 Post-v1.10 development includes the [Phase T1–T6 finite-confinement solver, optical context, studies and reports](finite_confinement.md)
-for isolated finite-barrier ground states. The v1.11.0 candidate includes these extensions.
+for isolated finite-barrier ground states. v1.11.0 includes these extensions. Version DOI [10.5281/zenodo.24273310](https://doi.org/10.5281/zenodo.24273310).
 See the [release checklist](v1_11_release_checklist.md).

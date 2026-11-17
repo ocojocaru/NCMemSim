@@ -4,9 +4,9 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
-## 1.11.0 - 2026-11-11
+## 1.11.0 - 2026-11-16
 
-Release candidate for Phase T. The version DOI is pending archival.
+Phase T is published. Version DOI [10.5281/zenodo.24273310](https://doi.org/10.5281/zenodo.24273310).
 
 - Prepare v1.11.0 with Phase T API compatibility and installed-bundle checks.
 

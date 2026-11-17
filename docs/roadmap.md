@@ -574,7 +574,7 @@ The stable API, scientific scope and citation policy are approved, and the full
 regression, strict documentation, clean-distribution and remote Actions gates
 all passed. The preparation branch was promoted to `main` for v1.0.0.
 
-Historical v1.0 preparation is complete. Current published identity: `1.10.0`,
+Historical v1.0 preparation is complete. Current published identity: `1.11.0`,
 dated 2026-11-05; S7 is complete. Version DOI: 10.5281/zenodo.23973765.
 
 ## S5 controlled action sensitivity
@@ -627,7 +627,7 @@ outcomes must remain distinct from numerical failures. Pair corrections and
 optical integration follow only after explicit acceptance gates; no Coulomb,
 multiband or material qualification is implied. T1-T7 are defined in that scope.
 No new API, solver, preset or release version is introduced by T0. Latest published
-stable remains v1.10.0; independent experimental P4B/P5B/P6B remain deferred.
+stable is v1.11.0; independent experimental P4B/P5B/P6B remain deferred.
 
 T1 adds the isolated request, per-input evidence and prospective numerical policy.
 T2 implements isolated ground-state evaluation and validates it against independent
@@ -638,4 +638,5 @@ confinement term per transition. T5 compares single-wavelength and single-layer
 spectral responses, with separate grid refinement and input sensitivity.
 T6 adds strict isolated finite-well reports and reproducibility bundles.
 T7 covers compatibility checks and the release decision.
-The [T7 release checklist](v1_11_release_checklist.md) tracks the v1.11.0 candidate.
+The [T7 release checklist](v1_11_release_checklist.md) records the Phase T7 release. v1.11.0 was published 2026-11-16 from
+commit `77c4c982084383791511eb45fa128974e26b0044`. Version DOI [10.5281/zenodo.24273310](https://doi.org/10.5281/zenodo.24273310).
