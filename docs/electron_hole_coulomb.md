@@ -131,3 +131,30 @@ L = 0. Higher equal-ℓ channels have higher onset energies.
 The ratio of the diagonal shift to either gap remains a comparison of energy
 scales. Computing off-diagonal couplings or comparing against an interacting
 pair solution would provide a separate perturbation accuracy check.
+
+
+## U4 single-carrier radial couplings
+
+```shell
+python examples/phase_u4_coulomb_radial_coupling.py --output outputs/u4_study.json
+```
+
+The five U2 cases supply the requests and screening. For each carrier U4
+constructs its first excited bound s state, when present, and keeps the
+spectator in its ground state. All cases use equal inside and outside masses.
+The signed reduced envelope is continuous at the interface. Its normalized
+overlap with the corresponding ground state supplies an orthogonality check.
+
+In the direct radial integral, replace the excited carrier's probability
+density by the product of its ground and excited envelopes. The spectator
+retains its ground-state probability density. The same angular average
+1/max(r_e, r_h) applies because both individual angular momenta are zero.
+Adaptive nested quadrature integrates each domain to infinity with a split
+at the interface. Tolerances 10⁻¹⁰ and 10⁻¹² supply a refinement comparison.
+
+For matrix element M and excitation gap Δ, each channel reports the
+first-order amplitude magnitude |M|/Δ and second-order contribution −|M|²/Δ.
+The sign of M follows the chosen radial phases. The contributions describe
+the included bound radial channels. Additional radial, angular and continuum
+channels contribute to the full interacting-pair problem. Optical
+applicability remains a further assessment.

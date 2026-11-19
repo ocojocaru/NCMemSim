@@ -650,3 +650,5 @@ U2 compares the direct energy shift with the continuum separation and
 records the limits of this diagnostic for optical applicability.
 U3 resolves the excitation scale in the equal-mass controls and checks the
 total orbital angular momentum zero sector.
+U4 evaluates single-carrier bound 2s couplings and their channel-specific
+mixing amplitudes and second-order energy contributions.
