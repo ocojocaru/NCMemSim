@@ -3,7 +3,7 @@
 Generated from the audited source baseline. [Compatibility preparation](api_compatibility.md)
 and [result contracts](api_results.md) distinguish observed behavior from v1.0 approval.
 
-Coverage: 155 package source modules; 798 explicit export paths; 267 distinct documented Python import paths.
+Coverage: 156 package source modules; 801 explicit export paths; 267 distinct documented Python import paths.
 
 Source signatures retain `self`/`cls` and unevaluated defaults. Dataclass fields below are
 declared fields, not a synthesized inherited constructor. Properties are shown as methods
@@ -300,6 +300,23 @@ No explicit export list; documented entry points need individual approval.
 
 No explicit export list; documented entry points need individual approval.
 
+
+## ncmemsim.coulomb_reporting
+
+`ncmemsim/coulomb_reporting.py`
+
+Explicit exports: `CoulombStudyReport`, `write_coulomb_study_bundle`, `load_coulomb_study_bundle`
+
+### CoulombStudyReport
+
+Bases: `_Owned`.
+
+Constructor: `__init__(self, title, cases)`.
+
+- `from_dict(cls, raw)`; `classmethod`.
+
+- `write_coulomb_study_bundle(report, destination)`
+- `load_coulomb_study_bundle(destination)`
 
 ## ncmemsim.coupling
 

@@ -654,3 +654,5 @@ U4 evaluates single-carrier bound 2s couplings and their channel-specific
 mixing amplitudes and second-order energy contributions.
 U5 evaluates the first bound 1p electron–hole pair coupled to total
 orbital angular momentum zero, with angular and radial validation.
+U6 adds owned direct Coulomb reports and bundles with source reconstruction,
+retained negative outcomes and deterministic projection checks.

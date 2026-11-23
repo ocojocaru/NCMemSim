@@ -4,6 +4,8 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add strict direct Coulomb reports and deterministic bundles with full source reconstruction.
+
 - Add the bound electron–hole 1p pair Coulomb channel coupled to total orbital angular momentum zero.
 
 - Add bound 1s-to-2s Coulomb matrix elements and channel-specific perturbation diagnostics.

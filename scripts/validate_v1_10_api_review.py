@@ -53,7 +53,7 @@ def build_review(root):
     for name in ('finite_confinement_contracts', 'finite_confinement', 'electron_hole_coulomb'):
         if (root / 'ncmemsim' / 'materials' / (name + '.py')).is_file():
             expected.add('ncmemsim.materials.' + name)
-    for name in ('finite_confinement_context', 'finite_confinement_reporting'):
+    for name in ('finite_confinement_context', 'finite_confinement_reporting', 'coulomb_reporting'):
         if (root / 'ncmemsim' / (name + '.py')).is_file():
             expected.add('ncmemsim.' + name)
     if set(inventory)!=expected:

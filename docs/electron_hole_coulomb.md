@@ -202,3 +202,32 @@ retains its unavailable ground-state outcome.
 The reported |M|/Δ and −|M|²/Δ refer to this single coupled angular channel.
 Together with U4 they provide selected-channel diagnostics. Higher radial
 and angular states and the continuum enter a complete pair calculation.
+
+
+## U6 direct Coulomb reporting
+
+```shell
+python examples/phase_u6_coulomb_report.py --output outputs/u6_bundle
+```
+
+`CoulombStudyReport` in `ncmemsim.coulomb_reporting` accepts an ordered
+list of cases, each with a unique label, a U1 result and JSON settings.
+It rebuilds both carrier states and the direct energy shift from the
+original requests and screening evidence. The report owns a serialized
+copy of all cases, counts evaluated, unavailable and numerical-failure
+outcomes, and records units, electrostatic constants and the numerical policy.
+The included U1 results retain each carrier's finite-well numerical policy.
+
+The example exports all five U2 direct results and an additional artificial
+energy-underflow control with relative permittivity 10³⁰⁸. This last case
+exercises numerical-range reporting. The writer creates a new directory
+containing report.json, report.md, cases.csv and bundle.json. The manifest
+records the report hash and SHA-256 hashes of the three projections. The
+reader verifies exact directory membership and source reconstruction and
+compares each regenerated projection with the saved bytes.
+
+Restoration requires exact diagnostic agreement in a numerically compatible
+runtime. Settings and screening evidence retain their caller-declared
+provenance. U4 and U5 retain their channel-specific JSON study formats.
+Their matrix elements and perturbation amplitudes need an explicit
+extension of the reporting schema before source-verified restoration.
