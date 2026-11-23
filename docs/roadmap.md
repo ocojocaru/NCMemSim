@@ -652,3 +652,5 @@ U3 resolves the excitation scale in the equal-mass controls and checks the
 total orbital angular momentum zero sector.
 U4 evaluates single-carrier bound 2s couplings and their channel-specific
 mixing amplitudes and second-order energy contributions.
+U5 evaluates the first bound 1p electron–hole pair coupled to total
+orbital angular momentum zero, with angular and radial validation.

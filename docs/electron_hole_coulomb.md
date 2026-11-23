@@ -158,3 +158,47 @@ The sign of M follows the chosen radial phases. The contributions describe
 the included bound radial channels. Additional radial, angular and continuum
 channels contribute to the full interacting-pair problem. Optical
 applicability remains a further assessment.
+
+
+## U5 bound angular channel
+
+```shell
+python examples/phase_u5_coulomb_angular_coupling.py --output outputs/u5_study.json
+```
+
+U5 reuses the five U2 cases and the bound first p states from U3. Both
+carriers must have accepted ground states and a bound first p state.
+The exterior reduced radial envelope is proportional to t k₁(yt),
+matched continuously to t j₁(xt) inside. Normalization integrates the
+interior and exterior domains to infinity. Equal masses at each carrier's
+interface are required.
+
+With the Condon–Shortley phases, the coupled angular function for the
+1p electron–hole pair at total L = 0 is −√3 cos(γ)/(4π), where γ is
+the angle between the two carrier positions. The 1s pair angular function
+is 1/(4π). The addition theorem and Clebsch–Gordan coefficients give the
+angular projection of the inverse separation as
+−min(t_e,t_h)/(√3 max(t_e,t_h)²) in dimensionless radii.
+This expression is derived from the
+[spherical harmonic addition theorem](https://dlmf.nist.gov/14.30.E9) and
+[angular momentum coupling coefficients](https://dlmf.nist.gov/34.3.E1).
+The test compares it with direct angular integration.
+
+The radial integral uses the products of each carrier's ground and p-state
+envelopes. On each triangle of the two-radius domain its inner integral
+contains s times the transition density, and its outer factor contains
+the other transition density divided by t². The study uses the signed
+angular factor −1/√3 and the attractive Coulomb prefactor. A change of
+phase changes the sign of the matrix element. The amplitude magnitude
+and second-order contribution are invariant under that change.
+
+Nested quadrature with tolerances 10⁻¹⁰ and 10⁻¹² checks refinement. The
+change must be below 10⁻⁸ of the coefficient. Quadrature warnings and
+refinement failures are retained as numerical failures. The baseline and
+weaker-screening cases have this bound angular channel. The smaller-radius
+and shallower-hole cases retain an unavailable channel. The zero-depth hole
+retains its unavailable ground-state outcome.
+
+The reported |M|/Δ and −|M|²/Δ refer to this single coupled angular channel.
+Together with U4 they provide selected-channel diagnostics. Higher radial
+and angular states and the continuum enter a complete pair calculation.

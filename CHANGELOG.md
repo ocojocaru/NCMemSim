@@ -4,6 +4,8 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Add the bound electron–hole 1p pair Coulomb channel coupled to total orbital angular momentum zero.
+
 - Add bound 1s-to-2s Coulomb matrix elements and channel-specific perturbation diagnostics.
 
 - Resolve the excitation gap and total orbital angular momentum zero sector for the equal-mass Coulomb controls.
