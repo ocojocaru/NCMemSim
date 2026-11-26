@@ -131,6 +131,9 @@ SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_3_0/' + p for p in
     ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py',
      'docs/index.md', 'docs/model_variability.md', 'docs/roadmap.md')}
 
+SOURCE_REQUIRED |= {'scripts/validate_v1_12_preparation.py', 'tests/test_phase_u7_preparation.py',
+                    'docs/v1_12_api_review.json', 'docs/v1_12_release_checklist.md'}
+
 def check_archive(path: Path) -> None:
     if path.suffix == ".whl":
         with zipfile.ZipFile(path) as archive:
@@ -321,6 +324,10 @@ def main() -> None:
             run(str(python), '-I', '-c', BARRIER_REPORT_PROBE, str(work), str(number), cwd=work)
             examples = work / 'examples'
             examples.mkdir(exist_ok=True)
+            for name in ('phase_t3_finite_confinement_reference.py',
+                         'phase_u2_coulomb_applicability.py', 'phase_u6_coulomb_report.py'):
+                shutil.copyfile(root / 'examples' / name, examples / name)
+            run(str(python), '-I', '-c', COULOMB_REPORT_PROBE, str(work), str(environment), str(number), cwd=work)
             for name in ('phase_t3_finite_confinement_reference.py',
                          'phase_t6_finite_confinement_report.py'):
                 shutil.copyfile(root / 'examples' / name, examples / name)
@@ -1094,6 +1101,28 @@ except ValueError:pass
 else:raise AssertionError('coherently rehashed trial projection accepted')
 print('Installed R7 frozen performance archive, no replay, deterministic export and tamper rejection PASS')
 """
+
+COULOMB_REPORT_PROBE = r'''import hashlib,json,pathlib,sys
+work=pathlib.Path(sys.argv[1]); sys.path.insert(0,str(work))
+import ncmemsim.coulomb_reporting as api
+assert pathlib.Path(api.__file__).resolve().is_relative_to(pathlib.Path(sys.argv[2]).resolve())
+from examples.phase_u6_coulomb_report import build_report
+report=build_report()
+assert report.to_dict()['summary']=={'attempted_count':6,'outcomes':{'evaluated':4,'unavailable':1,'numerical_failure':1}}
+left=api.write_coulomb_study_bundle(report,work/('u7-left-'+sys.argv[3]))
+right=api.write_coulomb_study_bundle(report,work/('u7-right-'+sys.argv[3]))
+assert {p.name:p.read_bytes() for p in left.iterdir()}=={p.name:p.read_bytes() for p in right.iterdir()}
+assert api.load_coulomb_study_bundle(left).contract_hash==report.contract_hash
+csv=left/'cases.csv'; csv.write_bytes(csv.read_bytes()+b'forged\n')
+manifest=left/'bundle.json'; raw=json.loads(manifest.read_bytes())
+raw['files']['cases.csv']=hashlib.sha256(csv.read_bytes()).hexdigest()
+manifest.write_text(json.dumps(raw),encoding='utf-8')
+try: api.load_coulomb_study_bundle(left)
+except ValueError: pass
+else: raise AssertionError('coherently rehashed projection accepted')
+print('Installed U7 direct Coulomb outcomes, round-trip and tamper rejection PASS')
+'''
+
 
 if __name__ == "__main__":
     main()

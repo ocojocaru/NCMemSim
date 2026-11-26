@@ -656,3 +656,12 @@ U5 evaluates the first bound 1p electron–hole pair coupled to total
 orbital angular momentum zero, with angular and radial validation.
 U6 adds owned direct Coulomb reports and bundles with source reconstruction,
 retained negative outcomes and deterministic projection checks.
+
+
+## U7 release preparation
+
+The [v1.12 checklist](v1_12_release_checklist.md) defines an additive release
+target with two new module-qualified APIs and four exports. Preparation keeps
+the published 1.11.0 identity. Source hashes retain the full published package;
+installed wheel and sdist checks exercise U6 reconstruction and negative outcomes.
+Optical integration and experimental qualification remain outside this release scope.

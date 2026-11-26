@@ -4,6 +4,8 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+- Prepare Phase U7 additive API review and installed Coulomb bundle gates for v1.12.0.
+
 - Add strict direct Coulomb reports and deterministic bundles with full source reconstruction.
 
 - Add the bound electron–hole 1p pair Coulomb channel coupled to total orbital angular momentum zero.
