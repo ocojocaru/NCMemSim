@@ -4,6 +4,12 @@
 
 # NCMemSim
 
+**Final v1.12.0 candidate:** Isolated first-order electron–hole Coulomb
+diagnostics under declared uniform screening, selected-channel studies and strict
+direct-Coulomb report bundles. Latest published stable remains **v1.11.0**.
+Candidate CI/PR/main/tag checks and a version-specific DOI remain pending.
+See the [v1.12 checklist](v1_12_release_checklist.md).
+
 Previous published stable: `1.10.0`, dated 2026-11-05. S7 is complete.
 Explicit electron barrier diagnostics, opt-in direct inter-FG integration and strict
 isolated reports are published with wheel and sdist. Version DOI:

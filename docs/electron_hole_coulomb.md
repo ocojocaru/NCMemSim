@@ -240,3 +240,18 @@ target with two new module-qualified APIs and four exports. Preparation keeps
 the published 1.11.0 identity. Source hashes retain the full published package;
 installed wheel and sdist checks exercise U6 reconstruction and negative outcomes.
 Optical integration and experimental qualification remain outside this release scope.
+
+
+## Final v1.12.0 candidate (2026-11-27)
+
+Preparation commit `e24cb9b8e745f8b85329e86a932ca4d33a43c53b` passed
+[CI](https://github.com/ocojocaru/NCMemSim/actions/runs/45841636883) and
+[Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/45841671830).
+The candidate adds two module-qualified APIs with four exports for isolated
+direct Coulomb evaluation and source-verified reports. Only the reviewed package
+version literal changes in the 154 retained published modules. The
+[release checklist](v1_12_release_checklist.md) keeps candidate publication gates
+pending. Latest published stable remains v1.11.0. Qualified optical integration,
+complete pair convergence and experimental device qualification remain deferred.
+The stored-charge sign and occupancy normalization require a separate review
+before physical-voltage comparisons; the isolated Coulomb evaluator is unaffected.

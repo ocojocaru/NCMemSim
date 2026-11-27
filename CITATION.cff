@@ -2,9 +2,8 @@ cff-version: 1.2.0
 message: "If you use NCMemSim in research, cite the exact software version and this repository."
 title: "NCMemSim: Nanocrystal Memory Simulation Platform"
 type: software
-version: 1.11.0
-date-released: 2026-11-16
-doi: 10.5281/zenodo.24273310
+version: 1.12.0
+date-released: 2026-11-27
 license: Apache-2.0
 identifiers:
   - type: doi
@@ -45,7 +44,9 @@ abstract: >-
   report bundles, explicit piecewise-linear electron barriers, isolated WKB action
   diagnostics, opt-in snapshot-bound direct inter-FG replacements, controlled
   barrier sensitivity, strict isolated barrier reports, finite spherical-well
-  confinement, opt-in Ge optical composition and reproducible confinement studies. Independent
+  confinement, opt-in Ge optical composition, isolated first-order electron-hole
+  Coulomb diagnostics under declared uniform screening and reproducible direct-Coulomb
+  study bundles. Independent
   experimental device qualification remains deferred pending admitted data.
 keywords:
   - nanocrystal memory

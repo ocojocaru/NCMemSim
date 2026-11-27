@@ -131,6 +131,10 @@ SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_3_0/' + p for p in
     ('README.md', 'CHANGELOG.md', 'CITATION.cff', 'ncmemsim/_version.py',
      'docs/index.md', 'docs/model_variability.md', 'docs/roadmap.md')}
 
+SOURCE_REQUIRED |= {'scripts/validate_v1_12_release_identity.py', 'tests/test_phase_u7_final_identity.py',
+                    'tests/fixtures/releases/v1_11_0/snapshot.json'}
+SOURCE_REQUIRED |= {'tests/fixtures/releases/v1_11_0/' + name for name in ['ncmemsim/_version.py', 'CITATION.cff', 'CHANGELOG.md', 'README.md', 'docs/index.md', 'docs/archival_citation.md', 'docs/v1_11_release_checklist.md']}
+
 SOURCE_REQUIRED |= {'scripts/validate_v1_12_preparation.py', 'tests/test_phase_u7_preparation.py',
                     'docs/v1_12_api_review.json', 'docs/v1_12_release_checklist.md'}
 

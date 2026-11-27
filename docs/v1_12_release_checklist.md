@@ -1,7 +1,8 @@
 # Phase U7: v1.12 release preparation
 
-Target release: `1.12.0`. Preparation identity remains `1.11.0`.
-Latest published stable is v1.11.0. No v1.12 candidate or publication is declared.
+Target release: `1.12.0`. Preparation identity was `1.11.0`.
+Candidate identity: `1.12.0`, dated 2026-11-27.
+Latest published stable is v1.11.0. The candidate is not yet published.
 
 ## Scope and compatibility
 
@@ -28,8 +29,10 @@ Independent experimental P4B/P5B/P6B qualification remains deferred. The legacy 
 - [x] Add isolated installed-package U6 round-trip, deterministic export and
   coherently rehashed projection-tampering checks to wheel/sdist validation.
 - [x] Pass local regression, strict documentation and installed distribution checks.
-- [ ] Commit preparation and pass CI/Documentation on that exact commit.
-- [ ] Review final candidate identity, scientific scope and current limitations.
+- [x] Preparation commit `e24cb9b8e745f8b85329e86a932ca4d33a43c53b` passed [CI](https://github.com/ocojocaru/NCMemSim/actions/runs/45841636883) and [Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/45841671830).
+- [x] Declare final candidate identity, scientific scope and current limitations.
+- [x] Pass local candidate identity, retained metadata, documentation and installed distribution checks.
+- [ ] Commit the candidate and pass CI/Documentation on that exact commit.
 - [ ] Pass candidate, PR and main checks before creating the release tag.
 - [ ] Verify tag checks, release artifacts and version-specific Zenodo DOI.
 
@@ -45,4 +48,23 @@ references with zero errors. The retained v1.11 identity and source gates passed
 Clean wheel and sdist installations both passed all existing probes and the new
 U7 direct-report round-trip, deterministic export and rehashed-tamper rejection
 probe; 516 source files were audited. These are local preparation results.
-Exact-commit CI and Documentation remain pending commit and push.
+Preparation CI and Documentation subsequently passed on the exact commit recorded above. Candidate checks require their own evidence.
+
+
+The source compatibility gate permits only the exact `1.11.0` to `1.12.0`
+version-literal substitution. All other published source bytes and the U1/U6
+module hashes remain pinned. The published v1.11 metadata snapshot is captured
+from `1f6efa1fd4f57a4a404e49b2615fadec8b4f7dd4` and independently hash-checked.
+Historical v1.11 tests exercise that snapshot, including its original version DOI.
+The current candidate citation contains no reused or invented version DOI.
+
+## Local candidate evidence (2026-11-27)
+
+Candidate verification passed 97 selected identity, Coulomb and historical
+compatibility tests (22 identity/preparation tests and 75 regression tests).
+All retained contract/identity commands from CI passed. Strict documentation
+checked 79 pages and 14,087 local references with zero errors. Clean wheel and
+sdist installations passed all probes, including U7 in both environments;
+526 source files were audited. The 5,672-test full preparation run and its
+remote CI evidence above belong to the preparation checkpoint. Candidate
+CI/Documentation and the full remote test matrix remain pending commit/push.

@@ -18,6 +18,12 @@ NCMemSim is a modular Python framework for the simulation and design–technolog
 > Version-specific DOI: [10.5281/zenodo.23316663](https://doi.org/10.5281/zenodo.23316663)
 > Experimental P4B/P5B/P6B remain deferred; no new independent measured dataset or calibrated parameter is claimed.
 
+**Final v1.12.0 candidate:** Isolated first-order electron–hole Coulomb
+diagnostics under declared uniform screening, selected-channel studies and strict
+direct-Coulomb report bundles. Latest published stable remains **v1.11.0**.
+Candidate CI/PR/main/tag checks and a version-specific DOI remain pending.
+See the [v1.12 checklist](docs/v1_12_release_checklist.md).
+
 **Current stable release:** `1.11.0` — main/tag CI and Release passed; wheel and sdist published.
 > **Previous stable release:** `1.5.0` — broadband optics and reproducible spectral reports.
 > **Previous stable release:** `1.4.0` — temperature-dependent properties and reproducible thermal reports

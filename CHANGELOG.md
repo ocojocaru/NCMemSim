@@ -4,6 +4,12 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+## 1.12.0 - 2026-11-27 (unpublished candidate)
+
+Phase U adds isolated direct Coulomb diagnostics and reproducible reports.
+Optical applicability, experimental qualification and the legacy charge convention
+remain separate reviews; no new physical-voltage qualification is claimed.
+
 - Prepare Phase U7 additive API review and installed Coulomb bundle gates for v1.12.0.
 
 - Add strict direct Coulomb reports and deterministic bundles with full source reconstruction.

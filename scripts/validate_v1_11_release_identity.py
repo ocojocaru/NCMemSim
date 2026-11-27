@@ -2,6 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 """Check the v1.11.0 package, citation and publication declarations."""
 import ast
+import argparse
+import hashlib
+import json
 from datetime import date
 from pathlib import Path
 import re
@@ -52,6 +55,28 @@ def validate_identity(root):
             raise ValueError(f'published declaration mismatch: {name}')
 
 
+SNAPSHOT = 'tests/fixtures/releases/v1_11_0'
+PUBLISHED_HASHES = {'ncmemsim/_version.py': '416a31bef6bf2426b38539df350fca523404e4a339d88e4fa1d692b41f2b9905', 'CITATION.cff': '3452143c0a03aa2de3b0dfd985ac93b7df8f59f195354b477677757f2637695b', 'CHANGELOG.md': '4a3dccd7809262f423f0e17e6dbdc1c0c76a3637c82dbe8b7bac2399fa119026', 'README.md': 'cf534fc5b16535e30e8ab2bb707f696f33256d6deb035097c53ff2fe1e95c4de', 'docs/index.md': 'ed073eb3d1cb8547ff59c0e4b0f4fead448da349acbb94165a8b7ea286686b2f', 'docs/archival_citation.md': 'b5c222710d8d20739316c6172f0cdfdd9eda556cb5b27eeda166e45f21b0f325', 'docs/v1_11_release_checklist.md': '98013b2c52032bd742dd5985624caa8fa65bf1b885a06fc9adfeed4b498ef232'}
+
+
+def validate_retained(root=ROOT):
+    snapshot = Path(root) / SNAPSHOT
+    declaration = json.loads((snapshot / 'snapshot.json').read_text(encoding='utf-8'))
+    if declaration != {'capture_commit': '1f6efa1fd4f57a4a404e49b2615fadec8b4f7dd4', 'files': PUBLISHED_HASHES}:
+        raise ValueError('published v1.11 snapshot declaration drift')
+    for name, digest in PUBLISHED_HASHES.items():
+        source = (snapshot / name).read_text(encoding='utf-8')
+        if hashlib.sha256(source.encode('utf-8')).hexdigest() != digest:
+            raise ValueError('published v1.11 snapshot drift: ' + name)
+    validate_identity(snapshot)
+
+
 if __name__ == '__main__':
-    validate_identity(ROOT)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--retained', action='store_true')
+    args = parser.parse_args()
+    if args.retained:
+        validate_retained()
+    else:
+        validate_identity(ROOT)
     print('v1.11.0 published identity PASS')

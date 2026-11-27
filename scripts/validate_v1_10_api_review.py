@@ -105,7 +105,7 @@ def validate(root):
         raise ValueError('API inventory drift')
     if _json(root/REVIEW)!=build_review(root):
         raise ValueError('v1.10 preparation review/source drift')
-    if _version(root) not in ('1.10.0', '1.11.0'):
+    if _version(root) not in ('1.10.0', '1.11.0', '1.12.0'):
         raise ValueError('unreviewed package identity for the retained v1.10 review')
     checklist=(root/'docs/v1_10_release_checklist.md').read_text(encoding='utf-8')
     for marker in ('Target release: `1.10.0`','Published identity: `1.10.0`',

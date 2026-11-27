@@ -184,7 +184,7 @@ def _published_view(root):
     current=(root/'ncmemsim/_version.py').read_text(encoding='utf-8')
     if not any(
         current.replace(f'__version__ = "{version}"', '__version__ = "1.9.0"') == old
-        for version in ('1.10.0', '1.11.0')
+        for version in ('1.10.0', '1.11.0', '1.12.0')
     ):
         raise ValueError('unreviewed version source change beyond candidate literal')
     with tempfile.TemporaryDirectory(prefix='ncmemsim-v19-review-') as temporary:

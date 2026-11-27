@@ -1,0 +1,12 @@
+{
+  "capture_commit": "1f6efa1fd4f57a4a404e49b2615fadec8b4f7dd4",
+  "files": {
+    "ncmemsim/_version.py": "416a31bef6bf2426b38539df350fca523404e4a339d88e4fa1d692b41f2b9905",
+    "CITATION.cff": "3452143c0a03aa2de3b0dfd985ac93b7df8f59f195354b477677757f2637695b",
+    "CHANGELOG.md": "4a3dccd7809262f423f0e17e6dbdc1c0c76a3637c82dbe8b7bac2399fa119026",
+    "README.md": "cf534fc5b16535e30e8ab2bb707f696f33256d6deb035097c53ff2fe1e95c4de",
+    "docs/index.md": "ed073eb3d1cb8547ff59c0e4b0f4fead448da349acbb94165a8b7ea286686b2f",
+    "docs/archival_citation.md": "b5c222710d8d20739316c6172f0cdfdd9eda556cb5b27eeda166e45f21b0f325",
+    "docs/v1_11_release_checklist.md": "98013b2c52032bd742dd5985624caa8fa65bf1b885a06fc9adfeed4b498ef232"
+  }
+}
