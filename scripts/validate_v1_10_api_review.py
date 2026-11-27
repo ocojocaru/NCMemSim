@@ -50,10 +50,10 @@ def build_review(root):
     inventory={m['module']:m for m in build_inventory(root)['modules']}
     expected={row['module'] for row in _json(root/'docs/v1_9_published_surface.json')['modules']} | set(MODULES)
     # Track the named Phase T modules separately from the published v1.10 review.
-    for name in ('finite_confinement_contracts', 'finite_confinement'):
+    for name in ('finite_confinement_contracts', 'finite_confinement', 'electron_hole_coulomb'):
         if (root / 'ncmemsim' / 'materials' / (name + '.py')).is_file():
             expected.add('ncmemsim.materials.' + name)
-    for name in ('finite_confinement_context', 'finite_confinement_reporting'):
+    for name in ('finite_confinement_context', 'finite_confinement_reporting', 'coulomb_reporting'):
         if (root / 'ncmemsim' / (name + '.py')).is_file():
             expected.add('ncmemsim.' + name)
     if set(inventory)!=expected:
@@ -105,7 +105,7 @@ def validate(root):
         raise ValueError('API inventory drift')
     if _json(root/REVIEW)!=build_review(root):
         raise ValueError('v1.10 preparation review/source drift')
-    if _version(root) not in ('1.10.0', '1.11.0'):
+    if _version(root) not in ('1.10.0', '1.11.0', '1.12.0'):
         raise ValueError('unreviewed package identity for the retained v1.10 review')
     checklist=(root/'docs/v1_10_release_checklist.md').read_text(encoding='utf-8')
     for marker in ('Target release: `1.10.0`','Published identity: `1.10.0`',

@@ -2582,6 +2582,136 @@
       ]
     },
     {
+      "module": "ncmemsim.coulomb_reporting",
+      "source": "ncmemsim/coulomb_reporting.py",
+      "explicit_exports": [
+        "CoulombStudyReport",
+        "write_coulomb_study_bundle",
+        "load_coulomb_study_bundle"
+      ],
+      "package_import_aliases": {
+        "_EPS0": "ncmemsim.constants.EPSILON_0_F_M",
+        "_Evidence": "ncmemsim.materials.structural.StructuralEvidence",
+        "_Owned": "ncmemsim.performance_contracts._Owned",
+        "_Q": "ncmemsim.constants.ELEMENTARY_CHARGE_C",
+        "_Request": "ncmemsim.materials.finite_confinement_contracts.FiniteConfinementRequest",
+        "_bytes": "ncmemsim.barrier_reporting._bytes",
+        "_canonical": "ncmemsim.performance_contracts._canonical",
+        "_evaluate": "ncmemsim.materials.electron_hole_coulomb.evaluate_electron_hole_coulomb",
+        "_hash": "ncmemsim.performance_contracts._hash",
+        "_reject": "ncmemsim.performance_contracts._reject",
+        "_table": "ncmemsim.barrier_reporting._table",
+        "_text": "ncmemsim.performance_contracts._text",
+        "_unique": "ncmemsim.performance_contracts._unique"
+      },
+      "public_source_definitions": [
+        {
+          "name": "CoulombStudyReport",
+          "kind": "class",
+          "class_assignments": [],
+          "bases": [
+            "_Owned"
+          ],
+          "decorators": [],
+          "declared_fields": [],
+          "constructor": {
+            "parameters": [
+              {
+                "name": "self",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "title",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              },
+              {
+                "name": "cases",
+                "kind": "positional_or_keyword",
+                "annotation": null,
+                "required": true,
+                "default_expression": null
+              }
+            ],
+            "return_annotation": null,
+            "source_signature": "(self, title, cases)",
+            "decorators": []
+          },
+          "methods": [
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                },
+                {
+                  "name": "raw",
+                  "kind": "positional_or_keyword",
+                  "annotation": null,
+                  "required": true,
+                  "default_expression": null
+                }
+              ],
+              "return_annotation": null,
+              "source_signature": "(cls, raw)",
+              "decorators": [
+                "classmethod"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "write_coulomb_study_bundle",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "report",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(report, destination)",
+          "decorators": []
+        },
+        {
+          "name": "load_coulomb_study_bundle",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "destination",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(destination)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
+    },
+    {
       "module": "ncmemsim.coupling",
       "source": "ncmemsim/coupling.py",
       "explicit_exports": null,
@@ -23404,6 +23534,62 @@
           "expression": "{'Ge': {'eps_r': MaterialProperty(16.0, '1', DEFAULT_ASSUMED, 'epsilon_r'), 'bandgap_eV': MaterialProperty(0.66, 'eV', DEFAULT_ASSUMED, 'E_g'), 'electron_affinity_eV': MaterialProperty(4.0, 'eV', DEFAULT_ASSUMED, 'chi'), 'effective_mass_m0': MaterialProperty(0.12, 'm0', DEFAULT_ASSUMED, 'm_e^*')}, 'alpha-Sn': {'eps_r': MaterialProperty(24.0, '1', DEFAULT_ASSUMED, 'epsilon_r'), 'bandgap_eV': MaterialProperty(-0.41, 'eV', DEFAULT_ASSUMED, 'E_g'), 'electron_affinity_eV': MaterialProperty(4.18, 'eV', DEFAULT_ASSUMED, 'chi'), 'effective_mass_m0': MaterialProperty(0.03, 'm0', DEFAULT_ASSUMED, 'm_e^*')}, 'Si': {'eps_r': MaterialProperty(11.7, '1', DEFAULT_ASSUMED, 'epsilon_r'), 'bandgap_eV': MaterialProperty(1.12, 'eV', DEFAULT_ASSUMED, 'E_g'), 'electron_affinity_eV': MaterialProperty(4.05, 'eV', DEFAULT_ASSUMED, 'chi')}, 'SiO2': {'eps_r': MaterialProperty(3.9, '1', DEFAULT_ASSUMED, 'epsilon_r'), 'bandgap_eV': MaterialProperty(8.9, 'eV', DEFAULT_ASSUMED, 'E_g'), 'electron_affinity_eV': MaterialProperty(0.95, 'eV', DEFAULT_ASSUMED, 'chi')}, 'HfO2': {'eps_r': MaterialProperty(25.0, '1', DEFAULT_ASSUMED, 'epsilon_r'), 'bandgap_eV': MaterialProperty(5.7, 'eV', DEFAULT_ASSUMED, 'E_g'), 'electron_affinity_eV': MaterialProperty(2.0, 'eV', DEFAULT_ASSUMED, 'chi')}}"
         }
       ]
+    },
+    {
+      "module": "ncmemsim.materials.electron_hole_coulomb",
+      "source": "ncmemsim/materials/electron_hole_coulomb.py",
+      "explicit_exports": [
+        "evaluate_electron_hole_coulomb"
+      ],
+      "package_import_aliases": {
+        "_EPS0": "ncmemsim.constants.EPSILON_0_F_M",
+        "_Evidence": "ncmemsim.materials.structural.StructuralEvidence",
+        "_Q": "ncmemsim.constants.ELEMENTARY_CHARGE_C",
+        "_Request": "ncmemsim.materials.finite_confinement_contracts.FiniteConfinementRequest",
+        "_evaluate": "ncmemsim.materials.finite_confinement.evaluate_finite_confinement",
+        "_number": "ncmemsim.materials.structural._number",
+        "_product": "ncmemsim.barrier_evaluation._product"
+      },
+      "public_source_definitions": [
+        {
+          "name": "evaluate_electron_hole_coulomb",
+          "kind": "function",
+          "parameters": [
+            {
+              "name": "electron",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "hole",
+              "kind": "positional_or_keyword",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "relative_permittivity",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            },
+            {
+              "name": "screening_evidence",
+              "kind": "keyword_only",
+              "annotation": null,
+              "required": true,
+              "default_expression": null
+            }
+          ],
+          "return_annotation": null,
+          "source_signature": "(electron, hole, *, relative_permittivity, screening_evidence)",
+          "decorators": []
+        }
+      ],
+      "public_assignments": []
     },
     {
       "module": "ncmemsim.materials.finite_confinement",

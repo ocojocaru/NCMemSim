@@ -40,6 +40,17 @@ def validate():
     ).splitlines()
     expected = {f"A\t{name.replace('.', '/')}.py" for name in EXPORTS}
     expected.add('M\tncmemsim/_version.py')
+    if (ROOT / 'ncmemsim/materials/electron_hole_coulomb.py').is_file():
+        expected.add('A\tncmemsim/materials/electron_hole_coulomb.py')
+        coulomb = importlib.import_module('ncmemsim.materials.electron_hole_coulomb')
+        if coulomb.__all__ != ['evaluate_electron_hole_coulomb'] or not callable(coulomb.evaluate_electron_hole_coulomb):
+            raise ValueError('Phase U1 evaluator export drift')
+    if (ROOT / 'ncmemsim/coulomb_reporting.py').is_file():
+        expected.add('A\tncmemsim/coulomb_reporting.py')
+        reporting = importlib.import_module('ncmemsim.coulomb_reporting')
+        exports = ['CoulombStudyReport', 'write_coulomb_study_bundle', 'load_coulomb_study_bundle']
+        if reporting.__all__ != exports or any(not callable(getattr(reporting, name, None)) for name in exports):
+            raise ValueError('Phase U6 report export drift')
     if set(changes) != expected:
         raise ValueError(f'unexpected runtime source changes since v1.10.0: {changes}')
     for name, expected_exports in EXPORTS.items():

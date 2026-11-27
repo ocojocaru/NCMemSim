@@ -60,3 +60,18 @@ The [roadmap](roadmap.md) separates delivered work from remaining research.
 Post-v1.10 development includes the [Phase T1–T6 finite-confinement solver, optical context, studies and reports](finite_confinement.md)
 for isolated finite-barrier ground states. v1.11.0 includes these extensions. Version DOI [10.5281/zenodo.24273310](https://doi.org/10.5281/zenodo.24273310).
 See the [release checklist](v1_11_release_checklist.md).
+
+
+## Final v1.12.0 candidate (2026-11-27)
+
+Preparation commit `e24cb9b8e745f8b85329e86a932ca4d33a43c53b` passed
+[CI](https://github.com/ocojocaru/NCMemSim/actions/runs/45841636883) and
+[Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/45841671830).
+The candidate adds two module-qualified APIs with four exports for isolated
+direct Coulomb evaluation and source-verified reports. Only the reviewed package
+version literal changes in the 154 retained published modules. The
+[release checklist](v1_12_release_checklist.md) keeps candidate publication gates
+pending. Latest published stable remains v1.11.0. Qualified optical integration,
+complete pair convergence and experimental device qualification remain deferred.
+The stored-charge sign and occupancy normalization require a separate review
+before physical-voltage comparisons; the isolated Coulomb evaluator is unaffected.

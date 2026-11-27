@@ -4,6 +4,26 @@ All notable changes to NCMemSim are documented in this file.
 
 ## Unreleased
 
+## 1.12.0 - 2026-11-27 (unpublished candidate)
+
+Phase U adds isolated direct Coulomb diagnostics and reproducible reports.
+Optical applicability, experimental qualification and the legacy charge convention
+remain separate reviews; no new physical-voltage qualification is claimed.
+
+- Prepare Phase U7 additive API review and installed Coulomb bundle gates for v1.12.0.
+
+- Add strict direct Coulomb reports and deterministic bundles with full source reconstruction.
+
+- Add the bound electron–hole 1p pair Coulomb channel coupled to total orbital angular momentum zero.
+
+- Add bound 1s-to-2s Coulomb matrix elements and channel-specific perturbation diagnostics.
+
+- Resolve the excitation gap and total orbital angular momentum zero sector for the equal-mass Coulomb controls.
+
+- Add a synthetic Coulomb perturbation scale study using carrier continuum separations.
+
+- Add an isolated first-order electron–hole Coulomb correction under explicit uniform screening.
+
 ## 1.11.0 - 2026-11-16
 
 Phase T is published. Version DOI [10.5281/zenodo.24273310](https://doi.org/10.5281/zenodo.24273310).

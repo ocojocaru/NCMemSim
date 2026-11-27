@@ -640,3 +640,43 @@ T6 adds strict isolated finite-well reports and reproducibility bundles.
 T7 covers compatibility checks and the release decision.
 The [T7 release checklist](v1_11_release_checklist.md) records the Phase T7 release. v1.11.0 was published 2026-11-16 from
 commit `77c4c982084383791511eb45fa128974e26b0044`. Version DOI [10.5281/zenodo.24273310](https://doi.org/10.5281/zenodo.24273310).
+
+## Phase U: electron–hole Coulomb interaction (U0)
+
+[U0](electron_hole_coulomb.md) defines the first-order direct Coulomb correction
+for two bound finite-well states under uniform dielectric screening. U1 adds
+the isolated evaluator, independent radial quadrature checks and a tail bound.
+U2 compares the direct energy shift with the continuum separation and
+records the limits of this diagnostic for optical applicability.
+U3 resolves the excitation scale in the equal-mass controls and checks the
+total orbital angular momentum zero sector.
+U4 evaluates single-carrier bound 2s couplings and their channel-specific
+mixing amplitudes and second-order energy contributions.
+U5 evaluates the first bound 1p electron–hole pair coupled to total
+orbital angular momentum zero, with angular and radial validation.
+U6 adds owned direct Coulomb reports and bundles with source reconstruction,
+retained negative outcomes and deterministic projection checks.
+
+
+## U7 release preparation
+
+The [v1.12 checklist](v1_12_release_checklist.md) defines an additive release
+target with two new module-qualified APIs and four exports. Preparation keeps
+the published 1.11.0 identity. Source hashes retain the full published package;
+installed wheel and sdist checks exercise U6 reconstruction and negative outcomes.
+Optical integration and experimental qualification remain outside this release scope.
+
+
+## Final v1.12.0 candidate (2026-11-27)
+
+Preparation commit `e24cb9b8e745f8b85329e86a932ca4d33a43c53b` passed
+[CI](https://github.com/ocojocaru/NCMemSim/actions/runs/45841636883) and
+[Documentation](https://github.com/ocojocaru/NCMemSim/actions/runs/45841671830).
+The candidate adds two module-qualified APIs with four exports for isolated
+direct Coulomb evaluation and source-verified reports. Only the reviewed package
+version literal changes in the 154 retained published modules. The
+[release checklist](v1_12_release_checklist.md) keeps candidate publication gates
+pending. Latest published stable remains v1.11.0. Qualified optical integration,
+complete pair convergence and experimental device qualification remain deferred.
+The stored-charge sign and occupancy normalization require a separate review
+before physical-voltage comparisons; the isolated Coulomb evaluator is unaffected.

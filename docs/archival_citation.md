@@ -2,9 +2,15 @@
 
 > **Release context:** Included in published NCMemSim v1.10.0. See [current platform status](platform_status.md) for implemented extensions and limits. Earlier phase/version statements identify their original checkpoint or retained default path.
 
+## Unpublished v1.12.0 candidate citation
+
+The current CITATION.cff declares candidate version 1.12.0, dated 2026-11-27,
+with the separate Concept DOI only. A version-specific DOI is pending publication.
+This date identifies the candidate metadata and is not a publication claim.
+
 ## Published v1.11.0 citation
 
-CITATION.cff records the release dated 2026-11-16, version DOI [10.5281/zenodo.24273310](https://doi.org/10.5281/zenodo.24273310),
+The retained CITATION.cff in `tests/fixtures/releases/v1_11_0` records the release dated 2026-11-16, version DOI [10.5281/zenodo.24273310](https://doi.org/10.5281/zenodo.24273310),
 and the Concept DOI for all published versions.
 
 ## Published v1.10.0 citation
